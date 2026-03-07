@@ -1,0 +1,47 @@
+import { Component, output, signal, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-search-bar',
+  standalone: true,
+  imports: [CommonModule, FormsModule, TranslateModule],
+  template: `
+    <div class="search-bar" [class.focused]="isFocused()">
+      <span class="material-symbols-rounded search-icon">search</span>
+      <input
+        class="search-input"
+        type="text"
+        [placeholder]="'search.placeholder' | translate"
+        [(ngModel)]="query"
+        (focus)="isFocused.set(true)"
+        (blur)="isFocused.set(false)"
+        (keydown.enter)="onSubmit()"
+      />
+      @if (query) {
+        <button class="search-clear" (click)="clear()">
+          <span class="material-symbols-rounded">close</span>
+        </button>
+      }
+    </div>
+  `,
+  styleUrl: './search-bar.component.scss',
+})
+export class SearchBarComponent {
+  readonly search = output<string>();
+  readonly initialQuery = input<string>('');
+
+  query = '';
+  readonly isFocused = signal(false);
+
+  onSubmit(): void {
+    if (this.query.trim()) {
+      this.search.emit(this.query.trim());
+    }
+  }
+
+  clear(): void {
+    this.query = '';
+  }
+}

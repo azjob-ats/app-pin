@@ -1,0 +1,120 @@
+<div class="profile-page">
+
+  @if (isLoading()) {
+    <div class="profile-skeleton">
+      <div class="skeleton avatar-skeleton"></div>
+      <div class="skeleton name-skeleton"></div>
+      <div class="skeleton bio-skeleton"></div>
+    </div>
+  }
+
+  @if (user(); as user) {
+    <!-- Profile header -->
+    <div class="profile-header">
+      <!-- Avatar -->
+      <app-user-avatar
+        [imageUrl]="user.avatarUrl"
+        [alt]="user.displayName"
+        size="xl"
+        class="profile-avatar"
+      />
+
+      <!-- Name -->
+      <h1 class="profile-name">{{ user.displayName }}</h1>
+      <p class="profile-username">&#64;{{ user.username }}</p>
+
+      <!-- Stats -->
+      <div class="profile-stats">
+        <div class="stat">
+          <span class="stat-value">{{ formatCount(user.followersCount) }}</span>
+          <span class="stat-label">{{ 'profile.followers' | translate }}</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">{{ formatCount(user.followingCount) }}</span>
+          <span class="stat-label">{{ 'profile.following' | translate }}</span>
+        </div>
+      </div>
+
+      @if (user.monthlyViews) {
+        <p class="monthly-views">
+          {{ formatCount(user.monthlyViews) }} {{ 'profile.monthlyViews' | translate }}
+        </p>
+      }
+
+      <!-- Bio -->
+      @if (user.bio) {
+        <p class="profile-bio">{{ user.bio }}</p>
+      }
+
+      <!-- Website -->
+      @if (user.website) {
+        <a class="profile-website" [href]="user.website" target="_blank" rel="noopener">
+          <span class="material-symbols-rounded">link</span>
+          {{ user.website.replace('https://', '') }}
+        </a>
+      }
+
+      <!-- Actions -->
+      <div class="profile-actions">
+        <app-follow-button [initialFollowing]="user.isFollowing ?? false" />
+        <button class="profile-action-btn">
+          <span class="material-symbols-rounded">chat_bubble</span>
+        </button>
+        <button class="profile-action-btn">
+          <span class="material-symbols-rounded">share</span>
+        </button>
+        <button class="profile-action-btn">
+          <span class="material-symbols-rounded">more_horiz</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="profile-tabs-wrap">
+      <p-tabs [(value)]="activeTab">
+        <p-tablist>
+          <p-tab value="created">{{ 'profile.created' | translate }}</p-tab>
+          <p-tab value="saved">{{ 'profile.saved' | translate }}</p-tab>
+          <p-tab value="boards">{{ 'profile.boards' | translate }}</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+          <p-tabpanel value="created">
+            @if (createdPins().length === 0) {
+              <div class="empty-state">
+                <span class="material-symbols-rounded empty-icon">push_pin</span>
+                <p>{{ 'profile.noPins' | translate }}</p>
+              </div>
+            } @else {
+              <app-masonry-grid [pins]="createdPins()" />
+            }
+          </p-tabpanel>
+          <p-tabpanel value="saved">
+            @if (savedPins().length === 0) {
+              <div class="empty-state">
+                <span class="material-symbols-rounded empty-icon">bookmark</span>
+                <p>{{ 'profile.noPins' | translate }}</p>
+              </div>
+            } @else {
+              <app-masonry-grid [pins]="savedPins()" />
+            }
+          </p-tabpanel>
+          <p-tabpanel value="boards">
+            @if (boards().length === 0) {
+              <div class="empty-state">
+                <span class="material-symbols-rounded empty-icon">grid_view</span>
+                <p>{{ 'profile.noBoards' | translate }}</p>
+              </div>
+            } @else {
+              <div class="boards-grid">
+                @for (board of boards(); track board.id) {
+                  <app-board-card [board]="board" />
+                }
+              </div>
+            }
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+    </div>
+  }
+</div>

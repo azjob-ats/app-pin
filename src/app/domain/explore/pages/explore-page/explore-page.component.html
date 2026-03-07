@@ -1,0 +1,54 @@
+<div class="explore-page">
+
+  <!-- Categories scroll bar -->
+  <div class="categories-bar">
+    <div class="categories-scroll">
+      @for (cat of categories; track cat.key) {
+        <button
+          class="category-chip"
+          [class.active]="selectedCategory() === cat.key"
+          (click)="selectCategory(cat.key)"
+        >
+          <span class="material-symbols-rounded">{{ cat.icon }}</span>
+          <span>{{ ('categories.' + cat.key) | translate }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Hero categories grid -->
+  @if (selectedCategory() === 'all') {
+    <div class="categories-hero">
+      <h2 class="section-title">{{ 'explore.categories' | translate }}</h2>
+      <div class="categories-grid">
+        @for (cat of categories.slice(1); track cat.key) {
+          <button
+            class="category-card"
+            (click)="selectCategory(cat.key)"
+          >
+            <img [src]="cat.imageUrl" [alt]="cat.key" class="category-img" loading="lazy" />
+            <div class="category-label">
+              {{ ('categories.' + cat.key) | translate }}
+            </div>
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Pins feed -->
+  <div class="explore-feed">
+    @if (selectedCategory() !== 'all') {
+      <h2 class="feed-title">{{ ('categories.' + selectedCategory()) | translate }}</h2>
+    } @else {
+      <h2 class="feed-title">{{ 'explore.trending' | translate }}</h2>
+    }
+
+    @if (isLoading()) {
+      <app-skeleton-loader [count]="20" />
+    } @else {
+      <app-masonry-grid [pins]="pins()" />
+      <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+    }
+  </div>
+</div>

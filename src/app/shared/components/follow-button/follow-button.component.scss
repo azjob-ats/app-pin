@@ -1,0 +1,28 @@
+.follow-btn {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 24px;
+  border: 2px solid transparent;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--pin-transition);
+  background: var(--pin-red);
+  color: #fff;
+
+  &:hover {
+    background: var(--pin-red-hover);
+  }
+
+  &.following {
+    background: var(--pin-bg-secondary);
+    color: var(--pin-text-primary);
+    border-color: var(--pin-border);
+
+    &:hover {
+      background: var(--pin-bg-secondary);
+      border-color: var(--pin-text-secondary);
+    }
+  }
+}

@@ -1,0 +1,91 @@
+.board-page {
+  min-height: 100%;
+}
+
+.board-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 24px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.board-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--pin-text-primary);
+  margin-bottom: 8px;
+}
+
+.board-desc {
+  font-size: 0.95rem;
+  color: var(--pin-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.board-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--pin-text-secondary);
+  margin-bottom: 16px;
+}
+
+.board-stat strong {
+  color: var(--pin-text-primary);
+  font-weight: 700;
+}
+
+.board-stat-divider {
+  color: var(--pin-text-muted);
+}
+
+.board-owner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.board-owner-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.board-owner-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--pin-text-primary);
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.board-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.board-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--pin-bg-secondary);
+  border: none;
+  color: var(--pin-text-primary);
+  cursor: pointer;
+  transition: background-color var(--pin-transition);
+
+  .material-symbols-rounded { font-size: 1.375rem; }
+  &:hover { background: var(--pin-border); }
+}

@@ -1,0 +1,188 @@
+.profile-page {
+  min-height: 100%;
+}
+
+.profile-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--pin-bg-secondary) 25%, var(--pin-bg-tertiary) 37%, var(--pin-bg-secondary) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 16px;
+}
+
+.avatar-skeleton { width: 96px; height: 96px; border-radius: 50%; }
+.name-skeleton { width: 180px; height: 24px; }
+.bio-skeleton { width: 280px; height: 16px; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+// ── Profile header ────────────────────────────────────────────────────────
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 20px 24px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-avatar {
+  margin-bottom: 16px;
+}
+
+.profile-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--pin-text-primary);
+  margin-bottom: 4px;
+}
+
+.profile-username {
+  font-size: 0.875rem;
+  color: var(--pin-text-secondary);
+  margin-bottom: 16px;
+}
+
+.profile-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--pin-text-primary);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--pin-text-secondary);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--pin-border);
+}
+
+.monthly-views {
+  font-size: 0.875rem;
+  color: var(--pin-text-secondary);
+  margin-bottom: 12px;
+}
+
+.profile-bio {
+  font-size: 0.95rem;
+  color: var(--pin-text-secondary);
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 12px;
+}
+
+.profile-website {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--pin-text-secondary);
+  margin-bottom: 16px;
+  text-decoration: none;
+  transition: color var(--pin-transition);
+
+  .material-symbols-rounded { font-size: 1.1rem; }
+
+  &:hover {
+    color: var(--pin-text-primary);
+    text-decoration: underline;
+  }
+}
+
+.profile-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--pin-bg-secondary);
+  border: none;
+  color: var(--pin-text-primary);
+  cursor: pointer;
+  transition: background-color var(--pin-transition);
+
+  .material-symbols-rounded { font-size: 1.375rem; }
+
+  &:hover { background: var(--pin-border); }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+
+.profile-tabs-wrap {
+  padding: 0;
+
+  :host ::ng-deep .p-tabs {
+    .p-tablist {
+      justify-content: center;
+      border-bottom: 2px solid var(--pin-border);
+      padding: 0 20px;
+    }
+    .p-tabpanel { padding: 16px 0 0; }
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--pin-text-secondary);
+
+  .empty-icon {
+    font-size: 3rem;
+    color: var(--pin-text-muted);
+  }
+
+  p { font-size: 1rem; }
+}
+
+// ── Boards grid ───────────────────────────────────────────────────────────
+
+.boards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 8px;
+  }
+}

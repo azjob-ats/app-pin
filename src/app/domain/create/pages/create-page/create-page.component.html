@@ -1,0 +1,116 @@
+<div class="create-page">
+  <div class="create-container">
+
+    <div class="create-header">
+      <h1 class="create-title">{{ 'create.title' | translate }}</h1>
+      <div class="create-header-actions">
+        <button class="create-btn create-btn--outline">
+          {{ 'create.draft' | translate }}
+        </button>
+        <button
+          class="create-btn create-btn--primary"
+          [disabled]="!previewUrl() || isPublishing()"
+          (click)="publish()"
+        >
+          @if (isPublishing()) {
+            <span class="spinner-sm"></span>
+          }
+          {{ 'create.publish' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="create-body">
+
+      <!-- ── Upload area ─────────────────────────────────────── -->
+      <div class="create-upload-side">
+        @if (!previewUrl()) {
+          <div
+            class="upload-zone"
+            [class.dragging]="isDragging()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave()"
+            (drop)="onDrop($event)"
+          >
+            <span class="material-symbols-rounded upload-icon">cloud_upload</span>
+            <p class="upload-title">{{ 'create.dragDrop' | translate }}</p>
+            <p class="upload-sub">PNG, JPG, GIF, WEBP</p>
+            <label class="upload-btn">
+              {{ 'create.uploadImage' | translate }}
+              <input
+                type="file"
+                accept="image/*"
+                style="display:none"
+                (change)="onFileSelect($event)"
+              />
+            </label>
+          </div>
+        } @else {
+          <div class="preview-wrapper">
+            <img [src]="previewUrl()!" alt="Preview" class="preview-img" />
+            <button class="preview-remove" (click)="removeImage()">
+              <span class="material-symbols-rounded">close</span>
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- ── Form ────────────────────────────────────────────── -->
+      <div class="create-form-side">
+
+        <div class="form-field">
+          <label class="form-label">{{ 'create.pinTitle' | translate }}</label>
+          <input
+            class="form-input"
+            type="text"
+            [placeholder]="'create.pinTitle' | translate"
+            [(ngModel)]="title"
+            maxlength="100"
+          />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">{{ 'create.description' | translate }}</label>
+          <textarea
+            class="form-textarea"
+            [placeholder]="'create.description' | translate"
+            [(ngModel)]="description"
+            rows="4"
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">{{ 'create.link' | translate }}</label>
+          <input
+            class="form-input"
+            type="url"
+            placeholder="https://"
+            [(ngModel)]="link"
+          />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">{{ 'create.altText' | translate }}</label>
+          <input
+            class="form-input"
+            type="text"
+            [placeholder]="'create.altText' | translate"
+            [(ngModel)]="altText"
+          />
+          <p class="form-hint">Add alt text for accessibility</p>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">{{ 'create.selectBoard' | translate }}</label>
+          <select class="form-select" [(ngModel)]="selectedBoardId">
+            @for (board of boards(); track board.id) {
+              <option [value]="board.id">{{ board.name }}</option>
+            }
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

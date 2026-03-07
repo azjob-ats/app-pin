@@ -1,0 +1,49 @@
+<div class="board-page">
+  @if (board(); as board) {
+    <div class="board-header">
+      <h1 class="board-name">{{ board.name }}</h1>
+      @if (board.description) {
+        <p class="board-desc">{{ board.description }}</p>
+      }
+      <div class="board-meta">
+        <span class="board-stat">
+          <strong>{{ board.pinsCount }}</strong> {{ 'board.pins' | translate }}
+        </span>
+        @if (board.followersCount) {
+          <span class="board-stat-divider">·</span>
+          <span class="board-stat">
+            <strong>{{ formatCount(board.followersCount) }}</strong> {{ 'board.followers' | translate }}
+          </span>
+        }
+      </div>
+
+      <div class="board-owner">
+        <img
+          [src]="board.owner.avatarUrl || 'https://i.pravatar.cc/32?img=1'"
+          [alt]="board.owner.displayName"
+          class="board-owner-avatar"
+        />
+        <a [routerLink]="['/' + board.owner.username]" class="board-owner-name">
+          {{ board.owner.displayName }}
+        </a>
+      </div>
+
+      <div class="board-actions">
+        <app-follow-button />
+        <button class="board-action-btn">
+          <span class="material-symbols-rounded">share</span>
+        </button>
+        <button class="board-action-btn">
+          <span class="material-symbols-rounded">more_horiz</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (isLoading()) {
+    <app-skeleton-loader [count]="20" />
+  } @else {
+    <app-masonry-grid [pins]="pins()" />
+    <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+  }
+</div>

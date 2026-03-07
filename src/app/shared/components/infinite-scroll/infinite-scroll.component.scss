@@ -1,0 +1,25 @@
+.scroll-sentinel {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  min-height: 60px;
+}
+
+.scroll-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--pin-border);
+  border-top-color: var(--pin-red);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

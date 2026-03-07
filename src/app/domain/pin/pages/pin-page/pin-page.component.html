@@ -1,0 +1,148 @@
+<div class="pin-page">
+
+  @if (isLoading()) {
+    <div class="pin-detail-skeleton">
+      <div class="skeleton img-skeleton"></div>
+      <div class="pin-detail-right">
+        <div class="skeleton title-skeleton"></div>
+        <div class="skeleton desc-skeleton"></div>
+        <div class="skeleton desc-skeleton short"></div>
+      </div>
+    </div>
+  }
+
+  @if (pin(); as pin) {
+    <div class="pin-detail-container">
+
+      <!-- ── Image side ──────────────────────────────────────────── -->
+      <div class="pin-detail-image-side">
+        <div class="pin-image-wrapper">
+          <img
+            [src]="pin.imageUrl"
+            [alt]="pin.title || ('pin.noTitle' | translate)"
+            class="pin-detail-image"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <!-- ── Info side ───────────────────────────────────────────── -->
+      <div class="pin-detail-info">
+
+        <!-- Actions bar -->
+        <div class="pin-detail-actions">
+          <button class="pin-action-icon-btn" (click)="onShare()">
+            <span class="material-symbols-rounded">share</span>
+          </button>
+          <button class="pin-action-icon-btn">
+            <span class="material-symbols-rounded">more_horiz</span>
+          </button>
+          <div class="save-group">
+            <button class="board-selector">
+              {{ pin.boardName || ('pin.selectBoard' | translate) }}
+              <span class="material-symbols-rounded">expand_more</span>
+            </button>
+            <button
+              class="pin-save-btn-large"
+              [class.saved]="isSaved()"
+              (click)="onSave()"
+            >
+              {{ isSaved() ? ('pin.saved' | translate) : ('pin.save' | translate) }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Save count -->
+        @if (pin.saveCount) {
+          <div class="pin-save-count">
+            <span class="material-symbols-rounded save-icon">bookmark</span>
+            <span>{{ formatCount(pin.saveCount) }} {{ 'pin.savedTimes' | translate }}</span>
+          </div>
+        }
+
+        <!-- Title -->
+        @if (pin.title) {
+          <h1 class="pin-detail-title">{{ pin.title }}</h1>
+        }
+
+        <!-- Description -->
+        @if (pin.description) {
+          <p class="pin-detail-desc">{{ pin.description }}</p>
+        }
+
+        <!-- Link -->
+        @if (pin.link) {
+          <a class="pin-detail-link" [href]="pin.link" target="_blank" rel="noopener">
+            <span class="material-symbols-rounded">link</span>
+            {{ pin.link }}
+          </a>
+        }
+
+        <!-- Author -->
+        <div class="pin-detail-author">
+          <app-user-avatar [imageUrl]="pin.author.avatarUrl" [alt]="pin.author.displayName" size="md" />
+          <div class="author-info">
+            <a class="author-name" [routerLink]="['/' + pin.author.username]">
+              {{ pin.author.displayName }}
+            </a>
+            <span class="author-sub">{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span>
+          </div>
+          <app-follow-button />
+        </div>
+
+        <!-- Comments section -->
+        <div class="pin-comments">
+          <h3 class="comments-title">{{ 'pin.comments' | translate }}</h3>
+
+          <!-- Add comment -->
+          <div class="add-comment">
+            <app-user-avatar imageUrl="https://i.pravatar.cc/150?img=10" alt="Me" size="sm" />
+            <div class="comment-input-wrap">
+              <input
+                class="comment-input"
+                type="text"
+                [placeholder]="'pin.addComment' | translate"
+                [ngModel]="commentText()"
+                (ngModelChange)="commentText.set($event)"
+                (keydown.enter)="addComment()"
+              />
+              @if (commentText()) {
+                <button class="comment-submit" (click)="addComment()">
+                  <span class="material-symbols-rounded">send</span>
+                </button>
+              }
+            </div>
+          </div>
+
+          <!-- Comment list -->
+          <div class="comment-list">
+            @for (comment of comments(); track comment.id) {
+              <div class="comment-item">
+                <app-user-avatar [imageUrl]="comment.author.avatarUrl" [alt]="comment.author.displayName" size="sm" />
+                <div class="comment-body">
+                  <div class="comment-header">
+                    <span class="comment-author">{{ comment.author.displayName }}</span>
+                    <span class="comment-time">{{ timeAgo(comment.createdAt) }}</span>
+                  </div>
+                  <p class="comment-text">{{ comment.text }}</p>
+                  @if ((comment.likesCount ?? 0) > 0) {
+                    <span class="comment-likes">
+                      <span class="material-symbols-rounded heart">favorite</span>
+                      {{ comment.likesCount }}
+                    </span>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related pins -->
+    <div class="related-pins">
+      <h2 class="related-title">{{ 'pin.relatedPins' | translate }}</h2>
+      <app-masonry-grid [pins]="relatedPins()" />
+    </div>
+  }
+</div>

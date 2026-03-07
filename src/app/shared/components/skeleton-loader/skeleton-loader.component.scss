@@ -1,0 +1,35 @@
+.skeleton-grid {
+  column-gap: 16px;
+  padding: 0 16px;
+
+  &.cols-2 { columns: 2; }
+  &.cols-3 { columns: 3; }
+  &.cols-4 { columns: 4; }
+  &.cols-5 { columns: 5; }
+  &.cols-6 { columns: 6; }
+
+  @media (max-width: 767px) {
+    padding: 0 8px;
+    column-gap: 8px;
+  }
+}
+
+.skeleton-card {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: linear-gradient(
+    90deg,
+    var(--pin-bg-secondary) 25%,
+    var(--pin-bg-tertiary) 37%,
+    var(--pin-bg-secondary) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+  min-height: 120px;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

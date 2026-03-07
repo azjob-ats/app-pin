@@ -1,0 +1,165 @@
+<div class="app-layout" [class.dark]="themeService.isDark">
+
+  <!-- ── Sidebar (Desktop) ─────────────────────────────────────── -->
+  <aside class="sidebar" [class.mobile-hidden]="isMobile()">
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <a routerLink="/home" class="logo-link" pTooltip="Pinterest" tooltipPosition="right">
+        <svg viewBox="0 0 24 24" class="logo-svg" fill="var(--pin-red)">
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Nav items -->
+    <nav class="sidebar-nav">
+      @for (item of navItems; track item.route) {
+        <a
+          class="sidebar-nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: !!item.exact }"
+          [pTooltip]="item.labelKey | translate"
+          tooltipPosition="right"
+          [tooltipOptions]="{ showDelay: 300 }"
+        >
+          @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
+            <span class="nav-icon-wrap">
+              <span class="material-symbols-rounded">{{ item.icon }}</span>
+              <span class="notif-dot"></span>
+            </span>
+          } @else {
+            <span class="material-symbols-rounded">{{ item.icon }}</span>
+          }
+        </a>
+      }
+    </nav>
+
+    <!-- Bottom actions -->
+    <div class="sidebar-bottom">
+      <!-- Theme toggle -->
+      <button
+        class="sidebar-action-btn"
+        (click)="toggleTheme()"
+        [pTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate"
+        tooltipPosition="right"
+      >
+        <span class="material-symbols-rounded">{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</span>
+      </button>
+
+      <!-- Language picker -->
+      <button
+        class="sidebar-action-btn"
+        (click)="langPanel.toggle($event)"
+        pTooltip="{{ 'common.language' | translate }}"
+        tooltipPosition="right"
+      >
+        <span class="material-symbols-rounded">language</span>
+      </button>
+
+      <!-- Profile avatar -->
+      <button class="sidebar-avatar-btn" (click)="navigateToProfile()">
+        <img src="https://i.pravatar.cc/40?img=10" alt="Profile" class="avatar-img" />
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main content area ──────────────────────────────────────── -->
+  <div class="main-area">
+
+    <!-- ── Topbar ──────────────────────────────────────────────── -->
+    <header class="topbar">
+
+      <!-- Mobile: hamburger -->
+      @if (isMobile()) {
+        <button class="mobile-menu-btn" (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
+          <span class="material-symbols-rounded">{{ isMobileMenuOpen() ? 'close' : 'menu' }}</span>
+        </button>
+        <a routerLink="/home" class="mobile-logo">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="var(--pin-red)">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+          </svg>
+        </a>
+      }
+
+      <!-- Search bar -->
+      <div class="topbar-search">
+        <app-search-bar (search)="onSearch($event)" />
+      </div>
+
+      <!-- Topbar right -->
+      <div class="topbar-right">
+        <!-- Theme on desktop (topbar) -->
+        <button class="icon-btn" (click)="toggleTheme()" pTooltip="{{ (themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate }}" tooltipPosition="bottom">
+          <span class="material-symbols-rounded">{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</span>
+        </button>
+
+        <!-- Language -->
+        <button class="icon-btn" (click)="langPanel.toggle($event)" pTooltip="{{ 'common.language' | translate }}" tooltipPosition="bottom">
+          <span class="lang-flag">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+        </button>
+
+        <!-- Auth buttons -->
+        <button class="topbar-btn topbar-btn--outline" (click)="goToAuth()">
+          {{ 'auth.login' | translate }}
+        </button>
+        <button class="topbar-btn topbar-btn--primary" (click)="goToRegister()">
+          {{ 'auth.register' | translate }}
+        </button>
+      </div>
+    </header>
+
+    <!-- ── Page content ──────────────────────────────────────── -->
+    <main class="page-content">
+      <router-outlet />
+    </main>
+  </div>
+
+  <!-- ── Mobile bottom navigation ─────────────────────────────── -->
+  @if (isMobile()) {
+    <nav class="bottom-nav">
+      @for (item of navItems; track item.route) {
+        <a
+          class="bottom-nav-item"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: !!item.exact }"
+        >
+          @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
+            <span class="nav-icon-wrap">
+              <span class="material-symbols-rounded">{{ item.icon }}</span>
+              <span class="notif-dot"></span>
+            </span>
+          } @else {
+            <span class="material-symbols-rounded">{{ item.icon }}</span>
+          }
+          <span class="bottom-nav-label">{{ item.labelKey | translate }}</span>
+        </a>
+      }
+      <button class="bottom-nav-item" (click)="navigateToProfile()">
+        <img src="https://i.pravatar.cc/32?img=10" alt="Profile" class="bottom-nav-avatar" />
+        <span class="bottom-nav-label">{{ 'nav.profile' | translate }}</span>
+      </button>
+    </nav>
+  }
+
+  <!-- ── Language overlay panel ─────────────────────────────────── -->
+  <p-popover #langPanel styleClass="lang-panel">
+    <div class="lang-list">
+      @for (lang of languageService.languages; track lang.code) {
+        <button
+          class="lang-item"
+          [class.active]="languageService.currentLang() === lang.code"
+          (click)="setLanguage(lang.code); langPanel.hide()"
+        >
+          <span class="lang-item-flag">{{ lang.flag }}</span>
+          <span class="lang-item-label">{{ lang.label }}</span>
+          @if (languageService.currentLang() === lang.code) {
+            <span class="material-symbols-rounded check-icon">check</span>
+          }
+        </button>
+      }
+    </div>
+  </p-popover>
+
+</div>

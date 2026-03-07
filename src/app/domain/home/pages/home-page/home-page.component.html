@@ -1,0 +1,8 @@
+<div class="home-page">
+  @if (isLoading()) {
+    <app-skeleton-loader [count]="20" />
+  } @else {
+    <app-masonry-grid [pins]="pins()" />
+    <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+  }
+</div>
