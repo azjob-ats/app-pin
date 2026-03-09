@@ -5,7 +5,8 @@
 
     <div class="sg-sidebar-brand">
       <svg viewBox="0 0 24 24" class="sg-logo" fill="var(--pin-red)" aria-hidden="true">
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+        <path
+          d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
       </svg>
       <div>
         <p class="sg-brand-name">AZJob</p>
@@ -15,26 +16,18 @@
 
     <nav class="sg-nav">
       @for (section of sections; track section.id) {
-        <button
-          class="sg-nav-item"
-          [class.sg-nav-item--active]="activeSection() === section.id"
-          (click)="scrollTo(section.id)"
-          [attr.aria-current]="activeSection() === section.id ? 'page' : null"
-          type="button"
-        >
-          <span class="material-symbols-rounded" aria-hidden="true">{{ section.icon }}</span>
-          <span>{{ section.label }}</span>
-        </button>
+      <button class="sg-nav-item" [class.sg-nav-item--active]="activeSection() === section.id"
+        (click)="scrollTo(section.id)" [attr.aria-current]="activeSection() === section.id ? 'page' : null"
+        type="button">
+        <span class="material-symbols-rounded" aria-hidden="true">{{ section.icon }}</span>
+        <span>{{ section.label }}</span>
+      </button>
       }
     </nav>
 
     <div class="sg-sidebar-footer">
-      <button
-        class="sg-theme-toggle"
-        type="button"
-        (click)="toggleDark()"
-        [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
-      >
+      <button class="sg-theme-toggle" type="button" (click)="toggleDark()"
+        [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
         <span class="material-symbols-rounded" aria-hidden="true">
           {{ isDark() ? 'light_mode' : 'dark_mode' }}
         </span>
@@ -51,7 +44,8 @@
       <div class="sg-meta-card">
         <div class="sg-meta-header">
           <svg viewBox="0 0 24 24" class="sg-meta-logo" fill="var(--pin-red)" aria-hidden="true">
-            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
           </svg>
           <div>
             <h1 class="sg-meta-title">AZJob Design System</h1>
@@ -83,7 +77,8 @@
             <span class="sg-meta-label">Visual Feel</span>
             <span class="sg-meta-value sg-meta-value--body">
               Pinterest-inspired professional content platform. Clean card-based layout with a bold red accent palette,
-              humanized content approach, and emphasis on visual discovery and professional networking. People trust people.
+              humanized content approach, and emphasis on visual discovery and professional networking. People trust
+              people.
             </span>
           </div>
         </div>
@@ -105,15 +100,15 @@
         <h3 class="sg-subsection-title">Primary — Red Palette</h3>
         <div class="sg-color-strip" role="list" aria-label="Red color palette">
           @for (color of primaryColors; track color.token) {
-            <div class="sg-color-chip" [style.background]="color.value" role="listitem">
-              <div class="sg-color-chip-info" [class.sg-color-chip-info--light]="isLight(color.value)">
-                <span class="sg-chip-weight">{{ color.label }}</span>
-                <span class="sg-chip-hex">{{ color.value }}</span>
-                @if (color.token.startsWith('--')) {
-                  <code class="sg-chip-token">{{ color.token }}</code>
-                }
-              </div>
+          <div class="sg-color-chip" [style.background]="color.value" role="listitem">
+            <div class="sg-color-chip-info" [class.sg-color-chip-info--light]="isLight(color.value)">
+              <span class="sg-chip-weight">{{ color.label }}</span>
+              <span class="sg-chip-hex">{{ color.value }}</span>
+              @if (color.token.startsWith('--')) {
+              <code class="sg-chip-token">{{ color.token }}</code>
+              }
             </div>
+          </div>
           }
         </div>
       </div>
@@ -123,12 +118,12 @@
         <h3 class="sg-subsection-title">Gray Scale</h3>
         <div class="sg-color-rows" role="list" aria-label="Gray color scale">
           @for (color of grayColors; track color.token) {
-            <div class="sg-color-row" role="listitem">
-              <div class="sg-color-swatch" [style.background]="color.value" aria-hidden="true"></div>
-              <span class="sg-color-name">{{ color.label }}</span>
-              <code class="sg-color-token">{{ color.token }}</code>
-              <code class="sg-color-hex">{{ color.value }}</code>
-            </div>
+          <div class="sg-color-row" role="listitem">
+            <div class="sg-color-swatch" [style.background]="color.value" aria-hidden="true"></div>
+            <span class="sg-color-name">{{ color.label }}</span>
+            <code class="sg-color-token">{{ color.token }}</code>
+            <code class="sg-color-hex">{{ color.value }}</code>
+          </div>
           }
         </div>
       </div>
@@ -138,23 +133,20 @@
         <h3 class="sg-subsection-title">Semantic Colors</h3>
         <div class="sg-semantic-grid">
           @for (color of semanticColors; track color.token) {
-            <div class="sg-semantic-card" [style.background]="color.bg" [style.border-color]="color.value + '40'">
-              <div class="sg-semantic-top">
-                <span
-                  class="material-symbols-rounded sg-semantic-icon filled"
-                  [style.color]="color.value"
-                  aria-hidden="true"
-                >{{ color.icon }}</span>
-                <strong class="sg-semantic-label" [style.color]="color.value">{{ color.label }}</strong>
-              </div>
-              <div class="sg-semantic-tokens">
-                <code>{{ color.token }}</code>
-              </div>
-              <p class="sg-semantic-desc">{{ color.description }}</p>
-              <div class="sg-semantic-swatch" [style.background]="color.value" aria-hidden="true">
-                <span [style.color]="'white'">{{ color.value }}</span>
-              </div>
+          <div class="sg-semantic-card" [style.background]="color.bg" [style.border-color]="color.value + '40'">
+            <div class="sg-semantic-top">
+              <span class="material-symbols-rounded sg-semantic-icon filled" [style.color]="color.value"
+                aria-hidden="true">{{ color.icon }}</span>
+              <strong class="sg-semantic-label" [style.color]="color.value">{{ color.label }}</strong>
             </div>
+            <div class="sg-semantic-tokens">
+              <code>{{ color.token }}</code>
+            </div>
+            <p class="sg-semantic-desc">{{ color.description }}</p>
+            <div class="sg-semantic-swatch" [style.background]="color.value" aria-hidden="true">
+              <span [style.color]="'white'">{{ color.value }}</span>
+            </div>
+          </div>
           }
         </div>
       </div>
@@ -234,15 +226,11 @@
         </p>
         <div class="sg-type-token-table" role="list" aria-label="Font size tokens">
           @for (fs of fontSizeTokens; track fs.token) {
-            <div class="sg-type-token-row" role="listitem">
-              <code class="sg-token-name">{{ fs.token }}</code>
-              <span class="sg-type-token-meta">{{ fs.value }} · {{ fs.px }}</span>
-              <p
-                class="sg-type-token-sample"
-                [style.font-size]="'var(' + fs.token + ')'"
-                aria-hidden="true"
-              >AZJob</p>
-            </div>
+          <div class="sg-type-token-row" role="listitem">
+            <code class="sg-token-name">{{ fs.token }}</code>
+            <span class="sg-type-token-meta">{{ fs.value }} · {{ fs.px }}</span>
+            <p class="sg-type-token-sample" [style.font-size]="'var(' + fs.token + ')'" aria-hidden="true">AZJob</p>
+          </div>
           }
         </div>
       </div>
@@ -264,7 +252,8 @@
               <code>--text-4xl</code>
               <span>32px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: var(--text-4xl); font-weight: 700; line-height: 1.25">Heading 1</p>
+            <p class="sg-type-sample" style="font-size: var(--text-4xl); font-weight: 700; line-height: 1.25">Heading 1
+            </p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
@@ -272,7 +261,8 @@
               <code>--text-2xl</code>
               <span>24px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: var(--text-2xl); font-weight: 700; line-height: 1.3">Heading 2</p>
+            <p class="sg-type-sample" style="font-size: var(--text-2xl); font-weight: 700; line-height: 1.3">Heading 2
+            </p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
@@ -280,7 +270,8 @@
               <code>--text-xl</code>
               <span>20px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: var(--text-xl); font-weight: 700; line-height: 1.35">Heading 3</p>
+            <p class="sg-type-sample" style="font-size: var(--text-xl); font-weight: 700; line-height: 1.35">Heading 3
+            </p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
@@ -289,7 +280,8 @@
               <span>16px · 400</span>
             </div>
             <p class="sg-type-sample" style="font-size: var(--text-lg); line-height: 1.6">
-              Body — People trust people. AZJob connects professionals through authentic, humanized content that builds real authority.
+              Body — People trust people. AZJob connects professionals through authentic, humanized content that builds
+              real authority.
             </p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
@@ -320,11 +312,11 @@
         <h3 class="sg-subsection-title">Font Weights</h3>
         <div class="sg-weight-list">
           @for (fw of fontWeightTokens; track fw.token) {
-            <div class="sg-weight-row">
-              <span class="sg-weight-meta">{{ fw.value }} — {{ fw.label }}</span>
-              <span class="sg-weight-sample" [style.font-weight]="fw.value">The quick brown fox jumps</span>
-              <code class="sg-color-token" style="margin-left: auto;">{{ fw.token }}</code>
-            </div>
+          <div class="sg-weight-row">
+            <span class="sg-weight-meta">{{ fw.value }} — {{ fw.label }}</span>
+            <span class="sg-weight-sample" [style.font-weight]="fw.value">The quick brown fox jumps</span>
+            <code class="sg-color-token" style="margin-left: auto;">{{ fw.token }}</code>
+          </div>
           }
         </div>
       </div>
@@ -342,13 +334,15 @@
 
       <div class="sg-spacing-list">
         @for (token of spacingTokens; track token.token) {
-          <div class="sg-spacing-row">
-            <code class="sg-spacing-label">{{ token.token }}</code>
-            <div class="sg-spacing-track">
-              <div class="sg-spacing-bar" [style.width.px]="token.barW"></div>
-            </div>
-            <span style="font-size: var(--text-xs); color: var(--pin-text-muted); font-family: monospace; min-width: 40px; text-align: right;">{{ token.size }}</span>
+        <div class="sg-spacing-row">
+          <code class="sg-spacing-label">{{ token.token }}</code>
+          <div class="sg-spacing-track">
+            <div class="sg-spacing-bar" [style.width.px]="token.barW"></div>
           </div>
+          <span
+            style="font-size: var(--text-xs); color: var(--pin-text-muted); font-family: monospace; min-width: 40px; text-align: right;">{{
+            token.size }}</span>
+        </div>
         }
       </div>
     </section>
@@ -365,14 +359,14 @@
 
       <div class="sg-radius-grid">
         @for (token of radiusTokens; track token.token) {
-          <div class="sg-radius-card">
-            <div class="sg-radius-preview" [style.border-radius]="token.value" aria-hidden="true"></div>
-            <div class="sg-radius-info">
-              <span class="sg-radius-label">{{ token.label }}</span>
-              <code class="sg-radius-token">{{ token.token }}</code>
-              <span class="sg-radius-value">{{ token.value }}</span>
-            </div>
+        <div class="sg-radius-card">
+          <div class="sg-radius-preview" [style.border-radius]="token.value" aria-hidden="true"></div>
+          <div class="sg-radius-info">
+            <span class="sg-radius-label">{{ token.label }}</span>
+            <code class="sg-radius-token">{{ token.token }}</code>
+            <span class="sg-radius-value">{{ token.value }}</span>
           </div>
+        </div>
         }
       </div>
     </section>
@@ -389,13 +383,13 @@
 
       <div class="sg-shadow-grid">
         @for (token of shadowTokens; track token.token) {
-          <div class="sg-shadow-card" [style.box-shadow]="token.value">
-            <div class="sg-shadow-header">
-              <span class="sg-shadow-label">Shadow {{ token.label }}</span>
-              <code class="sg-shadow-token">{{ token.token }}</code>
-            </div>
-            <code class="sg-shadow-value">{{ token.value }}</code>
+        <div class="sg-shadow-card" [style.box-shadow]="token.value">
+          <div class="sg-shadow-header">
+            <span class="sg-shadow-label">Shadow {{ token.label }}</span>
+            <code class="sg-shadow-token">{{ token.token }}</code>
           </div>
+          <code class="sg-shadow-value">{{ token.value }}</code>
+        </div>
         }
       </div>
     </section>
@@ -412,17 +406,13 @@
 
       <div class="sg-token-table" role="list" aria-label="Sizing tokens">
         @for (token of sizingTokens; track token.token) {
-          <div class="sg-token-row" role="listitem">
-            <code class="sg-token-name">{{ token.token }}</code>
-            <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
-            <div
-              class="sg-token-preview"
-              [style.width]="token.value"
-              [style.height]="token.value"
-              style="border-radius: 50%; background: var(--pin-red); opacity: 0.15; border: 2px solid var(--pin-red);"
-              aria-hidden="true"
-            ></div>
-          </div>
+        <div class="sg-token-row" role="listitem">
+          <code class="sg-token-name">{{ token.token }}</code>
+          <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
+          <div class="sg-token-preview" [style.width]="token.value" [style.height]="token.value"
+            style="border-radius: 50%; background: var(--pin-red); opacity: 0.15; border: 2px solid var(--pin-red);"
+            aria-hidden="true"></div>
+        </div>
         }
       </div>
     </section>
@@ -439,16 +429,14 @@
 
       <div class="sg-token-table" role="list" aria-label="Opacity tokens">
         @for (token of opacityTokens; track token.token) {
-          <div class="sg-token-row" role="listitem">
-            <code class="sg-token-name">{{ token.token }}</code>
-            <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
-            <div class="sg-token-preview" aria-hidden="true">
-              <div
-                style="width: 80px; height: 32px; border-radius: 8px; background: var(--pin-red);"
-                [style.opacity]="token.value"
-              ></div>
-            </div>
+        <div class="sg-token-row" role="listitem">
+          <code class="sg-token-name">{{ token.token }}</code>
+          <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
+          <div class="sg-token-preview" aria-hidden="true">
+            <div style="width: 80px; height: 32px; border-radius: 8px; background: var(--pin-red);"
+              [style.opacity]="token.value"></div>
           </div>
+        </div>
         }
       </div>
     </section>
@@ -465,11 +453,13 @@
 
       <div class="sg-token-table" role="list" aria-label="Z-index tokens">
         @for (token of zIndexTokens; track token.token) {
-          <div class="sg-token-row" role="listitem">
-            <code class="sg-token-name">{{ token.token }}</code>
-            <span class="sg-token-value">{{ token.label }}</span>
-            <span style="font-size: var(--text-sm); font-weight: 700; color: var(--pin-text-primary); font-family: monospace; margin-left: auto;">{{ token.value }}</span>
-          </div>
+        <div class="sg-token-row" role="listitem">
+          <code class="sg-token-name">{{ token.token }}</code>
+          <span class="sg-token-value">{{ token.label }}</span>
+          <span
+            style="font-size: var(--text-sm); font-weight: 700; color: var(--pin-text-primary); font-family: monospace; margin-left: auto;">{{
+            token.value }}</span>
+        </div>
         }
       </div>
     </section>
@@ -525,15 +515,12 @@
         <h3 class="sg-subsection-title">Shadow Utilities</h3>
         <div class="sg-shadow-grid">
           @for (token of shadowTokens; track token.token) {
-            <div class="sg-util-card">
-              <div
-                class="sg-util-demo"
-                style="border-radius: var(--radius-lg);"
-                [style.box-shadow]="token.value"
-              >
-                <span style="font-size: var(--text-2xs); color: var(--pin-text-secondary);">.shadow-{{ token.label.toLowerCase() }}</span>
-              </div>
+          <div class="sg-util-card">
+            <div class="sg-util-demo" style="border-radius: var(--radius-lg);" [style.box-shadow]="token.value">
+              <span style="font-size: var(--text-2xs); color: var(--pin-text-secondary);">.shadow-{{
+                token.label.toLowerCase() }}</span>
             </div>
+          </div>
           }
         </div>
       </div>
@@ -543,10 +530,11 @@
         <h3 class="sg-subsection-title">Font Weight Utilities</h3>
         <div class="sg-token-table">
           @for (fw of fontWeightTokens; track fw.token) {
-            <div class="sg-token-row">
-              <code class="sg-token-name">.fw-{{ fw.label.toLowerCase() }}</code>
-              <span [style.font-weight]="fw.value" style="font-size: var(--text-lg); color: var(--pin-text-primary);">The quick brown fox — {{ fw.value }}</span>
-            </div>
+          <div class="sg-token-row">
+            <code class="sg-token-name">.fw-{{ fw.label.toLowerCase() }}</code>
+            <span [style.font-weight]="fw.value" style="font-size: var(--text-lg); color: var(--pin-text-primary);">The
+              quick brown fox — {{ fw.value }}</span>
+          </div>
           }
         </div>
       </div>
@@ -581,6 +569,11 @@
             <app-button variant="primary">Primary</app-button>
             <app-button variant="outline">Outline</app-button>
             <app-button variant="secondary">Secondary</app-button>
+            <app-button variant="cta">
+              CTA
+              <span class="material-symbols-rounded" aria-hidden="true"
+                style="font-size: 1.2rem; margin-left: 4px;">arrow_forward</span>
+            </app-button>
             <app-button variant="ghost">
               <span class="material-symbols-rounded" aria-hidden="true">favorite</span>
             </app-button>
@@ -593,6 +586,7 @@
             <app-button variant="primary" size="sm">Small</app-button>
             <app-button variant="primary" size="md">Medium</app-button>
             <app-button variant="primary" size="lg">Large</app-button>
+            <app-button variant="primary" size="xl">Extra Large</app-button>
           </div>
         </div>
 
@@ -622,32 +616,24 @@
         </h3>
         <p class="sg-comp-desc">
           Implements <code>ControlValueAccessor</code> for seamless reactive form integration.
-          Supports <code>text</code>, <code>email</code>, <code>password</code>, <code>date</code>, <code>url</code>, <code>number</code>, <code>tel</code>.
+          Supports <code>text</code>, <code>email</code>, <code>password</code>, <code>date</code>, <code>url</code>,
+          <code>number</code>, <code>tel</code>.
         </p>
 
         <div class="sg-preview-pair">
           <div class="sg-preview">
             <div class="sg-preview-label">Default</div>
             <div class="sg-preview-body">
-              <app-input
-                label="Email address"
-                type="email"
-                placeholder="you@example.com"
-                hint="We'll never share your email"
-                [formControl]="sampleInput"
-              />
+              <app-input label="Email address" type="email" placeholder="you@example.com"
+                hint="We'll never share your email" [formControl]="sampleInput" />
             </div>
           </div>
 
           <div class="sg-preview">
             <div class="sg-preview-label">Password with toggle</div>
             <div class="sg-preview-body">
-              <app-input
-                label="Password"
-                type="password"
-                placeholder="Enter your password"
-                [formControl]="passwordInput"
-              />
+              <app-input label="Password" type="password" placeholder="Enter your password"
+                [formControl]="passwordInput" />
             </div>
           </div>
         </div>
@@ -655,12 +641,8 @@
         <div class="sg-preview">
           <div class="sg-preview-label">Error state</div>
           <div class="sg-preview-body">
-            <app-input
-              label="Username"
-              placeholder="Enter username"
-              errorMessage="This username is already taken"
-              [formControl]="errorInput"
-            />
+            <app-input label="Username" placeholder="Enter username" errorMessage="This username is already taken"
+              [formControl]="errorInput" />
           </div>
         </div>
       </div>
@@ -706,20 +688,14 @@
           <div class="sg-preview">
             <div class="sg-preview-label">With subtitle</div>
             <div class="sg-preview-body">
-              <app-empty-state
-                icon="search_off"
-                message="No results found"
-                subtitle="Try searching with different keywords"
-              />
+              <app-empty-state icon="search_off" message="No results found"
+                subtitle="Try searching with different keywords" />
             </div>
           </div>
           <div class="sg-preview">
             <div class="sg-preview-label">Without subtitle</div>
             <div class="sg-preview-body">
-              <app-empty-state
-                icon="notifications_off"
-                message="No notifications yet"
-              />
+              <app-empty-state icon="notifications_off" message="No notifications yet" />
             </div>
           </div>
         </div>

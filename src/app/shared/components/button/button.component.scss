@@ -44,6 +44,13 @@
     font-size: var(--text-lg);
   }
 
+  &--xl {
+    height: 64px;
+    padding: 0 var(--space-4xl);
+    font-size: var(--text-xl);
+    border-radius: var(--radius-pill);
+  }
+
   // ── Variants ─────────────────────────────────────────────────────────
   &--primary {
     background: var(--pin-red);
@@ -53,6 +60,41 @@
     &:hover:not(:disabled) {
       background: var(--pin-red-hover);
       border-color: var(--pin-red-hover);
+    }
+
+    &:disabled {
+      opacity: var(--opacity-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  &--cta {
+    background: var(--pin-text-primary);
+    color: var(--pin-text-inverse);
+    border-color: var(--pin-text-primary);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--pin-shadow-md);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      background var(--pin-transition),
+      box-shadow var(--pin-transition);
+
+    &:hover:not(:disabled) {
+      background: var(--pin-red);
+      border-color: var(--pin-red);
+      transform: scale(1.05);
+      box-shadow: var(--pin-shadow-lg);
+
+      ::ng-deep .material-symbols-rounded {
+        transform: translateX(4px);
+      }
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    ::ng-deep .material-symbols-rounded {
+      transition: transform 0.3s ease;
     }
 
     &:disabled {
@@ -152,6 +194,19 @@
     width: 18px;
     height: 18px;
     border: 2px solid var(--pin-spinner-track-on-color);
+    border-top-color: var(--pin-text-inverse);
+  }
+
+  .btn--xl & {
+    width: 22px;
+    height: 22px;
+    border: 3px solid var(--pin-spinner-track-on-color);
+    border-top-color: var(--pin-text-inverse);
+  }
+
+  .btn--primary &,
+  .btn--cta & {
+    border-color: var(--pin-spinner-track-on-color);
     border-top-color: var(--pin-text-inverse);
   }
 

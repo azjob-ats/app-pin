@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, input, output, signal } from '@angular/core';
 
-export type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'secondary';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'secondary' | 'cta';
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 
 @Component({
   selector: 'app-button',
