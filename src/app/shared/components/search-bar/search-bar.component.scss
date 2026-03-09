@@ -56,7 +56,7 @@
   background: var(--pin-text-secondary);
   border: none;
   cursor: pointer;
-  color: #fff;
+  color: var(--pin-text-inverse);
   padding: 0;
   flex-shrink: 0;
   transition: background-color var(--pin-transition);

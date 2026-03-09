@@ -1,38 +1,44 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { InputComponent } from '../../../../shared/components/input/input.component';
 
 @Component({
   selector: 'app-reset-password-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule],
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent],
   template: `
     <div class="auth-card">
       <h2 class="auth-card-title">{{ 'auth.resetPassword' | translate }}</h2>
-      <div class="form-field">
-        <label class="form-label">{{ 'auth.password' | translate }}</label>
-        <div class="input-with-action">
-          <input class="form-input" [type]="showPwd() ? 'text' : 'password'" placeholder="New password"
-            [ngModel]="password()" (ngModelChange)="password.set($event)" />
-          <button class="input-action-btn" type="button" (click)="showPwd.update(v => !v)">
-            <span class="material-symbols-rounded">{{ showPwd() ? 'visibility_off' : 'visibility' }}</span>
-          </button>
-        </div>
-      </div>
-      <div class="form-field">
-        <label class="form-label">{{ 'auth.confirmPassword' | translate }}</label>
-        <input class="form-input" type="password" placeholder="Confirm new password"
-          [ngModel]="confirm()" (ngModelChange)="confirm.set($event)" />
-      </div>
-      @if (password() && confirm() && password() !== confirm()) {
-        <p class="error-msg">Passwords don't match.</p>
-      }
-      <button class="submit-btn" (click)="onSubmit()" [disabled]="!password() || password() !== confirm() || isLoading()">
-        @if (isLoading()) { <span class="spinner-sm"></span> }
-        {{ 'auth.resetPassword' | translate }}
-      </button>
+
+      <app-input
+        type="password"
+        [label]="'auth.password' | translate"
+        placeholder="New password"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+      />
+
+      <app-input
+        type="password"
+        [label]="'auth.confirmPassword' | translate"
+        placeholder="Confirm new password"
+        [ngModel]="confirm()"
+        (ngModelChange)="confirm.set($event)"
+        [errorMessage]="confirmError()"
+      />
+
+      <app-button
+        variant="primary"
+        size="lg"
+        [fullWidth]="true"
+        [loading]="isLoading()"
+        [disabled]="!password() || passwordMismatch()"
+        (clicked)="onSubmit()"
+      >{{ 'auth.resetPassword' | translate }}</app-button>
     </div>
   `,
   styleUrl: './reset-password-page.component.scss',
@@ -41,8 +47,12 @@ export class ResetPasswordPageComponent {
   readonly password = signal('');
   readonly confirm = signal('');
   readonly isLoading = signal(false);
-  readonly showPwd = signal(false);
+
+  readonly passwordMismatch = computed(() => !!this.confirm() && this.password() !== this.confirm());
+  readonly confirmError = computed(() => this.passwordMismatch() ? 'Passwords do not match.' : '');
+
   constructor(private router: Router) {}
+
   onSubmit(): void {
     this.isLoading.set(true);
     setTimeout(() => { this.isLoading.set(false); this.router.navigate(['/auth/login']); }, 1200);

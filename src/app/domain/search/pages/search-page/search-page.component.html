@@ -53,11 +53,11 @@
       @if (isLoading()) {
         <app-skeleton-loader [count]="20" />
       } @else if (pins().length === 0) {
-        <div class="no-results">
-          <span class="material-symbols-rounded no-results-icon">search_off</span>
-          <p>{{ 'search.noResults' | translate }}</p>
-          <p class="no-results-sub">"{{ query() }}"</p>
-        </div>
+        <app-empty-state
+          icon="search_off"
+          [message]="'search.noResults' | translate"
+          [subtitle]="query()"
+        />
       } @else {
         <app-masonry-grid [pins]="pins()" />
         <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />

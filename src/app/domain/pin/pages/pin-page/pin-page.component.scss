@@ -164,7 +164,7 @@
   border-radius: 24px;
   border: none;
   background: var(--pin-red);
-  color: #fff;
+  color: var(--pin-text-inverse);
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 1rem;
@@ -175,7 +175,7 @@
   &:hover { background: var(--pin-red-hover); }
 
   &.saved {
-    background: #333;
+    background: var(--pin-saved-bg);
   }
 }
 
@@ -309,7 +309,7 @@
   border-radius: 50%;
   background: var(--pin-red);
   border: none;
-  color: #fff;
+  color: var(--pin-text-inverse);
   cursor: pointer;
   flex-shrink: 0;
   transition: background-color var(--pin-transition);

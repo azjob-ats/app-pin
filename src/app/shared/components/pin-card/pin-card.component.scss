@@ -55,10 +55,10 @@
   border-radius: var(--pin-card-radius);
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.3) 0%,
+    var(--pin-overlay-dark-light) 0%,
     transparent 40%,
     transparent 60%,
-    rgba(0, 0, 0, 0.3) 100%
+    var(--pin-overlay-dark-light) 100%
   );
   display: flex;
   flex-direction: column;
@@ -90,7 +90,7 @@
   border-radius: 24px;
   border: none;
   background: var(--pin-red);
-  color: #fff;
+  color: var(--pin-text-inverse);
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 0.9rem;
@@ -104,8 +104,8 @@
   }
 
   &.saved {
-    background: #333;
-    color: #fff;
+    background: var(--pin-saved-bg);
+    color: var(--pin-text-inverse);
   }
 }
 
@@ -117,8 +117,8 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.85);
-  color: #111;
+  background: var(--pin-overlay-white);
+  color: var(--pin-text-primary);
   cursor: pointer;
   transition: all 0.12s ease;
   flex-shrink: 0;
@@ -128,13 +128,13 @@
   }
 
   &:hover {
-    background: #fff;
+    background: var(--pin-bg);
     transform: scale(1.05);
   }
 }
 
 .pin-share-btn {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--pin-overlay-white-weak);
   margin-left: 4px;
 }
 
@@ -145,8 +145,8 @@
   height: 32px;
   padding: 0 10px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.85);
-  color: #111;
+  background: var(--pin-overlay-white);
+  color: var(--pin-text-primary);
   font-family: var(--font-family);
   font-size: 0.8rem;
   font-weight: 500;
@@ -161,7 +161,7 @@
   }
 
   &:hover {
-    background: #fff;
+    background: var(--pin-bg);
   }
 }
 

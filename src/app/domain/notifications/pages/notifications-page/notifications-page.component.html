@@ -27,110 +27,29 @@
 
       <!-- Today -->
       @if (todayNotifs.length > 0) {
-        <div class="notif-section">
+        <div class="notif-section" role="list">
           <h2 class="notif-section-title">{{ 'notifications.today' | translate }}</h2>
           @for (notif of todayNotifs; track notif.id) {
-            <div
-              class="notif-item"
-              [class.unread]="!notif.isRead"
-              (click)="markRead(notif.id)"
-            >
-              <!-- Actor avatar or icon -->
-              <div class="notif-avatar-wrap">
-                @if (notif.actor?.avatarUrl) {
-                  <img [src]="notif.actor!.avatarUrl" [alt]="notif.actor!.displayName" class="notif-avatar" />
-                } @else {
-                  <div class="notif-icon-avatar">
-                    <span class="material-symbols-rounded">{{ getNotifIcon(notif.type) }}</span>
-                  </div>
-                }
-                <div class="notif-type-badge">
-                  <span class="material-symbols-rounded">{{ getNotifIcon(notif.type) }}</span>
-                </div>
-              </div>
-
-              <!-- Content -->
-              <div class="notif-content">
-                <p class="notif-text">
-                  @if (notif.actor) {
-                    <strong>{{ notif.actor.displayName }}</strong>
-                  }
-                  {{ notif.message }}
-                </p>
-                <span class="notif-time">{{ timeAgo(notif.createdAt) }}</span>
-              </div>
-
-              <!-- Pin thumbnail -->
-              @if (notif.pin?.imageUrl) {
-                <a [routerLink]="['/pin', notif.pin!.id]" class="notif-pin-thumb" (click)="$event.stopPropagation()">
-                  <img [src]="notif.pin!.imageUrl" [alt]="notif.pin?.title || ''" loading="lazy" />
-                </a>
-              }
-
-              <!-- Board thumbnail -->
-              @if (notif.board?.coverImageUrl && !notif.pin) {
-                <div class="notif-pin-thumb">
-                  <img [src]="notif.board!.coverImageUrl!" [alt]="notif.board?.name || ''" loading="lazy" />
-                </div>
-              }
-
-              @if (!notif.isRead) {
-                <div class="unread-dot"></div>
-              }
-            </div>
+            <app-notification-item [notification]="notif" (read)="markRead($event)" />
           }
         </div>
       }
 
       <!-- Earlier -->
       @if (earlierNotifs.length > 0) {
-        <div class="notif-section">
+        <div class="notif-section" role="list">
           <h2 class="notif-section-title">{{ 'notifications.earlier' | translate }}</h2>
           @for (notif of earlierNotifs; track notif.id) {
-            <div
-              class="notif-item"
-              [class.unread]="!notif.isRead"
-              (click)="markRead(notif.id)"
-            >
-              <div class="notif-avatar-wrap">
-                @if (notif.actor?.avatarUrl) {
-                  <img [src]="notif.actor!.avatarUrl" [alt]="notif.actor!.displayName" class="notif-avatar" />
-                } @else {
-                  <div class="notif-icon-avatar">
-                    <span class="material-symbols-rounded">{{ getNotifIcon(notif.type) }}</span>
-                  </div>
-                }
-                <div class="notif-type-badge">
-                  <span class="material-symbols-rounded">{{ getNotifIcon(notif.type) }}</span>
-                </div>
-              </div>
-              <div class="notif-content">
-                <p class="notif-text">
-                  @if (notif.actor) {
-                    <strong>{{ notif.actor.displayName }}</strong>
-                  }
-                  {{ notif.message }}
-                </p>
-                <span class="notif-time">{{ timeAgo(notif.createdAt) }}</span>
-              </div>
-              @if (notif.pin?.imageUrl) {
-                <div class="notif-pin-thumb">
-                  <img [src]="notif.pin!.imageUrl" [alt]="notif.pin?.title || ''" loading="lazy" />
-                </div>
-              }
-              @if (!notif.isRead) {
-                <div class="unread-dot"></div>
-              }
-            </div>
+            <app-notification-item [notification]="notif" (read)="markRead($event)" />
           }
         </div>
       }
 
       @if (notifications().length === 0) {
-        <div class="notif-empty">
-          <span class="material-symbols-rounded notif-empty-icon">notifications_off</span>
-          <p>{{ 'notifications.noNotifications' | translate }}</p>
-        </div>
+        <app-empty-state
+          icon="notifications_off"
+          [message]="'notifications.noNotifications' | translate"
+        />
       }
     }
   </div>

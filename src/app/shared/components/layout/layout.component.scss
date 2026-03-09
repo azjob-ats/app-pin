@@ -280,7 +280,7 @@
 
   &--primary {
     background: var(--pin-red);
-    color: #fff;
+    color: var(--pin-text-inverse);
     border-color: var(--pin-red);
 
     &:hover {

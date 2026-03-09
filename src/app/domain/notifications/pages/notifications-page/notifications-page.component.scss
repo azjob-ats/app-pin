@@ -97,7 +97,7 @@
   }
 
   &.unread {
-    background: rgba(230, 0, 35, 0.04);
+    background: var(--pin-red-bg-subtle);
 
     .notif-text { color: var(--pin-text-primary); }
   }
@@ -140,7 +140,7 @@
   justify-content: center;
   border: 2px solid var(--pin-bg);
 
-  .material-symbols-rounded { font-size: 0.75rem; color: #fff; }
+  .material-symbols-rounded { font-size: 0.75rem; color: var(--pin-text-inverse); }
 }
 
 .notif-content {

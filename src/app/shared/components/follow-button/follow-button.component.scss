@@ -9,7 +9,7 @@
   cursor: pointer;
   transition: all var(--pin-transition);
   background: var(--pin-red);
-  color: #fff;
+  color: var(--pin-text-inverse);
 
   &:hover {
     background: var(--pin-red-hover);

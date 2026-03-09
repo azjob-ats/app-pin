@@ -15,6 +15,7 @@ import { InfiniteScrollComponent } from '../../../../shared/components/infinite-
 import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
 import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
 import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
+import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -30,6 +31,7 @@ import { BoardCardComponent } from '../../../../shared/components/board-card/boa
     FollowButtonComponent,
     UserAvatarComponent,
     BoardCardComponent,
+    EmptyStateComponent,
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',

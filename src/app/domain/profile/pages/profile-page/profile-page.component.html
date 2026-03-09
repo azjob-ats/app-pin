@@ -81,30 +81,21 @@
         <p-tabpanels>
           <p-tabpanel value="created">
             @if (createdPins().length === 0) {
-              <div class="empty-state">
-                <span class="material-symbols-rounded empty-icon">push_pin</span>
-                <p>{{ 'profile.noPins' | translate }}</p>
-              </div>
+              <app-empty-state icon="push_pin" [message]="'profile.noPins' | translate" />
             } @else {
               <app-masonry-grid [pins]="createdPins()" />
             }
           </p-tabpanel>
           <p-tabpanel value="saved">
             @if (savedPins().length === 0) {
-              <div class="empty-state">
-                <span class="material-symbols-rounded empty-icon">bookmark</span>
-                <p>{{ 'profile.noPins' | translate }}</p>
-              </div>
+              <app-empty-state icon="bookmark" [message]="'profile.noPins' | translate" />
             } @else {
               <app-masonry-grid [pins]="savedPins()" />
             }
           </p-tabpanel>
           <p-tabpanel value="boards">
             @if (boards().length === 0) {
-              <div class="empty-state">
-                <span class="material-symbols-rounded empty-icon">grid_view</span>
-                <p>{{ 'profile.noBoards' | translate }}</p>
-              </div>
+              <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
             } @else {
               <div class="boards-grid">
                 @for (board of boards(); track board.id) {

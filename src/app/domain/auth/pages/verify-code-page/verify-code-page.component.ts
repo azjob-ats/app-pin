@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-verify-code-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule],
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent],
   template: `
     <div class="auth-card verify-card">
       <div class="verify-icon">
@@ -31,10 +32,14 @@ import { TranslateModule } from '@ngx-translate/core';
         }
       </div>
 
-      <button class="submit-btn" (click)="onSubmit()" [disabled]="codeValue.length < 6 || isLoading()">
-        @if (isLoading()) { <span class="spinner-sm"></span> }
-        Verify
-      </button>
+      <app-button
+        variant="primary"
+        size="lg"
+        [fullWidth]="true"
+        [loading]="isLoading()"
+        [disabled]="codeValue.length < 6"
+        (clicked)="onSubmit()"
+      >Verify</app-button>
 
       <button class="text-btn">Resend code</button>
 

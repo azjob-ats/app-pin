@@ -114,8 +114,8 @@
   font-family: var(--font-family);
   font-size: 1rem;
   font-weight: 700;
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  color: var(--pin-text-inverse);
+  text-shadow: 0 1px 3px var(--pin-overlay-dark-medium);
   text-align: left;
   transition: bottom var(--pin-transition);
 }

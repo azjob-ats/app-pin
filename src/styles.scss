@@ -51,7 +51,6 @@
   --pin-sidebar-bg: #ffffff;
   --pin-topbar-height: 64px;
 
-  --pin-overlay-bg: rgba(0, 0, 0, 0.7);
   --pin-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
   --pin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
   --pin-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
@@ -59,6 +58,30 @@
   --pin-transition: 0.15s ease;
 
   --font-family: 'Ubuntu', sans-serif;
+
+  // ── Semantic colors ──────────────────────────────────────────────────────
+  --pin-color-error: #e53e3e;
+  --pin-color-success: #00a000;
+  --pin-color-success-bg: rgba(0, 180, 0, 0.08);
+
+  // ── State backgrounds ────────────────────────────────────────────────────
+  --pin-saved-bg: #333333;
+  --pin-red-bg-subtle: rgba(230, 0, 35, 0.04);
+  --pin-red-bg-drag: rgba(230, 0, 35, 0.05);
+
+  // ── White overlays (for overlays on images/media) ────────────────────────
+  --pin-overlay-white: rgba(255, 255, 255, 0.85);
+  --pin-overlay-white-weak: rgba(255, 255, 255, 0.7);
+
+  // ── Dark overlays (for overlays on images/media) ─────────────────────────
+  --pin-overlay-dark-light: rgba(0, 0, 0, 0.3);
+  --pin-overlay-dark-medium: rgba(0, 0, 0, 0.5);
+  --pin-overlay-dark: rgba(0, 0, 0, 0.6);
+  --pin-overlay-dark-strong: rgba(0, 0, 0, 0.8);
+
+  // ── Spinner tracks ───────────────────────────────────────────────────────
+  --pin-spinner-track-on-color: rgba(255, 255, 255, 0.4);
+  --pin-spinner-track-on-white: rgba(0, 0, 0, 0.2);
 }
 
 html.dark {
@@ -78,6 +101,8 @@ html.dark {
   --pin-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.3);
   --pin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --pin-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  --pin-saved-bg: #555555;
 }
 
 // ── Reset & Base ─────────────────────────────────────────────────────────────
@@ -151,29 +176,6 @@ button {
 // Toast positioning
 .p-toast {
   z-index: 9999;
-}
-
-// ── Utility classes ──────────────────────────────────────────────────────────
-
-.pin-red { color: var(--pin-red); }
-.pin-bg-card { background-color: var(--pin-card-bg); }
-
-.truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.hover-scale {
-  transition: transform var(--pin-transition);
-  &:hover { transform: scale(1.02); }
 }
 
 // ── Skeleton animation ───────────────────────────────────────────────────────

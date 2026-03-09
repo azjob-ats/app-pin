@@ -1,0 +1,561 @@
+<div class="sg-root">
+
+  <!-- ── Sidebar ─────────────────────────────────────────────────── -->
+  <aside class="sg-sidebar" aria-label="Design system navigation">
+
+    <div class="sg-sidebar-brand">
+      <svg viewBox="0 0 24 24" class="sg-logo" fill="var(--pin-red)" aria-hidden="true">
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+      </svg>
+      <div>
+        <p class="sg-brand-name">AZJob</p>
+        <p class="sg-brand-sub">Design System</p>
+      </div>
+    </div>
+
+    <nav class="sg-nav">
+      @for (section of sections; track section.id) {
+        <button
+          class="sg-nav-item"
+          [class.sg-nav-item--active]="activeSection() === section.id"
+          (click)="scrollTo(section.id)"
+          [attr.aria-current]="activeSection() === section.id ? 'page' : null"
+          type="button"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">{{ section.icon }}</span>
+          <span>{{ section.label }}</span>
+        </button>
+      }
+    </nav>
+
+    <div class="sg-sidebar-footer">
+      <button
+        class="sg-theme-toggle"
+        type="button"
+        (click)="toggleDark()"
+        [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">
+          {{ isDark() ? 'light_mode' : 'dark_mode' }}
+        </span>
+        <span>{{ isDark() ? 'Light mode' : 'Dark mode' }}</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ─────────────────────────────────────────────── -->
+  <main class="sg-main">
+
+    <!-- ── Overview ──────────────────────────────────────────── -->
+    <section id="overview" class="sg-section">
+      <div class="sg-meta-card">
+        <div class="sg-meta-header">
+          <svg viewBox="0 0 24 24" class="sg-meta-logo" fill="var(--pin-red)" aria-hidden="true">
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+          </svg>
+          <div>
+            <h1 class="sg-meta-title">AZJob Design System</h1>
+            <p class="sg-meta-sub">Visual language, tokens and components — v1.0</p>
+          </div>
+        </div>
+
+        <div class="sg-meta-grid">
+          <div class="sg-meta-item">
+            <span class="sg-meta-label">Font</span>
+            <span class="sg-meta-value" style="font-family: 'Ubuntu', sans-serif; font-weight: 700;">Ubuntu</span>
+          </div>
+          <div class="sg-meta-item">
+            <span class="sg-meta-label">Style</span>
+            <span class="sg-meta-value">Modern Minimal</span>
+          </div>
+          <div class="sg-meta-item">
+            <span class="sg-meta-label">Border Radius</span>
+            <span class="sg-meta-value">Rounded → Pill</span>
+          </div>
+          <div class="sg-meta-item">
+            <span class="sg-meta-label">Primary</span>
+            <span class="sg-meta-value">
+              <span class="sg-inline-dot" style="background: #E60023;" aria-hidden="true"></span>
+              #E60023
+            </span>
+          </div>
+          <div class="sg-meta-item sg-meta-item--full">
+            <span class="sg-meta-label">Visual Feel</span>
+            <span class="sg-meta-value sg-meta-value--body">
+              Pinterest-inspired professional content platform. Clean card-based layout with a bold red accent palette,
+              humanized content approach, and emphasis on visual discovery and professional networking. People trust people.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Colors ─────────────────────────────────────────────── -->
+    <section id="colors" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Colors</h2>
+        <p class="sg-section-desc">
+          Pinterest-inspired red primary with a neutral gray scale and semantic feedback colors.
+          All values are exposed as CSS custom properties on <code>:root</code>.
+        </p>
+      </header>
+
+      <!-- Primary palette -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Primary — Red Palette</h3>
+        <div class="sg-color-strip" role="list" aria-label="Red color palette">
+          @for (color of primaryColors; track color.token) {
+            <div class="sg-color-chip" [style.background]="color.value" role="listitem">
+              <div class="sg-color-chip-info" [class.sg-color-chip-info--light]="isLight(color.value)">
+                <span class="sg-chip-weight">{{ color.label }}</span>
+                <span class="sg-chip-hex">{{ color.value }}</span>
+                @if (color.token.startsWith('--')) {
+                  <code class="sg-chip-token">{{ color.token }}</code>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Gray scale -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Gray Scale</h3>
+        <div class="sg-color-rows" role="list" aria-label="Gray color scale">
+          @for (color of grayColors; track color.token) {
+            <div class="sg-color-row" role="listitem">
+              <div class="sg-color-swatch" [style.background]="color.value" aria-hidden="true"></div>
+              <span class="sg-color-name">{{ color.label }}</span>
+              <code class="sg-color-token">{{ color.token }}</code>
+              <code class="sg-color-hex">{{ color.value }}</code>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Semantic colors -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Semantic Colors</h3>
+        <div class="sg-semantic-grid">
+          @for (color of semanticColors; track color.token) {
+            <div class="sg-semantic-card" [style.background]="color.bg" [style.border-color]="color.value + '40'">
+              <div class="sg-semantic-top">
+                <span
+                  class="material-symbols-rounded sg-semantic-icon filled"
+                  [style.color]="color.value"
+                  aria-hidden="true"
+                >{{ color.icon }}</span>
+                <strong class="sg-semantic-label" [style.color]="color.value">{{ color.label }}</strong>
+              </div>
+              <div class="sg-semantic-tokens">
+                <code>{{ color.token }}</code>
+              </div>
+              <p class="sg-semantic-desc">{{ color.description }}</p>
+              <div class="sg-semantic-swatch" [style.background]="color.value" aria-hidden="true">
+                <span [style.color]="'white'">{{ color.value }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Overlay tokens -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Overlay Tokens</h3>
+        <div class="sg-overlay-grid">
+          <div class="sg-overlay-card">
+            <div class="sg-overlay-demo sg-overlay-demo--image">
+              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark-light)"></div>
+              <span class="sg-overlay-name">dark-light</span>
+            </div>
+            <code class="sg-overlay-token">--pin-overlay-dark-light</code>
+            <span class="sg-overlay-value">rgba(0,0,0, 0.3)</span>
+          </div>
+          <div class="sg-overlay-card">
+            <div class="sg-overlay-demo sg-overlay-demo--image">
+              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark-medium)"></div>
+              <span class="sg-overlay-name">dark-medium</span>
+            </div>
+            <code class="sg-overlay-token">--pin-overlay-dark-medium</code>
+            <span class="sg-overlay-value">rgba(0,0,0, 0.5)</span>
+          </div>
+          <div class="sg-overlay-card">
+            <div class="sg-overlay-demo sg-overlay-demo--image">
+              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark)"></div>
+              <span class="sg-overlay-name">dark</span>
+            </div>
+            <code class="sg-overlay-token">--pin-overlay-dark</code>
+            <span class="sg-overlay-value">rgba(0,0,0, 0.6)</span>
+          </div>
+          <div class="sg-overlay-card">
+            <div class="sg-overlay-demo sg-overlay-demo--image">
+              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark-strong)"></div>
+              <span class="sg-overlay-name">dark-strong</span>
+            </div>
+            <code class="sg-overlay-token">--pin-overlay-dark-strong</code>
+            <span class="sg-overlay-value">rgba(0,0,0, 0.8)</span>
+          </div>
+          <div class="sg-overlay-card">
+            <div class="sg-overlay-demo sg-overlay-demo--dark">
+              <div class="sg-overlay-layer" style="background: var(--pin-overlay-white)"></div>
+              <span class="sg-overlay-name sg-overlay-name--dark">white</span>
+            </div>
+            <code class="sg-overlay-token">--pin-overlay-white</code>
+            <span class="sg-overlay-value">rgba(255,255,255, 0.85)</span>
+          </div>
+          <div class="sg-overlay-card">
+            <div class="sg-overlay-demo sg-overlay-demo--dark">
+              <div class="sg-overlay-layer" style="background: var(--pin-overlay-white-weak)"></div>
+              <span class="sg-overlay-name sg-overlay-name--dark">white-weak</span>
+            </div>
+            <code class="sg-overlay-token">--pin-overlay-white-weak</code>
+            <span class="sg-overlay-value">rgba(255,255,255, 0.7)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Typography ─────────────────────────────────────────── -->
+    <section id="typography" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Typography</h2>
+        <p class="sg-section-desc">
+          Built on <strong>Ubuntu</strong> — a humanist sans-serif designed for clarity and warmth.
+          <code>--font-family: 'Ubuntu', sans-serif</code>
+        </p>
+      </header>
+
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Type Scale</h3>
+        <div class="sg-type-list">
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>2.5rem</code>
+              <span>40px · 700</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 2.5rem; font-weight: 700; line-height: 1.2">Display</p>
+          </div>
+          <div class="sg-type-divider" aria-hidden="true"></div>
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>2rem</code>
+              <span>32px · 700</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 2rem; font-weight: 700; line-height: 1.25">Heading 1</p>
+          </div>
+          <div class="sg-type-divider" aria-hidden="true"></div>
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>1.5rem</code>
+              <span>24px · 700</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 1.5rem; font-weight: 700; line-height: 1.3">Heading 2</p>
+          </div>
+          <div class="sg-type-divider" aria-hidden="true"></div>
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>1.25rem</code>
+              <span>20px · 700</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 1.25rem; font-weight: 700; line-height: 1.35">Heading 3</p>
+          </div>
+          <div class="sg-type-divider" aria-hidden="true"></div>
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>1rem</code>
+              <span>16px · 400</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 1rem; line-height: 1.6">
+              Body — People trust people. AZJob connects professionals through authentic, humanized content that builds real authority.
+            </p>
+          </div>
+          <div class="sg-type-divider" aria-hidden="true"></div>
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>0.875rem</code>
+              <span>14px · 400</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 0.875rem; line-height: 1.5">
+              Small — Used in form labels, captions, helper text, and supporting metadata across the interface.
+            </p>
+          </div>
+          <div class="sg-type-divider" aria-hidden="true"></div>
+          <div class="sg-type-row">
+            <div class="sg-type-meta">
+              <code>0.8rem</code>
+              <span>12.8px · 400</span>
+            </div>
+            <p class="sg-type-sample" style="font-size: 0.8rem; line-height: 1.4">
+              XS — Timestamps, secondary metadata, fine print, and tertiary information.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Font Weights</h3>
+        <div class="sg-weight-list">
+          <div class="sg-weight-row">
+            <span class="sg-weight-meta">400 — Regular</span>
+            <span class="sg-weight-sample" style="font-weight: 400">The quick brown fox jumps</span>
+          </div>
+          <div class="sg-weight-row">
+            <span class="sg-weight-meta">500 — Medium</span>
+            <span class="sg-weight-sample" style="font-weight: 500">The quick brown fox jumps</span>
+          </div>
+          <div class="sg-weight-row">
+            <span class="sg-weight-meta">600 — SemiBold</span>
+            <span class="sg-weight-sample" style="font-weight: 600">The quick brown fox jumps</span>
+          </div>
+          <div class="sg-weight-row">
+            <span class="sg-weight-meta">700 — Bold</span>
+            <span class="sg-weight-sample" style="font-weight: 700">The quick brown fox jumps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Spacing ─────────────────────────────────────────────── -->
+    <section id="spacing" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Spacing</h2>
+        <p class="sg-section-desc">
+          4px-based scale used consistently for padding, margin, and gap throughout the system.
+        </p>
+      </header>
+
+      <div class="sg-spacing-list">
+        @for (token of spacingTokens; track token.label) {
+          <div class="sg-spacing-row">
+            <code class="sg-spacing-label">{{ token.label }}</code>
+            <div class="sg-spacing-track">
+              <div class="sg-spacing-bar" [style.width.px]="token.barW"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Border Radius ───────────────────────────────────────── -->
+    <section id="radius" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Border Radius</h2>
+        <p class="sg-section-desc">
+          Multi-scale rounding from sharp to full pill — a key contributor to the friendly, approachable aesthetic.
+        </p>
+      </header>
+
+      <div class="sg-radius-grid">
+        @for (token of radiusTokens; track token.token) {
+          <div class="sg-radius-card">
+            <div class="sg-radius-preview" [style.border-radius]="token.value" aria-hidden="true"></div>
+            <div class="sg-radius-info">
+              <span class="sg-radius-label">{{ token.label }}</span>
+              <code class="sg-radius-token">{{ token.token }}</code>
+              <span class="sg-radius-value">{{ token.value }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Shadows ─────────────────────────────────────────────── -->
+    <section id="shadows" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Shadows</h2>
+        <p class="sg-section-desc">
+          Subtle elevation system for cards, modals, and overlays. Keeps the UI light and airy.
+          Dark mode shadows use higher opacity values automatically.
+        </p>
+      </header>
+
+      <div class="sg-shadow-grid">
+        @for (token of shadowTokens; track token.token) {
+          <div class="sg-shadow-card" [style.box-shadow]="token.value">
+            <div class="sg-shadow-header">
+              <span class="sg-shadow-label">Shadow {{ token.label }}</span>
+              <code class="sg-shadow-token">{{ token.token }}</code>
+            </div>
+            <code class="sg-shadow-value">{{ token.value }}</code>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Components ──────────────────────────────────────────── -->
+    <section id="components" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Components</h2>
+        <p class="sg-section-desc">
+          Presentational components built entirely on design tokens.
+          Each exposes clear <code>input()</code> / <code>output()</code> contracts
+          and supports <code>enable()</code>, <code>disable()</code>, and <code>resetToInitialState()</code>.
+        </p>
+      </header>
+
+      <!-- Button -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">
+          <code>app-button</code>
+          <span class="sg-comp-file">button.component.ts</span>
+        </h3>
+        <p class="sg-comp-desc">
+          Variants: <code>primary</code> · <code>outline</code> · <code>secondary</code> · <code>ghost</code>.
+          Sizes: <code>sm</code> · <code>md</code> · <code>lg</code>.
+          Supports <code>[loading]</code>, <code>[disabled]</code>, and <code>[fullWidth]</code>.
+        </p>
+
+        <div class="sg-preview">
+          <div class="sg-preview-label">Variants</div>
+          <div class="sg-preview-body sg-preview-body--row">
+            <app-button variant="primary">Primary</app-button>
+            <app-button variant="outline">Outline</app-button>
+            <app-button variant="secondary">Secondary</app-button>
+            <app-button variant="ghost">
+              <span class="material-symbols-rounded" aria-hidden="true">favorite</span>
+            </app-button>
+          </div>
+        </div>
+
+        <div class="sg-preview">
+          <div class="sg-preview-label">Sizes</div>
+          <div class="sg-preview-body sg-preview-body--row sg-preview-body--align-end">
+            <app-button variant="primary" size="sm">Small</app-button>
+            <app-button variant="primary" size="md">Medium</app-button>
+            <app-button variant="primary" size="lg">Large</app-button>
+          </div>
+        </div>
+
+        <div class="sg-preview">
+          <div class="sg-preview-label">States</div>
+          <div class="sg-preview-body sg-preview-body--row">
+            <app-button variant="primary" [loading]="true">Loading</app-button>
+            <app-button variant="primary" [disabled]="true">Disabled</app-button>
+            <app-button variant="outline" [loading]="true">Loading</app-button>
+            <app-button variant="outline" [disabled]="true">Disabled</app-button>
+          </div>
+        </div>
+
+        <div class="sg-preview">
+          <div class="sg-preview-label">Full Width</div>
+          <div class="sg-preview-body">
+            <app-button variant="primary" [fullWidth]="true">Full Width Button</app-button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">
+          <code>app-input</code>
+          <span class="sg-comp-file">input.component.ts</span>
+        </h3>
+        <p class="sg-comp-desc">
+          Implements <code>ControlValueAccessor</code> for seamless reactive form integration.
+          Supports <code>text</code>, <code>email</code>, <code>password</code>, <code>date</code>, <code>url</code>, <code>number</code>, <code>tel</code>.
+        </p>
+
+        <div class="sg-preview-pair">
+          <div class="sg-preview">
+            <div class="sg-preview-label">Default</div>
+            <div class="sg-preview-body">
+              <app-input
+                label="Email address"
+                type="email"
+                placeholder="you@example.com"
+                hint="We'll never share your email"
+                [formControl]="sampleInput"
+              />
+            </div>
+          </div>
+
+          <div class="sg-preview">
+            <div class="sg-preview-label">Password with toggle</div>
+            <div class="sg-preview-body">
+              <app-input
+                label="Password"
+                type="password"
+                placeholder="Enter your password"
+                [formControl]="passwordInput"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="sg-preview">
+          <div class="sg-preview-label">Error state</div>
+          <div class="sg-preview-body">
+            <app-input
+              label="Username"
+              placeholder="Enter username"
+              errorMessage="This username is already taken"
+              [formControl]="errorInput"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">
+          <code>app-divider</code>
+          <span class="sg-comp-file">divider.component.ts</span>
+        </h3>
+        <p class="sg-comp-desc">
+          Horizontal rule with optional centered text. Uses <code>role="separator"</code> for accessibility.
+        </p>
+
+        <div class="sg-preview-pair">
+          <div class="sg-preview">
+            <div class="sg-preview-label">Without text</div>
+            <div class="sg-preview-body">
+              <app-divider />
+            </div>
+          </div>
+          <div class="sg-preview">
+            <div class="sg-preview-label">With text</div>
+            <div class="sg-preview-body">
+              <app-divider text="or continue with" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">
+          <code>app-empty-state</code>
+          <span class="sg-comp-file">empty-state.component.ts</span>
+        </h3>
+        <p class="sg-comp-desc">
+          Displayed when a list or section has no content. Accepts a Material Symbol <code>icon</code>,
+          a primary <code>message</code>, and an optional <code>subtitle</code>.
+        </p>
+
+        <div class="sg-preview-pair">
+          <div class="sg-preview">
+            <div class="sg-preview-label">With subtitle</div>
+            <div class="sg-preview-body">
+              <app-empty-state
+                icon="search_off"
+                message="No results found"
+                subtitle="Try searching with different keywords"
+              />
+            </div>
+          </div>
+          <div class="sg-preview">
+            <div class="sg-preview-label">Without subtitle</div>
+            <div class="sg-preview-body">
+              <app-empty-state
+                icon="notifications_off"
+                message="No notifications yet"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>

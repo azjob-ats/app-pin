@@ -8,11 +8,12 @@ import { MasonryGridComponent } from '../../../../shared/components/masonry-grid
 import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
 import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
+import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-search-page',
   standalone: true,
-  imports: [CommonModule, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, SearchBarComponent],
+  imports: [CommonModule, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, SearchBarComponent, EmptyStateComponent],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
 })

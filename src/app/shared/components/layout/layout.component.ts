@@ -8,6 +8,7 @@ import { LanguageService } from '../../services/language.service';
 import { NotificationService } from '../../services/notification.service';
 import { Language } from '../../enums/language.enum';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { ButtonComponent } from '../button/button.component';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { PopoverModule } from 'primeng/popover';
@@ -32,6 +33,7 @@ interface NavItem {
     TranslateModule,
     FormsModule,
     SearchBarComponent,
+    ButtonComponent,
     BadgeModule,
     TooltipModule,
     PopoverModule,

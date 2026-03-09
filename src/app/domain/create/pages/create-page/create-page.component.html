@@ -4,19 +4,16 @@
     <div class="create-header">
       <h1 class="create-title">{{ 'create.title' | translate }}</h1>
       <div class="create-header-actions">
-        <button class="create-btn create-btn--outline">
+        <app-button variant="secondary" size="md">
           {{ 'create.draft' | translate }}
-        </button>
-        <button
-          class="create-btn create-btn--primary"
-          [disabled]="!previewUrl() || isPublishing()"
-          (click)="publish()"
-        >
-          @if (isPublishing()) {
-            <span class="spinner-sm"></span>
-          }
-          {{ 'create.publish' | translate }}
-        </button>
+        </app-button>
+        <app-button
+          variant="primary"
+          size="md"
+          [loading]="isPublishing()"
+          [disabled]="!previewUrl()"
+          (clicked)="publish()"
+        >{{ 'create.publish' | translate }}</app-button>
       </div>
     </div>
 
@@ -58,52 +55,46 @@
       <!-- ── Form ────────────────────────────────────────────── -->
       <div class="create-form-side">
 
-        <div class="form-field">
-          <label class="form-label">{{ 'create.pinTitle' | translate }}</label>
-          <input
-            class="form-input"
-            type="text"
-            [placeholder]="'create.pinTitle' | translate"
-            [(ngModel)]="title"
-            maxlength="100"
-          />
-        </div>
+        <app-input
+          type="text"
+          [label]="'create.pinTitle' | translate"
+          [placeholder]="'create.pinTitle' | translate"
+          [ngModel]="title()"
+          (ngModelChange)="title.set($event)"
+        />
 
         <div class="form-field">
           <label class="form-label">{{ 'create.description' | translate }}</label>
           <textarea
             class="form-textarea"
             [placeholder]="'create.description' | translate"
-            [(ngModel)]="description"
+            [ngModel]="description()"
+            (ngModelChange)="description.set($event)"
             rows="4"
             maxlength="500"
           ></textarea>
         </div>
 
-        <div class="form-field">
-          <label class="form-label">{{ 'create.link' | translate }}</label>
-          <input
-            class="form-input"
-            type="url"
-            placeholder="https://"
-            [(ngModel)]="link"
-          />
-        </div>
+        <app-input
+          type="url"
+          [label]="'create.link' | translate"
+          placeholder="https://"
+          [ngModel]="link()"
+          (ngModelChange)="link.set($event)"
+        />
 
-        <div class="form-field">
-          <label class="form-label">{{ 'create.altText' | translate }}</label>
-          <input
-            class="form-input"
-            type="text"
-            [placeholder]="'create.altText' | translate"
-            [(ngModel)]="altText"
-          />
-          <p class="form-hint">Add alt text for accessibility</p>
-        </div>
+        <app-input
+          type="text"
+          [label]="'create.altText' | translate"
+          [placeholder]="'create.altText' | translate"
+          hint="Add alt text for accessibility"
+          [ngModel]="altText()"
+          (ngModelChange)="altText.set($event)"
+        />
 
         <div class="form-field">
           <label class="form-label">{{ 'create.selectBoard' | translate }}</label>
-          <select class="form-select" [(ngModel)]="selectedBoardId">
+          <select class="form-select" [ngModel]="selectedBoardId()" (ngModelChange)="selectedBoardId.set($event)">
             @for (board of boards(); track board.id) {
               <option [value]="board.id">{{ board.name }}</option>
             }

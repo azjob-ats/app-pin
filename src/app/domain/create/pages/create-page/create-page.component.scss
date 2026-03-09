@@ -59,7 +59,7 @@
 
   &--primary {
     background: var(--pin-red);
-    color: #fff;
+    color: var(--pin-text-inverse);
 
     &:hover:not(:disabled) { background: var(--pin-red-hover); }
 
@@ -73,8 +73,8 @@
 .spinner-sm {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,0.4);
-  border-top-color: #fff;
+  border: 2px solid var(--pin-spinner-track-on-color);
+  border-top-color: var(--pin-text-inverse);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -122,7 +122,7 @@
   transition: background-color var(--pin-transition);
 
   &.dragging {
-    background: rgba(230, 0, 35, 0.05);
+    background: var(--pin-red-bg-drag);
     outline: 2px dashed var(--pin-red);
   }
 }
@@ -150,7 +150,7 @@
   padding: 0 20px;
   border-radius: 24px;
   background: var(--pin-red);
-  color: #fff;
+  color: var(--pin-text-inverse);
   font-family: var(--font-family);
   font-size: 0.875rem;
   font-weight: 700;
@@ -179,16 +179,16 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.6);
+  background: var(--pin-overlay-dark);
   border: none;
-  color: #fff;
+  color: var(--pin-text-inverse);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background-color var(--pin-transition);
 
-  &:hover { background: rgba(0,0,0,0.8); }
+  &:hover { background: var(--pin-overlay-dark-strong); }
   .material-symbols-rounded { font-size: 1.25rem; }
 }
 

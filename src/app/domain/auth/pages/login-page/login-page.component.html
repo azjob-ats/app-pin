@@ -12,50 +12,35 @@
     {{ 'auth.continueWithGoogle' | translate }}
   </button>
 
-  <div class="divider">
-    <span class="divider-line"></span>
-    <span class="divider-text">{{ 'auth.orDivider' | translate }}</span>
-    <span class="divider-line"></span>
-  </div>
+  <app-divider [text]="'auth.orDivider' | translate" />
 
-  <!-- Email -->
-  <div class="form-field">
-    <label class="form-label">{{ 'auth.email' | translate }}</label>
-    <input
-      class="form-input"
-      type="email"
-      [placeholder]="'auth.email' | translate"
-      [ngModel]="email()"
-      (ngModelChange)="email.set($event)"
-    />
-  </div>
+  <app-input
+    type="email"
+    [label]="'auth.email' | translate"
+    [placeholder]="'auth.email' | translate"
+    [ngModel]="email()"
+    (ngModelChange)="email.set($event)"
+  />
 
-  <!-- Password -->
-  <div class="form-field">
-    <label class="form-label">{{ 'auth.password' | translate }}</label>
-    <div class="input-with-action">
-      <input
-        class="form-input"
-        [type]="showPassword() ? 'text' : 'password'"
-        [placeholder]="'auth.password' | translate"
-        [ngModel]="password()"
-        (ngModelChange)="password.set($event)"
-        (keydown.enter)="onSubmit()"
-      />
-      <button class="input-action-btn" type="button" (click)="showPassword.update(v => !v)">
-        <span class="material-symbols-rounded">{{ showPassword() ? 'visibility_off' : 'visibility' }}</span>
-      </button>
-    </div>
-  </div>
+  <app-input
+    type="password"
+    [label]="'auth.password' | translate"
+    [placeholder]="'auth.password' | translate"
+    [ngModel]="password()"
+    (ngModelChange)="password.set($event)"
+    (enter)="onSubmit()"
+  />
 
   <a routerLink="/auth/forgot-password" class="forgot-link">{{ 'auth.forgotPassword' | translate }}</a>
 
-  <button class="submit-btn" (click)="onSubmit()" [disabled]="!email() || !password() || isLoading()">
-    @if (isLoading()) {
-      <span class="spinner-sm"></span>
-    }
-    {{ 'auth.login' | translate }}
-  </button>
+  <app-button
+    variant="primary"
+    size="lg"
+    [fullWidth]="true"
+    [loading]="isLoading()"
+    [disabled]="!email() || !password()"
+    (clicked)="onSubmit()"
+  >{{ 'auth.login' | translate }}</app-button>
 
   <p class="auth-switch">
     {{ 'auth.noAccount' | translate }}

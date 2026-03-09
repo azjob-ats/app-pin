@@ -5,11 +5,13 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardService } from '../../../../shared/services/board.service';
 import { Board } from '../../../../shared/interfaces/board.interface';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { InputComponent } from '../../../../shared/components/input/input.component';
 
 @Component({
   selector: 'app-create-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, InputComponent],
   templateUrl: './create-page.component.html',
   styleUrl: './create-page.component.scss',
 })

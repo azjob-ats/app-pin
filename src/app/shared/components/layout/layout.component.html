@@ -100,12 +100,12 @@
         </button>
 
         <!-- Auth buttons -->
-        <button class="topbar-btn topbar-btn--outline" (click)="goToAuth()">
+        <app-button variant="outline" size="sm" (clicked)="goToAuth()">
           {{ 'auth.login' | translate }}
-        </button>
-        <button class="topbar-btn topbar-btn--primary" (click)="goToRegister()">
+        </app-button>
+        <app-button variant="primary" size="sm" (clicked)="goToRegister()">
           {{ 'auth.register' | translate }}
-        </button>
+        </app-button>
       </div>
     </header>
 

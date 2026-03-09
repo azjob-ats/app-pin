@@ -3,21 +3,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { InputComponent } from '../../../../shared/components/input/input.component';
 
 @Component({
   selector: 'app-forgot-password-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule],
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent],
   template: `
     <div class="auth-card">
       <h2 class="auth-card-title">{{ 'auth.forgotPassword' | translate }}</h2>
       <p class="auth-subtitle">We'll send a link to reset your password</p>
 
-      <div class="form-field">
-        <label class="form-label">{{ 'auth.email' | translate }}</label>
-        <input class="form-input" type="email" [placeholder]="'auth.email' | translate"
-          [ngModel]="email()" (ngModelChange)="email.set($event)" (keydown.enter)="onSubmit()" />
-      </div>
+      <app-input
+        type="email"
+        [label]="'auth.email' | translate"
+        [placeholder]="'auth.email' | translate"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
+        (enter)="onSubmit()"
+      />
 
       @if (sent()) {
         <div class="success-msg">
@@ -26,10 +31,14 @@ import { TranslateModule } from '@ngx-translate/core';
         </div>
       }
 
-      <button class="submit-btn" (click)="onSubmit()" [disabled]="!email() || isLoading() || sent()">
-        @if (isLoading()) { <span class="spinner-sm"></span> }
-        Send reset link
-      </button>
+      <app-button
+        variant="primary"
+        size="lg"
+        [fullWidth]="true"
+        [loading]="isLoading()"
+        [disabled]="!email() || sent()"
+        (clicked)="onSubmit()"
+      >Send reset link</app-button>
 
       <a routerLink="/auth/login" class="back-link">
         <span class="material-symbols-rounded">arrow_back</span>
