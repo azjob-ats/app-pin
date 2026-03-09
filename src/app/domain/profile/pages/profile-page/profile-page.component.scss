@@ -6,18 +6,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 40px 20px;
+  gap: var(--space-lg);
+  padding: var(--space-3xl) var(--space-xl);
 }
 
 .skeleton {
   background: linear-gradient(90deg, var(--pin-bg-secondary) 25%, var(--pin-bg-tertiary) 37%, var(--pin-bg-secondary) 63%);
   background-size: 200% 100%;
   animation: shimmer 1.4s ease infinite;
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
 }
 
-.avatar-skeleton { width: 96px; height: 96px; border-radius: 50%; }
+.avatar-skeleton { width: var(--size-xl); height: var(--size-xl); border-radius: var(--radius-circle); }
 .name-skeleton { width: 180px; height: 24px; }
 .bio-skeleton { width: 280px; height: 16px; }
 
@@ -32,34 +32,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 20px 24px;
+  padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
   text-align: center;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .profile-avatar {
-  margin-bottom: 16px;
+  margin-bottom: var(--space-lg);
 }
 
 .profile-name {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
   color: var(--pin-text-primary);
-  margin-bottom: 4px;
+  margin-bottom: var(--space-xs);
 }
 
 .profile-username {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--pin-text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: var(--space-lg);
 }
 
 .profile-stats {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 12px;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .stat {
@@ -70,42 +70,42 @@
 
 .stat-value {
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--pin-text-primary);
 }
 
 .stat-label {
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   color: var(--pin-text-secondary);
 }
 
 .stat-divider {
   width: 1px;
-  height: 32px;
+  height: var(--size-sm);
   background: var(--pin-border);
 }
 
 .monthly-views {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--pin-text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: var(--space-md);
 }
 
 .profile-bio {
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   color: var(--pin-text-secondary);
   line-height: 1.6;
   max-width: 480px;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-md);
 }
 
 .profile-website {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 0.875rem;
+  gap: var(--space-xs);
+  font-size: var(--text-sm);
   color: var(--pin-text-secondary);
-  margin-bottom: 16px;
+  margin-bottom: var(--space-lg);
   text-decoration: none;
   transition: color var(--pin-transition);
 
@@ -120,7 +120,7 @@
 .profile-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .profile-action-btn {
@@ -129,7 +129,7 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background: var(--pin-bg-secondary);
   border: none;
   color: var(--pin-text-primary);
@@ -150,9 +150,9 @@
     .p-tablist {
       justify-content: center;
       border-bottom: 2px solid var(--pin-border);
-      padding: 0 20px;
+      padding: 0 var(--space-xl);
     }
-    .p-tabpanel { padding: 16px 0 0; }
+    .p-tabpanel { padding: var(--space-lg) 0 0; }
   }
 }
 
@@ -160,16 +160,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 60px 20px;
+  gap: var(--space-md);
+  padding: 60px var(--space-xl);
   color: var(--pin-text-secondary);
 
   .empty-icon {
-    font-size: 3rem;
+    font-size: var(--text-6xl);
     color: var(--pin-text-muted);
   }
 
-  p { font-size: 1rem; }
+  p { font-size: var(--text-lg); }
 }
 
 // ── Boards grid ───────────────────────────────────────────────────────────
@@ -177,12 +177,12 @@
 .boards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    padding: 8px;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
   }
 }

@@ -5,7 +5,7 @@
   border: 2px solid transparent;
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   cursor: pointer;
   transition: all var(--pin-transition);
   background: var(--pin-red);

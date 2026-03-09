@@ -3,24 +3,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 48px 24px;
+  gap: var(--space-md);
+  padding: var(--space-4xl) var(--space-2xl);
   text-align: center;
 
   &__icon {
-    font-size: 3rem;
+    font-size: var(--text-6xl);
     color: var(--pin-text-muted);
   }
 
   &__message {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
     color: var(--pin-text-secondary);
     max-width: 280px;
   }
 
   &__subtitle {
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     color: var(--pin-text-muted);
     max-width: 280px;
   }

@@ -34,7 +34,7 @@
   background: var(--pin-bg-secondary);
   color: var(--pin-text-primary);
   font-family: var(--font-family);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -60,7 +60,7 @@
 }
 
 .section-title {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   font-weight: 700;
   color: var(--pin-text-primary);
   margin-bottom: 16px;
@@ -112,7 +112,7 @@
   left: 10px;
   right: 10px;
   font-family: var(--font-family);
-  font-size: 1rem;
+  font-size: var(--text-lg);
   font-weight: 700;
   color: var(--pin-text-inverse);
   text-shadow: 0 1px 3px var(--pin-overlay-dark-medium);
@@ -127,7 +127,7 @@
 }
 
 .feed-title {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   font-weight: 700;
   color: var(--pin-text-primary);
   padding: 0 16px;

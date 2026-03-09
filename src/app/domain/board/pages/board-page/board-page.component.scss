@@ -13,14 +13,14 @@
 }
 
 .board-name {
-  font-size: 1.75rem;
+  font-size: var(--text-3xl);
   font-weight: 700;
   color: var(--pin-text-primary);
   margin-bottom: 8px;
 }
 
 .board-desc {
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   color: var(--pin-text-secondary);
   line-height: 1.6;
   margin-bottom: 12px;
@@ -30,7 +30,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--pin-text-secondary);
   margin-bottom: 16px;
 }
@@ -59,7 +59,7 @@
 }
 
 .board-owner-name {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 700;
   color: var(--pin-text-primary);
   text-decoration: none;

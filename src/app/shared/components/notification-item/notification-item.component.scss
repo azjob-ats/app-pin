@@ -1,9 +1,9 @@
 .notif-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 16px;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: background-color var(--pin-transition);
   position: relative;
@@ -26,23 +26,23 @@
   }
 
   &__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: var(--size-md);
+    height: var(--size-md);
+    border-radius: var(--radius-circle);
     object-fit: cover;
   }
 
   &__icon-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    width: var(--size-md);
+    height: var(--size-md);
+    border-radius: var(--radius-circle);
     background: var(--pin-bg-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
 
     .material-symbols-rounded {
-      font-size: 1.5rem;
+      font-size: var(--text-2xl);
       color: var(--pin-text-secondary);
     }
   }
@@ -53,7 +53,7 @@
     right: -4px;
     width: 22px;
     height: 22px;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     background: var(--pin-red);
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@
     border: 2px solid var(--pin-bg);
 
     .material-symbols-rounded {
-      font-size: 0.75rem;
+      font-size: var(--text-2xs);
       color: var(--pin-text-inverse);
     }
   }
@@ -72,7 +72,7 @@
   }
 
   &__text {
-    font-size: 0.9rem;
+    font-size: var(--text-md);
     color: var(--pin-text-secondary);
     line-height: 1.4;
     overflow: hidden;
@@ -83,12 +83,12 @@
 
     strong {
       color: var(--pin-text-primary);
-      font-weight: 700;
+      font-weight: var(--font-weight-bold);
     }
   }
 
   &__time {
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     color: var(--pin-text-muted);
     margin-top: 2px;
     display: block;
@@ -97,7 +97,7 @@
   &__thumb {
     width: 56px;
     height: 56px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     flex-shrink: 0;
     display: block;
@@ -112,7 +112,7 @@
   &__unread-dot {
     width: 10px;
     height: 10px;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     background: var(--pin-red);
     flex-shrink: 0;
   }

@@ -18,11 +18,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 0;
+  padding: var(--space-md) 0;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 100;
+  z-index: var(--z-sidebar);
   transition: background-color 0.2s ease, border-color 0.2s ease;
   flex-shrink: 0;
 
@@ -32,17 +32,17 @@
 }
 
 .sidebar-logo {
-  margin-bottom: 8px;
-  padding: 8px;
+  margin-bottom: var(--space-sm);
+  padding: var(--space-sm);
 }
 
 .logo-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: var(--size-md);
+  height: var(--size-md);
+  border-radius: var(--radius-circle);
   transition: background-color var(--pin-transition);
 
   &:hover {
@@ -61,24 +61,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-xs);
   flex: 1;
-  padding: 8px 0;
+  padding: var(--space-sm) 0;
 }
 
 .sidebar-nav-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: var(--size-md);
+  height: var(--size-md);
+  border-radius: var(--radius-circle);
   color: var(--pin-text-primary);
   transition: background-color var(--pin-transition), transform 0.1s ease;
   cursor: pointer;
 
   .material-symbols-rounded {
-    font-size: 1.75rem;
+    font-size: var(--text-3xl);
     transition: font-variation-settings 0.2s ease;
   }
 
@@ -103,17 +103,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding-bottom: 8px;
+  gap: var(--space-xs);
+  padding-bottom: var(--space-sm);
 }
 
 .sidebar-action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: var(--size-md);
+  height: var(--size-md);
+  border-radius: var(--radius-circle);
   background: transparent;
   border: none;
   color: var(--pin-text-primary);
@@ -121,7 +121,7 @@
   transition: background-color var(--pin-transition);
 
   .material-symbols-rounded {
-    font-size: 1.5rem;
+    font-size: var(--text-2xl);
   }
 
   &:hover {
@@ -132,7 +132,7 @@
 .sidebar-avatar-btn {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   padding: 0;
   border: 2px solid transparent;
   background: transparent;
@@ -150,7 +150,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
 }
 
 .nav-icon-wrap {
@@ -167,7 +167,7 @@
   width: 10px;
   height: 10px;
   background: var(--pin-red);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   border: 2px solid var(--pin-bg);
 }
 
@@ -193,20 +193,20 @@
 .topbar {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 20px;
+  gap: var(--space-md);
+  padding: 0 var(--space-xl);
   height: var(--pin-topbar-height);
   background: var(--pin-bg);
   border-bottom: 1px solid var(--pin-border);
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: var(--z-topbar);
   flex-shrink: 0;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 
   @media (max-width: 767px) {
-    padding: 0 12px;
-    gap: 8px;
+    padding: 0 var(--space-md);
+    gap: var(--space-sm);
   }
 }
 
@@ -218,7 +218,7 @@
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-sm);
   margin-left: auto;
   flex-shrink: 0;
 }
@@ -230,7 +230,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   background: transparent;
   border: none;
   color: var(--pin-text-primary);
@@ -238,7 +238,7 @@
   transition: background-color var(--pin-transition);
 
   .material-symbols-rounded {
-    font-size: 1.5rem;
+    font-size: var(--text-2xl);
   }
 
   &:hover {
@@ -252,17 +252,17 @@
 }
 
 .lang-flag {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   line-height: 1;
 }
 
 .topbar-btn {
   height: 40px;
-  padding: 0 16px;
-  border-radius: 24px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-xl);
   font-family: var(--font-family);
-  font-weight: 700;
-  font-size: 0.875rem;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-sm);
   cursor: pointer;
   transition: all var(--pin-transition);
   border: 2px solid transparent;
@@ -316,7 +316,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  z-index: 100;
+  z-index: var(--z-sidebar);
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -325,8 +325,8 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 6px 12px;
-  border-radius: 12px;
+  padding: 6px var(--space-md);
+  border-radius: var(--radius-md);
   background: transparent;
   border: none;
   color: var(--pin-text-secondary);
@@ -335,7 +335,7 @@
   transition: color var(--pin-transition);
 
   .material-symbols-rounded {
-    font-size: 1.5rem;
+    font-size: var(--text-2xl);
   }
 
   &.active {
@@ -352,14 +352,14 @@
 }
 
 .bottom-nav-label {
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: var(--text-3xs);
+  font-weight: var(--font-weight-semibold);
 }
 
 .bottom-nav-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+  width: var(--size-xs);
+  height: var(--size-xs);
+  border-radius: var(--radius-circle);
   object-fit: cover;
 }
 
@@ -370,21 +370,21 @@
   flex-direction: column;
   gap: 2px;
   min-width: 180px;
-  padding: 4px;
+  padding: var(--space-xs);
 }
 
 .lang-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 10px var(--space-md);
+  border-radius: var(--radius-sm);
   background: transparent;
   border: none;
   cursor: pointer;
   color: var(--pin-text-primary);
   font-family: var(--font-family);
-  font-size: 0.9rem;
+  font-size: var(--text-md);
   transition: background-color var(--pin-transition);
   text-align: left;
   width: 100%;
@@ -395,12 +395,12 @@
 
   &.active {
     background-color: var(--pin-bg-secondary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
   }
 }
 
 .lang-item-flag {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
 }
 
 .lang-item-label {
@@ -408,7 +408,7 @@
 }
 
 .check-icon {
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   color: var(--pin-red);
 }
 
@@ -416,10 +416,10 @@
 
 :host ::ng-deep .lang-panel {
   .p-popover-content {
-    padding: 4px;
+    padding: var(--space-xs);
     background: var(--pin-bg);
     border: 1px solid var(--pin-border);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     box-shadow: var(--pin-shadow-lg);
   }
 

@@ -14,6 +14,7 @@ interface ColorToken {
 interface SpacingToken {
   label: string;
   size: string;
+  token: string;
   barW: number;
 }
 
@@ -26,6 +27,37 @@ interface RadiusToken {
 interface ShadowToken {
   label: string;
   value: string;
+  token: string;
+}
+
+interface FontSizeToken {
+  label: string;
+  value: string;
+  token: string;
+  px: string;
+}
+
+interface FontWeightToken {
+  label: string;
+  value: number;
+  token: string;
+}
+
+interface SizingToken {
+  label: string;
+  value: string;
+  token: string;
+}
+
+interface OpacityToken {
+  label: string;
+  value: number;
+  token: string;
+}
+
+interface ZIndexToken {
+  label: string;
+  value: number;
   token: string;
 }
 
@@ -54,41 +86,38 @@ export class StyleguidePageComponent {
   readonly errorInput = new FormControl('');
 
   readonly sections: NavSection[] = [
-    { id: 'overview', label: 'Overview', icon: 'auto_awesome' },
-    { id: 'colors', label: 'Colors', icon: 'palette' },
-    { id: 'typography', label: 'Typography', icon: 'text_fields' },
-    { id: 'spacing', label: 'Spacing', icon: 'straighten' },
-    { id: 'radius', label: 'Border Radius', icon: 'rounded_corner' },
-    { id: 'shadows', label: 'Shadows', icon: 'blur_on' },
-    { id: 'components', label: 'Components', icon: 'widgets' },
+    { id: 'overview',   label: 'Overview',     icon: 'auto_awesome' },
+    { id: 'colors',     label: 'Colors',        icon: 'palette' },
+    { id: 'typography', label: 'Typography',    icon: 'text_fields' },
+    { id: 'spacing',    label: 'Spacing',       icon: 'straighten' },
+    { id: 'radius',     label: 'Border Radius', icon: 'rounded_corner' },
+    { id: 'shadows',    label: 'Shadows',       icon: 'blur_on' },
+    { id: 'sizing',     label: 'Sizing',        icon: 'open_in_full' },
+    { id: 'opacity',    label: 'Opacity',       icon: 'opacity' },
+    { id: 'zindex',     label: 'Z-Index',       icon: 'layers' },
+    { id: 'utilities',  label: 'Utilities',     icon: 'build' },
+    { id: 'components', label: 'Components',    icon: 'widgets' },
   ];
 
   readonly primaryColors: ColorToken[] = [
-    { label: '50', value: '#FFF0F1', token: 'primary-50' },
-    { label: '100', value: '#FFD6DA', token: 'primary-100' },
-    { label: '200', value: '#FFA8B0', token: 'primary-200' },
-    { label: '300', value: '#FF7A87', token: 'primary-300' },
     { label: '400', value: '#FF4747', token: '--pin-red-light' },
     { label: '500', value: '#E60023', token: '--pin-red' },
     { label: '600', value: '#CC001F', token: '--pin-red-hover' },
     { label: '700', value: '#AD081B', token: '--pin-red-dark' },
-    { label: '800', value: '#8B0017', token: 'primary-800' },
-    { label: '900', value: '#6B0012', token: 'primary-900' },
-    { label: '950', value: '#3D010A', token: 'primary-950' },
   ];
 
   readonly grayColors: ColorToken[] = [
-    { label: 'White', value: '#ffffff', token: '--pin-bg' },
-    { label: 'Background Tertiary', value: '#F8F8F8', token: '--pin-bg-tertiary' },
+    { label: 'White',                value: '#ffffff', token: '--pin-bg' },
+    { label: 'Background Tertiary',  value: '#F8F8F8', token: '--pin-bg-tertiary' },
     { label: 'Background Secondary', value: '#F0F0F0', token: '--pin-bg-secondary' },
-    { label: 'Border', value: '#E0E0E0', token: '--pin-border' },
-    { label: 'Text Muted', value: '#ADADAD', token: '--pin-text-muted' },
-    { label: 'Text Secondary', value: '#767676', token: '--pin-text-secondary' },
-    { label: 'Dark Border', value: '#404040', token: '--pin-border (dark)' },
-    { label: 'Saved State', value: '#333333', token: '--pin-saved-bg' },
-    { label: 'Dark Surface', value: '#2D2D2D', token: '--pin-bg-secondary (dark)' },
-    { label: 'Dark Background', value: '#1A1A1A', token: '--pin-bg (dark)' },
-    { label: 'Text Primary', value: '#111111', token: '--pin-text-primary' },
+    { label: 'Border',               value: '#E0E0E0', token: '--pin-border' },
+    { label: 'Text Muted',           value: '#ADADAD', token: '--pin-text-muted' },
+    { label: 'Text Secondary',       value: '#767676', token: '--pin-text-secondary' },
+    { label: 'Dark Border',          value: '#404040', token: '--pin-border (dark)' },
+    { label: 'Saved State',          value: '#333333', token: '--pin-saved-bg' },
+    { label: 'Dark Surface',         value: '#2D2D2D', token: '--pin-bg-secondary (dark)' },
+    { label: 'Dark Background',      value: '#1A1A1A', token: '--pin-bg (dark)' },
+    { label: 'Text Primary',         value: '#111111', token: '--pin-text-primary' },
   ];
 
   readonly semanticColors = [
@@ -113,32 +142,77 @@ export class StyleguidePageComponent {
   ];
 
   readonly spacingTokens: SpacingToken[] = [
-    { label: '4px', size: '4px', barW: 16 },
-    { label: '8px', size: '8px', barW: 32 },
-    { label: '12px', size: '12px', barW: 48 },
-    { label: '16px', size: '16px', barW: 64 },
-    { label: '20px', size: '20px', barW: 80 },
-    { label: '24px', size: '24px', barW: 96 },
-    { label: '32px', size: '32px', barW: 128 },
-    { label: '48px', size: '48px', barW: 192 },
-    { label: '64px', size: '64px', barW: 256 },
+    { label: 'XS',  size: '4px',  token: '--space-xs',  barW: 16 },
+    { label: 'SM',  size: '8px',  token: '--space-sm',  barW: 32 },
+    { label: 'MD',  size: '12px', token: '--space-md',  barW: 48 },
+    { label: 'LG',  size: '16px', token: '--space-lg',  barW: 64 },
+    { label: 'XL',  size: '20px', token: '--space-xl',  barW: 80 },
+    { label: '2XL', size: '24px', token: '--space-2xl', barW: 96 },
+    { label: '3XL', size: '32px', token: '--space-3xl', barW: 128 },
+    { label: '4XL', size: '48px', token: '--space-4xl', barW: 192 },
+    { label: '5XL', size: '64px', token: '--space-5xl', barW: 256 },
   ];
 
   readonly radiusTokens: RadiusToken[] = [
-    { label: 'None', value: '0px', token: '--radius-none' },
-    { label: 'XS', value: '4px', token: '--radius-xs' },
-    { label: 'SM', value: '8px', token: '--radius-sm' },
-    { label: 'MD', value: '12px', token: '--radius-md' },
-    { label: 'LG', value: '16px', token: '--radius-lg' },
-    { label: 'XL', value: '24px', token: '--radius-xl' },
-    { label: '2XL', value: '32px', token: '--radius-2xl' },
-    { label: 'Pill', value: '9999px', token: '--radius-pill' },
+    { label: 'None',   value: '0px',    token: '--radius-none' },
+    { label: 'XS',     value: '4px',    token: '--radius-xs' },
+    { label: 'SM',     value: '8px',    token: '--radius-sm' },
+    { label: 'MD',     value: '12px',   token: '--radius-md' },
+    { label: 'LG',     value: '16px',   token: '--radius-lg' },
+    { label: 'XL',     value: '24px',   token: '--radius-xl' },
+    { label: '2XL',    value: '32px',   token: '--radius-2xl' },
+    { label: 'Circle', value: '50%',    token: '--radius-circle' },
+    { label: 'Pill',   value: '9999px', token: '--radius-pill' },
   ];
 
   readonly shadowTokens: ShadowToken[] = [
-    { label: 'SM', value: '0 1px 4px rgba(0,0,0,0.08)', token: '--pin-shadow-sm' },
+    { label: 'SM', value: '0 1px 4px rgba(0,0,0,0.08)',  token: '--pin-shadow-sm' },
     { label: 'MD', value: '0 4px 16px rgba(0,0,0,0.12)', token: '--pin-shadow-md' },
     { label: 'LG', value: '0 8px 32px rgba(0,0,0,0.16)', token: '--pin-shadow-lg' },
+  ];
+
+  readonly fontSizeTokens: FontSizeToken[] = [
+    { label: '3XS',  value: '0.65rem',  token: '--text-3xs',  px: '10.4px' },
+    { label: '2XS',  value: '0.75rem',  token: '--text-2xs',  px: '12px' },
+    { label: 'XS',   value: '0.8rem',   token: '--text-xs',   px: '12.8px' },
+    { label: 'SM',   value: '0.875rem', token: '--text-sm',   px: '14px' },
+    { label: 'MD',   value: '0.9rem',   token: '--text-md',   px: '14.4px' },
+    { label: 'Base', value: '0.95rem',  token: '--text-base', px: '15.2px' },
+    { label: 'LG',   value: '1rem',     token: '--text-lg',   px: '16px' },
+    { label: 'XL',   value: '1.25rem',  token: '--text-xl',   px: '20px' },
+    { label: '2XL',  value: '1.5rem',   token: '--text-2xl',  px: '24px' },
+    { label: '3XL',  value: '1.75rem',  token: '--text-3xl',  px: '28px' },
+    { label: '4XL',  value: '2rem',     token: '--text-4xl',  px: '32px' },
+    { label: '5XL',  value: '2.5rem',   token: '--text-5xl',  px: '40px' },
+    { label: '6XL',  value: '3rem',     token: '--text-6xl',  px: '48px' },
+    { label: '7XL',  value: '4rem',     token: '--text-7xl',  px: '64px' },
+  ];
+
+  readonly fontWeightTokens: FontWeightToken[] = [
+    { label: 'Normal',   value: 400, token: '--font-weight-normal' },
+    { label: 'Medium',   value: 500, token: '--font-weight-medium' },
+    { label: 'Semibold', value: 600, token: '--font-weight-semibold' },
+    { label: 'Bold',     value: 700, token: '--font-weight-bold' },
+  ];
+
+  readonly sizingTokens: SizingToken[] = [
+    { label: 'XS', value: '24px', token: '--size-xs' },
+    { label: 'SM', value: '32px', token: '--size-sm' },
+    { label: 'MD', value: '48px', token: '--size-md' },
+    { label: 'LG', value: '64px', token: '--size-lg' },
+    { label: 'XL', value: '96px', token: '--size-xl' },
+  ];
+
+  readonly opacityTokens: OpacityToken[] = [
+    { label: 'Disabled', value: 0.5, token: '--opacity-disabled' },
+    { label: 'Muted',    value: 0.6, token: '--opacity-muted' },
+  ];
+
+  readonly zIndexTokens: ZIndexToken[] = [
+    { label: 'Base',    value: 10,   token: '--z-base' },
+    { label: 'Topbar',  value: 50,   token: '--z-topbar' },
+    { label: 'Sidebar', value: 100,  token: '--z-sidebar' },
+    { label: 'Toast',   value: 9999, token: '--z-toast' },
   ];
 
   toggleDark(): void {

@@ -30,7 +30,7 @@
   background: var(--pin-bg-secondary);
   color: var(--pin-text-secondary);
   font-family: var(--font-family);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
   transition: all var(--pin-transition);
@@ -71,7 +71,7 @@
   background: transparent;
   color: var(--pin-text-primary);
   font-family: var(--font-family);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   font-weight: 500;
   cursor: pointer;
   transition: all var(--pin-transition);
@@ -89,7 +89,7 @@
 }
 
 .results-count {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--pin-text-secondary);
   padding: 0 16px;
   margin-bottom: 16px;
@@ -106,7 +106,7 @@
 }
 
 .no-results-icon {
-  font-size: 3rem;
+  font-size: var(--text-6xl);
   color: var(--pin-text-muted);
 }
 

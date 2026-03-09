@@ -225,92 +225,107 @@
         </p>
       </header>
 
+      <!-- Font size tokens -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Font Size Scale</h3>
+        <p class="sg-comp-desc">
+          14 steps from <code>--text-3xs</code> (10.4px) to <code>--text-7xl</code> (64px).
+          All font sizes across the system consume these tokens.
+        </p>
+        <div class="sg-type-token-table" role="list" aria-label="Font size tokens">
+          @for (fs of fontSizeTokens; track fs.token) {
+            <div class="sg-type-token-row" role="listitem">
+              <code class="sg-token-name">{{ fs.token }}</code>
+              <span class="sg-type-token-meta">{{ fs.value }} · {{ fs.px }}</span>
+              <p
+                class="sg-type-token-sample"
+                [style.font-size]="'var(' + fs.token + ')'"
+                aria-hidden="true"
+              >AZJob</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Type scale -->
       <div class="sg-subsection">
         <h3 class="sg-subsection-title">Type Scale</h3>
         <div class="sg-type-list">
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>2.5rem</code>
+              <code>--text-5xl</code>
               <span>40px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 2.5rem; font-weight: 700; line-height: 1.2">Display</p>
+            <p class="sg-type-sample" style="font-size: var(--text-5xl); font-weight: 700; line-height: 1.2">Display</p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>2rem</code>
+              <code>--text-4xl</code>
               <span>32px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 2rem; font-weight: 700; line-height: 1.25">Heading 1</p>
+            <p class="sg-type-sample" style="font-size: var(--text-4xl); font-weight: 700; line-height: 1.25">Heading 1</p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>1.5rem</code>
+              <code>--text-2xl</code>
               <span>24px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 1.5rem; font-weight: 700; line-height: 1.3">Heading 2</p>
+            <p class="sg-type-sample" style="font-size: var(--text-2xl); font-weight: 700; line-height: 1.3">Heading 2</p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>1.25rem</code>
+              <code>--text-xl</code>
               <span>20px · 700</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 1.25rem; font-weight: 700; line-height: 1.35">Heading 3</p>
+            <p class="sg-type-sample" style="font-size: var(--text-xl); font-weight: 700; line-height: 1.35">Heading 3</p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>1rem</code>
+              <code>--text-lg</code>
               <span>16px · 400</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 1rem; line-height: 1.6">
+            <p class="sg-type-sample" style="font-size: var(--text-lg); line-height: 1.6">
               Body — People trust people. AZJob connects professionals through authentic, humanized content that builds real authority.
             </p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>0.875rem</code>
+              <code>--text-sm</code>
               <span>14px · 400</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 0.875rem; line-height: 1.5">
+            <p class="sg-type-sample" style="font-size: var(--text-sm); line-height: 1.5">
               Small — Used in form labels, captions, helper text, and supporting metadata across the interface.
             </p>
           </div>
           <div class="sg-type-divider" aria-hidden="true"></div>
           <div class="sg-type-row">
             <div class="sg-type-meta">
-              <code>0.8rem</code>
+              <code>--text-xs</code>
               <span>12.8px · 400</span>
             </div>
-            <p class="sg-type-sample" style="font-size: 0.8rem; line-height: 1.4">
+            <p class="sg-type-sample" style="font-size: var(--text-xs); line-height: 1.4">
               XS — Timestamps, secondary metadata, fine print, and tertiary information.
             </p>
           </div>
         </div>
       </div>
 
+      <!-- Font Weights -->
       <div class="sg-subsection">
         <h3 class="sg-subsection-title">Font Weights</h3>
         <div class="sg-weight-list">
-          <div class="sg-weight-row">
-            <span class="sg-weight-meta">400 — Regular</span>
-            <span class="sg-weight-sample" style="font-weight: 400">The quick brown fox jumps</span>
-          </div>
-          <div class="sg-weight-row">
-            <span class="sg-weight-meta">500 — Medium</span>
-            <span class="sg-weight-sample" style="font-weight: 500">The quick brown fox jumps</span>
-          </div>
-          <div class="sg-weight-row">
-            <span class="sg-weight-meta">600 — SemiBold</span>
-            <span class="sg-weight-sample" style="font-weight: 600">The quick brown fox jumps</span>
-          </div>
-          <div class="sg-weight-row">
-            <span class="sg-weight-meta">700 — Bold</span>
-            <span class="sg-weight-sample" style="font-weight: 700">The quick brown fox jumps</span>
-          </div>
+          @for (fw of fontWeightTokens; track fw.token) {
+            <div class="sg-weight-row">
+              <span class="sg-weight-meta">{{ fw.value }} — {{ fw.label }}</span>
+              <span class="sg-weight-sample" [style.font-weight]="fw.value">The quick brown fox jumps</span>
+              <code class="sg-color-token" style="margin-left: auto;">{{ fw.token }}</code>
+            </div>
+          }
         </div>
       </div>
     </section>
@@ -321,16 +336,18 @@
         <h2 class="sg-section-title">Spacing</h2>
         <p class="sg-section-desc">
           4px-based scale used consistently for padding, margin, and gap throughout the system.
+          Tokens: <code>--space-xs</code> through <code>--space-5xl</code>.
         </p>
       </header>
 
       <div class="sg-spacing-list">
-        @for (token of spacingTokens; track token.label) {
+        @for (token of spacingTokens; track token.token) {
           <div class="sg-spacing-row">
-            <code class="sg-spacing-label">{{ token.label }}</code>
+            <code class="sg-spacing-label">{{ token.token }}</code>
             <div class="sg-spacing-track">
               <div class="sg-spacing-bar" [style.width.px]="token.barW"></div>
             </div>
+            <span style="font-size: var(--text-xs); color: var(--pin-text-muted); font-family: monospace; min-width: 40px; text-align: right;">{{ token.size }}</span>
           </div>
         }
       </div>
@@ -342,6 +359,7 @@
         <h2 class="sg-section-title">Border Radius</h2>
         <p class="sg-section-desc">
           Multi-scale rounding from sharp to full pill — a key contributor to the friendly, approachable aesthetic.
+          Tokens: <code>--radius-none</code> through <code>--radius-pill</code>.
         </p>
       </header>
 
@@ -379,6 +397,158 @@
             <code class="sg-shadow-value">{{ token.value }}</code>
           </div>
         }
+      </div>
+    </section>
+
+    <!-- ── Sizing ──────────────────────────────────────────────── -->
+    <section id="sizing" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Sizing</h2>
+        <p class="sg-section-desc">
+          Avatar and icon size scale used for consistent element dimensions.
+          Tokens: <code>--size-xs</code> through <code>--size-xl</code>.
+        </p>
+      </header>
+
+      <div class="sg-token-table" role="list" aria-label="Sizing tokens">
+        @for (token of sizingTokens; track token.token) {
+          <div class="sg-token-row" role="listitem">
+            <code class="sg-token-name">{{ token.token }}</code>
+            <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
+            <div
+              class="sg-token-preview"
+              [style.width]="token.value"
+              [style.height]="token.value"
+              style="border-radius: 50%; background: var(--pin-red); opacity: 0.15; border: 2px solid var(--pin-red);"
+              aria-hidden="true"
+            ></div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Opacity ─────────────────────────────────────────────── -->
+    <section id="opacity" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Opacity</h2>
+        <p class="sg-section-desc">
+          Opacity tokens for interactive states like disabled and muted elements.
+          Tokens: <code>--opacity-disabled</code>, <code>--opacity-muted</code>.
+        </p>
+      </header>
+
+      <div class="sg-token-table" role="list" aria-label="Opacity tokens">
+        @for (token of opacityTokens; track token.token) {
+          <div class="sg-token-row" role="listitem">
+            <code class="sg-token-name">{{ token.token }}</code>
+            <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
+            <div class="sg-token-preview" aria-hidden="true">
+              <div
+                style="width: 80px; height: 32px; border-radius: 8px; background: var(--pin-red);"
+                [style.opacity]="token.value"
+              ></div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Z-Index ─────────────────────────────────────────────── -->
+    <section id="zindex" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Z-Index</h2>
+        <p class="sg-section-desc">
+          Stacking order tokens for layout layers. Higher values render on top.
+          Tokens: <code>--z-base</code> through <code>--z-toast</code>.
+        </p>
+      </header>
+
+      <div class="sg-token-table" role="list" aria-label="Z-index tokens">
+        @for (token of zIndexTokens; track token.token) {
+          <div class="sg-token-row" role="listitem">
+            <code class="sg-token-name">{{ token.token }}</code>
+            <span class="sg-token-value">{{ token.label }}</span>
+            <span style="font-size: var(--text-sm); font-weight: 700; color: var(--pin-text-primary); font-family: monospace; margin-left: auto;">{{ token.value }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- ── Utilities ───────────────────────────────────────────── -->
+    <section id="utilities" class="sg-section">
+      <header class="sg-section-header">
+        <h2 class="sg-section-title">Utilities</h2>
+        <p class="sg-section-desc">
+          Global utility classes defined in <code>styles.scss</code> for common layout patterns.
+          All consume design tokens.
+        </p>
+      </header>
+
+      <!-- Flex -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Flex Direction</h3>
+        <div class="sg-util-grid">
+          <div class="sg-util-card">
+            <div class="sg-util-demo d-flex flex-row gap-xs">
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.6;"></div>
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.3;"></div>
+            </div>
+            <span class="sg-util-label">.flex-row</span>
+          </div>
+          <div class="sg-util-card">
+            <div class="sg-util-demo d-flex flex-col gap-xs align-center">
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.6;"></div>
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.3;"></div>
+            </div>
+            <span class="sg-util-label">.flex-col</span>
+          </div>
+          <div class="sg-util-card">
+            <div class="sg-util-demo d-flex align-center justify-center">
+              <div style="width:28px;height:28px;background:var(--pin-red);border-radius:4px;"></div>
+            </div>
+            <span class="sg-util-label">.align-center .justify-center</span>
+          </div>
+          <div class="sg-util-card">
+            <div class="sg-util-demo d-flex align-center justify-between" style="padding: 0 8px;">
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
+              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
+            </div>
+            <span class="sg-util-label">.justify-between</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shadow Utilities -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Shadow Utilities</h3>
+        <div class="sg-shadow-grid">
+          @for (token of shadowTokens; track token.token) {
+            <div class="sg-util-card">
+              <div
+                class="sg-util-demo"
+                style="border-radius: var(--radius-lg);"
+                [style.box-shadow]="token.value"
+              >
+                <span style="font-size: var(--text-2xs); color: var(--pin-text-secondary);">.shadow-{{ token.label.toLowerCase() }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Font Weight Utilities -->
+      <div class="sg-subsection">
+        <h3 class="sg-subsection-title">Font Weight Utilities</h3>
+        <div class="sg-token-table">
+          @for (fw of fontWeightTokens; track fw.token) {
+            <div class="sg-token-row">
+              <code class="sg-token-name">.fw-{{ fw.label.toLowerCase() }}</code>
+              <span [style.font-weight]="fw.value" style="font-size: var(--text-lg); color: var(--pin-text-primary);">The quick brown fox — {{ fw.value }}</span>
+            </div>
+          }
+        </div>
       </div>
     </section>
 
