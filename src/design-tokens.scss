@@ -1,0 +1,157 @@
+:root {
+  /* Brand Colors */
+  --pin-red: #E60023;
+  --pin-red-dark: #AD081B;
+  --pin-red-light: #FF4747;
+  --pin-red-hover: #CC001F;
+
+  /* Backgrounds */
+  --pin-bg: #ffffff;
+  --pin-bg-secondary: #F0F0F0;
+  --pin-bg-tertiary: #F8F8F8;
+  --pin-card-bg: #ffffff;
+
+  /* Text */
+  --pin-text-primary: #111111;
+  --pin-text-secondary: #767676;
+  --pin-text-muted: #ADADAD;
+  --pin-text-inverse: #ffffff;
+
+  /* Borders */
+  --pin-border: #E0E0E0;
+  --pin-border-focus: #E60023;
+
+  /* Layout */
+  --pin-sidebar-width: 72px;
+  --pin-sidebar-bg: #ffffff;
+  --pin-topbar-height: 64px;
+
+  /* Shadows */
+  --pin-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --pin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --pin-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+
+  /* Transition */
+  --pin-transition: 0.15s ease;
+
+  /* Font */
+  --font-family: 'Ubuntu', sans-serif;
+
+  /* Semantic Colors */
+  --pin-color-error: #e53e3e;
+  --pin-color-success: #00a000;
+  --pin-color-success-bg: rgba(0, 180, 0, 0.08);
+
+  /* State Backgrounds */
+  --pin-saved-bg: #333333;
+  --pin-red-bg-subtle: rgba(230, 0, 35, 0.04);
+  --pin-red-bg-drag: rgba(230, 0, 35, 0.05);
+
+  /* White Overlays */
+  --pin-overlay-white: rgba(255, 255, 255, 0.85);
+  --pin-overlay-white-weak: rgba(255, 255, 255, 0.7);
+
+  /* Dark Overlays */
+  --pin-overlay-dark-light: rgba(0, 0, 0, 0.3);
+  --pin-overlay-dark-medium: rgba(0, 0, 0, 0.5);
+  --pin-overlay-dark: rgba(0, 0, 0, 0.6);
+  --pin-overlay-dark-strong: rgba(0, 0, 0, 0.8);
+
+  /* Spinner Tracks */
+  --pin-spinner-track-on-color: rgba(255, 255, 255, 0.4);
+  --pin-spinner-track-on-white: rgba(0, 0, 0, 0.2);
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
+  --space-4xl: 48px;
+  --space-5xl: 64px;
+
+  /* Border Radius */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-circle: 50%;
+  --radius-pill: 9999px;
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Sizing */
+  --size-xs: 24px;
+  --size-sm: 32px;
+  --size-md: 48px;
+  --size-lg: 64px;
+  --size-xl: 96px;
+
+  /* Font Sizes */
+  --text-3xs: 0.65rem;
+  --text-2xs: 0.75rem;
+  --text-xs: 0.8rem;
+  --text-sm: 0.875rem;
+  --text-md: 0.9rem;
+  --text-base: 0.95rem;
+  --text-lg: 1rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.75rem;
+  --text-4xl: 2rem;
+  --text-5xl: 2.5rem;
+  --text-6xl: 3rem;
+  --text-7xl: 4rem;
+
+  /* Opacity */
+  --opacity-disabled: 0.5;
+  --opacity-muted: 0.6;
+
+  /* Z-Index */
+  --z-base: 10;
+  --z-topbar: 50;
+  --z-sidebar: 100;
+  --z-toast: 9999;
+
+  /* Backward-compat alias */
+  --pin-card-radius: var(--radius-lg);
+}
+
+html.dark {
+  --pin-bg: #1A1A1A;
+  --pin-bg-secondary: #2D2D2D;
+  --pin-bg-tertiary: #222222;
+  --pin-card-bg: #2D2D2D;
+
+  --pin-text-primary: #EFEFEF;
+  --pin-text-secondary: #ADADAD;
+  --pin-text-muted: #767676;
+  --pin-text-inverse: #111111;
+
+  --pin-border: #404040;
+  --pin-sidebar-bg: #1A1A1A;
+
+  --pin-shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.3);
+  --pin-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --pin-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  --pin-saved-bg: #555555;
+
+  --pin-overlay-white: rgba(0, 0, 0, 0.70);
+  --pin-overlay-white-weak: rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --pin-topbar-height: 56px;
+  }
+}

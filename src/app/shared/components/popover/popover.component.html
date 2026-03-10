@@ -1,0 +1,12 @@
+@if (isVisible()) {
+  <div class="app-popover-backdrop" (click)="hide()" role="presentation"></div>
+  <div
+    class="app-popover-panel"
+    [class]="styleClass()"
+    [style.top.px]="panelTop()"
+    [style.left.px]="panelLeft()"
+    role="dialog"
+  >
+    <ng-content></ng-content>
+  </div>
+}

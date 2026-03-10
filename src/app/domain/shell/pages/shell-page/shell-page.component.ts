@@ -8,11 +8,9 @@ import { NotificationService } from '../../../../shared/services/notification.se
 import { Language } from '../../../../shared/enums/language.enum';
 import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { BadgeModule } from 'primeng/badge';
-import { TooltipModule } from 'primeng/tooltip';
-import { PopoverModule } from 'primeng/popover';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { DrawerComponent } from '../../../../shared/components/drawer/drawer.component';
+import { PopoverComponent } from '../../../../shared/components/popover/popover.component';
+import { TooltipDirective } from '../../../../shared/directives/tooltip/tooltip.directive';
 
 interface NavItem {
   icon: string;
@@ -33,11 +31,9 @@ interface NavItem {
     FormsModule,
     SearchBarComponent,
     ButtonComponent,
-    BadgeModule,
-    TooltipModule,
-    PopoverModule,
-    ButtonModule,
-    DrawerModule,
+    DrawerComponent,
+    PopoverComponent,
+    TooltipDirective,
   ],
   templateUrl: './shell-page.component.html',
   styleUrl: './shell-page.component.scss',

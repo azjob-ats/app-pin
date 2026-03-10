@@ -1,14 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { TabsModule } from 'primeng/tabs';
 import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
-import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
 import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
 import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
 import { Board } from '../../../../shared/interfaces/board.interface';
 import { Pin } from '../../../../shared/interfaces/pin.interface';
@@ -19,15 +15,10 @@ import { UserService } from '../../../../shared/services/user.service';
 
 @Component({
   selector: 'app-profile-page',
-  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
-    RouterLink,
     TranslateModule,
-    TabsModule,
     MasonryGridComponent,
-    SkeletonLoaderComponent,
-    InfiniteScrollComponent,
     FollowButtonComponent,
     UserAvatarComponent,
     BoardCardComponent,

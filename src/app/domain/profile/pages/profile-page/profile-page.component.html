@@ -72,40 +72,64 @@
 
     <!-- Tabs -->
     <div class="profile-tabs-wrap">
-      <p-tabs [(value)]="activeTab">
-        <p-tablist>
-          <p-tab value="created">{{ 'profile.created' | translate }}</p-tab>
-          <p-tab value="saved">{{ 'profile.saved' | translate }}</p-tab>
-          <p-tab value="boards">{{ 'profile.boards' | translate }}</p-tab>
-        </p-tablist>
-        <p-tabpanels>
-          <p-tabpanel value="created">
-            @if (createdPins().length === 0) {
-              <app-empty-state icon="push_pin" [message]="'profile.noPins' | translate" />
-            } @else {
-              <app-masonry-grid [pins]="createdPins()" />
-            }
-          </p-tabpanel>
-          <p-tabpanel value="saved">
-            @if (savedPins().length === 0) {
-              <app-empty-state icon="bookmark" [message]="'profile.noPins' | translate" />
-            } @else {
-              <app-masonry-grid [pins]="savedPins()" />
-            }
-          </p-tabpanel>
-          <p-tabpanel value="boards">
-            @if (boards().length === 0) {
-              <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
-            } @else {
-              <div class="boards-grid">
-                @for (board of boards(); track board.id) {
-                  <app-board-card [board]="board" />
-                }
-              </div>
-            }
-          </p-tabpanel>
-        </p-tabpanels>
-      </p-tabs>
+      <div class="app-tabs">
+        <div class="app-tablist" role="tablist">
+          <button
+            class="app-tab"
+            [class.active]="activeTab() === 'created'"
+            (click)="activeTab.set('created')"
+            role="tab"
+            [attr.aria-selected]="activeTab() === 'created'"
+          >{{ 'profile.created' | translate }}</button>
+          <button
+            class="app-tab"
+            [class.active]="activeTab() === 'saved'"
+            (click)="activeTab.set('saved')"
+            role="tab"
+            [attr.aria-selected]="activeTab() === 'saved'"
+          >{{ 'profile.saved' | translate }}</button>
+          <button
+            class="app-tab"
+            [class.active]="activeTab() === 'boards'"
+            (click)="activeTab.set('boards')"
+            role="tab"
+            [attr.aria-selected]="activeTab() === 'boards'"
+          >{{ 'profile.boards' | translate }}</button>
+        </div>
+        <div class="app-tabpanels">
+          @if (activeTab() === 'created') {
+            <div class="app-tabpanel" role="tabpanel">
+              @if (createdPins().length === 0) {
+                <app-empty-state icon="push_pin" [message]="'profile.noPins' | translate" />
+              } @else {
+                <app-masonry-grid [pins]="createdPins()" />
+              }
+            </div>
+          }
+          @if (activeTab() === 'saved') {
+            <div class="app-tabpanel" role="tabpanel">
+              @if (savedPins().length === 0) {
+                <app-empty-state icon="bookmark" [message]="'profile.noPins' | translate" />
+              } @else {
+                <app-masonry-grid [pins]="savedPins()" />
+              }
+            </div>
+          }
+          @if (activeTab() === 'boards') {
+            <div class="app-tabpanel" role="tabpanel">
+              @if (boards().length === 0) {
+                <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
+              } @else {
+                <div class="boards-grid">
+                  @for (board of boards(); track board.id) {
+                    <app-board-card [board]="board" />
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
     </div>
   }
 </div>

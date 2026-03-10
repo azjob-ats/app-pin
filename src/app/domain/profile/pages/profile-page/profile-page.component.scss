@@ -145,15 +145,50 @@
 
 .profile-tabs-wrap {
   padding: 0;
+}
 
-  :host ::ng-deep .p-tabs {
-    .p-tablist {
-      justify-content: center;
-      border-bottom: 2px solid var(--pin-border);
-      padding: 0 var(--space-xl);
-    }
-    .p-tabpanel { padding: var(--space-lg) 0 0; }
+.app-tabs {
+  width: 100%;
+}
+
+.app-tablist {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 2px solid var(--pin-border);
+  padding: 0;
+}
+
+.app-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  background: transparent;
+  color: var(--pin-text-secondary);
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: color var(--pin-transition), border-color var(--pin-transition);
+
+  &:hover {
+    color: var(--pin-text-primary);
   }
+
+  &.active {
+    color: var(--pin-red);
+    border-bottom-color: var(--pin-red);
+  }
+}
+
+.app-tabpanels {
+  width: 100%;
+}
+
+.app-tabpanel {
+  padding: var(--space-lg) 0 0;
 }
 
 .empty-state {

@@ -4,12 +4,9 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Pin } from '../../interfaces/pin.interface';
 import { PinService } from '../../services/pin.service';
-import { TooltipModule } from 'primeng/tooltip';
-
 @Component({
   selector: 'app-pin-card',
-  standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule, TooltipModule],
+  imports: [CommonModule, RouterLink, TranslateModule],
   templateUrl: './pin-card.component.html',
   styleUrl: './pin-card.component.scss',
 })

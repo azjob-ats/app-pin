@@ -425,20 +425,20 @@
   border: none !important;
   box-shadow: var(--pin-shadow-lg) !important;
 
-  .p-drawer-header {
+  .app-drawer-header {
     padding: 0;
     border-bottom: 1px solid var(--pin-border);
     background: var(--pin-bg);
   }
 
-  .p-drawer-content {
+  .app-drawer-content {
     padding: 0;
     background: var(--pin-bg);
     display: flex;
     flex-direction: column;
   }
 
-  .p-drawer-footer {
+  .app-drawer-footer {
     padding: 0;
     border-top: 1px solid var(--pin-border);
     background: var(--pin-bg);
@@ -616,17 +616,9 @@
 // ── OverlayPanel overrides ─────────────────────────────────────────────────
 
 :host ::ng-deep .lang-panel {
-  .p-popover-content {
-    padding: var(--space-xs);
-    background: var(--pin-bg);
-    border: 1px solid var(--pin-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--pin-shadow-lg);
-  }
-
-  .p-popover-flipped::before,
-  &::before,
-  &::after {
-    display: none;
-  }
+  padding: var(--space-xs);
+  background: var(--pin-bg);
+  border: 1px solid var(--pin-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--pin-shadow-lg);
 }

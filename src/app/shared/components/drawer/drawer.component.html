@@ -1,0 +1,33 @@
+@if (visible()) {
+  <!-- Backdrop -->
+  <div
+    class="app-drawer-backdrop"
+    [class.active]="modal()"
+    (click)="onBackdropClick()"
+    role="presentation"
+  ></div>
+
+  <!-- Panel -->
+  <div
+    class="app-drawer-panel"
+    [class]="'app-drawer-panel--' + position() + (styleClass() ? ' ' + styleClass() : '')"
+    role="dialog"
+    aria-modal="true"
+  >
+    @if (headerTpl()) {
+      <div class="app-drawer-header">
+        <ng-container [ngTemplateOutlet]="headerTpl()!"></ng-container>
+      </div>
+    }
+
+    <div class="app-drawer-content">
+      <ng-content></ng-content>
+    </div>
+
+    @if (footerTpl()) {
+      <div class="app-drawer-footer">
+        <ng-container [ngTemplateOutlet]="footerTpl()!"></ng-container>
+      </div>
+    }
+  </div>
+}
