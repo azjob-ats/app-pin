@@ -6,13 +6,16 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { DividerComponent } from '../../../../shared/components/divider/divider.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent, CardFooterComponent } from '../../../../shared/components/card/card.component';
+import { ButtonProviderComponent } from '../../../../shared/components/button-provider/button-provider/button-provider.component';
+import { GoogleProviderComponent } from '../../../../shared/components/button-provider/google-provider/google-provider.component';
+import { LabelButtonComponent } from '../../../../shared/components/button-provider/label-button/label-button.component';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, DividerComponent, InputComponent],
-  templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.scss',
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, DividerComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent, CardFooterComponent, ButtonProviderComponent, GoogleProviderComponent, LabelButtonComponent],
+  templateUrl: './login-page.component.html'
 })
 export class LoginPageComponent {
   readonly email = signal('');

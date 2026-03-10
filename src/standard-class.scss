@@ -87,3 +87,90 @@ html.dark .app-tooltip {
   background: var(--pin-bg-muted);
   color: var(--pin-text-inverse);
 }
+
+// ── link ───────────────────────────────────────────────────────────────────
+
+.forgot-link {
+  font-size: var(--text-sm);
+  color: var(--pin-text-secondary);
+  text-decoration: none;
+  text-align: right;
+  transition: color var(--pin-transition);
+
+  &:hover { color: var(--pin-text-primary); text-decoration: underline; }
+}
+
+.text-link  {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--pin-text-secondary);
+}
+
+.text-link-active {
+  color: var(--pin-text-primary);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}
+
+.terms-link {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--pin-text-muted);
+  line-height: 1.5;
+}
+
+.terms-link-active {
+  color: var(--pin-text-secondary);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+
+  &:hover { text-decoration: underline; color: var(--pin-text-primary); }
+}
+
+
+.back-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: var(--pin-text-secondary);
+  text-decoration: none;
+  transition: color var(--pin-transition);
+
+  .material-symbols-rounded {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    color: var(--pin-text-primary);
+  }
+}
+
+// ── success ───────────────────────────────────────────────────────────────────
+
+.success-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--pin-color-success-bg);
+  color: var(--pin-color-success);
+  font-size: var(--text-sm);
+  font-weight: 600;
+
+  .material-symbols-rounded {
+    font-size: var(--text-xl);
+  }
+}
+
+
+  /* */
+// ── Text Align ───────────────────────────────────────────────────────────────────
+.text-center {text-align: center }
+.text-justify{	text-align: justify }
+.text-left{	text-align: left }
+.text-right{	text-align: right }

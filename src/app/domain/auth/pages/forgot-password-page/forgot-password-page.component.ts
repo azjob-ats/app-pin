@@ -5,48 +5,52 @@ import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '../../../../shared/components/card/card.component';
 
 @Component({
   selector: 'app-forgot-password-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent],
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent],
   template: `
-    <div class="auth-card">
-      <h2 class="auth-card-title">{{ 'auth.forgotPassword' | translate }}</h2>
-      <p class="auth-subtitle">We'll send a link to reset your password</p>
+    <app-card>
+      <app-card-header>
+        <app-card-title>{{ 'auth.forgotPassword' | translate }}</app-card-title>
+        <app-card-description>We'll send a link to reset your password</app-card-description>
+      </app-card-header>
 
-      <app-input
-        type="email"
-        [label]="'auth.email' | translate"
-        [placeholder]="'auth.email' | translate"
-        [ngModel]="email()"
-        (ngModelChange)="email.set($event)"
-        (enter)="onSubmit()"
-      />
+      <app-card-content>
+        <app-input
+          type="email"
+          [label]="'auth.email' | translate"
+          [placeholder]="'auth.email' | translate"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          (enter)="onSubmit()"
+        />
 
-      @if (sent()) {
-        <div class="success-msg">
-          <span class="material-symbols-rounded">mark_email_read</span>
-          {{ 'auth.emailSent' | translate }}
-        </div>
-      }
+        @if (sent()) {
+          <div class="success-msg">
+            <span class="material-symbols-rounded">mark_email_read</span>
+            {{ 'auth.emailSent' | translate }}
+          </div>
+        }
 
-      <app-button
-        variant="primary"
-        size="lg"
-        [fullWidth]="true"
-        [loading]="isLoading()"
-        [disabled]="!email() || sent()"
-        (clicked)="onSubmit()"
-      >Send reset link</app-button>
+        <app-button
+          variant="primary"
+          size="lg"
+          [fullWidth]="true"
+          [loading]="isLoading()"
+          [disabled]="!email() || sent()"
+          (clicked)="onSubmit()"
+        >Send reset link</app-button>
 
-      <a routerLink="/auth/login" class="back-link">
-        <span class="material-symbols-rounded">arrow_back</span>
-        {{ 'common.back' | translate }} to login
-      </a>
-    </div>
+        <a routerLink="/auth/login" class="back-link">
+          <span class="material-symbols-rounded">arrow_back</span>
+          {{ 'common.back' | translate }} to login
+        </a>
+      </app-card-content>
+    </app-card>
   `,
-  styleUrl: './forgot-password-page.component.scss',
 })
 export class ForgotPasswordPageComponent {
   readonly email = signal('');

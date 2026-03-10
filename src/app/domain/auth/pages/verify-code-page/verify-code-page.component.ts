@@ -1,100 +1,57 @@
-import { Component, signal, ViewChildren, QueryList, ElementRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, signal, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '../../../../shared/components/card/card.component';
+import { CodeDigitsComponent } from '../../../../shared/components/code-digits/code-digits.component';
 
 @Component({
   selector: 'app-verify-code-page',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent],
+  imports: [RouterLink, TranslateModule, ButtonComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent, CodeDigitsComponent],
   template: `
-    <div class="auth-card verify-card">
-      <div class="verify-icon">
-        <span class="material-symbols-rounded">pin</span>
-      </div>
-      <h2 class="auth-card-title">{{ 'auth.verifyCode' | translate }}</h2>
-      <p class="verify-text">Enter the 6-digit code sent to your email address.</p>
+    <app-card>
+      <app-card-header>
+        <div class="flex justify-center">
+          <span class="material-symbols-rounded text-7xl pin-red">pin</span>
+        </div>
+        <app-card-title>{{ 'auth.verifyCode' | translate }}</app-card-title>
+        <app-card-description>Enter the 6-digit code sent to your email address.</app-card-description>
+      </app-card-header>
 
-      <div class="code-inputs">
-        @for (i of [0,1,2,3,4,5]; track i) {
-          <input
-            #codeInput
-            class="code-input"
-            type="text"
-            maxlength="1"
-            [value]="codeDigits()[i]"
-            (input)="onDigitInput($event, i)"
-            (keydown.backspace)="onBackspace(i)"
-            (paste)="onPaste($event)"
-          />
-        }
-      </div>
+      <app-card-content>
+        <app-code-digits (valueChange)="onCodeChange($event)" />
 
-      <app-button
-        variant="primary"
-        size="lg"
-        [fullWidth]="true"
-        [loading]="isLoading()"
-        [disabled]="codeValue.length < 6"
-        (clicked)="onSubmit()"
-      >Verify</app-button>
+        <app-button
+          variant="primary"
+          size="lg"
+          [fullWidth]="true"
+          [loading]="isLoading()"
+          [disabled]="codeValue().length < 6"
+          (clicked)="onSubmit()"
+        >Verify</app-button>
 
-      <button class="text-btn">Resend code</button>
+        <a routerLink="" class="forgot-link text-center">Resend code</a>
 
-      <a routerLink="/auth/login" class="back-link">
-        <span class="material-symbols-rounded">arrow_back</span>
-        Back to login
-      </a>
-    </div>
-  `,
-  styleUrl: './verify-code-page.component.scss',
+        <a routerLink="/auth/login" class="back-link">
+          <span class="material-symbols-rounded">arrow_back</span>
+          Back to login
+        </a>
+      </app-card-content>
+    </app-card>
+  `
 })
 export class VerifyCodePageComponent {
-  @ViewChildren('codeInput') codeInputs!: QueryList<ElementRef>;
-
-  readonly codeDigits = signal<string[]>(['', '', '', '', '', '']);
+  readonly codeValue = signal('');
   readonly isLoading = signal(false);
 
-  constructor(private router: Router) {}
+  private readonly router = inject(Router);
 
-  get codeValue(): string {
-    return this.codeDigits().join('');
-  }
-
-  onDigitInput(event: Event, index: number): void {
-    const input = event.target as HTMLInputElement;
-    const val = input.value.replace(/\D/g, '').slice(-1);
-    const digits = [...this.codeDigits()];
-    digits[index] = val;
-    this.codeDigits.set(digits);
-    if (val && index < 5) {
-      const inputs = this.codeInputs.toArray();
-      inputs[index + 1]?.nativeElement.focus();
-    }
-  }
-
-  onBackspace(index: number): void {
-    const digits = [...this.codeDigits()];
-    if (!digits[index] && index > 0) {
-      const inputs = this.codeInputs.toArray();
-      inputs[index - 1]?.nativeElement.focus();
-    }
-    digits[index] = '';
-    this.codeDigits.set(digits);
-  }
-
-  onPaste(event: ClipboardEvent): void {
-    event.preventDefault();
-    const text = event.clipboardData?.getData('text') ?? '';
-    const digits = text.replace(/\D/g, '').slice(0, 6).split('');
-    const filled = [...Array(6)].map((_, i) => digits[i] ?? '');
-    this.codeDigits.set(filled);
+  onCodeChange(value: string): void {
+    this.codeValue.set(value);
   }
 
   onSubmit(): void {
-    if (this.codeValue.length < 6) return;
+    if (this.codeValue().length < 6) return;
     this.isLoading.set(true);
     setTimeout(() => { this.isLoading.set(false); this.router.navigate(['/home']); }, 1200);
   }

@@ -5,43 +5,47 @@ import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent } from '../../../../shared/components/card/card.component';
 
 @Component({
   selector: 'app-reset-password-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent],
+  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent],
   template: `
-    <div class="auth-card">
-      <h2 class="auth-card-title">{{ 'auth.resetPassword' | translate }}</h2>
+    <app-card>
+      <app-card-header>
+        <app-card-title>{{ 'auth.resetPassword' | translate }}</app-card-title>
+      </app-card-header>
 
-      <app-input
-        type="password"
-        [label]="'auth.password' | translate"
-        placeholder="New password"
-        [ngModel]="password()"
-        (ngModelChange)="password.set($event)"
-      />
+      <app-card-content>
+        <app-input
+          type="password"
+          [label]="'auth.password' | translate"
+          placeholder="New password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+        />
 
-      <app-input
-        type="password"
-        [label]="'auth.confirmPassword' | translate"
-        placeholder="Confirm new password"
-        [ngModel]="confirm()"
-        (ngModelChange)="confirm.set($event)"
-        [errorMessage]="confirmError()"
-      />
+        <app-input
+          type="password"
+          [label]="'auth.confirmPassword' | translate"
+          placeholder="Confirm new password"
+          [ngModel]="confirm()"
+          (ngModelChange)="confirm.set($event)"
+          [errorMessage]="confirmError()"
+        />
 
-      <app-button
-        variant="primary"
-        size="lg"
-        [fullWidth]="true"
-        [loading]="isLoading()"
-        [disabled]="!password() || passwordMismatch()"
-        (clicked)="onSubmit()"
-      >{{ 'auth.resetPassword' | translate }}</app-button>
-    </div>
+        <app-button
+          variant="primary"
+          size="lg"
+          [fullWidth]="true"
+          [loading]="isLoading()"
+          [disabled]="!password() || passwordMismatch()"
+          (clicked)="onSubmit()"
+        >{{ 'auth.resetPassword' | translate }}</app-button>
+      </app-card-content>
+    </app-card>
   `,
-  styleUrl: './reset-password-page.component.scss',
 })
 export class ResetPasswordPageComponent {
   readonly password = signal('');

@@ -1,0 +1,54 @@
+app-card {
+  background: var(--pin-bg);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--pin-border);
+  padding: var(--space-3xl) 28px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  @media (max-width: 480px) {
+    border: none;
+    border-radius: var(--radius-none);
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+app-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+app-card-title {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--pin-text-primary);
+  text-align: center;
+}
+
+app-card-description {
+  display: block;
+  font-size: var(--text-md);
+  color: var(--pin-text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+app-card-action {
+  display: block;
+}
+
+app-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+app-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  text-align: center;
+}

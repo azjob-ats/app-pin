@@ -104,3 +104,78 @@
 
 .opacity-disabled { opacity: var(--opacity-disabled); }
 .opacity-muted    { opacity: var(--opacity-muted); }
+
+// ── Utility: Font Sizes ─────────────────────────────────────────────────────────
+.text-3xs {
+  font-size: var(--text-3xs) !important;
+}
+
+.text-2xs {
+  font-size: var(--text-2xs) !important;
+}
+
+.text-xs {
+  font-size: var(--text-xs) !important;
+}
+
+.text-sm {
+  font-size: var(--text-sm) !important;
+}
+
+.text-md {
+  font-size: var(--text-md) !important;
+}
+
+.text-base {
+  font-size: var(--text-base) !important;
+}
+
+.text-lg {
+  font-size: var(--text-lg) !important;
+}
+
+.text-xl {
+  font-size: var(--text-xl) !important;
+}
+
+.text-2xl {
+  font-size: var(--text-2xl) !important;
+}
+
+.text-3xl {
+  font-size: var(--text-3xl) !important;
+}
+
+.text-4xl {
+  font-size: var(--text-4xl) !important;
+}
+
+.text-5xl {
+  font-size: var(--text-5xl) !important;
+}
+
+.text-6xl {
+  font-size: var(--text-6xl) !important;
+}
+
+.text-7xl {
+  font-size: var(--text-7xl) !important;
+}
+
+
+.pin-red {
+  color: var(--pin-red);
+}
+
+.pin-red-dark {
+  color: var(--pin-red-dark);
+}
+
+.pin-red-light {
+  color: var(--pin-red-light);
+}
+
+.pin-red-hover {
+  color: var(--pin-red-hover);
+}
+
