@@ -15,8 +15,7 @@ import { ButtonProviderComponent } from '../../../../shared/components/button-pr
   selector: 'app-register-page',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, DividerComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent, CardFooterComponent, ButtonProviderComponent, GoogleProviderComponent, LabelButtonComponent],
-  templateUrl: './register-page.component.html',
-  styleUrl: './register-page.component.scss',
+  templateUrl: './register-page.component.html'
 })
 export class RegisterPageComponent {
   readonly name = signal('');

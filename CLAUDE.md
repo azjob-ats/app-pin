@@ -63,11 +63,6 @@ Compartilhamento de utilitários globais, não ligados a UX ou domínio específ
 - Interfaces: PascalCase (e.g., Authentication)
 - Enums: PascalCase (e.g., UserStatus)
 - Arquivos/Pastas: kebab-case (e.g., auth.service.ts)
-- Sufixos obrigatórios:
-    - Componentes: Component
-    - Serviços: Service
-    - Diretivas: Directive
-    - Pipes: Pipe
 
 ### Angular Best Practices Adopted
 - Código sempre em inglês.
