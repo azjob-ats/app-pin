@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-auth-layout',
-  standalone: true,
+  selector: 'app-auth-layout-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet, RouterLink, TranslateModule],
   template: `
     <div class="auth-layout">
@@ -41,4 +41,4 @@ import { TranslateModule } from '@ngx-translate/core';
     }
   `],
 })
-export class AuthLayoutComponent {}
+export class AuthLayoutPageComponent {}

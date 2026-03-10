@@ -1,14 +1,13 @@
-import { Component, signal, HostListener, inject } from '@angular/core';
+import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from '../../services/theme.service';
-import { LanguageService } from '../../services/language.service';
-import { NotificationService } from '../../services/notification.service';
-import { Language } from '../../enums/language.enum';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { ButtonComponent } from '../button/button.component';
+import { ThemeService } from '../../../../shared/services/theme.service';
+import { LanguageService } from '../../../../shared/services/language.service';
+import { NotificationService } from '../../../../shared/services/notification.service';
+import { Language } from '../../../../shared/enums/language.enum';
+import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { PopoverModule } from 'primeng/popover';
@@ -23,10 +22,9 @@ interface NavItem {
 }
 
 @Component({
-  selector: 'app-layout',
-  standalone: true,
+  selector: 'app-shell-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
@@ -39,10 +37,13 @@ interface NavItem {
     PopoverModule,
     ButtonModule,
   ],
-  templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss',
+  templateUrl: './shell-page.component.html',
+  styleUrl: './shell-page.component.scss',
+  host: {
+    '(window:resize)': 'onResize()',
+  },
 })
-export class LayoutComponent {
+export class ShellPageComponent {
   readonly themeService = inject(ThemeService);
   readonly languageService = inject(LanguageService);
   readonly notifService = inject(NotificationService);
@@ -58,7 +59,6 @@ export class LayoutComponent {
     { icon: 'notifications', iconFilled: 'notifications', labelKey: 'nav.notifications', route: '/notifications' },
   ];
 
-  @HostListener('window:resize')
   onResize(): void {
     this.isMobile.set(window.innerWidth < 768);
   }

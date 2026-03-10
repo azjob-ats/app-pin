@@ -7,7 +7,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadComponent: () => import('./shared/components/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
+    loadComponent: () => import('./domain/auth/pages/auth-layout-page/auth-layout-page.component').then(m => m.AuthLayoutPageComponent),
     children: [
       {
         path: 'login',
@@ -37,7 +37,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('./shared/components/layout/layout.component').then(m => m.LayoutComponent),
+    loadComponent: () => import('./domain/shell/pages/shell-page/shell-page.component').then(m => m.ShellPageComponent),
     children: [
       {
         path: '',
