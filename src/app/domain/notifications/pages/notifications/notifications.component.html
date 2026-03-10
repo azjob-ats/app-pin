@@ -1,20 +1,19 @@
 <div class="notifications-page">
   <div class="notif-container">
-
     <!-- Header -->
-    <div class="notif-header">
-      <h1 class="notif-title">{{ 'notifications.title' | translate }}</h1>
+    <div class="d-flex align-center justify-between mb-lg mb-2xl">
+      <h1 class="title-primary">{{ 'notifications.title' | translate }}</h1>
       @if (unreadCount > 0) {
-        <button class="mark-all-btn" (click)="markAllRead()">
+        <a class="forgot-link" (click)="markAllRead()">
           {{ 'notifications.markAllRead' | translate }}
-        </button>
+        </a>
       }
     </div>
 
     @if (isLoading()) {
-      <div class="notif-skeleton-list">
+      <div class="d-flex flex-col gap-md">
         @for (i of [1,2,3,4,5,6]; track i) {
-          <div class="notif-skeleton-item">
+          <div class="d-flex align-center gap-md">
             <div class="skeleton circle"></div>
             <div class="skeleton-lines">
               <div class="skeleton line1"></div>
@@ -27,18 +26,20 @@
 
       <!-- Today -->
       @if (todayNotifs.length > 0) {
-        <div class="notif-section" role="list">
-          <h2 class="notif-section-title">{{ 'notifications.today' | translate }}</h2>
+        <div class="mb-2xl" role="list">
+          <h2 class="title-muted-uppercase">{{ 'notifications.today' | translate }}</h2>
           @for (notif of todayNotifs; track notif.id) {
-            <app-notification-item [notification]="notif" (read)="markRead($event)" />
+            <div class="mb-xs">
+              <app-notification-item [notification]="notif" (read)="markRead($event)" />
+            </div>
           }
         </div>
       }
 
       <!-- Earlier -->
       @if (earlierNotifs.length > 0) {
-        <div class="notif-section" role="list">
-          <h2 class="notif-section-title">{{ 'notifications.earlier' | translate }}</h2>
+        <div class="mb-2xl" role="list">
+          <h2 class="title-muted-uppercase">{{ 'notifications.earlier' | translate }}</h2>
           @for (notif of earlierNotifs; track notif.id) {
             <app-notification-item [notification]="notif" (read)="markRead($event)" />
           }

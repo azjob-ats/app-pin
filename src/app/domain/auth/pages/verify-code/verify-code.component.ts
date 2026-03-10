@@ -11,7 +11,7 @@ import { CodeDigitsComponent } from '../../../../shared/components/code-digits/c
   template: `
     <app-card>
       <app-card-header>
-        <div class="flex justify-center">
+        <div class="d-flex justify-center">
           <span class="material-symbols-rounded text-7xl pin-red">pin</span>
         </div>
         <app-card-title>{{ 'auth.verifyCode' | translate }}</app-card-title>

@@ -12,7 +12,7 @@ import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescription
   template: `
     <app-card>
       <app-card-header>
-        <div class="flex justify-center">
+        <div class="d-flex justify-center">
           <span class="material-symbols-rounded text-7xl pin-red">mark_email_unread</span>
         </div>
         <app-card-title>{{ 'auth.verifyEmail' | translate }}</app-card-title>
