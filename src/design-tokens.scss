@@ -1,4 +1,9 @@
 :root {
+
+  /* cor standard */
+  --black: black;
+  --white: white;
+
   /* Brand Colors */
   --pin-red: #E60023;
   --pin-red-dark: #AD081B;
@@ -10,12 +15,14 @@
   --pin-bg-secondary: #F0F0F0;
   --pin-bg-tertiary: #F8F8F8;
   --pin-card-bg: #ffffff;
+  --pin-bg-muted: black;
 
   /* Text */
   --pin-text-primary: #111111;
   --pin-text-secondary: #767676;
   --pin-text-muted: #ADADAD;
   --pin-text-inverse: #ffffff;
+  
 
   /* Borders */
   --pin-border: #E0E0E0;
@@ -131,6 +138,7 @@ html.dark {
   --pin-bg-secondary: #2D2D2D;
   --pin-bg-tertiary: #222222;
   --pin-card-bg: #2D2D2D;
+  --pin-bg-muted: #E0E0E0;
 
   --pin-text-primary: #EFEFEF;
   --pin-text-secondary: #ADADAD;

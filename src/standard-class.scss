@@ -64,3 +64,26 @@
   animation: shimmer 1.4s ease infinite;
   border-radius: var(--radius-lg);
 }
+
+// ── Tooltip ───────────────────────────────────────────────────────────────────
+
+.app-tooltip {
+  padding: 0.4rem 0.75rem;
+  background: var(--pin-bg-muted);
+  color: var(--pin-text-inverse);
+  border-radius: 9999px;
+  font-family: var(--font-family);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html.dark .app-tooltip {
+  background: var(--pin-bg-muted);
+  color: var(--pin-text-inverse);
+}
