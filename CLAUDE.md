@@ -22,12 +22,13 @@ ng test
 Este projeto Angular adota uma arquitetura baseada em:
 
 - **core** </br>
- Recursos centrais da aplicação
+    Recursos centrais da aplicação
  
 - **domain** </br>
-Funcionalidades de negócio organizadas por domínio
+    Funcionalidades de negócio organizadas por domínio
+
 - **shared** </br>
-Utilitários reutilizáveis e componentes visuais compartilháveis
+    Utilitários reutilizáveis e componentes visuais compartilháveis
 
 ### Exemplificação
 
@@ -37,7 +38,6 @@ Infraestrutura e módulos de nível de aplicação:
 
 - **Domain** </br>
 Contém os módulos de negócio, organizados por funcionalidade. Cada módulo inclui:
-    - **Components**: Componentes específicos daquele domínio.
     - **Services**: Regras de negócio e orquestração (ex.: validação de imposto).
     - **Pages**: Containers de telas conectadas às rotas.
  
@@ -51,7 +51,6 @@ Compartilhamento de utilitários globais, não ligados a UX ou domínio específ
     - **Enums**: Enumerações para valores fixos.
     - **Guards**: Proteções de rota.
     - **Interceptors**: Interceptadores HTTP para manipulação de requisições e respostas.
-
     - **Services**: Serviços globais (ex.: gerenciamento de estado, loading spinner).
     - **Utils**: Funções auxiliares (ex.: formatar datas, validar e-mails).
     - **Components**: Componentes “presentacionais” (ex.: botões, cards, modais).
@@ -106,7 +105,6 @@ src/
     │       └── crypto/
     ├── domain/
     │   ├── change-language/
-    │   │   ├── components/
     │   │   ├── pages/
     │   │   ├── services/
     │   │   └── index.routes.ts

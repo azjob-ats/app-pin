@@ -3,41 +3,41 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'styleguide',
-    loadComponent: () => import('./domain/styleguide/pages/styleguide-page/styleguide-page.component').then(m => m.StyleguidePageComponent),
+    loadComponent: () => import('./domain/styleguide/pages/styleguide/styleguide.component').then(m => m.StyleguideComponent),
   },
   {
     path: 'auth',
-    loadComponent: () => import('./domain/auth/pages/auth-layout-page/auth-layout-page.component').then(m => m.AuthLayoutPageComponent),
+    loadComponent: () => import('./domain/auth/pages/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./domain/auth/pages/login-page/login-page.component').then(m => m.LoginPageComponent),
+        loadComponent: () => import('./domain/auth/pages/login/login.component').then(m => m.LoginComponent),
       },
       {
         path: 'register',
-        loadComponent: () => import('./domain/auth/pages/register-page/register-page.component').then(m => m.RegisterPageComponent),
+        loadComponent: () => import('./domain/auth/pages/register/register.component').then(m => m.RegisterComponent),
       },
       {
         path: 'forgot-password',
-        loadComponent: () => import('./domain/auth/pages/forgot-password-page/forgot-password-page.component').then(m => m.ForgotPasswordPageComponent),
+        loadComponent: () => import('./domain/auth/pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
       },
       {
         path: 'reset-password',
-        loadComponent: () => import('./domain/auth/pages/reset-password-page/reset-password-page.component').then(m => m.ResetPasswordPageComponent),
+        loadComponent: () => import('./domain/auth/pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
       },
       {
         path: 'verify-email',
-        loadComponent: () => import('./domain/auth/pages/verify-email-page/verify-email-page.component').then(m => m.VerifyEmailPageComponent),
+        loadComponent: () => import('./domain/auth/pages/verify-email/verify-email.component').then(m => m.VerifyEmailComponent),
       },
       {
         path: 'verify-code',
-        loadComponent: () => import('./domain/auth/pages/verify-code-page/verify-code-page.component').then(m => m.VerifyCodePageComponent),
+        loadComponent: () => import('./domain/auth/pages/verify-code/verify-code.component').then(m => m.VerifyCodeComponent),
       },
     ],
   },
   {
     path: '',
-    loadComponent: () => import('./domain/shell/pages/shell-page/shell-page.component').then(m => m.ShellPageComponent),
+    loadComponent: () => import('./domain/shell/pages/shell/shell.component').then(m => m.ShellComponent),
     children: [
       {
         path: '',
@@ -46,39 +46,39 @@ export const routes: Routes = [
       },
       {
         path: 'home',
-        loadComponent: () => import('./domain/home/pages/home-page/home-page.component').then(m => m.HomePageComponent),
+        loadComponent: () => import('./domain/home/pages/home/home.component').then(m => m.HomeComponent),
       },
       {
         path: 'explore',
-        loadComponent: () => import('./domain/explore/pages/explore-page/explore-page.component').then(m => m.ExplorePageComponent),
+        loadComponent: () => import('./domain/explore/pages/explore/explore.component').then(m => m.ExploreComponent),
       },
       {
         path: 'explore/:category',
-        loadComponent: () => import('./domain/explore/pages/explore-page/explore-page.component').then(m => m.ExplorePageComponent),
+        loadComponent: () => import('./domain/explore/pages/explore/explore.component').then(m => m.ExploreComponent),
       },
       {
         path: 'search',
-        loadComponent: () => import('./domain/search/pages/search-page/search-page.component').then(m => m.SearchPageComponent),
+        loadComponent: () => import('./domain/search/pages/search/search.component').then(m => m.SearchComponent),
       },
       {
         path: 'create',
-        loadComponent: () => import('./domain/create/pages/create-page/create-page.component').then(m => m.CreatePageComponent),
+        loadComponent: () => import('./domain/create/pages/create/create.component').then(m => m.CreateComponent),
       },
       {
         path: 'notifications',
-        loadComponent: () => import('./domain/notifications/pages/notifications-page/notifications-page.component').then(m => m.NotificationsPageComponent),
+        loadComponent: () => import('./domain/notifications/pages/notifications/notifications.component').then(m => m.NotificationsComponent),
       },
       {
         path: 'pin/:id',
-        loadComponent: () => import('./domain/pin/pages/pin-page/pin-page.component').then(m => m.PinPageComponent),
+        loadComponent: () => import('./domain/pin/pages/pin/pin.component').then(m => m.PinComponent),
       },
       {
         path: ':username',
-        loadComponent: () => import('./domain/profile/pages/profile-page/profile-page.component').then(m => m.ProfilePageComponent),
+        loadComponent: () => import('./domain/profile/pages/profile/profile.component').then(m => m.ProfileComponent),
       },
       {
         path: ':username/boards/:boardId',
-        loadComponent: () => import('./domain/board/pages/board-page/board-page.component').then(m => m.BoardPageComponent),
+        loadComponent: () => import('./domain/board/pages/board/board.component').then(m => m.BoardComponent),
       },
     ],
   },
