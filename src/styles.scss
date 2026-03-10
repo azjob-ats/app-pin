@@ -235,6 +235,14 @@ button {
 
 // ── PrimeNG overrides ────────────────────────────────────────────────────────
 
+.lang-panel .p-popover-content {
+  padding: 4px;
+  background: var(--pin-bg);
+  border: 1px solid var(--pin-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--pin-shadow-lg);
+}
+
 .p-button {
   font-family: var(--font-family) !important;
   font-weight: var(--font-weight-bold) !important;
