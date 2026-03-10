@@ -12,6 +12,7 @@ import { BadgeModule } from 'primeng/badge';
 import { TooltipModule } from 'primeng/tooltip';
 import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'primeng/drawer';
 
 interface NavItem {
   icon: string;
@@ -36,6 +37,7 @@ interface NavItem {
     TooltipModule,
     PopoverModule,
     ButtonModule,
+    DrawerModule,
   ],
   templateUrl: './shell-page.component.html',
   styleUrl: './shell-page.component.scss',

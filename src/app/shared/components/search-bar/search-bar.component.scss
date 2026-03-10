@@ -8,6 +8,8 @@
   height: var(--size-md);
   border: 2px solid transparent;
   transition: all var(--pin-transition);
+  min-width: 0;
+  width: 100%;
 
   &.focused {
     border-color: var(--pin-text-primary);
@@ -28,6 +30,7 @@
 
 .search-input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
