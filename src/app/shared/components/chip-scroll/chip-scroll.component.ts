@@ -69,11 +69,7 @@ export class ChipScrollComponent {
       };
 
       const onMouseUp = () => {
-        isDown = false;
-        track.style.cursor = 'grab';
-      };
-
-      const onMouseLeave = () => {
+        if (!isDown) return;
         isDown = false;
         track.style.cursor = 'grab';
       };
@@ -95,16 +91,14 @@ export class ChipScrollComponent {
       };
 
       track.addEventListener('mousedown', onMouseDown);
-      track.addEventListener('mouseup', onMouseUp);
-      track.addEventListener('mouseleave', onMouseLeave);
-      track.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
       track.addEventListener('click', onClickCapture, true);
 
       onCleanup(() => {
         track.removeEventListener('mousedown', onMouseDown);
-        track.removeEventListener('mouseup', onMouseUp);
-        track.removeEventListener('mouseleave', onMouseLeave);
-        track.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
         track.removeEventListener('click', onClickCapture, true);
       });
     });
