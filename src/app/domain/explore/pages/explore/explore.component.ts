@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -7,6 +7,7 @@ import { Pin } from '../../../../shared/interfaces/pin.interface';
 import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
 import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
+import { ChipScrollComponent } from '../../../../shared/components/chip-scroll/chip-scroll.component';
 
 interface Category {
   key: string;
@@ -17,7 +18,7 @@ interface Category {
 @Component({
   selector: 'app-explore',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent],
+  imports: [CommonModule, RouterLink, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, ChipScrollComponent],
   templateUrl: './explore.component.html',
   styleUrl: './explore.component.scss',
 })
@@ -31,6 +32,10 @@ export class ExploreComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private pinService = inject(PinService);
+
+  readonly chipItems = computed(() =>
+    this.categories.map(cat => ({ key: cat.key, icon: cat.icon, labelKey: 'categories.' + cat.key }))
+  );
 
   readonly categories: Category[] = [
     { key: 'all', icon: 'apps', imageUrl: 'https://picsum.photos/seed/cat-all/300/200' },

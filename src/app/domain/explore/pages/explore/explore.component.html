@@ -1,20 +1,11 @@
 <div class="explore-page">
 
   <!-- Categories scroll bar -->
-  <div class="categories-bar">
-    <div class="categories-scroll">
-      @for (cat of categories; track cat.key) {
-        <button
-          class="category-chip"
-          [class.active]="selectedCategory() === cat.key"
-          (click)="selectCategory(cat.key)"
-        >
-          <span class="material-symbols-rounded">{{ cat.icon }}</span>
-          <span>{{ ('categories.' + cat.key) | translate }}</span>
-        </button>
-      }
-    </div>
-  </div>
+  <app-chip-scroll
+    [chips]="chipItems()"
+    [selected]="selectedCategory()"
+    (chipSelect)="selectCategory($event)"
+  />
 
   <!-- Hero categories grid -->
   @if (selectedCategory() === 'all') {

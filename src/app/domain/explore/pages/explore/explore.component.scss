@@ -2,57 +2,6 @@
   min-height: 100%;
 }
 
-// ── Categories bar ────────────────────────────────────────────────────────
-
-.categories-bar {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--pin-border);
-  position: sticky;
-  top: 0;
-  background: var(--pin-bg);
-  z-index: 10;
-}
-
-.categories-scroll {
-  display: flex;
-  gap: 8px;
-  padding: 0 16px;
-  overflow-x: auto;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar { display: none; }
-}
-
-.category-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 24px;
-  border: none;
-  background: var(--pin-bg-secondary);
-  color: var(--pin-text-primary);
-  font-family: var(--font-family);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all var(--pin-transition);
-  flex-shrink: 0;
-
-  .material-symbols-rounded { font-size: 1.1rem; }
-
-  &:hover {
-    background: var(--pin-border);
-  }
-
-  &.active {
-    background: var(--pin-text-primary);
-    color: var(--pin-bg);
-  }
-}
-
 // ── Categories hero ───────────────────────────────────────────────────────
 
 .categories-hero {
