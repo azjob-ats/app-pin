@@ -1,97 +1,4 @@
-.create-page {
-  min-height: 100%;
-  padding: 24px 16px;
-}
-
-.create-container {
-  max-width: 900px;
-  margin: 0 auto;
-  background: var(--pin-bg);
-  border-radius: 24px;
-  border: 1px solid var(--pin-border);
-  overflow: hidden;
-}
-
-.create-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--pin-border);
-
-  @media (max-width: 600px) {
-    padding: 16px;
-    gap: 12px;
-  }
-}
-
-.create-title {
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--pin-text-primary);
-}
-
-.create-header-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.create-btn {
-  height: 44px;
-  padding: 0 20px;
-  border-radius: 24px;
-  border: none;
-  font-family: var(--font-family);
-  font-weight: 700;
-  font-size: var(--text-md);
-  cursor: pointer;
-  transition: all var(--pin-transition);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  &--outline {
-    background: var(--pin-bg-secondary);
-    color: var(--pin-text-primary);
-
-    &:hover { background: var(--pin-border); }
-  }
-
-  &--primary {
-    background: var(--pin-red);
-    color: var(--pin-text-inverse);
-
-    &:hover:not(:disabled) { background: var(--pin-red-hover); }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.spinner-sm {
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--pin-spinner-track-on-color);
-  border-top-color: var(--pin-text-inverse);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.create-body {
-  display: flex;
-  gap: 0;
-
-  @media (max-width: 767px) {
-    flex-direction: column;
-  }
-}
-
 // ── Upload side ───────────────────────────────────────────────────────────
-
 .create-upload-side {
   width: 340px;
   min-height: 480px;
@@ -109,7 +16,6 @@
 }
 
 // ── Form side ─────────────────────────────────────────────────────────────
-
 .create-form-side {
   flex: 1;
   padding: 24px;
@@ -130,7 +36,6 @@
   color: var(--pin-text-primary);
 }
 
-.form-input,
 .form-textarea,
 .form-select {
   width: 100%;
@@ -161,9 +66,4 @@
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 40px;
-}
-
-.form-hint {
-  font-size: var(--text-xs);
-  color: var(--pin-text-muted);
 }

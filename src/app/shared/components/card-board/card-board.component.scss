@@ -1,0 +1,50 @@
+app-card-board {
+  display: block;
+  min-height: 100%;
+  padding: 24px 16px;
+}
+
+app-card-container {
+  display: block;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--pin-bg);
+  border-radius: 24px;
+  border: 1px solid var(--pin-border);
+  overflow: hidden;
+}
+
+app-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--pin-border);
+
+  @media (max-width: 600px) {
+    padding: 16px;
+    gap: 12px;
+  }
+}
+
+app-card-section-left {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--pin-text-primary);
+}
+
+app-card-section-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+app-card-body {
+  display: flex;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+}

@@ -1,9 +1,10 @@
-<div class="create-page">
-  <div class="create-container">
-
-    <div class="create-header">
-      <h1 class="create-title">{{ 'create.title' | translate }}</h1>
-      <div class="create-header-actions">
+<app-card-board>
+  <app-card-container>
+    <app-card-header>
+      <app-card-section-left>
+        {{ 'create.title' | translate }}
+      </app-card-section-left>
+      <app-card-section-right>
         <app-button variant="secondary" size="md">
           {{ 'create.draft' | translate }}
         </app-button>
@@ -14,11 +15,9 @@
           [disabled]="!previewUrl()"
           (clicked)="publish()"
         >{{ 'create.publish' | translate }}</app-button>
-      </div>
-    </div>
-
-    <div class="create-body">
-
+      </app-card-section-right>
+    </app-card-header>
+    <app-card-body>
       <!-- ── Upload area ─────────────────────────────────────── -->
       <div class="create-upload-side">
         <app-upload-area
@@ -27,10 +26,8 @@
           (fileRemoved)="onFileRemoved()"
         />
       </div>
-
       <!-- ── Form ────────────────────────────────────────────── -->
       <div class="create-form-side">
-
         <app-input
           type="text"
           [label]="'create.pinTitle' | translate"
@@ -38,7 +35,6 @@
           [ngModel]="title()"
           (ngModelChange)="title.set($event)"
         />
-
         <div class="form-field">
           <label class="form-label">{{ 'create.description' | translate }}</label>
           <textarea
@@ -50,7 +46,6 @@
             maxlength="500"
           ></textarea>
         </div>
-
         <app-input
           type="url"
           [label]="'create.link' | translate"
@@ -58,7 +53,6 @@
           [ngModel]="link()"
           (ngModelChange)="link.set($event)"
         />
-
         <app-input
           type="text"
           [label]="'create.altText' | translate"
@@ -67,7 +61,6 @@
           [ngModel]="altText()"
           (ngModelChange)="altText.set($event)"
         />
-
         <div class="form-field">
           <label class="form-label">{{ 'create.selectBoard' | translate }}</label>
           <select class="form-select" [ngModel]="selectedBoardId()" (ngModelChange)="selectedBoardId.set($event)">
@@ -76,8 +69,7 @@
             }
           </select>
         </div>
-
       </div>
-    </div>
-  </div>
-</div>
+    </app-card-body>
+  </app-card-container>
+</app-card-board>

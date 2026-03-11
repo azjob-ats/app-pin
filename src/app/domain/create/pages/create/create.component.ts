@@ -8,11 +8,24 @@ import { Board } from '../../../../shared/interfaces/board.interface';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
 import { UploadAreaComponent } from '../../../../shared/components/upload-area/upload-area.component';
+import {
+  CardBoardComponent,
+  CardBodyComponent,
+  CardContainerComponent,
+  CardHeaderComponent,
+  CardSectionLeftComponent,
+  CardSectionRightComponent,
+} from '../../../../shared/components/card-board/card-board.component';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, InputComponent, UploadAreaComponent],
+  imports: [
+    CommonModule, FormsModule, TranslateModule,
+    ButtonComponent, InputComponent, UploadAreaComponent,
+    CardBoardComponent, CardContainerComponent, CardHeaderComponent,
+    CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent,
+  ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
 })
