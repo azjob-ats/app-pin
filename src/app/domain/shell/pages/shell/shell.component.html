@@ -42,6 +42,7 @@
           appTooltip="Mais"
           tooltipPosition="right"
           [tooltipDelay]="300"
+          (click)="isMobileMenuOpen.set(!isMobileMenuOpen())"
         >
           <span class="nav-icon-wrap">
             <span class="material-symbols-rounded">more_horiz</span>
@@ -139,8 +140,8 @@
     <ng-template #header>
       <div class="drawer-header">
         <a routerLink="/home" class="drawer-logo" (click)="isMobileMenuOpen.set(false)">
-          <img ngSrc="assets/images/logo-az-circlar.png" width="28" height="28" alt="AZJob" />
-          <span class="drawer-logo-text">AZJob</span>
+          <span class="material-symbols-rounded">arrow_left_alt</span>
+          <span class="drawer-logo-text">Mais</span>
         </a>
         <button class="drawer-close-btn" (click)="isMobileMenuOpen.set(false)" [attr.aria-label]="'common.close' | translate">
           <span class="material-symbols-rounded">close</span>
@@ -152,37 +153,38 @@
 
       <!-- Tema -->
       <div class="drawer-section">
-        <span class="drawer-section-label">{{ 'common.theme' | translate }}</span>
-        <button class="drawer-action-row" (click)="toggleTheme()">
-          <span class="drawer-action-icon">
-            <span class="material-symbols-rounded">{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</span>
-          </span>
-          <span class="drawer-action-text">
-            {{ (themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate }}
-          </span>
-        </button>
-      </div>
-
-      <!-- Idioma -->
-      <div class="drawer-section">
-        <span class="drawer-section-label">{{ 'common.language' | translate }}</span>
-        <div class="drawer-lang-list">
-          @for (lang of languageService.languages; track lang.code) {
-            <button
-              class="drawer-lang-item"
-              [class.active]="languageService.currentLang() === lang.code"
-              (click)="setLanguage(lang.code)"
-            >
-              <span class="drawer-lang-flag">{{ lang.flag }}</span>
-              <span class="drawer-lang-label">{{ lang.label }}</span>
-              @if (languageService.currentLang() === lang.code) {
-                <span class="material-symbols-rounded drawer-check">check_circle</span>
-              }
-            </button>
-          }
+        <div class="display: flex !important;">
+          <div class="">
+            <p class="drawer-action-text" style="font-weight: bold !important;">
+              Configurações e Preferencias
+            </p>
+            <p style="font-size: 14px;">
+              Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as informações da sua conta.
+            </p>
+          </div>
+          <div class="flex: 0 0 auto; width: 8.3333%;">
+            <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+              <span class="material-symbols-rounded">arrow_forward_ios</span>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="display: flex !important;">
+          <div class="">
+            <p class="drawer-action-text" style="font-weight: bold !important;">
+              Feedback, Ajuda e Sobre
+            </p>
+            <p style="font-size: 14px;">
+              Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a empresa
+            </p>
+          </div>
+          <div class="flex: 0 0 auto; width: 8.3333%;">
+            <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+              <span class="material-symbols-rounded">arrow_forward_ios</span>
+            </div>
+          </div>
         </div>
       </div>
-
     </div>
 
     <ng-template #footer>

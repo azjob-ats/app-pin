@@ -420,7 +420,7 @@
 // ── Mobile Drawer ─────────────────────────────────────────────────────────
 
 :host ::ng-deep .mobile-drawer {
-  width: 280px !important;
+  width: 40% !important;
   background: var(--pin-bg) !important;
   border: none !important;
   box-shadow: var(--pin-shadow-lg) !important;
@@ -442,6 +442,10 @@
     padding: 0;
     border-top: 1px solid var(--pin-border);
     background: var(--pin-bg);
+  }
+
+  @media (max-width: 767px) {
+    width: 100% !important;
   }
 }
 
