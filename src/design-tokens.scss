@@ -68,6 +68,13 @@
   --pin-spinner-track-on-color: rgba(255, 255, 255, 0.4);
   --pin-spinner-track-on-white: rgba(0, 0, 0, 0.2);
 
+  /* Sizing */
+  --size-xs: 24px;
+  --size-sm: 32px;
+  --size-md: 48px;
+  --size-lg: 64px;
+  --size-xl: 96px;
+
   /* Spacing */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -95,13 +102,6 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-
-  /* Sizing */
-  --size-xs: 24px;
-  --size-sm: 32px;
-  --size-md: 48px;
-  --size-lg: 64px;
-  --size-xl: 96px;
 
   /* Font Sizes */
   --text-3xs: 0.65rem;

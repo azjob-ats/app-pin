@@ -1,5 +1,6 @@
 import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../../../shared/services/theme.service';
@@ -27,6 +28,7 @@ interface NavItem {
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
+    NgOptimizedImage,
     TranslateModule,
     FormsModule,
     SearchBarComponent,
