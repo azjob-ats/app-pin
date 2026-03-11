@@ -1,0 +1,31 @@
+@if (!previewUrl()) {
+  <div
+    class="upload-zone"
+    [class.dragging]="isDragging()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    (drop)="onDrop($event)"
+    role="region"
+    aria-label="Upload area"
+  >
+    <span class="material-symbols-rounded upload-icon" aria-hidden="true">cloud_upload</span>
+    <p class="upload-title">{{ 'create.dragDrop' | translate }}</p>
+    <p class="upload-sub">PNG, JPG, GIF, WEBP</p>
+    <label class="upload-btn">
+      {{ 'create.uploadImage' | translate }}
+      <input
+        type="file"
+        accept="image/*"
+        class="upload-input"
+        (change)="onFileSelect($event)"
+      />
+    </label>
+  </div>
+} @else {
+  <div class="preview-wrapper">
+    <img [src]="previewUrl()!" alt="Preview" class="preview-img" />
+    <button class="preview-remove" type="button" (click)="removeImage()" aria-label="Remove image">
+      <span class="material-symbols-rounded" aria-hidden="true">close</span>
+    </button>
+  </div>
+}

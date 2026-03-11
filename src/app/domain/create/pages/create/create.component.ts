@@ -7,17 +7,17 @@ import { BoardService } from '../../../../shared/services/board.service';
 import { Board } from '../../../../shared/interfaces/board.interface';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
+import { UploadAreaComponent } from '../../../../shared/components/upload-area/upload-area.component';
 
 @Component({
   selector: 'app-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, InputComponent],
+  imports: [CommonModule, FormsModule, TranslateModule, ButtonComponent, InputComponent, UploadAreaComponent],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
 })
 export class CreateComponent {
   readonly boards = signal<Board[]>([]);
-  readonly isDragging = signal(false);
   readonly previewUrl = signal<string | null>(null);
   readonly selectedFile = signal<File | null>(null);
   readonly title = signal('');
@@ -37,38 +37,14 @@ export class CreateComponent {
     });
   }
 
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging.set(true);
-  }
-
-  onDragLeave(): void {
-    this.isDragging.set(false);
-  }
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    this.isDragging.set(false);
-    const file = event.dataTransfer?.files[0];
-    if (file && file.type.startsWith('image/')) {
-      this.handleFile(file);
-    }
-  }
-
-  onFileSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    if (file) this.handleFile(file);
-  }
-
-  private handleFile(file: File): void {
+  onFileSelected(file: File): void {
     this.selectedFile.set(file);
     const reader = new FileReader();
     reader.onload = (e) => this.previewUrl.set(e.target?.result as string);
     reader.readAsDataURL(file);
   }
 
-  removeImage(): void {
+  onFileRemoved(): void {
     this.previewUrl.set(null);
     this.selectedFile.set(null);
   }

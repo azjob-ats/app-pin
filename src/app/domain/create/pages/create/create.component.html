@@ -21,35 +21,11 @@
 
       <!-- ── Upload area ─────────────────────────────────────── -->
       <div class="create-upload-side">
-        @if (!previewUrl()) {
-          <div
-            class="upload-zone"
-            [class.dragging]="isDragging()"
-            (dragover)="onDragOver($event)"
-            (dragleave)="onDragLeave()"
-            (drop)="onDrop($event)"
-          >
-            <span class="material-symbols-rounded upload-icon">cloud_upload</span>
-            <p class="upload-title">{{ 'create.dragDrop' | translate }}</p>
-            <p class="upload-sub">PNG, JPG, GIF, WEBP</p>
-            <label class="upload-btn">
-              {{ 'create.uploadImage' | translate }}
-              <input
-                type="file"
-                accept="image/*"
-                style="display:none"
-                (change)="onFileSelect($event)"
-              />
-            </label>
-          </div>
-        } @else {
-          <div class="preview-wrapper">
-            <img [src]="previewUrl()!" alt="Preview" class="preview-img" />
-            <button class="preview-remove" (click)="removeImage()">
-              <span class="material-symbols-rounded">close</span>
-            </button>
-          </div>
-        }
+        <app-upload-area
+          [previewUrl]="previewUrl()"
+          (fileSelected)="onFileSelected($event)"
+          (fileRemoved)="onFileRemoved()"
+        />
       </div>
 
       <!-- ── Form ────────────────────────────────────────────── -->
