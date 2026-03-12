@@ -59,9 +59,9 @@
 
       <!-- Mobile: hamburger -->
       @if (isMobile()) {
-        <button class="mobile-menu-btn" (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
-          <span class="material-symbols-rounded">{{ isMobileMenuOpen() ? 'close' : 'menu' }}</span>
-        </button>
+        <div (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
+          <span class="material-symbols-rounded">menu</span>
+        </div>
         <a routerLink="/home" class="mobile-logo">
           <img ngSrc="assets/images/logo-az-circlar.png" width="28" height="28" alt="AZJob" />
         </a>
@@ -154,15 +154,15 @@
       <!-- Tema -->
       <div class="drawer-section">
         <div class="display: flex !important;">
-          <div class="">
-            <p class="drawer-action-text" style="font-weight: bold !important;">
+          <div class="" style="padding: 5px;">
+            <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
               Configurações e Preferencias
             </p>
-            <p style="font-size: 14px;">
+            <p style="font-size: 16px;">
               Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as informações da sua conta.
             </p>
           </div>
-          <div class="flex: 0 0 auto; width: 8.3333%;">
+          <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
             <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
               <span class="material-symbols-rounded">arrow_forward_ios</span>
             </div>
@@ -170,15 +170,15 @@
         </div>
         <br>
         <div class="display: flex !important;">
-          <div class="">
-            <p class="drawer-action-text" style="font-weight: bold !important;">
+          <div class="" style="padding: 5px;">
+            <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
               Feedback, Ajuda e Sobre
             </p>
-            <p style="font-size: 14px;">
+            <p style="font-size: 16px;">
               Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a empresa
             </p>
           </div>
-          <div class="flex: 0 0 auto; width: 8.3333%;">
+          <div class="flex: 0 0 auto; width: 8.3333%;"  style="padding: 8px;">
             <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
               <span class="material-symbols-rounded">arrow_forward_ios</span>
             </div>
@@ -189,12 +189,15 @@
 
     <ng-template #footer>
       <div class="drawer-footer">
-        <app-button variant="outline" [fullWidth]="true" (clicked)="goToAuth(); isMobileMenuOpen.set(false)">
-          {{ 'auth.login' | translate }}
-        </app-button>
-        <app-button variant="primary" [fullWidth]="true" (clicked)="goToRegister(); isMobileMenuOpen.set(false)">
-          {{ 'auth.register' | translate }}
-        </app-button>
+        <div class="topbar-right">
+          <!-- Auth buttons -->
+          <app-button variant="outline" size="sm" (clicked)="goToAuth()">
+            {{ 'auth.login' | translate }}
+          </app-button>
+          <app-button variant="primary" size="sm" (clicked)="goToRegister()">
+            {{ 'auth.register' | translate }}
+          </app-button>
+        </div>
       </div>
     </ng-template>
   </app-drawer>
