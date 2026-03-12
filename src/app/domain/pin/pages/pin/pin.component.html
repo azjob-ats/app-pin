@@ -28,58 +28,40 @@
 
       <!-- ── Info side ───────────────────────────────────────────── -->
       <div class="pin-detail-info">
-
         <!-- Actions bar -->
-        <div class="pin-detail-actions">
-          <button class="pin-action-icon-btn" (click)="onShare()">
-            <span class="material-symbols-rounded">share</span>
+        <div class="pin-detail-actions mb-3xl mt-sm">
+          <button class="pin-action-icon-btn-like" >
+            <span class="material-symbols-rounded fii-like" style="font-size: 22px; color: red;">favorite</span> <span style="font-size: 16px; font-weight: 900;">107</span>
           </button>
           <button class="pin-action-icon-btn">
             <span class="material-symbols-rounded">more_horiz</span>
           </button>
           <div class="save-group">
-            <button class="board-selector">
-              {{ pin.boardName || ('pin.selectBoard' | translate) }}
-              <span class="material-symbols-rounded">expand_more</span>
-            </button>
             <button
               class="pin-save-btn-large"
-              [class.saved]="isSaved()"
-              (click)="onSave()"
+              [class.saved]="false"
             >
-              {{ isSaved() ? ('pin.saved' | translate) : ('pin.save' | translate) }}
+             Saiba Mais
             </button>
           </div>
         </div>
 
-        <!-- Save count -->
-        @if (pin.saveCount) {
-          <div class="pin-save-count">
-            <span class="material-symbols-rounded save-icon">bookmark</span>
-            <span>{{ formatCount(pin.saveCount) }} {{ 'pin.savedTimes' | translate }}</span>
-          </div>
-        }
-
+        <div class="pin-save-count">
+          <span>{{ formatCount(pin.saveCount) }} visualizações</span> • <span>1 ano atrás</span>
+        </div>
         <!-- Title -->
         @if (pin.title) {
           <h1 class="pin-detail-title">{{ pin.title }}</h1>
         }
-
         <!-- Description -->
         @if (pin.description) {
-          <p class="pin-detail-desc">{{ pin.description }}</p>
+          <p class="pin-detail-desc mb-3xl">{{ pin.description }}<span  style="font-size: 12px; font-weight: 900;"> #VagasTI  #PythonJobs  #DesenvolvimentoBackend  #CarreiraEmTech  #TrabalheNaDigix</span></p>
         }
+        
 
-        <!-- Link -->
-        @if (pin.link) {
-          <a class="pin-detail-link" [href]="pin.link" target="_blank" rel="noopener">
-            <span class="material-symbols-rounded">link</span>
-            {{ pin.link }}
-          </a>
-        }
 
         <!-- Author -->
-        <div class="pin-detail-author">
+        <div class="pin-detail-author mb-sm">
           <app-user-avatar [imageUrl]="pin.author.avatarUrl" [alt]="pin.author.displayName" size="md" />
           <div class="author-info">
             <a class="author-name" [routerLink]="['/' + pin.author.username]">
@@ -87,7 +69,10 @@
             </a>
             <span class="author-sub">{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span>
           </div>
-          <app-follow-button />
+            <button class="board-selector">
+              <span class="material-symbols-rounded fii-like">notifications</span>
+              <span class="material-symbols-rounded">expand_more</span>
+            </button>
         </div>
 
         <!-- Comments section -->
