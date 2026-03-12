@@ -40,8 +40,8 @@
   max-width: 1100px;
   margin: var(--space-2xl) auto;
   background: var(--pin-bg);
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--pin-shadow-lg);
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px rgba(0,0,0,0.16);
   overflow: hidden;
   min-height: 560px;
 
@@ -58,7 +58,7 @@
 .pin-detail-image-side {
   flex: 0 0 auto;
   max-width: 55%;
-  background: var(--pin-bg-secondary);
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,7 +79,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: var(--radius-2xl) 0 0 var(--radius-2xl);
+  border-radius: 0;
 
   @media (max-width: 900px) {
     border-radius: var(--radius-none);
@@ -96,7 +96,7 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  max-height: 80vh;
+  max-height: 100vh;
 
   @media (max-width: 900px) {
     max-height: none;
