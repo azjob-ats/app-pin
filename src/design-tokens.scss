@@ -21,7 +21,22 @@
   --pin-text-primary: #111111;
   --pin-text-secondary: #767676;
   --pin-text-muted: #ADADAD;
+
   --pin-text-inverse: #ffffff;
+  --pin-text-inverse-1: #F8F8F8;
+  --pin-text-inverse-2: #F0F0F0;
+
+  --pin-text-reverse: #000;
+  --pin-text-reverse-1: #111111;
+  --pin-text-reverse-2: #767676;
+
+  --bg-reverse: #ffffff;
+  --bg-reverse-1: #F8F8F8;
+  --bg-reverse-2: #F0F0F0;
+
+  --bg-inverse: #000000;
+  --bg-inverse-1: #111111;
+  --bg-inverse-2: #1A1A1A;
   
 
   /* Borders */
@@ -143,7 +158,22 @@ html.dark {
   --pin-text-primary: #EFEFEF;
   --pin-text-secondary: #ADADAD;
   --pin-text-muted: #767676;
-  --pin-text-inverse: #111111;
+
+  --pin-text-inverse: #000;
+  --pin-text-inverse-1: #111111;
+  --pin-text-inverse-2: #1A1A1A;
+
+  --pin-text-reverse: #fff;
+  --pin-text-reverse-1: #ADADAD;
+  --pin-text-reverse-2: #2D2D2D;
+
+  --bg-reverse: #000;
+  --bg-reverse-1: #111111;
+  --bg-reverse-2: #2D2D2D;
+
+  --bg-inverse: #fff;
+  --bg-inverse-1: #F5F5F5;
+  --bg-inverse-2: #EAEAEA;
 
   --pin-border: #404040;
   --pin-sidebar-bg: #1A1A1A;

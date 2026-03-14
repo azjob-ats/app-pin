@@ -100,6 +100,58 @@
   white-space: nowrap;
 }
 
+.text-color-accent {
+  color: var(--pin-red)
+}
+
+.text-color-inverse {
+  color: var(--pin-text-inverse)
+}
+
+.text-color-inverse-1 {
+  color: var(--pin-text-inverse-1)
+}
+
+.text-color-inverse-2 {
+  color: var(--pin-text-inverse-2)
+}
+
+.text-color-reverse {
+  color: var(--pin-text-reverse)
+}
+
+.text-color-reverse-1 {
+  color: var(--pin-text-reverse-1)
+}
+
+.text-color-reverse-2 {
+  color: var(--pin-text-reverse-2)
+}
+// ── Utility: Background ────────────────────────────────────────────────────────────
+.bg-reverse {
+  background: var(--bg-reverse)
+}
+
+.bg-reverse-1 {
+  background: var(--bg-reverse-1)
+}
+
+.bg-reverse-2 {
+  background: var(--bg-reverse-2)
+}
+
+
+.bg-inverse {
+  background: var(--bg-inverse)
+}
+
+.bg-inverse-1 {
+  background: var(--bg-inverse-1)
+}
+
+.bg-inverse-2 {
+  background: var(--bg-inverse-2)
+}
 // ── Utility: Opacity ─────────────────────────────────────────────────────────
 
 .opacity-disabled { opacity: var(--opacity-disabled); }

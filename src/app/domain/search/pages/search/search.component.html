@@ -1,55 +1,15 @@
 <div class="search-page">
 
-  <!-- Search header -->
-  <div class="search-header">
-    <div class="search-bar-wrap">
-      <app-search-bar [initialQuery]="query()" (search)="search($event)" />
-    </div>
-
-    @if (query()) {
-      <!-- Filter tabs -->
-      <div class="filter-tabs">
-        <button
-          class="filter-tab"
-          [class.active]="activeFilter() === 'all'"
-          (click)="setFilter('all')"
-        >{{ 'search.allPins' | translate }}</button>
-        <button
-          class="filter-tab"
-          [class.active]="activeFilter() === 'people'"
-          (click)="setFilter('people')"
-        >{{ 'search.people' | translate }}</button>
-        <button
-          class="filter-tab"
-          [class.active]="activeFilter() === 'boards'"
-          (click)="setFilter('boards')"
-        >{{ 'search.boards' | translate }}</button>
-      </div>
-    }
-  </div>
-
-  <!-- Empty state with suggestions -->
-  @if (!query()) {
-    <div class="search-suggestions">
-      <h2 class="suggestions-title">{{ 'explore.trending' | translate }}</h2>
-      <div class="suggestions-grid">
-        @for (term of popularSearches; track term) {
-          <button class="suggestion-chip" (click)="search(term)">
-            <span class="material-symbols-rounded">trending_up</span>
-            {{ term }}
-          </button>
-        }
-      </div>
-    </div>
-  }
+    <!-- Categories scroll bar -->
+    <app-chip-scroll-text
+      [chips]="chipItems()"
+      [selected]="selectedCategory()"
+      (chipSelect)="selectCategory($event)"
+    />
 
   <!-- Results -->
   @if (query()) {
     <div class="search-results">
-      @if (!isLoading() && pins().length > 0) {
-        <p class="results-count">{{ 'search.results' | translate }} "{{ query() }}"</p>
-      }
-
       @if (isLoading()) {
         <app-skeleton-loader [count]="20" />
       } @else if (pins().length === 0) {

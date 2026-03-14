@@ -18,7 +18,14 @@ interface Category {
 @Component({
   selector: 'app-explore',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, ChipScrollComponent],
+  imports: [
+    CommonModule, 
+    RouterLink, 
+    TranslateModule, 
+    MasonryGridComponent, 
+    SkeletonLoaderComponent, 
+    InfiniteScrollComponent, 
+    ChipScrollComponent],
   templateUrl: './explore.component.html',
   styleUrl: './explore.component.scss',
 })

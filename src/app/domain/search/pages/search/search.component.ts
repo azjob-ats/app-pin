@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -9,15 +9,78 @@ import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-
 import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
 import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
+import { ChipScrollComponent, ChipScrollTextComponent } from '../../../../shared/components/chip-scroll/chip-scroll.component';
+import { SplitButtonComponent } from '../../../../shared/components/splitbutton/splitbutton.component';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, SearchBarComponent, EmptyStateComponent],
+  imports: [
+    CommonModule, 
+    TranslateModule, 
+    MasonryGridComponent, 
+    SkeletonLoaderComponent, 
+    InfiniteScrollComponent, 
+    SearchBarComponent, 
+    EmptyStateComponent,
+    ChipScrollComponent,
+    ChipScrollTextComponent,
+    SplitButtonComponent
+
+  ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
 export class SearchComponent implements OnInit {
+  readonly categories: any[] = [
+    { key: 'Para você'},
+    { key: 'Produto'},
+    { key: 'Vagas'},
+    { key: 'Pessoas'},
+    { key: 'Empresas'},
+    { key: 'Treinamentos'},
+    { key: 'Noticias'},
+  ];
+
+  readonly categories2: any[] = [
+    { key: 'Tipo', selected: '' },
+    { key: 'Tema', selected: ''},
+    { key: 'Duração do video', selected: ''},
+    { key: 'Idioma', selected: ''},
+    { key: 'Data de publicação', selected: ''},
+    { key: 'Popularidade', selected: 'Mais recentes'},
+    { key: 'Origem do conteúdo', selected: ''}
+  ];
+
+  readonly chipItems = computed(() =>
+    this.categories.map(cat => ({ key: cat.key, icon: cat.icon, labelKey: cat.key }))
+  );
+
+  readonly selectedCategory = signal<string>('all');
+
+  selectCategory(key: string): void {
+    this.selectedCategory.set(key);
+    this.page = 0;
+    this.pins.set([]);
+    this.isLoading.set(true);
+    if (key !== 'all') {
+      //this.router.navigate(['/search', key]);
+    } else {
+      //this.router.navigate(['/search']);
+    }
+    this.loadPins();
+  }
+
+  private loadPins(): void {
+    this.pinService.getExplorePins(this.selectedCategory()).subscribe(pins => {
+      this.pins.set(pins);
+      this.isLoading.set(false);
+    });
+  }
+
+  onEmpresasClick(){}
+
+
   readonly pins = signal<Pin[]>([]);
   readonly isLoading = signal(false);
   readonly isLoadingMore = signal(false);
