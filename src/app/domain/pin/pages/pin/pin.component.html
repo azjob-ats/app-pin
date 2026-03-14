@@ -124,6 +124,12 @@
       </div>
     </div>
 
+    <!-- playlist pins -->
+    <div class="related-pins">
+      <h2 class="related-title">Playlist</h2>
+      <app-masonry-grid [pins]="relatedPins()" />
+    </div>
+
     <!-- Related pins -->
     <div class="related-pins">
       <h2 class="related-title">{{ 'pin.relatedPins' | translate }}</h2>
