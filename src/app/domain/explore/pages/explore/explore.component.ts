@@ -8,6 +8,9 @@ import { MasonryGridComponent } from '../../../../shared/components/masonry-grid
 import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
 import { ChipScrollComponent } from '../../../../shared/components/chip-scroll/chip-scroll.component';
+import { Board } from '../../../../shared/interfaces/board.interface';
+import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
+import { BoardService } from '../../../../shared/services/board.service';
 
 interface Category {
   key: string;
@@ -19,13 +22,15 @@ interface Category {
   selector: 'app-explore',
   standalone: true,
   imports: [
-    CommonModule, 
-    RouterLink, 
-    TranslateModule, 
-    MasonryGridComponent, 
-    SkeletonLoaderComponent, 
-    InfiniteScrollComponent, 
-    ChipScrollComponent],
+    CommonModule,
+    RouterLink,
+    TranslateModule,
+    MasonryGridComponent,
+    SkeletonLoaderComponent,
+    InfiniteScrollComponent,
+    ChipScrollComponent,
+    BoardCardComponent
+  ],
   templateUrl: './explore.component.html',
   styleUrl: './explore.component.scss',
 })
@@ -44,6 +49,21 @@ export class ExploreComponent implements OnInit {
     this.categories.map(cat => ({ key: cat.key, icon: cat.icon, labelKey: 'categories.' + cat.key }))
   );
 
+  readonly popularSearches = ['sunset', 'minimal design', 'home decor', 'fashion', 'food photography', 'travel', 'architecture', 'art'];
+  readonly query = signal('');
+  search(q: string): void {
+    this.query.set(q);
+    this.page = 0;
+    this.isLoading.set(true);
+    this.router.navigate(['/search'], { queryParams: { q } });
+    this.pinService.getSearchPins(q).subscribe(pins => {
+      this.pins.set(pins);
+      this.isLoading.set(false);
+    });
+  }
+
+  readonly boards = signal<Board[]>([]);
+
   readonly categories: Category[] = [
     { key: 'all', icon: 'apps', imageUrl: 'https://picsum.photos/seed/cat-all/300/200' },
     { key: 'fashion', icon: 'styler', imageUrl: 'https://picsum.photos/seed/cat-fashion/300/200' },
@@ -61,11 +81,14 @@ export class ExploreComponent implements OnInit {
     { key: 'diy', icon: 'build', imageUrl: 'https://picsum.photos/seed/cat-diy/300/200' },
     { key: 'quotes', icon: 'format_quote', imageUrl: 'https://picsum.photos/seed/cat-quotes/300/200' },
   ];
+    private boardService = inject(BoardService);
 
   ngOnInit(): void {
     const category = this.route.snapshot.paramMap.get('category') ?? 'all';
     this.selectedCategory.set(category);
     this.loadPins();
+
+      this.boardService.getUserBoards('u1').subscribe(boards => this.boards.set(boards));
   }
 
   selectCategory(key: string): void {
