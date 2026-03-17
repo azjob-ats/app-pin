@@ -3,7 +3,7 @@ import { Board } from '../interfaces/board.interface';
 export const MOCK_BOARDS: Board[] = [
   {
     id: 'board-1',
-    name: 'Travel Inspiration',
+    name: 'Digix',
     description: 'Dream destinations and travel photography from around the world.',
     coverImageUrl: 'https://picsum.photos/seed/board1/400/300',
     coverImages: [
@@ -18,7 +18,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-2',
-    name: 'Design & Art',
+    name: 'Santander Brasil',
     description: 'Visual inspiration for designers, artists and creatives.',
     coverImageUrl: 'https://picsum.photos/seed/board2/400/300',
     coverImages: [
@@ -33,7 +33,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-3',
-    name: 'Home Decor',
+    name: 'iFood: Delivery de Comida e Mercado',
     description: 'Interior design ideas and home decoration inspiration.',
     coverImageUrl: 'https://picsum.photos/seed/board3/400/300',
     coverImages: [
@@ -48,7 +48,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-4',
-    name: 'Fashion & Style',
+    name: 'Prefeitura de Vitória',
     description: 'Fashion trends, outfit ideas and style inspiration.',
     coverImageUrl: 'https://picsum.photos/seed/board4/400/300',
     coverImages: [
@@ -64,7 +64,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-5',
-    name: 'Food & Recipes',
+    name: 'Einstein Hospital Israelita',
     description: 'Delicious recipes, food photography and culinary inspiration.',
     coverImageUrl: 'https://picsum.photos/seed/board5/400/300',
     coverImages: [
@@ -79,7 +79,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-6',
-    name: 'Nature & Outdoors',
+    name: 'Marvel.com | The Official Site for Marvel Movies, Characters',
     description: 'Breathtaking landscapes, wildlife and outdoor adventures.',
     coverImageUrl: 'https://picsum.photos/seed/board6/400/300',
     coverImages: [
@@ -94,7 +94,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-7',
-    name: 'Architecture',
+    name: 'Ei Nerd: O portal do multiverso Nerd. Filmes, Séries, Animes',
     description: 'Iconic buildings, modern architecture and structural art.',
     coverImageUrl: 'https://picsum.photos/seed/board7/400/300',
     coverImages: [
@@ -109,7 +109,7 @@ export const MOCK_BOARDS: Board[] = [
   },
   {
     id: 'board-8',
-    name: 'Photography',
+    name: 'Anthropic',
     description: 'Fine art photography and photographic techniques.',
     coverImageUrl: 'https://picsum.photos/seed/board8/400/300',
     coverImages: [

@@ -54,7 +54,7 @@ export class ShellComponent {
 
   readonly navItems: NavItem[] = [
     { icon: 'home', iconFilled: 'home', labelKey: 'nav.home', route: '/home', exact: true },
-    { icon: 'explore', iconFilled: 'explore', labelKey: 'nav.explore', route: '/explore' },
+    { icon: 'kid_star', iconFilled: 'kid_star', labelKey: 'nav.explore', route: '/explore' },
     { icon: 'add_circle', iconFilled: 'add_circle', labelKey: 'nav.create', route: '/create' },
     { icon: 'notifications', iconFilled: 'notifications', labelKey: 'nav.notifications', route: '/notifications' },
   ];
