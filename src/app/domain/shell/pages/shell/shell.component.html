@@ -3,7 +3,7 @@
   <!-- ── Sidebar (Desktop) ─────────────────────────────────────── -->
   <aside class="sidebar" [class.mobile-hidden]="isMobile()">
     <!-- Logo -->
-    <div class="sidebar-logo">
+    <div class="mb-sm p-sm">
       <a routerLink="/home" class="logo-link" appTooltip="azjob" tooltipPosition="right">
         <img ngSrc="assets/images/logo-az-circlar.png" class="logo-svg" width="48" height="48" alt="azjob" />
       </a>
@@ -151,38 +151,30 @@
 
     <div class="drawer-body">
 
-      <!-- Tema -->
+      <!-- Configurações -->
       <div class="drawer-section">
-        <div style="display: flex !important; justify-content: space-between; align-items: center;">
-          <div class="" style="padding: 5px;">
-            <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+        <div class="d-flex justify-between align-center">
+          <div class="p-xs">
+            <p class="drawer-action-text fw-bold">
               Configurações e Preferencias
             </p>
-            <p style="font-size: 16px;">
+            <p class="text-md">
               Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as informações da sua conta.
             </p>
           </div>
-          <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-            <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
-              <span class="material-symbols-rounded">arrow_forward_ios</span>
-            </div>
-          </div>
+          <span class="material-symbols-rounded p-sm flex-shrink-0">arrow_forward_ios</span>
         </div>
         <br>
-        <div style="display: flex !important; justify-content: space-between; align-items: center;">
-          <div class="" style="padding: 5px;">
-            <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+        <div class="d-flex justify-between align-center">
+          <div class="p-xs">
+            <p class="drawer-action-text fw-bold">
               Feedback, Ajuda e Sobre
             </p>
-            <p style="font-size: 16px;">
+            <p class="text-md">
               Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a empresa
             </p>
           </div>
-          <div class="flex: 0 0 auto; width: 8.3333%;"  style="padding: 8px;">
-            <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
-              <span class="material-symbols-rounded">arrow_forward_ios</span>
-            </div>
-          </div>
+          <span class="material-symbols-rounded p-sm flex-shrink-0">arrow_forward_ios</span>
         </div>
       </div>
     </div>
