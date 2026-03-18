@@ -58,15 +58,9 @@
       <!-- Actions -->
       <div class="d-flex align-center gap-sm">
         <app-follow-button [initialFollowing]="user.isFollowing ?? false" />
-        <button class="profile-action-btn d-flex align-center justify-center radius-circle bg-secondary">
-          <span class="material-symbols-rounded">chat_bubble</span>
-        </button>
-        <button class="profile-action-btn d-flex align-center justify-center radius-circle bg-secondary">
-          <span class="material-symbols-rounded">share</span>
-        </button>
-        <button class="profile-action-btn d-flex align-center justify-center radius-circle bg-secondary">
-          <span class="material-symbols-rounded">more_horiz</span>
-        </button>
+        <app-button variant="secondary" shape="circle" icon="chat_bubble" ariaLabel="Send message" />
+        <app-button variant="secondary" shape="circle" icon="share" ariaLabel="Share profile" />
+        <app-button variant="secondary" shape="circle" icon="more_horiz" ariaLabel="More options" />
       </div>
     </div>
 

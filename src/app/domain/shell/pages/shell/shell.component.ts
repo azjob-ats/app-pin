@@ -71,10 +71,6 @@ export class ShellComponent {
     this.languageService.setLang(lang);
   }
 
-  navigateToProfile(): void {
-    this.router.navigate(['/fondecranvip']);
-  }
-
   onSearch(query: string): void {
     this.router.navigate(['/search'], { queryParams: { q: query } });
   }

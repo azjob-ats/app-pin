@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@ang
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
 import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
@@ -29,6 +30,7 @@ import { UserService } from '../../../../shared/services/user.service';
     AppTabsComponent,
     AppTabComponent,
     AppTabPanelComponent,
+    ButtonComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',

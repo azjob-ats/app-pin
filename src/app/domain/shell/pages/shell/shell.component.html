@@ -125,10 +125,10 @@
           <span class="bottom-nav-label text-3xs fw-semibold">{{ item.labelKey | translate }}</span>
         </a>
       }
-      <button class="bottom-nav-item d-flex flex-col align-center radius-md" (click)="navigateToProfile()">
+      <a class="bottom-nav-item d-flex flex-col align-center radius-md" routerLink="/fondecranvip">
         <img src="https://i.pravatar.cc/32?img=10" alt="Profile" class="bottom-nav-avatar radius-circle" />
         <span class="bottom-nav-label text-3xs fw-semibold">{{ 'nav.profile' | translate }}</span>
-      </button>
+      </a>
     </nav>
   }
 
