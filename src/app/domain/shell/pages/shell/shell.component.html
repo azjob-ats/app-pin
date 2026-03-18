@@ -76,14 +76,16 @@
       @if (!isMobile()) {
         <div class="topbar-right d-flex align-center gap-sm flex-shrink-0">
           <!-- Theme toggle -->
-          <button class="icon-btn d-flex align-center justify-center radius-circle" (click)="toggleTheme()" [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
-            <span class="material-symbols-rounded">{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</span>
-          </button>
+          <span [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
+            <app-button variant="ghost" size="md" [icon]="themeService.isDark ? 'light_mode' : 'dark_mode'" (clicked)="toggleTheme()" />
+          </span>
 
           <!-- Language -->
-          <button class="icon-btn d-flex align-center justify-center radius-circle" (click)="langPanel.toggle($event)" [appTooltip]="'common.language' | translate" tooltipPosition="bottom">
-            <span class="lang-flag text-xl">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
-          </button>
+          <span [appTooltip]="'common.language' | translate" tooltipPosition="bottom" (click)="langPanel.toggle($event)">
+            <app-button variant="ghost" size="md">
+              <span class="lang-flag text-xl">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+            </app-button>
+          </span>
 
           <!-- Auth buttons -->
           <app-button variant="outline" size="sm" (clicked)="goToAuth()">
@@ -143,9 +145,7 @@
           <span class="material-symbols-rounded">arrow_left_alt</span>
           <span class="drawer-logo-text text-lg fw-bold">Mais</span>
         </a>
-        <button class="drawer-close-btn d-flex align-center justify-center radius-circle" (click)="isMobileMenuOpen.set(false)" [attr.aria-label]="'common.close' | translate">
-          <span class="material-symbols-rounded">close</span>
-        </button>
+        <app-button variant="ghost" size="sm" shape="circle" icon="close" [ariaLabel]="'common.close' | translate" (clicked)="isMobileMenuOpen.set(false)" />
       </div>
     </ng-template>
 

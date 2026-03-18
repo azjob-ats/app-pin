@@ -142,25 +142,6 @@
   margin-left: auto;
 }
 
-.mobile-menu-btn,
-.icon-btn {
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: none;
-  color: var(--pin-text-primary);
-  cursor: pointer;
-  transition: background-color var(--pin-transition);
-
-  .material-symbols-rounded {
-    font-size: var(--text-2xl);
-  }
-
-  &:hover {
-    background-color: var(--pin-bg-secondary);
-  }
-}
-
 
 .lang-flag {
   line-height: 1;
@@ -305,24 +286,6 @@
   color: var(--pin-text-primary);
 }
 
-.drawer-close-btn {
-  width: 36px;
-  height: 36px;
-  background: transparent;
-  border: none;
-  color: var(--pin-text-secondary);
-  cursor: pointer;
-  transition: background-color var(--pin-transition), color var(--pin-transition);
-
-  .material-symbols-rounded {
-    font-size: var(--text-2xl);
-  }
-
-  &:hover {
-    background-color: var(--pin-bg-secondary);
-    color: var(--pin-text-primary);
-  }
-}
 
 .drawer-body {
   flex: 1;
