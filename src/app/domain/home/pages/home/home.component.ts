@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, computed, effect, inject, OnInit, signal, viewChild } from '@angular/core';
+import { Component, DestroyRef, ElementRef, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
@@ -27,12 +27,13 @@ import { PinService } from '../../../../shared/services/pin.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   readonly pins = signal<Pin[]>([]);
   readonly isLoading = signal(true);
   readonly isLoadingMore = signal(false);
   private boardService = inject(BoardService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
   private page = 0;
   readonly selectedCategory = signal<string>('all');
   readonly popularSearches = ['Como perder peso rápido', 'empregos ameaçados pela IA', 'idéia em um negócio online', 'Planejamento financeiro inteligente', '10 Ferramentas de IA para Negócio', 'vendendo no TIKTOK SHOP', 'prospectar clientes', 'Como se Comunicar Melhor'];
@@ -66,7 +67,7 @@ export class HomeComponent implements OnInit {
   private readonly boardsTrack = viewChild<ElementRef<HTMLDivElement>>('boardsTrack');
 
   constructor(private pinService: PinService) {
-    effect((onCleanup) => {
+    afterNextRender(() => {
       const track = this.boardsTrack()?.nativeElement;
       if (!track) return;
 
@@ -99,21 +100,23 @@ export class HomeComponent implements OnInit {
         if (isDragging) { e.stopPropagation(); isDragging = false; }
       };
 
+      const onDragStart = (e: DragEvent) => e.preventDefault();
+
       track.addEventListener('mousedown', onMouseDown);
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
       track.addEventListener('click', onClickCapture, true);
+      track.addEventListener('dragstart', onDragStart);
 
-      onCleanup(() => {
+      this.destroyRef.onDestroy(() => {
         track.removeEventListener('mousedown', onMouseDown);
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
         track.removeEventListener('click', onClickCapture, true);
+        track.removeEventListener('dragstart', onDragStart);
       });
     });
-  }
 
-  ngOnInit(): void {
     this.loadPins();
   }
 
