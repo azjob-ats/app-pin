@@ -1,16 +1,7 @@
 <div class="home-page">
 
   <!-- Popular search suggestions -->
-  <div class="px-lg mt-lg">
-    <div class="d-flex flex-wrap gap-sm">
-      @for (term of popularSearches; track term) {
-        <button class="suggestion-chip d-flex align-center px-lg radius-xl text-1xl-title text-sm fw-medium" (click)="search(term)">
-          <span class="material-symbols-rounded">trending_up</span>
-          {{ term }}
-        </button>
-      }
-    </div>
-  </div>
+  <app-chip-scroll [chips]="popularSearchChips()" (chipSelect)="search($event)" />
 
   <!-- User boards -->
   <div class="boards-grid d-grid gap-lg p-lg">

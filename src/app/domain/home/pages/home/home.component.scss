@@ -10,25 +10,6 @@
   text-transform: capitalize;
 }
 
-// ── Suggestion chips ──────────────────────────────────────────────────────
-
-.suggestion-chip {
-  @include gap-sm;
-  height: 40px;
-  background: transparent;
-  @include border-1px;
-  @include transition;
-
-  .material-symbols-rounded {
-    font-size: 1.1rem;
-    color: var(--pin-red);
-  }
-
-  &:hover {
-    @include bg-secondary;
-  }
-}
-
 // ── Boards grid ───────────────────────────────────────────────────────────
 
 .boards-grid {

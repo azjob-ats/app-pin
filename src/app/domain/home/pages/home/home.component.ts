@@ -36,6 +36,9 @@ export class HomeComponent implements OnInit {
   private page = 0;
   readonly selectedCategory = signal<string>('all');
   readonly popularSearches = ['Como perder peso rápido', 'empregos ameaçados pela IA', 'idéia em um negócio online', 'Planejamento financeiro inteligente', '10 Ferramentas de IA para Negócio', 'vendendo no TIKTOK SHOP', 'prospectar clientes', 'Como se Comunicar Melhor'];
+  readonly popularSearchChips = computed(() =>
+    this.popularSearches.map(term => ({ key: term, icon: 'trending_up', labelKey: term }))
+  );
   readonly chipItems = computed(() =>
     this.categories.map(cat => ({ key: cat.key, icon: cat.icon, labelKey: '' + cat.key }))
   );
