@@ -19,7 +19,7 @@
     </app-card-header>
     <app-card-body>
       <!-- ── Upload area ─────────────────────────────────────── -->
-      <div class="create-upload-side">
+      <div class="create-upload-side flex align-stretch">
         <app-upload-area
           [previewUrl]="previewUrl()"
           (fileSelected)="onFileSelected($event)"
@@ -27,7 +27,7 @@
         />
       </div>
       <!-- ── Form ────────────────────────────────────────────── -->
-      <div class="create-form-side">
+      <div class="create-form-side flex flex-col flex-1 p-2xl gap-xl">
         <app-input
           type="text"
           [label]="'create.pinTitle' | translate"
@@ -35,8 +35,8 @@
           [ngModel]="title()"
           (ngModelChange)="title.set($event)"
         />
-        <div class="form-field">
-          <label class="form-label">{{ 'create.description' | translate }}</label>
+        <div class="flex flex-col gap-xs">
+          <label class="text-sm fw-bold">{{ 'create.description' | translate }}</label>
           <textarea
             class="form-textarea"
             [placeholder]="'create.description' | translate"
@@ -61,8 +61,8 @@
           [ngModel]="altText()"
           (ngModelChange)="altText.set($event)"
         />
-        <div class="form-field">
-          <label class="form-label">{{ 'create.selectBoard' | translate }}</label>
+        <div class="flex flex-col gap-xs">
+          <label class="text-sm fw-bold">{{ 'create.selectBoard' | translate }}</label>
           <select class="form-select" [ngModel]="selectedBoardId()" (ngModelChange)="selectedBoardId.set($event)">
             @for (board of boards(); track board.id) {
               <option [value]="board.id">{{ board.name }}</option>

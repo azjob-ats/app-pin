@@ -68,6 +68,14 @@
 .radius-circle { border-radius: var(--radius-circle); }
 .radius-pill   { border-radius: var(--radius-pill); }
 
+@mixin border-right-1px{
+    border-right: 1px solid var(--pin-border);
+}
+
+@mixin border-bottom-1px{
+  border-bottom: 1px solid var(--pin-border);
+}
+
 // ── Utility: Shadow ──────────────────────────────────────────────────────────
 
 .shadow-sm { box-shadow: var(--pin-shadow-sm); }

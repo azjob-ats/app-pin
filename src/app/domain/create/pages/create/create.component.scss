@@ -1,69 +1,16 @@
+@use '../../../../../utility' as *;
+
 // ── Upload side ───────────────────────────────────────────────────────────
 .create-upload-side {
   width: 340px;
   min-height: 480px;
   flex-shrink: 0;
-  border-right: 1px solid var(--pin-border);
-  display: flex;
-  align-items: stretch;
+  @include border-right-1px;
 
   @media (max-width: 767px) {
     width: 100%;
     min-height: 280px;
     border-right: none;
-    border-bottom: 1px solid var(--pin-border);
+    @include border-bottom-1px;
   }
-}
-
-// ── Form side ─────────────────────────────────────────────────────────────
-.create-form-side {
-  flex: 1;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-label {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--pin-text-primary);
-}
-
-.form-textarea,
-.form-select {
-  width: 100%;
-  padding: 12px 16px;
-  border-radius: 16px;
-  border: 2px solid var(--pin-border);
-  background: var(--pin-bg);
-  color: var(--pin-text-primary);
-  font-family: var(--font-family);
-  font-size: var(--text-md);
-  transition: border-color var(--pin-transition);
-  outline: none;
-
-  &::placeholder { color: var(--pin-text-muted); }
-
-  &:focus { border-color: var(--pin-text-primary); }
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.form-select {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23767676' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 40px;
 }
