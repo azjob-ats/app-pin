@@ -4,10 +4,12 @@
   <app-chip-scroll [chips]="popularSearchChips()" (chipSelect)="search($event)" />
 
   <!-- User boards -->
-  <div class="boards-grid d-grid gap-lg p-lg">
-    @for (board of boards(); track board.id) {
-      <app-board-card [board]="board" />
-    }
+  <div class="boards-scroll-bar">
+    <div class="boards-scroll-track" #boardsTrack>
+      @for (board of boards(); track board.id) {
+        <app-board-card [board]="board" />
+      }
+    </div>
   </div>
 
   <!-- Category filters -->

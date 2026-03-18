@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, computed, effect, inject, OnInit, signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
@@ -63,7 +63,55 @@ export class HomeComponent implements OnInit {
   readonly boards = signal<Board[]>([]);
   readonly query = signal('');
 
-  constructor(private pinService: PinService) { }
+  private readonly boardsTrack = viewChild<ElementRef<HTMLDivElement>>('boardsTrack');
+
+  constructor(private pinService: PinService) {
+    effect((onCleanup) => {
+      const track = this.boardsTrack()?.nativeElement;
+      if (!track) return;
+
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+      let isDragging = false;
+
+      const onMouseDown = (e: MouseEvent) => {
+        isDown = true;
+        isDragging = false;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+        track.style.cursor = 'grabbing';
+      };
+      const onMouseUp = () => {
+        if (!isDown) return;
+        isDown = false;
+        track.style.cursor = 'grab';
+      };
+      const onMouseMove = (e: MouseEvent) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = x - startX;
+        if (Math.abs(walk) > 5) isDragging = true;
+        track.scrollLeft = scrollLeft - walk;
+      };
+      const onClickCapture = (e: Event) => {
+        if (isDragging) { e.stopPropagation(); isDragging = false; }
+      };
+
+      track.addEventListener('mousedown', onMouseDown);
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+      track.addEventListener('click', onClickCapture, true);
+
+      onCleanup(() => {
+        track.removeEventListener('mousedown', onMouseDown);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        track.removeEventListener('click', onClickCapture, true);
+      });
+    });
+  }
 
   ngOnInit(): void {
     this.loadPins();
