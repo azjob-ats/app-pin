@@ -68,12 +68,32 @@
 .radius-circle { border-radius: var(--radius-circle); }
 .radius-pill   { border-radius: var(--radius-pill); }
 
-@mixin border-right-1px{
-    border-right: 1px solid var(--pin-border);
+@mixin border-1px {
+  border: 1px solid var(--pin-border);
 }
 
-@mixin border-bottom-1px{
+@mixin border-right-1px {
+  border-right: 1px solid var(--pin-border);
+}
+
+@mixin border-bottom-1px {
   border-bottom: 1px solid var(--pin-border);
+}
+
+@mixin transition {
+  transition: all var(--pin-transition);
+}
+
+@mixin bg-secondary {
+  background: var(--pin-bg-secondary);
+}
+
+@mixin gap-sm {
+  gap: var(--space-sm);
+}
+
+@mixin p-sm {
+  padding: var(--space-sm);
 }
 
 // ── Utility: Shadow ──────────────────────────────────────────────────────────

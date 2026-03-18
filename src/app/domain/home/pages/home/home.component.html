@@ -1,40 +1,41 @@
-<div class="explore-page">
-  <!-- suggestions -->
-  <div class="suggestions-conteiner mt-lg">
-    <div class="search-suggestions">
-      <div class="suggestions-grid">
-        @for (term of popularSearches; track term) {
-        <button class="suggestion-chip" (click)="search(term)">
+<div class="home-page">
+
+  <!-- Popular search suggestions -->
+  <div class="px-lg mt-lg">
+    <div class="d-flex flex-wrap gap-sm">
+      @for (term of popularSearches; track term) {
+        <button class="suggestion-chip d-flex align-center px-lg radius-xl text-1xl-title text-sm fw-medium" (click)="search(term)">
           <span class="material-symbols-rounded">trending_up</span>
           {{ term }}
         </button>
-        }
-      </div>
+      }
     </div>
   </div>
 
-  <div class="boards-grid">
+  <!-- User boards -->
+  <div class="boards-grid d-grid gap-lg p-lg">
     @for (board of boards(); track board.id) {
       <app-board-card [board]="board" />
     }
   </div>
 
-  <!-- Filtros campeão e constomizados pelo usuario-->
+  <!-- Category filters -->
   <app-chip-scroll [chips]="chipItems()" [selected]="selectedCategory()" (chipSelect)="selectCategory($event)" />
 
   <!-- Pins feed -->
-  <div class="explore-feed">
+  <div class="py-lg">
     @if (selectedCategory() !== 'all') {
-    <h2 class="feed-title">{{  selectedCategory() }}</h2>
+      <h2 class="feed-title text-xl fw-bold text-1xl-title px-lg mb-lg">{{ selectedCategory() }}</h2>
     } @else {
-    <h2 class="feed-title">{{ 'explore.trending' | translate }}</h2>
+      <h2 class="feed-title text-xl fw-bold text-1xl-title px-lg mb-lg">{{ 'explore.trending' | translate }}</h2>
     }
 
     @if (isLoading()) {
-    <app-skeleton-loader [count]="20" />
+      <app-skeleton-loader [count]="20" />
     } @else {
-    <app-masonry-grid [pins]="pins()" />
-    <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+      <app-masonry-grid [pins]="pins()" />
+      <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
     }
   </div>
+
 </div>

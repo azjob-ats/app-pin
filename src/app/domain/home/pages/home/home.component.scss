@@ -1,144 +1,42 @@
+@use '../../../../../utility' as *;
+
 .home-page {
-  padding: 16px 0;
-}
-.explore-page {
   min-height: 100%;
-}
-
-// ── Categories hero ───────────────────────────────────────────────────────
-
-.categories-hero {
-  padding: 24px 16px;
-}
-
-.section-title {
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--pin-text-primary);
-  margin-bottom: 16px;
-}
-
-.categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
-
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-}
-
-.category-card {
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: var(--pin-bg-secondary);
-  transition: transform var(--pin-transition);
-
-  &:hover {
-    transform: scale(1.02);
-
-    .category-label { bottom: 12px; }
-  }
-}
-
-.category-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.category-card:hover .category-img {
-  transform: scale(1.05);
-}
-
-.category-label {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  font-family: var(--font-family);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--pin-text-inverse);
-  text-shadow: 0 1px 3px var(--pin-overlay-dark-medium);
-  text-align: left;
-  transition: bottom var(--pin-transition);
 }
 
 // ── Feed ──────────────────────────────────────────────────────────────────
 
-.explore-feed {
-  padding: 16px 0;
-}
-
 .feed-title {
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--pin-text-primary);
-  padding: 0 16px;
-  margin-bottom: 16px;
   text-transform: capitalize;
 }
 
-// ──  suggestion ──────────────────────────────────────────────────────────────────
-.suggestions-conteiner{
-   padding: 0px 16px;
-}
-.suggestions-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--pin-text-primary);
-  margin-bottom: 16px;
-}
-
-.suggestions-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+// ── Suggestion chips ──────────────────────────────────────────────────────
 
 .suggestion-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  @include gap-sm;
   height: 40px;
-  padding: 0 16px;
-  border-radius: 24px;
-  border: 1px solid var(--pin-border);
   background: transparent;
-  color: var(--pin-text-primary);
-  font-family: var(--font-family);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all var(--pin-transition);
+  @include border-1px;
+  @include transition;
 
-  .material-symbols-rounded { font-size: 1.1rem; color: var(--pin-red); }
+  .material-symbols-rounded {
+    font-size: 1.1rem;
+    color: var(--pin-red);
+  }
 
   &:hover {
-    background: var(--pin-bg-secondary);
-    border-color: var(--pin-border);
+    @include bg-secondary;
   }
 }
 
 // ── Boards grid ───────────────────────────────────────────────────────────
 
 .boards-grid {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-lg);
-  padding: var(--space-lg);
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
-    padding: var(--space-sm);
+    @include gap-sm;
+    @include p-sm;
   }
 }
