@@ -4,9 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardService } from '../../../../shared/services/board.service';
-import { Board } from '../../../../shared/interfaces/board.interface';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
+import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
+import { SelectComponent, SelectOption } from '../../../../shared/components/select/select.component';
 import { UploadAreaComponent } from '../../../../shared/components/upload-area/upload-area.component';
 import {
   CardBoardComponent,
@@ -22,7 +23,7 @@ import {
   standalone: true,
   imports: [
     CommonModule, FormsModule, TranslateModule,
-    ButtonComponent, InputComponent, UploadAreaComponent,
+    ButtonComponent, InputComponent, TextareaComponent, SelectComponent, UploadAreaComponent,
     CardBoardComponent, CardContainerComponent, CardHeaderComponent,
     CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent,
   ],
@@ -30,7 +31,7 @@ import {
   styleUrl: './create.component.scss',
 })
 export class CreateComponent {
-  readonly boards = signal<Board[]>([]);
+  readonly boards = signal<SelectOption[]>([]);
   readonly previewUrl = signal<string | null>(null);
   readonly selectedFile = signal<File | null>(null);
   readonly title = signal('');
@@ -45,7 +46,7 @@ export class CreateComponent {
 
   constructor() {
     this.boardService.getUserBoards('u1').subscribe(boards => {
-      this.boards.set(boards);
+      this.boards.set(boards.map(b => ({ value: b.id, label: b.name })));
       if (boards.length) this.selectedBoardId.set(boards[0].id);
     });
   }

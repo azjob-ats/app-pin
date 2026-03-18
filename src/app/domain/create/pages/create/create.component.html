@@ -35,17 +35,14 @@
           [ngModel]="title()"
           (ngModelChange)="title.set($event)"
         />
-        <div class="flex flex-col gap-xs">
-          <label class="text-sm fw-bold">{{ 'create.description' | translate }}</label>
-          <textarea
-            class="form-textarea"
-            [placeholder]="'create.description' | translate"
-            [ngModel]="description()"
-            (ngModelChange)="description.set($event)"
-            rows="4"
-            maxlength="500"
-          ></textarea>
-        </div>
+        <app-textarea
+          [label]="'create.description' | translate"
+          [placeholder]="'create.description' | translate"
+          [rows]="4"
+          [maxlength]="500"
+          [ngModel]="description()"
+          (ngModelChange)="description.set($event)"
+        />
         <app-input
           type="url"
           [label]="'create.link' | translate"
@@ -61,14 +58,12 @@
           [ngModel]="altText()"
           (ngModelChange)="altText.set($event)"
         />
-        <div class="flex flex-col gap-xs">
-          <label class="text-sm fw-bold">{{ 'create.selectBoard' | translate }}</label>
-          <select class="form-select" [ngModel]="selectedBoardId()" (ngModelChange)="selectedBoardId.set($event)">
-            @for (board of boards(); track board.id) {
-              <option [value]="board.id">{{ board.name }}</option>
-            }
-          </select>
-        </div>
+        <app-select
+          [label]="'create.selectBoard' | translate"
+          [options]="boards()"
+          [ngModel]="selectedBoardId()"
+          (ngModelChange)="selectedBoardId.set($event)"
+        />
       </div>
     </app-card-body>
   </app-card-container>
