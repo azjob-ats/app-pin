@@ -1,41 +1,37 @@
 <div class="board-page">
   @if (board(); as board) {
-    <div class="board-header">
-      <h1 class="board-name">{{ board.name }}</h1>
+    <div class="board-header flex flex-col align-center text-center">
+      <h1 class="text-1xl-title text-3xl fw-bold mb-sm">{{ board.name }}</h1>
       @if (board.description) {
-        <p class="board-desc">{{ board.description }}</p>
+        <p class="text-2xl-title text-base mb-md">{{ board.description }}</p>
       }
-      <div class="board-meta">
-        <span class="board-stat">
-          <strong>{{ board.pinsCount }}</strong> {{ 'board.pins' | translate }}
+      <div class="text-3xl-title flex align-center gap-sm text-sm mb-lg">
+        <span class="text-4xl-title">
+          <strong class="fw-bold">{{ board.pinsCount }}</strong> {{ 'board.pins' | translate }}
         </span>
         @if (board.followersCount) {
-          <span class="board-stat-divider">·</span>
-          <span class="board-stat">
-            <strong>{{ formatCount(board.followersCount) }}</strong> {{ 'board.followers' | translate }}
+          <span class="text-5xl-title">·</span>
+          <span class="text-4xl-title">
+            <strong class="fw-bold">{{ formatCount(board.followersCount) }}</strong> {{ 'board.followers' | translate }}
           </span>
         }
       </div>
 
-      <div class="board-owner">
+      <div class="board-owner flex align-center gap-sm mb-xl">
         <img
           [src]="board.owner.avatarUrl || 'https://i.pravatar.cc/32?img=1'"
           [alt]="board.owner.displayName"
-          class="board-owner-avatar"
+          class="board-owner-avatar radius-circle"
         />
-        <a [routerLink]="['/' + board.owner.username]" class="board-owner-name">
+        <a [routerLink]="['/' + board.owner.username]" class="board-owner-name text-1xl-title text-sm fw-bold">
           {{ board.owner.displayName }}
         </a>
       </div>
 
-      <div class="board-actions">
+      <div class="board-actions flex align-center gap-sm">
         <app-follow-button />
-        <button class="board-action-btn">
-          <span class="material-symbols-rounded">share</span>
-        </button>
-        <button class="board-action-btn">
-          <span class="material-symbols-rounded">more_horiz</span>
-        </button>
+        <app-button icon="share" variant="secondary" shape="circle" ariaLabel="Share" />
+        <app-button icon="more_horiz" variant="secondary" shape="circle" ariaLabel="More options" />
       </div>
     </div>
   }

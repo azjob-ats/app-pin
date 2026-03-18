@@ -10,11 +10,12 @@ import { MasonryGridComponent } from '../../../../shared/components/masonry-grid
 import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
 import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, FollowButtonComponent],
+  imports: [CommonModule, RouterLink, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, FollowButtonComponent, ButtonComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })

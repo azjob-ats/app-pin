@@ -135,6 +135,28 @@
 .text-color-reverse-2 {
   color: var(--pin-text-reverse-2)
 }
+
+.text-1xl-title {
+  color: var(--pin-text-primary);
+}
+
+.text-2xl-title {
+  color: var(--pin-text-secondary);
+  line-height: 1.6;
+}
+
+.text-3xl-title {
+  color: var(--pin-text-secondary);
+}
+
+.text-4xl-title strong {
+  color: var(--pin-text-primary);
+}
+
+.text-5xl-title {
+  color: var(--pin-text-muted);
+}
+
 // ── Utility: Background ────────────────────────────────────────────────────────────
 .bg-reverse {
   background: var(--bg-reverse)
@@ -148,7 +170,6 @@
   background: var(--bg-reverse-2)
 }
 
-
 .bg-inverse {
   background: var(--bg-inverse)
 }
@@ -159,6 +180,10 @@
 
 .bg-inverse-2 {
   background: var(--bg-inverse-2)
+}
+
+.bg-secondary{
+    background: var(--pin-bg-secondary);
 }
 // ── Utility: Opacity ─────────────────────────────────────────────────────────
 

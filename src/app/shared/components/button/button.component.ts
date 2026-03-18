@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, input, output, signal } from '@angu
 
 export type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'secondary' | 'cta';
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonShape = 'default' | 'circle';
 
 @Component({
   selector: 'app-button',
@@ -12,12 +13,17 @@ export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
       [class]="'btn--' + variant() + ' btn--' + size()"
       [class.btn--full]="fullWidth()"
       [class.btn--loading]="loading()"
+      [class.btn--circle]="shape() === 'circle'"
       [disabled]="disabled() || _internalDisabled() || loading()"
       [type]="type()"
+      [attr.aria-label]="ariaLabel() || null"
       (click)="clicked.emit()"
     >
       @if (loading()) {
         <span class="btn-spinner" aria-hidden="true"></span>
+      }
+      @if (icon()) {
+        <span class="material-symbols-rounded" aria-hidden="true">{{ icon() }}</span>
       }
       <ng-content />
     </button>
@@ -30,6 +36,9 @@ export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
 export class ButtonComponent {
   readonly variant = input<ButtonVariant>('primary');
   readonly size = input<ButtonSize>('md');
+  readonly shape = input<ButtonShape>('default');
+  readonly icon = input<string>('');
+  readonly ariaLabel = input<string>('');
   readonly loading = input(false);
   readonly disabled = input(false);
   readonly fullWidth = input(false);

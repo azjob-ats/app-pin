@@ -163,6 +163,18 @@
     }
   }
 
+  // ── Circle shape ──────────────────────────────────────────────────────
+  &--circle {
+    border-radius: var(--radius-circle);
+    padding: 0;
+
+    .material-symbols-rounded { font-size: 1.375rem; }
+
+    &.btn--sm { width: 36px; height: 36px; }
+    &.btn--md { width: 44px; height: 44px; }
+    &.btn--lg { width: 52px; height: 52px; }
+  }
+
   // ── Loading state ─────────────────────────────────────────────────────
   &--loading {
     cursor: wait;
