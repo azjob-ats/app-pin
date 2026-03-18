@@ -1,19 +1,19 @@
 <div class="app-layout" [class.dark]="themeService.isDark">
 
   <!-- ── Sidebar (Desktop) ─────────────────────────────────────── -->
-  <aside class="sidebar" [class.mobile-hidden]="isMobile()">
+  <aside class="sidebar d-flex flex-col align-center flex-shrink-0" [class.mobile-hidden]="isMobile()">
     <!-- Logo -->
     <div class="mb-sm p-sm">
-      <a routerLink="/home" class="logo-link" appTooltip="azjob" tooltipPosition="right">
+      <a routerLink="/home" class="logo-link d-flex align-center justify-center radius-circle" appTooltip="azjob" tooltipPosition="right">
         <img ngSrc="assets/images/logo-az-circlar.png" class="logo-svg" width="48" height="48" alt="azjob" />
       </a>
     </div>
 
     <!-- Nav items -->
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav d-flex flex-col align-center gap-xs flex-1">
       @for (item of navItems; track item.route) {
         <a
-          class="sidebar-nav-item"
+          class="sidebar-nav-item d-flex align-center justify-center radius-circle"
           [routerLink]="item.route"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: !!item.exact }"
@@ -22,9 +22,9 @@
           [tooltipDelay]="300"
         >
           @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
-            <span class="nav-icon-wrap">
+            <span class="nav-icon-wrap d-flex align-center justify-center">
               <span class="material-symbols-rounded">{{ item.icon }}</span>
-              <span class="notif-dot"></span>
+              <span class="notif-dot radius-circle"></span>
             </span>
           } @else {
             <span class="material-symbols-rounded">{{ item.icon }}</span>
@@ -34,17 +34,17 @@
     </nav>
 
     <!-- Bottom actions -->
-    <div class="sidebar-bottom">
+    <div class="sidebar-bottom d-flex flex-col align-center gap-xs">
       <!-- Profile avatar -->
         <a
-          class="sidebar-nav-item"
+          class="sidebar-nav-item d-flex align-center justify-center radius-circle"
           routerLinkActive="active"
           appTooltip="Mais"
           tooltipPosition="right"
           [tooltipDelay]="300"
           (click)="isMobileMenuOpen.set(!isMobileMenuOpen())"
         >
-          <span class="nav-icon-wrap">
+          <span class="nav-icon-wrap d-flex align-center justify-center">
             <span class="material-symbols-rounded">more_horiz</span>
           </span>
         </a>
@@ -52,17 +52,17 @@
   </aside>
 
   <!-- ── Main content area ──────────────────────────────────────── -->
-  <div class="main-area">
+  <div class="main-area d-flex flex-col flex-1 overflow-hidden">
 
     <!-- ── Topbar ──────────────────────────────────────────────── -->
-    <header class="topbar">
+    <header class="topbar d-flex align-center gap-md flex-shrink-0">
 
       <!-- Mobile: hamburger -->
       @if (isMobile()) {
         <div (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
           <span class="material-symbols-rounded">menu</span>
         </div>
-        <a routerLink="/home" class="mobile-logo">
+        <a routerLink="/home" class="mobile-logo d-flex align-center">
           <img ngSrc="assets/images/logo-az-circlar.png" width="28" height="28" alt="AZJob" />
         </a>
       }
@@ -74,15 +74,15 @@
 
       <!-- Topbar right -->
       @if (!isMobile()) {
-        <div class="topbar-right">
+        <div class="topbar-right d-flex align-center gap-sm flex-shrink-0">
           <!-- Theme toggle -->
-          <button class="icon-btn" (click)="toggleTheme()" [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
+          <button class="icon-btn d-flex align-center justify-center radius-circle" (click)="toggleTheme()" [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
             <span class="material-symbols-rounded">{{ themeService.isDark ? 'light_mode' : 'dark_mode' }}</span>
           </button>
 
           <!-- Language -->
-          <button class="icon-btn" (click)="langPanel.toggle($event)" [appTooltip]="'common.language' | translate" tooltipPosition="bottom">
-            <span class="lang-flag">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+          <button class="icon-btn d-flex align-center justify-center radius-circle" (click)="langPanel.toggle($event)" [appTooltip]="'common.language' | translate" tooltipPosition="bottom">
+            <span class="lang-flag text-xl">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
           </button>
 
           <!-- Auth buttons -->
@@ -104,28 +104,28 @@
 
   <!-- ── Mobile bottom navigation ─────────────────────────────── -->
   @if (isMobile()) {
-    <nav class="bottom-nav">
+    <nav class="bottom-nav d-flex align-center">
       @for (item of navItems; track item.route) {
         <a
-          class="bottom-nav-item"
+          class="bottom-nav-item d-flex flex-col align-center radius-md"
           [routerLink]="item.route"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: !!item.exact }"
         >
           @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
-            <span class="nav-icon-wrap">
+            <span class="nav-icon-wrap d-flex align-center justify-center">
               <span class="material-symbols-rounded">{{ item.icon }}</span>
-              <span class="notif-dot"></span>
+              <span class="notif-dot radius-circle"></span>
             </span>
           } @else {
             <span class="material-symbols-rounded">{{ item.icon }}</span>
           }
-          <span class="bottom-nav-label">{{ item.labelKey | translate }}</span>
+          <span class="bottom-nav-label text-3xs fw-semibold">{{ item.labelKey | translate }}</span>
         </a>
       }
-      <button class="bottom-nav-item" (click)="navigateToProfile()">
-        <img src="https://i.pravatar.cc/32?img=10" alt="Profile" class="bottom-nav-avatar" />
-        <span class="bottom-nav-label">{{ 'nav.profile' | translate }}</span>
+      <button class="bottom-nav-item d-flex flex-col align-center radius-md" (click)="navigateToProfile()">
+        <img src="https://i.pravatar.cc/32?img=10" alt="Profile" class="bottom-nav-avatar radius-circle" />
+        <span class="bottom-nav-label text-3xs fw-semibold">{{ 'nav.profile' | translate }}</span>
       </button>
     </nav>
   }
@@ -138,12 +138,12 @@
     [modal]="true"
   >
     <ng-template #header>
-      <div class="drawer-header">
-        <a routerLink="/home" class="drawer-logo" (click)="isMobileMenuOpen.set(false)">
+      <div class="drawer-header d-flex align-center justify-between w-full">
+        <a routerLink="/home" class="drawer-logo d-flex align-center gap-sm" (click)="isMobileMenuOpen.set(false)">
           <span class="material-symbols-rounded">arrow_left_alt</span>
-          <span class="drawer-logo-text">Mais</span>
+          <span class="drawer-logo-text text-lg fw-bold">Mais</span>
         </a>
-        <button class="drawer-close-btn" (click)="isMobileMenuOpen.set(false)" [attr.aria-label]="'common.close' | translate">
+        <button class="drawer-close-btn d-flex align-center justify-center radius-circle" (click)="isMobileMenuOpen.set(false)" [attr.aria-label]="'common.close' | translate">
           <span class="material-symbols-rounded">close</span>
         </button>
       </div>
@@ -155,7 +155,7 @@
       <div class="drawer-section">
         <div class="d-flex justify-between align-center">
           <div class="p-xs">
-            <p class="drawer-action-text fw-bold">
+            <p class="drawer-action-text flex-1 text-md fw-bold">
               Configurações e Preferencias
             </p>
             <p class="text-md">
@@ -167,7 +167,7 @@
         <br>
         <div class="d-flex justify-between align-center">
           <div class="p-xs">
-            <p class="drawer-action-text fw-bold">
+            <p class="drawer-action-text flex-1 text-md fw-bold">
               Feedback, Ajuda e Sobre
             </p>
             <p class="text-md">
@@ -180,8 +180,8 @@
     </div>
 
     <ng-template #footer>
-      <div class="drawer-footer">
-        <div class="topbar-right">
+      <div class="drawer-footer d-flex flex-col gap-sm">
+        <div class="topbar-right d-flex align-center gap-sm flex-shrink-0">
           <!-- Auth buttons -->
           <app-button variant="outline" size="sm" (clicked)="goToAuth()">
             {{ 'auth.login' | translate }}
@@ -196,17 +196,17 @@
 
   <!-- ── Language overlay panel ─────────────────────────────────── -->
   <app-popover #langPanel styleClass="lang-panel">
-    <div class="lang-list">
+    <div class="lang-list d-flex flex-col">
       @for (lang of languageService.languages; track lang.code) {
         <button
-          class="lang-item"
+          class="lang-item d-flex align-center radius-sm text-md w-full"
           [class.active]="languageService.currentLang() === lang.code"
           (click)="setLanguage(lang.code); langPanel.hide()"
         >
-          <span class="lang-item-flag">{{ lang.flag }}</span>
+          <span class="lang-item-flag text-xl">{{ lang.flag }}</span>
           <span class="lang-item-label">{{ lang.label }}</span>
           @if (languageService.currentLang() === lang.code) {
-            <span class="material-symbols-rounded check-icon">check</span>
+            <span class="material-symbols-rounded check-icon text-xl pin-red">check</span>
           }
         </button>
       }
