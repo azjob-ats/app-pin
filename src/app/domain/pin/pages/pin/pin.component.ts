@@ -1,15 +1,14 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { PinService } from '../../../../shared/services/pin.service';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
+import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
 import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
 import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
-import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
-import { MOCK_NOTIFICATIONS } from '../../../../shared/mocks/notifications.mock';
 import { Comment } from '../../../../shared/interfaces/comment.interface';
+import { Pin } from '../../../../shared/interfaces/pin.interface';
+import { PinService } from '../../../../shared/services/pin.service';
 
 const MOCK_COMMENTS: Comment[] = [
   {
@@ -61,7 +60,7 @@ export class PinComponent implements OnInit {
   }
 
   onShare(): void {
-    navigator.clipboard?.writeText(window.location.href).catch(() => {});
+    navigator.clipboard?.writeText(window.location.href).catch(() => { });
   }
 
   addComment(): void {
