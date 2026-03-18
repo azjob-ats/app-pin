@@ -1,0 +1,27 @@
+.btn-like {
+  height: 44px;
+  padding: 3px 9px 0;
+  border: none;
+  cursor: pointer;
+  gap: 4px;
+  transition: background-color var(--pin-transition);
+
+  &__icon {
+    font-size: var(--text-3xl);
+    color: var(--pin-text-primary);
+    transition: color var(--pin-transition), font-variation-settings var(--pin-transition);
+  }
+
+  &--active &__icon {
+    color: var(--pin-red);
+    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+  }
+
+  &__count {
+    font-weight: 900;
+  }
+
+  &:hover {
+    background: var(--pin-border);
+  }
+}

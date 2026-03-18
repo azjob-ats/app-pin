@@ -30,20 +30,10 @@
       <div class="pin-detail-info flex flex-col flex-1 p-sm overflow-auto">
         <!-- Actions bar -->
         <div class="flex align-center gap-sm flex-wrap mb-3xl mt-sm">
-          <button class="pin-action-icon-btn-like flex align-center justify-center radius-xl bg-secondary text-1xl-title">
-            <span class="material-symbols-rounded fii-like">favorite</span>
-            <span class="pin-like-count">107</span>
-          </button>
-          <button class="pin-action-icon-btn flex align-center justify-center radius-circle bg-secondary text-1xl-title">
-            <span class="material-symbols-rounded">more_horiz</span>
-          </button>
+          <app-button-like [count]="107" [liked]="false" />
+          <app-button variant="secondary" shape="circle" size="md" icon="more_horiz" />
           <div class="save-group flex align-center gap-sm">
-            <button
-              class="pin-save-btn-large radius-xl px-2xl fw-bold text-lg text-color-inverse"
-              [class.saved]="false"
-            >
-             Saiba Mais
-            </button>
+            <app-button variant="primary" size="md">Saiba Mais</app-button>
           </div>
         </div>
 
@@ -68,10 +58,7 @@
             </a>
             <span class="text-xs text-3xl-title">{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span>
           </div>
-          <button class="board-selector flex align-center gap-xs radius-xl bg-secondary text-1xl-title text-sm fw-bold px-lg">
-            <span class="material-symbols-rounded fii-like">notifications</span>
-            <span class="material-symbols-rounded">expand_more</span>
-          </button>
+          <app-button-inscription [subscribed]="false" />
         </div>
 
         <!-- Comments section -->
@@ -82,18 +69,14 @@
           <div class="gap-md flex align-center">
             <app-user-avatar imageUrl="https://i.pravatar.cc/150?img=10" alt="Me" size="sm" />
             <div class="comment-input-wrap flex-1 flex align-center bg-secondary radius-xl px-lg">
-              <input
-                class="comment-input flex-1 text-md text-1xl-title py-md"
-                type="text"
+              <app-comment-input
+                [value]="commentText()"
                 [placeholder]="'pin.addComment' | translate"
-                [ngModel]="commentText()"
-                (ngModelChange)="commentText.set($event)"
-                (keydown.enter)="addComment()"
+                (valueChange)="commentText.set($event)"
+                (enter)="addComment()"
               />
               @if (commentText()) {
-                <button class="comment-submit flex align-center justify-center radius-circle text-color-inverse flex-shrink-0" (click)="addComment()">
-                  <span class="material-symbols-rounded">send</span>
-                </button>
+                <app-comment-submit (submitted)="addComment()" />
               }
             </div>
           </div>

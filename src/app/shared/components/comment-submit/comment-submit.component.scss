@@ -1,0 +1,21 @@
+:host.comment-submit-host {
+  display: contents;
+}
+
+.comment-submit-btn {
+  width: var(--size-sm);
+  height: var(--size-sm);
+  flex-shrink: 0;
+  background: var(--pin-red);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--pin-transition);
+
+  .material-symbols-rounded {
+    font-size: 1.125rem;
+  }
+
+  &:hover {
+    background: var(--pin-red-hover);
+  }
+}

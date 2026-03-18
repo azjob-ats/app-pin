@@ -1,0 +1,18 @@
+:host.comment-input-host {
+  flex: 1;
+  min-width: 0;
+  display: block;
+}
+
+.comment-input-field {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family);
+  outline: none;
+  color: var(--pin-text-primary);
+
+  &::placeholder {
+    color: var(--pin-text-secondary);
+  }
+}
