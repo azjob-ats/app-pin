@@ -5,6 +5,9 @@ import { BoardCardComponent } from '../../../../shared/components/board-card/boa
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
 import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
+import { AppTabPanelComponent } from '../../../../shared/components/tabs/tab-panel.component';
+import { AppTabComponent } from '../../../../shared/components/tabs/tab.component';
+import { AppTabsComponent } from '../../../../shared/components/tabs/tabs.component';
 import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
 import { Board } from '../../../../shared/interfaces/board.interface';
 import { Pin } from '../../../../shared/interfaces/pin.interface';
@@ -23,6 +26,9 @@ import { UserService } from '../../../../shared/services/user.service';
     UserAvatarComponent,
     BoardCardComponent,
     EmptyStateComponent,
+    AppTabsComponent,
+    AppTabComponent,
+    AppTabPanelComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -33,7 +39,6 @@ export class ProfileComponent implements OnInit {
   readonly savedPins = signal<Pin[]>([]);
   readonly boards = signal<Board[]>([]);
   readonly isLoading = signal(true);
-  readonly activeTab = signal('created');
 
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);

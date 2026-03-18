@@ -1,7 +1,7 @@
 <div class="profile-page">
 
   @if (isLoading()) {
-    <div class="profile-skeleton">
+    <div class="d-flex flex-col align-center gap-lg py-3xl px-xl">
       <div class="skeleton avatar-skeleton"></div>
       <div class="skeleton name-skeleton"></div>
       <div class="skeleton bio-skeleton"></div>
@@ -10,126 +10,99 @@
 
   @if (user(); as user) {
     <!-- Profile header -->
-    <div class="profile-header">
+    <div class="profile-header d-flex flex-col align-center text-center">
       <!-- Avatar -->
       <app-user-avatar
         [imageUrl]="user.avatarUrl"
         [alt]="user.displayName"
         size="xl"
-        class="profile-avatar"
+        class="mb-lg"
       />
 
       <!-- Name -->
-      <h1 class="profile-name">{{ user.displayName }}</h1>
-      <p class="profile-username">&#64;{{ user.username }}</p>
+      <h1 class="text-3xl fw-bold text-1xl-title mb-xs">{{ user.displayName }}</h1>
+      <p class="text-sm text-3xl-title mb-lg">&#64;{{ user.username }}</p>
 
       <!-- Stats -->
-      <div class="profile-stats">
-        <div class="stat">
-          <span class="stat-value">{{ formatCount(user.followersCount) }}</span>
-          <span class="stat-label">{{ 'profile.followers' | translate }}</span>
+      <div class="d-flex align-center gap-lg mb-md">
+        <div class="d-flex flex-col align-center">
+          <span class="stat-value fw-bold text-1xl-title">{{ formatCount(user.followersCount) }}</span>
+          <span class="text-xs text-3xl-title">{{ 'profile.followers' | translate }}</span>
         </div>
         <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value">{{ formatCount(user.followingCount) }}</span>
-          <span class="stat-label">{{ 'profile.following' | translate }}</span>
+        <div class="d-flex flex-col align-center">
+          <span class="stat-value fw-bold text-1xl-title">{{ formatCount(user.followingCount) }}</span>
+          <span class="text-xs text-3xl-title">{{ 'profile.following' | translate }}</span>
         </div>
       </div>
 
       @if (user.monthlyViews) {
-        <p class="monthly-views">
+        <p class="text-sm text-3xl-title mb-md">
           {{ formatCount(user.monthlyViews) }} {{ 'profile.monthlyViews' | translate }}
         </p>
       }
 
       <!-- Bio -->
       @if (user.bio) {
-        <p class="profile-bio">{{ user.bio }}</p>
+        <p class="profile-bio text-base text-3xl-title mb-md">{{ user.bio }}</p>
       }
 
       <!-- Website -->
       @if (user.website) {
-        <a class="profile-website" [href]="user.website" target="_blank" rel="noopener">
+        <a class="profile-website d-flex align-center gap-xs text-sm text-3xl-title mb-lg" [href]="user.website" target="_blank" rel="noopener">
           <span class="material-symbols-rounded">link</span>
           {{ user.website.replace('https://', '') }}
         </a>
       }
 
       <!-- Actions -->
-      <div class="profile-actions">
+      <div class="d-flex align-center gap-sm">
         <app-follow-button [initialFollowing]="user.isFollowing ?? false" />
-        <button class="profile-action-btn">
+        <button class="profile-action-btn d-flex align-center justify-center radius-circle bg-secondary">
           <span class="material-symbols-rounded">chat_bubble</span>
         </button>
-        <button class="profile-action-btn">
+        <button class="profile-action-btn d-flex align-center justify-center radius-circle bg-secondary">
           <span class="material-symbols-rounded">share</span>
         </button>
-        <button class="profile-action-btn">
+        <button class="profile-action-btn d-flex align-center justify-center radius-circle bg-secondary">
           <span class="material-symbols-rounded">more_horiz</span>
         </button>
       </div>
     </div>
 
     <!-- Tabs -->
-    <div class="profile-tabs-wrap">
-      <div class="app-tabs">
-        <div class="app-tablist" role="tablist">
-          <button
-            class="app-tab"
-            [class.active]="activeTab() === 'created'"
-            (click)="activeTab.set('created')"
-            role="tab"
-            [attr.aria-selected]="activeTab() === 'created'"
-          >{{ 'profile.created' | translate }}</button>
-          <button
-            class="app-tab"
-            [class.active]="activeTab() === 'saved'"
-            (click)="activeTab.set('saved')"
-            role="tab"
-            [attr.aria-selected]="activeTab() === 'saved'"
-          >{{ 'profile.saved' | translate }}</button>
-          <button
-            class="app-tab"
-            [class.active]="activeTab() === 'boards'"
-            (click)="activeTab.set('boards')"
-            role="tab"
-            [attr.aria-selected]="activeTab() === 'boards'"
-          >{{ 'profile.boards' | translate }}</button>
-        </div>
-        <div class="app-tabpanels">
-          @if (activeTab() === 'created') {
-            <div class="app-tabpanel" role="tabpanel">
-              @if (createdPins().length === 0) {
-                <app-empty-state icon="push_pin" [message]="'profile.noPins' | translate" />
-              } @else {
-                <app-masonry-grid [pins]="createdPins()" />
-              }
-            </div>
-          }
-          @if (activeTab() === 'saved') {
-            <div class="app-tabpanel" role="tabpanel">
-              @if (savedPins().length === 0) {
-                <app-empty-state icon="bookmark" [message]="'profile.noPins' | translate" />
-              } @else {
-                <app-masonry-grid [pins]="savedPins()" />
-              }
-            </div>
-          }
-          @if (activeTab() === 'boards') {
-            <div class="app-tabpanel" role="tabpanel">
-              @if (boards().length === 0) {
-                <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
-              } @else {
-                <div class="boards-grid">
-                  @for (board of boards(); track board.id) {
-                    <app-board-card [board]="board" />
-                  }
-                </div>
-              }
-            </div>
-          }
-        </div>
-      </div>
-    </div>
+    <app-tabs defaultTab="created">
+      <app-tab id="created">{{ 'profile.created' | translate }}</app-tab>
+      <app-tab id="saved">{{ 'profile.saved' | translate }}</app-tab>
+      <app-tab id="boards">{{ 'profile.boards' | translate }}</app-tab>
+
+      <app-tab-panel id="created">
+        @if (createdPins().length === 0) {
+          <app-empty-state icon="push_pin" [message]="'profile.noPins' | translate" />
+        } @else {
+          <app-masonry-grid [pins]="createdPins()" />
+        }
+      </app-tab-panel>
+
+      <app-tab-panel id="saved">
+        @if (savedPins().length === 0) {
+          <app-empty-state icon="bookmark" [message]="'profile.noPins' | translate" />
+        } @else {
+          <app-masonry-grid [pins]="savedPins()" />
+        }
+      </app-tab-panel>
+
+      <app-tab-panel id="boards">
+        @if (boards().length === 0) {
+          <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
+        } @else {
+          <div class="boards-grid d-grid gap-lg p-lg">
+            @for (board of boards(); track board.id) {
+              <app-board-card [board]="board" />
+            }
+          </div>
+        }
+      </app-tab-panel>
+    </app-tabs>
   }
 </div>

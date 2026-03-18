@@ -1,82 +1,25 @@
+@use '../../../../../utility' as *;
+
+// ── Profile page ──────────────────────────────────────────────────────────
 .profile-page {
   min-height: 100%;
 }
 
-.profile-skeleton {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-lg);
-  padding: var(--space-3xl) var(--space-xl);
-}
-
-.skeleton {
-  background: linear-gradient(90deg, var(--pin-bg-secondary) 25%, var(--pin-bg-tertiary) 37%, var(--pin-bg-secondary) 63%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s ease infinite;
-  border-radius: var(--radius-lg);
-}
-
+// ── Skeleton sizes ────────────────────────────────────────────────────────
 .avatar-skeleton { width: var(--size-xl); height: var(--size-xl); border-radius: var(--radius-circle); }
-.name-skeleton { width: 180px; height: 24px; }
-.bio-skeleton { width: 280px; height: 16px; }
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
+.name-skeleton   { width: 180px; height: 24px; }
+.bio-skeleton    { width: 280px; height: 16px; }
 
 // ── Profile header ────────────────────────────────────────────────────────
-
 .profile-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
-  text-align: center;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.profile-avatar {
-  margin-bottom: var(--space-lg);
-}
-
-.profile-name {
-  font-size: var(--text-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--pin-text-primary);
-  margin-bottom: var(--space-xs);
-}
-
-.profile-username {
-  font-size: var(--text-sm);
-  color: var(--pin-text-secondary);
-  margin-bottom: var(--space-lg);
-}
-
-.profile-stats {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-md);
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+// ── Stats ─────────────────────────────────────────────────────────────────
 .stat-value {
   font-size: 1.1rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--pin-text-primary);
-}
-
-.stat-label {
-  font-size: var(--text-xs);
-  color: var(--pin-text-secondary);
 }
 
 .stat-divider {
@@ -85,27 +28,14 @@
   background: var(--pin-border);
 }
 
-.monthly-views {
-  font-size: var(--text-sm);
-  color: var(--pin-text-secondary);
-  margin-bottom: var(--space-md);
-}
-
+// ── Bio ───────────────────────────────────────────────────────────────────
 .profile-bio {
-  font-size: var(--text-base);
-  color: var(--pin-text-secondary);
   line-height: 1.6;
   max-width: 480px;
-  margin-bottom: var(--space-md);
 }
 
+// ── Website ───────────────────────────────────────────────────────────────
 .profile-website {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: var(--text-sm);
-  color: var(--pin-text-secondary);
-  margin-bottom: var(--space-lg);
   text-decoration: none;
   transition: color var(--pin-transition);
 
@@ -117,20 +47,10 @@
   }
 }
 
-.profile-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
+// ── Action buttons ────────────────────────────────────────────────────────
 .profile-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: var(--radius-circle);
-  background: var(--pin-bg-secondary);
   border: none;
   color: var(--pin-text-primary);
   cursor: pointer;
@@ -141,83 +61,13 @@
   &:hover { background: var(--pin-border); }
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────
-
-.profile-tabs-wrap {
-  padding: 0;
-}
-
-.app-tabs {
-  width: 100%;
-}
-
-.app-tablist {
-  display: flex;
-  justify-content: flex-start;
-  border-bottom: 2px solid var(--pin-border);
-  padding: 0;
-}
-
-.app-tab {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.25rem;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  background: transparent;
-  color: var(--pin-text-secondary);
-  font-family: var(--font-family);
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  transition: color var(--pin-transition), border-color var(--pin-transition);
-
-  &:hover {
-    color: var(--pin-text-primary);
-  }
-
-  &.active {
-    color: var(--pin-red);
-    border-bottom-color: var(--pin-red);
-  }
-}
-
-.app-tabpanels {
-  width: 100%;
-}
-
-.app-tabpanel {
-  padding: var(--space-lg) 0 0;
-}
-
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
-  padding: 60px var(--space-xl);
-  color: var(--pin-text-secondary);
-
-  .empty-icon {
-    font-size: var(--text-6xl);
-    color: var(--pin-text-muted);
-  }
-
-  p { font-size: var(--text-lg); }
-}
-
 // ── Boards grid ───────────────────────────────────────────────────────────
-
 .boards-grid {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-lg);
-  padding: var(--space-lg);
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
-    padding: var(--space-sm);
+    @include gap-sm;
+    @include p-sm;
   }
 }
