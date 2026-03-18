@@ -97,7 +97,7 @@ export class HomeComponent {
         track.scrollLeft = scrollLeft - walk;
       };
       const onClickCapture = (e: Event) => {
-        if (isDragging) { e.stopPropagation(); isDragging = false; }
+        if (isDragging) { e.stopPropagation(); e.preventDefault(); isDragging = false; }
       };
 
       const onDragStart = (e: DragEvent) => e.preventDefault();
