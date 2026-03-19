@@ -1,0 +1,14 @@
+.sidebar-group {
+  flex: 1;
+  width: 100%;
+}
+
+.sidebar-group-label {
+  font-size: var(--text-2xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--pin-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0 var(--space-xs);
+  align-self: flex-start;
+}

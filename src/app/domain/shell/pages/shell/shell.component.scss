@@ -8,25 +8,7 @@
   transition: background-color 0.2s ease;
 }
 
-// ── Sidebar ───────────────────────────────────────────────────────────────
-
-.sidebar {
-  width: var(--pin-sidebar-width);
-  height: 100vh;
-  background: var(--pin-sidebar-bg);
-  border-right: 1px solid var(--pin-border);
-  padding: var(--space-md) 0;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: var(--z-sidebar);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-
-  &.mobile-hidden {
-    display: none;
-  }
-}
-
+// ── Sidebar (shell-specific overrides) ────────────────────────────────────
 
 .logo-link {
   width: var(--size-md);
@@ -44,10 +26,6 @@
 }
 
 // ── Nav items ─────────────────────────────────────────────────────────────
-
-.sidebar-nav {
-  padding: var(--space-sm) 0;
-}
 
 .sidebar-nav-item {
   width: var(--size-md);
@@ -75,13 +53,6 @@
     }
   }
 }
-
-// ── Bottom actions ────────────────────────────────────────────────────────
-
-.sidebar-bottom {
-  padding-bottom: var(--space-sm);
-}
-
 
 .nav-icon-wrap {
   position: relative;

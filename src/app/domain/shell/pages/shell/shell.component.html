@@ -1,55 +1,53 @@
 <div class="app-layout" [class.dark]="themeService.isDark">
 
   <!-- ── Sidebar (Desktop) ─────────────────────────────────────── -->
-  <aside class="sidebar d-flex flex-col align-center flex-shrink-0" [class.mobile-hidden]="isMobile()">
-    <!-- Logo -->
-    <div class="mb-sm p-sm">
+  <app-sidebar [hidden]="isMobile()">
+    <app-sidebar-header>
       <a routerLink="/home" class="logo-link d-flex align-center justify-center radius-circle" appTooltip="azjob" tooltipPosition="right">
         <img ngSrc="assets/images/logo-az-circlar.png" class="logo-svg" width="48" height="48" alt="azjob" />
       </a>
-    </div>
+    </app-sidebar-header>
 
-    <!-- Nav items -->
-    <nav class="sidebar-nav d-flex flex-col align-center gap-xs flex-1">
-      @for (item of navItems; track item.route) {
-        <a
-          class="sidebar-nav-item d-flex align-center justify-center radius-circle"
-          [routerLink]="item.route"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: !!item.exact }"
-          [appTooltip]="item.labelKey | translate"
-          tooltipPosition="right"
-          [tooltipDelay]="300"
-        >
-          @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
-            <span class="nav-icon-wrap d-flex align-center justify-center">
+    <app-sidebar-content>
+      <app-sidebar-group>
+        @for (item of navItems; track item.route) {
+          <a
+            class="sidebar-nav-item d-flex align-center justify-center radius-circle"
+            [routerLink]="item.route"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: !!item.exact }"
+            [appTooltip]="item.labelKey | translate"
+            tooltipPosition="right"
+            [tooltipDelay]="300"
+          >
+            @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
+              <span class="nav-icon-wrap d-flex align-center justify-center">
+                <span class="material-symbols-rounded">{{ item.icon }}</span>
+                <span class="notif-dot radius-circle"></span>
+              </span>
+            } @else {
               <span class="material-symbols-rounded">{{ item.icon }}</span>
-              <span class="notif-dot radius-circle"></span>
-            </span>
-          } @else {
-            <span class="material-symbols-rounded">{{ item.icon }}</span>
-          }
-        </a>
-      }
-    </nav>
+            }
+          </a>
+        }
+      </app-sidebar-group>
+    </app-sidebar-content>
 
-    <!-- Bottom actions -->
-    <div class="sidebar-bottom d-flex flex-col align-center gap-xs">
-      <!-- Profile avatar -->
-        <a
-          class="sidebar-nav-item d-flex align-center justify-center radius-circle"
-          routerLinkActive="active"
-          appTooltip="Mais"
-          tooltipPosition="right"
-          [tooltipDelay]="300"
-          (click)="isMobileMenuOpen.set(!isMobileMenuOpen())"
-        >
-          <span class="nav-icon-wrap d-flex align-center justify-center">
-            <span class="material-symbols-rounded">more_horiz</span>
-          </span>
-        </a>
-    </div>
-  </aside>
+    <app-sidebar-footer>
+      <a
+        class="sidebar-nav-item d-flex align-center justify-center radius-circle"
+        routerLinkActive="active"
+        appTooltip="Mais"
+        tooltipPosition="right"
+        [tooltipDelay]="300"
+        (click)="isMobileMenuOpen.set(!isMobileMenuOpen())"
+      >
+        <span class="nav-icon-wrap d-flex align-center justify-center">
+          <span class="material-symbols-rounded">more_horiz</span>
+        </span>
+      </a>
+    </app-sidebar-footer>
+  </app-sidebar>
 
   <!-- ── Main content area ──────────────────────────────────────── -->
   <div class="main-area d-flex flex-col flex-1 overflow-hidden">

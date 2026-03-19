@@ -12,6 +12,11 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 import { DrawerComponent } from '../../../../shared/components/drawer/drawer.component';
 import { PopoverComponent } from '../../../../shared/components/popover/popover.component';
 import { TooltipDirective } from '../../../../shared/directives/tooltip/tooltip.directive';
+import { SidebarComponent } from '../../../../shared/components/sidebar/sidebar.component';
+import { SidebarHeaderComponent } from '../../../../shared/components/sidebar/sidebar-header.component';
+import { SidebarContentComponent } from '../../../../shared/components/sidebar/sidebar-content.component';
+import { SidebarGroupComponent } from '../../../../shared/components/sidebar/sidebar-group.component';
+import { SidebarFooterComponent } from '../../../../shared/components/sidebar/sidebar-footer.component';
 
 interface NavItem {
   icon: string;
@@ -36,6 +41,11 @@ interface NavItem {
     DrawerComponent,
     PopoverComponent,
     TooltipDirective,
+    SidebarComponent,
+    SidebarHeaderComponent,
+    SidebarContentComponent,
+    SidebarGroupComponent,
+    SidebarFooterComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
