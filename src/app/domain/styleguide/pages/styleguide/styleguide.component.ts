@@ -42,6 +42,10 @@ import { SplitButtonComponent } from '../../../../shared/components/splitbutton/
 import { PinCardComponent } from '../../../../shared/components/pin-card/pin-card.component';
 import { Notification } from '../../../../shared/interfaces/notification.interface';
 import { Pin } from '../../../../shared/interfaces/pin.interface';
+import { Board } from '../../../../shared/interfaces/board.interface';
+import { CommentInputComponent } from '../../../../shared/components/comment-input/comment-input.component';
+import { CommentSubmitComponent } from '../../../../shared/components/comment-submit/comment-submit.component';
+import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
 
 export interface NavItem {
   id: string;
@@ -105,6 +109,9 @@ export interface SearchResult {
     ChipScrollComponent,
     SplitButtonComponent,
     PinCardComponent,
+    CommentInputComponent,
+    CommentSubmitComponent,
+    BoardCardComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -209,6 +216,27 @@ export class StyleguideComponent {
     { id: 'sg-p2', title: 'Architecture', imageUrl: 'https://picsum.photos/seed/sg2/300/300', imageWidth: 300, imageHeight: 300, author: { id: 'a2', username: 'arch', displayName: 'Architect' }, saveCount: 56, commentCount: 3, createdAt: new Date().toISOString() },
     { id: 'sg-p3', title: 'Typography', imageUrl: 'https://picsum.photos/seed/sg3/300/500', imageWidth: 300, imageHeight: 500, author: { id: 'a3', username: 'typo', displayName: 'Typo' }, saveCount: 88, commentCount: 7, createdAt: new Date().toISOString() },
     { id: 'sg-p4', title: 'Colors', imageUrl: 'https://picsum.photos/seed/sg4/300/350', imageWidth: 300, imageHeight: 350, author: { id: 'a4', username: 'color', displayName: 'Color' }, saveCount: 200, commentCount: 22, createdAt: new Date().toISOString() },
+  ];
+
+  readonly mockBoards: Board[] = [
+    {
+      id: 'b1', name: 'UI Inspiration', pinsCount: 48,
+      coverImages: ['https://picsum.photos/seed/b1a/200/200', 'https://picsum.photos/seed/b1b/200/200', 'https://picsum.photos/seed/b1c/200/200'],
+      owner: { id: 'a1', username: 'ana.silva', displayName: 'Ana Silva' },
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'b2', name: 'Arquitetura', pinsCount: 22,
+      coverImageUrl: 'https://picsum.photos/seed/b2/400/220',
+      owner: { id: 'a1', username: 'ana.silva', displayName: 'Ana Silva' },
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'b3', name: 'Tipografia', pinsCount: 15,
+      coverImages: ['https://picsum.photos/seed/b3a/200/200', 'https://picsum.photos/seed/b3b/200/200'],
+      owner: { id: 'a1', username: 'ana.silva', displayName: 'Ana Silva' },
+      createdAt: new Date().toISOString(),
+    },
   ];
 
   readonly selectOptions: SelectOption[] = [

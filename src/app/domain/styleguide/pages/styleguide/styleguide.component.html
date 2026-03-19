@@ -155,97 +155,644 @@
     <!-- LANDING PAGE -->
     @if (activeSection() === '') {
       <section class="sg-landing">
+
+        <!-- ── Hero ─────────────────────────────────────────────────────── -->
         <div class="sg-landing__hero">
-          <div class="sg-landing__eyebrow">
-            <span class="material-symbols-rounded" aria-hidden="true">palette</span>
-            Design System
-          </div>
-          <h1 class="sg-landing__title">AZJob <span class="sg-landing__title-accent">Styleguide</span></h1>
-          <p class="sg-landing__desc">
-            A unified design language for building consistent, accessible, and beautiful interfaces.
-            Explore utilities, tokens, and components that power the AZJob platform.
-          </p>
-          <div class="sg-landing__actions">
-            <a class="sg-landing__cta sg-landing__cta--primary" [routerLink]="['/styleguide', 'colors']">
+          <div class="sg-landing__hero-orb sg-landing__hero-orb--1" aria-hidden="true"></div>
+          <div class="sg-landing__hero-orb sg-landing__hero-orb--2" aria-hidden="true"></div>
+          <div class="sg-landing__hero-orb sg-landing__hero-orb--3" aria-hidden="true"></div>
+
+          <div class="sg-landing__hero-content">
+            <div class="sg-landing__hero-badge">
               <span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span>
-              Explore Tokens
-            </a>
-            <a class="sg-landing__cta sg-landing__cta--secondary" [routerLink]="['/styleguide', 'comp-button']">
-              <span class="material-symbols-rounded" aria-hidden="true">widgets</span>
-              View Components
-            </a>
+              Design System
+            </div>
+
+            <img
+              ngSrc="assets/images/logo-az-circlar.png"
+              width="72" height="72"
+              alt="AZJob"
+              class="sg-landing__hero-logo"
+              priority
+            />
+
+            <h1 class="sg-landing__hero-title">
+              Building beautiful<br>
+              <span class="sg-landing__hero-accent">interfaces</span>
+              starts here.
+            </h1>
+
+            <p class="sg-landing__hero-desc">
+              Linguagem visual unificada da plataforma AZJob.
+              Componentes, tokens e utilitários — tudo em um só lugar.
+            </p>
+
+            <div class="sg-landing__hero-actions">
+              <a class="sg-landing__cta sg-landing__cta--filled" [routerLink]="['/styleguide', 'comp-button']">
+                <span class="material-symbols-rounded" aria-hidden="true">widgets</span>
+                Explorar componentes
+              </a>
+              <a class="sg-landing__cta sg-landing__cta--outlined" [routerLink]="['/styleguide', 'colors']">
+                <span class="material-symbols-rounded" aria-hidden="true">palette</span>
+                Design tokens
+              </a>
+            </div>
+
+            <div class="sg-landing__hero-dots" aria-hidden="true">
+              @for (color of designColors.slice(0, 9); track color.name) {
+                <span class="sg-landing__hero-dot"
+                  [style.background]="color.value.includes('/') ? color.value.split('/')[0].trim() : color.value">
+                </span>
+              }
+            </div>
           </div>
         </div>
 
+        <!-- ── Stats ────────────────────────────────────────────────────── -->
         <div class="sg-landing__stats">
           <div class="sg-landing__stat">
-            <span class="sg-landing__stat-number">60+</span>
-            <span class="sg-landing__stat-label">Utility Classes</span>
+            <span class="sg-landing__stat-num">60+</span>
+            <span class="sg-landing__stat-lbl">Utility classes</span>
           </div>
+          <div class="sg-landing__stat-sep" aria-hidden="true"></div>
           <div class="sg-landing__stat">
-            <span class="sg-landing__stat-number">20</span>
-            <span class="sg-landing__stat-label">Components</span>
+            <span class="sg-landing__stat-num">26</span>
+            <span class="sg-landing__stat-lbl">Componentes</span>
           </div>
+          <div class="sg-landing__stat-sep" aria-hidden="true"></div>
           <div class="sg-landing__stat">
-            <span class="sg-landing__stat-number">13</span>
-            <span class="sg-landing__stat-label">Color Tokens</span>
+            <span class="sg-landing__stat-num">13</span>
+            <span class="sg-landing__stat-lbl">Color tokens</span>
           </div>
+          <div class="sg-landing__stat-sep" aria-hidden="true"></div>
           <div class="sg-landing__stat">
-            <span class="sg-landing__stat-number">9</span>
-            <span class="sg-landing__stat-label">Spacing Scales</span>
+            <span class="sg-landing__stat-num">9</span>
+            <span class="sg-landing__stat-lbl">Spacing scales</span>
           </div>
         </div>
 
-        <div class="sg-landing__colors">
-          <h2 class="sg-landing__section-title">Brand Colors</h2>
-          <div class="sg-landing__color-row">
-            @for (color of designColors.slice(0, 6); track color.name) {
-              <a class="sg-landing__color-chip" [routerLink]="['/styleguide', 'colors']"
-                 [style.background]="color.value.includes('/') ? color.value.split('/')[0].trim() : color.value"
-                 [title]="color.label + ' · ' + color.name">
+        <!-- ── Bento ─────────────────────────────────────────────────────── -->
+        <div class="sg-landing__bento">
+          <a class="sg-landing__bento-card sg-landing__bento-card--u" [routerLink]="['/styleguide', 'display']">
+            <span class="material-symbols-rounded sg-landing__bento-icon" aria-hidden="true">view_quilt</span>
+            <div class="sg-landing__bento-body">
+              <span class="sg-landing__bento-title">Utilities</span>
+              <span class="sg-landing__bento-desc">Display · Spacing · Flexbox · Typography</span>
+            </div>
+            <span class="material-symbols-rounded sg-landing__bento-arrow" aria-hidden="true">arrow_forward</span>
+          </a>
+
+          <a class="sg-landing__bento-card sg-landing__bento-card--t" [routerLink]="['/styleguide', 'colors']">
+            <span class="material-symbols-rounded sg-landing__bento-icon" aria-hidden="true">token</span>
+            <div class="sg-landing__bento-body">
+              <span class="sg-landing__bento-title">Design Tokens</span>
+              <span class="sg-landing__bento-desc">Colors · Spacing · Radius · Typography</span>
+            </div>
+            <span class="material-symbols-rounded sg-landing__bento-arrow" aria-hidden="true">arrow_forward</span>
+          </a>
+
+          <a class="sg-landing__bento-card sg-landing__bento-card--c" [routerLink]="['/styleguide', 'comp-button']">
+            <span class="material-symbols-rounded sg-landing__bento-icon" aria-hidden="true">widgets</span>
+            <div class="sg-landing__bento-body">
+              <span class="sg-landing__bento-title">Components</span>
+              <span class="sg-landing__bento-desc">26 componentes Angular com demos ao vivo e documentação completa da API</span>
+            </div>
+            <span class="material-symbols-rounded sg-landing__bento-arrow" aria-hidden="true">arrow_forward</span>
+          </a>
+
+          <a class="sg-landing__bento-card sg-landing__bento-card--s" [routerLink]="['/styleguide', 'icons']">
+            <span class="material-symbols-rounded sg-landing__bento-icon" aria-hidden="true">layers</span>
+            <div class="sg-landing__bento-body">
+              <span class="sg-landing__bento-title">Standard Classes</span>
+              <span class="sg-landing__bento-desc">Icons · Skeleton · Tooltip · Links · Titles</span>
+            </div>
+            <span class="material-symbols-rounded sg-landing__bento-arrow" aria-hidden="true">arrow_forward</span>
+          </a>
+        </div>
+
+        <!-- ── Palette ───────────────────────────────────────────────────── -->
+        <div class="sg-landing__palette">
+          <div class="sg-landing__sec-hd">
+            <h2 class="sg-landing__sec-title">Paleta de cores</h2>
+            <a class="sg-landing__sec-link" [routerLink]="['/styleguide', 'colors']">
+              Ver tokens <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
+          <div class="sg-landing__swatches">
+            @for (color of designColors; track color.name) {
+              <a class="sg-landing__swatch"
+                [routerLink]="['/styleguide', 'colors']"
+                [title]="color.label + ' · ' + color.name"
+                [style.--sw-bg]="color.value.includes('/') ? color.value.split('/')[0].trim() : color.value"
+              >
+                <span class="sg-landing__swatch-lbl">{{ color.label }}</span>
               </a>
             }
           </div>
         </div>
 
-        <div class="sg-landing__categories">
-          <h2 class="sg-landing__section-title">Categories</h2>
-          <div class="sg-landing__cat-grid">
-            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'display']">
-              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">view_quilt</span>
-              <span class="sg-landing__cat-name">Utilities</span>
-              <span class="sg-landing__cat-desc">Display, Spacing, Flexbox, Typography…</span>
-            </a>
-            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'icons']">
-              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">layers</span>
-              <span class="sg-landing__cat-name">Standard Classes</span>
-              <span class="sg-landing__cat-desc">Icons, Skeleton, Tooltip, Links, Titles</span>
-            </a>
-            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'colors']">
-              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">token</span>
-              <span class="sg-landing__cat-name">Design Tokens</span>
-              <span class="sg-landing__cat-desc">Colors, Spacing, Radius, Typography scales</span>
-            </a>
-            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'comp-button']">
-              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">widgets</span>
-              <span class="sg-landing__cat-name">Components</span>
-              <span class="sg-landing__cat-desc">20 ready-to-use Angular components</span>
+        <!-- ── Components quick nav ──────────────────────────────────────── -->
+        <div class="sg-landing__comps">
+          <div class="sg-landing__sec-hd">
+            <h2 class="sg-landing__sec-title">Todos os componentes</h2>
+            <a class="sg-landing__sec-link" [routerLink]="['/styleguide', 'comp-button']">
+              Ver todos <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
             </a>
           </div>
-        </div>
-
-        <div class="sg-landing__typography">
-          <h2 class="sg-landing__section-title">Typography Scale</h2>
-          <div class="sg-landing__type-rows">
-            @for (t of typographyTokens.slice(7, 13); track t.name) {
-              <div class="sg-landing__type-row">
-                <span class="sg-landing__type-token">{{ t.name }}</span>
-                <span class="sg-landing__type-value">{{ t.value }}</span>
-                <span class="sg-landing__type-sample" [style.font-size]="t.value">Aa Bb Cc</span>
-              </div>
+          <div class="sg-landing__comp-pills">
+            @for (comp of (nav[3].children ?? []); track comp.id) {
+              <a class="sg-landing__comp-pill" [routerLink]="['/styleguide', comp.id]">
+                {{ comp.label }}
+              </a>
             }
           </div>
         </div>
+
+        <!-- ── Page Cases ─────────────────────────────────────────────────── -->
+        <div class="sg-landing__cases">
+          <div class="sg-landing__sec-hd">
+            <h2 class="sg-landing__sec-title">Page Cases</h2>
+            <span class="sg-landing__sec-badge">Componentes em contexto real</span>
+          </div>
+
+          <div class="sg-landing__cases-grid">
+
+            <!-- ── Case 1: Perfil ──────────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/ana.silva</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">person</span>
+                  Perfil de usuário
+                </div>
+
+                <div class="sg-mock-profile">
+                  <div class="sg-mock-profile__cover" aria-hidden="true"></div>
+
+                  <div class="sg-mock-profile__inner">
+                    <app-user-avatar
+                      imageUrl="https://i.pravatar.cc/100?u=anasilva"
+                      alt="Ana Silva"
+                      size="xl"
+                    />
+                    <div class="sg-mock-profile__info">
+                      <span class="sg-mock-profile__name">Ana Silva</span>
+                      <span class="sg-mock-profile__username">&#64;ana.silva</span>
+                      <div class="sg-mock-profile__stats" aria-label="Estatísticas do perfil">
+                        <span><strong>842</strong> seguidores</span>
+                        <span><strong>312</strong> seguindo</span>
+                        <span><strong>94</strong> pins</span>
+                      </div>
+                      <div class="sg-mock-profile__actions">
+                        <app-follow-button />
+                        <app-button-inscription />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sg-mock-profile__pins" aria-label="Pins recentes">
+                    @for (pin of mockPins; track pin.id) {
+                      <div
+                        class="sg-mock-pin-thumb"
+                        [style.background-image]="'url(' + pin.imageUrl + ')'"
+                        [attr.aria-label]="pin.title"
+                        role="img"
+                      ></div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 2: Detalhe do pin ──────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/pin/sg-p1</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">image</span>
+                  Detalhe do pin
+                </div>
+
+                <div class="sg-mock-pin-detail">
+                  <div
+                    class="sg-mock-pin-detail__img"
+                    style="background-image: url('https://picsum.photos/seed/sg1/400/560')"
+                    role="img"
+                    aria-label="Design Inspiration"
+                  ></div>
+
+                  <div class="sg-mock-pin-detail__side">
+                    <div class="sg-mock-pin-detail__toprow">
+                      <div class="sg-mock-pin-detail__author">
+                        <app-user-avatar size="sm" alt="Designer" imageUrl="https://i.pravatar.cc/48?u=designer2" />
+                        <div>
+                          <div class="sg-mock-pin-detail__name">Designer</div>
+                          <div class="sg-mock-pin-detail__user">842 seguidores</div>
+                        </div>
+                      </div>
+                      <app-follow-button />
+                    </div>
+
+                    <h3 class="sg-mock-pin-detail__title">Design Inspiration Vol. 12</h3>
+                    <p class="sg-mock-pin-detail__desc">Uma coleção de interfaces minimalistas que inspiram criatividade no dia a dia.</p>
+
+                    <div class="sg-mock-pin-detail__reactions">
+                      <app-button-like [count]="128" />
+                      <button class="sg-mock-pin-detail__share" type="button" aria-label="Compartilhar">
+                        <span class="material-symbols-rounded">share</span>
+                      </button>
+                    </div>
+
+                    <div class="sg-mock-pin-detail__comments" aria-label="Comentários">
+                      <div class="sg-mock-comment">
+                        <app-user-avatar size="xs" alt="Júlia" imageUrl="https://i.pravatar.cc/32?u=julia2" />
+                        <div class="sg-mock-comment__bubble">
+                          <span class="sg-mock-comment__author">Júlia Arq</span>
+                          <span class="sg-mock-comment__text">Incrível composição!</span>
+                        </div>
+                      </div>
+                      <div class="sg-mock-comment">
+                        <app-user-avatar size="xs" alt="Carlos" imageUrl="https://i.pravatar.cc/32?u=carlos2" />
+                        <div class="sg-mock-comment__bubble">
+                          <span class="sg-mock-comment__author">Carlos Dev</span>
+                          <span class="sg-mock-comment__text">Salvei esse também 🙌</span>
+                        </div>
+                      </div>
+                      <div class="sg-mock-comment">
+                        <app-user-avatar size="xs" alt="Pedro" imageUrl="https://i.pravatar.cc/32?u=pedro2" />
+                        <div class="sg-mock-comment__bubble">
+                          <span class="sg-mock-comment__author">Pedro UX</span>
+                          <span class="sg-mock-comment__text">Referência perfeita para UI.</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="sg-mock-pin-detail__input">
+                      <app-user-avatar size="xs" alt="Você" />
+                      <app-comment-input placeholder="Adicione um comentário…" />
+                      <app-comment-submit />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 3: Notificações ────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/notifications</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">notifications</span>
+                  Notificações
+                </div>
+
+                <div class="sg-mock-notifs">
+                  <div class="sg-mock-notifs__header">
+                    <span class="sg-mock-notifs__title">Notificações</span>
+                    <button class="sg-mock-notifs__mark" type="button">
+                      Marcar todas como lidas
+                    </button>
+                  </div>
+                  <div role="list">
+                    @for (notif of mockNotifications; track notif.id) {
+                      <app-notification-item [notification]="notif" (read)="$any($event)" />
+                    }
+                  </div>
+                  <div class="sg-mock-notifs__more">
+                    <app-button variant="ghost" size="sm">
+                      <span class="material-symbols-rounded">expand_more</span>
+                      Ver mais notificações
+                    </app-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 4: Boards ──────────────────────────────────────── -->
+            <div class="sg-case sg-case--wide">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/ana.silva/boards</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">grid_view</span>
+                  Boards do usuário
+                </div>
+
+                <div class="sg-mock-boards">
+                  <div class="sg-mock-boards__header">
+                    <app-user-avatar size="sm" alt="Ana Silva" imageUrl="https://i.pravatar.cc/48?u=anasilva" />
+                    <span class="sg-mock-boards__owner">Boards de <strong>Ana Silva</strong></span>
+                    <app-chip-scroll
+                      [chips]="demoChips"
+                      [selected]="chipScrollSelected()"
+                      (chipSelect)="chipScrollSelected.set($event)"
+                    />
+                  </div>
+                  <div class="sg-mock-boards__grid">
+                    @for (board of mockBoards; track board.id) {
+                      <app-board-card [board]="board" />
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 5: Formulário ──────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/auth/register</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">assignment</span>
+                  Formulário
+                </div>
+                <div class="sg-mock-form">
+                  <p class="sg-mock-form__title">Criar conta</p>
+                  <p class="sg-mock-form__sub">Junte-se à plataforma AZJob</p>
+                  <div class="sg-mock-form__fields">
+                    <app-input label="Nome completo" placeholder="Seu nome" [(ngModel)]="inputValue" />
+                    <app-input label="E-mail profissional" placeholder="seu@empresa.com" type="email" [(ngModel)]="inputValue" />
+                    <app-select label="Área profissional" [options]="selectOptions" [(ngModel)]="selectValue" />
+                    <app-input label="Senha" placeholder="Mínimo 8 caracteres" type="password" [(ngModel)]="inputValue" />
+                  </div>
+                  <app-button label="Criar conta" size="lg" style="width:100%" />
+                  <app-divider text="ou continue com" />
+                  <app-button-provider>
+                    <span class="material-symbols-rounded">g_mobiledata</span>
+                    Continuar com Google
+                  </app-button-provider>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 6: Validação ───────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/auth/login</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">error_outline</span>
+                  Validação
+                </div>
+                <div class="sg-mock-form">
+                  <p class="sg-mock-form__title">Entrar</p>
+                  <p class="sg-mock-form__sub">Bem-vindo de volta</p>
+                  <div class="sg-mock-form__fields">
+                    <app-input
+                      label="E-mail"
+                      placeholder="seu@email.com"
+                      type="email"
+                      [(ngModel)]="inputValue"
+                      errorMessage="Formato de e-mail inválido"
+                    />
+                    <app-input
+                      label="Senha"
+                      placeholder="••••••••"
+                      type="password"
+                      [(ngModel)]="inputValue"
+                      errorMessage="Mínimo de 8 caracteres"
+                    />
+                  </div>
+                  <div class="sg-mock-form__error-banner" role="alert">
+                    <span class="material-symbols-rounded" aria-hidden="true">warning</span>
+                    Verifique os campos antes de continuar
+                  </div>
+                  <app-button label="Entrar" size="lg" style="width:100%" />
+                  <a class="sg-mock-form__link" href="#">Esqueci minha senha</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 7: Upload ──────────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/create</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">upload_file</span>
+                  Upload de conteúdo
+                </div>
+                <div class="sg-mock-upload">
+                  <p class="sg-mock-form__title">Criar pin</p>
+                  <app-upload-area />
+                  <div class="sg-mock-upload__meta">
+                    <app-input label="Título" placeholder="Adicione um título…" [(ngModel)]="inputValue" />
+                    <app-textarea label="Descrição" placeholder="Descreva seu conteúdo…" [(ngModel)]="textareaValue" />
+                  </div>
+                  <app-button label="Publicar pin" size="lg" style="width:100%" />
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 8: Top App Bar ─────────────────────────────────── -->
+            <div class="sg-case sg-case--full">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">web_asset</span>
+                  Top App Bar
+                </div>
+                <div class="sg-mock-topbar-preview">
+                  <div class="sg-mock-topbar">
+                    <div class="sg-mock-topbar__brand">
+                      <img ngSrc="assets/images/logo-az-circlar.png" width="32" height="32" alt="AZJob" />
+                    </div>
+                    <div class="sg-mock-topbar__nav">
+                      <span class="sg-mock-topbar__link sg-mock-topbar__link--active">Início</span>
+                      <span class="sg-mock-topbar__link">Explorar</span>
+                      <span class="sg-mock-topbar__link">Criar</span>
+                    </div>
+                    <div class="sg-mock-topbar__search">
+                      <span class="material-symbols-rounded sg-mock-topbar__search-icon" aria-hidden="true">search</span>
+                      <span class="sg-mock-topbar__search-placeholder">Buscar…</span>
+                    </div>
+                    <div class="sg-mock-topbar__actions">
+                      <button class="sg-mock-topbar__icon-btn" type="button" aria-label="Notificações">
+                        <span class="material-symbols-rounded">notifications</span>
+                        <span class="sg-mock-topbar__badge" aria-label="3 notificações">3</span>
+                      </button>
+                      <button class="sg-mock-topbar__icon-btn" type="button" aria-label="Mensagens">
+                        <span class="material-symbols-rounded">chat_bubble</span>
+                      </button>
+                      <app-user-avatar size="sm" alt="Ana" imageUrl="https://i.pravatar.cc/40?u=anasilva" />
+                    </div>
+                  </div>
+                  <div class="sg-mock-topbar__chips">
+                    <app-chip-scroll
+                      [chips]="demoChips"
+                      [selected]="chipScrollSelected()"
+                      (chipSelect)="chipScrollSelected.set($event)"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 9: Pesquisa ────────────────────────────────────── -->
+            <div class="sg-case sg-case--wide">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/search?q=ui+design</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">manage_search</span>
+                  Pesquisa
+                </div>
+                <div class="sg-mock-search">
+                  <app-search-bar />
+                  <div class="sg-mock-search__meta">
+                    <span class="sg-mock-search__count">1.240 resultados para <strong>"ui design"</strong></span>
+                    <app-chip-scroll
+                      [chips]="demoChips"
+                      [selected]="chipScrollSelected()"
+                      (chipSelect)="chipScrollSelected.set($event)"
+                    />
+                  </div>
+                  <div class="sg-mock-search__grid">
+                    @for (pin of mockPins; track pin.id) {
+                      <div
+                        class="sg-mock-search__card"
+                        [style.background-image]="'url(' + pin.imageUrl + ')'"
+                        role="img"
+                        [attr.aria-label]="pin.title"
+                      >
+                        <div class="sg-mock-search__card-label">{{ pin.title }}</div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 10: Skeleton ───────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/home — carregando</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">hourglass_empty</span>
+                  Skeleton / Loading
+                </div>
+                <div class="sg-mock-skeleton">
+                  <div class="sg-mock-skeleton__topbar">
+                    <div class="skeleton sg-mock-skeleton__logo"></div>
+                    <div class="skeleton sg-mock-skeleton__search-bar"></div>
+                    <div class="skeleton sg-mock-skeleton__avatar"></div>
+                  </div>
+                  <div class="sg-mock-skeleton__chips">
+                    @for (w of [80,60,90,70,55]; track w) {
+                      <div class="skeleton sg-mock-skeleton__chip" [style.width.px]="w"></div>
+                    }
+                  </div>
+                  <app-skeleton-loader />
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 11: Sidebar ────────────────────────────────────── -->
+            <div class="sg-case">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/explore</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">menu</span>
+                  Sidebar / Navegação
+                </div>
+                <div class="sg-mock-sidebar-preview">
+                  <nav class="sg-mock-sidebar" aria-label="Navegação lateral demo">
+                    <div class="sg-mock-sidebar__brand">
+                      <img ngSrc="assets/images/logo-az-circlar.png" width="28" height="28" alt="AZJob" />
+                      <span class="sg-mock-sidebar__name">AZJob</span>
+                    </div>
+                    <div class="sg-mock-sidebar__items">
+                      @for (item of [
+                        {icon:'home',label:'Início',active:false},
+                        {icon:'explore',label:'Explorar',active:true},
+                        {icon:'search',label:'Buscar',active:false},
+                        {icon:'add_circle',label:'Criar',active:false},
+                        {icon:'notifications',label:'Notificações',active:false},
+                        {icon:'person',label:'Perfil',active:false}
+                      ]; track item.label) {
+                        <div class="sg-mock-sidebar__item" [class.sg-mock-sidebar__item--active]="item.active" role="listitem">
+                          <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
+                          <span>{{ item.label }}</span>
+                        </div>
+                      }
+                    </div>
+                    <div class="sg-mock-sidebar__footer">
+                      <app-user-avatar size="sm" alt="Ana" imageUrl="https://i.pravatar.cc/40?u=anasilva" />
+                      <div class="sg-mock-sidebar__user-info">
+                        <span class="sg-mock-sidebar__uname">Ana Silva</span>
+                        <span class="sg-mock-sidebar__urole">Designer</span>
+                      </div>
+                    </div>
+                  </nav>
+                  <div class="sg-mock-sidebar__content" aria-hidden="true">
+                    @for (h of [60,40,50,45]; track h) {
+                      <div class="skeleton" [style.height.px]="h" style="border-radius:8px; margin-bottom:8px"></div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── Case 12: Icons ──────────────────────────────────────── -->
+            <div class="sg-case sg-case--wide">
+              <div class="sg-case__chrome" aria-hidden="true">
+                <div class="sg-case__dots"><span></span><span></span><span></span></div>
+                <span class="sg-case__url">azjob.com/styleguide/icons</span>
+              </div>
+              <div class="sg-case__body">
+                <div class="sg-case__tag">
+                  <span class="material-symbols-rounded" aria-hidden="true">interests</span>
+                  Ícones Material Symbols
+                </div>
+                <div class="sg-mock-icons">
+                  @for (ic of [
+                    {n:'home',l:'home'},{n:'search',l:'search'},{n:'person',l:'person'},{n:'settings',l:'settings'},
+                    {n:'notifications',l:'notifs'},{n:'favorite',l:'favorite'},{n:'bookmark',l:'bookmark'},{n:'share',l:'share'},
+                    {n:'add_circle',l:'add'},{n:'edit',l:'edit'},{n:'delete',l:'delete'},{n:'close',l:'close'},
+                    {n:'arrow_forward',l:'forward'},{n:'check_circle',l:'check'},{n:'warning',l:'warning'},{n:'info',l:'info'},
+                    {n:'upload',l:'upload'},{n:'download',l:'download'},{n:'image',l:'image'},{n:'play_circle',l:'play'},
+                    {n:'chat_bubble',l:'chat'},{n:'work',l:'work'},{n:'school',l:'school'},{n:'explore',l:'explore'}
+                  ]; track ic.n) {
+                    <a class="sg-mock-icon-cell" [routerLink]="['/styleguide','icons']" [title]="ic.n">
+                      <span class="material-symbols-rounded">{{ ic.n }}</span>
+                      <span class="sg-mock-icon-label">{{ ic.l }}</span>
+                    </a>
+                  }
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </section>
     }
 
