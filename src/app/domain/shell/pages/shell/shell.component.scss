@@ -83,37 +83,6 @@
 
 // ── Topbar ────────────────────────────────────────────────────────────────
 
-.topbar {
-  padding: 0 var(--space-xl);
-  height: var(--pin-topbar-height);
-  background: var(--pin-bg);
-  border-bottom: 1px solid var(--pin-border);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-topbar);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-
-  @media (max-width: 767px) {
-    padding: 0 var(--space-md);
-    gap: var(--space-sm);
-  }
-}
-
-.topbar-search {
-  flex: 1;
-  min-width: 0;
-  max-width: 680px;
-
-  @media (max-width: 767px) {
-    max-width: none;
-  }
-}
-
-.topbar-right {
-  margin-left: auto;
-}
-
-
 .lang-flag {
   line-height: 1;
 }

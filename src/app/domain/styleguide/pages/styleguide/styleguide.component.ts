@@ -51,6 +51,9 @@ import { SidebarHeaderComponent } from '../../../../shared/components/sidebar/si
 import { SidebarContentComponent } from '../../../../shared/components/sidebar/sidebar-content.component';
 import { SidebarGroupComponent } from '../../../../shared/components/sidebar/sidebar-group.component';
 import { SidebarFooterComponent } from '../../../../shared/components/sidebar/sidebar-footer.component';
+import { TopbarComponent } from '../../../../shared/components/topbar/topbar.component';
+import { TopbarContentComponent } from '../../../../shared/components/topbar/topbar-content.component';
+import { TopbarGroupComponent } from '../../../../shared/components/topbar/topbar-group.component';
 
 export interface NavItem {
   id: string;
@@ -122,6 +125,9 @@ export interface SearchResult {
     SidebarContentComponent,
     SidebarGroupComponent,
     SidebarFooterComponent,
+    TopbarComponent,
+    TopbarContentComponent,
+    TopbarGroupComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -341,6 +347,7 @@ export class StyleguideComponent {
         { id: 'comp-splitbutton', label: 'Split Button' },
         { id: 'comp-pin-card', label: 'Pin Card' },
         { id: 'comp-sidebar', label: 'Sidebar' },
+        { id: 'comp-topbar', label: 'Topbar' },
       ],
     },
   ];

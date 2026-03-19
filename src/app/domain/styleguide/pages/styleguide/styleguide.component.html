@@ -2516,6 +2516,65 @@
       </section>
     }
 
+    <!-- TOPBAR -->
+    @if (activeSection() === 'comp-topbar') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Topbar</h1>
+        <p class="sg-section__desc">A composable topbar built from three sub-components: <code class="sg-inline-code">app-topbar</code> (sticky header wrapper), <code class="sg-inline-code">app-topbar-content</code> (flexible search/content area), and <code class="sg-inline-code">app-topbar-group</code> (right-aligned action group). All slots use <code class="sg-inline-code">ng-content</code> projection.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; TopbarComponent, TopbarContentComponent, TopbarGroupComponent &#125; from '@shared/components/topbar/topbar.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div style="border: 1px solid var(--pin-border); border-radius: var(--radius-md); overflow: hidden; background: var(--pin-bg);">
+              <app-topbar>
+                <ng-container>
+                  <app-topbar-content>
+                    <div style="height: 36px; background: var(--pin-bg-secondary); border-radius: var(--radius-pill); display: flex; align-items: center; padding: 0 var(--space-md); gap: var(--space-sm);">
+                      <span class="material-symbols-rounded" style="font-size: 1.1rem; color: var(--pin-text-secondary)" aria-hidden="true">search</span>
+                      <span style="color: var(--pin-text-secondary); font-size: var(--text-sm)">Search…</span>
+                    </div>
+                  </app-topbar-content>
+                  <app-topbar-group>
+                    <button type="button" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: var(--radius-sm); color: var(--pin-text-primary)" aria-label="Toggle theme">
+                      <span class="material-symbols-rounded" style="font-size: 1.25rem" aria-hidden="true">dark_mode</span>
+                    </button>
+                    <button type="button" style="background: none; border: none; cursor: pointer; padding: 8px; border-radius: var(--radius-sm); color: var(--pin-text-primary)" aria-label="Language">
+                      <span style="font-size: 1.25rem">🇧🇷</span>
+                    </button>
+                    <button type="button" style="border: 1px solid var(--pin-border); background: none; border-radius: var(--radius-pill); padding: 6px 14px; cursor: pointer; font-size: var(--text-sm); color: var(--pin-text-primary)">Login</button>
+                    <button type="button" style="background: var(--pin-red); color: #fff; border: none; border-radius: var(--radius-pill); padding: 6px 14px; cursor: pointer; font-size: var(--text-sm)">Register</button>
+                  </app-topbar-group>
+                </ng-container>
+              </app-topbar>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-topbar&gt;\n  &lt;ng-container&gt;\n    &lt;app-topbar-content&gt;\n      &lt;app-search-bar (search)=\'onSearch($event)\' /&gt;\n    &lt;/app-topbar-content&gt;\n\n    &lt;app-topbar-group&gt;\n      &lt;!-- theme, language, auth --&gt;\n    &lt;/app-topbar-group&gt;\n  &lt;/ng-container&gt;\n&lt;/app-topbar&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">app-topbar</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Selector</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">app-topbar</code></td><td>Sticky <code class="sg-inline-code">&lt;header&gt;</code> wrapper with background, border, and z-index</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">Sub-components (no inputs)</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Selector</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">app-topbar-content</code></td><td>Flexible content area (<code class="sg-inline-code">flex: 1</code>) — typically holds the search bar, capped at 680px</td></tr>
+              <tr><td><code class="sg-code">app-topbar-group</code></td><td>Right-aligned action group (<code class="sg-inline-code">margin-left: auto</code>) — theme toggle, language, auth buttons</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 

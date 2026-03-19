@@ -1,0 +1,9 @@
+.topbar-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 680px;
+
+  @media (max-width: 767px) {
+    max-width: none;
+  }
+}

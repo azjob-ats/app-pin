@@ -17,6 +17,9 @@ import { SidebarHeaderComponent } from '../../../../shared/components/sidebar/si
 import { SidebarContentComponent } from '../../../../shared/components/sidebar/sidebar-content.component';
 import { SidebarGroupComponent } from '../../../../shared/components/sidebar/sidebar-group.component';
 import { SidebarFooterComponent } from '../../../../shared/components/sidebar/sidebar-footer.component';
+import { TopbarComponent } from '../../../../shared/components/topbar/topbar.component';
+import { TopbarContentComponent } from '../../../../shared/components/topbar/topbar-content.component';
+import { TopbarGroupComponent } from '../../../../shared/components/topbar/topbar-group.component';
 
 interface NavItem {
   icon: string;
@@ -46,6 +49,9 @@ interface NavItem {
     SidebarContentComponent,
     SidebarGroupComponent,
     SidebarFooterComponent,
+    TopbarComponent,
+    TopbarContentComponent,
+    TopbarGroupComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',

@@ -53,48 +53,49 @@
   <div class="main-area d-flex flex-col flex-1 overflow-hidden">
 
     <!-- ── Topbar ──────────────────────────────────────────────── -->
-    <header class="topbar d-flex align-center gap-md flex-shrink-0">
+    <app-topbar>
+      <ng-container>
+        <!-- Mobile: hamburger -->
+        @if (isMobile()) {
+          <div (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
+            <span class="material-symbols-rounded">menu</span>
+          </div>
+          <a routerLink="/home" class="mobile-logo d-flex align-center">
+            <img ngSrc="assets/images/logo-az-circlar.png" width="28" height="28" alt="AZJob" />
+          </a>
+        }
 
-      <!-- Mobile: hamburger -->
-      @if (isMobile()) {
-        <div (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
-          <span class="material-symbols-rounded">menu</span>
-        </div>
-        <a routerLink="/home" class="mobile-logo d-flex align-center">
-          <img ngSrc="assets/images/logo-az-circlar.png" width="28" height="28" alt="AZJob" />
-        </a>
-      }
+        <!-- Search bar -->
+        <app-topbar-content>
+          <app-search-bar (search)="onSearch($event)" />
+        </app-topbar-content>
 
-      <!-- Search bar -->
-      <div class="topbar-search">
-        <app-search-bar (search)="onSearch($event)" />
-      </div>
+        <!-- Topbar right -->
+        @if (!isMobile()) {
+          <app-topbar-group>
+            <!-- Theme toggle -->
+            <span [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
+              <app-button variant="ghost" size="md" [icon]="themeService.isDark ? 'light_mode' : 'dark_mode'" (clicked)="toggleTheme()" />
+            </span>
 
-      <!-- Topbar right -->
-      @if (!isMobile()) {
-        <div class="topbar-right d-flex align-center gap-sm flex-shrink-0">
-          <!-- Theme toggle -->
-          <span [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
-            <app-button variant="ghost" size="md" [icon]="themeService.isDark ? 'light_mode' : 'dark_mode'" (clicked)="toggleTheme()" />
-          </span>
+            <!-- Language -->
+            <span [appTooltip]="'common.language' | translate" tooltipPosition="bottom" (click)="langPanel.toggle($event)">
+              <app-button variant="ghost" size="md">
+                <span class="lang-flag text-xl">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+              </app-button>
+            </span>
 
-          <!-- Language -->
-          <span [appTooltip]="'common.language' | translate" tooltipPosition="bottom" (click)="langPanel.toggle($event)">
-            <app-button variant="ghost" size="md">
-              <span class="lang-flag text-xl">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+            <!-- Auth buttons -->
+            <app-button variant="outline" size="sm" (clicked)="goToAuth()">
+              {{ 'auth.login' | translate }}
             </app-button>
-          </span>
-
-          <!-- Auth buttons -->
-          <app-button variant="outline" size="sm" (clicked)="goToAuth()">
-            {{ 'auth.login' | translate }}
-          </app-button>
-          <app-button variant="primary" size="sm" (clicked)="goToRegister()">
-            {{ 'auth.register' | translate }}
-          </app-button>
-        </div>
-      }
-    </header>
+            <app-button variant="primary" size="sm" (clicked)="goToRegister()">
+              {{ 'auth.register' | translate }}
+            </app-button>
+          </app-topbar-group>
+        }
+      </ng-container>
+    </app-topbar>
 
     <!-- ── Page content ──────────────────────────────────────── -->
     <main class="page-content">
@@ -179,7 +180,7 @@
 
     <ng-template #footer>
       <div class="drawer-footer d-flex flex-col gap-sm">
-        <div class="topbar-right d-flex align-center gap-sm flex-shrink-0">
+        <div class="d-flex align-center gap-sm flex-shrink-0">
           <!-- Auth buttons -->
           <app-button variant="outline" size="sm" (clicked)="goToAuth()">
             {{ 'auth.login' | translate }}
