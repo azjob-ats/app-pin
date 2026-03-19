@@ -1,5 +1,9 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import { Component, ChangeDetectionStrategy, signal, computed, inject, effect } from '@angular/core';
+import { NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
@@ -44,11 +48,19 @@ export interface ClassRow {
   properties: string;
 }
 
+export interface SearchResult {
+  id: string;
+  label: string;
+  crumb: string;
+}
+
 @Component({
   selector: 'app-styleguide',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     NgTemplateOutlet,
+    NgOptimizedImage,
+    RouterLink,
     FormsModule,
     ButtonComponent,
     InputComponent,
@@ -83,13 +95,54 @@ export interface ClassRow {
   host: { '[class.dark-mode]': 'isDark()' },
 })
 export class StyleguideComponent {
+  private readonly route  = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+
   readonly isDark = signal(false);
-  readonly activeSection = signal('display');
   readonly expandedGroups = signal<Set<string>>(new Set(['utilities', 'standard', 'components']));
+
+  readonly activeSection = toSignal(
+    this.route.paramMap.pipe(map(p => p.get('section') ?? '')),
+    { initialValue: '' }
+  );
+
+  constructor() {
+    effect(() => {
+      const section = this.activeSection();
+      this.sidebarOpen.set(false);
+      if (section) this.autoExpand(section);
+    });
+  }
 
   inputValue = '';
   textareaValue = '';
   selectValue = '';
+
+  readonly sidebarOpen = signal(false);
+  readonly searchQuery = signal('');
+  readonly searchActive = signal(false);
+
+  readonly searchResults = computed<SearchResult[]>(() => {
+    const q = this.searchQuery().toLowerCase().trim();
+    if (!q) return [];
+    const results: SearchResult[] = [];
+    for (const group of this.nav) {
+      for (const item of (group.children ?? [])) {
+        if (item.children?.length) {
+          for (const child of item.children) {
+            if (child.label.toLowerCase().includes(q) || child.id.includes(q)) {
+              results.push({ id: child.id, label: child.label, crumb: `${group.label} › ${item.label}` });
+            }
+          }
+        } else {
+          if (item.label.toLowerCase().includes(q) || item.id.includes(q)) {
+            results.push({ id: item.id, label: item.label, crumb: group.label });
+          }
+        }
+      }
+    }
+    return results.slice(0, 8);
+  });
 
   readonly drawerOpen = signal(false);
   readonly popoverSelected = signal<string | null>(null);
@@ -232,9 +285,21 @@ export class StyleguideComponent {
     return this.expandedGroups().has(id);
   }
 
+  selectSearchResult(id: string): void {
+    this.searchQuery.set('');
+    this.searchActive.set(false);
+    this.router.navigate(['/styleguide', id]);
+  }
+
+  onSearchBlur(): void {
+    setTimeout(() => this.searchActive.set(false), 150);
+  }
+
   navigate(id: string): void {
-    this.activeSection.set(id);
-    // auto-expand parent group
+    this.router.navigate(['/styleguide', id]);
+  }
+
+  private autoExpand(id: string): void {
     for (const group of this.nav) {
       const childIds = this.flatIds(group.children ?? []);
       if (childIds.includes(id)) {

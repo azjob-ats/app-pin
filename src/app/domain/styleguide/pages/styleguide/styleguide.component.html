@@ -1,27 +1,92 @@
 <div class="sg-layout">
 
-  <!-- ── Sidebar ─────────────────────────────────────────────────────────── -->
-  <aside class="sg-sidebar" aria-label="Styleguide navigation">
-    <div class="sg-sidebar__header">
-      <span class="sg-sidebar__logo">AZJob</span>
-      <span class="sg-sidebar__badge">Styleguide</span>
+  <!-- ── Top App Bar ────────────────────────────────────────────────────── -->
+  <header class="sg-topbar" aria-label="Styleguide top bar">
+  <div class="sg-topbar__inner">
+
+    <div class="sg-topbar__brand">
+      <button
+        class="sg-topbar__menu"
+        type="button"
+        [attr.aria-expanded]="sidebarOpen()"
+        aria-label="Toggle navigation"
+        (click)="sidebarOpen.update(v => !v)"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">
+          {{ sidebarOpen() ? 'close' : 'menu' }}
+        </span>
+      </button>
+
+      <a class="sg-topbar__logo" [routerLink]="['/']" aria-label="AZJob — Back to home">
+        <img ngSrc="assets/images/logo-az-circlar.png" width="36" height="36" alt="AZJob" priority />
+      </a>
     </div>
 
-    <div class="sg-sidebar__theme">
+    <div class="sg-topbar__search-wrap">
+      <span class="material-symbols-rounded sg-topbar__search-icon" aria-hidden="true">search</span>
+      <input
+        class="sg-topbar__search"
+        type="search"
+        placeholder="Search sections…"
+        [value]="searchQuery()"
+        (input)="searchQuery.set($any($event.target).value); searchActive.set(true)"
+        (focus)="searchActive.set(true)"
+        (blur)="onSearchBlur()"
+        (keydown.escape)="searchQuery.set(''); searchActive.set(false)"
+        aria-label="Search sections"
+        autocomplete="off"
+      />
+      @if (searchActive() && searchResults().length > 0) {
+        <div class="sg-search-dropdown" role="listbox" aria-label="Search results">
+          @for (result of searchResults(); track result.id) {
+            <button
+              class="sg-search-dropdown__item"
+              type="button"
+              role="option"
+              (click)="selectSearchResult(result.id)"
+            >
+              <span class="material-symbols-rounded sg-search-dropdown__arrow" aria-hidden="true">subdirectory_arrow_right</span>
+              <span class="sg-search-dropdown__info">
+                <span class="sg-search-dropdown__label">{{ result.label }}</span>
+                <span class="sg-search-dropdown__crumb">{{ result.crumb }}</span>
+              </span>
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="sg-topbar__end">
       <button
-        class="sg-theme-toggle"
+        class="sg-topbar__theme-btn"
         type="button"
         [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
-        [class.sg-theme-toggle--active]="isDark()"
+        [class.sg-topbar__theme-btn--active]="isDark()"
         (click)="toggleDark()"
       >
         <span class="material-symbols-rounded" aria-hidden="true">
           {{ isDark() ? 'light_mode' : 'dark_mode' }}
         </span>
-        {{ isDark() ? 'Light' : 'Dark' }}
       </button>
     </div>
 
+  </div>
+  </header>
+
+  <!-- ── Sidebar backdrop ───────────────────────────────────────────────── -->
+  <div
+    class="sg-sidebar-backdrop"
+    [class.sg-sidebar-backdrop--visible]="sidebarOpen()"
+    aria-hidden="true"
+    (click)="sidebarOpen.set(false)"
+  ></div>
+
+  <!-- ── Sidebar ─────────────────────────────────────────────────────────── -->
+  <aside
+    class="sg-sidebar"
+    [class.sg-sidebar--open]="sidebarOpen()"
+    aria-label="Styleguide navigation"
+  >
     <nav class="sg-nav">
       @for (group of nav; track group.id) {
         <div class="sg-nav__group">
@@ -57,12 +122,11 @@
                       <ul class="sg-nav__sublist" role="list">
                         @for (child of item.children; track child.id) {
                           <li>
-                            <button
+                            <a
                               class="sg-nav__item"
-                              type="button"
+                              [routerLink]="['/styleguide', child.id]"
                               [class.sg-nav__item--active]="activeSection() === child.id"
-                              (click)="navigate(child.id)"
-                            >{{ child.label }}</button>
+                            >{{ child.label }}</a>
                           </li>
                         }
                       </ul>
@@ -70,12 +134,11 @@
                   </li>
                 } @else {
                   <li>
-                    <button
+                    <a
                       class="sg-nav__item"
-                      type="button"
+                      [routerLink]="['/styleguide', item.id]"
                       [class.sg-nav__item--active]="activeSection() === item.id"
-                      (click)="navigate(item.id)"
-                    >{{ item.label }}</button>
+                    >{{ item.label }}</a>
                   </li>
                 }
               }
@@ -88,6 +151,103 @@
 
   <!-- ── Content ────────────────────────────────────────────────────────── -->
   <main class="sg-content" id="sg-main">
+
+    <!-- LANDING PAGE -->
+    @if (activeSection() === '') {
+      <section class="sg-landing">
+        <div class="sg-landing__hero">
+          <div class="sg-landing__eyebrow">
+            <span class="material-symbols-rounded" aria-hidden="true">palette</span>
+            Design System
+          </div>
+          <h1 class="sg-landing__title">AZJob <span class="sg-landing__title-accent">Styleguide</span></h1>
+          <p class="sg-landing__desc">
+            A unified design language for building consistent, accessible, and beautiful interfaces.
+            Explore utilities, tokens, and components that power the AZJob platform.
+          </p>
+          <div class="sg-landing__actions">
+            <a class="sg-landing__cta sg-landing__cta--primary" [routerLink]="['/styleguide', 'colors']">
+              <span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span>
+              Explore Tokens
+            </a>
+            <a class="sg-landing__cta sg-landing__cta--secondary" [routerLink]="['/styleguide', 'comp-button']">
+              <span class="material-symbols-rounded" aria-hidden="true">widgets</span>
+              View Components
+            </a>
+          </div>
+        </div>
+
+        <div class="sg-landing__stats">
+          <div class="sg-landing__stat">
+            <span class="sg-landing__stat-number">60+</span>
+            <span class="sg-landing__stat-label">Utility Classes</span>
+          </div>
+          <div class="sg-landing__stat">
+            <span class="sg-landing__stat-number">20</span>
+            <span class="sg-landing__stat-label">Components</span>
+          </div>
+          <div class="sg-landing__stat">
+            <span class="sg-landing__stat-number">13</span>
+            <span class="sg-landing__stat-label">Color Tokens</span>
+          </div>
+          <div class="sg-landing__stat">
+            <span class="sg-landing__stat-number">9</span>
+            <span class="sg-landing__stat-label">Spacing Scales</span>
+          </div>
+        </div>
+
+        <div class="sg-landing__colors">
+          <h2 class="sg-landing__section-title">Brand Colors</h2>
+          <div class="sg-landing__color-row">
+            @for (color of designColors.slice(0, 6); track color.name) {
+              <a class="sg-landing__color-chip" [routerLink]="['/styleguide', 'colors']"
+                 [style.background]="color.value.includes('/') ? color.value.split('/')[0].trim() : color.value"
+                 [title]="color.label + ' · ' + color.name">
+              </a>
+            }
+          </div>
+        </div>
+
+        <div class="sg-landing__categories">
+          <h2 class="sg-landing__section-title">Categories</h2>
+          <div class="sg-landing__cat-grid">
+            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'display']">
+              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">view_quilt</span>
+              <span class="sg-landing__cat-name">Utilities</span>
+              <span class="sg-landing__cat-desc">Display, Spacing, Flexbox, Typography…</span>
+            </a>
+            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'icons']">
+              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">layers</span>
+              <span class="sg-landing__cat-name">Standard Classes</span>
+              <span class="sg-landing__cat-desc">Icons, Skeleton, Tooltip, Links, Titles</span>
+            </a>
+            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'colors']">
+              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">token</span>
+              <span class="sg-landing__cat-name">Design Tokens</span>
+              <span class="sg-landing__cat-desc">Colors, Spacing, Radius, Typography scales</span>
+            </a>
+            <a class="sg-landing__cat-card" [routerLink]="['/styleguide', 'comp-button']">
+              <span class="material-symbols-rounded sg-landing__cat-icon" aria-hidden="true">widgets</span>
+              <span class="sg-landing__cat-name">Components</span>
+              <span class="sg-landing__cat-desc">20 ready-to-use Angular components</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="sg-landing__typography">
+          <h2 class="sg-landing__section-title">Typography Scale</h2>
+          <div class="sg-landing__type-rows">
+            @for (t of typographyTokens.slice(7, 13); track t.name) {
+              <div class="sg-landing__type-row">
+                <span class="sg-landing__type-token">{{ t.name }}</span>
+                <span class="sg-landing__type-value">{{ t.value }}</span>
+                <span class="sg-landing__type-sample" [style.font-size]="t.value">Aa Bb Cc</span>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+    }
 
     <!-- DISPLAY -->
     @if (activeSection() === 'display') {
@@ -1448,22 +1608,24 @@
 <!-- ── Shared Templates ──────────────────────────────────────────────────── -->
 
 <ng-template #classTpl let-rows="rows">
-  <table class="sg-table">
-    <thead>
-      <tr>
-        <th>Class</th>
-        <th>Properties</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (row of rows; track row.cls) {
+  <div class="sg-table-wrapper">
+    <table class="sg-table">
+      <thead>
         <tr>
-          <td><code class="sg-code">{{ row.cls }}</code></td>
-          <td>{{ row.properties }}</td>
+          <th>Class</th>
+          <th>Properties</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (row of rows; track row.cls) {
+          <tr>
+            <td><code class="sg-code">{{ row.cls }}</code></td>
+            <td>{{ row.properties }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </ng-template>
 
 <ng-template #codeTpl let-code="code">

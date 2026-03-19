@@ -6,6 +6,10 @@ export const routes: Routes = [
     loadComponent: () => import('./domain/styleguide/pages/styleguide/styleguide.component').then(m => m.StyleguideComponent),
   },
   {
+    path: 'styleguide/:section',
+    loadComponent: () => import('./domain/styleguide/pages/styleguide/styleguide.component').then(m => m.StyleguideComponent),
+  },
+  {
     path: 'auth',
     loadComponent: () => import('./domain/auth/pages/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
     children: [
