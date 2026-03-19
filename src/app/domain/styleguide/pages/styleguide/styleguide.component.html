@@ -2428,6 +2428,94 @@
       </section>
     }
 
+    <!-- SIDEBAR -->
+    @if (activeSection() === 'comp-sidebar') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Sidebar</h1>
+        <p class="sg-section__desc">A composable sidebar built from five sub-components: <code class="sg-inline-code">app-sidebar</code> (wrapper), <code class="sg-inline-code">app-sidebar-header</code>, <code class="sg-inline-code">app-sidebar-content</code> (scrollable nav area), <code class="sg-inline-code">app-sidebar-group</code> (labelled group), and <code class="sg-inline-code">app-sidebar-footer</code>. All slots use <code class="sg-inline-code">ng-content</code> projection.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; SidebarComponent, SidebarHeaderComponent, SidebarContentComponent, SidebarGroupComponent, SidebarFooterComponent &#125; from '@shared/components/sidebar/sidebar.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <p class="sg-section__desc" style="font-size:var(--text-sm);color:var(--pin-text-secondary);margin-top:-8px">
+          <span class="material-symbols-rounded" style="font-size:1rem;vertical-align:-3px" aria-hidden="true">info</span>
+          <code class="sg-inline-code">app-sidebar</code> usa <code class="sg-inline-code">position: fixed</code> — a demo abaixo renderiza os sub-componentes dentro de um container simulado para visualização.
+        </p>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div style="height: 340px; border: 1px solid var(--pin-border); border-radius: var(--radius-md); overflow: hidden; display: flex; background: var(--pin-bg);">
+              <!-- Simulated sidebar wrapper (sub-components without position:fixed) -->
+              <aside style="width: var(--pin-sidebar-width, 72px); height: 100%; background: var(--pin-sidebar-bg, var(--pin-bg)); border-right: 1px solid var(--pin-border); padding: var(--space-md) 0; display: flex; flex-direction: column; align-items: center; flex-shrink: 0;">
+                <app-sidebar-header>
+                  <div style="width:40px;height:40px;border-radius:50%;background:var(--pin-red);display:flex;align-items:center;justify-content:center;">
+                    <span class="material-symbols-rounded" style="color:#fff;font-size:1.25rem" aria-hidden="true">hub</span>
+                  </div>
+                </app-sidebar-header>
+                <app-sidebar-content>
+                  <app-sidebar-group label="Main">
+                    <button type="button" style="background:none;border:none;cursor:pointer;padding:8px;border-radius:8px" aria-label="Home">
+                      <span class="material-symbols-rounded icon-md" aria-hidden="true">home</span>
+                    </button>
+                    <button type="button" style="background:none;border:none;cursor:pointer;padding:8px;border-radius:8px" aria-label="Search">
+                      <span class="material-symbols-rounded icon-md" aria-hidden="true">search</span>
+                    </button>
+                    <button type="button" style="background:none;border:none;cursor:pointer;padding:8px;border-radius:8px" aria-label="Notifications">
+                      <span class="material-symbols-rounded icon-md" aria-hidden="true">notifications</span>
+                    </button>
+                  </app-sidebar-group>
+                  <app-sidebar-group label="Create">
+                    <button type="button" style="background:none;border:none;cursor:pointer;padding:8px;border-radius:8px" aria-label="Add">
+                      <span class="material-symbols-rounded icon-md" aria-hidden="true">add_circle</span>
+                    </button>
+                  </app-sidebar-group>
+                </app-sidebar-content>
+                <app-sidebar-footer>
+                  <button type="button" style="background:none;border:none;cursor:pointer;padding:8px;border-radius:8px" aria-label="Profile">
+                    <span class="material-symbols-rounded icon-md" aria-hidden="true">account_circle</span>
+                  </button>
+                </app-sidebar-footer>
+              </aside>
+              <div style="padding:24px;flex:1;display:flex;align-items:flex-start;">
+                <p style="color:var(--pin-text-secondary);font-size:var(--text-sm)">← Sub-componentes do Sidebar</p>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-sidebar [hidden]=\'isMobile\'&gt;\n  &lt;app-sidebar-header&gt;\n    &lt;!-- logo or avatar --&gt;\n  &lt;/app-sidebar-header&gt;\n\n  &lt;app-sidebar-content&gt;\n    &lt;app-sidebar-group label=\'Main\'&gt;\n      &lt;!-- nav items --&gt;\n    &lt;/app-sidebar-group&gt;\n  &lt;/app-sidebar-content&gt;\n\n  &lt;app-sidebar-footer&gt;\n    &lt;!-- bottom actions --&gt;\n  &lt;/app-sidebar-footer&gt;\n&lt;/app-sidebar&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">app-sidebar</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">hidden</code></td><td>boolean</td><td>false</td><td>Adds <code class="sg-inline-code">.mobile-hidden</code> class to collapse the sidebar on small screens</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">app-sidebar-group</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">label</code></td><td>string</td><td>''</td><td>Optional group label rendered above the projected items</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">Sub-components (no inputs)</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Selector</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">app-sidebar-header</code></td><td>Top slot — logo, avatar, or branding area</td></tr>
+              <tr><td><code class="sg-code">app-sidebar-content</code></td><td>Scrollable <code class="sg-inline-code">&lt;nav&gt;</code> area for navigation items</td></tr>
+              <tr><td><code class="sg-code">app-sidebar-footer</code></td><td>Bottom slot — profile, settings, or secondary actions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 

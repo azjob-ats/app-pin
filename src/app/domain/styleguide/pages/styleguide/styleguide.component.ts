@@ -46,6 +46,11 @@ import { Board } from '../../../../shared/interfaces/board.interface';
 import { CommentInputComponent } from '../../../../shared/components/comment-input/comment-input.component';
 import { CommentSubmitComponent } from '../../../../shared/components/comment-submit/comment-submit.component';
 import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
+import { SidebarComponent } from '../../../../shared/components/sidebar/sidebar.component';
+import { SidebarHeaderComponent } from '../../../../shared/components/sidebar/sidebar-header.component';
+import { SidebarContentComponent } from '../../../../shared/components/sidebar/sidebar-content.component';
+import { SidebarGroupComponent } from '../../../../shared/components/sidebar/sidebar-group.component';
+import { SidebarFooterComponent } from '../../../../shared/components/sidebar/sidebar-footer.component';
 
 export interface NavItem {
   id: string;
@@ -112,6 +117,11 @@ export interface SearchResult {
     CommentInputComponent,
     CommentSubmitComponent,
     BoardCardComponent,
+    SidebarComponent,
+    SidebarHeaderComponent,
+    SidebarContentComponent,
+    SidebarGroupComponent,
+    SidebarFooterComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -330,6 +340,7 @@ export class StyleguideComponent {
         { id: 'comp-chip-scroll', label: 'Chip Scroll' },
         { id: 'comp-splitbutton', label: 'Split Button' },
         { id: 'comp-pin-card', label: 'Pin Card' },
+        { id: 'comp-sidebar', label: 'Sidebar' },
       ],
     },
   ];
