@@ -34,6 +34,12 @@ import { CodeDigitsComponent } from '../../../../shared/components/code-digits/c
 import { ButtonLikeComponent } from '../../../../shared/components/button-like/button-like.component';
 import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
 import { NotificationItemComponent } from '../../../../shared/components/notification-item/notification-item.component';
+import { ButtonInscriptionComponent } from '../../../../shared/components/button-inscription/button-inscription.component';
+import { ButtonProviderComponent } from '../../../../shared/components/button-provider/button-provider/button-provider.component';
+import { CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent } from '../../../../shared/components/card-board/card-board.component';
+import { ChipScrollComponent, ChipItem } from '../../../../shared/components/chip-scroll/chip-scroll.component';
+import { SplitButtonComponent } from '../../../../shared/components/splitbutton/splitbutton.component';
+import { PinCardComponent } from '../../../../shared/components/pin-card/pin-card.component';
 import { Notification } from '../../../../shared/interfaces/notification.interface';
 import { Pin } from '../../../../shared/interfaces/pin.interface';
 
@@ -89,6 +95,16 @@ export interface SearchResult {
     ButtonLikeComponent,
     InfiniteScrollComponent,
     NotificationItemComponent,
+    ButtonInscriptionComponent,
+    ButtonProviderComponent,
+    CardBoardComponent,
+    CardContainerComponent,
+    CardSectionLeftComponent,
+    CardSectionRightComponent,
+    CardBodyComponent,
+    ChipScrollComponent,
+    SplitButtonComponent,
+    PinCardComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -148,6 +164,17 @@ export class StyleguideComponent {
   readonly popoverSelected = signal<string | null>(null);
   readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
   readonly infiniteLoading = signal(false);
+  readonly inscriptionSubscribed = signal(false);
+  readonly chipScrollSelected = signal('all');
+
+  readonly demoChips: ChipItem[] = [
+    { key: 'all', labelKey: 'Todos' },
+    { key: 'vagas', icon: 'work', labelKey: 'Vagas' },
+    { key: 'videos', icon: 'play_circle', labelKey: 'Vídeos' },
+    { key: 'artigos', icon: 'article', labelKey: 'Artigos' },
+    { key: 'cursos', icon: 'school', labelKey: 'Cursos' },
+    { key: 'empresas', icon: 'business', labelKey: 'Empresas' },
+  ];
 
   readonly mockNotifications: Notification[] = [
     {
@@ -269,6 +296,12 @@ export class StyleguideComponent {
         { id: 'comp-button-like', label: 'Button Like' },
         { id: 'comp-infinite-scroll', label: 'Infinite Scroll' },
         { id: 'comp-notification-item', label: 'Notification Item' },
+        { id: 'comp-button-inscription', label: 'Button Inscription' },
+        { id: 'comp-button-provider', label: 'Button Provider' },
+        { id: 'comp-card-board', label: 'Card Board' },
+        { id: 'comp-chip-scroll', label: 'Chip Scroll' },
+        { id: 'comp-splitbutton', label: 'Split Button' },
+        { id: 'comp-pin-card', label: 'Pin Card' },
       ],
     },
   ];

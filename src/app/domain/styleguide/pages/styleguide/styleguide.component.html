@@ -1602,6 +1602,285 @@
       </section>
     }
 
+    <!-- BUTTON INSCRIPTION -->
+    @if (activeSection() === 'comp-button-inscription') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Button Inscription</h1>
+        <p class="sg-section__desc">Subscribe/unsubscribe toggle button. Shows "Inscrever-se" when not subscribed; when subscribed, shows a notification bell with a dropdown to cancel.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; ButtonInscriptionComponent &#125; from '@shared/components/button-inscription/button-inscription.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview d-flex align-center gap-lg">
+            <app-button-inscription
+              [subscribed]="inscriptionSubscribed()"
+              (subscribedChange)="inscriptionSubscribed.set($event)"
+            />
+            <span class="sg-inline-code">subscribed: {{ inscriptionSubscribed() }}</span>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-button-inscription\n  [subscribed]=\'false\'\n  (subscribedChange)=\'onSubscribe($event)\'\n/&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">subscribed</code></td><td>boolean</td><td>false</td><td>Initial subscription state</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">subscribedChange</code></td><td>boolean</td><td>Emits new subscription state on change</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    <!-- BUTTON PROVIDER -->
+    @if (activeSection() === 'comp-button-provider') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Button Provider</h1>
+        <p class="sg-section__desc">A styled OAuth/provider button that wraps projected content. Use for social login actions like "Continue with Google".</p>
+        <p class="sg-import"><code class="sg-code">import &#123; ButtonProviderComponent &#125; from '@shared/components/button-provider/button-provider/button-provider.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview d-flex align-center gap-lg flex-wrap">
+            <app-button-provider (clicked)="null">
+              <span class="material-symbols-rounded" aria-hidden="true">g_mobiledata</span>
+              Continuar com Google
+            </app-button-provider>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-button-provider (clicked)=\'onGoogleLogin()\'&gt;\n  &lt;img src=\'google-icon.svg\' /&gt;\n  Continuar com Google\n&lt;/app-button-provider&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">clicked</code></td><td>void</td><td>Emits when button is clicked (not emitted when disabled)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Method</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">enable()</code></td><td>Enables the button</td></tr>
+              <tr><td><code class="sg-code">disable()</code></td><td>Disables the button</td></tr>
+              <tr><td><code class="sg-code">resetToInitialState()</code></td><td>Resets to enabled state</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    <!-- CARD BOARD -->
+    @if (activeSection() === 'comp-card-board') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Card Board</h1>
+        <p class="sg-section__desc">Structural layout components for full-page board views. Compose <code class="sg-inline-code">CardBoardComponent</code> → <code class="sg-inline-code">CardContainerComponent</code> → header/body sections.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent &#125; from '@shared/components/card-board/card-board.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="padding:0; background: var(--pin-bg-secondary)">
+            <app-card-board>
+              <app-card-container>
+                <app-card-header>
+                  <app-card-section-left>
+                    <span class="fw-bold text-lg">Meu Board</span>
+                  </app-card-section-left>
+                  <app-card-section-right>
+                    <button class="sg-trigger-btn" type="button">Editar</button>
+                  </app-card-section-right>
+                </app-card-header>
+                <app-card-body>
+                  <div class="d-flex align-center gap-md p-lg text-sm" style="color: var(--pin-text-secondary)">
+                    <span class="material-symbols-rounded">grid_view</span>
+                    Conteúdo do board aqui
+                  </div>
+                </app-card-body>
+              </app-card-container>
+            </app-card-board>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-card-board&gt;\n  &lt;app-card-container&gt;\n    &lt;app-card-header&gt;\n      &lt;app-card-section-left&gt;Title&lt;/app-card-section-left&gt;\n      &lt;app-card-section-right&gt;Actions&lt;/app-card-section-right&gt;\n    &lt;/app-card-header&gt;\n    &lt;app-card-body&gt;Content&lt;/app-card-body&gt;\n  &lt;/app-card-container&gt;\n&lt;/app-card-board&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Components</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Selector</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">app-card-board</code></td><td>Outer page wrapper with padding and min-height</td></tr>
+              <tr><td><code class="sg-code">app-card-container</code></td><td>Centered card with border-radius and background</td></tr>
+              <tr><td><code class="sg-code">app-card-header</code></td><td>Flex row with space-between and bottom border</td></tr>
+              <tr><td><code class="sg-code">app-card-section-left</code></td><td>Left slot of the header</td></tr>
+              <tr><td><code class="sg-code">app-card-section-right</code></td><td>Right slot of the header (actions)</td></tr>
+              <tr><td><code class="sg-code">app-card-body</code></td><td>Body area, column flex, responsive</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    <!-- CHIP SCROLL -->
+    @if (activeSection() === 'comp-chip-scroll') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Chip Scroll</h1>
+        <p class="sg-section__desc">A horizontally scrollable list of filter chips with drag-to-scroll support. Chips auto-scroll the selected item into view.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; ChipScrollComponent, ChipItem &#125; from '@shared/components/chip-scroll/chip-scroll.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="padding: 16px 0">
+            <app-chip-scroll
+              [chips]="demoChips"
+              [selected]="chipScrollSelected()"
+              (chipSelect)="chipScrollSelected.set($event)"
+            />
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-chip-scroll\n  [chips]=\'chips\'\n  [selected]=\'selectedKey\'\n  (chipSelect)=\'onSelect($event)\'\n/&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">ChipItem interface</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Property</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">key</code></td><td>string</td><td>Yes</td><td>Unique identifier for the chip</td></tr>
+              <tr><td><code class="sg-code">labelKey</code></td><td>string</td><td>Yes</td><td>Translation key (or display text)</td></tr>
+              <tr><td><code class="sg-code">icon</code></td><td>string</td><td>No</td><td>Material Symbol icon name shown before the label</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Input</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">chips</code></td><td>ChipItem[]</td><td>Yes</td><td>Array of chips to render</td></tr>
+              <tr><td><code class="sg-code">selected</code></td><td>string</td><td>No</td><td>Key of the currently active chip</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">chipSelect</code></td><td>string</td><td>Emits the chip key when clicked</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    <!-- SPLIT BUTTON -->
+    @if (activeSection() === 'comp-splitbutton') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Split Button</h1>
+        <p class="sg-section__desc">A two-part button: the main action on the left and a dropdown toggle on the right. Dropdown content is projected via <code class="sg-inline-code">ng-content</code>.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; SplitButtonComponent &#125; from '@shared/components/splitbutton/splitbutton.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview d-flex align-center gap-xl flex-wrap">
+            <div>
+              <p class="sg-inline-code" style="margin-bottom:12px">Default</p>
+              <app-splitbutton label="Filtros" (mainClicked)="null">
+                <div style="padding: 8px 0">
+                  <div class="sg-box" style="margin: 4px 0">Tema</div>
+                  <div class="sg-box" style="margin: 4px 0">Duração</div>
+                  <div class="sg-box" style="margin: 4px 0">Idioma</div>
+                </div>
+              </app-splitbutton>
+            </div>
+            <div>
+              <p class="sg-inline-code" style="margin-bottom:12px">With badge</p>
+              <app-splitbutton label="Filtros" [badge]="true" (mainClicked)="null">
+                <div style="padding: 8px 0">
+                  <div class="sg-box">Tema</div>
+                </div>
+              </app-splitbutton>
+            </div>
+            <div>
+              <p class="sg-inline-code" style="margin-bottom:12px">Disabled</p>
+              <app-splitbutton label="Filtros" [disabled]="true" (mainClicked)="null" />
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-splitbutton\n  label=\'Filtros\'\n  [badge]=\'hasActiveFilters\'\n  (mainClicked)=\'applyFilters()\'\n  (dropdownToggled)=\'onToggle($event)\'\n&gt;\n  &lt;!-- dropdown content via ng-content --&gt;\n&lt;/app-splitbutton&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">label</code></td><td>string</td><td>''</td><td>Text shown on the main button</td></tr>
+              <tr><td><code class="sg-code">badge</code></td><td>boolean</td><td>false</td><td>Shows a red dot indicating active state</td></tr>
+              <tr><td><code class="sg-code">disabled</code></td><td>boolean</td><td>false</td><td>Disables both main button and dropdown</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">mainClicked</code></td><td>void</td><td>Emits when the main button is clicked</td></tr>
+              <tr><td><code class="sg-code">dropdownToggled</code></td><td>boolean</td><td>Emits true/false when dropdown opens/closes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+    <!-- PIN CARD -->
+    @if (activeSection() === 'comp-pin-card') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Pin Card</h1>
+        <p class="sg-section__desc">Visual card for displaying a pin image with hover overlay actions (save, share, link). Used inside masonry grids.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; PinCardComponent &#125; from '@shared/components/pin-card/pin-card.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview d-flex gap-lg flex-wrap">
+            @for (pin of mockPins.slice(0, 3); track pin.id) {
+              <div style="width: 200px">
+                <app-pin-card [pin]="pin" />
+              </div>
+            }
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-pin-card\n  [pin]=\'pin\'\n  (saved)=\'onSaved($event)\'\n  (shared)=\'onShared($event)\'\n/&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Input</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">pin</code></td><td>Pin</td><td>Yes</td><td>Full pin data object (id, imageUrl, title, author, saveCount…)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead><tr><th>Output</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code class="sg-code">saved</code></td><td>Pin</td><td>Emits the pin when save is toggled</td></tr>
+              <tr><td><code class="sg-code">shared</code></td><td>Pin</td><td>Emits the pin when share is clicked</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 
