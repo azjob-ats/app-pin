@@ -1,707 +1,1474 @@
-<div class="sg-root">
+<div class="sg-layout">
 
-  <!-- ── Sidebar ─────────────────────────────────────────────────── -->
-  <aside class="sg-sidebar" aria-label="Design system navigation">
-
-    <div class="sg-sidebar-brand">
-      <svg viewBox="0 0 24 24" class="sg-logo" fill="var(--pin-red)" aria-hidden="true">
-        <path
-          d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
-      </svg>
-      <div>
-        <p class="sg-brand-name">AZJob</p>
-        <p class="sg-brand-sub">Design System</p>
-      </div>
+  <!-- ── Sidebar ─────────────────────────────────────────────────────────── -->
+  <aside class="sg-sidebar" aria-label="Styleguide navigation">
+    <div class="sg-sidebar__header">
+      <span class="sg-sidebar__logo">AZJob</span>
+      <span class="sg-sidebar__badge">Styleguide</span>
     </div>
 
-    <nav class="sg-nav">
-      @for (section of sections; track section.id) {
-      <button class="sg-nav-item" [class.sg-nav-item--active]="activeSection() === section.id"
-        (click)="scrollTo(section.id)" [attr.aria-current]="activeSection() === section.id ? 'page' : null"
-        type="button">
-        <span class="material-symbols-rounded" aria-hidden="true">{{ section.icon }}</span>
-        <span>{{ section.label }}</span>
-      </button>
-      }
-    </nav>
-
-    <div class="sg-sidebar-footer">
-      <button class="sg-theme-toggle" type="button" (click)="toggleDark()"
-        [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'">
+    <div class="sg-sidebar__theme">
+      <button
+        class="sg-theme-toggle"
+        type="button"
+        [attr.aria-label]="isDark() ? 'Switch to light mode' : 'Switch to dark mode'"
+        [class.sg-theme-toggle--active]="isDark()"
+        (click)="toggleDark()"
+      >
         <span class="material-symbols-rounded" aria-hidden="true">
           {{ isDark() ? 'light_mode' : 'dark_mode' }}
         </span>
-        <span>{{ isDark() ? 'Light mode' : 'Dark mode' }}</span>
+        {{ isDark() ? 'Light' : 'Dark' }}
       </button>
     </div>
+
+    <nav class="sg-nav">
+      @for (group of nav; track group.id) {
+        <div class="sg-nav__group">
+          <button
+            class="sg-nav__group-btn"
+            type="button"
+            [attr.aria-expanded]="isExpanded(group.id)"
+            (click)="toggleGroup(group.id)"
+          >
+            <span>{{ group.label }}</span>
+            <span class="material-symbols-rounded sg-nav__chevron" aria-hidden="true">
+              {{ isExpanded(group.id) ? 'expand_less' : 'expand_more' }}
+            </span>
+          </button>
+
+          @if (isExpanded(group.id) && group.children) {
+            <ul class="sg-nav__list" role="list">
+              @for (item of group.children; track item.id) {
+                @if (item.children && item.children.length) {
+                  <li>
+                    <button
+                      class="sg-nav__sub-group-btn"
+                      type="button"
+                      [attr.aria-expanded]="isExpanded(item.id)"
+                      (click)="toggleGroup(item.id)"
+                    >
+                      <span>{{ item.label }}</span>
+                      <span class="material-symbols-rounded sg-nav__chevron" aria-hidden="true">
+                        {{ isExpanded(item.id) ? 'expand_less' : 'expand_more' }}
+                      </span>
+                    </button>
+                    @if (isExpanded(item.id)) {
+                      <ul class="sg-nav__sublist" role="list">
+                        @for (child of item.children; track child.id) {
+                          <li>
+                            <button
+                              class="sg-nav__item"
+                              type="button"
+                              [class.sg-nav__item--active]="activeSection() === child.id"
+                              (click)="navigate(child.id)"
+                            >{{ child.label }}</button>
+                          </li>
+                        }
+                      </ul>
+                    }
+                  </li>
+                } @else {
+                  <li>
+                    <button
+                      class="sg-nav__item"
+                      type="button"
+                      [class.sg-nav__item--active]="activeSection() === item.id"
+                      (click)="navigate(item.id)"
+                    >{{ item.label }}</button>
+                  </li>
+                }
+              }
+            </ul>
+          }
+        </div>
+      }
+    </nav>
   </aside>
 
-  <!-- ── Main Content ─────────────────────────────────────────────── -->
-  <main class="sg-main">
+  <!-- ── Content ────────────────────────────────────────────────────────── -->
+  <main class="sg-content" id="sg-main">
 
-    <!-- ── Overview ──────────────────────────────────────────── -->
-    <section id="overview" class="sg-section">
-      <div class="sg-meta-card">
-        <div class="sg-meta-header">
-          <svg viewBox="0 0 24 24" class="sg-meta-logo" fill="var(--pin-red)" aria-hidden="true">
-            <path
-              d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
-          </svg>
-          <div>
-            <h1 class="sg-meta-title">AZJob Design System</h1>
-            <p class="sg-meta-sub">Visual language, tokens and components — v1.0</p>
+    <!-- DISPLAY -->
+    @if (activeSection() === 'display') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Display</h1>
+        <p class="sg-section__desc">Controls the display box type of an element.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: displayClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-sm">
+              <div class="sg-box">d-flex</div>
+              <div class="sg-box">d-flex</div>
+              <div class="sg-box">d-flex</div>
+            </div>
           </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-sm\'>\n  <div>item</div>\n  <div>item</div>\n</div>' }"></ng-container>
         </div>
+      </section>
+    }
 
-        <div class="sg-meta-grid">
-          <div class="sg-meta-item">
-            <span class="sg-meta-label">Font</span>
-            <span class="sg-meta-value" style="font-family: 'Roboto', sans-serif; font-weight: 700;">Roboto</span>
-          </div>
-          <div class="sg-meta-item">
-            <span class="sg-meta-label">Style</span>
-            <span class="sg-meta-value">Modern Minimal</span>
-          </div>
-          <div class="sg-meta-item">
-            <span class="sg-meta-label">Border Radius</span>
-            <span class="sg-meta-value">Rounded → Pill</span>
-          </div>
-          <div class="sg-meta-item">
-            <span class="sg-meta-label">Primary</span>
-            <span class="sg-meta-value">
-              <span class="sg-inline-dot" style="background: #E60023;" aria-hidden="true"></span>
-              #E60023
-            </span>
-          </div>
-          <div class="sg-meta-item sg-meta-item--full">
-            <span class="sg-meta-label">Visual Feel</span>
-            <span class="sg-meta-value sg-meta-value--body">
-              Pinterest-inspired professional content platform. Clean card-based layout with a bold red accent palette,
-              humanized content approach, and emphasis on visual discovery and professional networking. People trust
-              people.
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Colors ─────────────────────────────────────────────── -->
-    <section id="colors" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Colors</h2>
-        <p class="sg-section-desc">
-          Pinterest-inspired red primary with a neutral gray scale and semantic feedback colors.
-          All values are exposed as CSS custom properties on <code>:root</code>.
-        </p>
-      </header>
-
-      <!-- Primary palette -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Primary — Red Palette</h3>
-        <div class="sg-color-strip" role="list" aria-label="Red color palette">
-          @for (color of primaryColors; track color.token) {
-          <div class="sg-color-chip" [style.background]="color.value" role="listitem">
-            <div class="sg-color-chip-info" [class.sg-color-chip-info--light]="isLight(color.value)">
-              <span class="sg-chip-weight">{{ color.label }}</span>
-              <span class="sg-chip-hex">{{ color.value }}</span>
-              @if (color.token.startsWith('--')) {
-              <code class="sg-chip-token">{{ color.token }}</code>
+    <!-- FLEXBOX -->
+    @if (activeSection() === 'flexbox') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Flexbox</h1>
+        <p class="sg-section__desc">Utilities for controlling flex direction, wrapping, alignment and justification.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: flexboxClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-sm align-center justify-center">
+              @for (i of [1,2,3]; track i) {
+                <div class="sg-box">item {{ i }}</div>
               }
             </div>
           </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex flex-wrap gap-sm align-center justify-center\'>\n  <div>item</div>\n</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- PADDING -->
+    @if (activeSection() === 'padding') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Padding</h1>
+        <p class="sg-section__desc">Specifies the space between element content and its border.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: paddingClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-sm align-center">
+              <div class="p-xs bg-secondary radius-md">p-xs</div>
+              <div class="p-sm bg-secondary radius-md">p-sm</div>
+              <div class="p-md bg-secondary radius-md">p-md</div>
+              <div class="p-lg bg-secondary radius-md">p-lg</div>
+              <div class="p-xl bg-secondary radius-md">p-xl</div>
+              <div class="p-2xl bg-secondary radius-md">p-2xl</div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'p-xs bg-secondary radius-md\'>p-xs</div>\n<div class=\'p-sm bg-secondary radius-md\'>p-sm</div>\n<div class=\'p-md bg-secondary radius-md\'>p-md</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- MARGIN -->
+    @if (activeSection() === 'margin') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Margin</h1>
+        <p class="sg-section__desc">Controls the space outside an element's border.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: marginClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview sg-demo__preview--outlined">
+            <div class="flex">
+              <div class="m-xs bg-secondary radius-md p-sm">m-xs</div>
+              <div class="m-sm bg-secondary radius-md p-sm">m-sm</div>
+              <div class="m-md bg-secondary radius-md p-sm">m-md</div>
+              <div class="m-lg bg-secondary radius-md p-sm">m-lg</div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'m-xs bg-secondary radius-md p-sm\'>m-xs</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- GAP -->
+    @if (activeSection() === 'gap') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Gap</h1>
+        <p class="sg-section__desc">Sets the gap between flex or grid items.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: gapClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            @for (g of ['gap-xs','gap-sm','gap-md','gap-lg','gap-xl']; track g) {
+              <div class="flex mb-sm" [class]="g">
+                <div class="sg-box">1</div>
+                <div class="sg-box">2</div>
+                <div class="sg-box">3</div>
+                <span class="sg-box-label">{{ g }}</span>
+              </div>
+            }
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-md\'>\n  <div>1</div>\n  <div>2</div>\n</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- BORDER RADIUS -->
+    @if (activeSection() === 'border-radius') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Border Radius</h1>
+        <p class="sg-section__desc">Rounds the corners of an element's border box.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: radiusClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-md align-center">
+              @for (r of [
+                {cls:'radius-none', label:'none'},
+                {cls:'radius-xs', label:'xs'},
+                {cls:'radius-sm', label:'sm'},
+                {cls:'radius-md', label:'md'},
+                {cls:'radius-lg', label:'lg'},
+                {cls:'radius-xl', label:'xl'},
+                {cls:'radius-circle', label:'circle'},
+                {cls:'radius-pill', label:'pill'}
+              ]; track r.cls) {
+                <div class="sg-radius-box bg-secondary p-md" [class]="r.cls">{{ r.label }}</div>
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'bg-secondary p-md radius-lg\'>radius-lg</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- SHADOW -->
+    @if (activeSection() === 'shadow') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Shadow</h1>
+        <p class="sg-section__desc">Adds drop shadows to elements.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: shadowClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-lg align-center">
+              <div class="sg-shadow-box shadow-sm">shadow-sm</div>
+              <div class="sg-shadow-box shadow-md">shadow-md</div>
+              <div class="sg-shadow-box shadow-lg">shadow-lg</div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'shadow-md\'>card</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- SIZING -->
+    @if (activeSection() === 'sizing') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Sizing</h1>
+        <p class="sg-section__desc">Shorthand utilities for width and height.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: sizingClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="bg-secondary radius-md p-sm" style="width: 200px; height: 80px;">
+              <div class="w-full h-full bg-inverse-2 radius-sm flex align-center justify-center">
+                <span class="text-sm fw-medium text-color-inverse">w-full h-full</span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'w-full h-full\'>content</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- OVERFLOW -->
+    @if (activeSection() === 'overflow') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Overflow</h1>
+        <p class="sg-section__desc">Controls how overflowing content is handled.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: overflowClasses }"></ng-container>
+      </section>
+    }
+
+    <!-- OPACITY -->
+    @if (activeSection() === 'opacity') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Opacity</h1>
+        <p class="sg-section__desc">Sets the opacity of semantic states (disabled, muted).</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: opacityClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-lg align-center">
+              <div class="sg-box">Normal</div>
+              <div class="sg-box opacity-muted">opacity-muted</div>
+              <div class="sg-box opacity-disabled">opacity-disabled</div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'opacity-disabled\'>disabled content</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- FONT SIZE -->
+    @if (activeSection() === 'font-size') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Font Size</h1>
+        <p class="sg-section__desc">A scale of font-size utilities mapped to design tokens.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: fontSizeClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-sm">
+              @for (fs of [
+                {cls:'text-3xs', label:'3xs — 0.65rem'},
+                {cls:'text-xs', label:'xs — 0.8rem'},
+                {cls:'text-sm', label:'sm — 0.875rem'},
+                {cls:'text-base', label:'base — 0.95rem'},
+                {cls:'text-lg', label:'lg — 1rem'},
+                {cls:'text-xl', label:'xl — 1.25rem'},
+                {cls:'text-2xl', label:'2xl — 1.5rem'},
+                {cls:'text-3xl', label:'3xl — 1.75rem'},
+                {cls:'text-4xl', label:'4xl — 2rem'}
+              ]; track fs.cls) {
+                <span [class]="fs.cls">{{ fs.label }}</span>
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'text-2xl\'>Large heading</span>\n<span class=\'text-sm\'>Small body text</span>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- FONT WEIGHT -->
+    @if (activeSection() === 'font-weight') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Font Weight</h1>
+        <p class="sg-section__desc">Controls the weight (boldness) of text.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: fontWeightClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-sm">
+              <span class="fw-normal text-lg">fw-normal — 400</span>
+              <span class="fw-medium text-lg">fw-medium — 500</span>
+              <span class="fw-semibold text-lg">fw-semibold — 600</span>
+              <span class="fw-bold text-lg">fw-bold — 700</span>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'fw-bold\'>Bold text</span>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- TEXT ALIGN -->
+    @if (activeSection() === 'text-align') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Text Align</h1>
+        <p class="sg-section__desc">Horizontal alignment of text content and an ellipsis truncation utility.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: textAlignClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-sm" style="width:100%">
+              <p class="text-left bg-secondary radius-sm p-sm">text-left</p>
+              <p class="text-center bg-secondary radius-sm p-sm">text-center</p>
+              <p class="text-right bg-secondary radius-sm p-sm">text-right</p>
+              <p class="text-ellipsis bg-secondary radius-sm p-sm" style="max-width:200px">text-ellipsis overflows this long text nicely</p>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<p class=\'text-ellipsis\' style=\'max-width:200px\'>Long text...</p>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- TEXT COLOR -->
+    @if (activeSection() === 'text-color') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Text Color</h1>
+        <p class="sg-section__desc">Semantic and brand color utilities for text.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: textColorClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-sm">
+              <span class="text-color-accent fw-medium">text-color-accent (brand red)</span>
+              <span class="pin-red-dark fw-medium">pin-red-dark</span>
+              <span class="pin-red-light fw-medium" style="background:#333;padding:4px 8px;border-radius:6px">pin-red-light</span>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'text-color-accent\'>Brand red text</span>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- BACKGROUND -->
+    @if (activeSection() === 'background') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Background</h1>
+        <p class="sg-section__desc">Semantic background color utilities.</p>
+        <ng-container *ngTemplateOutlet="classTpl; context: { rows: backgroundClasses }"></ng-container>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-sm">
+              @for (bg of ['bg-secondary','bg-reverse','bg-reverse-1','bg-inverse','bg-inverse-1']; track bg) {
+                <div class="p-md radius-sm" [class]="bg">
+                  <span class="text-sm">{{ bg }}</span>
+                </div>
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'bg-secondary radius-md p-md\'>content</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- ── STANDARD CLASSES ─────────────────────────────────────────────── -->
+
+    <!-- ICONS -->
+    @if (activeSection() === 'icons') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Icons</h1>
+        <p class="sg-section__desc">Material Symbols Rounded icon font with size variants. Add <code class="sg-inline-code">.filled</code> for filled style.</p>
+        <table class="sg-table">
+          <thead>
+            <tr><th>Class</th><th>Font Size</th></tr>
+          </thead>
+          <tbody>
+            @for (s of iconSizes; track s.cls) {
+              <tr>
+                <td><code class="sg-code">{{ s.cls }}</code></td>
+                <td>{{ s.size }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-lg align-center flex-wrap mb-md">
+              @for (s of iconSizes; track s.cls) {
+                <span class="material-symbols-rounded" [class]="s.cls" aria-hidden="true">favorite</span>
+              }
+            </div>
+            <div class="flex gap-sm flex-wrap">
+              @for (icon of sampleIcons; track icon) {
+                <div class="sg-icon-item">
+                  <span class="material-symbols-rounded" aria-hidden="true">{{ icon }}</span>
+                  <span class="sg-icon-label">{{ icon }}</span>
+                </div>
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'material-symbols-rounded\'>favorite</span>\n<span class=\'material-symbols-rounded filled\'>favorite</span>\n<span class=\'material-symbols-rounded icon-lg\'>search</span>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- SKELETON -->
+    @if (activeSection() === 'skeleton') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Skeleton</h1>
+        <p class="sg-section__desc">Loading placeholder with shimmer animation.</p>
+        <table class="sg-table">
+          <thead><tr><th>Class</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">.skeleton</code></td><td>Shimmer animation background</td></tr>
+            <tr><td><code class="sg-code">.circle</code></td><td>48px circular skeleton element</td></tr>
+            <tr><td><code class="sg-code">.skeleton-lines</code></td><td>Flex column container for line skeletons</td></tr>
+            <tr><td><code class="sg-code">.line1</code></td><td>14px height, 75% width line</td></tr>
+            <tr><td><code class="sg-code">.line2</code></td><td>12px height, 50% width line</td></tr>
+          </tbody>
+        </table>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-md align-center" style="max-width:300px">
+              <div class="skeleton circle"></div>
+              <div class="skeleton-lines">
+                <div class="skeleton line1"></div>
+                <div class="skeleton line2"></div>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-md align-center\'>\n  <div class=\'skeleton circle\'></div>\n  <div class=\'skeleton-lines\'>\n    <div class=\'skeleton line1\'></div>\n    <div class=\'skeleton line2\'></div>\n  </div>\n</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- TOOLTIP -->
+    @if (activeSection() === 'tooltip') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Tooltip</h1>
+        <p class="sg-section__desc">Styled tooltip surface — apply to overlay elements positioned via JS/directive.</p>
+        <table class="sg-table">
+          <thead><tr><th>Class</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">.app-tooltip</code></td><td>Pill-shaped tooltip with muted bg, small font, shadow</td></tr>
+          </tbody>
+        </table>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <span class="app-tooltip">This is a tooltip</span>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'app-tooltip\'>Tooltip text</span>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- LINKS -->
+    @if (activeSection() === 'links') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Links</h1>
+        <p class="sg-section__desc">Semantic link styles for auth flows and navigation contexts.</p>
+        <table class="sg-table">
+          <thead><tr><th>Class</th><th>Usage</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">.forgot-link</code></td><td>Right-aligned secondary link, e.g. "Forgot password"</td></tr>
+            <tr><td><code class="sg-code">.text-link</code></td><td>Centered secondary text link</td></tr>
+            <tr><td><code class="sg-code">.text-link-active</code></td><td>Active/clickable primary link</td></tr>
+            <tr><td><code class="sg-code">.terms-link</code></td><td>Small muted terms/policy text</td></tr>
+            <tr><td><code class="sg-code">.terms-link-active</code></td><td>Active terms link, semibold</td></tr>
+            <tr><td><code class="sg-code">.back-link</code></td><td>Back navigation link with icon</td></tr>
+            <tr><td><code class="sg-code">.success-msg</code></td><td>Success message banner with icon</td></tr>
+          </tbody>
+        </table>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-md">
+              <a href="#" class="forgot-link">Forgot your password?</a>
+              <span class="text-link">Already have an account? <a href="#" class="text-link-active">Sign in</a></span>
+              <a href="#" class="back-link">
+                <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+                Back to login
+              </a>
+              <p class="terms-link">By continuing you agree to our <a href="#" class="terms-link-active">Terms of Service</a></p>
+              <div class="success-msg">
+                <span class="material-symbols-rounded" aria-hidden="true">check_circle</span>
+                Email sent successfully!
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<a class=\'forgot-link\' href=\'#\'>Forgot password?</a>\n<a class=\'back-link\' href=\'#\'>\n  <span class=\'material-symbols-rounded\'>arrow_back</span>\n  Back\n</a>\n<div class=\'success-msg\'>\n  <span class=\'material-symbols-rounded\'>check_circle</span>\n  Success!\n</div>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- TITLES -->
+    @if (activeSection() === 'titles') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Titles</h1>
+        <p class="sg-section__desc">Predefined title styles for consistent headings.</p>
+        <table class="sg-table">
+          <thead><tr><th>Class</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">.title-primary</code></td><td>text-2xl, bold, primary color</td></tr>
+            <tr><td><code class="sg-code">.title-muted-uppercase</code></td><td>text-sm, bold, uppercase, secondary color, letter-spacing</td></tr>
+          </tbody>
+        </table>
+        <h3 class="sg-subsection__title">Visual Example</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-md">
+              <h2 class="title-primary">Primary Title</h2>
+              <h3 class="title-muted-uppercase">Section Label</h3>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<h2 class=\'title-primary\'>Title</h2>\n<h3 class=\'title-muted-uppercase\'>Section</h3>' }"></ng-container>
+        </div>
+      </section>
+    }
+
+    <!-- ── DESIGN TOKENS ────────────────────────────────────────────────── -->
+
+    <!-- COLORS -->
+    @if (activeSection() === 'colors') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Colors</h1>
+        <p class="sg-section__desc">CSS custom properties for brand, background, text, and semantic colors. Light/dark values shown.</p>
+        <div class="sg-color-grid">
+          @for (c of designColors; track c.name) {
+            <div class="sg-color-card">
+              <div class="sg-color-swatch" [style.background]="'var(' + c.name + ')'"></div>
+              <div class="sg-color-info">
+                <code class="sg-code">{{ c.name }}</code>
+                <span class="text-xs">{{ c.value }}</span>
+                <span class="text-2xs text-color-accent">{{ c.label }}</span>
+              </div>
+            </div>
           }
         </div>
-      </div>
+      </section>
+    }
 
-      <!-- Gray scale -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Gray Scale</h3>
-        <div class="sg-color-rows" role="list" aria-label="Gray color scale">
-          @for (color of grayColors; track color.token) {
-          <div class="sg-color-row" role="listitem">
-            <div class="sg-color-swatch" [style.background]="color.value" aria-hidden="true"></div>
-            <span class="sg-color-name">{{ color.label }}</span>
-            <code class="sg-color-token">{{ color.token }}</code>
-            <code class="sg-color-hex">{{ color.value }}</code>
-          </div>
+    <!-- SPACING TOKENS -->
+    @if (activeSection() === 'spacing-tokens') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Spacing Tokens</h1>
+        <p class="sg-section__desc">Design token scale used by all spacing utilities (.p-*, .m-*, .gap-*).</p>
+        <div class="flex flex-col gap-sm">
+          @for (s of spacingTokens; track s.name) {
+            <div class="flex align-center gap-md">
+              <div class="sg-space-bar bg-secondary radius-xs" [style.width]="s.value" [style.height]="'20px'"></div>
+              <code class="sg-code">{{ s.name }}</code>
+              <span class="text-sm">{{ s.value }}</span>
+            </div>
           }
         </div>
-      </div>
+      </section>
+    }
 
-      <!-- Semantic colors -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Semantic Colors</h3>
-        <div class="sg-semantic-grid">
-          @for (color of semanticColors; track color.token) {
-          <div class="sg-semantic-card" [style.background]="color.bg" [style.border-color]="color.value + '40'">
-            <div class="sg-semantic-top">
-              <span class="material-symbols-rounded sg-semantic-icon filled" [style.color]="color.value"
-                aria-hidden="true">{{ color.icon }}</span>
-              <strong class="sg-semantic-label" [style.color]="color.value">{{ color.label }}</strong>
+    <!-- RADIUS TOKENS -->
+    @if (activeSection() === 'radius-tokens') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Border Radius Tokens</h1>
+        <p class="sg-section__desc">Token scale used by .radius-* utility classes.</p>
+        <div class="flex flex-wrap gap-md">
+          @for (r of radiusTokens; track r.name) {
+            <div class="sg-token-card">
+              <div class="sg-radius-preview bg-secondary" [style.border-radius]="r.value"></div>
+              <code class="sg-code text-xs">{{ r.name }}</code>
+              <span class="text-2xs">{{ r.value }}</span>
             </div>
-            <div class="sg-semantic-tokens">
-              <code>{{ color.token }}</code>
-            </div>
-            <p class="sg-semantic-desc">{{ color.description }}</p>
-            <div class="sg-semantic-swatch" [style.background]="color.value" aria-hidden="true">
-              <span [style.color]="'white'">{{ color.value }}</span>
-            </div>
-          </div>
           }
         </div>
-      </div>
+      </section>
+    }
 
-      <!-- Overlay tokens -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Overlay Tokens</h3>
-        <div class="sg-overlay-grid">
-          <div class="sg-overlay-card">
-            <div class="sg-overlay-demo sg-overlay-demo--image">
-              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark-light)"></div>
-              <span class="sg-overlay-name">dark-light</span>
+    <!-- TYPOGRAPHY TOKENS -->
+    @if (activeSection() === 'typography-tokens') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Typography Tokens</h1>
+        <p class="sg-section__desc">Font-size token scale from design-tokens.scss.</p>
+        <div class="flex flex-col gap-sm">
+          @for (t of typographyTokens; track t.name) {
+            <div class="flex align-center gap-md">
+              <code class="sg-code" style="min-width:140px">{{ t.name }}</code>
+              <span [style.font-size]="t.value">The quick brown fox — {{ t.value }}</span>
             </div>
-            <code class="sg-overlay-token">--pin-overlay-dark-light</code>
-            <span class="sg-overlay-value">rgba(0,0,0, 0.3)</span>
-          </div>
-          <div class="sg-overlay-card">
-            <div class="sg-overlay-demo sg-overlay-demo--image">
-              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark-medium)"></div>
-              <span class="sg-overlay-name">dark-medium</span>
-            </div>
-            <code class="sg-overlay-token">--pin-overlay-dark-medium</code>
-            <span class="sg-overlay-value">rgba(0,0,0, 0.5)</span>
-          </div>
-          <div class="sg-overlay-card">
-            <div class="sg-overlay-demo sg-overlay-demo--image">
-              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark)"></div>
-              <span class="sg-overlay-name">dark</span>
-            </div>
-            <code class="sg-overlay-token">--pin-overlay-dark</code>
-            <span class="sg-overlay-value">rgba(0,0,0, 0.6)</span>
-          </div>
-          <div class="sg-overlay-card">
-            <div class="sg-overlay-demo sg-overlay-demo--image">
-              <div class="sg-overlay-layer" style="background: var(--pin-overlay-dark-strong)"></div>
-              <span class="sg-overlay-name">dark-strong</span>
-            </div>
-            <code class="sg-overlay-token">--pin-overlay-dark-strong</code>
-            <span class="sg-overlay-value">rgba(0,0,0, 0.8)</span>
-          </div>
-          <div class="sg-overlay-card">
-            <div class="sg-overlay-demo sg-overlay-demo--dark">
-              <div class="sg-overlay-layer" style="background: var(--pin-overlay-white)"></div>
-              <span class="sg-overlay-name sg-overlay-name--dark">white</span>
-            </div>
-            <code class="sg-overlay-token">--pin-overlay-white</code>
-            <span class="sg-overlay-value">rgba(255,255,255, 0.85)</span>
-          </div>
-          <div class="sg-overlay-card">
-            <div class="sg-overlay-demo sg-overlay-demo--dark">
-              <div class="sg-overlay-layer" style="background: var(--pin-overlay-white-weak)"></div>
-              <span class="sg-overlay-name sg-overlay-name--dark">white-weak</span>
-            </div>
-            <code class="sg-overlay-token">--pin-overlay-white-weak</code>
-            <span class="sg-overlay-value">rgba(255,255,255, 0.7)</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Typography ─────────────────────────────────────────── -->
-    <section id="typography" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Typography</h2>
-        <p class="sg-section-desc">
-          Built on <strong>Roboto</strong> — a neo-grotesque sans-serif designed for clarity and readability.
-          <code>--font-family: 'Roboto', sans-serif</code>
-        </p>
-      </header>
-
-      <!-- Font size tokens -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Font Size Scale</h3>
-        <p class="sg-comp-desc">
-          14 steps from <code>--text-3xs</code> (10.4px) to <code>--text-7xl</code> (64px).
-          All font sizes across the system consume these tokens.
-        </p>
-        <div class="sg-type-token-table" role="list" aria-label="Font size tokens">
-          @for (fs of fontSizeTokens; track fs.token) {
-          <div class="sg-type-token-row" role="listitem">
-            <code class="sg-token-name">{{ fs.token }}</code>
-            <span class="sg-type-token-meta">{{ fs.value }} · {{ fs.px }}</span>
-            <p class="sg-type-token-sample" [style.font-size]="'var(' + fs.token + ')'" aria-hidden="true">AZJob</p>
-          </div>
           }
         </div>
-      </div>
+      </section>
+    }
 
-      <!-- Type scale -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Type Scale</h3>
-        <div class="sg-type-list">
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-5xl</code>
-              <span>40px · 700</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-5xl); font-weight: 700; line-height: 1.2">Display</p>
-          </div>
-          <div class="sg-type-divider" aria-hidden="true"></div>
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-4xl</code>
-              <span>32px · 700</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-4xl); font-weight: 700; line-height: 1.25">Heading 1
-            </p>
-          </div>
-          <div class="sg-type-divider" aria-hidden="true"></div>
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-2xl</code>
-              <span>24px · 700</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-2xl); font-weight: 700; line-height: 1.3">Heading 2
-            </p>
-          </div>
-          <div class="sg-type-divider" aria-hidden="true"></div>
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-xl</code>
-              <span>20px · 700</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-xl); font-weight: 700; line-height: 1.35">Heading 3
-            </p>
-          </div>
-          <div class="sg-type-divider" aria-hidden="true"></div>
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-lg</code>
-              <span>16px · 400</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-lg); line-height: 1.6">
-              Body — People trust people. AZJob connects professionals through authentic, humanized content that builds
-              real authority.
-            </p>
-          </div>
-          <div class="sg-type-divider" aria-hidden="true"></div>
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-sm</code>
-              <span>14px · 400</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-sm); line-height: 1.5">
-              Small — Used in form labels, captions, helper text, and supporting metadata across the interface.
-            </p>
-          </div>
-          <div class="sg-type-divider" aria-hidden="true"></div>
-          <div class="sg-type-row">
-            <div class="sg-type-meta">
-              <code>--text-xs</code>
-              <span>12.8px · 400</span>
-            </div>
-            <p class="sg-type-sample" style="font-size: var(--text-xs); line-height: 1.4">
-              XS — Timestamps, secondary metadata, fine print, and tertiary information.
-            </p>
-          </div>
-        </div>
-      </div>
+    <!-- ── COMPONENTS ───────────────────────────────────────────────────── -->
 
-      <!-- Font Weights -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Font Weights</h3>
-        <div class="sg-weight-list">
-          @for (fw of fontWeightTokens; track fw.token) {
-          <div class="sg-weight-row">
-            <span class="sg-weight-meta">{{ fw.value }} — {{ fw.label }}</span>
-            <span class="sg-weight-sample" [style.font-weight]="fw.value">The quick brown fox jumps</span>
-            <code class="sg-color-token" style="margin-left: auto;">{{ fw.token }}</code>
-          </div>
-          }
-        </div>
-      </div>
-    </section>
+    <!-- BUTTON -->
+    @if (activeSection() === 'comp-button') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Button</h1>
+        <p class="sg-section__desc">Versatile button component with variant, size, shape, loading state and icon support.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; ButtonComponent &#125; from '@shared/components/button/button.component';</code></p>
 
-    <!-- ── Spacing ─────────────────────────────────────────────── -->
-    <section id="spacing" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Spacing</h2>
-        <p class="sg-section-desc">
-          4px-based scale used consistently for padding, margin, and gap throughout the system.
-          Tokens: <code>--space-xs</code> through <code>--space-5xl</code>.
-        </p>
-      </header>
-
-      <div class="sg-spacing-list">
-        @for (token of spacingTokens; track token.token) {
-        <div class="sg-spacing-row">
-          <code class="sg-spacing-label">{{ token.token }}</code>
-          <div class="sg-spacing-track">
-            <div class="sg-spacing-bar" [style.width.px]="token.barW"></div>
-          </div>
-          <span
-            style="font-size: var(--text-xs); color: var(--pin-text-muted); font-family: monospace; min-width: 40px; text-align: right;">{{
-            token.size }}</span>
-        </div>
-        }
-      </div>
-    </section>
-
-    <!-- ── Border Radius ───────────────────────────────────────── -->
-    <section id="radius" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Border Radius</h2>
-        <p class="sg-section-desc">
-          Multi-scale rounding from sharp to full pill — a key contributor to the friendly, approachable aesthetic.
-          Tokens: <code>--radius-none</code> through <code>--radius-pill</code>.
-        </p>
-      </header>
-
-      <div class="sg-radius-grid">
-        @for (token of radiusTokens; track token.token) {
-        <div class="sg-radius-card">
-          <div class="sg-radius-preview" [style.border-radius]="token.value" aria-hidden="true"></div>
-          <div class="sg-radius-info">
-            <span class="sg-radius-label">{{ token.label }}</span>
-            <code class="sg-radius-token">{{ token.token }}</code>
-            <span class="sg-radius-value">{{ token.value }}</span>
-          </div>
-        </div>
-        }
-      </div>
-    </section>
-
-    <!-- ── Shadows ─────────────────────────────────────────────── -->
-    <section id="shadows" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Shadows</h2>
-        <p class="sg-section-desc">
-          Subtle elevation system for cards, modals, and overlays. Keeps the UI light and airy.
-          Dark mode shadows use higher opacity values automatically.
-        </p>
-      </header>
-
-      <div class="sg-shadow-grid">
-        @for (token of shadowTokens; track token.token) {
-        <div class="sg-shadow-card" [style.box-shadow]="token.value">
-          <div class="sg-shadow-header">
-            <span class="sg-shadow-label">Shadow {{ token.label }}</span>
-            <code class="sg-shadow-token">{{ token.token }}</code>
-          </div>
-          <code class="sg-shadow-value">{{ token.value }}</code>
-        </div>
-        }
-      </div>
-    </section>
-
-    <!-- ── Sizing ──────────────────────────────────────────────── -->
-    <section id="sizing" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Sizing</h2>
-        <p class="sg-section-desc">
-          Avatar and icon size scale used for consistent element dimensions.
-          Tokens: <code>--size-xs</code> through <code>--size-xl</code>.
-        </p>
-      </header>
-
-      <div class="sg-token-table" role="list" aria-label="Sizing tokens">
-        @for (token of sizingTokens; track token.token) {
-        <div class="sg-token-row" role="listitem">
-          <code class="sg-token-name">{{ token.token }}</code>
-          <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
-          <div class="sg-token-preview" [style.width]="token.value" [style.height]="token.value"
-            style="border-radius: 50%; background: var(--pin-red); opacity: 0.15; border: 2px solid var(--pin-red);"
-            aria-hidden="true"></div>
-        </div>
-        }
-      </div>
-    </section>
-
-    <!-- ── Opacity ─────────────────────────────────────────────── -->
-    <section id="opacity" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Opacity</h2>
-        <p class="sg-section-desc">
-          Opacity tokens for interactive states like disabled and muted elements.
-          Tokens: <code>--opacity-disabled</code>, <code>--opacity-muted</code>.
-        </p>
-      </header>
-
-      <div class="sg-token-table" role="list" aria-label="Opacity tokens">
-        @for (token of opacityTokens; track token.token) {
-        <div class="sg-token-row" role="listitem">
-          <code class="sg-token-name">{{ token.token }}</code>
-          <span class="sg-token-value">{{ token.label }} — {{ token.value }}</span>
-          <div class="sg-token-preview" aria-hidden="true">
-            <div style="width: 80px; height: 32px; border-radius: 8px; background: var(--pin-red);"
-              [style.opacity]="token.value"></div>
-          </div>
-        </div>
-        }
-      </div>
-    </section>
-
-    <!-- ── Z-Index ─────────────────────────────────────────────── -->
-    <section id="zindex" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Z-Index</h2>
-        <p class="sg-section-desc">
-          Stacking order tokens for layout layers. Higher values render on top.
-          Tokens: <code>--z-base</code> through <code>--z-toast</code>.
-        </p>
-      </header>
-
-      <div class="sg-token-table" role="list" aria-label="Z-index tokens">
-        @for (token of zIndexTokens; track token.token) {
-        <div class="sg-token-row" role="listitem">
-          <code class="sg-token-name">{{ token.token }}</code>
-          <span class="sg-token-value">{{ token.label }}</span>
-          <span
-            style="font-size: var(--text-sm); font-weight: 700; color: var(--pin-text-primary); font-family: monospace; margin-left: auto;">{{
-            token.value }}</span>
-        </div>
-        }
-      </div>
-    </section>
-
-    <!-- ── Utilities ───────────────────────────────────────────── -->
-    <section id="utilities" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Utilities</h2>
-        <p class="sg-section-desc">
-          Global utility classes defined in <code>styles.scss</code> for common layout patterns.
-          All consume design tokens.
-        </p>
-      </header>
-
-      <!-- Flex -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Flex Direction</h3>
-        <div class="sg-util-grid">
-          <div class="sg-util-card">
-            <div class="sg-util-demo d-flex flex-row gap-xs">
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.6;"></div>
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.3;"></div>
-            </div>
-            <span class="sg-util-label">.flex-row</span>
-          </div>
-          <div class="sg-util-card">
-            <div class="sg-util-demo d-flex flex-col gap-xs align-center">
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.6;"></div>
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;opacity:0.3;"></div>
-            </div>
-            <span class="sg-util-label">.flex-col</span>
-          </div>
-          <div class="sg-util-card">
-            <div class="sg-util-demo d-flex align-center justify-center">
-              <div style="width:28px;height:28px;background:var(--pin-red);border-radius:4px;"></div>
-            </div>
-            <span class="sg-util-label">.align-center .justify-center</span>
-          </div>
-          <div class="sg-util-card">
-            <div class="sg-util-demo d-flex align-center justify-between" style="padding: 0 8px;">
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
-              <div style="width:20px;height:20px;background:var(--pin-red);border-radius:4px;"></div>
-            </div>
-            <span class="sg-util-label">.justify-between</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Shadow Utilities -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Shadow Utilities</h3>
-        <div class="sg-shadow-grid">
-          @for (token of shadowTokens; track token.token) {
-          <div class="sg-util-card">
-            <div class="sg-util-demo" style="border-radius: var(--radius-lg);" [style.box-shadow]="token.value">
-              <span style="font-size: var(--text-2xs); color: var(--pin-text-secondary);">.shadow-{{
-                token.label.toLowerCase() }}</span>
+        <h3 class="sg-subsection__title">Demo — Variants</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-sm align-center">
+              <app-button variant="primary">Primary</app-button>
+              <app-button variant="secondary">Secondary</app-button>
+              <app-button variant="outline">Outline</app-button>
+              <app-button variant="ghost">Ghost</app-button>
+              <app-button variant="cta">CTA</app-button>
             </div>
           </div>
-          }
-        </div>
-      </div>
-
-      <!-- Font Weight Utilities -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">Font Weight Utilities</h3>
-        <div class="sg-token-table">
-          @for (fw of fontWeightTokens; track fw.token) {
-          <div class="sg-token-row">
-            <code class="sg-token-name">.fw-{{ fw.label.toLowerCase() }}</code>
-            <span [style.font-weight]="fw.value" style="font-size: var(--text-lg); color: var(--pin-text-primary);">The
-              quick brown fox — {{ fw.value }}</span>
-          </div>
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Components ──────────────────────────────────────────── -->
-    <section id="components" class="sg-section">
-      <header class="sg-section-header">
-        <h2 class="sg-section-title">Components</h2>
-        <p class="sg-section-desc">
-          Presentational components built entirely on design tokens.
-          Each exposes clear <code>input()</code> / <code>output()</code> contracts
-          and supports <code>enable()</code>, <code>disable()</code>, and <code>resetToInitialState()</code>.
-        </p>
-      </header>
-
-      <!-- Button -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">
-          <code>app-button</code>
-          <span class="sg-comp-file">button.component.ts</span>
-        </h3>
-        <p class="sg-comp-desc">
-          Variants: <code>primary</code> · <code>outline</code> · <code>secondary</code> · <code>ghost</code>.
-          Sizes: <code>sm</code> · <code>md</code> · <code>lg</code>.
-          Supports <code>[loading]</code>, <code>[disabled]</code>, and <code>[fullWidth]</code>.
-        </p>
-
-        <div class="sg-preview">
-          <div class="sg-preview-label">Variants</div>
-          <div class="sg-preview-body sg-preview-body--row">
-            <app-button variant="primary">Primary</app-button>
-            <app-button variant="outline">Outline</app-button>
-            <app-button variant="secondary">Secondary</app-button>
-            <app-button variant="cta">
-              CTA
-              <span class="material-symbols-rounded" aria-hidden="true"
-                style="font-size: 1.2rem; margin-left: 4px;">arrow_forward</span>
-            </app-button>
-            <app-button variant="ghost">
-              <span class="material-symbols-rounded" aria-hidden="true">favorite</span>
-            </app-button>
-          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-button variant=\'primary\'>Primary</app-button>\n<app-button variant=\'outline\'>Outline</app-button>\n<app-button variant=\'ghost\'>Ghost</app-button>' }"></ng-container>
         </div>
 
-        <div class="sg-preview">
-          <div class="sg-preview-label">Sizes</div>
-          <div class="sg-preview-body sg-preview-body--row sg-preview-body--align-end">
-            <app-button variant="primary" size="sm">Small</app-button>
-            <app-button variant="primary" size="md">Medium</app-button>
-            <app-button variant="primary" size="lg">Large</app-button>
-            <app-button variant="primary" size="xl">Extra Large</app-button>
-          </div>
-        </div>
-
-        <div class="sg-preview">
-          <div class="sg-preview-label">States</div>
-          <div class="sg-preview-body sg-preview-body--row">
-            <app-button variant="primary" [loading]="true">Loading</app-button>
-            <app-button variant="primary" [disabled]="true">Disabled</app-button>
-            <app-button variant="outline" [loading]="true">Loading</app-button>
-            <app-button variant="outline" [disabled]="true">Disabled</app-button>
-          </div>
-        </div>
-
-        <div class="sg-preview">
-          <div class="sg-preview-label">Full Width</div>
-          <div class="sg-preview-body">
-            <app-button variant="primary" [fullWidth]="true">Full Width Button</app-button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Input -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">
-          <code>app-input</code>
-          <span class="sg-comp-file">input.component.ts</span>
-        </h3>
-        <p class="sg-comp-desc">
-          Implements <code>ControlValueAccessor</code> for seamless reactive form integration.
-          Supports <code>text</code>, <code>email</code>, <code>password</code>, <code>date</code>, <code>url</code>,
-          <code>number</code>, <code>tel</code>.
-        </p>
-
-        <div class="sg-preview-pair">
-          <div class="sg-preview">
-            <div class="sg-preview-label">Default</div>
-            <div class="sg-preview-body">
-              <app-input label="Email address" type="email" placeholder="you@example.com"
-                hint="We'll never share your email" [formControl]="sampleInput" />
+        <h3 class="sg-subsection__title">Sizes</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-sm align-center">
+              <app-button size="sm">Small</app-button>
+              <app-button size="md">Medium</app-button>
+              <app-button size="lg">Large</app-button>
+              <app-button size="xl">XLarge</app-button>
             </div>
           </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-button size=\'sm\'>Small</app-button>\n<app-button size=\'lg\'>Large</app-button>' }"></ng-container>
+        </div>
 
-          <div class="sg-preview">
-            <div class="sg-preview-label">Password with toggle</div>
-            <div class="sg-preview-body">
-              <app-input label="Password" type="password" placeholder="Enter your password"
-                [formControl]="passwordInput" />
+        <h3 class="sg-subsection__title">States</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-wrap gap-sm align-center">
+              <app-button [loading]="true">Loading</app-button>
+              <app-button [disabled]="true">Disabled</app-button>
+              <app-button icon="favorite">With Icon</app-button>
+              <app-button shape="circle" icon="add" ariaLabel="Add"></app-button>
+              <app-button [fullWidth]="true">Full Width</app-button>
             </div>
           </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-button [loading]=\'true\'>Loading</app-button>\n<app-button [disabled]=\'true\'>Disabled</app-button>\n<app-button icon=\'favorite\'>With Icon</app-button>\n<app-button shape=\'circle\' icon=\'add\' ariaLabel=\'Add\'></app-button>' }"></ng-container>
         </div>
 
-        <div class="sg-preview">
-          <div class="sg-preview-label">Error state</div>
-          <div class="sg-preview-body">
-            <app-input label="Username" placeholder="Enter username" errorMessage="This username is already taken"
-              [formControl]="errorInput" />
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">variant</code></td><td>ButtonVariant</td><td>'primary'</td><td>Visual style variant</td></tr>
+            <tr><td><code class="sg-code">size</code></td><td>ButtonSize</td><td>'md'</td><td>Size of the button</td></tr>
+            <tr><td><code class="sg-code">shape</code></td><td>ButtonShape</td><td>'default'</td><td>'default' | 'circle'</td></tr>
+            <tr><td><code class="sg-code">icon</code></td><td>string</td><td>''</td><td>Material Symbol icon name</td></tr>
+            <tr><td><code class="sg-code">ariaLabel</code></td><td>string</td><td>''</td><td>Accessible label (required for icon-only)</td></tr>
+            <tr><td><code class="sg-code">loading</code></td><td>boolean</td><td>false</td><td>Shows spinner, disables button</td></tr>
+            <tr><td><code class="sg-code">disabled</code></td><td>boolean</td><td>false</td><td>Disables the button</td></tr>
+            <tr><td><code class="sg-code">fullWidth</code></td><td>boolean</td><td>false</td><td>Stretches to container width</td></tr>
+            <tr><td><code class="sg-code">type</code></td><td>'button'|'submit'|'reset'</td><td>'button'</td><td>HTML button type</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">clicked</code></td><td>void</td><td>Emits on click when not disabled/loading</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- INPUT -->
+    @if (activeSection() === 'comp-input') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Input</h1>
+        <p class="sg-section__desc">Reusable text input implementing ControlValueAccessor with label, hint, error and password toggle.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; InputComponent &#125; from '@shared/components/input/input.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-md" style="max-width:360px">
+              <app-input label="Default" placeholder="Enter text..." [(ngModel)]="inputValue" />
+              <app-input label="Email" type="email" placeholder="email@example.com" [(ngModel)]="inputValue" hint="We'll never share your email." />
+              <app-input label="Password" type="password" placeholder="Enter password" [(ngModel)]="inputValue" />
+              <app-input label="With Error" placeholder="Name" [(ngModel)]="inputValue" errorMessage="This field is required." />
+            </div>
           </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-input\n  label=\'Email\'\n  type=\'email\'\n  placeholder=\'email@example.com\'\n  [(ngModel)]=\'email\'\n  hint=\'We share nothing.\'\n/>' }"></ng-container>
         </div>
-      </div>
 
-      <!-- Divider -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">
-          <code>app-divider</code>
-          <span class="sg-comp-file">divider.component.ts</span>
-        </h3>
-        <p class="sg-comp-desc">
-          Horizontal rule with optional centered text. Uses <code>role="separator"</code> for accessibility.
-        </p>
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">label</code></td><td>string</td><td>''</td><td>Field label text</td></tr>
+            <tr><td><code class="sg-code">type</code></td><td>InputType</td><td>'text'</td><td>text | email | password | date | url | number | tel</td></tr>
+            <tr><td><code class="sg-code">placeholder</code></td><td>string</td><td>''</td><td>Placeholder text</td></tr>
+            <tr><td><code class="sg-code">hint</code></td><td>string</td><td>''</td><td>Helper text below input</td></tr>
+            <tr><td><code class="sg-code">errorMessage</code></td><td>string</td><td>''</td><td>Error text, triggers error state</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">enter</code></td><td>void</td><td>Emits on Enter keydown</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
 
-        <div class="sg-preview-pair">
-          <div class="sg-preview">
-            <div class="sg-preview-label">Without text</div>
-            <div class="sg-preview-body">
+    <!-- TEXTAREA -->
+    @if (activeSection() === 'comp-textarea') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Textarea</h1>
+        <p class="sg-section__desc">Multi-line text input implementing ControlValueAccessor with label, hint, rows and maxlength.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; TextareaComponent &#125; from '@shared/components/textarea/textarea.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-md" style="max-width:360px">
+              <app-textarea label="Description" placeholder="Write something..." [(ngModel)]="textareaValue" />
+              <app-textarea label="With hint" placeholder="Comment..." [(ngModel)]="textareaValue" hint="Max 500 characters" [maxlength]="500" [rows]="3" />
+              <app-textarea label="With error" placeholder="..." [(ngModel)]="textareaValue" errorMessage="Field is required." />
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-textarea\n  label=\'Description\'\n  placeholder=\'Write...\'\n  [rows]=\'4\'\n  [maxlength]=\'500\'\n  [(ngModel)]=\'value\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">label</code></td><td>string</td><td>''</td><td>Field label</td></tr>
+            <tr><td><code class="sg-code">placeholder</code></td><td>string</td><td>''</td><td>Placeholder text</td></tr>
+            <tr><td><code class="sg-code">hint</code></td><td>string</td><td>''</td><td>Helper text below textarea</td></tr>
+            <tr><td><code class="sg-code">errorMessage</code></td><td>string</td><td>''</td><td>Error message</td></tr>
+            <tr><td><code class="sg-code">rows</code></td><td>number</td><td>4</td><td>Number of visible rows</td></tr>
+            <tr><td><code class="sg-code">maxlength</code></td><td>number | null</td><td>null</td><td>Max character count</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- SELECT -->
+    @if (activeSection() === 'comp-select') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Select</h1>
+        <p class="sg-section__desc">Dropdown select implementing ControlValueAccessor with label, hint, error and disabled state.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; SelectComponent &#125; from '@shared/components/select/select.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-md" style="max-width:360px">
+              <app-select label="Choose option" [options]="selectOptions" [(ngModel)]="selectValue" />
+              <app-select label="With hint" [options]="selectOptions" [(ngModel)]="selectValue" hint="Select one of the options above" />
+              <app-select label="With error" [options]="selectOptions" [(ngModel)]="selectValue" errorMessage="Please select an option." />
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-select\n  label=\'Choose option\'\n  [options]=\'options\'\n  [(ngModel)]=\'value\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">label</code></td><td>string</td><td>''</td><td>Field label</td></tr>
+            <tr><td><code class="sg-code">options</code></td><td>SelectOption[]</td><td>[]</td><td>Array of &#123; value, label &#125; items</td></tr>
+            <tr><td><code class="sg-code">hint</code></td><td>string</td><td>''</td><td>Helper text below select</td></tr>
+            <tr><td><code class="sg-code">errorMessage</code></td><td>string</td><td>''</td><td>Error message</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- DIVIDER -->
+    @if (activeSection() === 'comp-divider') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Divider</h1>
+        <p class="sg-section__desc">Horizontal separator with optional centered text.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; DividerComponent &#125; from '@shared/components/divider/divider.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-md" style="max-width:360px">
               <app-divider />
+              <app-divider text="or" />
+              <app-divider text="Continue with" />
             </div>
           </div>
-          <div class="sg-preview">
-            <div class="sg-preview-label">With text</div>
-            <div class="sg-preview-body">
-              <app-divider text="or continue with" />
-            </div>
-          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-divider />\n<app-divider text=\'or\' />' }"></ng-container>
         </div>
-      </div>
 
-      <!-- Empty State -->
-      <div class="sg-subsection">
-        <h3 class="sg-subsection-title">
-          <code>app-empty-state</code>
-          <span class="sg-comp-file">empty-state.component.ts</span>
-        </h3>
-        <p class="sg-comp-desc">
-          Displayed when a list or section has no content. Accepts a Material Symbol <code>icon</code>,
-          a primary <code>message</code>, and an optional <code>subtitle</code>.
-        </p>
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">text</code></td><td>string</td><td>''</td><td>Optional center label</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
 
-        <div class="sg-preview-pair">
-          <div class="sg-preview">
-            <div class="sg-preview-label">With subtitle</div>
-            <div class="sg-preview-body">
-              <app-empty-state icon="search_off" message="No results found"
-                subtitle="Try searching with different keywords" />
-            </div>
+    <!-- CARD -->
+    @if (activeSection() === 'comp-card') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Card</h1>
+        <p class="sg-section__desc">Compound card component with header, title, description, content, action and footer slots via content projection.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent, CardFooterComponent &#125; from '@shared/components/card/card.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-card style="max-width:320px">
+              <app-card-header>
+                <app-card-title>Card Title</app-card-title>
+                <app-card-description>A short description of this card's purpose.</app-card-description>
+              </app-card-header>
+              <app-card-content>
+                <p class="text-sm">Main content area goes here. Add any elements.</p>
+              </app-card-content>
+              <app-card-footer>
+                <div class="flex justify-end gap-sm">
+                  <app-button variant="ghost" size="sm">Cancel</app-button>
+                  <app-button size="sm">Confirm</app-button>
+                </div>
+              </app-card-footer>
+            </app-card>
           </div>
-          <div class="sg-preview">
-            <div class="sg-preview-label">Without subtitle</div>
-            <div class="sg-preview-body">
-              <app-empty-state icon="notifications_off" message="No notifications yet" />
-            </div>
-          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-card>\n  <app-card-header>\n    <app-card-title>Title</app-card-title>\n    <app-card-description>Description</app-card-description>\n  </app-card-header>\n  <app-card-content>Content</app-card-content>\n  <app-card-footer>Footer</app-card-footer>\n</app-card>' }"></ng-container>
         </div>
-      </div>
 
-    </section>
+        <h3 class="sg-subsection__title">Sub-components</h3>
+        <table class="sg-table">
+          <thead><tr><th>Selector</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">app-card</code></td><td>Root container with card styles</td></tr>
+            <tr><td><code class="sg-code">app-card-header</code></td><td>Top section for title/description</td></tr>
+            <tr><td><code class="sg-code">app-card-title</code></td><td>Main heading inside header</td></tr>
+            <tr><td><code class="sg-code">app-card-description</code></td><td>Subtitle inside header</td></tr>
+            <tr><td><code class="sg-code">app-card-action</code></td><td>Action slot (e.g. close button)</td></tr>
+            <tr><td><code class="sg-code">app-card-content</code></td><td>Primary content area</td></tr>
+            <tr><td><code class="sg-code">app-card-footer</code></td><td>Bottom section for actions</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- USER AVATAR -->
+    @if (activeSection() === 'comp-user-avatar') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">User Avatar</h1>
+        <p class="sg-section__desc">Displays a user photo or falls back to the first letter of their name. Supports multiple sizes.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; UserAvatarComponent &#125; from '@shared/components/user-avatar/user-avatar.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo — Sizes</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-md align-center flex-wrap">
+              @for (s of ['xs','sm','md','lg','xl']; track s) {
+                <div class="flex flex-col align-center gap-xs">
+                  <app-user-avatar [size]="$any(s)" alt="John Doe" />
+                  <span class="text-xs">{{ s }}</span>
+                </div>
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-user-avatar\n  size=\'md\'\n  imageUrl=\'https://...\'\n  alt=\'John Doe\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Demo — With image</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-md align-center">
+              <app-user-avatar
+                imageUrl="https://i.pravatar.cc/96"
+                alt="Jane Smith"
+                size="lg"
+              />
+              <app-user-avatar alt="Jane Smith" size="lg" />
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<!-- With image -->\n<app-user-avatar imageUrl=\'https://...\' alt=\'Jane\' size=\'lg\' />\n\n<!-- Fallback to initials -->\n<app-user-avatar alt=\'Jane\' size=\'lg\' />' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">imageUrl</code></td><td>string | undefined</td><td>—</td><td>Image URL; falls back to initial if missing</td></tr>
+            <tr><td><code class="sg-code">alt</code></td><td>string</td><td>'User'</td><td>Alt text; first letter used as fallback</td></tr>
+            <tr><td><code class="sg-code">size</code></td><td>'xs'|'sm'|'md'|'lg'|'xl'</td><td>'md'</td><td>Avatar size</td></tr>
+            <tr><td><code class="sg-code">link</code></td><td>string | undefined</td><td>—</td><td>Adds .clickable cursor when set</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- EMPTY STATE -->
+    @if (activeSection() === 'comp-empty-state') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Empty State</h1>
+        <p class="sg-section__desc">Displays a centered icon, primary message and optional subtitle for empty or no-result states.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; EmptyStateComponent &#125; from '@shared/components/empty-state/empty-state.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-empty-state icon="search_off" message="No results found" subtitle="Try adjusting your search or filters." />
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-empty-state\n  icon=\'search_off\'\n  message=\'No results found\'\n  subtitle=\'Try adjusting your filters.\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">icon</code></td><td>string</td><td>Yes</td><td>Material Symbol icon name</td></tr>
+            <tr><td><code class="sg-code">message</code></td><td>string</td><td>Yes</td><td>Primary message text</td></tr>
+            <tr><td><code class="sg-code">subtitle</code></td><td>string</td><td>No</td><td>Optional subtitle/description</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- DOCUMENTED-ONLY COMPONENTS -->
+
+    @if (activeSection() === 'comp-drawer') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Drawer</h1>
+        <p class="sg-section__desc">Slide-in panel with configurable position, modal backdrop, and header/footer template slots.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; DrawerComponent &#125; from '@shared/components/drawer/drawer.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-sm flex-wrap">
+              @for (pos of ['left','right','top','bottom']; track pos) {
+                <app-button
+                  variant="outline"
+                  size="sm"
+                  (clicked)="drawerPosition.set($any(pos)); drawerOpen.set(true)"
+                >Open {{ pos }}</app-button>
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-drawer [(visible)]=\'open\' position=\'right\'>\n  <ng-template #header>Title</ng-template>\n  <p>Content</p>\n  <ng-template #footer>\n    <app-button (clicked)=\'open = false\'>Close</app-button>\n  </ng-template>\n</app-drawer>' }"></ng-container>
+        </div>
+
+        <app-drawer [(visible)]="drawerOpen" [position]="drawerPosition()">
+          <ng-template #header>
+            <div class="flex align-center justify-between w-full">
+              <span class="fw-semibold">Drawer — {{ drawerPosition() }}</span>
+              <app-button variant="ghost" shape="circle" size="sm" icon="close" ariaLabel="Close" (clicked)="drawerOpen.set(false)"></app-button>
+            </div>
+          </ng-template>
+          <div class="p-lg flex flex-col gap-md">
+            <p class="text-sm">This is the drawer body. Add any content here.</p>
+            <app-divider text="or" />
+            <app-input label="Example input" placeholder="Type something..." />
+          </div>
+          <ng-template #footer>
+            <div class="flex justify-end gap-sm p-md">
+              <app-button variant="ghost" (clicked)="drawerOpen.set(false)">Cancel</app-button>
+              <app-button (clicked)="drawerOpen.set(false)">Confirm</app-button>
+            </div>
+          </ng-template>
+        </app-drawer>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">visible</code></td><td>model boolean</td><td>false</td><td>Two-way binding for open state</td></tr>
+            <tr><td><code class="sg-code">position</code></td><td>'left'|'right'|'top'|'bottom'</td><td>'left'</td><td>Slide direction</td></tr>
+            <tr><td><code class="sg-code">modal</code></td><td>boolean</td><td>true</td><td>Show/close on backdrop click</td></tr>
+            <tr><td><code class="sg-code">styleClass</code></td><td>string</td><td>''</td><td>Extra CSS class on panel</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">#header</code></td><td>TemplateRef projected as drawer header</td></tr>
+            <tr><td><code class="sg-code">#footer</code></td><td>TemplateRef projected as drawer footer</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-search-bar') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Search Bar</h1>
+        <p class="sg-section__desc">Search input with focus state, clear button and search event on Enter.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; SearchBarComponent &#125; from '@shared/components/search-bar/search-bar.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-search-bar />
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-search-bar (search)=\'onSearch($event)\' />' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">initialQuery</code></td><td>string</td><td>Initial value in the input</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">search</code></td><td>string</td><td>Emits query on Enter key</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-follow-button') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Follow Button</h1>
+        <p class="sg-section__desc">Toggle button for follow/unfollow state. Uses TranslateModule for labels.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; FollowButtonComponent &#125; from '@shared/components/follow-button/follow-button.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-lg align-center flex-wrap">
+              <div class="flex flex-col align-center gap-xs">
+                <app-follow-button [initialFollowing]="false" />
+                <span class="text-xs text-color-accent">Not following</span>
+              </div>
+              <div class="flex flex-col align-center gap-xs">
+                <app-follow-button [initialFollowing]="true" />
+                <span class="text-xs text-color-accent">Following</span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-follow-button\n  [initialFollowing]=\'false\'\n  (followChange)=\'onFollow($event)\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">initialFollowing</code></td><td>boolean</td><td>false</td><td>Initial follow state</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">followChange</code></td><td>boolean</td><td>Emits new follow state on toggle</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-skeleton-loader') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Skeleton Loader</h1>
+        <p class="sg-section__desc">Responsive masonry grid of skeleton cards with shimmer animation for pin-like loading states.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; SkeletonLoaderComponent &#125; from '@shared/components/skeleton-loader/skeleton-loader.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-skeleton-loader [count]="8" />
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-skeleton-loader [count]=\'20\' />' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">count</code></td><td>number</td><td>20</td><td>Number of skeleton cards to render</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-masonry-grid') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Masonry Grid</h1>
+        <p class="sg-section__desc">Responsive masonry layout for pin cards. Columns scale from 2 (mobile) to 6 (desktop). Emits pinSaved and pinShared.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; MasonryGridComponent &#125; from '@shared/components/masonry-grid/masonry-grid.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-masonry-grid [pins]="mockPins" />
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-masonry-grid\n  [pins]=\'pins\'\n  (pinSaved)=\'onSave($event)\'\n  (pinShared)=\'onShare($event)\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">pins</code></td><td>Pin[]</td><td>[]</td><td>Array of pin objects to render</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">pinSaved</code></td><td>Pin</td><td>Emits when a pin is saved/unsaved</td></tr>
+            <tr><td><code class="sg-code">pinShared</code></td><td>Pin</td><td>Emits when share is triggered</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-tabs') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Tabs</h1>
+        <p class="sg-section__desc">Compound tabs component. Uses app-tabs as container with app-tab buttons and app-tab-panel content areas.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; AppTabsComponent, AppTabComponent, AppTabPanelComponent &#125; from '@shared/components/tabs/tabs.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-tabs defaultTab="posts">
+              <app-tab id="posts">Posts</app-tab>
+              <app-tab id="saved">Saved</app-tab>
+              <app-tab id="boards">Boards</app-tab>
+
+              <app-tab-panel id="posts">
+                <p class="text-sm">This is the <strong>Posts</strong> tab content. Render a masonry grid here.</p>
+              </app-tab-panel>
+              <app-tab-panel id="saved">
+                <p class="text-sm">This is the <strong>Saved</strong> tab content.</p>
+              </app-tab-panel>
+              <app-tab-panel id="boards">
+                <p class="text-sm">This is the <strong>Boards</strong> tab content.</p>
+              </app-tab-panel>
+            </app-tabs>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-tabs defaultTab=\'posts\'>\n  <app-tab id=\'posts\'>Posts</app-tab>\n  <app-tab id=\'saved\'>Saved</app-tab>\n\n  <app-tab-panel id=\'posts\'>\n    <!-- content -->\n  </app-tab-panel>\n  <app-tab-panel id=\'saved\'>\n    <!-- content -->\n  </app-tab-panel>\n</app-tabs>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Component</th><th>Input</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">app-tabs</code></td><td><code class="sg-code">defaultTab: string</code></td><td>ID of the initially active tab</td></tr>
+            <tr><td><code class="sg-code">app-tab</code></td><td><code class="sg-code">id: string</code> (required)</td><td>Unique tab identifier, matches panel id</td></tr>
+            <tr><td><code class="sg-code">app-tab-panel</code></td><td><code class="sg-code">id: string</code> (required)</td><td>Must match the corresponding app-tab id</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-popover') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Popover</h1>
+        <p class="sg-section__desc">Toggle popover panel positioned absolutely relative to a trigger. Call <code class="sg-inline-code">toggle(event)</code> from your trigger button to open/close it.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; PopoverComponent &#125; from '@shared/components/popover/popover.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="min-height: 160px; position:relative;">
+            <app-popover #myPopover styleClass="lang-panel">
+              <div class="lang-list d-flex flex-col">
+                @for (item of [
+                  { value: 'Edit profile', icon: 'edit'  },
+                  { value: 'Share',        icon: 'share' },
+                  { value: 'Delete',       icon: 'delete', danger: true }
+                ]; track item.value) {
+                  <button
+                    class="lang-item d-flex align-center radius-sm text-md w-full"
+                    [class.active]="popoverSelected() === item.value"
+                    [class.lang-item--danger]="item.danger"
+                    type="button"
+                    (click)="popoverSelected.set(item.value); myPopover.hide()"
+                  >
+                    <span class="material-symbols-rounded lang-item-flag text-xl" aria-hidden="true">{{ item.icon }}</span>
+                    <span class="lang-item-label">{{ item.value }}</span>
+                    @if (popoverSelected() === item.value) {
+                      <span class="material-symbols-rounded check-icon text-xl pin-red" aria-hidden="true">check</span>
+                    }
+                  </button>
+                }
+              </div>
+            </app-popover>
+            <button class="sg-trigger-btn" type="button" (click)="myPopover.toggle($event)">
+              <span class="material-symbols-rounded" aria-hidden="true">more_horiz</span>
+              Options
+            </button>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-popover #pop styleClass=\'lang-panel\'>\n  <div class=\'lang-list d-flex flex-col\'>\n    @for (item of items; track item.value) {\n      <button\n        class=\'lang-item d-flex align-center radius-sm text-md w-full\'\n        type=\'button\'\n        [class.active]=\'selected === item.value\'\n        (click)=\'selected = item.value; pop.hide()\'\n      >\n        <span class=\'material-symbols-rounded lang-item-flag text-xl\'>{{ item.icon }}</span>\n        <span class=\'lang-item-label\'>{{ item.label }}</span>\n        @if (selected === item.value) {\n          <span class=\'material-symbols-rounded check-icon text-xl pin-red\'>check</span>\n        }\n      </button>\n    }\n  </div>\n</app-popover>\n\n<button type=\'button\' (click)=\'pop.toggle($event)\'>Options</button>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">styleClass</code></td><td>string</td><td>''</td><td>Extra CSS class on the panel</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Method</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">toggle(event)</code></td><td>Toggles panel, positions it relative to trigger</td></tr>
+            <tr><td><code class="sg-code">hide()</code></td><td>Closes the panel</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-upload-area') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Upload Area</h1>
+        <p class="sg-section__desc">Drag-and-drop file upload zone with file preview and remove functionality.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; UploadAreaComponent &#125; from '@shared/components/upload-area/upload-area.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-upload-area style="max-width:400px; display:block" />
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-upload-area\n  (fileSelected)=\'onFile($event)\'\n  (fileRemoved)=\'onRemove()\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">previewUrl</code></td><td>string | null</td><td>null</td><td>Existing image preview URL</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">fileSelected</code></td><td>File</td><td>Emits when a file is selected</td></tr>
+            <tr><td><code class="sg-code">fileRemoved</code></td><td>void</td><td>Emits when the file is removed</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-code-digits') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Code Digits</h1>
+        <p class="sg-section__desc">6-digit OTP input with auto-advance, backspace handling and paste support.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; CodeDigitsComponent &#125; from '@shared/components/code-digits/code-digits.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-lg">
+              <div>
+                <p class="text-xs mb-sm">6 digits (default)</p>
+                <app-code-digits />
+              </div>
+              <div>
+                <p class="text-xs mb-sm">4 digits</p>
+                <app-code-digits [length]="4" />
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-code-digits\n  [length]=\'6\'\n  (valueChange)=\'onCode($event)\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">length</code></td><td>number</td><td>6</td><td>Number of digit inputs</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">valueChange</code></td><td>string</td><td>Emits full code string on each change</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-button-like') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Button Like</h1>
+        <p class="sg-section__desc">Heart toggle button with reaction count. Manages liked state internally.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; ButtonLikeComponent &#125; from '@shared/components/button-like/button-like.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex gap-lg align-center flex-wrap">
+              <div class="flex flex-col align-center gap-xs">
+                <app-button-like [count]="42" [liked]="false" />
+                <span class="text-xs">Default</span>
+              </div>
+              <div class="flex flex-col align-center gap-xs">
+                <app-button-like [count]="128" [liked]="true" />
+                <span class="text-xs">Liked</span>
+              </div>
+              <div class="flex flex-col align-center gap-xs">
+                <app-button-like [count]="0" />
+                <span class="text-xs">Zero count</span>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-button-like\n  [count]=\'42\'\n  [liked]=\'false\'\n  (likedChange)=\'onLike($event)\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">liked</code></td><td>boolean</td><td>false</td><td>Initial liked state</td></tr>
+            <tr><td><code class="sg-code">count</code></td><td>number</td><td>0</td><td>Number of likes to display</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">likedChange</code></td><td>boolean</td><td>Emits new liked state on toggle</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-infinite-scroll') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Infinite Scroll</h1>
+        <p class="sg-section__desc">IntersectionObserver sentinel placed at the bottom of a list. Emits loadMore when it enters the viewport. Use at the bottom of any paginated list.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; InfiniteScrollComponent &#125; from '@shared/components/infinite-scroll/infinite-scroll.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo — Loading state</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-sm">
+              <div class="sg-box p-md radius-sm">Item 1</div>
+              <div class="sg-box p-md radius-sm">Item 2</div>
+              <div class="sg-box p-md radius-sm">Item 3</div>
+              <app-infinite-scroll [loading]="infiniteLoading()" (loadMore)="infiniteLoading.set(true)" />
+            </div>
+            <div class="flex gap-sm mt-md">
+              <app-button size="sm" variant="outline" (clicked)="infiniteLoading.set(true)">Simulate loading</app-button>
+              <app-button size="sm" variant="ghost" (clicked)="infiniteLoading.set(false)">Stop</app-button>
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div *ngFor=\'let item of items\'>\n  <!-- list items -->\n</div>\n\n<app-infinite-scroll\n  [loading]=\'isLoading\'\n  (loadMore)=\'fetchNextPage()\'\n/>' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">loading</code></td><td>boolean</td><td>false</td><td>Shows spinner when true</td></tr>
+            <tr><td><code class="sg-code">threshold</code></td><td>number</td><td>0.1</td><td>IntersectionObserver threshold</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">loadMore</code></td><td>void</td><td>Emits when sentinel enters viewport and not loading</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-notification-item') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Notification Item</h1>
+        <p class="sg-section__desc">Renders a notification with actor avatar, message, time-ago display, optional thumbnail and read/unread indicators.</p>
+        <p class="sg-import"><code class="sg-code">import &#123; NotificationItemComponent &#125; from '@shared/components/notification-item/notification-item.component';</code></p>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div role="list" style="max-width:480px">
+              @for (notif of mockNotifications; track notif.id) {
+                <app-notification-item [notification]="notif" />
+              }
+            </div>
+          </div>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '&lt;app-notification-item\n  [notification]=\'notif\'\n  (read)=\'markRead($event)\'\n/&gt;' }"></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">notification</code></td><td>Notification</td><td>Yes</td><td>Notification data object</td></tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-md">
+          <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code class="sg-code">read</code></td><td>string</td><td>Emits notification ID when clicked</td></tr>
+          </tbody>
+        </table>
+      </section>
+    }
 
   </main>
 </div>
+
+<!-- ── Shared Templates ──────────────────────────────────────────────────── -->
+
+<ng-template #classTpl let-rows="rows">
+  <table class="sg-table">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Properties</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of rows; track row.cls) {
+        <tr>
+          <td><code class="sg-code">{{ row.cls }}</code></td>
+          <td>{{ row.properties }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #codeTpl let-code="code">
+  <div class="sg-code-block">
+    <span class="sg-code-block__label">HTML</span>
+    <pre class="sg-code-block__pre"><code>{{ code }}</code></pre>
+  </div>
+</ng-template>

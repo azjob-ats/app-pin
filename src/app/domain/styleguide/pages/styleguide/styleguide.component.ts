@@ -1,240 +1,496 @@
-import { Component, ChangeDetectionStrategy, signal, inject, DOCUMENT } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { InputComponent } from '../../../../shared/components/input/input.component';
+import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
+import { SelectComponent, SelectOption } from '../../../../shared/components/select/select.component';
 import { DividerComponent } from '../../../../shared/components/divider/divider.component';
+import {
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleComponent,
+  CardDescriptionComponent,
+  CardContentComponent,
+  CardFooterComponent,
+} from '../../../../shared/components/card/card.component';
+import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
+import { DrawerComponent } from '../../../../shared/components/drawer/drawer.component';
+import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
+import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
+import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
+import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
+import { AppTabsComponent } from '../../../../shared/components/tabs/tabs.component';
+import { AppTabComponent } from '../../../../shared/components/tabs/tab.component';
+import { AppTabPanelComponent } from '../../../../shared/components/tabs/tab-panel.component';
+import { PopoverComponent } from '../../../../shared/components/popover/popover.component';
+import { UploadAreaComponent } from '../../../../shared/components/upload-area/upload-area.component';
+import { CodeDigitsComponent } from '../../../../shared/components/code-digits/code-digits.component';
+import { ButtonLikeComponent } from '../../../../shared/components/button-like/button-like.component';
+import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
+import { NotificationItemComponent } from '../../../../shared/components/notification-item/notification-item.component';
+import { Notification } from '../../../../shared/interfaces/notification.interface';
+import { Pin } from '../../../../shared/interfaces/pin.interface';
 
-interface ColorToken {
-  label: string;
-  value: string;
-  token: string;
-}
-
-interface SpacingToken {
-  label: string;
-  size: string;
-  token: string;
-  barW: number;
-}
-
-interface RadiusToken {
-  label: string;
-  value: string;
-  token: string;
-}
-
-interface ShadowToken {
-  label: string;
-  value: string;
-  token: string;
-}
-
-interface FontSizeToken {
-  label: string;
-  value: string;
-  token: string;
-  px: string;
-}
-
-interface FontWeightToken {
-  label: string;
-  value: number;
-  token: string;
-}
-
-interface SizingToken {
-  label: string;
-  value: string;
-  token: string;
-}
-
-interface OpacityToken {
-  label: string;
-  value: number;
-  token: string;
-}
-
-interface ZIndexToken {
-  label: string;
-  value: number;
-  token: string;
-}
-
-interface NavSection {
+export interface NavItem {
   id: string;
   label: string;
-  icon: string;
+  children?: NavItem[];
+}
+
+export interface ClassRow {
+  cls: string;
+  properties: string;
 }
 
 @Component({
   selector: 'app-styleguide',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgTemplateOutlet,
+    FormsModule,
+    ButtonComponent,
+    InputComponent,
+    TextareaComponent,
+    SelectComponent,
+    DividerComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardTitleComponent,
+    CardDescriptionComponent,
+    CardContentComponent,
+    CardFooterComponent,
+    UserAvatarComponent,
+    EmptyStateComponent,
+    DrawerComponent,
+    SearchBarComponent,
+    FollowButtonComponent,
+    SkeletonLoaderComponent,
+    MasonryGridComponent,
+    AppTabsComponent,
+    AppTabComponent,
+    AppTabPanelComponent,
+    PopoverComponent,
+    UploadAreaComponent,
+    CodeDigitsComponent,
+    ButtonLikeComponent,
+    InfiniteScrollComponent,
+    NotificationItemComponent,
+  ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
-  imports: [ButtonComponent, InputComponent, DividerComponent, EmptyStateComponent, ReactiveFormsModule],
-  host: { class: 'sg-host' },
+  host: { '[class.dark-mode]': 'isDark()' },
 })
 export class StyleguideComponent {
-  private readonly document = inject(DOCUMENT);
-
   readonly isDark = signal(false);
-  readonly activeSection = signal('overview');
+  readonly activeSection = signal('display');
+  readonly expandedGroups = signal<Set<string>>(new Set(['utilities', 'standard', 'components']));
 
-  readonly sampleInput = new FormControl('');
-  readonly passwordInput = new FormControl('');
-  readonly errorInput = new FormControl('');
+  inputValue = '';
+  textareaValue = '';
+  selectValue = '';
 
-  readonly sections: NavSection[] = [
-    { id: 'overview', label: 'Overview', icon: 'auto_awesome' },
-    { id: 'colors', label: 'Colors', icon: 'palette' },
-    { id: 'typography', label: 'Typography', icon: 'text_fields' },
-    { id: 'spacing', label: 'Spacing', icon: 'straighten' },
-    { id: 'radius', label: 'Border Radius', icon: 'rounded_corner' },
-    { id: 'shadows', label: 'Shadows', icon: 'blur_on' },
-    { id: 'sizing', label: 'Sizing', icon: 'open_in_full' },
-    { id: 'opacity', label: 'Opacity', icon: 'opacity' },
-    { id: 'zindex', label: 'Z-Index', icon: 'layers' },
-    { id: 'utilities', label: 'Utilities', icon: 'build' },
-    { id: 'components', label: 'Components', icon: 'widgets' },
-  ];
+  readonly drawerOpen = signal(false);
+  readonly popoverSelected = signal<string | null>(null);
+  readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
+  readonly infiniteLoading = signal(false);
 
-  readonly primaryColors: ColorToken[] = [
-    { label: '400', value: '#FF4747', token: '--pin-red-light' },
-    { label: '500', value: '#E60023', token: '--pin-red' },
-    { label: '600', value: '#CC001F', token: '--pin-red-hover' },
-    { label: '700', value: '#AD081B', token: '--pin-red-dark' },
-  ];
-
-  readonly grayColors: ColorToken[] = [
-    { label: 'White', value: '#ffffff', token: '--pin-bg' },
-    { label: 'Background Tertiary', value: '#F8F8F8', token: '--pin-bg-tertiary' },
-    { label: 'Background Secondary', value: '#F0F0F0', token: '--pin-bg-secondary' },
-    { label: 'Border', value: '#E0E0E0', token: '--pin-border' },
-    { label: 'Text Muted', value: '#ADADAD', token: '--pin-text-muted' },
-    { label: 'Text Secondary', value: '#767676', token: '--pin-text-secondary' },
-    { label: 'Dark Border', value: '#404040', token: '--pin-border (dark)' },
-    { label: 'Saved State', value: '#333333', token: '--pin-saved-bg' },
-    { label: 'Dark Surface', value: '#2D2D2D', token: '--pin-bg-secondary (dark)' },
-    { label: 'Dark Background', value: '#1A1A1A', token: '--pin-bg (dark)' },
-    { label: 'Text Primary', value: '#111111', token: '--pin-text-primary' },
-  ];
-
-  readonly semanticColors = [
+  readonly mockNotifications: Notification[] = [
     {
-      label: 'Success',
-      value: '#00a000',
-      token: '--pin-color-success',
-      bgToken: '--pin-color-success-bg',
-      bg: 'rgba(0,180,0,0.08)',
-      icon: 'check_circle',
-      description: 'Confirmation messages, success states, positive feedback',
+      id: '1',
+      type: 'new_follower',
+      message: 'started following you.',
+      isRead: false,
+      createdAt: new Date(Date.now() - 5 * 60000).toISOString(),
+      actor: { id: 'u1', username: 'ana.silva', displayName: 'Ana Silva', avatarUrl: 'https://i.pravatar.cc/48?u=ana' },
     },
     {
-      label: 'Error',
-      value: '#e53e3e',
-      token: '--pin-color-error',
-      bgToken: '--pin-color-error-bg',
-      bg: 'rgba(229,62,62,0.08)',
-      icon: 'error',
-      description: 'Validation errors, destructive actions, critical alerts',
+      id: '2',
+      type: 'pin_saved',
+      message: 'saved your pin.',
+      isRead: true,
+      createdAt: new Date(Date.now() - 60 * 60000).toISOString(),
+      actor: { id: 'u2', username: 'carlos.dev', displayName: 'Carlos Dev' },
+      pin: { id: 'p1', imageUrl: 'https://picsum.photos/seed/sg1/60/80', title: 'Design inspiration' },
+    },
+    {
+      id: '3',
+      type: 'pin_comment',
+      message: 'commented on your pin.',
+      isRead: true,
+      createdAt: new Date(Date.now() - 3 * 3600000).toISOString(),
+      actor: { id: 'u3', username: 'julia.arq', displayName: 'Júlia Arq', avatarUrl: 'https://i.pravatar.cc/48?u=julia' },
     },
   ];
 
-  readonly spacingTokens: SpacingToken[] = [
-    { label: 'XS', size: '4px', token: '--space-xs', barW: 16 },
-    { label: 'SM', size: '8px', token: '--space-sm', barW: 32 },
-    { label: 'MD', size: '12px', token: '--space-md', barW: 48 },
-    { label: 'LG', size: '16px', token: '--space-lg', barW: 64 },
-    { label: 'XL', size: '20px', token: '--space-xl', barW: 80 },
-    { label: '2XL', size: '24px', token: '--space-2xl', barW: 96 },
-    { label: '3XL', size: '32px', token: '--space-3xl', barW: 128 },
-    { label: '4XL', size: '48px', token: '--space-4xl', barW: 192 },
-    { label: '5XL', size: '64px', token: '--space-5xl', barW: 256 },
+  readonly mockPins: Pin[] = [
+    { id: 'sg-p1', title: 'Design Inspiration', imageUrl: 'https://picsum.photos/seed/sg1/300/400', imageWidth: 300, imageHeight: 400, author: { id: 'a1', username: 'designer', displayName: 'Designer' }, saveCount: 128, commentCount: 14, createdAt: new Date().toISOString() },
+    { id: 'sg-p2', title: 'Architecture', imageUrl: 'https://picsum.photos/seed/sg2/300/300', imageWidth: 300, imageHeight: 300, author: { id: 'a2', username: 'arch', displayName: 'Architect' }, saveCount: 56, commentCount: 3, createdAt: new Date().toISOString() },
+    { id: 'sg-p3', title: 'Typography', imageUrl: 'https://picsum.photos/seed/sg3/300/500', imageWidth: 300, imageHeight: 500, author: { id: 'a3', username: 'typo', displayName: 'Typo' }, saveCount: 88, commentCount: 7, createdAt: new Date().toISOString() },
+    { id: 'sg-p4', title: 'Colors', imageUrl: 'https://picsum.photos/seed/sg4/300/350', imageWidth: 300, imageHeight: 350, author: { id: 'a4', username: 'color', displayName: 'Color' }, saveCount: 200, commentCount: 22, createdAt: new Date().toISOString() },
   ];
 
-  readonly radiusTokens: RadiusToken[] = [
-    { label: 'None', value: '0px', token: '--radius-none' },
-    { label: 'XS', value: '4px', token: '--radius-xs' },
-    { label: 'SM', value: '8px', token: '--radius-sm' },
-    { label: 'MD', value: '12px', token: '--radius-md' },
-    { label: 'LG', value: '16px', token: '--radius-lg' },
-    { label: 'XL', value: '24px', token: '--radius-xl' },
-    { label: '2XL', value: '32px', token: '--radius-2xl' },
-    { label: 'Circle', value: '50%', token: '--radius-circle' },
-    { label: 'Pill', value: '9999px', token: '--radius-pill' },
+  readonly selectOptions: SelectOption[] = [
+    { value: 'opt1', label: 'Option 1' },
+    { value: 'opt2', label: 'Option 2' },
+    { value: 'opt3', label: 'Option 3' },
   ];
 
-  readonly shadowTokens: ShadowToken[] = [
-    { label: 'SM', value: '0 1px 4px rgba(0,0,0,0.08)', token: '--pin-shadow-sm' },
-    { label: 'MD', value: '0 4px 16px rgba(0,0,0,0.12)', token: '--pin-shadow-md' },
-    { label: 'LG', value: '0 8px 32px rgba(0,0,0,0.16)', token: '--pin-shadow-lg' },
+  readonly nav: NavItem[] = [
+    {
+      id: 'utilities',
+      label: 'Utilities',
+      children: [
+        { id: 'display', label: 'Display' },
+        {
+          id: 'spacing',
+          label: 'Spacing',
+          children: [
+            { id: 'padding', label: 'Padding' },
+            { id: 'margin', label: 'Margin' },
+            { id: 'gap', label: 'Gap' },
+          ],
+        },
+        { id: 'flexbox', label: 'Flexbox' },
+        { id: 'border-radius', label: 'Border Radius' },
+        { id: 'shadow', label: 'Shadow' },
+        { id: 'sizing', label: 'Sizing' },
+        { id: 'overflow', label: 'Overflow' },
+        { id: 'opacity', label: 'Opacity' },
+        {
+          id: 'typography',
+          label: 'Typography',
+          children: [
+            { id: 'font-size', label: 'Font Size' },
+            { id: 'font-weight', label: 'Font Weight' },
+            { id: 'text-align', label: 'Text Align' },
+            { id: 'text-color', label: 'Text Color' },
+          ],
+        },
+        { id: 'background', label: 'Background' },
+      ],
+    },
+    {
+      id: 'standard',
+      label: 'Standard Classes',
+      children: [
+        { id: 'icons', label: 'Icons' },
+        { id: 'skeleton', label: 'Skeleton' },
+        { id: 'tooltip', label: 'Tooltip' },
+        { id: 'links', label: 'Links' },
+        { id: 'titles', label: 'Titles' },
+      ],
+    },
+    {
+      id: 'design-tokens',
+      label: 'Design Tokens',
+      children: [
+        { id: 'colors', label: 'Colors' },
+        { id: 'spacing-tokens', label: 'Spacing' },
+        { id: 'radius-tokens', label: 'Border Radius' },
+        { id: 'typography-tokens', label: 'Typography' },
+      ],
+    },
+    {
+      id: 'components',
+      label: 'Components',
+      children: [
+        { id: 'comp-button', label: 'Button' },
+        { id: 'comp-input', label: 'Input' },
+        { id: 'comp-textarea', label: 'Textarea' },
+        { id: 'comp-select', label: 'Select' },
+        { id: 'comp-divider', label: 'Divider' },
+        { id: 'comp-card', label: 'Card' },
+        { id: 'comp-user-avatar', label: 'User Avatar' },
+        { id: 'comp-empty-state', label: 'Empty State' },
+        { id: 'comp-drawer', label: 'Drawer' },
+        { id: 'comp-search-bar', label: 'Search Bar' },
+        { id: 'comp-follow-button', label: 'Follow Button' },
+        { id: 'comp-skeleton-loader', label: 'Skeleton Loader' },
+        { id: 'comp-masonry-grid', label: 'Masonry Grid' },
+        { id: 'comp-tabs', label: 'Tabs' },
+        { id: 'comp-popover', label: 'Popover' },
+        { id: 'comp-upload-area', label: 'Upload Area' },
+        { id: 'comp-code-digits', label: 'Code Digits' },
+        { id: 'comp-button-like', label: 'Button Like' },
+        { id: 'comp-infinite-scroll', label: 'Infinite Scroll' },
+        { id: 'comp-notification-item', label: 'Notification Item' },
+      ],
+    },
   ];
 
-  readonly fontSizeTokens: FontSizeToken[] = [
-    { label: '3XS', value: '0.65rem', token: '--text-3xs', px: '10.4px' },
-    { label: '2XS', value: '0.75rem', token: '--text-2xs', px: '12px' },
-    { label: 'XS', value: '0.8rem', token: '--text-xs', px: '12.8px' },
-    { label: 'SM', value: '0.875rem', token: '--text-sm', px: '14px' },
-    { label: 'MD', value: '0.9rem', token: '--text-md', px: '14.4px' },
-    { label: 'Base', value: '0.95rem', token: '--text-base', px: '15.2px' },
-    { label: 'LG', value: '1rem', token: '--text-lg', px: '16px' },
-    { label: 'XL', value: '1.25rem', token: '--text-xl', px: '20px' },
-    { label: '2XL', value: '1.5rem', token: '--text-2xl', px: '24px' },
-    { label: '3XL', value: '1.75rem', token: '--text-3xl', px: '28px' },
-    { label: '4XL', value: '2rem', token: '--text-4xl', px: '32px' },
-    { label: '5XL', value: '2.5rem', token: '--text-5xl', px: '40px' },
-    { label: '6XL', value: '3rem', token: '--text-6xl', px: '48px' },
-    { label: '7XL', value: '4rem', token: '--text-7xl', px: '64px' },
-  ];
+  toggleGroup(id: string): void {
+    this.expandedGroups.update(s => {
+      const next = new Set(s);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }
 
-  readonly fontWeightTokens: FontWeightToken[] = [
-    { label: 'Normal', value: 400, token: '--font-weight-normal' },
-    { label: 'Medium', value: 500, token: '--font-weight-medium' },
-    { label: 'Semibold', value: 600, token: '--font-weight-semibold' },
-    { label: 'Bold', value: 700, token: '--font-weight-bold' },
-  ];
+  isExpanded(id: string): boolean {
+    return this.expandedGroups().has(id);
+  }
 
-  readonly sizingTokens: SizingToken[] = [
-    { label: 'XS', value: '24px', token: '--size-xs' },
-    { label: 'SM', value: '32px', token: '--size-sm' },
-    { label: 'MD', value: '48px', token: '--size-md' },
-    { label: 'LG', value: '64px', token: '--size-lg' },
-    { label: 'XL', value: '96px', token: '--size-xl' },
-  ];
-
-  readonly opacityTokens: OpacityToken[] = [
-    { label: 'Disabled', value: 0.5, token: '--opacity-disabled' },
-    { label: 'Muted', value: 0.6, token: '--opacity-muted' },
-  ];
-
-  readonly zIndexTokens: ZIndexToken[] = [
-    { label: 'Base', value: 10, token: '--z-base' },
-    { label: 'Topbar', value: 50, token: '--z-topbar' },
-    { label: 'Sidebar', value: 100, token: '--z-sidebar' },
-    { label: 'Toast', value: 9999, token: '--z-toast' },
-  ];
-
-  toggleDark(): void {
-    const next = !this.isDark();
-    this.isDark.set(next);
-    if (next) {
-      this.document.documentElement.classList.add('dark');
-    } else {
-      this.document.documentElement.classList.remove('dark');
+  navigate(id: string): void {
+    this.activeSection.set(id);
+    // auto-expand parent group
+    for (const group of this.nav) {
+      const childIds = this.flatIds(group.children ?? []);
+      if (childIds.includes(id)) {
+        this.expandedGroups.update(s => { const n = new Set(s); n.add(group.id); return n; });
+      }
+      for (const child of group.children ?? []) {
+        const grandIds = this.flatIds(child.children ?? []);
+        if (grandIds.includes(id)) {
+          this.expandedGroups.update(s => { const n = new Set(s); n.add(group.id); n.add(child.id); return n; });
+        }
+      }
     }
   }
 
-  scrollTo(sectionId: string): void {
-    this.activeSection.set(sectionId);
-    const el = this.document.getElementById(sectionId);
-    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  private flatIds(items: NavItem[]): string[] {
+    return items.flatMap(i => [i.id, ...this.flatIds(i.children ?? [])]);
   }
 
-  isLight(hex: string): boolean {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return (r * 299 + g * 587 + b * 114) / 1000 > 140;
+  toggleDark(): void {
+    this.isDark.update(v => !v);
+    document.documentElement.classList.toggle('dark', this.isDark());
   }
+
+  // ── Data ──────────────────────────────────────────────────────────────────
+
+  readonly displayClasses: ClassRow[] = [
+    { cls: '.d-flex', properties: 'display: flex' },
+    { cls: '.d-block', properties: 'display: block' },
+    { cls: '.d-none', properties: 'display: none' },
+    { cls: '.d-grid', properties: 'display: grid' },
+    { cls: '.flex', properties: 'display: flex' },
+  ];
+
+  readonly flexboxClasses: ClassRow[] = [
+    { cls: '.flex-row', properties: 'flex-direction: row' },
+    { cls: '.flex-row-reverse', properties: 'flex-direction: row-reverse' },
+    { cls: '.flex-col', properties: 'flex-direction: column' },
+    { cls: '.flex-col-reverse', properties: 'flex-direction: column-reverse' },
+    { cls: '.flex-wrap', properties: 'flex-wrap: wrap' },
+    { cls: '.flex-1', properties: 'flex: 1' },
+    { cls: '.flex-shrink-0', properties: 'flex-shrink: 0' },
+    { cls: '.align-center', properties: 'align-items: center' },
+    { cls: '.align-start', properties: 'align-items: flex-start' },
+    { cls: '.align-end', properties: 'align-items: flex-end' },
+    { cls: '.align-stretch', properties: 'align-items: stretch' },
+    { cls: '.justify-center', properties: 'justify-content: center' },
+    { cls: '.justify-start', properties: 'justify-content: flex-start' },
+    { cls: '.justify-end', properties: 'justify-content: flex-end' },
+    { cls: '.justify-between', properties: 'justify-content: space-between' },
+    { cls: '.justify-around', properties: 'justify-content: space-around' },
+  ];
+
+  readonly paddingClasses: ClassRow[] = [
+    { cls: '.p-xs', properties: 'padding: var(--space-xs) → 4px' },
+    { cls: '.p-sm', properties: 'padding: var(--space-sm) → 8px' },
+    { cls: '.p-md', properties: 'padding: var(--space-md) → 12px' },
+    { cls: '.p-lg', properties: 'padding: var(--space-lg) → 16px' },
+    { cls: '.p-xl', properties: 'padding: var(--space-xl) → 20px' },
+    { cls: '.p-2xl', properties: 'padding: var(--space-2xl) → 24px' },
+    { cls: '.p-3xl', properties: 'padding: var(--space-3xl) → 32px' },
+    { cls: '.p-4xl', properties: 'padding: var(--space-4xl) → 48px' },
+    { cls: '.p-5xl', properties: 'padding: var(--space-5xl) → 64px' },
+    { cls: '.pt-*', properties: 'padding-top (xs → 5xl)' },
+    { cls: '.pb-*', properties: 'padding-bottom (xs → 5xl)' },
+    { cls: '.pl-*', properties: 'padding-left (xs → 5xl)' },
+    { cls: '.pr-*', properties: 'padding-right (xs → 5xl)' },
+    { cls: '.px-*', properties: 'padding-left + padding-right (xs → 5xl)' },
+    { cls: '.py-*', properties: 'padding-top + padding-bottom (xs → 5xl)' },
+  ];
+
+  readonly marginClasses: ClassRow[] = [
+    { cls: '.m-xs', properties: 'margin: var(--space-xs) → 4px' },
+    { cls: '.m-sm', properties: 'margin: var(--space-sm) → 8px' },
+    { cls: '.m-md', properties: 'margin: var(--space-md) → 12px' },
+    { cls: '.m-lg', properties: 'margin: var(--space-lg) → 16px' },
+    { cls: '.m-xl', properties: 'margin: var(--space-xl) → 20px' },
+    { cls: '.m-2xl', properties: 'margin: var(--space-2xl) → 24px' },
+    { cls: '.m-3xl', properties: 'margin: var(--space-3xl) → 32px' },
+    { cls: '.m-4xl', properties: 'margin: var(--space-4xl) → 48px' },
+    { cls: '.m-5xl', properties: 'margin: var(--space-5xl) → 64px' },
+    { cls: '.mt-*', properties: 'margin-top (xs → 5xl)' },
+    { cls: '.mb-*', properties: 'margin-bottom (xs → 5xl)' },
+    { cls: '.ml-*', properties: 'margin-left (xs → 5xl)' },
+    { cls: '.mr-*', properties: 'margin-right (xs → 5xl)' },
+    { cls: '.mx-*', properties: 'margin-left + margin-right (xs → 5xl)' },
+    { cls: '.my-*', properties: 'margin-top + margin-bottom (xs → 5xl)' },
+  ];
+
+  readonly gapClasses: ClassRow[] = [
+    { cls: '.gap-xs', properties: 'gap: var(--space-xs) → 4px' },
+    { cls: '.gap-sm', properties: 'gap: var(--space-sm) → 8px' },
+    { cls: '.gap-md', properties: 'gap: var(--space-md) → 12px' },
+    { cls: '.gap-lg', properties: 'gap: var(--space-lg) → 16px' },
+    { cls: '.gap-xl', properties: 'gap: var(--space-xl) → 20px' },
+    { cls: '.gap-2xl', properties: 'gap: var(--space-2xl) → 24px' },
+    { cls: '.gap-3xl', properties: 'gap: var(--space-3xl) → 32px' },
+    { cls: '.gap-4xl', properties: 'gap: var(--space-4xl) → 48px' },
+    { cls: '.gap-5xl', properties: 'gap: var(--space-5xl) → 64px' },
+  ];
+
+  readonly radiusClasses: ClassRow[] = [
+    { cls: '.radius-none', properties: 'border-radius: var(--radius-none) → 0px' },
+    { cls: '.radius-xs', properties: 'border-radius: var(--radius-xs) → 4px' },
+    { cls: '.radius-sm', properties: 'border-radius: var(--radius-sm) → 8px' },
+    { cls: '.radius-md', properties: 'border-radius: var(--radius-md) → 12px' },
+    { cls: '.radius-lg', properties: 'border-radius: var(--radius-lg) → 16px' },
+    { cls: '.radius-xl', properties: 'border-radius: var(--radius-xl) → 24px' },
+    { cls: '.radius-2xl', properties: 'border-radius: var(--radius-2xl) → 32px' },
+    { cls: '.radius-circle', properties: 'border-radius: var(--radius-circle) → 50%' },
+    { cls: '.radius-pill', properties: 'border-radius: var(--radius-pill) → 9999px' },
+  ];
+
+  readonly shadowClasses: ClassRow[] = [
+    { cls: '.shadow-sm', properties: 'box-shadow: 0 1px 4px rgba(0,0,0,0.08)' },
+    { cls: '.shadow-md', properties: 'box-shadow: 0 4px 16px rgba(0,0,0,0.12)' },
+    { cls: '.shadow-lg', properties: 'box-shadow: 0 8px 32px rgba(0,0,0,0.16)' },
+  ];
+
+  readonly sizingClasses: ClassRow[] = [
+    { cls: '.w-full', properties: 'width: 100%' },
+    { cls: '.h-full', properties: 'height: 100%' },
+  ];
+
+  readonly overflowClasses: ClassRow[] = [
+    { cls: '.overflow-hidden', properties: 'overflow: hidden' },
+    { cls: '.overflow-auto', properties: 'overflow-y: auto' },
+  ];
+
+  readonly opacityClasses: ClassRow[] = [
+    { cls: '.opacity-disabled', properties: 'opacity: var(--opacity-disabled) → 0.5' },
+    { cls: '.opacity-muted', properties: 'opacity: var(--opacity-muted) → 0.6' },
+  ];
+
+  readonly fontSizeClasses: ClassRow[] = [
+    { cls: '.text-3xs', properties: 'font-size: var(--text-3xs) → 0.65rem' },
+    { cls: '.text-2xs', properties: 'font-size: var(--text-2xs) → 0.75rem' },
+    { cls: '.text-xs', properties: 'font-size: var(--text-xs) → 0.8rem' },
+    { cls: '.text-sm', properties: 'font-size: var(--text-sm) → 0.875rem' },
+    { cls: '.text-md', properties: 'font-size: var(--text-md) → 0.9rem' },
+    { cls: '.text-base', properties: 'font-size: var(--text-base) → 0.95rem' },
+    { cls: '.text-lg', properties: 'font-size: var(--text-lg) → 1rem' },
+    { cls: '.text-xl', properties: 'font-size: var(--text-xl) → 1.25rem' },
+    { cls: '.text-2xl', properties: 'font-size: var(--text-2xl) → 1.5rem' },
+    { cls: '.text-3xl', properties: 'font-size: var(--text-3xl) → 1.75rem' },
+    { cls: '.text-4xl', properties: 'font-size: var(--text-4xl) → 2rem' },
+    { cls: '.text-5xl', properties: 'font-size: var(--text-5xl) → 2.5rem' },
+    { cls: '.text-6xl', properties: 'font-size: var(--text-6xl) → 3rem' },
+    { cls: '.text-7xl', properties: 'font-size: var(--text-7xl) → 4rem' },
+  ];
+
+  readonly fontWeightClasses: ClassRow[] = [
+    { cls: '.fw-normal', properties: 'font-weight: var(--font-weight-normal) → 400' },
+    { cls: '.fw-medium', properties: 'font-weight: var(--font-weight-medium) → 500' },
+    { cls: '.fw-semibold', properties: 'font-weight: var(--font-weight-semibold) → 600' },
+    { cls: '.fw-bold', properties: 'font-weight: var(--font-weight-bold) → 700' },
+  ];
+
+  readonly textAlignClasses: ClassRow[] = [
+    { cls: '.text-center', properties: 'text-align: center' },
+    { cls: '.text-left', properties: 'text-align: left' },
+    { cls: '.text-right', properties: 'text-align: right' },
+    { cls: '.text-justify', properties: 'text-align: justify' },
+    { cls: '.text-ellipsis', properties: 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap' },
+  ];
+
+  readonly textColorClasses: ClassRow[] = [
+    { cls: '.text-color-accent', properties: 'color: var(--pin-red) → #E60023' },
+    { cls: '.text-color-inverse', properties: 'color: var(--pin-text-inverse)' },
+    { cls: '.text-color-inverse-1', properties: 'color: var(--pin-text-inverse-1)' },
+    { cls: '.text-color-inverse-2', properties: 'color: var(--pin-text-inverse-2)' },
+    { cls: '.text-color-reverse', properties: 'color: var(--pin-text-reverse)' },
+    { cls: '.text-color-reverse-1', properties: 'color: var(--pin-text-reverse-1)' },
+    { cls: '.text-color-reverse-2', properties: 'color: var(--pin-text-reverse-2)' },
+    { cls: '.pin-red', properties: 'color: var(--pin-red) → #E60023' },
+    { cls: '.pin-red-dark', properties: 'color: var(--pin-red-dark) → #AD081B' },
+    { cls: '.pin-red-light', properties: 'color: var(--pin-red-light) → #FF4747' },
+    { cls: '.pin-red-hover', properties: 'color: var(--pin-red-hover) → #CC001F' },
+  ];
+
+  readonly backgroundClasses: ClassRow[] = [
+    { cls: '.bg-secondary', properties: 'background: var(--pin-bg-secondary)' },
+    { cls: '.bg-reverse', properties: 'background: var(--bg-reverse)' },
+    { cls: '.bg-reverse-1', properties: 'background: var(--bg-reverse-1)' },
+    { cls: '.bg-reverse-2', properties: 'background: var(--bg-reverse-2)' },
+    { cls: '.bg-inverse', properties: 'background: var(--bg-inverse)' },
+    { cls: '.bg-inverse-1', properties: 'background: var(--bg-inverse-1)' },
+    { cls: '.bg-inverse-2', properties: 'background: var(--bg-inverse-2)' },
+  ];
+
+  readonly designColors = [
+    { name: '--pin-red', value: '#E60023', label: 'Brand Red' },
+    { name: '--pin-red-dark', value: '#AD081B', label: 'Red Dark' },
+    { name: '--pin-red-light', value: '#FF4747', label: 'Red Light' },
+    { name: '--pin-red-hover', value: '#CC001F', label: 'Red Hover' },
+    { name: '--pin-bg', value: '#ffffff / #1A1A1A', label: 'Background' },
+    { name: '--pin-bg-secondary', value: '#F0F0F0 / #2D2D2D', label: 'Bg Secondary' },
+    { name: '--pin-bg-tertiary', value: '#F8F8F8 / #222222', label: 'Bg Tertiary' },
+    { name: '--pin-text-primary', value: '#111111 / #EFEFEF', label: 'Text Primary' },
+    { name: '--pin-text-secondary', value: '#767676 / #ADADAD', label: 'Text Secondary' },
+    { name: '--pin-text-muted', value: '#ADADAD / #767676', label: 'Text Muted' },
+    { name: '--pin-border', value: '#E0E0E0 / #404040', label: 'Border' },
+    { name: '--pin-color-error', value: '#e53e3e', label: 'Error' },
+    { name: '--pin-color-success', value: '#00a000', label: 'Success' },
+  ];
+
+  readonly spacingTokens = [
+    { name: '--space-xs', value: '4px' },
+    { name: '--space-sm', value: '8px' },
+    { name: '--space-md', value: '12px' },
+    { name: '--space-lg', value: '16px' },
+    { name: '--space-xl', value: '20px' },
+    { name: '--space-2xl', value: '24px' },
+    { name: '--space-3xl', value: '32px' },
+    { name: '--space-4xl', value: '48px' },
+    { name: '--space-5xl', value: '64px' },
+  ];
+
+  readonly radiusTokens = [
+    { name: '--radius-none', value: '0px' },
+    { name: '--radius-xs', value: '4px' },
+    { name: '--radius-sm', value: '8px' },
+    { name: '--radius-md', value: '12px' },
+    { name: '--radius-lg', value: '16px' },
+    { name: '--radius-xl', value: '24px' },
+    { name: '--radius-2xl', value: '32px' },
+    { name: '--radius-circle', value: '50%' },
+    { name: '--radius-pill', value: '9999px' },
+  ];
+
+  readonly typographyTokens = [
+    { name: '--text-3xs', value: '0.65rem' },
+    { name: '--text-2xs', value: '0.75rem' },
+    { name: '--text-xs', value: '0.8rem' },
+    { name: '--text-sm', value: '0.875rem' },
+    { name: '--text-md', value: '0.9rem' },
+    { name: '--text-base', value: '0.95rem' },
+    { name: '--text-lg', value: '1rem' },
+    { name: '--text-xl', value: '1.25rem' },
+    { name: '--text-2xl', value: '1.5rem' },
+    { name: '--text-3xl', value: '1.75rem' },
+    { name: '--text-4xl', value: '2rem' },
+    { name: '--text-5xl', value: '2.5rem' },
+    { name: '--text-6xl', value: '3rem' },
+    { name: '--text-7xl', value: '4rem' },
+  ];
+
+  readonly iconSizes = [
+    { cls: 'icon-sm', size: '1.25rem', label: 'Small' },
+    { cls: 'icon-md', size: '1.5rem', label: 'Medium' },
+    { cls: 'icon-lg', size: '2rem', label: 'Large' },
+    { cls: 'icon-xl', size: '2.5rem', label: 'XL' },
+  ];
+
+  readonly sampleIcons = [
+    'home', 'search', 'favorite', 'bookmark', 'share',
+    'add', 'close', 'menu', 'arrow_back', 'notifications',
+    'person', 'settings', 'edit', 'delete', 'visibility',
+  ];
 }
