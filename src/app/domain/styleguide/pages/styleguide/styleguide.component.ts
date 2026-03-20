@@ -403,10 +403,32 @@ export class StyleguideComponent {
   }
 
   copyCode(code: string): void {
-    navigator.clipboard.writeText(code).then(() => {
+    const markCopied = () => {
       this.copiedCode.set(code);
       setTimeout(() => this.copiedCode.set(null), 2000);
-    });
+    };
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(markCopied).catch(() => this.fallbackCopy(code, markCopied));
+    } else {
+      this.fallbackCopy(code, markCopied);
+    }
+  }
+
+  private fallbackCopy(code: string, onSuccess: () => void): void {
+    const textarea = document.createElement('textarea');
+    textarea.value = code;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      onSuccess();
+    } finally {
+      document.body.removeChild(textarea);
+    }
   }
 
   private flatIds(items: NavItem[]): string[] {
