@@ -46,9 +46,18 @@ export class ChipScrollComponent {
       const selected = this.selected();
       const chips = this.chips();
       const refs = this.chipRefs();
+      const track = this.trackRef()?.nativeElement;
       const idx = chips.findIndex(c => c.key === selected);
-      if (idx !== -1 && refs[idx]) {
-        refs[idx].nativeElement.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      if (idx !== -1 && refs[idx] && track) {
+        const chip = refs[idx].nativeElement;
+        const chipLeft = chip.offsetLeft;
+        const chipRight = chipLeft + chip.offsetWidth;
+        const { scrollLeft, offsetWidth } = track;
+        if (chipLeft < scrollLeft) {
+          track.scrollLeft = chipLeft;
+        } else if (chipRight > scrollLeft + offsetWidth) {
+          track.scrollLeft = chipRight - offsetWidth;
+        }
       }
     });
 

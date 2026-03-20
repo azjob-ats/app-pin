@@ -87,7 +87,16 @@
     [class.sg-sidebar--open]="sidebarOpen()"
     aria-label="Styleguide navigation"
   >
-    <nav class="sg-nav">
+    <nav class="sg-nav" aria-label="Sections">
+      <a
+        class="sg-nav__item sg-nav__item--root"
+        [routerLink]="['/styleguide']"
+        [class.sg-nav__item--active]="!activeSection()"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">home</span>
+        <span>Overview</span>
+      </a>
+
       @for (group of nav; track group.id) {
         <div class="sg-nav__group">
           <button
@@ -96,6 +105,9 @@
             [attr.aria-expanded]="isExpanded(group.id)"
             (click)="toggleGroup(group.id)"
           >
+            @if (group.icon) {
+              <span class="sg-nav__group-icon material-symbols-rounded" aria-hidden="true">{{ group.icon }}</span>
+            }
             <span>{{ group.label }}</span>
             <span class="material-symbols-rounded sg-nav__chevron" aria-hidden="true">
               {{ isExpanded(group.id) ? 'expand_less' : 'expand_more' }}
@@ -103,46 +115,53 @@
           </button>
 
           @if (isExpanded(group.id) && group.children) {
-            <ul class="sg-nav__list" role="list">
+            <div class="sg-nav__children">
               @for (item of group.children; track item.id) {
                 @if (item.children && item.children.length) {
-                  <li>
-                    <button
-                      class="sg-nav__sub-group-btn"
-                      type="button"
-                      [attr.aria-expanded]="isExpanded(item.id)"
-                      (click)="toggleGroup(item.id)"
-                    >
-                      <span>{{ item.label }}</span>
-                      <span class="material-symbols-rounded sg-nav__chevron" aria-hidden="true">
-                        {{ isExpanded(item.id) ? 'expand_less' : 'expand_more' }}
-                      </span>
-                    </button>
-                    @if (isExpanded(item.id)) {
-                      <ul class="sg-nav__sublist" role="list">
-                        @for (child of item.children; track child.id) {
-                          <li>
-                            <a
-                              class="sg-nav__item"
-                              [routerLink]="['/styleguide', child.id]"
-                              [class.sg-nav__item--active]="activeSection() === child.id"
-                            >{{ child.label }}</a>
-                          </li>
-                        }
-                      </ul>
+                  <button
+                    class="sg-nav__sub-group-btn"
+                    type="button"
+                    [attr.aria-expanded]="isExpanded(item.id)"
+                    (click)="toggleGroup(item.id)"
+                  >
+                    @if (item.icon) {
+                      <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
                     }
-                  </li>
+                    <span>{{ item.label }}</span>
+                    <span class="material-symbols-rounded sg-nav__chevron" aria-hidden="true">
+                      {{ isExpanded(item.id) ? 'expand_less' : 'expand_more' }}
+                    </span>
+                  </button>
+                  @if (isExpanded(item.id)) {
+                    <div class="sg-nav__children sg-nav__children--nested">
+                      @for (child of item.children; track child.id) {
+                        <a
+                          class="sg-nav__item sg-nav__item--child sg-nav__item--nested"
+                          [routerLink]="['/styleguide', child.id]"
+                          [class.sg-nav__item--active]="activeSection() === child.id"
+                        >
+                          @if (child.icon) {
+                            <span class="material-symbols-rounded" aria-hidden="true">{{ child.icon }}</span>
+                          }
+                          <span>{{ child.label }}</span>
+                        </a>
+                      }
+                    </div>
+                  }
                 } @else {
-                  <li>
-                    <a
-                      class="sg-nav__item"
-                      [routerLink]="['/styleguide', item.id]"
-                      [class.sg-nav__item--active]="activeSection() === item.id"
-                    >{{ item.label }}</a>
-                  </li>
+                  <a
+                    class="sg-nav__item sg-nav__item--child"
+                    [routerLink]="['/styleguide', item.id]"
+                    [class.sg-nav__item--active]="activeSection() === item.id"
+                  >
+                    @if (item.icon) {
+                      <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
+                    }
+                    <span>{{ item.label }}</span>
+                  </a>
                 }
               }
-            </ul>
+            </div>
           }
         </div>
       }
@@ -163,10 +182,6 @@
           <div class="sg-landing__hero-orb sg-landing__hero-orb--3" aria-hidden="true"></div>
 
           <div class="sg-landing__hero-content">
-            <div class="sg-landing__hero-badge">
-              <span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span>
-              Design System
-            </div>
 
             <img
               ngSrc="assets/images/logo-az-circlar.png"
@@ -1352,7 +1367,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Button</h1>
         <p class="sg-section__desc">Versatile button component with variant, size, shape, loading state and icon support.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; ButtonComponent &#125; from '@shared/components/button/button.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { ButtonComponent } from \'@shared/components/button/button.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo — Variants</h3>
         <div class="sg-demo">
@@ -1424,7 +1439,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Input</h1>
         <p class="sg-section__desc">Reusable text input implementing ControlValueAccessor with label, hint, error and password toggle.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; InputComponent &#125; from '@shared/components/input/input.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { InputComponent } from \'@shared/components/input/input.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1464,7 +1479,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Textarea</h1>
         <p class="sg-section__desc">Multi-line text input implementing ControlValueAccessor with label, hint, rows and maxlength.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; TextareaComponent &#125; from '@shared/components/textarea/textarea.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { TextareaComponent } from \'@shared/components/textarea/textarea.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1498,7 +1513,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Select</h1>
         <p class="sg-section__desc">Dropdown select implementing ControlValueAccessor with label, hint, error and disabled state.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; SelectComponent &#125; from '@shared/components/select/select.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { SelectComponent } from \'@shared/components/select/select.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1530,7 +1545,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Divider</h1>
         <p class="sg-section__desc">Horizontal separator with optional centered text.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; DividerComponent &#125; from '@shared/components/divider/divider.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { DividerComponent } from \'@shared/components/divider/divider.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1559,7 +1574,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Card</h1>
         <p class="sg-section__desc">Compound card component with header, title, description, content, action and footer slots via content projection.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent, CardFooterComponent &#125; from '@shared/components/card/card.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent, CardFooterComponent } from \'@shared/components/card/card.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1604,7 +1619,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">User Avatar</h1>
         <p class="sg-section__desc">Displays a user photo or falls back to the first letter of their name. Supports multiple sizes.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; UserAvatarComponent &#125; from '@shared/components/user-avatar/user-avatar.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { UserAvatarComponent } from \'@shared/components/user-avatar/user-avatar.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo — Sizes</h3>
         <div class="sg-demo">
@@ -1654,7 +1669,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Empty State</h1>
         <p class="sg-section__desc">Displays a centered icon, primary message and optional subtitle for empty or no-result states.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; EmptyStateComponent &#125; from '@shared/components/empty-state/empty-state.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { EmptyStateComponent } from \'@shared/components/empty-state/empty-state.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1682,7 +1697,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Drawer</h1>
         <p class="sg-section__desc">Slide-in panel with configurable position, modal backdrop, and header/footer template slots.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; DrawerComponent &#125; from '@shared/components/drawer/drawer.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { DrawerComponent } from \'@shared/components/drawer/drawer.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1744,7 +1759,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Search Bar</h1>
         <p class="sg-section__desc">Search input with focus state, clear button and search event on Enter.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; SearchBarComponent &#125; from '@shared/components/search-bar/search-bar.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { SearchBarComponent } from \'@shared/components/search-bar/search-bar.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1774,7 +1789,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Follow Button</h1>
         <p class="sg-section__desc">Toggle button for follow/unfollow state. Uses TranslateModule for labels.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; FollowButtonComponent &#125; from '@shared/components/follow-button/follow-button.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { FollowButtonComponent } from \'@shared/components/follow-button/follow-button.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1813,7 +1828,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Skeleton Loader</h1>
         <p class="sg-section__desc">Responsive masonry grid of skeleton cards with shimmer animation for pin-like loading states.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; SkeletonLoaderComponent &#125; from '@shared/components/skeleton-loader/skeleton-loader.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { SkeletonLoaderComponent } from \'@shared/components/skeleton-loader/skeleton-loader.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1837,7 +1852,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Masonry Grid</h1>
         <p class="sg-section__desc">Responsive masonry layout for pin cards. Columns scale from 2 (mobile) to 6 (desktop). Emits pinSaved and pinShared.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; MasonryGridComponent &#125; from '@shared/components/masonry-grid/masonry-grid.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { MasonryGridComponent } from \'@shared/components/masonry-grid/masonry-grid.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1868,7 +1883,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Tabs</h1>
         <p class="sg-section__desc">Compound tabs component. Uses app-tabs as container with app-tab buttons and app-tab-panel content areas.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; AppTabsComponent, AppTabComponent, AppTabPanelComponent &#125; from '@shared/components/tabs/tabs.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { AppTabsComponent, AppTabComponent, AppTabPanelComponent } from \'@shared/components/tabs/tabs.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1908,7 +1923,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Popover</h1>
         <p class="sg-section__desc">Toggle popover panel positioned absolutely relative to a trigger. Call <code class="sg-inline-code">toggle(event)</code> from your trigger button to open/close it.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; PopoverComponent &#125; from '@shared/components/popover/popover.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { PopoverComponent } from \'@shared/components/popover/popover.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1965,7 +1980,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Upload Area</h1>
         <p class="sg-section__desc">Drag-and-drop file upload zone with file preview and remove functionality.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; UploadAreaComponent &#125; from '@shared/components/upload-area/upload-area.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { UploadAreaComponent } from \'@shared/components/upload-area/upload-area.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -1996,7 +2011,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Code Digits</h1>
         <p class="sg-section__desc">6-digit OTP input with auto-advance, backspace handling and paste support.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; CodeDigitsComponent &#125; from '@shared/components/code-digits/code-digits.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { CodeDigitsComponent } from \'@shared/components/code-digits/code-digits.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2035,7 +2050,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Button Like</h1>
         <p class="sg-section__desc">Heart toggle button with reaction count. Manages liked state internally.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; ButtonLikeComponent &#125; from '@shared/components/button-like/button-like.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { ButtonLikeComponent } from \'@shared/components/button-like/button-like.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2079,7 +2094,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Infinite Scroll</h1>
         <p class="sg-section__desc">IntersectionObserver sentinel placed at the bottom of a list. Emits loadMore when it enters the viewport. Use at the bottom of any paginated list.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; InfiniteScrollComponent &#125; from '@shared/components/infinite-scroll/infinite-scroll.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { InfiniteScrollComponent } from \'@shared/components/infinite-scroll/infinite-scroll.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo — Loading state</h3>
         <div class="sg-demo">
@@ -2119,7 +2134,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Notification Item</h1>
         <p class="sg-section__desc">Renders a notification with actor avatar, message, time-ago display, optional thumbnail and read/unread indicators.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; NotificationItemComponent &#125; from '@shared/components/notification-item/notification-item.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { NotificationItemComponent } from \'@shared/components/notification-item/notification-item.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2154,7 +2169,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Button Inscription</h1>
         <p class="sg-section__desc">Subscribe/unsubscribe toggle button. Shows "Inscrever-se" when not subscribed; when subscribed, shows a notification bell with a dropdown to cancel.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; ButtonInscriptionComponent &#125; from '@shared/components/button-inscription/button-inscription.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { ButtonInscriptionComponent } from \'@shared/components/button-inscription/button-inscription.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2193,7 +2208,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Button Provider</h1>
         <p class="sg-section__desc">A styled OAuth/provider button that wraps projected content. Use for social login actions like "Continue with Google".</p>
-        <p class="sg-import"><code class="sg-code">import &#123; ButtonProviderComponent &#125; from '@shared/components/button-provider/button-provider/button-provider.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { ButtonProviderComponent } from \'@shared/components/button-provider/button-provider/button-provider.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2233,7 +2248,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Card Board</h1>
         <p class="sg-section__desc">Structural layout components for full-page board views. Compose <code class="sg-inline-code">CardBoardComponent</code> → <code class="sg-inline-code">CardContainerComponent</code> → header/body sections.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent &#125; from '@shared/components/card-board/card-board.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent } from \'@shared/components/card-board/card-board.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2282,7 +2297,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Chip Scroll</h1>
         <p class="sg-section__desc">A horizontally scrollable list of filter chips with drag-to-scroll support. Chips auto-scroll the selected item into view.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; ChipScrollComponent, ChipItem &#125; from '@shared/components/chip-scroll/chip-scroll.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { ChipScrollComponent, ChipItem } from \'@shared/components/chip-scroll/chip-scroll.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2334,7 +2349,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Split Button</h1>
         <p class="sg-section__desc">A two-part button: the main action on the left and a dropdown toggle on the right. Dropdown content is projected via <code class="sg-inline-code">ng-content</code>.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; SplitButtonComponent &#125; from '@shared/components/splitbutton/splitbutton.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { SplitButtonComponent } from \'@shared/components/splitbutton/splitbutton.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2393,7 +2408,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Pin Card</h1>
         <p class="sg-section__desc">Visual card for displaying a pin image with hover overlay actions (save, share, link). Used inside masonry grids.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; PinCardComponent &#125; from '@shared/components/pin-card/pin-card.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { PinCardComponent } from \'@shared/components/pin-card/pin-card.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2433,7 +2448,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Sidebar</h1>
         <p class="sg-section__desc">A composable sidebar built from five sub-components: <code class="sg-inline-code">app-sidebar</code> (wrapper), <code class="sg-inline-code">app-sidebar-header</code>, <code class="sg-inline-code">app-sidebar-content</code> (scrollable nav area), <code class="sg-inline-code">app-sidebar-group</code> (labelled group), and <code class="sg-inline-code">app-sidebar-footer</code>. All slots use <code class="sg-inline-code">ng-content</code> projection.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; SidebarComponent, SidebarHeaderComponent, SidebarContentComponent, SidebarGroupComponent, SidebarFooterComponent &#125; from '@shared/components/sidebar/sidebar.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { SidebarComponent, SidebarHeaderComponent, SidebarContentComponent, SidebarGroupComponent, SidebarFooterComponent } from \'@shared/components/sidebar/sidebar.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <p class="sg-section__desc" style="font-size:var(--text-sm);color:var(--pin-text-secondary);margin-top:-8px">
@@ -2521,7 +2536,7 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Topbar</h1>
         <p class="sg-section__desc">A composable topbar built from three sub-components: <code class="sg-inline-code">app-topbar</code> (sticky header wrapper), <code class="sg-inline-code">app-topbar-content</code> (flexible search/content area), and <code class="sg-inline-code">app-topbar-group</code> (right-aligned action group). All slots use <code class="sg-inline-code">ng-content</code> projection.</p>
-        <p class="sg-import"><code class="sg-code">import &#123; TopbarComponent, TopbarContentComponent, TopbarGroupComponent &#125; from '@shared/components/topbar/topbar.component';</code></p>
+        <ng-container *ngTemplateOutlet="importTpl; context: { code: 'import { TopbarComponent, TopbarContentComponent, TopbarGroupComponent } from \'@shared/components/topbar/topbar.component\';' }"></ng-container>
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
@@ -2601,9 +2616,42 @@
   </div>
 </ng-template>
 
+<ng-template #importTpl let-code="code">
+  <div class="sg-code-block">
+    <div class="sg-code-block__header">
+      <span class="sg-code-block__label">TypeScript</span>
+      <button
+        class="sg-code-block__copy"
+        type="button"
+        [attr.aria-label]="copiedCode() === code ? 'Copied!' : 'Copy code'"
+        (click)="copyCode(code)"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">
+          {{ copiedCode() === code ? 'check' : 'content_copy' }}
+        </span>
+        {{ copiedCode() === code ? 'Copied!' : 'Copy' }}
+      </button>
+    </div>
+    <pre class="sg-code-block__pre"><code>{{ code }}</code></pre>
+  </div>
+</ng-template>
+
 <ng-template #codeTpl let-code="code">
   <div class="sg-code-block">
-    <span class="sg-code-block__label">HTML</span>
+    <div class="sg-code-block__header">
+      <span class="sg-code-block__label">HTML</span>
+      <button
+        class="sg-code-block__copy"
+        type="button"
+        [attr.aria-label]="copiedCode() === code ? 'Copied!' : 'Copy code'"
+        (click)="copyCode(code)"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">
+          {{ copiedCode() === code ? 'check' : 'content_copy' }}
+        </span>
+        {{ copiedCode() === code ? 'Copied!' : 'Copy' }}
+      </button>
+    </div>
     <pre class="sg-code-block__pre"><code>{{ code }}</code></pre>
   </div>
 </ng-template>

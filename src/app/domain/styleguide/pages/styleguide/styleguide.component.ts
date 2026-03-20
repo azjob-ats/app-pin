@@ -58,6 +58,7 @@ import { TopbarGroupComponent } from '../../../../shared/components/topbar/topba
 export interface NavItem {
   id: string;
   label: string;
+  icon?: string;
   children?: NavItem[];
 }
 
@@ -150,6 +151,7 @@ export class StyleguideComponent {
       const section = this.activeSection();
       this.sidebarOpen.set(false);
       if (section) this.autoExpand(section);
+      document.getElementById('sg-main')?.scrollTo({ top: 0 });
     });
   }
 
@@ -160,6 +162,7 @@ export class StyleguideComponent {
   readonly sidebarOpen = signal(false);
   readonly searchQuery = signal('');
   readonly searchActive = signal(false);
+  readonly copiedCode = signal<string | null>(null);
 
   readonly searchResults = computed<SearchResult[]>(() => {
     const q = this.searchQuery().toLowerCase().trim();
@@ -265,26 +268,29 @@ export class StyleguideComponent {
     {
       id: 'utilities',
       label: 'Utilities',
+      icon: 'build',
       children: [
-        { id: 'display', label: 'Display' },
+        { id: 'display', label: 'Display', icon: 'grid_on' },
         {
           id: 'spacing',
           label: 'Spacing',
+          icon: 'space_bar',
           children: [
             { id: 'padding', label: 'Padding' },
             { id: 'margin', label: 'Margin' },
             { id: 'gap', label: 'Gap' },
           ],
         },
-        { id: 'flexbox', label: 'Flexbox' },
-        { id: 'border-radius', label: 'Border Radius' },
-        { id: 'shadow', label: 'Shadow' },
-        { id: 'sizing', label: 'Sizing' },
-        { id: 'overflow', label: 'Overflow' },
-        { id: 'opacity', label: 'Opacity' },
+        { id: 'flexbox', label: 'Flexbox', icon: 'view_column' },
+        { id: 'border-radius', label: 'Border Radius', icon: 'rounded_corner' },
+        { id: 'shadow', label: 'Shadow', icon: 'layers' },
+        { id: 'sizing', label: 'Sizing', icon: 'straighten' },
+        { id: 'overflow', label: 'Overflow', icon: 'more_horiz' },
+        { id: 'opacity', label: 'Opacity', icon: 'opacity' },
         {
           id: 'typography',
           label: 'Typography',
+          icon: 'text_fields',
           children: [
             { id: 'font-size', label: 'Font Size' },
             { id: 'font-weight', label: 'Font Weight' },
@@ -292,62 +298,65 @@ export class StyleguideComponent {
             { id: 'text-color', label: 'Text Color' },
           ],
         },
-        { id: 'background', label: 'Background' },
+        { id: 'background', label: 'Background', icon: 'format_color_fill' },
       ],
     },
     {
       id: 'standard',
       label: 'Standard Classes',
+      icon: 'list_alt',
       children: [
-        { id: 'icons', label: 'Icons' },
-        { id: 'skeleton', label: 'Skeleton' },
-        { id: 'tooltip', label: 'Tooltip' },
-        { id: 'links', label: 'Links' },
-        { id: 'titles', label: 'Titles' },
+        { id: 'icons', label: 'Icons', icon: 'emoji_symbols' },
+        { id: 'skeleton', label: 'Skeleton', icon: 'blur_on' },
+        { id: 'tooltip', label: 'Tooltip', icon: 'tooltip' },
+        { id: 'links', label: 'Links', icon: 'link' },
+        { id: 'titles', label: 'Titles', icon: 'title' },
       ],
     },
     {
       id: 'design-tokens',
       label: 'Design Tokens',
+      icon: 'palette',
       children: [
-        { id: 'colors', label: 'Colors' },
-        { id: 'spacing-tokens', label: 'Spacing' },
-        { id: 'radius-tokens', label: 'Border Radius' },
-        { id: 'typography-tokens', label: 'Typography' },
+        { id: 'colors', label: 'Colors', icon: 'palette' },
+        { id: 'spacing-tokens', label: 'Spacing', icon: 'space_bar' },
+        { id: 'radius-tokens', label: 'Border Radius', icon: 'rounded_corner' },
+        { id: 'typography-tokens', label: 'Typography', icon: 'text_fields' },
       ],
     },
     {
       id: 'components',
       label: 'Components',
+      icon: 'widgets',
       children: [
-        { id: 'comp-button', label: 'Button' },
-        { id: 'comp-input', label: 'Input' },
-        { id: 'comp-textarea', label: 'Textarea' },
-        { id: 'comp-select', label: 'Select' },
-        { id: 'comp-divider', label: 'Divider' },
-        { id: 'comp-card', label: 'Card' },
-        { id: 'comp-user-avatar', label: 'User Avatar' },
-        { id: 'comp-empty-state', label: 'Empty State' },
-        { id: 'comp-drawer', label: 'Drawer' },
-        { id: 'comp-search-bar', label: 'Search Bar' },
-        { id: 'comp-follow-button', label: 'Follow Button' },
-        { id: 'comp-skeleton-loader', label: 'Skeleton Loader' },
-        { id: 'comp-masonry-grid', label: 'Masonry Grid' },
-        { id: 'comp-tabs', label: 'Tabs' },
-        { id: 'comp-popover', label: 'Popover' },
-        { id: 'comp-upload-area', label: 'Upload Area' },
-        { id: 'comp-code-digits', label: 'Code Digits' },
-        { id: 'comp-button-like', label: 'Button Like' },
-        { id: 'comp-infinite-scroll', label: 'Infinite Scroll' },
-        { id: 'comp-notification-item', label: 'Notification Item' },
-        { id: 'comp-button-inscription', label: 'Button Inscription' },
-        { id: 'comp-button-provider', label: 'Button Provider' },
-        { id: 'comp-card-board', label: 'Card Board' },
-        { id: 'comp-chip-scroll', label: 'Chip Scroll' },
-        { id: 'comp-splitbutton', label: 'Split Button' },
-        { id: 'comp-pin-card', label: 'Pin Card' },
-        { id: 'comp-sidebar', label: 'Sidebar' },
-        { id: 'comp-topbar', label: 'Topbar' },
+        { id: 'comp-button', label: 'Button', icon: 'touch_app' },
+        { id: 'comp-input', label: 'Input', icon: 'input' },
+        { id: 'comp-textarea', label: 'Textarea', icon: 'notes' },
+        { id: 'comp-select', label: 'Select', icon: 'arrow_drop_down_circle' },
+        { id: 'comp-divider', label: 'Divider', icon: 'horizontal_rule' },
+        { id: 'comp-card', label: 'Card', icon: 'credit_card' },
+        { id: 'comp-user-avatar', label: 'User Avatar', icon: 'account_circle' },
+        { id: 'comp-empty-state', label: 'Empty State', icon: 'inbox' },
+        { id: 'comp-drawer', label: 'Drawer', icon: 'side_navigation' },
+        { id: 'comp-search-bar', label: 'Search Bar', icon: 'search' },
+        { id: 'comp-follow-button', label: 'Follow Button', icon: 'person_add' },
+        { id: 'comp-skeleton-loader', label: 'Skeleton Loader', icon: 'blur_on' },
+        { id: 'comp-masonry-grid', label: 'Masonry Grid', icon: 'grid_view' },
+        { id: 'comp-tabs', label: 'Tabs', icon: 'tab' },
+        { id: 'comp-popover', label: 'Popover', icon: 'chat_bubble_outline' },
+        { id: 'comp-upload-area', label: 'Upload Area', icon: 'upload_file' },
+        { id: 'comp-code-digits', label: 'Code Digits', icon: 'pin' },
+        { id: 'comp-button-like', label: 'Button Like', icon: 'favorite_border' },
+        { id: 'comp-infinite-scroll', label: 'Infinite Scroll', icon: 'all_inclusive' },
+        { id: 'comp-notification-item', label: 'Notification Item', icon: 'notifications' },
+        { id: 'comp-button-inscription', label: 'Button Inscription', icon: 'how_to_reg' },
+        { id: 'comp-button-provider', label: 'Button Provider', icon: 'login' },
+        { id: 'comp-card-board', label: 'Card Board', icon: 'dashboard' },
+        { id: 'comp-chip-scroll', label: 'Chip Scroll', icon: 'filter_list' },
+        { id: 'comp-splitbutton', label: 'Split Button', icon: 'call_split' },
+        { id: 'comp-pin-card', label: 'Pin Card', icon: 'image' },
+        { id: 'comp-sidebar', label: 'Sidebar', icon: 'dock_to_left' },
+        { id: 'comp-topbar', label: 'Topbar', icon: 'web_asset' },
       ],
     },
   ];
@@ -391,6 +400,13 @@ export class StyleguideComponent {
         }
       }
     }
+  }
+
+  copyCode(code: string): void {
+    navigator.clipboard.writeText(code).then(() => {
+      this.copiedCode.set(code);
+      setTimeout(() => this.copiedCode.set(null), 2000);
+    });
   }
 
   private flatIds(items: NavItem[]): string[] {
