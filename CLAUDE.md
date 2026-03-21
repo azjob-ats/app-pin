@@ -127,9 +127,9 @@ src/
 
 ```
 
-## Objetivo do projeto AZJob
+## Objetivo do projeto ToGuideX
 
-A **AZJob** é uma plataforma de conteúdo profissional humanizado, focada no conceito de que **"pessoas confiam em pessoas"**. O objetivo central é conectar profissionais, candidatos e empresas através de transparência e autoridade real.
+A **ToGuideX** é uma plataforma de conteúdo profissional humanizado, focada no conceito de que **"pessoas confiam em pessoas"**. O objetivo central é conectar profissionais, candidatos e empresas através de transparência e autoridade real.
 
 ### Concept: O Funil de Conteúdo
 A plataforma opera em quatro estágios principais para transformar curiosidade em confiança:
@@ -148,4 +148,4 @@ A plataforma opera em quatro estágios principais para transformar curiosidade e
 Este projeto busca resolver o distanciamento entre marcas e pessoas, substituindo o marketing institucional por conexões humanas. Para o desenvolvimento, os componentes devem focar em descoberta visual (scroll de vídeos), conversão dinâmica (formulários customizáveis) e gestão de autoridade (perfis integrados e métricas).
 
 ### 🎨 Design System e Inspiração
-O layout, a paleta de cores, a tipografia e a experiência de navegação da plataforma foram diretamente inspirados no **Design System do Pinterest**. Isso reflete em uma interface limpa, focada em "cards" visuais, descoberta infinita e uma estética premium e minimalista. Todo o layout, a paleta de cores e a tipografia da plataforma AZJob foram inspirados no Design System do Pinterest, priorizando uma estética de "cards" visuais, descoberta infinita e uma interface limpa e minimalista que facilita o consumo de conteúdo profissional.
+O layout, a paleta de cores, a tipografia e a experiência de navegação da plataforma foram diretamente inspirados no **Design System do Pinterest**. Isso reflete em uma interface limpa, focada em "cards" visuais, descoberta infinita e uma estética premium e minimalista. Todo o layout, a paleta de cores e a tipografia da plataforma ToGuideX foram inspirados no Design System do Pinterest, priorizando uma estética de "cards" visuais, descoberta infinita e uma interface limpa e minimalista que facilita o consumo de conteúdo profissional.

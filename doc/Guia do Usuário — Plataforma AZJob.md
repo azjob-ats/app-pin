@@ -1,7 +1,7 @@
-# Guia do Usuário — Plataforma AZJob
+# Guia do Usuário — Plataforma ToGuideX
 
-## O que é a AZJob?
-A **AZJob** é uma plataforma onde empresas mostram como realmente trabalham, através de conteúdos criados pelos próprios colaboradores.
+## O que é a ToGuideX?
+A **ToGuideX** é uma plataforma onde empresas mostram como realmente trabalham, através de conteúdos criados pelos próprios colaboradores.
 
 Aqui você pode:
 - conhecer empresas por dentro
@@ -13,7 +13,7 @@ Aqui você pode:
 A ideia é aproximar pessoas, empresas e conhecimento real do mercado.
 
 ## Como funciona a plataforma
-A AZJob funciona como um hub de conteúdo profissional, onde empresas publicam materiais sobre:
+A ToGuideX funciona como um hub de conteúdo profissional, onde empresas publicam materiais sobre:
 
 - rotina de trabalho
 - ferramentas usadas
@@ -59,7 +59,7 @@ Dependendo do caso, isso pode levar você para:
 Tudo acontece diretamente dentro da plataforma.
 
 ## Comunidade
-A AZJob também possui uma comunidade de interação.
+A ToGuideX também possui uma comunidade de interação.
 Aqui você pode:
 
 - fazer perguntas
@@ -98,7 +98,7 @@ Você também pode pesquisar diretamente por temas como:
 
 Alguns conteúdos podem aparecer como Patrocinados, indicando que foram promovidos pela empresa.
 
-## Para quem é a AZJob?
+## Para quem é a ToGuideX?
 A plataforma é útil para:
 
 - pessoas procurando emprego
@@ -108,7 +108,7 @@ A plataforma é útil para:
 - quem busca produtos ou serviços profissionais
 
 ## Resumo
-Na AZJob você pode:
+Na ToGuideX você pode:
 
 - descobrir empresas de forma transparente
 - aprender com profissionais do mercado

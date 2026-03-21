@@ -1,8 +1,8 @@
-# Guia para Criadores AZJob
+# Guia para Criadores ToGuideX
 ##### (Para colaboradores que vão representar sua empresa na plataforma)
 
-## Seu Papel na AZJob
-Na AZJob, pessoas confiam em pessoas.
+## Seu Papel na ToGuideX
+Na ToGuideX, pessoas confiam em pessoas.
 
 Você não está apenas gravando vídeos.
 Você está:
@@ -85,10 +85,10 @@ Você é referência.
 Alguns conteúdos podem ser promovidos como “Patrocinados”.
 Isso não altera a necessidade de qualidade e autenticidade.
 
-Na AZJob, prioridade nunca substitui relevância.
+Na ToGuideX, prioridade nunca substitui relevância.
 
 ## Conclusão
-Ao criar conteúdo na AZJob, você não está apenas participando de uma plataforma.
+Ao criar conteúdo na ToGuideX, você não está apenas participando de uma plataforma.
 
 Você está ajudando a transformar a forma como pessoas escolhem:
 - Onde trabalhar
