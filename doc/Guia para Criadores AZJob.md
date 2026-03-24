@@ -1,8 +1,8 @@
-# Guia para Criadores ToGuideX
+# Guia para Criadores RealWe
 ##### (Para colaboradores que vão representar sua empresa na plataforma)
 
-## Seu Papel na ToGuideX
-Na ToGuideX, pessoas confiam em pessoas.
+## Seu Papel na RealWe
+Na RealWe, pessoas confiam em pessoas.
 
 Você não está apenas gravando vídeos.
 Você está:
@@ -85,10 +85,10 @@ Você é referência.
 Alguns conteúdos podem ser promovidos como “Patrocinados”.
 Isso não altera a necessidade de qualidade e autenticidade.
 
-Na ToGuideX, prioridade nunca substitui relevância.
+Na RealWe, prioridade nunca substitui relevância.
 
 ## Conclusão
-Ao criar conteúdo na ToGuideX, você não está apenas participando de uma plataforma.
+Ao criar conteúdo na RealWe, você não está apenas participando de uma plataforma.
 
 Você está ajudando a transformar a forma como pessoas escolhem:
 - Onde trabalhar

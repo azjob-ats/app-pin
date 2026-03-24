@@ -11,7 +11,7 @@ import { NgOptimizedImage } from '@angular/common';
     <div class="auth-layout">
       <div class="auth-header">
         <a routerLink="/home" class="auth-logo">
-          <img ngSrc="assets/images/logo-az-circlar.png" width="60" height="60" alt="ToGuideX" />
+          <img ngSrc="assets/images/logo-text.png" width="60" height="60" alt="RealWe" />
         </a>
       </div>
       <div class="auth-body">

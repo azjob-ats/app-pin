@@ -1,7 +1,7 @@
-# Guia para Empresas que Querem Publicar Conteúdo na ToGuideX
+# Guia para Empresas que Querem Publicar Conteúdo na RealWe
 
-## O que é a ToGuideX?
-A ToGuideX é uma plataforma onde empresas se apresentam através de seus próprios profissionais.
+## O que é a RealWe?
+A RealWe é uma plataforma onde empresas se apresentam através de seus próprios profissionais.
 
 Aqui, sua empresa pode:
 
@@ -14,8 +14,8 @@ Aqui, sua empresa pode:
 A proposta é simples:</br>
 `pessoas confiam em pessoas`.
 
-## Por que publicar conteúdo na ToGuideX?
-Empresas usam a ToGuideX para transformar comunicação institucional em:
+## Por que publicar conteúdo na RealWe?
+Empresas usam a RealWe para transformar comunicação institucional em:
 
 - Autoridade
 - Transparência
@@ -48,7 +48,7 @@ Ao invés de apenas anunciar, sua empresa educa, aproxima e constrói confiança
 - Explicações técnicas
 
 ## Quem Pode Criar Conteúdo?
-A ToGuideX valoriza profissionais reais.
+A RealWe valoriza profissionais reais.
 
 Sua empresa pode envolver:
 
@@ -108,7 +108,7 @@ Para obter melhores resultados:
 
 Empresas que constroem diálogo geram mais conversão.
 
-## Para Quem a ToGuideX é Indicada?
+## Para Quem a RealWe é Indicada?
 
 Empresas que desejam:
 
@@ -120,7 +120,7 @@ Empresas que desejam:
 
 ## Resumo
 
-Na ToGuideX, sua empresa não apenas anuncia.
+Na RealWe, sua empresa não apenas anuncia.
 Ela se apresenta, educa e se conecta.
 
 O resultado é:
