@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './shared/services/theme.service';
 import { LanguageService } from './shared/services/language.service';
 import { injectSpeedInsights } from '@vercel/speed-insights';
+import { inject as injectAnalytics } from '@vercel/analytics';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +17,6 @@ export class App {
 
   constructor() {
     injectSpeedInsights();
+    injectAnalytics();
   }
 }
