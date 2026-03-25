@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-sidebar-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="sidebar-bottom d-flex flex-col align-center gap-xs">
+    <div class="sidebar-bottom d-flex flex-col align-center gap-1">
       <ng-content />
     </div>
   `,

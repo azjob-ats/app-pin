@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-topbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <header class="topbar d-flex align-center gap-md flex-shrink-0">
+    <header class="topbar d-flex align-center gap-3 flex-shrink-0">
       <ng-content />
     </header>
   `,

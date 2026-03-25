@@ -1,7 +1,7 @@
 <div class="profile-page">
 
   @if (isLoading()) {
-    <div class="d-flex flex-col align-center gap-lg py-3xl px-xl">
+    <div class="d-flex flex-col align-center gap-4 py-7 px-5">
       <div class="skeleton avatar-skeleton"></div>
       <div class="skeleton name-skeleton"></div>
       <div class="skeleton bio-skeleton"></div>
@@ -16,47 +16,47 @@
         [imageUrl]="user.avatarUrl"
         [alt]="user.displayName"
         size="xl"
-        class="mb-lg"
+        class="mb-4"
       />
 
       <!-- Name -->
-      <h1 class="text-3xl fw-bold text-1xl-title mb-xs">{{ user.displayName }}</h1>
-      <p class="text-sm text-3xl-title mb-lg">&#64;{{ user.username }}</p>
+      <h1 class="text-7 fw-bold text-1xl-title mb-1">{{ user.displayName }}</h1>
+      <p class="text-2 text-7-title mb-4">&#64;{{ user.username }}</p>
 
       <!-- Stats -->
-      <div class="d-flex align-center gap-lg mb-md">
+      <div class="d-flex align-center gap-4 mb-3">
         <div class="d-flex flex-col align-center">
           <span class="stat-value fw-bold text-1xl-title">{{ formatCount(user.followersCount) }}</span>
-          <span class="text-xs text-3xl-title">{{ 'profile.followers' | translate }}</span>
+          <span class="text-1 text-7-title">{{ 'profile.followers' | translate }}</span>
         </div>
         <div class="stat-divider"></div>
         <div class="d-flex flex-col align-center">
           <span class="stat-value fw-bold text-1xl-title">{{ formatCount(user.followingCount) }}</span>
-          <span class="text-xs text-3xl-title">{{ 'profile.following' | translate }}</span>
+          <span class="text-1 text-7-title">{{ 'profile.following' | translate }}</span>
         </div>
       </div>
 
       @if (user.monthlyViews) {
-        <p class="text-sm text-3xl-title mb-md">
+        <p class="text-2 text-7-title mb-3">
           {{ formatCount(user.monthlyViews) }} {{ 'profile.monthlyViews' | translate }}
         </p>
       }
 
       <!-- Bio -->
       @if (user.bio) {
-        <p class="profile-bio text-base text-3xl-title mb-md">{{ user.bio }}</p>
+        <p class="profile-bio text-base text-7-title mb-3">{{ user.bio }}</p>
       }
 
       <!-- Website -->
       @if (user.website) {
-        <a class="profile-website d-flex align-center gap-xs text-sm text-3xl-title mb-lg" [href]="user.website" target="_blank" rel="noopener">
+        <a class="profile-website d-flex align-center gap-1 text-2 text-7-title mb-4" [href]="user.website" target="_blank" rel="noopener">
           <span class="material-symbols-rounded">link</span>
           {{ user.website.replace('https://', '') }}
         </a>
       }
 
       <!-- Actions -->
-      <div class="d-flex align-center gap-sm">
+      <div class="d-flex align-center gap-2">
         <app-follow-button [initialFollowing]="user.isFollowing ?? false" />
         <app-button variant="secondary" shape="circle" icon="chat_bubble" ariaLabel="Send message" />
         <app-button variant="secondary" shape="circle" icon="share" ariaLabel="Share profile" />
@@ -90,7 +90,7 @@
         @if (boards().length === 0) {
           <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
         } @else {
-          <div class="boards-grid d-grid gap-lg p-lg">
+          <div class="boards-grid d-grid gap-4 p-4">
             @for (board of boards(); track board.id) {
               <app-board-card [board]="board" />
             }

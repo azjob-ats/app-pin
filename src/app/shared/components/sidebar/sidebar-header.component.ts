@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-sidebar-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="sidebar-header mb-sm p-sm">
+    <div class="sidebar-header mb-2 p-2">
       <ng-content />
     </div>
   `,

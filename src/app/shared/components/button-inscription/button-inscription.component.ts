@@ -7,7 +7,7 @@ import { Component, ChangeDetectionStrategy, input, output, signal, OnInit } fro
     <div class="btn-inscription">
       @if (!isSubscribed()) {
         <button
-          class="btn-inscription__btn flex align-center justify-center radius-xl bg-secondary text-sm fw-bold px-lg"
+          class="btn-inscription__btn flex align-center justify-center radius-5 bg-secondary text-2 fw-bold px-4"
           type="button"
           (click)="subscribe()"
         >
@@ -16,7 +16,7 @@ import { Component, ChangeDetectionStrategy, input, output, signal, OnInit } fro
       } @else {
         <div class="btn-inscription__wrap">
           <button
-            class="btn-inscription__btn flex align-center gap-xs radius-xl bg-secondary text-sm fw-bold px-lg"
+            class="btn-inscription__btn flex align-center gap-1 radius-5 bg-secondary text-2 fw-bold px-4"
             type="button"
             [attr.aria-expanded]="isMenuOpen()"
             (click)="toggleMenu()"
@@ -29,7 +29,7 @@ import { Component, ChangeDetectionStrategy, input, output, signal, OnInit } fro
             <div class="btn-inscription__backdrop" role="presentation" (click)="closeMenu()"></div>
             <div class="btn-inscription__dropdown" role="menu">
               <button
-                class="btn-inscription__menu-item text-md"
+                class="btn-inscription__menu-item text-3"
                 type="button"
                 role="menuitem"
                 (click)="unsubscribe()"

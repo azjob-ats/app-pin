@@ -53,7 +53,7 @@
 
   @media (max-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
-    @include gap-sm;
-    @include p-sm;
+    @include gap-2;
+    @include p-2;
   }
 }

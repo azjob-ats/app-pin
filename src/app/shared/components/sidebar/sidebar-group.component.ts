@@ -4,7 +4,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
   selector: 'app-sidebar-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="sidebar-group d-flex flex-col align-center gap-xs">
+    <div class="sidebar-group d-flex flex-col align-center gap-1">
       @if (label()) {
         <span class="sidebar-group-label">{{ label() }}</span>
       }

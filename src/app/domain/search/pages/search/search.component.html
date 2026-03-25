@@ -9,7 +9,7 @@
 
   <!-- Results -->
   @if (query()) {
-    <div class="py-lg">
+    <div class="py-4">
       @if (isLoading()) {
         <app-skeleton-loader [count]="20" />
       } @else if (pins().length === 0) {

@@ -16,11 +16,11 @@
   <app-chip-scroll [chips]="chipItems()" [selected]="selectedCategory()" (chipSelect)="selectCategory($event)" />
 
   <!-- Pins feed -->
-  <div class="py-lg">
+  <div class="py-4">
     @if (selectedCategory() !== 'all') {
-      <h2 class="feed-title text-xl fw-bold text-1xl-title px-lg mb-lg">{{ selectedCategory() }}</h2>
+      <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">{{ selectedCategory() }}</h2>
     } @else {
-      <h2 class="feed-title text-xl fw-bold text-1xl-title px-lg mb-lg">{{ 'explore.trending' | translate }}</h2>
+      <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">{{ 'explore.trending' | translate }}</h2>
     }
 
     @if (isLoading()) {

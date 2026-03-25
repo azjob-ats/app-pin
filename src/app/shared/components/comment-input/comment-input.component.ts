@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, effect, input, output, signal } fro
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <input
-      class="comment-input-field text-md text-1xl-title py-md"
+      class="comment-input-field text-3 text-1xl-title py-3"
       type="text"
       [placeholder]="placeholder()"
       [value]="_value()"

@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, input, output, signal, OnInit } fro
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
-      class="btn-like flex align-center justify-center radius-xl bg-secondary"
+      class="btn-like flex align-center justify-center radius-5 bg-secondary"
       [class.btn-like--active]="isLiked()"
       type="button"
       [attr.aria-pressed]="isLiked()"

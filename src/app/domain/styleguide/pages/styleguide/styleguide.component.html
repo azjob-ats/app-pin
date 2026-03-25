@@ -335,13 +335,13 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-sm">
+            <div class="flex gap-2">
               <div class="sg-box">d-flex</div>
               <div class="sg-box">d-flex</div>
               <div class="sg-box">d-flex</div>
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-sm\'>\n  <div>item</div>\n  <div>item</div>\n</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-2\'>\n  <div>item</div>\n  <div>item</div>\n</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -355,13 +355,13 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-sm align-center justify-center">
+            <div class="flex flex-wrap gap-2 align-center justify-center">
               @for (i of [1,2,3]; track i) {
                 <div class="sg-box">item {{ i }}</div>
               }
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex flex-wrap gap-sm align-center justify-center\'>\n  <div>item</div>\n</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex flex-wrap gap-2 align-center justify-center\'>\n  <div>item</div>\n</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -375,19 +375,19 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-sm align-center">
-              <div class="p-xs bg-secondary radius-md">p-xs</div>
-              <div class="p-sm bg-secondary radius-md">p-sm</div>
-              <div class="p-md bg-secondary radius-md">p-md</div>
-              <div class="p-lg bg-secondary radius-md">p-lg</div>
-              <div class="p-xl bg-secondary radius-md">p-xl</div>
-              <div class="p-2xl bg-secondary radius-md">p-2xl</div>
-              <div class="p-3xl bg-secondary radius-md">p-3xl</div>
-              <div class="p-4xl bg-secondary radius-md">p-4xl</div>
-              <div class="p-5xl bg-secondary radius-md">p-5xl</div>
+            <div class="flex flex-wrap gap-2 align-center">
+              <div class="p-1 bg-secondary radius-3">p-1</div>
+              <div class="p-2 bg-secondary radius-3">p-2</div>
+              <div class="p-3 bg-secondary radius-3">p-3</div>
+              <div class="p-4 bg-secondary radius-3">p-4</div>
+              <div class="p-5 bg-secondary radius-3">p-5</div>
+              <div class="p-6 bg-secondary radius-3">p-6</div>
+              <div class="p-7 bg-secondary radius-3">p-7</div>
+              <div class="p-8 bg-secondary radius-3">p-8</div>
+              <div class="p-9 bg-secondary radius-3">p-9</div>
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'p-xs bg-secondary radius-md\'>p-xs</div>\n<div class=\'p-sm bg-secondary radius-md\'>p-sm</div>\n<div class=\'p-md bg-secondary radius-md\'>p-md</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'p-1 bg-secondary radius-3\'>p-1</div>\n<div class=\'p-2 bg-secondary radius-3\'>p-2</div>\n<div class=\'p-3 bg-secondary radius-3\'>p-3</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -402,18 +402,18 @@
         <div class="sg-demo">
           <div class="sg-demo__preview sg-demo__preview--outlined">
             <div class="flex flex-wrap">
-              <div class="m-xs bg-secondary radius-md p-sm">m-xs</div>
-              <div class="m-sm bg-secondary radius-md p-sm">m-sm</div>
-              <div class="m-md bg-secondary radius-md p-sm">m-md</div>
-              <div class="m-lg bg-secondary radius-md p-sm">m-lg</div>
-              <div class="m-xl bg-secondary radius-md p-sm">m-xl</div>
-              <div class="m-2xl bg-secondary radius-md p-sm">m-2xl</div>
-              <div class="m-3xl bg-secondary radius-md p-sm">m-3xl</div>
-              <div class="m-4xl bg-secondary radius-md p-sm">m-4xl</div>
-              <div class="m-5xl bg-secondary radius-md p-sm">m-5xl</div>
+              <div class="m-1 bg-secondary radius-3 p-2">m-1</div>
+              <div class="m-2 bg-secondary radius-3 p-2">m-2</div>
+              <div class="m-3 bg-secondary radius-3 p-2">m-3</div>
+              <div class="m-4 bg-secondary radius-3 p-2">m-4</div>
+              <div class="m-5 bg-secondary radius-3 p-2">m-5</div>
+              <div class="m-6 bg-secondary radius-3 p-2">m-6</div>
+              <div class="m-7 bg-secondary radius-3 p-2">m-7</div>
+              <div class="m-8 bg-secondary radius-3 p-2">m-8</div>
+              <div class="m-9 bg-secondary radius-3 p-2">m-9</div>
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'m-xs bg-secondary radius-md p-sm\'>m-xs</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'m-1 bg-secondary radius-3 p-2\'>m-1</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -427,8 +427,8 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            @for (g of ['gap-xs','gap-sm','gap-md','gap-lg','gap-xl','gap-2xl','gap-3xl','gap-4xl','gap-5xl']; track g) {
-              <div class="flex mb-sm" [class]="g">
+            @for (g of ['gap-1','gap-2','gap-3','gap-4','gap-5','gap-6','gap-7','gap-8','gap-9']; track g) {
+              <div class="flex mb-2" [class]="g">
                 <div class="sg-box">1</div>
                 <div class="sg-box">2</div>
                 <div class="sg-box">3</div>
@@ -436,7 +436,7 @@
               </div>
             }
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-md\'>\n  <div>1</div>\n  <div>2</div>\n</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-3\'>\n  <div>1</div>\n  <div>2</div>\n</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -450,22 +450,22 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-md align-center">
+            <div class="flex flex-wrap gap-3 align-center">
               @for (r of [
-                {cls:'radius-none', label:'none'},
-                {cls:'radius-xs', label:'xs'},
-                {cls:'radius-sm', label:'sm'},
-                {cls:'radius-md', label:'md'},
-                {cls:'radius-lg', label:'lg'},
-                {cls:'radius-xl', label:'xl'},
+                {cls:'radius-0', label:'none'},
+                {cls:'radius-1', label:'xs'},
+                {cls:'radius-2', label:'sm'},
+                {cls:'radius-3', label:'md'},
+                {cls:'radius-4', label:'lg'},
+                {cls:'radius-5', label:'xl'},
                 {cls:'radius-circle', label:'circle'},
                 {cls:'radius-pill', label:'pill'}
               ]; track r.cls) {
-                <div class="sg-radius-box bg-secondary p-md" [class]="r.cls">{{ r.label }}</div>
+                <div class="sg-radius-box bg-secondary p-3" [class]="r.cls">{{ r.label }}</div>
               }
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'bg-secondary p-md radius-lg\'>radius-lg</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'bg-secondary p-3 radius-4\'>radius-4</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -479,13 +479,13 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-lg align-center">
-              <div class="sg-shadow-box shadow-sm">shadow-sm</div>
-              <div class="sg-shadow-box shadow-md">shadow-md</div>
-              <div class="sg-shadow-box shadow-lg">shadow-lg</div>
+            <div class="flex gap-4 align-center">
+              <div class="sg-shadow-box shadow-1">shadow-1</div>
+              <div class="sg-shadow-box shadow-2">shadow-2</div>
+              <div class="sg-shadow-box shadow-3">shadow-3</div>
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'shadow-md\'>card</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'shadow-2\'>card</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -499,9 +499,9 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="bg-secondary radius-md p-sm" style="width: 200px; height: 80px;">
-              <div class="w-full h-full bg-inverse-2 radius-sm flex align-center justify-center">
-                <span class="text-sm fw-medium text-color-inverse">w-full h-full</span>
+            <div class="bg-secondary radius-3 p-2" style="width: 200px; height: 80px;">
+              <div class="w-full h-full bg-inverse-2 radius-2 flex align-center justify-center">
+                <span class="text-2 fw-medium text-color-inverse">w-full h-full</span>
               </div>
             </div>
           </div>
@@ -528,7 +528,7 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-lg align-center">
+            <div class="flex gap-4 align-center">
               <div class="sg-box">Normal</div>
               <div class="sg-box opacity-muted">opacity-muted</div>
               <div class="sg-box opacity-disabled">opacity-disabled</div>
@@ -548,23 +548,23 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-sm">
+            <div class="flex flex-col gap-2">
               @for (fs of [
                 {cls:'text-3xs', label:'3xs — 0.65rem'},
-                {cls:'text-xs', label:'xs — 0.8rem'},
-                {cls:'text-sm', label:'sm — 0.875rem'},
+                {cls:'text-1', label:'xs — 0.8rem'},
+                {cls:'text-2', label:'sm — 0.875rem'},
                 {cls:'text-base', label:'base — 0.95rem'},
-                {cls:'text-lg', label:'lg — 1rem'},
-                {cls:'text-xl', label:'xl — 1.25rem'},
-                {cls:'text-2xl', label:'2xl — 1.5rem'},
-                {cls:'text-3xl', label:'3xl — 1.75rem'},
+                {cls:'text-4', label:'lg — 1rem'},
+                {cls:'text-5', label:'xl — 1.25rem'},
+                {cls:'text-6', label:'2xl — 1.5rem'},
+                {cls:'text-7', label:'3xl — 1.75rem'},
                 {cls:'text-4xl', label:'4xl — 2rem'}
               ]; track fs.cls) {
                 <span [class]="fs.cls">{{ fs.label }}</span>
               }
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'text-2xl\'>Large heading</span>\n<span class=\'text-sm\'>Small body text</span>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'text-6\'>Large heading</span>\n<span class=\'text-2\'>Small body text</span>' }"></ng-container>
         </div>
       </section>
     }
@@ -578,11 +578,11 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-sm">
-              <span class="fw-normal text-lg">fw-normal — 400</span>
-              <span class="fw-medium text-lg">fw-medium — 500</span>
-              <span class="fw-semibold text-lg">fw-semibold — 600</span>
-              <span class="fw-bold text-lg">fw-bold — 700</span>
+            <div class="flex flex-col gap-2">
+              <span class="fw-normal text-4">fw-normal — 400</span>
+              <span class="fw-medium text-4">fw-medium — 500</span>
+              <span class="fw-semibold text-4">fw-semibold — 600</span>
+              <span class="fw-bold text-4">fw-bold — 700</span>
             </div>
           </div>
           <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<span class=\'fw-bold\'>Bold text</span>' }"></ng-container>
@@ -599,11 +599,11 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-sm" style="width:100%">
-              <p class="text-left bg-secondary radius-sm p-sm">text-left</p>
-              <p class="text-center bg-secondary radius-sm p-sm">text-center</p>
-              <p class="text-right bg-secondary radius-sm p-sm">text-right</p>
-              <p class="text-ellipsis bg-secondary radius-sm p-sm" style="max-width:200px">text-ellipsis overflows this long text nicely</p>
+            <div class="flex flex-col gap-2" style="width:100%">
+              <p class="text-left bg-secondary radius-2 p-2">text-left</p>
+              <p class="text-center bg-secondary radius-2 p-2">text-center</p>
+              <p class="text-right bg-secondary radius-2 p-2">text-right</p>
+              <p class="text-ellipsis bg-secondary radius-2 p-2" style="max-width:200px">text-ellipsis overflows this long text nicely</p>
             </div>
           </div>
           <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<p class=\'text-ellipsis\' style=\'max-width:200px\'>Long text...</p>' }"></ng-container>
@@ -620,7 +620,7 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-sm">
+            <div class="flex flex-col gap-2">
               <span class="text-color-accent fw-medium">text-color-accent (brand red)</span>
               <span class="pin-red-dark fw-medium">pin-red-dark</span>
               <span class="pin-red-light fw-medium" style="background:#333;padding:4px 8px;border-radius:6px">pin-red-light</span>
@@ -640,15 +640,15 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-sm">
+            <div class="flex flex-wrap gap-2">
               @for (bg of ['bg-secondary','bg-reverse','bg-reverse-1','bg-inverse','bg-inverse-1']; track bg) {
-                <div class="p-md radius-sm" [class]="bg">
-                  <span class="text-sm">{{ bg }}</span>
+                <div class="p-3 radius-2" [class]="bg">
+                  <span class="text-2">{{ bg }}</span>
                 </div>
               }
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'bg-secondary radius-md p-md\'>content</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'bg-secondary radius-3 p-3\'>content</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -676,12 +676,12 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-lg align-center flex-wrap mb-md">
+            <div class="flex gap-4 align-center flex-wrap mb-3">
               @for (s of iconSizes; track s.cls) {
                 <span class="material-symbols-rounded" [class]="s.cls" aria-hidden="true">favorite</span>
               }
             </div>
-            <div class="flex gap-sm flex-wrap">
+            <div class="flex gap-2 flex-wrap">
               @for (icon of sampleIcons; track icon) {
                 <div class="sg-icon-item">
                   <span class="material-symbols-rounded" aria-hidden="true">{{ icon }}</span>
@@ -713,7 +713,7 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-md align-center" style="max-width:300px">
+            <div class="flex gap-3 align-center" style="max-width:300px">
               <div class="skeleton circle"></div>
               <div class="skeleton-lines">
                 <div class="skeleton line1"></div>
@@ -721,7 +721,7 @@
               </div>
             </div>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-md align-center\'>\n  <div class=\'skeleton circle\'></div>\n  <div class=\'skeleton-lines\'>\n    <div class=\'skeleton line1\'></div>\n    <div class=\'skeleton line2\'></div>\n  </div>\n</div>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'flex gap-3 align-center\'>\n  <div class=\'skeleton circle\'></div>\n  <div class=\'skeleton-lines\'>\n    <div class=\'skeleton line1\'></div>\n    <div class=\'skeleton line2\'></div>\n  </div>\n</div>' }"></ng-container>
         </div>
       </section>
     }
@@ -767,7 +767,7 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-md">
+            <div class="flex flex-col gap-3">
               <a href="#" class="forgot-link">Forgot your password?</a>
               <span class="text-link">Already have an account? <a href="#" class="text-link-active">Sign in</a></span>
               <a href="#" class="back-link">
@@ -794,14 +794,14 @@
         <table class="sg-table">
           <thead><tr><th>Class</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td><code class="sg-code">.title-primary</code></td><td>text-2xl, bold, primary color</td></tr>
-            <tr><td><code class="sg-code">.title-muted-uppercase</code></td><td>text-sm, bold, uppercase, secondary color, letter-spacing</td></tr>
+            <tr><td><code class="sg-code">.title-primary</code></td><td>text-6, bold, primary color</td></tr>
+            <tr><td><code class="sg-code">.title-muted-uppercase</code></td><td>text-2, bold, uppercase, secondary color, letter-spacing</td></tr>
           </tbody>
         </table>
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-md">
+            <div class="flex flex-col gap-3">
               <h2 class="title-primary">Primary Title</h2>
               <h3 class="title-muted-uppercase">Section Label</h3>
             </div>
@@ -824,7 +824,7 @@
               <div class="sg-color-swatch" [style.background]="'var(' + c.name + ')'"></div>
               <div class="sg-color-info">
                 <code class="sg-code">{{ c.name }}</code>
-                <span class="text-xs">{{ c.value }}</span>
+                <span class="text-1">{{ c.value }}</span>
                 <span class="text-2xs text-color-accent">{{ c.label }}</span>
               </div>
             </div>
@@ -838,12 +838,12 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Spacing Tokens</h1>
         <p class="sg-section__desc">Design token scale used by all spacing utilities (.p-*, .m-*, .gap-*).</p>
-        <div class="flex flex-col gap-sm">
+        <div class="flex flex-col gap-2">
           @for (s of spacingTokens; track s.name) {
-            <div class="flex align-center gap-md">
-              <div class="sg-space-bar bg-secondary radius-xs" [style.width]="s.value" [style.height]="'20px'"></div>
+            <div class="flex align-center gap-3">
+              <div class="sg-space-bar bg-secondary radius-1" [style.width]="s.value" [style.height]="'20px'"></div>
               <code class="sg-code">{{ s.name }}</code>
-              <span class="text-sm">{{ s.value }}</span>
+              <span class="text-2">{{ s.value }}</span>
             </div>
           }
         </div>
@@ -855,11 +855,11 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Border Radius Tokens</h1>
         <p class="sg-section__desc">Token scale used by .radius-* utility classes.</p>
-        <div class="flex flex-wrap gap-md">
+        <div class="flex flex-wrap gap-3">
           @for (r of radiusTokens; track r.name) {
             <div class="sg-token-card">
               <div class="sg-radius-preview bg-secondary" [style.border-radius]="r.value"></div>
-              <code class="sg-code text-xs">{{ r.name }}</code>
+              <code class="sg-code text-1">{{ r.name }}</code>
               <span class="text-2xs">{{ r.value }}</span>
             </div>
           }
@@ -872,9 +872,9 @@
       <section class="sg-section">
         <h1 class="sg-section__title">Typography Tokens</h1>
         <p class="sg-section__desc">Font-size token scale from design-tokens.scss.</p>
-        <div class="flex flex-col gap-sm">
+        <div class="flex flex-col gap-2">
           @for (t of typographyTokens; track t.name) {
-            <div class="flex align-center gap-md">
+            <div class="flex align-center gap-3">
               <code class="sg-code" style="min-width:140px">{{ t.name }}</code>
               <span [style.font-size]="t.value">The quick brown fox — {{ t.value }}</span>
             </div>
@@ -895,7 +895,7 @@
         <h3 class="sg-subsection__title">Demo — Variants</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-sm align-center">
+            <div class="flex flex-wrap gap-2 align-center">
               <app-button variant="primary">Primary</app-button>
               <app-button variant="secondary">Secondary</app-button>
               <app-button variant="outline">Outline</app-button>
@@ -909,7 +909,7 @@
         <h3 class="sg-subsection__title">Sizes</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-sm align-center">
+            <div class="flex flex-wrap gap-2 align-center">
               <app-button size="sm">Small</app-button>
               <app-button size="md">Medium</app-button>
               <app-button size="lg">Large</app-button>
@@ -922,7 +922,7 @@
         <h3 class="sg-subsection__title">States</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-wrap gap-sm align-center">
+            <div class="flex flex-wrap gap-2 align-center">
               <app-button [loading]="true">Loading</app-button>
               <app-button [disabled]="true">Disabled</app-button>
               <app-button icon="favorite">With Icon</app-button>
@@ -948,7 +948,7 @@
             <tr><td><code class="sg-code">type</code></td><td>'button'|'submit'|'reset'</td><td>'button'</td><td>HTML button type</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">clicked</code></td><td>void</td><td>Emits on click when not disabled/loading</td></tr>
@@ -967,7 +967,7 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-md" style="max-width:360px">
+            <div class="flex flex-col gap-3" style="max-width:360px">
               <app-input label="Default" placeholder="Enter text..." [(ngModel)]="inputValue" />
               <app-input label="Email" type="email" placeholder="email@example.com" [(ngModel)]="inputValue" hint="We'll never share your email." />
               <app-input label="Password" type="password" placeholder="Enter password" [(ngModel)]="inputValue" />
@@ -988,7 +988,7 @@
             <tr><td><code class="sg-code">errorMessage</code></td><td>string</td><td>''</td><td>Error text, triggers error state</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">enter</code></td><td>void</td><td>Emits on Enter keydown</td></tr>
@@ -1007,7 +1007,7 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-md" style="max-width:360px">
+            <div class="flex flex-col gap-3" style="max-width:360px">
               <app-textarea label="Description" placeholder="Write something..." [(ngModel)]="textareaValue" />
               <app-textarea label="With hint" placeholder="Comment..." [(ngModel)]="textareaValue" hint="Max 500 characters" [maxlength]="500" [rows]="3" />
               <app-textarea label="With error" placeholder="..." [(ngModel)]="textareaValue" errorMessage="Field is required." />
@@ -1041,7 +1041,7 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-md" style="max-width:360px">
+            <div class="flex flex-col gap-3" style="max-width:360px">
               <app-select label="Choose option" [options]="selectOptions" [(ngModel)]="selectValue" />
               <app-select label="With hint" [options]="selectOptions" [(ngModel)]="selectValue" hint="Select one of the options above" />
               <app-select label="With error" [options]="selectOptions" [(ngModel)]="selectValue" errorMessage="Please select an option." />
@@ -1073,7 +1073,7 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-md" style="max-width:360px">
+            <div class="flex flex-col gap-3" style="max-width:360px">
               <app-divider />
               <app-divider text="or" />
               <app-divider text="Continue with" />
@@ -1108,10 +1108,10 @@
                 <app-card-description>A short description of this card's purpose.</app-card-description>
               </app-card-header>
               <app-card-content>
-                <p class="text-sm">Main content area goes here. Add any elements.</p>
+                <p class="text-2">Main content area goes here. Add any elements.</p>
               </app-card-content>
               <app-card-footer>
-                <div class="flex justify-end gap-sm">
+                <div class="flex justify-end gap-2">
                   <app-button variant="ghost" size="sm">Cancel</app-button>
                   <app-button size="sm">Confirm</app-button>
                 </div>
@@ -1147,11 +1147,11 @@
         <h3 class="sg-subsection__title">Demo — Sizes</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-md align-center flex-wrap">
+            <div class="flex gap-3 align-center flex-wrap">
               @for (s of ['xs','sm','md','lg','xl']; track s) {
-                <div class="flex flex-col align-center gap-xs">
+                <div class="flex flex-col align-center gap-1">
                   <app-user-avatar [size]="$any(s)" alt="John Doe" />
-                  <span class="text-xs">{{ s }}</span>
+                  <span class="text-1">{{ s }}</span>
                 </div>
               }
             </div>
@@ -1162,7 +1162,7 @@
         <h3 class="sg-subsection__title">Demo — With image</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-md align-center">
+            <div class="flex gap-3 align-center">
               <app-user-avatar
                 imageUrl="https://i.pravatar.cc/96"
                 alt="Jane Smith"
@@ -1225,7 +1225,7 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-sm flex-wrap">
+            <div class="flex gap-2 flex-wrap">
               @for (pos of ['left','right','top','bottom']; track pos) {
                 <app-button
                   variant="outline"
@@ -1245,13 +1245,13 @@
               <app-button variant="ghost" shape="circle" size="sm" icon="close" ariaLabel="Close" (clicked)="drawerOpen.set(false)"></app-button>
             </div>
           </ng-template>
-          <div class="p-lg flex flex-col gap-md">
-            <p class="text-sm">This is the drawer body. Add any content here.</p>
+          <div class="p-4 flex flex-col gap-3">
+            <p class="text-2">This is the drawer body. Add any content here.</p>
             <app-divider text="or" />
             <app-input label="Example input" placeholder="Type something..." />
           </div>
           <ng-template #footer>
-            <div class="flex justify-end gap-sm p-md">
+            <div class="flex justify-end gap-2 p-3">
               <app-button variant="ghost" (clicked)="drawerOpen.set(false)">Cancel</app-button>
               <app-button (clicked)="drawerOpen.set(false)">Confirm</app-button>
             </div>
@@ -1268,7 +1268,7 @@
             <tr><td><code class="sg-code">styleClass</code></td><td>string</td><td>''</td><td>Extra CSS class on panel</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Slot</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">#header</code></td><td>TemplateRef projected as drawer header</td></tr>
@@ -1299,7 +1299,7 @@
             <tr><td><code class="sg-code">initialQuery</code></td><td>string</td><td>Initial value in the input</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">search</code></td><td>string</td><td>Emits query on Enter key</td></tr>
@@ -1317,14 +1317,14 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-lg align-center flex-wrap">
-              <div class="flex flex-col align-center gap-xs">
+            <div class="flex gap-4 align-center flex-wrap">
+              <div class="flex flex-col align-center gap-1">
                 <app-follow-button [initialFollowing]="false" />
-                <span class="text-xs text-color-accent">Not following</span>
+                <span class="text-1 text-color-accent">Not following</span>
               </div>
-              <div class="flex flex-col align-center gap-xs">
+              <div class="flex flex-col align-center gap-1">
                 <app-follow-button [initialFollowing]="true" />
-                <span class="text-xs text-color-accent">Following</span>
+                <span class="text-1 text-color-accent">Following</span>
               </div>
             </div>
           </div>
@@ -1338,7 +1338,7 @@
             <tr><td><code class="sg-code">initialFollowing</code></td><td>boolean</td><td>false</td><td>Initial follow state</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">followChange</code></td><td>boolean</td><td>Emits new follow state on toggle</td></tr>
@@ -1392,7 +1392,7 @@
             <tr><td><code class="sg-code">pins</code></td><td>Pin[]</td><td>[]</td><td>Array of pin objects to render</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">pinSaved</code></td><td>Pin</td><td>Emits when a pin is saved/unsaved</td></tr>
@@ -1417,13 +1417,13 @@
               <app-tab id="boards">Boards</app-tab>
 
               <app-tab-panel id="posts">
-                <p class="text-sm">This is the <strong>Posts</strong> tab content. Render a masonry grid here.</p>
+                <p class="text-2">This is the <strong>Posts</strong> tab content. Render a masonry grid here.</p>
               </app-tab-panel>
               <app-tab-panel id="saved">
-                <p class="text-sm">This is the <strong>Saved</strong> tab content.</p>
+                <p class="text-2">This is the <strong>Saved</strong> tab content.</p>
               </app-tab-panel>
               <app-tab-panel id="boards">
-                <p class="text-sm">This is the <strong>Boards</strong> tab content.</p>
+                <p class="text-2">This is the <strong>Boards</strong> tab content.</p>
               </app-tab-panel>
             </app-tabs>
           </div>
@@ -1459,16 +1459,16 @@
                   { value: 'Delete',       icon: 'delete', danger: true }
                 ]; track item.value) {
                   <button
-                    class="lang-item d-flex align-center radius-sm text-md w-full"
+                    class="lang-item d-flex align-center radius-2 text-3 w-full"
                     [class.active]="popoverSelected() === item.value"
                     [class.lang-item--danger]="item.danger"
                     type="button"
                     (click)="popoverSelected.set(item.value); myPopover.hide()"
                   >
-                    <span class="material-symbols-rounded lang-item-flag text-xl" aria-hidden="true">{{ item.icon }}</span>
+                    <span class="material-symbols-rounded lang-item-flag text-5" aria-hidden="true">{{ item.icon }}</span>
                     <span class="lang-item-label">{{ item.value }}</span>
                     @if (popoverSelected() === item.value) {
-                      <span class="material-symbols-rounded check-icon text-xl pin-red" aria-hidden="true">check</span>
+                      <span class="material-symbols-rounded check-icon text-5 pin-red" aria-hidden="true">check</span>
                     }
                   </button>
                 }
@@ -1479,7 +1479,7 @@
               Options
             </button>
           </div>
-          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-popover #pop styleClass=\'lang-panel\'>\n  <div class=\'lang-list d-flex flex-col\'>\n    @for (item of items; track item.value) {\n      <button\n        class=\'lang-item d-flex align-center radius-sm text-md w-full\'\n        type=\'button\'\n        [class.active]=\'selected === item.value\'\n        (click)=\'selected = item.value; pop.hide()\'\n      >\n        <span class=\'material-symbols-rounded lang-item-flag text-xl\'>{{ item.icon }}</span>\n        <span class=\'lang-item-label\'>{{ item.label }}</span>\n        @if (selected === item.value) {\n          <span class=\'material-symbols-rounded check-icon text-xl pin-red\'>check</span>\n        }\n      </button>\n    }\n  </div>\n</app-popover>\n\n<button type=\'button\' (click)=\'pop.toggle($event)\'>Options</button>' }"></ng-container>
+          <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<app-popover #pop styleClass=\'lang-panel\'>\n  <div class=\'lang-list d-flex flex-col\'>\n    @for (item of items; track item.value) {\n      <button\n        class=\'lang-item d-flex align-center radius-2 text-3 w-full\'\n        type=\'button\'\n        [class.active]=\'selected === item.value\'\n        (click)=\'selected = item.value; pop.hide()\'\n      >\n        <span class=\'material-symbols-rounded lang-item-flag text-5\'>{{ item.icon }}</span>\n        <span class=\'lang-item-label\'>{{ item.label }}</span>\n        @if (selected === item.value) {\n          <span class=\'material-symbols-rounded check-icon text-5 pin-red\'>check</span>\n        }\n      </button>\n    }\n  </div>\n</app-popover>\n\n<button type=\'button\' (click)=\'pop.toggle($event)\'>Options</button>' }"></ng-container>
         </div>
 
         <h3 class="sg-subsection__title">API</h3>
@@ -1489,7 +1489,7 @@
             <tr><td><code class="sg-code">styleClass</code></td><td>string</td><td>''</td><td>Extra CSS class on the panel</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Method</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">toggle(event)</code></td><td>Toggles panel, positions it relative to trigger</td></tr>
@@ -1520,7 +1520,7 @@
             <tr><td><code class="sg-code">previewUrl</code></td><td>string | null</td><td>null</td><td>Existing image preview URL</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">fileSelected</code></td><td>File</td><td>Emits when a file is selected</td></tr>
@@ -1539,13 +1539,13 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-lg">
+            <div class="flex flex-col gap-4">
               <div>
-                <p class="text-xs mb-sm">6 digits (default)</p>
+                <p class="text-1 mb-2">6 digits (default)</p>
                 <app-code-digits />
               </div>
               <div>
-                <p class="text-xs mb-sm">4 digits</p>
+                <p class="text-1 mb-2">4 digits</p>
                 <app-code-digits [length]="4" />
               </div>
             </div>
@@ -1560,7 +1560,7 @@
             <tr><td><code class="sg-code">length</code></td><td>number</td><td>6</td><td>Number of digit inputs</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">valueChange</code></td><td>string</td><td>Emits full code string on each change</td></tr>
@@ -1578,18 +1578,18 @@
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex gap-lg align-center flex-wrap">
-              <div class="flex flex-col align-center gap-xs">
+            <div class="flex gap-4 align-center flex-wrap">
+              <div class="flex flex-col align-center gap-1">
                 <app-button-like [count]="42" [liked]="false" />
-                <span class="text-xs">Default</span>
+                <span class="text-1">Default</span>
               </div>
-              <div class="flex flex-col align-center gap-xs">
+              <div class="flex flex-col align-center gap-1">
                 <app-button-like [count]="128" [liked]="true" />
-                <span class="text-xs">Liked</span>
+                <span class="text-1">Liked</span>
               </div>
-              <div class="flex flex-col align-center gap-xs">
+              <div class="flex flex-col align-center gap-1">
                 <app-button-like [count]="0" />
-                <span class="text-xs">Zero count</span>
+                <span class="text-1">Zero count</span>
               </div>
             </div>
           </div>
@@ -1604,7 +1604,7 @@
             <tr><td><code class="sg-code">count</code></td><td>number</td><td>0</td><td>Number of likes to display</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">likedChange</code></td><td>boolean</td><td>Emits new liked state on toggle</td></tr>
@@ -1622,13 +1622,13 @@
         <h3 class="sg-subsection__title">Demo — Loading state</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            <div class="flex flex-col gap-sm">
-              <div class="sg-box p-md radius-sm">Item 1</div>
-              <div class="sg-box p-md radius-sm">Item 2</div>
-              <div class="sg-box p-md radius-sm">Item 3</div>
+            <div class="flex flex-col gap-2">
+              <div class="sg-box p-3 radius-2">Item 1</div>
+              <div class="sg-box p-3 radius-2">Item 2</div>
+              <div class="sg-box p-3 radius-2">Item 3</div>
               <app-infinite-scroll [loading]="infiniteLoading()" (loadMore)="infiniteLoading.set(true)" />
             </div>
-            <div class="flex gap-sm mt-md">
+            <div class="flex gap-2 mt-3">
               <app-button size="sm" variant="outline" (clicked)="infiniteLoading.set(true)">Simulate loading</app-button>
               <app-button size="sm" variant="ghost" (clicked)="infiniteLoading.set(false)">Stop</app-button>
             </div>
@@ -1644,7 +1644,7 @@
             <tr><td><code class="sg-code">threshold</code></td><td>number</td><td>0.1</td><td>IntersectionObserver threshold</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">loadMore</code></td><td>void</td><td>Emits when sentinel enters viewport and not loading</td></tr>
@@ -1678,7 +1678,7 @@
             <tr><td><code class="sg-code">notification</code></td><td>Notification</td><td>Yes</td><td>Notification data object</td></tr>
           </tbody>
         </table>
-        <table class="sg-table mt-md">
+        <table class="sg-table mt-3">
           <thead><tr><th>Output</th><th>Parameters</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td><code class="sg-code">read</code></td><td>string</td><td>Emits notification ID when clicked</td></tr>
@@ -1696,7 +1696,7 @@
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
-          <div class="sg-demo__preview d-flex align-center gap-lg">
+          <div class="sg-demo__preview d-flex align-center gap-4">
             <app-button-inscription
               [subscribed]="inscriptionSubscribed()"
               (subscribedChange)="inscriptionSubscribed.set($event)"
@@ -1735,7 +1735,7 @@
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
-          <div class="sg-demo__preview d-flex align-center gap-lg flex-wrap">
+          <div class="sg-demo__preview d-flex align-center gap-4 flex-wrap">
             <app-button-provider (clicked)="null">
               <span class="material-symbols-rounded" aria-hidden="true">g_mobiledata</span>
               Continuar com Google
@@ -1780,14 +1780,14 @@
               <app-card-container>
                 <app-card-header>
                   <app-card-section-left>
-                    <span class="fw-bold text-lg">Meu Board</span>
+                    <span class="fw-bold text-4">Meu Board</span>
                   </app-card-section-left>
                   <app-card-section-right>
                     <button class="sg-trigger-btn" type="button">Editar</button>
                   </app-card-section-right>
                 </app-card-header>
                 <app-card-body>
-                  <div class="d-flex align-center gap-md p-lg text-sm" style="color: var(--pin-text-secondary)">
+                  <div class="d-flex align-center gap-3 p-4 text-2" style="color: var(--pin-text-secondary)">
                     <span class="material-symbols-rounded">grid_view</span>
                     Conteúdo do board aqui
                   </div>
@@ -1876,7 +1876,7 @@
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
-          <div class="sg-demo__preview d-flex align-center gap-xl flex-wrap">
+          <div class="sg-demo__preview d-flex align-center gap-5 flex-wrap">
             <div>
               <p class="sg-inline-code" style="margin-bottom:12px">Default</p>
               <app-splitbutton label="Filtros" (mainClicked)="null">
@@ -1935,7 +1935,7 @@
 
         <h3 class="sg-subsection__title">Demo</h3>
         <div class="sg-demo">
-          <div class="sg-demo__preview d-flex gap-lg flex-wrap">
+          <div class="sg-demo__preview d-flex gap-4 flex-wrap">
             @for (pin of mockPins.slice(0, 3); track pin.id) {
               <div style="width: 200px">
                 <app-pin-card [pin]="pin" />
