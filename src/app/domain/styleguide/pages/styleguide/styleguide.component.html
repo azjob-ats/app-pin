@@ -382,6 +382,9 @@
               <div class="p-lg bg-secondary radius-md">p-lg</div>
               <div class="p-xl bg-secondary radius-md">p-xl</div>
               <div class="p-2xl bg-secondary radius-md">p-2xl</div>
+              <div class="p-3xl bg-secondary radius-md">p-3xl</div>
+              <div class="p-4xl bg-secondary radius-md">p-4xl</div>
+              <div class="p-5xl bg-secondary radius-md">p-5xl</div>
             </div>
           </div>
           <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'p-xs bg-secondary radius-md\'>p-xs</div>\n<div class=\'p-sm bg-secondary radius-md\'>p-sm</div>\n<div class=\'p-md bg-secondary radius-md\'>p-md</div>' }"></ng-container>
@@ -398,11 +401,16 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview sg-demo__preview--outlined">
-            <div class="flex">
+            <div class="flex flex-wrap">
               <div class="m-xs bg-secondary radius-md p-sm">m-xs</div>
               <div class="m-sm bg-secondary radius-md p-sm">m-sm</div>
               <div class="m-md bg-secondary radius-md p-sm">m-md</div>
               <div class="m-lg bg-secondary radius-md p-sm">m-lg</div>
+              <div class="m-xl bg-secondary radius-md p-sm">m-xl</div>
+              <div class="m-2xl bg-secondary radius-md p-sm">m-2xl</div>
+              <div class="m-3xl bg-secondary radius-md p-sm">m-3xl</div>
+              <div class="m-4xl bg-secondary radius-md p-sm">m-4xl</div>
+              <div class="m-5xl bg-secondary radius-md p-sm">m-5xl</div>
             </div>
           </div>
           <ng-container *ngTemplateOutlet="codeTpl; context: { code: '<div class=\'m-xs bg-secondary radius-md p-sm\'>m-xs</div>' }"></ng-container>
@@ -419,7 +427,7 @@
         <h3 class="sg-subsection__title">Visual Example</h3>
         <div class="sg-demo">
           <div class="sg-demo__preview">
-            @for (g of ['gap-xs','gap-sm','gap-md','gap-lg','gap-xl']; track g) {
+            @for (g of ['gap-xs','gap-sm','gap-md','gap-lg','gap-xl','gap-2xl','gap-3xl','gap-4xl','gap-5xl']; track g) {
               <div class="flex mb-sm" [class]="g">
                 <div class="sg-box">1</div>
                 <div class="sg-box">2</div>
