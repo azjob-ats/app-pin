@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './shared/services/theme.service';
 import { LanguageService } from './shared/services/language.service';
+import { injectSpeedInsights } from '@vercel/speed-insights';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +10,11 @@ import { LanguageService } from './shared/services/language.service';
   template: '<router-outlet />',
   styles: [':host { display: block; height: 100%; }'],
 })
-export class App implements OnInit {
-  constructor(
-    private themeService: ThemeService,
-    private languageService: LanguageService,
-  ) {}
+export class App {
+  private readonly themeService = inject(ThemeService);
+  private readonly languageService = inject(LanguageService);
 
-  ngOnInit(): void {
-    // Services initialize reactively via signals & effects
+  constructor() {
+    injectSpeedInsights();
   }
 }
