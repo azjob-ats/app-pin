@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="pt-lg" [hidden]="!visible()" role="tabpanel">
+    <div class="pt-4" [hidden]="!visible()" role="tabpanel">
       <ng-content />
     </div>
   `,

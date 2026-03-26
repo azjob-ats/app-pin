@@ -1,11 +1,11 @@
 <div class="board-page">
   @if (board(); as board) {
     <div class="board-header flex flex-col align-center text-center">
-      <h1 class="text-1xl-title text-3xl fw-bold mb-sm">{{ board.name }}</h1>
+      <h1 class="text-1xl-title text-7 fw-bold mb-2">{{ board.name }}</h1>
       @if (board.description) {
-        <p class="text-2xl-title text-base mb-md">{{ board.description }}</p>
+        <p class="text-6-title text-base mb-3">{{ board.description }}</p>
       }
-      <div class="text-3xl-title flex align-center gap-sm text-sm mb-lg">
+      <div class="text-7-title flex align-center gap-2 text-2 mb-4">
         <span class="text-4xl-title">
           <strong class="fw-bold">{{ board.pinsCount }}</strong> {{ 'board.pins' | translate }}
         </span>
@@ -17,18 +17,18 @@
         }
       </div>
 
-      <div class="board-owner flex align-center gap-sm mb-xl">
+      <div class="board-owner flex align-center gap-2 mb-5">
         <img
           [src]="board.owner.avatarUrl || 'https://i.pravatar.cc/32?img=1'"
           [alt]="board.owner.displayName"
           class="board-owner-avatar radius-circle"
         />
-        <a [routerLink]="['/' + board.owner.username]" class="board-owner-name text-1xl-title text-sm fw-bold">
+        <a [routerLink]="['/' + board.owner.username]" class="board-owner-name text-1xl-title text-2 fw-bold">
           {{ board.owner.displayName }}
         </a>
       </div>
 
-      <div class="board-actions flex align-center gap-sm">
+      <div class="board-actions flex align-center gap-2">
         <app-follow-button />
         <app-button icon="share" variant="secondary" shape="circle" ariaLabel="Share" />
         <app-button icon="more_horiz" variant="secondary" shape="circle" ariaLabel="More options" />

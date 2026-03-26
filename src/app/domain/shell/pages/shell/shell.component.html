@@ -81,7 +81,7 @@
             <!-- Language -->
             <span [appTooltip]="'common.language' | translate" tooltipPosition="bottom" (click)="langPanel.toggle($event)">
               <app-button variant="ghost" size="md">
-                <span class="lang-flag text-xl">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+                <span class="lang-flag text-5">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
               </app-button>
             </span>
 
@@ -108,7 +108,7 @@
     <nav class="bottom-nav d-flex align-center">
       @for (item of navItems; track item.route) {
         <a
-          class="bottom-nav-item d-flex flex-col align-center radius-md"
+          class="bottom-nav-item d-flex flex-col align-center radius-3"
           [routerLink]="item.route"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: !!item.exact }"
@@ -124,7 +124,7 @@
           <span class="bottom-nav-label text-3xs fw-semibold">{{ item.labelKey | translate }}</span>
         </a>
       }
-      <a class="bottom-nav-item d-flex flex-col align-center radius-md" routerLink="/fondecranvip">
+      <a class="bottom-nav-item d-flex flex-col align-center radius-3" routerLink="/fondecranvip">
         <img src="https://i.pravatar.cc/32?img=10" alt="Profile" class="bottom-nav-avatar radius-circle" />
         <span class="bottom-nav-label text-3xs fw-semibold">{{ 'nav.profile' | translate }}</span>
       </a>
@@ -140,9 +140,9 @@
   >
     <ng-template #header>
       <div class="drawer-header d-flex align-center justify-between w-full">
-        <a routerLink="/home" class="drawer-logo d-flex align-center gap-sm" (click)="isMobileMenuOpen.set(false)">
+        <a routerLink="/home" class="drawer-logo d-flex align-center gap-2" (click)="isMobileMenuOpen.set(false)">
           <span class="material-symbols-rounded">arrow_left_alt</span>
-          <span class="drawer-logo-text text-lg fw-bold">Mais</span>
+          <span class="drawer-logo-text text-4 fw-bold">Mais</span>
         </a>
         <app-button variant="ghost" size="sm" shape="circle" icon="close" [ariaLabel]="'common.close' | translate" (clicked)="isMobileMenuOpen.set(false)" />
       </div>
@@ -153,34 +153,34 @@
       <!-- Configurações -->
       <div class="drawer-section">
         <div class="d-flex justify-between align-center">
-          <div class="p-xs">
-            <p class="drawer-action-text flex-1 text-md fw-bold">
+          <div class="p-1">
+            <p class="drawer-action-text flex-1 text-3 fw-bold">
               Configurações e Preferencias
             </p>
-            <p class="text-md">
+            <p class="text-3">
               Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as informações da sua conta.
             </p>
           </div>
-          <span class="material-symbols-rounded p-sm flex-shrink-0">arrow_forward_ios</span>
+          <span class="material-symbols-rounded p-2 flex-shrink-0">arrow_forward_ios</span>
         </div>
         <br>
         <div class="d-flex justify-between align-center">
-          <div class="p-xs">
-            <p class="drawer-action-text flex-1 text-md fw-bold">
+          <div class="p-1">
+            <p class="drawer-action-text flex-1 text-3 fw-bold">
               Feedback, Ajuda e Sobre
             </p>
-            <p class="text-md">
+            <p class="text-3">
               Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a empresa
             </p>
           </div>
-          <span class="material-symbols-rounded p-sm flex-shrink-0">arrow_forward_ios</span>
+          <span class="material-symbols-rounded p-2 flex-shrink-0">arrow_forward_ios</span>
         </div>
       </div>
     </div>
 
     <ng-template #footer>
-      <div class="drawer-footer d-flex flex-col gap-sm">
-        <div class="d-flex align-center gap-sm flex-shrink-0">
+      <div class="drawer-footer d-flex flex-col gap-2">
+        <div class="d-flex align-center gap-2 flex-shrink-0">
           <!-- Auth buttons -->
           <app-button variant="outline" size="sm" (clicked)="goToAuth()">
             {{ 'auth.login' | translate }}
@@ -198,14 +198,14 @@
     <div class="lang-list d-flex flex-col">
       @for (lang of languageService.languages; track lang.code) {
         <button
-          class="lang-item d-flex align-center radius-sm text-md w-full"
+          class="lang-item d-flex align-center radius-2 text-3 w-full"
           [class.active]="languageService.currentLang() === lang.code"
           (click)="setLanguage(lang.code); langPanel.hide()"
         >
-          <span class="lang-item-flag text-xl">{{ lang.flag }}</span>
+          <span class="lang-item-flag text-5">{{ lang.flag }}</span>
           <span class="lang-item-label">{{ lang.label }}</span>
           @if (languageService.currentLang() === lang.code) {
-            <span class="material-symbols-rounded check-icon text-xl pin-red">check</span>
+            <span class="material-symbols-rounded check-icon text-5 pin-red">check</span>
           }
         </button>
       }

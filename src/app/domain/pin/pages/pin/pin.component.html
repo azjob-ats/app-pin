@@ -1,9 +1,9 @@
 <div class="pin-page">
 
   @if (isLoading()) {
-    <div class="pin-detail-skeleton flex gap-2xl p-2xl">
+    <div class="pin-detail-skeleton flex gap-6 p-6">
       <div class="skeleton img-skeleton"></div>
-      <div class="flex-1 flex flex-col gap-lg pt-xl">
+      <div class="flex-1 flex flex-col gap-4 pt-5">
         <div class="skeleton title-skeleton"></div>
         <div class="skeleton desc-skeleton"></div>
         <div class="skeleton desc-skeleton short"></div>
@@ -27,17 +27,17 @@
       </div>
 
       <!-- ── Info side ───────────────────────────────────────────── -->
-      <div class="pin-detail-info flex flex-col flex-1 p-sm overflow-auto">
+      <div class="pin-detail-info flex flex-col flex-1 p-2 overflow-auto">
         <!-- Actions bar -->
-        <div class="flex align-center gap-sm flex-wrap mb-3xl mt-sm">
+        <div class="flex align-center gap-2 flex-wrap mb-7 mt-2">
           <app-button-like [count]="107" [liked]="false" />
           <app-button variant="secondary" shape="circle" size="md" icon="more_horiz" />
-          <div class="save-group flex align-center gap-sm">
+          <div class="save-group flex align-center gap-2">
             <app-button variant="primary" size="md">Saiba Mais</app-button>
           </div>
         </div>
 
-        <div class="pin-save-count flex align-center text-sm text-3xl-title">
+        <div class="pin-save-count flex align-center text-2 text-7-title">
           <span>{{ formatCount(pin.saveCount) }} visualizações</span> • <span>1 ano atrás</span>
         </div>
         <!-- Title -->
@@ -46,29 +46,29 @@
         }
         <!-- Description -->
         @if (pin.description) {
-          <p class="text-base text-2xl-title mb-3xl">{{ pin.description }}<span class="pin-hashtags text-2xs"> #VagasTI  #PythonJobs  #DesenvolvimentoBackend  #CarreiraEmTech  #TrabalheNaDigix</span></p>
+          <p class="text-base text-6-title mb-7">{{ pin.description }}<span class="pin-hashtags text-2xs"> #VagasTI  #PythonJobs  #DesenvolvimentoBackend  #CarreiraEmTech  #TrabalheNaDigix</span></p>
         }
 
         <!-- Author -->
-        <div class="pin-detail-author flex align-center gap-md py-sm mb-sm">
+        <div class="pin-detail-author flex align-center gap-3 py-2 mb-2">
           <app-user-avatar [imageUrl]="pin.author.avatarUrl" [alt]="pin.author.displayName" size="md" />
           <div class="flex-1 flex flex-col">
             <a class="author-name fw-bold text-base text-1xl-title" [routerLink]="['/' + pin.author.username]">
               {{ pin.author.displayName }}
             </a>
-            <span class="text-xs text-3xl-title">{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span>
+            <span class="text-1 text-7-title">{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span>
           </div>
           <app-button-inscription [subscribed]="false" />
         </div>
 
         <!-- Comments section -->
-        <div class="flex flex-col gap-lg">
-          <h3 class="text-lg fw-bold text-1xl-title">{{ 'pin.comments' | translate }}</h3>
+        <div class="flex flex-col gap-4">
+          <h3 class="text-4 fw-bold text-1xl-title">{{ 'pin.comments' | translate }}</h3>
 
           <!-- Add comment -->
-          <div class="gap-md flex align-center">
+          <div class="gap-3 flex align-center">
             <app-user-avatar imageUrl="https://i.pravatar.cc/150?img=10" alt="Me" size="sm" />
-            <div class="comment-input-wrap flex-1 flex align-center bg-secondary radius-xl px-lg">
+            <div class="comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
               <app-comment-input
                 [value]="commentText()"
                 [placeholder]="'pin.addComment' | translate"
@@ -82,19 +82,19 @@
           </div>
 
           <!-- Comment list -->
-          <div class="flex flex-col gap-lg">
+          <div class="flex flex-col gap-4">
             @for (comment of comments(); track comment.id) {
-              <div class="gap-md flex">
+              <div class="gap-3 flex">
                 <app-user-avatar [imageUrl]="comment.author.avatarUrl" [alt]="comment.author.displayName" size="sm" />
                 <div class="flex-1">
-                  <div class="comment-header flex gap-sm mb-xs">
-                    <span class="text-sm fw-bold text-1xl-title">{{ comment.author.displayName }}</span>
-                    <span class="text-xs text-5xl-title">{{ timeAgo(comment.createdAt) }}</span>
+                  <div class="comment-header flex gap-2 mb-1">
+                    <span class="text-2 fw-bold text-1xl-title">{{ comment.author.displayName }}</span>
+                    <span class="text-1 text-5xl-title">{{ timeAgo(comment.createdAt) }}</span>
                   </div>
-                  <p class="comment-text text-md text-3xl-title">{{ comment.text }}</p>
+                  <p class="comment-text text-3 text-7-title">{{ comment.text }}</p>
                   @if ((comment.likesCount ?? 0) > 0) {
-                    <span class="comment-likes flex align-center gap-xs text-xs text-3xl-title mt-xs">
-                      <span class="material-symbols-rounded heart text-lg pin-red">favorite</span>
+                    <span class="comment-likes flex align-center gap-1 text-1 text-7-title mt-1">
+                      <span class="material-symbols-rounded heart text-4 pin-red">favorite</span>
                       {{ comment.likesCount }}
                     </span>
                   }
@@ -107,14 +107,14 @@
     </div>
 
     <!-- playlist pins -->
-    <div class="py-3xl">
-      <h2 class="title-primary text-center mb-xl px-lg">Playlist</h2>
+    <div class="py-7">
+      <h2 class="title-primary text-center mb-5 px-4">Playlist</h2>
       <app-masonry-grid [pins]="relatedPins()" />
     </div>
 
     <!-- Related pins -->
-    <div class="py-3xl">
-      <h2 class="title-primary text-center mb-xl px-lg">{{ 'pin.relatedPins' | translate }}</h2>
+    <div class="py-7">
+      <h2 class="title-primary text-center mb-5 px-4">{{ 'pin.relatedPins' | translate }}</h2>
       <app-masonry-grid [pins]="relatedPins()" />
     </div>
   }

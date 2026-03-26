@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
-      class="tab-btn text-base fw-semibold text-3xl-title"
+      class="tab-btn text-base fw-semibold text-7-title"
       [class.active]="active()"
       (click)="_onClick()"
       role="tab"
