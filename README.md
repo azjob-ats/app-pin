@@ -359,3 +359,301 @@ Este pull request resolve a issue [#123](https://github.com/seu-repositorio/issu
 
 - Certifique-se de configurar as variáveis de ambiente para as credenciais do Google e Facebook antes de testar.
 - Esta implementação utiliza `passport-google-oauth20` e `passport-facebook` para a integração OAuth.
+
+## Issue Template (Chore)
+# 🚧 [Chore] Short description
+
+## 📌 Summary
+Describe the maintenance task.
+
+---
+
+## 🔧 Changes Made
+- Dependency updates
+- Build configuration
+- Tooling adjustments
+- CI/CD improvements
+
+---
+
+## 📦 Dependencies Updated (if applicable)
+- Package:
+- From:
+- To:
+
+---
+
+## ⚠️ Breaking Changes
+- [ ] Yes
+- [ ] No
+
+---
+
+## 🎯 Objective
+- Improve project stability
+- Maintain dependencies
+- Improve developer experience
+
+---
+
+## 🏷️ Additional Context
+Any extra notes.
+
+## Issue Template (Style)
+# 💄 [Style] Short description
+
+## 📌 Summary
+Describe styling or UI-related changes.
+
+---
+
+## 🎨 Changes Made
+- UI adjustments
+- CSS improvements
+- Layout fixes
+- Design consistency updates
+
+---
+
+## 📷 Before / After (optional)
+Add screenshots if applicable.
+
+---
+
+## 🎯 Objective
+- Improve visual consistency
+- Enhance UX
+- Fix layout issues
+
+---
+
+## ⚠️ Breaking Changes
+- [ ] Yes
+- [ ] No
+
+---
+
+## 🏷️ Additional Context
+Any extra notes.
+
+## Issue Template (Test)
+# 🧪 [Test] Short description
+
+## 📌 Summary
+Describe what tests were added or updated.
+
+---
+
+## 🎯 Objective
+Explain the purpose of these tests.
+
+- Increase coverage
+- Prevent regression
+- Validate new feature
+
+---
+
+## 🔬 Test Cases
+List key test scenarios:
+
+- 
+- 
+- 
+
+---
+
+## 📊 Coverage Impact
+- Previous coverage:
+- New coverage:
+
+---
+
+## ⚙️ Test Type
+- [ ] Unit
+- [ ] Integration
+- [ ] E2E
+
+---
+
+## 🏷️ Additional Context
+Any relevant details.
+
+## Issue Template (Refactor)
+# 📦 [Refactor] Short description
+
+## 📌 Summary
+Describe what was refactored.
+
+---
+
+## 🎯 Objective
+Explain why this refactor was needed.
+
+- Improve readability
+- Reduce complexity
+- Improve performance
+- Standardize code
+
+---
+
+## 🔧 Changes Made
+List the main changes:
+
+- 
+- 
+- 
+
+---
+
+## ⚠️ Breaking Changes
+- [ ] Yes
+- [ ] No
+
+If yes, describe:
+
+---
+
+## 🧪 Impact on Tests
+- Tests updated?
+- Coverage affected?
+
+---
+
+## 📈 Benefits
+Describe improvements:
+
+- Maintainability
+- Performance
+- Scalability
+
+---
+
+## 🏷️ Additional Context
+Any extra notes.
+
+## Issue Template (Revert)
+# ⏪️ [Revert] Short description of reverted change
+
+## 📌 Summary
+Describe what change is being reverted.
+
+---
+
+## 🔙 Reverted Change
+Reference the commit, PR, or feature being reverted.
+
+- Commit: 
+- PR: 
+- Feature: 
+
+---
+
+## ❗ Reason for Revert
+Explain why this change needs to be reverted.
+
+- Bug introduced?
+- Breaking change?
+- Performance issue?
+
+---
+
+## ⚠️ Impact
+Describe the impact of reverting this change.
+
+- Affected features
+- Side effects
+
+---
+
+## 🔄 Next Steps (optional)
+- Re-implement fix?
+- Investigate root cause?
+
+---
+
+## 🏷️ Additional Context
+Any additional details.
+
+## Issue Template (Feature)
+# ✨ [Feature] Short and clear title
+
+## 📌 Summary
+Provide a brief summary of the feature.
+
+Explain in one or two sentences what you want to achieve.
+
+---
+
+## 🎯 Problem / Motivation
+Describe the problem this feature solves.
+
+- What is missing today?
+- Why is this important?
+- Who is affected?
+
+---
+
+## 💡 Proposed Solution
+Describe your proposed solution in detail.
+
+- How should it work?
+- What would the API look like?
+- How would users interact with it?
+
+Example:
+
+```ts
+// example usage
+<component [prop]="value"></component>
+```
+
+## Issue Template (fix)
+# 🐛 [fix] Short and clear title
+
+## 📌 Description
+A clear and concise description of the problem.
+
+Explain what is happening and why it is an issue.
+
+---
+
+## 🔄 Steps to Reproduce
+Steps to reproduce the behavior:
+
+1. 
+2. 
+3. 
+4. 
+
+---
+
+## 📷 Expected Behavior
+Describe what you expected to happen instead.
+
+---
+
+## ❌ Actual Behavior
+Describe what actually happens.
+
+---
+
+## 🖥️ Screenshots (if applicable)
+Add screenshots or recordings to help explain your problem.
+
+---
+
+## 🏗️ Environment
+Provide details about your environment:
+
+- Library/Package Version:  
+- Framework Version (e.g., Angular):  
+- Browser & Version:  
+- Operating System:  
+
+---
+
+## 📜 Relevant Logs & Errors
+Paste any relevant logs, stack traces, or compiler errors.
+
+
+## Issue Template (Bug)
