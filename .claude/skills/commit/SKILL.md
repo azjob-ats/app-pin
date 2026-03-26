@@ -56,3 +56,4 @@ emoji type(scope): description
 4. Identifique o scope (componente, serviço ou área afetada)
 5. Escreva uma descrição imperativa e concisa em inglês
 6. Exiba a sugestão formatada e pronta para copiar
+7. Confirme com o usuário se ele deseja commitar
