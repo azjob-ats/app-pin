@@ -278,6 +278,8 @@ emoji type(scope): description
 4. **Colon and space**
 5. **Clear, imperative description**
 
+**Do NOT add `Co-Authored-By` trailers to commits.**
+
 **Examples of valid commits:**
 
 ```bash
