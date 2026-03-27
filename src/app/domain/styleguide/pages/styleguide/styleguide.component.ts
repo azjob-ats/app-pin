@@ -70,6 +70,7 @@ import { SidebarFooterComponent } from '@shared/components/sidebar/sidebar-foote
 import { TopbarComponent } from '@shared/components/topbar/topbar.component';
 import { TopbarContentComponent } from '@shared/components/topbar/topbar-content.component';
 import { TopbarGroupComponent } from '@shared/components/topbar/topbar-group.component';
+import { environment } from '@env/environment';
 
 export interface NavItem {
   id: string;
@@ -88,6 +89,7 @@ export interface SearchResult {
   label: string;
   crumb: string;
 }
+
 
 @Component({
   selector: 'app-styleguide',
@@ -154,6 +156,7 @@ export class StyleguideComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
+  protected APP_NAME = `${environment.APP_NAME}`; 
   readonly isDark = signal(false);
   readonly expandedGroups = signal<Set<string>>(new Set(['utilities', 'standard', 'components']));
 
