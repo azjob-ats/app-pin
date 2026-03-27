@@ -1,4 +1,4 @@
-import { Pin } from '../interfaces/pin.interface';
+import { Pin } from '@shared/interfaces/pin.interface';
 
 const AUTHORS = [
   { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },

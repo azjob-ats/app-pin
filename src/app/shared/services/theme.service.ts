@@ -1,5 +1,5 @@
 import { Injectable, signal, effect } from '@angular/core';
-import { Theme } from '../enums/theme.enum';
+import { Theme } from '@shared/enums/theme.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {

@@ -1,4 +1,4 @@
-import { Notification } from '../interfaces/notification.interface';
+import { Notification } from '@shared/interfaces/notification.interface';
 
 export const MOCK_NOTIFICATIONS: Notification[] = [
   {

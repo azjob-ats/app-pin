@@ -3,17 +3,17 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { ButtonLikeComponent } from '../../../../shared/components/button-like/button-like.component';
-import { ButtonInscriptionComponent } from '../../../../shared/components/button-inscription/button-inscription.component';
-import { CommentInputComponent } from '../../../../shared/components/comment-input/comment-input.component';
-import { CommentSubmitComponent } from '../../../../shared/components/comment-submit/comment-submit.component';
-import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
-import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
-import { Comment } from '../../../../shared/interfaces/comment.interface';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
-import { PinService } from '../../../../shared/services/pin.service';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
+import { ButtonInscriptionComponent } from '@shared/components/button-inscription/button-inscription.component';
+import { CommentInputComponent } from '@shared/components/comment-input/comment-input.component';
+import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
+import { FollowButtonComponent } from '@shared/components/follow-button/follow-button.component';
+import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
+import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
+import { Comment } from '@shared/interfaces/comment.interface';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { PinService } from '@shared/services/pin.service';
 
 const MOCK_COMMENTS: Comment[] = [
   {

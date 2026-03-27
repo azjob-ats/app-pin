@@ -1,9 +1,9 @@
 import { Component, signal, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '../../../../shared/components/card/card.component';
-import { CodeDigitsComponent } from '../../../../shared/components/code-digits/code-digits.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '@shared/components/card/card.component';
+import { CodeDigitsComponent } from '@shared/components/code-digits/code-digits.component';
 
 @Component({
   selector: 'app-verify-code',

@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
-import { Notification } from '../interfaces/notification.interface';
-import { MOCK_NOTIFICATIONS } from '../mocks/notifications.mock';
+import { Notification } from '@shared/interfaces/notification.interface';
+import { MOCK_NOTIFICATIONS } from '@shared/mocks/notifications.mock';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {

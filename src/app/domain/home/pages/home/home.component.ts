@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, ElementRef, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
-import { ChipScrollComponent } from '../../../../shared/components/chip-scroll/chip-scroll.component';
-import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
-import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
-import { Board } from '../../../../shared/interfaces/board.interface';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
-import { BoardService } from '../../../../shared/services/board.service';
-import { PinService } from '../../../../shared/services/pin.service';
+import { BoardCardComponent } from '@shared/components/board-card/board-card.component';
+import { ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.component';
+import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
+import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
+import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { Board } from '@shared/interfaces/board.interface';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { BoardService } from '@shared/services/board.service';
+import { PinService } from '@shared/services/pin.service';
 
 @Component({
   selector: 'app-home',

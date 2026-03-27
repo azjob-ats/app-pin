@@ -1,4 +1,4 @@
-import { Board } from '../interfaces/board.interface';
+import { Board } from '@shared/interfaces/board.interface';
 
 export const MOCK_BOARDS: Board[] = [
   {

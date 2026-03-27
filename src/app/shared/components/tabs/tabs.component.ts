@@ -7,8 +7,8 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { AppTabPanelComponent } from './tab-panel.component';
-import { AppTabComponent } from './tab.component';
+import { AppTabPanelComponent } from '@shared/components/tabs/tab-panel.component';
+import { AppTabComponent } from '@shared/components/tabs/tab.component';
 
 @Component({
   selector: 'app-tabs',

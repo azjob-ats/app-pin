@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
-import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
-import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { AppTabPanelComponent } from '../../../../shared/components/tabs/tab-panel.component';
-import { AppTabComponent } from '../../../../shared/components/tabs/tab.component';
-import { AppTabsComponent } from '../../../../shared/components/tabs/tabs.component';
-import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
-import { Board } from '../../../../shared/interfaces/board.interface';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
-import { User } from '../../../../shared/interfaces/user.interface';
-import { BoardService } from '../../../../shared/services/board.service';
-import { PinService } from '../../../../shared/services/pin.service';
-import { UserService } from '../../../../shared/services/user.service';
+import { BoardCardComponent } from '@shared/components/board-card/board-card.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
+import { FollowButtonComponent } from '@shared/components/follow-button/follow-button.component';
+import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
+import { AppTabPanelComponent } from '@shared/components/tabs/tab-panel.component';
+import { AppTabComponent } from '@shared/components/tabs/tab.component';
+import { AppTabsComponent } from '@shared/components/tabs/tabs.component';
+import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
+import { Board } from '@shared/interfaces/board.interface';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { User } from '@shared/interfaces/user.interface';
+import { BoardService } from '@shared/services/board.service';
+import { PinService } from '@shared/services/pin.service';
+import { UserService } from '@shared/services/user.service';
 
 @Component({
   selector: 'app-profile',

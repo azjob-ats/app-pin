@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
-import { Board } from '../interfaces/board.interface';
-import { MOCK_BOARDS } from '../mocks/boards.mock';
+import { Board } from '@shared/interfaces/board.interface';
+import { MOCK_BOARDS } from '@shared/mocks/boards.mock';
 
 @Injectable({ providedIn: 'root' })
 export class BoardService {

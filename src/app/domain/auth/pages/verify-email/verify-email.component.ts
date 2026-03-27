@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '../../../../shared/components/card/card.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '@shared/components/card/card.component';
 
 @Component({
   selector: 'app-verify-email',

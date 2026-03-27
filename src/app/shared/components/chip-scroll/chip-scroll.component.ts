@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, effect, input, output, viewChild, viewChildren } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { SplitButtonComponent } from '../splitbutton/splitbutton.component';
+import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
 
 export interface ChipItem {
   key: string;

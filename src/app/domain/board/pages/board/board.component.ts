@@ -2,15 +2,15 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BoardService } from '../../../../shared/services/board.service';
-import { PinService } from '../../../../shared/services/pin.service';
-import { Board } from '../../../../shared/interfaces/board.interface';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
-import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
-import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
-import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { BoardService } from '@shared/services/board.service';
+import { PinService } from '@shared/services/pin.service';
+import { Board } from '@shared/interfaces/board.interface';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
+import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
+import { FollowButtonComponent } from '@shared/components/follow-button/follow-button.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-board',

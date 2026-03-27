@@ -5,11 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { InputComponent } from '../../../../shared/components/input/input.component';
-import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
-import { SelectComponent, SelectOption } from '../../../../shared/components/select/select.component';
-import { DividerComponent } from '../../../../shared/components/divider/divider.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { InputComponent } from '@shared/components/input/input.component';
+import { TextareaComponent } from '@shared/components/textarea/textarea.component';
+import { SelectComponent, SelectOption } from '@shared/components/select/select.component';
+import { DividerComponent } from '@shared/components/divider/divider.component';
 import {
   CardComponent,
   CardHeaderComponent,
@@ -17,43 +17,43 @@ import {
   CardDescriptionComponent,
   CardContentComponent,
   CardFooterComponent,
-} from '../../../../shared/components/card/card.component';
-import { UserAvatarComponent } from '../../../../shared/components/user-avatar/user-avatar.component';
-import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
-import { DrawerComponent } from '../../../../shared/components/drawer/drawer.component';
-import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
-import { FollowButtonComponent } from '../../../../shared/components/follow-button/follow-button.component';
-import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
-import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { AppTabsComponent } from '../../../../shared/components/tabs/tabs.component';
-import { AppTabComponent } from '../../../../shared/components/tabs/tab.component';
-import { AppTabPanelComponent } from '../../../../shared/components/tabs/tab-panel.component';
-import { PopoverComponent } from '../../../../shared/components/popover/popover.component';
-import { UploadAreaComponent } from '../../../../shared/components/upload-area/upload-area.component';
-import { CodeDigitsComponent } from '../../../../shared/components/code-digits/code-digits.component';
-import { ButtonLikeComponent } from '../../../../shared/components/button-like/button-like.component';
-import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
-import { NotificationItemComponent } from '../../../../shared/components/notification-item/notification-item.component';
-import { ButtonInscriptionComponent } from '../../../../shared/components/button-inscription/button-inscription.component';
-import { ButtonProviderComponent } from '../../../../shared/components/button-provider/button-provider/button-provider.component';
-import { CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent } from '../../../../shared/components/card-board/card-board.component';
-import { ChipScrollComponent, ChipItem } from '../../../../shared/components/chip-scroll/chip-scroll.component';
-import { SplitButtonComponent } from '../../../../shared/components/splitbutton/splitbutton.component';
-import { PinCardComponent } from '../../../../shared/components/pin-card/pin-card.component';
-import { Notification } from '../../../../shared/interfaces/notification.interface';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
-import { Board } from '../../../../shared/interfaces/board.interface';
-import { CommentInputComponent } from '../../../../shared/components/comment-input/comment-input.component';
-import { CommentSubmitComponent } from '../../../../shared/components/comment-submit/comment-submit.component';
-import { BoardCardComponent } from '../../../../shared/components/board-card/board-card.component';
-import { SidebarComponent } from '../../../../shared/components/sidebar/sidebar.component';
-import { SidebarHeaderComponent } from '../../../../shared/components/sidebar/sidebar-header.component';
-import { SidebarContentComponent } from '../../../../shared/components/sidebar/sidebar-content.component';
-import { SidebarGroupComponent } from '../../../../shared/components/sidebar/sidebar-group.component';
-import { SidebarFooterComponent } from '../../../../shared/components/sidebar/sidebar-footer.component';
-import { TopbarComponent } from '../../../../shared/components/topbar/topbar.component';
-import { TopbarContentComponent } from '../../../../shared/components/topbar/topbar-content.component';
-import { TopbarGroupComponent } from '../../../../shared/components/topbar/topbar-group.component';
+} from '@shared/components/card/card.component';
+import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
+import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
+import { DrawerComponent } from '@shared/components/drawer/drawer.component';
+import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
+import { FollowButtonComponent } from '@shared/components/follow-button/follow-button.component';
+import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
+import { AppTabsComponent } from '@shared/components/tabs/tabs.component';
+import { AppTabComponent } from '@shared/components/tabs/tab.component';
+import { AppTabPanelComponent } from '@shared/components/tabs/tab-panel.component';
+import { PopoverComponent } from '@shared/components/popover/popover.component';
+import { UploadAreaComponent } from '@shared/components/upload-area/upload-area.component';
+import { CodeDigitsComponent } from '@shared/components/code-digits/code-digits.component';
+import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
+import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
+import { NotificationItemComponent } from '@shared/components/notification-item/notification-item.component';
+import { ButtonInscriptionComponent } from '@shared/components/button-inscription/button-inscription.component';
+import { ButtonProviderComponent } from '@shared/components/button-provider/button-provider/button-provider.component';
+import { CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent } from '@shared/components/card-board/card-board.component';
+import { ChipScrollComponent, ChipItem } from '@shared/components/chip-scroll/chip-scroll.component';
+import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
+import { PinCardComponent } from '@shared/components/pin-card/pin-card.component';
+import { Notification } from '@shared/interfaces/notification.interface';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { Board } from '@shared/interfaces/board.interface';
+import { CommentInputComponent } from '@shared/components/comment-input/comment-input.component';
+import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
+import { BoardCardComponent } from '@shared/components/board-card/board-card.component';
+import { SidebarComponent } from '@shared/components/sidebar/sidebar.component';
+import { SidebarHeaderComponent } from '@shared/components/sidebar/sidebar-header.component';
+import { SidebarContentComponent } from '@shared/components/sidebar/sidebar-content.component';
+import { SidebarGroupComponent } from '@shared/components/sidebar/sidebar-group.component';
+import { SidebarFooterComponent } from '@shared/components/sidebar/sidebar-footer.component';
+import { TopbarComponent } from '@shared/components/topbar/topbar.component';
+import { TopbarContentComponent } from '@shared/components/topbar/topbar-content.component';
+import { TopbarGroupComponent } from '@shared/components/topbar/topbar-group.component';
 
 export interface NavItem {
   id: string;

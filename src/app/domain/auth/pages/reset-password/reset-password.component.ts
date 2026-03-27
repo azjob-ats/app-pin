@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { InputComponent } from '../../../../shared/components/input/input.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent } from '../../../../shared/components/card/card.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { InputComponent } from '@shared/components/input/input.component';
+import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent } from '@shared/components/card/card.component';
 
 @Component({
   selector: 'app-reset-password',

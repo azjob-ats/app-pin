@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Board } from '../../interfaces/board.interface';
+import { Board } from '@shared/interfaces/board.interface';
 
 @Component({
   selector: 'app-board-card',

@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BoardService } from '../../../../shared/services/board.service';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { InputComponent } from '../../../../shared/components/input/input.component';
-import { TextareaComponent } from '../../../../shared/components/textarea/textarea.component';
-import { SelectComponent, SelectOption } from '../../../../shared/components/select/select.component';
-import { UploadAreaComponent } from '../../../../shared/components/upload-area/upload-area.component';
+import { BoardService } from '@shared/services/board.service';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { InputComponent } from '@shared/components/input/input.component';
+import { TextareaComponent } from '@shared/components/textarea/textarea.component';
+import { SelectComponent, SelectOption } from '@shared/components/select/select.component';
+import { UploadAreaComponent } from '@shared/components/upload-area/upload-area.component';
 import {
   CardBoardComponent,
   CardBodyComponent,
@@ -16,7 +16,7 @@ import {
   CardHeaderComponent,
   CardSectionLeftComponent,
   CardSectionRightComponent,
-} from '../../../../shared/components/card-board/card-board.component';
+} from '@shared/components/card-board/card-board.component';
 
 @Component({
   selector: 'app-create',

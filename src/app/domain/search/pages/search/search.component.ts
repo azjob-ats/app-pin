@@ -2,15 +2,15 @@ import { Component, OnInit, signal, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { PinService } from '../../../../shared/services/pin.service';
-import { Pin } from '../../../../shared/interfaces/pin.interface';
-import { MasonryGridComponent } from '../../../../shared/components/masonry-grid/masonry-grid.component';
-import { SkeletonLoaderComponent } from '../../../../shared/components/skeleton-loader/skeleton-loader.component';
-import { InfiniteScrollComponent } from '../../../../shared/components/infinite-scroll/infinite-scroll.component';
-import { SearchBarComponent } from '../../../../shared/components/search-bar/search-bar.component';
-import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
-import { ChipScrollComponent, ChipScrollTextComponent } from '../../../../shared/components/chip-scroll/chip-scroll.component';
-import { SplitButtonComponent } from '../../../../shared/components/splitbutton/splitbutton.component';
+import { PinService } from '@shared/services/pin.service';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
+import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
+import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
+import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
+import { ChipScrollComponent, ChipScrollTextComponent } from '@shared/components/chip-scroll/chip-scroll.component';
+import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
 
 @Component({
   selector: 'app-search',

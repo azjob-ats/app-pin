@@ -1,7 +1,7 @@
 import { Component, input, output, HostListener, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Pin } from '../../interfaces/pin.interface';
-import { PinCardComponent } from '../pin-card/pin-card.component';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { PinCardComponent } from '@shared/components/pin-card/pin-card.component';
 
 @Component({
   selector: 'app-masonry-grid',

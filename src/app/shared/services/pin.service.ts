@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Observable, of, delay, BehaviorSubject } from 'rxjs';
-import { Pin } from '../interfaces/pin.interface';
-import { generateMockPins, MOCK_PIN_DETAIL, MOCK_PINS } from '../mocks/pins.mock';
+import { Pin } from '@shared/interfaces/pin.interface';
+import { generateMockPins, MOCK_PIN_DETAIL, MOCK_PINS } from '@shared/mocks/pins.mock';
 
 @Injectable({ providedIn: 'root' })
 export class PinService {
