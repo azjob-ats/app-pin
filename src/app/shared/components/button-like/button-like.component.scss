@@ -9,12 +9,18 @@
   &__icon {
     font-size: var(--text-3xl);
     color: var(--pin-text-primary);
-    transition: color var(--pin-transition), font-variation-settings var(--pin-transition);
+    transition:
+      color var(--pin-transition),
+      font-variation-settings var(--pin-transition);
   }
 
   &--active &__icon {
     color: var(--pin-red);
-    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+    font-variation-settings:
+      'FILL' 1,
+      'wght' 500,
+      'GRAD' 0,
+      'opsz' 24;
   }
 
   &__count {

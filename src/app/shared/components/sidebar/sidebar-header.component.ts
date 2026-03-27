@@ -8,15 +8,19 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
       <ng-content />
     </div>
   `,
-  styles: [`
-    :host {
-      display: contents;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class SidebarHeaderComponent {
   enable(): void {}
   disable(): void {}
   resetToInitialState(): void {}
-  isRequired(): boolean { return false; }
+  isRequired(): boolean {
+    return false;
+  }
 }

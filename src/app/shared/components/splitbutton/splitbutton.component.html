@@ -1,7 +1,12 @@
-<div class="splitbutton" #wrapper [class.splitbutton--disabled]="disabled()">
-
+<div
+  class="splitbutton"
+  #wrapper
+  [class.splitbutton--disabled]="disabled()">
   @if (badge()) {
-    <span class="splitbutton__badge" aria-label="Ação pendente" role="status"></span>
+    <span
+      class="splitbutton__badge"
+      aria-label="Ação pendente"
+      role="status"></span>
   }
 
   <button
@@ -9,12 +14,13 @@
     type="button"
     [disabled]="disabled()"
     (click)="onMainClick()"
-    [attr.aria-label]="label()"
-  >
+    [attr.aria-label]="label()">
     {{ label() }}
   </button>
 
-  <div class="splitbutton__divider" aria-hidden="true"></div>
+  <div
+    class="splitbutton__divider"
+    aria-hidden="true"></div>
 
   <button
     class="splitbutton__trigger"
@@ -23,17 +29,14 @@
     [attr.aria-expanded]="isOpen()"
     aria-haspopup="dialog"
     aria-label="Abrir opções"
-    (click)="onDropdownClick($event)"
-  >
+    (click)="onDropdownClick($event)">
     <span
       class="splitbutton__arrow material-symbols-rounded"
       [class.splitbutton__arrow--open]="isOpen()"
-      aria-hidden="true"
-    >
+      aria-hidden="true">
       expand_more
     </span>
   </button>
-
 </div>
 
 @if (isOpen()) {
@@ -41,8 +44,7 @@
     class="splitbutton-backdrop"
     (click)="close()"
     role="presentation"
-    aria-hidden="true"
-  ></div>
+    aria-hidden="true"></div>
 
   <div
     class="splitbutton-panel"
@@ -50,8 +52,7 @@
     [attr.aria-label]="label() + ' opções'"
     [style.top.px]="panelTop()"
     [style.left.px]="panelLeft()"
-    [style.min-width.px]="panelWidth()"
-  >
+    [style.min-width.px]="panelWidth()">
     <ng-content></ng-content>
   </div>
 }

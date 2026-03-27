@@ -2,12 +2,28 @@ import { Component, signal, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '@shared/components/card/card.component';
+import {
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleComponent,
+  CardDescriptionComponent,
+  CardContentComponent,
+} from '@shared/components/card/card.component';
 import { CodeDigitsComponent } from '@shared/components/code-digits/code-digits.component';
 
 @Component({
   selector: 'app-verify-code',
-  imports: [RouterLink, TranslateModule, ButtonComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent, CodeDigitsComponent],
+  imports: [
+    RouterLink,
+    TranslateModule,
+    ButtonComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardTitleComponent,
+    CardDescriptionComponent,
+    CardContentComponent,
+    CodeDigitsComponent,
+  ],
   template: `
     <app-card>
       <app-card-header>
@@ -15,7 +31,9 @@ import { CodeDigitsComponent } from '@shared/components/code-digits/code-digits.
           <span class="material-symbols-rounded text-7xl pin-red">pin</span>
         </div>
         <app-card-title>{{ 'auth.verifyCode' | translate }}</app-card-title>
-        <app-card-description>Enter the 6-digit code sent to your email address.</app-card-description>
+        <app-card-description
+          >Enter the 6-digit code sent to your email address.</app-card-description
+        >
       </app-card-header>
 
       <app-card-content>
@@ -28,7 +46,8 @@ import { CodeDigitsComponent } from '@shared/components/code-digits/code-digits.
           [loading]="isLoading()"
           [disabled]="codeValue().length < 6"
           (clicked)="onSubmit()"
-        >Verify</app-button>
+          >Verify</app-button
+        >
 
         <a routerLink="" class="forgot-link text-center">Resend code</a>
 
@@ -38,7 +57,7 @@ import { CodeDigitsComponent } from '@shared/components/code-digits/code-digits.
         </a>
       </app-card-content>
     </app-card>
-  `
+  `,
 })
 export class VerifyCodeComponent {
   readonly codeValue = signal('');
@@ -53,6 +72,9 @@ export class VerifyCodeComponent {
   onSubmit(): void {
     if (this.codeValue().length < 6) return;
     this.isLoading.set(true);
-    setTimeout(() => { this.isLoading.set(false); this.router.navigate(['/home']); }, 1200);
+    setTimeout(() => {
+      this.isLoading.set(false);
+      this.router.navigate(['/home']);
+    }, 1200);
   }
 }

@@ -9,15 +9,19 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     </nav>
   `,
   styleUrl: './sidebar-content.component.scss',
-  styles: [`
-    :host {
-      display: contents;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class SidebarContentComponent {
   enable(): void {}
   disable(): void {}
   resetToInitialState(): void {}
-  isRequired(): boolean { return false; }
+  isRequired(): boolean {
+    return false;
+  }
 }

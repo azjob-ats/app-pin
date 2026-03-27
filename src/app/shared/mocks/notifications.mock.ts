@@ -7,7 +7,12 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'started following you',
     isRead: false,
     createdAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
-    actor: { id: 'u2', username: 'design_lover', displayName: 'Design Lover', avatarUrl: 'https://i.pravatar.cc/150?img=2' },
+    actor: {
+      id: 'u2',
+      username: 'design_lover',
+      displayName: 'Design Lover',
+      avatarUrl: 'https://i.pravatar.cc/150?img=2',
+    },
   },
   {
     id: 'n2',
@@ -15,8 +20,17 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'saved your pin',
     isRead: false,
     createdAt: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-    actor: { id: 'u3', username: 'art_studio', displayName: 'Art Studio', avatarUrl: 'https://i.pravatar.cc/150?img=3' },
-    pin: { id: 'pin-1', imageUrl: 'https://picsum.photos/seed/nature1-1/200/200', title: 'Sunset vibes in the mountains' },
+    actor: {
+      id: 'u3',
+      username: 'art_studio',
+      displayName: 'Art Studio',
+      avatarUrl: 'https://i.pravatar.cc/150?img=3',
+    },
+    pin: {
+      id: 'pin-1',
+      imageUrl: 'https://picsum.photos/seed/nature1-1/200/200',
+      title: 'Sunset vibes in the mountains',
+    },
   },
   {
     id: 'n3',
@@ -24,8 +38,17 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'commented on your pin: "Absolutely stunning!"',
     isRead: false,
     createdAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-    actor: { id: 'u4', username: 'photo_world', displayName: 'Photo World', avatarUrl: 'https://i.pravatar.cc/150?img=4' },
-    pin: { id: 'pin-2', imageUrl: 'https://picsum.photos/seed/city2-2/200/200', title: 'Minimal workspace setup' },
+    actor: {
+      id: 'u4',
+      username: 'photo_world',
+      displayName: 'Photo World',
+      avatarUrl: 'https://i.pravatar.cc/150?img=4',
+    },
+    pin: {
+      id: 'pin-2',
+      imageUrl: 'https://picsum.photos/seed/city2-2/200/200',
+      title: 'Minimal workspace setup',
+    },
   },
   {
     id: 'n4',
@@ -33,8 +56,17 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'started following your board Travel Inspiration',
     isRead: true,
     createdAt: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
-    actor: { id: 'u5', username: 'creative_hub', displayName: 'Creative Hub', avatarUrl: 'https://i.pravatar.cc/150?img=5' },
-    board: { id: 'board-1', name: 'Travel Inspiration', coverImageUrl: 'https://picsum.photos/seed/board1/200/200' },
+    actor: {
+      id: 'u5',
+      username: 'creative_hub',
+      displayName: 'Creative Hub',
+      avatarUrl: 'https://i.pravatar.cc/150?img=5',
+    },
+    board: {
+      id: 'board-1',
+      name: 'Travel Inspiration',
+      coverImageUrl: 'https://picsum.photos/seed/board1/200/200',
+    },
   },
   {
     id: 'n5',
@@ -42,8 +74,17 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'saved your pin',
     isRead: true,
     createdAt: new Date(Date.now() - 48 * 3600 * 1000).toISOString(),
-    actor: { id: 'u2', username: 'design_lover', displayName: 'Design Lover', avatarUrl: 'https://i.pravatar.cc/150?img=2' },
-    pin: { id: 'pin-3', imageUrl: 'https://picsum.photos/seed/art3-3/200/200', title: 'Floral watercolor art' },
+    actor: {
+      id: 'u2',
+      username: 'design_lover',
+      displayName: 'Design Lover',
+      avatarUrl: 'https://i.pravatar.cc/150?img=2',
+    },
+    pin: {
+      id: 'pin-3',
+      imageUrl: 'https://picsum.photos/seed/art3-3/200/200',
+      title: 'Floral watercolor art',
+    },
   },
   {
     id: 'n6',
@@ -51,7 +92,12 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'started following you',
     isRead: true,
     createdAt: new Date(Date.now() - 72 * 3600 * 1000).toISOString(),
-    actor: { id: 'u6', username: 'wanderlust', displayName: 'Wanderlust Soul', avatarUrl: 'https://i.pravatar.cc/150?img=6' },
+    actor: {
+      id: 'u6',
+      username: 'wanderlust',
+      displayName: 'Wanderlust Soul',
+      avatarUrl: 'https://i.pravatar.cc/150?img=6',
+    },
   },
   {
     id: 'n7',
@@ -59,7 +105,16 @@ export const MOCK_NOTIFICATIONS: Notification[] = [
     message: 'mentioned you in a comment',
     isRead: true,
     createdAt: new Date(Date.now() - 5 * 24 * 3600 * 1000).toISOString(),
-    actor: { id: 'u7', username: 'colorful_life', displayName: 'Colorful Life', avatarUrl: 'https://i.pravatar.cc/150?img=7' },
-    pin: { id: 'pin-5', imageUrl: 'https://picsum.photos/seed/fashion6-5/200/200', title: 'Street fashion editorial' },
+    actor: {
+      id: 'u7',
+      username: 'colorful_life',
+      displayName: 'Colorful Life',
+      avatarUrl: 'https://i.pravatar.cc/150?img=7',
+    },
+    pin: {
+      id: 'pin-5',
+      imageUrl: 'https://picsum.photos/seed/fashion6-5/200/200',
+      title: 'Street fashion editorial',
+    },
   },
 ];

@@ -49,13 +49,13 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const username = this.route.snapshot.paramMap.get('username') ?? 'fondecranvip';
-    this.userService.getUserByUsername(username).subscribe(user => {
+    this.userService.getUserByUsername(username).subscribe((user) => {
       this.user.set(user);
       this.isLoading.set(false);
     });
-    this.pinService.getUserPins('u1').subscribe(pins => this.createdPins.set(pins));
-    this.pinService.getUserPins('u1', 1).subscribe(pins => this.savedPins.set(pins));
-    this.boardService.getUserBoards('u1').subscribe(boards => this.boards.set(boards));
+    this.pinService.getUserPins('u1').subscribe((pins) => this.createdPins.set(pins));
+    this.pinService.getUserPins('u1', 1).subscribe((pins) => this.savedPins.set(pins));
+    this.boardService.getUserBoards('u1').subscribe((boards) => this.boards.set(boards));
   }
 
   formatCount(n: number): string {

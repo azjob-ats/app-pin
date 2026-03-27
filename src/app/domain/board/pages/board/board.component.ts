@@ -15,7 +15,16 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslateModule, MasonryGridComponent, SkeletonLoaderComponent, InfiniteScrollComponent, FollowButtonComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    TranslateModule,
+    MasonryGridComponent,
+    SkeletonLoaderComponent,
+    InfiniteScrollComponent,
+    FollowButtonComponent,
+    ButtonComponent,
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
@@ -32,10 +41,10 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     const boardId = this.route.snapshot.paramMap.get('boardId') ?? 'board-1';
-    this.boardService.getBoardById(boardId).subscribe(board => {
+    this.boardService.getBoardById(boardId).subscribe((board) => {
       this.board.set(board);
     });
-    this.pinService.getBoardPins(boardId).subscribe(pins => {
+    this.pinService.getBoardPins(boardId).subscribe((pins) => {
       this.pins.set(pins);
       this.isLoading.set(false);
     });
@@ -45,8 +54,8 @@ export class BoardComponent implements OnInit {
     if (this.isLoadingMore() || !this.board()) return;
     this.isLoadingMore.set(true);
     this.page++;
-    this.pinService.getBoardPins(this.board()!.id, this.page).subscribe(pins => {
-      this.pins.update(c => [...c, ...pins]);
+    this.pinService.getBoardPins(this.board()!.id, this.page).subscribe((pins) => {
+      this.pins.update((c) => [...c, ...pins]);
       this.isLoadingMore.set(false);
     });
   }

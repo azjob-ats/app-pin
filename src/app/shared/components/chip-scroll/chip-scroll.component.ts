@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, effect, input, output, viewChild, viewChildren } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  effect,
+  input,
+  output,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
 
@@ -47,7 +56,7 @@ export class ChipScrollComponent {
       const chips = this.chips();
       const refs = this.chipRefs();
       const track = this.trackRef()?.nativeElement;
-      const idx = chips.findIndex(c => c.key === selected);
+      const idx = chips.findIndex((c) => c.key === selected);
       if (idx !== -1 && refs[idx] && track) {
         const chip = refs[idx].nativeElement;
         const chipLeft = chip.offsetLeft;
@@ -117,7 +126,9 @@ export class ChipScrollComponent {
   enable(): void {}
   disable(): void {}
   resetToInitialState(): void {}
-  isRequired(): boolean { return false; }
+  isRequired(): boolean {
+    return false;
+  }
 }
 
 @Component({
@@ -129,7 +140,7 @@ export class ChipScrollComponent {
     <div class="chip-scroll-bar">
       <div class="chip-scroll-track" #track>
         @for (chip of chips(); track chip.key) {
-          @if(chip.labelKey == 'Produto'){
+          @if (chip.labelKey == 'Produto') {
             <app-splitbutton
               #chipBtn
               [label]="chip.labelKey"
@@ -137,115 +148,144 @@ export class ChipScrollComponent {
               (mainClicked)="onEmpresasClick()"
             >
               <!-- conteúdo do modal/painel aqui class="text-color-accent" -->
-         
-              <div style="display: flex !important; justify-content: space-between; align-items: center;" >
+
+              <div
+                style="display: flex !important; justify-content: space-between; align-items: center;"
+              >
                 <div class="" style="padding: 5px;">
-                  <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+                  <p
+                    class="drawer-action-text"
+                    style="font-size: 16px; font-weight: bold !important;"
+                  >
                     Tema
                   </p>
-                  <p style="font-size: 16px;">
-                    
-                  </p>
+                  <p style="font-size: 16px;"></p>
                 </div>
                 <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-                  <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+                  <div
+                    style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;"
+                  >
                     <span class="material-symbols-rounded">arrow_forward_ios</span>
                   </div>
                 </div>
               </div>
-              <br>
-              <div style="display: flex !important; justify-content: space-between; align-items: center;">
+              <br />
+              <div
+                style="display: flex !important; justify-content: space-between; align-items: center;"
+              >
                 <div class="" style="padding: 5px;">
-                  <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+                  <p
+                    class="drawer-action-text"
+                    style="font-size: 16px; font-weight: bold !important;"
+                  >
                     Duração do video
                   </p>
-                  <p style="font-size: 16px;">
-                    
-                  </p>
+                  <p style="font-size: 16px;"></p>
                 </div>
                 <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-                  <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+                  <div
+                    style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;"
+                  >
                     <span class="material-symbols-rounded">arrow_forward_ios</span>
                   </div>
                 </div>
               </div>
-              <br>
-              <div style="display: flex !important; justify-content: space-between; align-items: center;">
+              <br />
+              <div
+                style="display: flex !important; justify-content: space-between; align-items: center;"
+              >
                 <div class="" style="padding: 5px;">
-                  <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+                  <p
+                    class="drawer-action-text"
+                    style="font-size: 16px; font-weight: bold !important;"
+                  >
                     Idioma
                   </p>
-                  <p style="font-size: 16px;">
-                    
-                  </p>
+                  <p style="font-size: 16px;"></p>
                 </div>
                 <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-                  <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+                  <div
+                    style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;"
+                  >
                     <span class="material-symbols-rounded">arrow_forward_ios</span>
                   </div>
                 </div>
               </div>
-              <br>
-              <div style="display: flex !important; justify-content: space-between; align-items: center;">
+              <br />
+              <div
+                style="display: flex !important; justify-content: space-between; align-items: center;"
+              >
                 <div class="" style="padding: 5px;">
-                  <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+                  <p
+                    class="drawer-action-text"
+                    style="font-size: 16px; font-weight: bold !important;"
+                  >
                     Data de publicação
                   </p>
-                  <p style="font-size: 16px;">
-                    
-                  </p>
+                  <p style="font-size: 16px;"></p>
                 </div>
                 <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-                  <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+                  <div
+                    style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;"
+                  >
                     <span class="material-symbols-rounded">arrow_forward_ios</span>
                   </div>
                 </div>
               </div>
-              <br>
-              <div style="display: flex !important; justify-content: space-between; align-items: center;" class="text-color-accent">
+              <br />
+              <div
+                style="display: flex !important; justify-content: space-between; align-items: center;"
+                class="text-color-accent"
+              >
                 <div class="" style="padding: 5px;">
-                  <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+                  <p
+                    class="drawer-action-text"
+                    style="font-size: 16px; font-weight: bold !important;"
+                  >
                     Popularidade
                   </p>
-                  <p style="font-size: 16px;">
-                    Mais recentes
-                  </p>
+                  <p style="font-size: 16px;">Mais recentes</p>
                 </div>
                 <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-                  <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+                  <div
+                    style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;"
+                  >
                     <span class="material-symbols-rounded">arrow_forward_ios</span>
                   </div>
                 </div>
               </div>
-              <br>
-              <div style="display: flex !important; justify-content: space-between; align-items: center;">
+              <br />
+              <div
+                style="display: flex !important; justify-content: space-between; align-items: center;"
+              >
                 <div class="" style="padding: 5px;">
-                  <p class="drawer-action-text" style="font-size: 16px; font-weight: bold !important;">
+                  <p
+                    class="drawer-action-text"
+                    style="font-size: 16px; font-weight: bold !important;"
+                  >
                     Origem do conteúdo
                   </p>
-                  <p style="font-size: 16px;">
-                    
-                  </p>
+                  <p style="font-size: 16px;"></p>
                 </div>
                 <div class="flex: 0 0 auto; width: 8.3333%;" style="padding: 8px;">
-                  <div style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;">
+                  <div
+                    style="display: flex !important; justify-content: flex-end !important; align-items: center !important; height: 100% !important; padding: 0rem !important;"
+                  >
                     <span class="material-symbols-rounded">arrow_forward_ios</span>
                   </div>
                 </div>
               </div>
-              <br>
-
-
+              <br />
             </app-splitbutton>
-          }@else {
-          <button
-            #chipBtn
-            class="chip"
-            [class.active]="selected() === chip.key"
-            (click)="chipSelect.emit(chip.key)"
-          >
-            <span>{{ chip.labelKey }}</span>
-          </button>
+          } @else {
+            <button
+              #chipBtn
+              class="chip"
+              [class.active]="selected() === chip.key"
+              (click)="chipSelect.emit(chip.key)"
+            >
+              <span>{{ chip.labelKey }}</span>
+            </button>
           }
         }
       </div>
@@ -253,7 +293,5 @@ export class ChipScrollComponent {
   `,
 })
 export class ChipScrollTextComponent extends ChipScrollComponent {
-    onEmpresasClick(){
-
-    }
+  onEmpresasClick() {}
 }

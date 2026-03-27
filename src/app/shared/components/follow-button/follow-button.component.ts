@@ -7,11 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
   standalone: true,
   imports: [CommonModule, TranslateModule],
   template: `
-    <button
-      class="follow-btn"
-      [class.following]="isFollowing()"
-      (click)="toggle()"
-    >
+    <button class="follow-btn" [class.following]="isFollowing()" (click)="toggle()">
       {{ isFollowing() ? ('profile.following_btn' | translate) : ('profile.follow' | translate) }}
     </button>
   `,
@@ -28,7 +24,7 @@ export class FollowButtonComponent implements OnInit {
   }
 
   toggle(): void {
-    this.isFollowing.update(v => !v);
+    this.isFollowing.update((v) => !v);
     this.followChange.emit(this.isFollowing());
   }
 }

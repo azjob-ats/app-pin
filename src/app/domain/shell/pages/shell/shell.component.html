@@ -1,10 +1,20 @@
-<div class="app-layout" [class.dark]="themeService.isDark">
-
+<div
+  class="app-layout"
+  [class.dark]="themeService.isDark">
   <!-- ── Sidebar (Desktop) ─────────────────────────────────────── -->
   <app-sidebar [hidden]="isMobile()">
     <app-sidebar-header>
-      <a routerLink="/home" class="logo-link d-flex align-center justify-center radius-circle" appTooltip="RealWe" tooltipPosition="right">
-        <img ngSrc="assets/images/logo-icon.png" class="logo-svg" width="48" height="48" alt="RealWe" />
+      <a
+        routerLink="/home"
+        class="logo-link d-flex align-center justify-center radius-circle"
+        appTooltip="RealWe"
+        tooltipPosition="right">
+        <img
+          ngSrc="assets/images/logo-icon.png"
+          class="logo-svg"
+          width="48"
+          height="48"
+          alt="RealWe" />
       </a>
     </app-sidebar-header>
 
@@ -18,8 +28,7 @@
             [routerLinkActiveOptions]="{ exact: !!item.exact }"
             [appTooltip]="item.labelKey | translate"
             tooltipPosition="right"
-            [tooltipDelay]="300"
-          >
+            [tooltipDelay]="300">
             @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
               <span class="nav-icon-wrap d-flex align-center justify-center">
                 <span class="material-symbols-rounded">{{ item.icon }}</span>
@@ -40,8 +49,7 @@
         appTooltip="Mais"
         tooltipPosition="right"
         [tooltipDelay]="300"
-        (click)="isMobileMenuOpen.set(!isMobileMenuOpen())"
-      >
+        (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
         <span class="nav-icon-wrap d-flex align-center justify-center">
           <span class="material-symbols-rounded">more_horiz</span>
         </span>
@@ -51,7 +59,6 @@
 
   <!-- ── Main content area ──────────────────────────────────────── -->
   <div class="main-area d-flex flex-col flex-1 overflow-hidden">
-
     <!-- ── Topbar ──────────────────────────────────────────────── -->
     <app-topbar>
       <ng-container>
@@ -60,8 +67,14 @@
           <div (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
             <span class="material-symbols-rounded">menu</span>
           </div>
-          <a routerLink="/home" class="mobile-logo d-flex align-center">
-            <img ngSrc="assets/images/logo-icon.png" width="28" height="28" alt="RealWe" />
+          <a
+            routerLink="/home"
+            class="mobile-logo d-flex align-center">
+            <img
+              ngSrc="assets/images/logo-icon.png"
+              width="28"
+              height="28"
+              alt="RealWe" />
           </a>
         }
 
@@ -74,22 +87,44 @@
         @if (!isMobile()) {
           <app-topbar-group>
             <!-- Theme toggle -->
-            <span [appTooltip]="(themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate" tooltipPosition="bottom">
-              <app-button variant="ghost" size="md" [icon]="themeService.isDark ? 'light_mode' : 'dark_mode'" (clicked)="toggleTheme()" />
+            <span
+              [appTooltip]="
+                (themeService.isDark ? 'common.lightMode' : 'common.darkMode') | translate
+              "
+              tooltipPosition="bottom">
+              <app-button
+                variant="ghost"
+                size="md"
+                [icon]="themeService.isDark ? 'light_mode' : 'dark_mode'"
+                (clicked)="toggleTheme()" />
             </span>
 
             <!-- Language -->
-            <span [appTooltip]="'common.language' | translate" tooltipPosition="bottom" (click)="langPanel.toggle($event)">
-              <app-button variant="ghost" size="md">
-                <span class="lang-flag text-5">{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span>
+            <span
+              [appTooltip]="'common.language' | translate"
+              tooltipPosition="bottom"
+              (click)="langPanel.toggle($event)">
+              <app-button
+                variant="ghost"
+                size="md">
+                <span
+                  class="lang-flag text-5"
+                  >{{ languageService.languages.find(l => l.code === languageService.currentLang())?.flag }}</span
+                >
               </app-button>
             </span>
 
             <!-- Auth buttons -->
-            <app-button variant="outline" size="sm" (clicked)="goToAuth()">
+            <app-button
+              variant="outline"
+              size="sm"
+              (clicked)="goToAuth()">
               {{ 'auth.login' | translate }}
             </app-button>
-            <app-button variant="primary" size="sm" (clicked)="goToRegister()">
+            <app-button
+              variant="primary"
+              size="sm"
+              (clicked)="goToRegister()">
               {{ 'auth.register' | translate }}
             </app-button>
           </app-topbar-group>
@@ -111,8 +146,7 @@
           class="bottom-nav-item d-flex flex-col align-center radius-3"
           [routerLink]="item.route"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: !!item.exact }"
-        >
+          [routerLinkActiveOptions]="{ exact: !!item.exact }">
           @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
             <span class="nav-icon-wrap d-flex align-center justify-center">
               <span class="material-symbols-rounded">{{ item.icon }}</span>
@@ -124,8 +158,13 @@
           <span class="bottom-nav-label text-3xs fw-semibold">{{ item.labelKey | translate }}</span>
         </a>
       }
-      <a class="bottom-nav-item d-flex flex-col align-center radius-3" routerLink="/fondecranvip">
-        <img src="https://i.pravatar.cc/32?img=10" alt="Profile" class="bottom-nav-avatar radius-circle" />
+      <a
+        class="bottom-nav-item d-flex flex-col align-center radius-3"
+        routerLink="/fondecranvip">
+        <img
+          src="https://i.pravatar.cc/32?img=10"
+          alt="Profile"
+          class="bottom-nav-avatar radius-circle" />
         <span class="bottom-nav-label text-3xs fw-semibold">{{ 'nav.profile' | translate }}</span>
       </a>
     </nav>
@@ -136,41 +175,46 @@
     [(visible)]="isMobileMenuOpen"
     position="left"
     styleClass="mobile-drawer"
-    [modal]="true"
-  >
+    [modal]="true">
     <ng-template #header>
       <div class="drawer-header d-flex align-center justify-between w-full">
-        <a routerLink="/home" class="drawer-logo d-flex align-center gap-2" (click)="isMobileMenuOpen.set(false)">
+        <a
+          routerLink="/home"
+          class="drawer-logo d-flex align-center gap-2"
+          (click)="isMobileMenuOpen.set(false)">
           <span class="material-symbols-rounded">arrow_left_alt</span>
           <span class="drawer-logo-text text-4 fw-bold">Mais</span>
         </a>
-        <app-button variant="ghost" size="sm" shape="circle" icon="close" [ariaLabel]="'common.close' | translate" (clicked)="isMobileMenuOpen.set(false)" />
+        <app-button
+          variant="ghost"
+          size="sm"
+          shape="circle"
+          icon="close"
+          [ariaLabel]="'common.close' | translate"
+          (clicked)="isMobileMenuOpen.set(false)" />
       </div>
     </ng-template>
 
     <div class="drawer-body">
-
       <!-- Configurações -->
       <div class="drawer-section">
         <div class="d-flex justify-between align-center">
           <div class="p-1">
-            <p class="drawer-action-text flex-1 text-3 fw-bold">
-              Configurações e Preferencias
-            </p>
+            <p class="drawer-action-text flex-1 text-3 fw-bold">Configurações e Preferencias</p>
             <p class="text-3">
-              Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as informações da sua conta.
+              Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as
+              informações da sua conta.
             </p>
           </div>
           <span class="material-symbols-rounded p-2 flex-shrink-0">arrow_forward_ios</span>
         </div>
-        <br>
+        <br />
         <div class="d-flex justify-between align-center">
           <div class="p-1">
-            <p class="drawer-action-text flex-1 text-3 fw-bold">
-              Feedback, Ajuda e Sobre
-            </p>
+            <p class="drawer-action-text flex-1 text-3 fw-bold">Feedback, Ajuda e Sobre</p>
             <p class="text-3">
-              Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a empresa
+              Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a
+              empresa
             </p>
           </div>
           <span class="material-symbols-rounded p-2 flex-shrink-0">arrow_forward_ios</span>
@@ -182,10 +226,16 @@
       <div class="drawer-footer d-flex flex-col gap-2">
         <div class="d-flex align-center gap-2 flex-shrink-0">
           <!-- Auth buttons -->
-          <app-button variant="outline" size="sm" (clicked)="goToAuth()">
+          <app-button
+            variant="outline"
+            size="sm"
+            (clicked)="goToAuth()">
             {{ 'auth.login' | translate }}
           </app-button>
-          <app-button variant="primary" size="sm" (clicked)="goToRegister()">
+          <app-button
+            variant="primary"
+            size="sm"
+            (clicked)="goToRegister()">
             {{ 'auth.register' | translate }}
           </app-button>
         </div>
@@ -194,14 +244,15 @@
   </app-drawer>
 
   <!-- ── Language overlay panel ─────────────────────────────────── -->
-  <app-popover #langPanel styleClass="lang-panel">
+  <app-popover
+    #langPanel
+    styleClass="lang-panel">
     <div class="lang-list d-flex flex-col">
       @for (lang of languageService.languages; track lang.code) {
         <button
           class="lang-item d-flex align-center radius-2 text-3 w-full"
           [class.active]="languageService.currentLang() === lang.code"
-          (click)="setLanguage(lang.code); langPanel.hide()"
-        >
+          (click)="setLanguage(lang.code); langPanel.hide()">
           <span class="lang-item-flag text-5">{{ lang.flag }}</span>
           <span class="lang-item-label">{{ lang.label }}</span>
           @if (languageService.currentLang() === lang.code) {
@@ -211,5 +262,4 @@
       }
     </div>
   </app-popover>
-
 </div>

@@ -42,12 +42,12 @@ export class AppTabsComponent {
     effect(() => {
       const active = this.activeTab();
 
-      this.tabs().forEach(tab => {
+      this.tabs().forEach((tab) => {
         tab._setActive(active === tab.id());
         tab._onClick = () => this.setActive(tab.id());
       });
 
-      this.panels().forEach(panel => {
+      this.panels().forEach((panel) => {
         panel._setVisible(active === panel.id());
       });
     });

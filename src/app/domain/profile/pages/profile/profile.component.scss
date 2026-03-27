@@ -6,9 +6,19 @@
 }
 
 // ── Skeleton sizes ────────────────────────────────────────────────────────
-.avatar-skeleton { width: var(--size-xl); height: var(--size-xl); border-radius: var(--radius-circle); }
-.name-skeleton   { width: 180px; height: 24px; }
-.bio-skeleton    { width: 280px; height: 16px; }
+.avatar-skeleton {
+  width: var(--size-xl);
+  height: var(--size-xl);
+  border-radius: var(--radius-circle);
+}
+.name-skeleton {
+  width: 180px;
+  height: 24px;
+}
+.bio-skeleton {
+  width: 280px;
+  height: 16px;
+}
 
 // ── Profile header ────────────────────────────────────────────────────────
 .profile-header {
@@ -39,7 +49,9 @@
   text-decoration: none;
   transition: color var(--pin-transition);
 
-  .material-symbols-rounded { font-size: 1.1rem; }
+  .material-symbols-rounded {
+    font-size: 1.1rem;
+  }
 
   &:hover {
     color: var(--pin-text-primary);

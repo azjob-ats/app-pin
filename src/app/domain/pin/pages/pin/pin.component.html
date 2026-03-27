@@ -1,5 +1,4 @@
 <div class="pin-page">
-
   @if (isLoading()) {
     <div class="pin-detail-skeleton flex gap-6 p-6">
       <div class="skeleton img-skeleton"></div>
@@ -13,7 +12,6 @@
 
   @if (pin(); as pin) {
     <div class="pin-detail-container flex overflow-hidden">
-
       <!-- ── Image side ──────────────────────────────────────────── -->
       <div class="pin-detail-image-side flex align-center justify-center">
         <div class="w-full">
@@ -21,8 +19,7 @@
             [src]="pin.imageUrl"
             [alt]="pin.title || ('pin.noTitle' | translate)"
             class="pin-detail-image"
-            loading="eager"
-          />
+            loading="eager" />
         </div>
       </div>
 
@@ -30,10 +27,20 @@
       <div class="pin-detail-info flex flex-col flex-1 p-2 overflow-auto">
         <!-- Actions bar -->
         <div class="flex align-center gap-2 flex-wrap mb-7 mt-2">
-          <app-button-like [count]="107" [liked]="false" />
-          <app-button variant="secondary" shape="circle" size="md" icon="more_horiz" />
+          <app-button-like
+            [count]="107"
+            [liked]="false" />
+          <app-button
+            variant="secondary"
+            shape="circle"
+            size="md"
+            icon="more_horiz" />
           <div class="save-group flex align-center gap-2">
-            <app-button variant="primary" size="md">Saiba Mais</app-button>
+            <app-button
+              variant="primary"
+              size="md"
+              >Saiba Mais</app-button
+            >
           </div>
         </div>
 
@@ -46,17 +53,29 @@
         }
         <!-- Description -->
         @if (pin.description) {
-          <p class="text-base text-6-title mb-7">{{ pin.description }}<span class="pin-hashtags text-2xs"> #VagasTI  #PythonJobs  #DesenvolvimentoBackend  #CarreiraEmTech  #TrabalheNaDigix</span></p>
+          <p class="text-base text-6-title mb-7">
+            {{ pin.description
+            }}<span class="pin-hashtags text-2xs">
+              #VagasTI #PythonJobs #DesenvolvimentoBackend #CarreiraEmTech #TrabalheNaDigix</span
+            >
+          </p>
         }
 
         <!-- Author -->
         <div class="pin-detail-author flex align-center gap-3 py-2 mb-2">
-          <app-user-avatar [imageUrl]="pin.author.avatarUrl" [alt]="pin.author.displayName" size="md" />
+          <app-user-avatar
+            [imageUrl]="pin.author.avatarUrl"
+            [alt]="pin.author.displayName"
+            size="md" />
           <div class="flex-1 flex flex-col">
-            <a class="author-name fw-bold text-base text-1xl-title" [routerLink]="['/' + pin.author.username]">
+            <a
+              class="author-name fw-bold text-base text-1xl-title"
+              [routerLink]="['/' + pin.author.username]">
               {{ pin.author.displayName }}
             </a>
-            <span class="text-1 text-7-title">{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span>
+            <span class="text-1 text-7-title"
+              >{{ pin.saveCount | number }} {{ 'board.followers' | translate }}</span
+            >
           </div>
           <app-button-inscription [subscribed]="false" />
         </div>
@@ -67,14 +86,16 @@
 
           <!-- Add comment -->
           <div class="gap-3 flex align-center">
-            <app-user-avatar imageUrl="https://i.pravatar.cc/150?img=10" alt="Me" size="sm" />
+            <app-user-avatar
+              imageUrl="https://i.pravatar.cc/150?img=10"
+              alt="Me"
+              size="sm" />
             <div class="comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
               <app-comment-input
                 [value]="commentText()"
                 [placeholder]="'pin.addComment' | translate"
                 (valueChange)="commentText.set($event)"
-                (enter)="addComment()"
-              />
+                (enter)="addComment()" />
               @if (commentText()) {
                 <app-comment-submit (submitted)="addComment()" />
               }
@@ -85,10 +106,15 @@
           <div class="flex flex-col gap-4">
             @for (comment of comments(); track comment.id) {
               <div class="gap-3 flex">
-                <app-user-avatar [imageUrl]="comment.author.avatarUrl" [alt]="comment.author.displayName" size="sm" />
+                <app-user-avatar
+                  [imageUrl]="comment.author.avatarUrl"
+                  [alt]="comment.author.displayName"
+                  size="sm" />
                 <div class="flex-1">
                   <div class="comment-header flex gap-2 mb-1">
-                    <span class="text-2 fw-bold text-1xl-title">{{ comment.author.displayName }}</span>
+                    <span class="text-2 fw-bold text-1xl-title">{{
+                      comment.author.displayName
+                    }}</span>
                     <span class="text-1 text-5xl-title">{{ timeAgo(comment.createdAt) }}</span>
                   </div>
                   <p class="comment-text text-3 text-7-title">{{ comment.text }}</p>

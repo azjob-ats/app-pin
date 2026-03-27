@@ -1,5 +1,4 @@
 <div class="profile-page">
-
   @if (isLoading()) {
     <div class="d-flex flex-col align-center gap-4 py-7 px-5">
       <div class="skeleton avatar-skeleton"></div>
@@ -16,8 +15,7 @@
         [imageUrl]="user.avatarUrl"
         [alt]="user.displayName"
         size="xl"
-        class="mb-4"
-      />
+        class="mb-4" />
 
       <!-- Name -->
       <h1 class="text-7 fw-bold text-1xl-title mb-1">{{ user.displayName }}</h1>
@@ -26,12 +24,16 @@
       <!-- Stats -->
       <div class="d-flex align-center gap-4 mb-3">
         <div class="d-flex flex-col align-center">
-          <span class="stat-value fw-bold text-1xl-title">{{ formatCount(user.followersCount) }}</span>
+          <span class="stat-value fw-bold text-1xl-title">{{
+            formatCount(user.followersCount)
+          }}</span>
           <span class="text-1 text-7-title">{{ 'profile.followers' | translate }}</span>
         </div>
         <div class="stat-divider"></div>
         <div class="d-flex flex-col align-center">
-          <span class="stat-value fw-bold text-1xl-title">{{ formatCount(user.followingCount) }}</span>
+          <span class="stat-value fw-bold text-1xl-title">{{
+            formatCount(user.followingCount)
+          }}</span>
           <span class="text-1 text-7-title">{{ 'profile.following' | translate }}</span>
         </div>
       </div>
@@ -49,7 +51,11 @@
 
       <!-- Website -->
       @if (user.website) {
-        <a class="profile-website d-flex align-center gap-1 text-2 text-7-title mb-4" [href]="user.website" target="_blank" rel="noopener">
+        <a
+          class="profile-website d-flex align-center gap-1 text-2 text-7-title mb-4"
+          [href]="user.website"
+          target="_blank"
+          rel="noopener">
           <span class="material-symbols-rounded">link</span>
           {{ user.website.replace('https://', '') }}
         </a>
@@ -58,9 +64,21 @@
       <!-- Actions -->
       <div class="d-flex align-center gap-2">
         <app-follow-button [initialFollowing]="user.isFollowing ?? false" />
-        <app-button variant="secondary" shape="circle" icon="chat_bubble" ariaLabel="Send message" />
-        <app-button variant="secondary" shape="circle" icon="share" ariaLabel="Share profile" />
-        <app-button variant="secondary" shape="circle" icon="more_horiz" ariaLabel="More options" />
+        <app-button
+          variant="secondary"
+          shape="circle"
+          icon="chat_bubble"
+          ariaLabel="Send message" />
+        <app-button
+          variant="secondary"
+          shape="circle"
+          icon="share"
+          ariaLabel="Share profile" />
+        <app-button
+          variant="secondary"
+          shape="circle"
+          icon="more_horiz"
+          ariaLabel="More options" />
       </div>
     </div>
 
@@ -72,7 +90,9 @@
 
       <app-tab-panel id="created">
         @if (createdPins().length === 0) {
-          <app-empty-state icon="push_pin" [message]="'profile.noPins' | translate" />
+          <app-empty-state
+            icon="push_pin"
+            [message]="'profile.noPins' | translate" />
         } @else {
           <app-masonry-grid [pins]="createdPins()" />
         }
@@ -80,7 +100,9 @@
 
       <app-tab-panel id="saved">
         @if (savedPins().length === 0) {
-          <app-empty-state icon="bookmark" [message]="'profile.noPins' | translate" />
+          <app-empty-state
+            icon="bookmark"
+            [message]="'profile.noPins' | translate" />
         } @else {
           <app-masonry-grid [pins]="savedPins()" />
         }
@@ -88,7 +110,9 @@
 
       <app-tab-panel id="boards">
         @if (boards().length === 0) {
-          <app-empty-state icon="grid_view" [message]="'profile.noBoards' | translate" />
+          <app-empty-state
+            icon="grid_view"
+            [message]="'profile.noBoards' | translate" />
         } @else {
           <div class="boards-grid d-grid gap-4 p-4">
             @for (board of boards(); track board.id) {

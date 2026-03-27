@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  signal,
-  forwardRef,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, signal, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export interface SelectOption {
@@ -47,7 +41,9 @@ let selectIdCounter = 0;
             <option [value]="opt.value" [selected]="opt.value === _value()">{{ opt.label }}</option>
           }
         </select>
-        <span class="select-field__arrow material-symbols-rounded" aria-hidden="true">expand_more</span>
+        <span class="select-field__arrow material-symbols-rounded" aria-hidden="true"
+          >expand_more</span
+        >
       </div>
 
       @if (hint() && !errorMessage()) {

@@ -4,16 +4,14 @@
     class="app-drawer-backdrop"
     [class.active]="modal()"
     (click)="onBackdropClick()"
-    role="presentation"
-  ></div>
+    role="presentation"></div>
 
   <!-- Panel -->
   <div
     class="app-drawer-panel"
     [class]="'app-drawer-panel--' + position() + (styleClass() ? ' ' + styleClass() : '')"
     role="dialog"
-    aria-modal="true"
-  >
+    aria-modal="true">
     @if (headerTpl()) {
       <div class="app-drawer-header">
         <ng-container [ngTemplateOutlet]="headerTpl()!"></ng-container>

@@ -61,7 +61,11 @@ const NOTIF_ICONS: Record<NotificationType, string> = {
           (click)="$event.stopPropagation()"
           [attr.aria-label]="notification().pin?.title || 'Ver pin'"
         >
-          <img [src]="notification().pin!.imageUrl" [alt]="notification().pin?.title || ''" loading="lazy" />
+          <img
+            [src]="notification().pin!.imageUrl"
+            [alt]="notification().pin?.title || ''"
+            loading="lazy"
+          />
         </a>
       }
 
@@ -104,5 +108,7 @@ export class NotificationItemComponent {
   enable(): void {}
   disable(): void {}
   resetToInitialState(): void {}
-  isRequired(): boolean { return false; }
+  isRequired(): boolean {
+    return false;
+  }
 }

@@ -52,7 +52,9 @@
   cursor: pointer;
   transition: background-color var(--pin-transition);
 
-  &:hover { background: var(--pin-red-hover); }
+  &:hover {
+    background: var(--pin-red-hover);
+  }
 }
 
 .upload-input {
@@ -87,7 +89,11 @@
   justify-content: center;
   transition: background-color var(--pin-transition);
 
-  &:hover { background: var(--pin-overlay-dark-strong); }
+  &:hover {
+    background: var(--pin-overlay-dark-strong);
+  }
 
-  .material-symbols-rounded { font-size: var(--text-xl); }
+  .material-symbols-rounded {
+    font-size: var(--text-xl);
+  }
 }

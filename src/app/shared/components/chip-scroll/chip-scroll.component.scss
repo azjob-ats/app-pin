@@ -17,7 +17,9 @@
   cursor: grab;
   user-select: none;
 
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .chip {
@@ -38,7 +40,9 @@
   transition: all var(--pin-transition);
   flex-shrink: 0;
 
-  .material-symbols-rounded { font-size: 1.1rem; }
+  .material-symbols-rounded {
+    font-size: 1.1rem;
+  }
 
   &:hover {
     background: var(--pin-border);

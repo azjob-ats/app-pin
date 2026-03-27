@@ -17,9 +17,22 @@
   border-radius: var(--radius-lg);
 }
 
-.img-skeleton { width: 480px; min-height: 600px; flex-shrink: 0; }
-.title-skeleton { height: 32px; width: 80%; }
-.desc-skeleton { height: 16px; width: 100%; &.short { width: 60%; } }
+.img-skeleton {
+  width: 480px;
+  min-height: 600px;
+  flex-shrink: 0;
+}
+.title-skeleton {
+  height: 32px;
+  width: 80%;
+}
+.desc-skeleton {
+  height: 16px;
+  width: 100%;
+  &.short {
+    width: 60%;
+  }
+}
 
 // ── Detail layout ──────────────────────────────────────────────────────────
 
@@ -28,7 +41,7 @@
   margin: var(--space-2xl) auto;
   background: var(--pin-bg);
   border-radius: 5px;
-  box-shadow: 0px 0px 4px rgba(0,0,0,0.16);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
   min-height: 560px;
 
   @media (max-width: 900px) {
@@ -84,7 +97,9 @@
 .pin-save-count {
   gap: 6px;
 
-  .save-icon { font-size: var(--text-xl); }
+  .save-icon {
+    font-size: var(--text-xl);
+  }
 }
 
 .pin-detail-title {
@@ -101,7 +116,10 @@
   word-break: break-all;
   transition: color var(--pin-transition);
 
-  .material-symbols-rounded { font-size: 1.1rem; flex-shrink: 0; }
+  .material-symbols-rounded {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
 
   &:hover {
     color: var(--pin-text-primary);
@@ -117,7 +135,9 @@
 }
 
 .author-name {
-  &:hover { text-decoration: underline; }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 // ── Comments ──────────────────────────────────────────────────────────────
@@ -139,4 +159,3 @@
 .comment-text {
   line-height: 1.5;
 }
-

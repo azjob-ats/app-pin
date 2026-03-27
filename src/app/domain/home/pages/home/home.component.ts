@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, ElementRef, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  afterNextRender,
+  computed,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardCardComponent } from '@shared/components/board-card/board-card.component';
@@ -22,7 +31,7 @@ import { PinService } from '@shared/services/pin.service';
     SkeletonLoaderComponent,
     InfiniteScrollComponent,
     ChipScrollComponent,
-    BoardCardComponent
+    BoardCardComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -36,12 +45,21 @@ export class HomeComponent {
   private destroyRef = inject(DestroyRef);
   private page = 0;
   readonly selectedCategory = signal<string>('all');
-  readonly popularSearches = ['Como perder peso rápido', 'empregos ameaçados pela IA', 'idéia em um negócio online', 'Planejamento financeiro inteligente', '10 Ferramentas de IA para Negócio', 'vendendo no TIKTOK SHOP', 'prospectar clientes', 'Como se Comunicar Melhor'];
+  readonly popularSearches = [
+    'Como perder peso rápido',
+    'empregos ameaçados pela IA',
+    'idéia em um negócio online',
+    'Planejamento financeiro inteligente',
+    '10 Ferramentas de IA para Negócio',
+    'vendendo no TIKTOK SHOP',
+    'prospectar clientes',
+    'Como se Comunicar Melhor',
+  ];
   readonly popularSearchChips = computed(() =>
-    this.popularSearches.map(term => ({ key: term, icon: 'trending_up', labelKey: term }))
+    this.popularSearches.map((term) => ({ key: term, icon: 'trending_up', labelKey: term })),
   );
   readonly chipItems = computed(() =>
-    this.categories.map(cat => ({ key: cat.key, icon: cat.icon, labelKey: '' + cat.key }))
+    this.categories.map((cat) => ({ key: cat.key, icon: cat.icon, labelKey: '' + cat.key })),
   );
   readonly categories: any[] = [
     { key: 'all', icon: 'apps' },
@@ -97,7 +115,11 @@ export class HomeComponent {
         track.scrollLeft = scrollLeft - walk;
       };
       const onClickCapture = (e: Event) => {
-        if (isDragging) { e.stopPropagation(); e.preventDefault(); isDragging = false; }
+        if (isDragging) {
+          e.stopPropagation();
+          e.preventDefault();
+          isDragging = false;
+        }
       };
 
       const onDragStart = (e: DragEvent) => e.preventDefault();
@@ -122,12 +144,12 @@ export class HomeComponent {
 
   loadPins(): void {
     this.isLoading.set(true);
-    this.pinService.getPins(this.page).subscribe(pins => {
+    this.pinService.getPins(this.page).subscribe((pins) => {
       this.pins.set(pins);
       this.isLoading.set(false);
     });
 
-    this.boardService.getUserBoards('u1').subscribe(boards => this.boards.set(boards));
+    this.boardService.getUserBoards('u1').subscribe((boards) => this.boards.set(boards));
   }
 
   selectCategory(key: string): void {
@@ -147,8 +169,8 @@ export class HomeComponent {
     if (this.isLoadingMore()) return;
     this.isLoadingMore.set(true);
     this.page++;
-    this.pinService.getPins(this.page).subscribe(pins => {
-      this.pins.update(current => [...current, ...pins]);
+    this.pinService.getPins(this.page).subscribe((pins) => {
+      this.pins.update((current) => [...current, ...pins]);
       this.isLoadingMore.set(false);
     });
   }
@@ -158,7 +180,7 @@ export class HomeComponent {
     this.page = 0;
     this.isLoading.set(true);
     this.router.navigate(['/search'], { queryParams: { q } });
-    this.pinService.getSearchPins(q).subscribe(pins => {
+    this.pinService.getSearchPins(q).subscribe((pins) => {
       this.pins.set(pins);
       this.isLoading.set(false);
     });

@@ -72,7 +72,12 @@ export class ShellComponent {
     { icon: 'home', iconFilled: 'home', labelKey: 'nav.home', route: '/home', exact: true },
     { icon: 'kid_star', iconFilled: 'kid_star', labelKey: 'nav.explore', route: '/explore' },
     { icon: 'add_circle', iconFilled: 'add_circle', labelKey: 'nav.create', route: '/create' },
-    { icon: 'notifications', iconFilled: 'notifications', labelKey: 'nav.notifications', route: '/notifications' },
+    {
+      icon: 'notifications',
+      iconFilled: 'notifications',
+      labelKey: 'nav.notifications',
+      route: '/notifications',
+    },
   ];
 
   onResize(): void {

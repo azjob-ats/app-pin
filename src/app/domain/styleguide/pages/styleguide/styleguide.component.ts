@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, signal, computed, inject, effect } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  signal,
+  computed,
+  inject,
+  effect,
+} from '@angular/core';
 import { NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,8 +43,17 @@ import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infi
 import { NotificationItemComponent } from '@shared/components/notification-item/notification-item.component';
 import { ButtonInscriptionComponent } from '@shared/components/button-inscription/button-inscription.component';
 import { ButtonProviderComponent } from '@shared/components/button-provider/button-provider/button-provider.component';
-import { CardBoardComponent, CardContainerComponent, CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent } from '@shared/components/card-board/card-board.component';
-import { ChipScrollComponent, ChipItem } from '@shared/components/chip-scroll/chip-scroll.component';
+import {
+  CardBoardComponent,
+  CardContainerComponent,
+  CardSectionLeftComponent,
+  CardSectionRightComponent,
+  CardBodyComponent,
+} from '@shared/components/card-board/card-board.component';
+import {
+  ChipScrollComponent,
+  ChipItem,
+} from '@shared/components/chip-scroll/chip-scroll.component';
 import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
 import { PinCardComponent } from '@shared/components/pin-card/pin-card.component';
 import { Notification } from '@shared/interfaces/notification.interface';
@@ -135,16 +151,15 @@ export interface SearchResult {
   host: { '[class.dark-mode]': 'isDark()' },
 })
 export class StyleguideComponent {
-  private readonly route  = inject(ActivatedRoute);
+  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
   readonly isDark = signal(false);
   readonly expandedGroups = signal<Set<string>>(new Set(['utilities', 'standard', 'components']));
 
-  readonly activeSection = toSignal(
-    this.route.paramMap.pipe(map(p => p.get('section') ?? '')),
-    { initialValue: '' }
-  );
+  readonly activeSection = toSignal(this.route.paramMap.pipe(map((p) => p.get('section') ?? '')), {
+    initialValue: '',
+  });
 
   constructor() {
     effect(() => {
@@ -169,11 +184,15 @@ export class StyleguideComponent {
     if (!q) return [];
     const results: SearchResult[] = [];
     for (const group of this.nav) {
-      for (const item of (group.children ?? [])) {
+      for (const item of group.children ?? []) {
         if (item.children?.length) {
           for (const child of item.children) {
             if (child.label.toLowerCase().includes(q) || child.id.includes(q)) {
-              results.push({ id: child.id, label: child.label, crumb: `${group.label} › ${item.label}` });
+              results.push({
+                id: child.id,
+                label: child.label,
+                crumb: `${group.label} › ${item.label}`,
+              });
             }
           }
         } else {
@@ -209,7 +228,12 @@ export class StyleguideComponent {
       message: 'started following you.',
       isRead: false,
       createdAt: new Date(Date.now() - 5 * 60000).toISOString(),
-      actor: { id: 'u1', username: 'ana.silva', displayName: 'Ana Silva', avatarUrl: 'https://i.pravatar.cc/48?u=ana' },
+      actor: {
+        id: 'u1',
+        username: 'ana.silva',
+        displayName: 'Ana Silva',
+        avatarUrl: 'https://i.pravatar.cc/48?u=ana',
+      },
     },
     {
       id: '2',
@@ -218,7 +242,11 @@ export class StyleguideComponent {
       isRead: true,
       createdAt: new Date(Date.now() - 60 * 60000).toISOString(),
       actor: { id: 'u2', username: 'carlos.dev', displayName: 'Carlos Dev' },
-      pin: { id: 'p1', imageUrl: 'https://picsum.photos/seed/sg1/60/80', title: 'Design inspiration' },
+      pin: {
+        id: 'p1',
+        imageUrl: 'https://picsum.photos/seed/sg1/60/80',
+        title: 'Design inspiration',
+      },
     },
     {
       id: '3',
@@ -226,33 +254,91 @@ export class StyleguideComponent {
       message: 'commented on your pin.',
       isRead: true,
       createdAt: new Date(Date.now() - 3 * 3600000).toISOString(),
-      actor: { id: 'u3', username: 'julia.arq', displayName: 'Júlia Arq', avatarUrl: 'https://i.pravatar.cc/48?u=julia' },
+      actor: {
+        id: 'u3',
+        username: 'julia.arq',
+        displayName: 'Júlia Arq',
+        avatarUrl: 'https://i.pravatar.cc/48?u=julia',
+      },
     },
   ];
 
   readonly mockPins: Pin[] = [
-    { id: 'sg-p1', title: 'Design Inspiration', imageUrl: 'https://picsum.photos/seed/sg1/300/400', imageWidth: 300, imageHeight: 400, author: { id: 'a1', username: 'designer', displayName: 'Designer' }, saveCount: 128, commentCount: 14, createdAt: new Date().toISOString() },
-    { id: 'sg-p2', title: 'Architecture', imageUrl: 'https://picsum.photos/seed/sg2/300/300', imageWidth: 300, imageHeight: 300, author: { id: 'a2', username: 'arch', displayName: 'Architect' }, saveCount: 56, commentCount: 3, createdAt: new Date().toISOString() },
-    { id: 'sg-p3', title: 'Typography', imageUrl: 'https://picsum.photos/seed/sg3/300/500', imageWidth: 300, imageHeight: 500, author: { id: 'a3', username: 'typo', displayName: 'Typo' }, saveCount: 88, commentCount: 7, createdAt: new Date().toISOString() },
-    { id: 'sg-p4', title: 'Colors', imageUrl: 'https://picsum.photos/seed/sg4/300/350', imageWidth: 300, imageHeight: 350, author: { id: 'a4', username: 'color', displayName: 'Color' }, saveCount: 200, commentCount: 22, createdAt: new Date().toISOString() },
+    {
+      id: 'sg-p1',
+      title: 'Design Inspiration',
+      imageUrl: 'https://picsum.photos/seed/sg1/300/400',
+      imageWidth: 300,
+      imageHeight: 400,
+      author: { id: 'a1', username: 'designer', displayName: 'Designer' },
+      saveCount: 128,
+      commentCount: 14,
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'sg-p2',
+      title: 'Architecture',
+      imageUrl: 'https://picsum.photos/seed/sg2/300/300',
+      imageWidth: 300,
+      imageHeight: 300,
+      author: { id: 'a2', username: 'arch', displayName: 'Architect' },
+      saveCount: 56,
+      commentCount: 3,
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'sg-p3',
+      title: 'Typography',
+      imageUrl: 'https://picsum.photos/seed/sg3/300/500',
+      imageWidth: 300,
+      imageHeight: 500,
+      author: { id: 'a3', username: 'typo', displayName: 'Typo' },
+      saveCount: 88,
+      commentCount: 7,
+      createdAt: new Date().toISOString(),
+    },
+    {
+      id: 'sg-p4',
+      title: 'Colors',
+      imageUrl: 'https://picsum.photos/seed/sg4/300/350',
+      imageWidth: 300,
+      imageHeight: 350,
+      author: { id: 'a4', username: 'color', displayName: 'Color' },
+      saveCount: 200,
+      commentCount: 22,
+      createdAt: new Date().toISOString(),
+    },
   ];
 
   readonly mockBoards: Board[] = [
     {
-      id: 'b1', name: 'UI Inspiration', pinsCount: 48,
-      coverImages: ['https://picsum.photos/seed/b1a/200/200', 'https://picsum.photos/seed/b1b/200/200', 'https://picsum.photos/seed/b1c/200/200'],
+      id: 'b1',
+      name: 'UI Inspiration',
+      pinsCount: 48,
+      coverImages: [
+        'https://picsum.photos/seed/b1a/200/200',
+        'https://picsum.photos/seed/b1b/200/200',
+        'https://picsum.photos/seed/b1c/200/200',
+      ],
       owner: { id: 'a1', username: 'ana.silva', displayName: 'Ana Silva' },
       createdAt: new Date().toISOString(),
     },
     {
-      id: 'b2', name: 'Arquitetura', pinsCount: 22,
+      id: 'b2',
+      name: 'Arquitetura',
+      pinsCount: 22,
       coverImageUrl: 'https://picsum.photos/seed/b2/400/220',
       owner: { id: 'a1', username: 'ana.silva', displayName: 'Ana Silva' },
       createdAt: new Date().toISOString(),
     },
     {
-      id: 'b3', name: 'Tipografia', pinsCount: 15,
-      coverImages: ['https://picsum.photos/seed/b3a/200/200', 'https://picsum.photos/seed/b3b/200/200'],
+      id: 'b3',
+      name: 'Tipografia',
+      pinsCount: 15,
+      coverImages: [
+        'https://picsum.photos/seed/b3a/200/200',
+        'https://picsum.photos/seed/b3b/200/200',
+      ],
       owner: { id: 'a1', username: 'ana.silva', displayName: 'Ana Silva' },
       createdAt: new Date().toISOString(),
     },
@@ -362,7 +448,7 @@ export class StyleguideComponent {
   ];
 
   toggleGroup(id: string): void {
-    this.expandedGroups.update(s => {
+    this.expandedGroups.update((s) => {
       const next = new Set(s);
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
@@ -391,12 +477,21 @@ export class StyleguideComponent {
     for (const group of this.nav) {
       const childIds = this.flatIds(group.children ?? []);
       if (childIds.includes(id)) {
-        this.expandedGroups.update(s => { const n = new Set(s); n.add(group.id); return n; });
+        this.expandedGroups.update((s) => {
+          const n = new Set(s);
+          n.add(group.id);
+          return n;
+        });
       }
       for (const child of group.children ?? []) {
         const grandIds = this.flatIds(child.children ?? []);
         if (grandIds.includes(id)) {
-          this.expandedGroups.update(s => { const n = new Set(s); n.add(group.id); n.add(child.id); return n; });
+          this.expandedGroups.update((s) => {
+            const n = new Set(s);
+            n.add(group.id);
+            n.add(child.id);
+            return n;
+          });
         }
       }
     }
@@ -409,7 +504,10 @@ export class StyleguideComponent {
     };
 
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(code).then(markCopied).catch(() => this.fallbackCopy(code, markCopied));
+      navigator.clipboard
+        .writeText(code)
+        .then(markCopied)
+        .catch(() => this.fallbackCopy(code, markCopied));
     } else {
       this.fallbackCopy(code, markCopied);
     }
@@ -432,11 +530,11 @@ export class StyleguideComponent {
   }
 
   private flatIds(items: NavItem[]): string[] {
-    return items.flatMap(i => [i.id, ...this.flatIds(i.children ?? [])]);
+    return items.flatMap((i) => [i.id, ...this.flatIds(i.children ?? [])]);
   }
 
   toggleDark(): void {
-    this.isDark.update(v => !v);
+    this.isDark.update((v) => !v);
     document.documentElement.classList.toggle('dark', this.isDark());
   }
 
@@ -579,7 +677,10 @@ export class StyleguideComponent {
     { cls: '.text-left', properties: 'text-align: left' },
     { cls: '.text-right', properties: 'text-align: right' },
     { cls: '.text-justify', properties: 'text-align: justify' },
-    { cls: '.text-ellipsis', properties: 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap' },
+    {
+      cls: '.text-ellipsis',
+      properties: 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap',
+    },
   ];
 
   readonly textColorClasses: ClassRow[] = [
@@ -671,8 +772,20 @@ export class StyleguideComponent {
   ];
 
   readonly sampleIcons = [
-    'home', 'search', 'favorite', 'bookmark', 'share',
-    'add', 'close', 'menu', 'arrow_back', 'notifications',
-    'person', 'settings', 'edit', 'delete', 'visibility',
+    'home',
+    'search',
+    'favorite',
+    'bookmark',
+    'share',
+    'add',
+    'close',
+    'menu',
+    'arrow_back',
+    'notifications',
+    'person',
+    'settings',
+    'edit',
+    'delete',
+    'visibility',
   ];
 }

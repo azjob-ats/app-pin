@@ -20,7 +20,7 @@ export class NotificationsComponent implements OnInit {
   readonly notifService = inject(NotificationService);
 
   ngOnInit(): void {
-    this.notifService.getNotifications().subscribe(notifs => {
+    this.notifService.getNotifications().subscribe((notifs) => {
       this.notifications.set(notifs);
       this.isLoading.set(false);
     });
@@ -28,28 +28,31 @@ export class NotificationsComponent implements OnInit {
 
   markAllRead(): void {
     this.notifService.markAllAsRead().subscribe(() => {
-      this.notifications.update(ns => ns.map(n => ({ ...n, isRead: true })));
+      this.notifications.update((ns) => ns.map((n) => ({ ...n, isRead: true })));
     });
   }
 
   markRead(id: string): void {
     this.notifService.markAsRead(id).subscribe(() => {
-      this.notifications.update(ns => ns.map(n => n.id === id ? { ...n, isRead: true } : n));
+      this.notifications.update((ns) => ns.map((n) => (n.id === id ? { ...n, isRead: true } : n)));
     });
   }
 
   get unreadCount(): number {
-    return this.notifications().filter(n => !n.isRead).length;
+    return this.notifications().filter((n) => !n.isRead).length;
   }
 
   get todayNotifs(): Notification[] {
     const now = Date.now();
-    return this.notifications().filter(n => (now - new Date(n.createdAt).getTime()) < 24 * 3600 * 1000);
+    return this.notifications().filter(
+      (n) => now - new Date(n.createdAt).getTime() < 24 * 3600 * 1000,
+    );
   }
 
   get earlierNotifs(): Notification[] {
     const now = Date.now();
-    return this.notifications().filter(n => (now - new Date(n.createdAt).getTime()) >= 24 * 3600 * 1000);
+    return this.notifications().filter(
+      (n) => now - new Date(n.createdAt).getTime() >= 24 * 3600 * 1000,
+    );
   }
-
 }

@@ -25,7 +25,7 @@ export class SkeletonLoaderComponent implements OnInit {
     this.skeletonArray = signal(
       Array.from({ length: this.count() }, (_, i) => ({
         height: 150 + Math.floor(Math.sin(i * 1.7) * 100 + Math.random() * 150),
-      }))
+      })),
     );
   }
 

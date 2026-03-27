@@ -1,13 +1,15 @@
 <div
   class="pin-card"
   (mouseenter)="onMouseEnter()"
-  (mouseleave)="onMouseLeave()"
->
-  <a [routerLink]="['/pin', pin().id]" class="pin-image-link">
-
+  (mouseleave)="onMouseLeave()">
+  <a
+    [routerLink]="['/pin', pin().id]"
+    class="pin-image-link">
     <!-- Skeleton while loading -->
     @if (!isImageLoaded()) {
-      <div class="pin-skeleton" [style.aspect-ratio]="(pin().imageWidth || 400) + '/' + (pin().imageHeight || 600)"></div>
+      <div
+        class="pin-skeleton"
+        [style.aspect-ratio]="(pin().imageWidth || 400) + '/' + (pin().imageHeight || 600)"></div>
     }
 
     <!-- Image -->
@@ -18,8 +20,7 @@
       loading="lazy"
       (load)="onImageLoad()"
       [class.loaded]="isImageLoaded()"
-      [style.aspect-ratio]="(pin().imageWidth || 400) + '/' + (pin().imageHeight || 600)"
-    />
+      [style.aspect-ratio]="(pin().imageWidth || 400) + '/' + (pin().imageHeight || 600)" />
 
     <!-- Hover overlay -->
     @if (isHovered()) {
@@ -30,13 +31,14 @@
           <button
             class="pin-save-btn"
             [class.saved]="isSaved() || pin().isSaved"
-            (click)="onSave($event)"
-          >
-            {{ (isSaved() || pin().isSaved) ? ('pin.saved' | translate) : ('pin.save' | translate) }}
+            (click)="onSave($event)">
+            {{ isSaved() || pin().isSaved ? ('pin.saved' | translate) : ('pin.save' | translate) }}
           </button>
 
           <!-- More options -->
-          <button class="pin-icon-btn" (click)="$event.preventDefault(); $event.stopPropagation()">
+          <button
+            class="pin-icon-btn"
+            (click)="$event.preventDefault(); $event.stopPropagation()">
             <span class="material-symbols-rounded">more_horiz</span>
           </button>
         </div>
@@ -49,14 +51,18 @@
               [href]="pin().link"
               target="_blank"
               rel="noopener noreferrer"
-              (click)="$event.stopPropagation()"
-            >
+              (click)="$event.stopPropagation()">
               <span class="material-symbols-rounded">link</span>
-              <span class="pin-link-text">{{ pin().link | slice:0:30 }}{{ (pin().link?.length ?? 0) > 30 ? '...' : '' }}</span>
+              <span class="pin-link-text"
+                >{{ pin().link | slice: 0 : 30
+                }}{{ (pin().link?.length ?? 0) > 30 ? '...' : '' }}</span
+              >
             </a>
           }
 
-          <button class="pin-icon-btn pin-share-btn" (click)="onShare($event)">
+          <button
+            class="pin-icon-btn pin-share-btn"
+            (click)="onShare($event)">
             <span class="material-symbols-rounded">share</span>
           </button>
         </div>
@@ -76,8 +82,7 @@
             class="pin-author-avatar"
             [src]="pin().author.avatarUrl"
             [alt]="pin().author.displayName"
-            loading="lazy"
-          />
+            loading="lazy" />
         }
         <span class="pin-author-name">{{ pin().author.displayName }}</span>
       </div>

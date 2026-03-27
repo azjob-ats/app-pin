@@ -12,7 +12,8 @@
         @if (board.followersCount) {
           <span class="text-5xl-title">·</span>
           <span class="text-4xl-title">
-            <strong class="fw-bold">{{ formatCount(board.followersCount) }}</strong> {{ 'board.followers' | translate }}
+            <strong class="fw-bold">{{ formatCount(board.followersCount) }}</strong>
+            {{ 'board.followers' | translate }}
           </span>
         }
       </div>
@@ -21,17 +22,26 @@
         <img
           [src]="board.owner.avatarUrl || 'https://i.pravatar.cc/32?img=1'"
           [alt]="board.owner.displayName"
-          class="board-owner-avatar radius-circle"
-        />
-        <a [routerLink]="['/' + board.owner.username]" class="board-owner-name text-1xl-title text-2 fw-bold">
+          class="board-owner-avatar radius-circle" />
+        <a
+          [routerLink]="['/' + board.owner.username]"
+          class="board-owner-name text-1xl-title text-2 fw-bold">
           {{ board.owner.displayName }}
         </a>
       </div>
 
       <div class="board-actions flex align-center gap-2">
         <app-follow-button />
-        <app-button icon="share" variant="secondary" shape="circle" ariaLabel="Share" />
-        <app-button icon="more_horiz" variant="secondary" shape="circle" ariaLabel="More options" />
+        <app-button
+          icon="share"
+          variant="secondary"
+          shape="circle"
+          ariaLabel="Share" />
+        <app-button
+          icon="more_horiz"
+          variant="secondary"
+          shape="circle"
+          ariaLabel="More options" />
       </div>
     </div>
   }
@@ -40,6 +50,8 @@
     <app-skeleton-loader [count]="20" />
   } @else {
     <app-masonry-grid [pins]="pins()" />
-    <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+    <app-infinite-scroll
+      [loading]="isLoadingMore()"
+      (loadMore)="onLoadMore()" />
   }
 </div>

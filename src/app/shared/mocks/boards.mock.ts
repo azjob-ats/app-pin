@@ -13,7 +13,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 347,
     followersCount: 1234,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2022-03-15T10:00:00Z',
   },
   {
@@ -28,7 +33,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 892,
     followersCount: 5678,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2022-05-20T10:00:00Z',
   },
   {
@@ -43,7 +53,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 563,
     followersCount: 2890,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2022-07-10T10:00:00Z',
   },
   {
@@ -58,7 +73,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 234,
     followersCount: 876,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     isPrivate: false,
     createdAt: '2022-09-01T10:00:00Z',
   },
@@ -74,7 +94,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 189,
     followersCount: 432,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2023-01-05T10:00:00Z',
   },
   {
@@ -89,7 +114,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 421,
     followersCount: 3210,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2023-02-14T10:00:00Z',
   },
   {
@@ -104,7 +134,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 276,
     followersCount: 1567,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2023-04-20T10:00:00Z',
   },
   {
@@ -119,7 +154,12 @@ export const MOCK_BOARDS: Board[] = [
     ],
     pinsCount: 645,
     followersCount: 4321,
-    owner: { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
+    owner: {
+      id: 'u1',
+      username: 'fondecranvip',
+      displayName: 'Fond Ecran VIP',
+      avatarUrl: 'https://i.pravatar.cc/150?img=1',
+    },
     createdAt: '2023-06-12T10:00:00Z',
   },
 ];

@@ -74,7 +74,8 @@
     border-color: var(--pin-text-primary);
     border-radius: var(--radius-pill);
     box-shadow: var(--pin-shadow-md);
-    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transition:
+      transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
       background var(--pin-transition),
       box-shadow var(--pin-transition);
 
@@ -168,11 +169,22 @@
     border-radius: var(--radius-circle);
     padding: 0;
 
-    .material-symbols-rounded { font-size: 1.375rem; }
+    .material-symbols-rounded {
+      font-size: 1.375rem;
+    }
 
-    &.btn--sm { width: 36px; height: 36px; }
-    &.btn--md { width: 44px; height: 44px; }
-    &.btn--lg { width: 52px; height: 52px; }
+    &.btn--sm {
+      width: 36px;
+      height: 36px;
+    }
+    &.btn--md {
+      width: 44px;
+      height: 44px;
+    }
+    &.btn--lg {
+      width: 52px;
+      height: 52px;
+    }
   }
 
   // ── Loading state ─────────────────────────────────────────────────────

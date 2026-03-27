@@ -5,12 +5,30 @@ import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { InputComponent } from '@shared/components/input/input.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent } from '@shared/components/card/card.component';
+import {
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleComponent,
+  CardDescriptionComponent,
+  CardContentComponent,
+} from '@shared/components/card/card.component';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardDescriptionComponent, CardContentComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    TranslateModule,
+    ButtonComponent,
+    InputComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardTitleComponent,
+    CardDescriptionComponent,
+    CardContentComponent,
+  ],
   template: `
     <app-card>
       <app-card-header>
@@ -42,7 +60,8 @@ import { CardComponent, CardHeaderComponent, CardTitleComponent, CardDescription
           [loading]="isLoading()"
           [disabled]="!email() || sent()"
           (clicked)="onSubmit()"
-        >Send reset link</app-button>
+          >Send reset link</app-button
+        >
 
         <a routerLink="/auth/login" class="back-link">
           <span class="material-symbols-rounded">arrow_back</span>
@@ -62,6 +81,9 @@ export class ForgotPasswordComponent {
   onSubmit(): void {
     if (!this.email() || this.isLoading()) return;
     this.isLoading.set(true);
-    setTimeout(() => { this.isLoading.set(false); this.sent.set(true); }, 1200);
+    setTimeout(() => {
+      this.isLoading.set(false);
+      this.sent.set(true);
+    }, 1200);
   }
 }

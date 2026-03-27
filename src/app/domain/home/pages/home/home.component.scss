@@ -25,7 +25,12 @@
   cursor: grab;
   user-select: none;
 
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-  app-board-card { flex-shrink: 0; width: 180px; }
+  app-board-card {
+    flex-shrink: 0;
+    width: 180px;
+  }
 }

@@ -19,25 +19,27 @@ import { NgOptimizedImage } from '@angular/common';
       </div>
     </div>
   `,
-  styles: [`
-    .auth-layout {
-      min-height: 100vh;
-      background: var(--pin-bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .auth-header {
-      padding: 24px;
-    }
-    .auth-logo {
-      display: block;
-    }
-    .auth-body {
-      width: 100%;
-      max-width: 400px;
-      padding: 0 16px 32px;
-    }
-  `],
+  styles: [
+    `
+      .auth-layout {
+        min-height: 100vh;
+        background: var(--pin-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .auth-header {
+        padding: 24px;
+      }
+      .auth-logo {
+        display: block;
+      }
+      .auth-body {
+        width: 100%;
+        max-width: 400px;
+        padding: 0 16px 32px;
+      }
+    `,
+  ],
 })
 export class AuthLayoutComponent {}

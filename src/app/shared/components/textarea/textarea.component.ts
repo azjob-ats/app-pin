@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  input,
-  signal,
-  forwardRef,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, signal, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 let textareaIdCounter = 0;

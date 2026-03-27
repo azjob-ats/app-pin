@@ -17,16 +17,46 @@ import { PinService } from '@shared/services/pin.service';
 
 const MOCK_COMMENTS: Comment[] = [
   {
-    id: 'c1', text: 'Absolutely stunning! This is my new wallpaper 😍', pinId: '296604325483937524', createdAt: new Date(Date.now() - 3600000).toISOString(), likesCount: 12, isLiked: false,
-    author: { id: 'u2', username: 'design_lover', displayName: 'Design Lover', avatarUrl: 'https://i.pravatar.cc/150?img=2' },
+    id: 'c1',
+    text: 'Absolutely stunning! This is my new wallpaper 😍',
+    pinId: '296604325483937524',
+    createdAt: new Date(Date.now() - 3600000).toISOString(),
+    likesCount: 12,
+    isLiked: false,
+    author: {
+      id: 'u2',
+      username: 'design_lover',
+      displayName: 'Design Lover',
+      avatarUrl: 'https://i.pravatar.cc/150?img=2',
+    },
   },
   {
-    id: 'c2', text: 'The colors are incredible! Where was this taken?', pinId: '296604325483937524', createdAt: new Date(Date.now() - 7200000).toISOString(), likesCount: 8, isLiked: false,
-    author: { id: 'u3', username: 'art_studio', displayName: 'Art Studio', avatarUrl: 'https://i.pravatar.cc/150?img=3' },
+    id: 'c2',
+    text: 'The colors are incredible! Where was this taken?',
+    pinId: '296604325483937524',
+    createdAt: new Date(Date.now() - 7200000).toISOString(),
+    likesCount: 8,
+    isLiked: false,
+    author: {
+      id: 'u3',
+      username: 'art_studio',
+      displayName: 'Art Studio',
+      avatarUrl: 'https://i.pravatar.cc/150?img=3',
+    },
   },
   {
-    id: 'c3', text: 'Perfect composition and lighting. Love it!', pinId: '296604325483937524', createdAt: new Date(Date.now() - 86400000).toISOString(), likesCount: 5, isLiked: true,
-    author: { id: 'u4', username: 'photo_world', displayName: 'Photo World', avatarUrl: 'https://i.pravatar.cc/150?img=4' },
+    id: 'c3',
+    text: 'Perfect composition and lighting. Love it!',
+    pinId: '296604325483937524',
+    createdAt: new Date(Date.now() - 86400000).toISOString(),
+    likesCount: 5,
+    isLiked: true,
+    author: {
+      id: 'u4',
+      username: 'photo_world',
+      displayName: 'Photo World',
+      avatarUrl: 'https://i.pravatar.cc/150?img=4',
+    },
   },
 ];
 
@@ -34,10 +64,18 @@ const MOCK_COMMENTS: Comment[] = [
   selector: 'app-pin',
   standalone: true,
   imports: [
-    CommonModule, RouterLink, TranslateModule, FormsModule,
-    ButtonComponent, ButtonLikeComponent, ButtonInscriptionComponent,
-    CommentInputComponent, CommentSubmitComponent,
-    MasonryGridComponent, UserAvatarComponent, FollowButtonComponent,
+    CommonModule,
+    RouterLink,
+    TranslateModule,
+    FormsModule,
+    ButtonComponent,
+    ButtonLikeComponent,
+    ButtonInscriptionComponent,
+    CommentInputComponent,
+    CommentSubmitComponent,
+    MasonryGridComponent,
+    UserAvatarComponent,
+    FollowButtonComponent,
   ],
   templateUrl: './pin.component.html',
   styleUrl: './pin.component.scss',
@@ -55,22 +93,22 @@ export class PinComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '296604325483937524';
-    this.pinService.getPinById(id).subscribe(pin => {
+    this.pinService.getPinById(id).subscribe((pin) => {
       this.pin.set(pin);
       this.isSaved.set(pin.isSaved ?? false);
       this.isLoading.set(false);
     });
-    this.pinService.getRelatedPins(id).subscribe(pins => this.relatedPins.set(pins));
+    this.pinService.getRelatedPins(id).subscribe((pins) => this.relatedPins.set(pins));
   }
 
   onSave(): void {
     const p = this.pin();
     if (!p) return;
-    this.pinService.toggleSave(p).subscribe(saved => this.isSaved.set(saved));
+    this.pinService.toggleSave(p).subscribe((saved) => this.isSaved.set(saved));
   }
 
   onShare(): void {
-    navigator.clipboard?.writeText(window.location.href).catch(() => { });
+    navigator.clipboard?.writeText(window.location.href).catch(() => {});
   }
 
   addComment(): void {
@@ -82,9 +120,14 @@ export class PinComponent implements OnInit {
       pinId: this.pin()?.id ?? '',
       createdAt: new Date().toISOString(),
       likesCount: 0,
-      author: { id: 'current', username: 'myprofile', displayName: 'Meu Perfil', avatarUrl: 'https://i.pravatar.cc/150?img=10' },
+      author: {
+        id: 'current',
+        username: 'myprofile',
+        displayName: 'Meu Perfil',
+        avatarUrl: 'https://i.pravatar.cc/150?img=10',
+      },
     };
-    this.comments.update(c => [newComment, ...c]);
+    this.comments.update((c) => [newComment, ...c]);
     this.commentText.set('');
   }
 

@@ -89,7 +89,7 @@ export class InputComponent implements ControlValueAccessor {
   readonly inputId = `app-input-${++inputIdCounter}`;
 
   readonly _effectiveType = computed(() =>
-    this.type() === 'password' && this._showPassword() ? 'text' : this.type()
+    this.type() === 'password' && this._showPassword() ? 'text' : this.type(),
   );
 
   private _onChange: (value: string) => void = () => {};

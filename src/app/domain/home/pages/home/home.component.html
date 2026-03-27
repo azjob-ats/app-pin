@@ -1,11 +1,14 @@
 <div class="home-page">
-
   <!-- Popular search suggestions -->
-  <app-chip-scroll [chips]="popularSearchChips()" (chipSelect)="search($event)" />
+  <app-chip-scroll
+    [chips]="popularSearchChips()"
+    (chipSelect)="search($event)" />
 
   <!-- User boards -->
   <div class="boards-scroll-bar">
-    <div class="boards-scroll-track" #boardsTrack>
+    <div
+      class="boards-scroll-track"
+      #boardsTrack>
       @for (board of boards(); track board.id) {
         <app-board-card [board]="board" />
       }
@@ -13,22 +16,28 @@
   </div>
 
   <!-- Category filters -->
-  <app-chip-scroll [chips]="chipItems()" [selected]="selectedCategory()" (chipSelect)="selectCategory($event)" />
+  <app-chip-scroll
+    [chips]="chipItems()"
+    [selected]="selectedCategory()"
+    (chipSelect)="selectCategory($event)" />
 
   <!-- Pins feed -->
   <div class="py-4">
     @if (selectedCategory() !== 'all') {
       <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">{{ selectedCategory() }}</h2>
     } @else {
-      <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">{{ 'explore.trending' | translate }}</h2>
+      <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">
+        {{ 'explore.trending' | translate }}
+      </h2>
     }
 
     @if (isLoading()) {
       <app-skeleton-loader [count]="20" />
     } @else {
       <app-masonry-grid [pins]="pins()" />
-      <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+      <app-infinite-scroll
+        [loading]="isLoadingMore()"
+        (loadMore)="onLoadMore()" />
     }
   </div>
-
 </div>

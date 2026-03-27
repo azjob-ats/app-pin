@@ -31,7 +31,7 @@ export class ButtonLikeComponent implements OnInit {
   }
 
   toggle(): void {
-    this.isLiked.update(v => !v);
+    this.isLiked.update((v) => !v);
     this.likedChange.emit(this.isLiked());
   }
 

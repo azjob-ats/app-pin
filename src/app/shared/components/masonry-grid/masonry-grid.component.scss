@@ -2,11 +2,21 @@
   column-gap: 16px;
   padding: 0 16px;
 
-  &.cols-2 { columns: 2; }
-  &.cols-3 { columns: 3; }
-  &.cols-4 { columns: 4; }
-  &.cols-5 { columns: 5; }
-  &.cols-6 { columns: 6; }
+  &.cols-2 {
+    columns: 2;
+  }
+  &.cols-3 {
+    columns: 3;
+  }
+  &.cols-4 {
+    columns: 4;
+  }
+  &.cols-5 {
+    columns: 5;
+  }
+  &.cols-6 {
+    columns: 6;
+  }
 
   @media (max-width: 767px) {
     padding: 0 8px;

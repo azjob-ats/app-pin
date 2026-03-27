@@ -68,7 +68,7 @@ export class ButtonInscriptionComponent implements OnInit {
   }
 
   toggleMenu(): void {
-    this.isMenuOpen.update(v => !v);
+    this.isMenuOpen.update((v) => !v);
   }
 
   closeMenu(): void {

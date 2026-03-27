@@ -24,7 +24,7 @@ export const environment = {
     AUTH: {
       SIGNIN_WITH_EMAIL_AND_PASSWORD: '/api/v1/auth/sign-in-with-email-and-password',
       SIGNUP_WITH_EMAIL_AND_PASSWORD: '/api/v1/auth/sign-up-with-email-and-password',
-    }
+    },
   },
   ROUTES: {
     AUTH: {

@@ -27,12 +27,12 @@ export class InfiniteScrollComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.observer = new IntersectionObserver(
-      entries => {
+      (entries) => {
         if (entries[0].isIntersecting && !this.loading()) {
           this.loadMore.emit();
         }
       },
-      { threshold: this.threshold() }
+      { threshold: this.threshold() },
     );
     const sentinel = this.el.nativeElement.querySelector('.scroll-sentinel');
     if (sentinel) this.observer.observe(sentinel);

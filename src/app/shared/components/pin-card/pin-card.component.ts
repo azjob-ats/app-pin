@@ -36,8 +36,8 @@ export class PinCardComponent {
   onSave(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    this.isSaved.update(v => !v);
-    this.pinService.toggleSave(this.pin()).subscribe(saved => {
+    this.isSaved.update((v) => !v);
+    this.pinService.toggleSave(this.pin()).subscribe((saved) => {
       this.isSaved.set(saved);
     });
     this.saved.emit(this.pin());

@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChildren, computed, input, output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 
 @Component({
   selector: 'app-code-digits',

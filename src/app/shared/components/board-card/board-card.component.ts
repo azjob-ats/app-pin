@@ -13,18 +13,38 @@ import { Board } from '@shared/interfaces/board.interface';
       <div class="board-cover">
         @if (board().coverImages?.length) {
           <div class="board-cover-grid">
-            <img [src]="board().coverImages![0]" [alt]="board().name" class="cover-main" loading="lazy" />
+            <img
+              [src]="board().coverImages![0]"
+              [alt]="board().name"
+              class="cover-main"
+              loading="lazy"
+            />
             <div class="cover-side">
               @if (board().coverImages![1]) {
-                <img [src]="board().coverImages![1]" [alt]="board().name" class="cover-sm" loading="lazy" />
+                <img
+                  [src]="board().coverImages![1]"
+                  [alt]="board().name"
+                  class="cover-sm"
+                  loading="lazy"
+                />
               }
               @if (board().coverImages![2]) {
-                <img [src]="board().coverImages![2]" [alt]="board().name" class="cover-sm" loading="lazy" />
+                <img
+                  [src]="board().coverImages![2]"
+                  [alt]="board().name"
+                  class="cover-sm"
+                  loading="lazy"
+                />
               }
             </div>
           </div>
         } @else if (board().coverImageUrl) {
-          <img [src]="board().coverImageUrl" [alt]="board().name" class="cover-single" loading="lazy" />
+          <img
+            [src]="board().coverImageUrl"
+            [alt]="board().name"
+            class="cover-single"
+            loading="lazy"
+          />
         } @else {
           <div class="cover-placeholder">
             <span class="material-symbols-rounded">grid_view</span>

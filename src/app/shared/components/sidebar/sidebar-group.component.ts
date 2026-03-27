@@ -12,11 +12,13 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
     </div>
   `,
   styleUrl: './sidebar-group.component.scss',
-  styles: [`
-    :host {
-      display: contents;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: contents;
+      }
+    `,
+  ],
 })
 export class SidebarGroupComponent {
   readonly label = input<string>('');
@@ -24,5 +26,7 @@ export class SidebarGroupComponent {
   enable(): void {}
   disable(): void {}
   resetToInitialState(): void {}
-  isRequired(): boolean { return false; }
+  isRequired(): boolean {
+    return false;
+  }
 }

@@ -26,7 +26,9 @@ export class CommentInputComponent {
   readonly _value = signal('');
 
   constructor() {
-    effect(() => { this._value.set(this.value()); });
+    effect(() => {
+      this._value.set(this.value());
+    });
   }
 
   _onInput(event: Event): void {

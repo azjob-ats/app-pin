@@ -10,7 +10,7 @@ export class BoardService {
   }
 
   getBoardById(boardId: string): Observable<Board> {
-    const board = MOCK_BOARDS.find(b => b.id === boardId) ?? MOCK_BOARDS[0];
+    const board = MOCK_BOARDS.find((b) => b.id === boardId) ?? MOCK_BOARDS[0];
     return of(board).pipe(delay(300));
   }
 

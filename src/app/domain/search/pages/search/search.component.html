@@ -1,11 +1,9 @@
 <div class="search-page">
-
-    <!-- Categories scroll bar -->
-    <app-chip-scroll-text
-      [chips]="chipItems()"
-      [selected]="selectedCategory()"
-      (chipSelect)="selectCategory($event)"
-    />
+  <!-- Categories scroll bar -->
+  <app-chip-scroll-text
+    [chips]="chipItems()"
+    [selected]="selectedCategory()"
+    (chipSelect)="selectCategory($event)" />
 
   <!-- Results -->
   @if (query()) {
@@ -16,11 +14,12 @@
         <app-empty-state
           icon="search_off"
           [message]="'search.noResults' | translate"
-          [subtitle]="query()"
-        />
+          [subtitle]="query()" />
       } @else {
         <app-masonry-grid [pins]="pins()" />
-        <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="onLoadMore()" />
+        <app-infinite-scroll
+          [loading]="isLoadingMore()"
+          (loadMore)="onLoadMore()" />
       }
     </div>
   }

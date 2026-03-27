@@ -10,12 +10,8 @@ interface Category {
 @Component({
   selector: 'app-explore',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './explore.component.html',
   styleUrl: './explore.component.scss',
 })
-export class ExploreComponent {
-
-}
+export class ExploreComponent {}

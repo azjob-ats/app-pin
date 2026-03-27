@@ -5,7 +5,9 @@
         {{ 'create.title' | translate }}
       </app-card-section-left>
       <app-card-section-right>
-        <app-button variant="secondary" size="md">
+        <app-button
+          variant="secondary"
+          size="md">
           {{ 'create.draft' | translate }}
         </app-button>
         <app-button
@@ -14,7 +16,8 @@
           [loading]="isPublishing()"
           [disabled]="!previewUrl()"
           (clicked)="publish()"
-        >{{ 'create.publish' | translate }}</app-button>
+          >{{ 'create.publish' | translate }}</app-button
+        >
       </app-card-section-right>
     </app-card-header>
     <app-card-body>
@@ -23,8 +26,7 @@
         <app-upload-area
           [previewUrl]="previewUrl()"
           (fileSelected)="onFileSelected($event)"
-          (fileRemoved)="onFileRemoved()"
-        />
+          (fileRemoved)="onFileRemoved()" />
       </div>
       <!-- ── Form ────────────────────────────────────────────── -->
       <div class="create-form-side flex flex-col flex-1 p-6 gap-5">
@@ -33,37 +35,32 @@
           [label]="'create.pinTitle' | translate"
           [placeholder]="'create.pinTitle' | translate"
           [ngModel]="title()"
-          (ngModelChange)="title.set($event)"
-        />
+          (ngModelChange)="title.set($event)" />
         <app-textarea
           [label]="'create.description' | translate"
           [placeholder]="'create.description' | translate"
           [rows]="4"
           [maxlength]="500"
           [ngModel]="description()"
-          (ngModelChange)="description.set($event)"
-        />
+          (ngModelChange)="description.set($event)" />
         <app-input
           type="url"
           [label]="'create.link' | translate"
           placeholder="https://"
           [ngModel]="link()"
-          (ngModelChange)="link.set($event)"
-        />
+          (ngModelChange)="link.set($event)" />
         <app-input
           type="text"
           [label]="'create.altText' | translate"
           [placeholder]="'create.altText' | translate"
           hint="Add alt text for accessibility"
           [ngModel]="altText()"
-          (ngModelChange)="altText.set($event)"
-        />
+          (ngModelChange)="altText.set($event)" />
         <app-select
           [label]="'create.selectBoard' | translate"
           [options]="boards()"
           [ngModel]="selectedBoardId()"
-          (ngModelChange)="selectedBoardId.set($event)"
-        />
+          (ngModelChange)="selectedBoardId.set($event)" />
       </div>
     </app-card-body>
   </app-card-container>

@@ -12,7 +12,7 @@ export class UserService {
   }
 
   getUserByUsername(username: string): Observable<User> {
-    const user = MOCK_USERS.find(u => u.username === username) ?? MOCK_USERS[0];
+    const user = MOCK_USERS.find((u) => u.username === username) ?? MOCK_USERS[0];
     return of(user).pipe(delay(300));
   }
 

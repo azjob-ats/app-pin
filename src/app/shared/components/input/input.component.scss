@@ -80,7 +80,9 @@
     align-items: center;
     padding: var(--space-xs);
     border-radius: var(--radius-circle);
-    transition: color var(--pin-transition), background-color var(--pin-transition);
+    transition:
+      color var(--pin-transition),
+      background-color var(--pin-transition);
 
     &:hover {
       color: var(--pin-text-primary);

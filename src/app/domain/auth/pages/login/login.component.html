@@ -13,17 +13,19 @@
       [label]="'auth.email' | translate"
       [placeholder]="'auth.email' | translate"
       [ngModel]="email()"
-      (ngModelChange)="email.set($event)"
-    />
+      (ngModelChange)="email.set($event)" />
     <app-input
       type="password"
       [label]="'auth.password' | translate"
       [placeholder]="'auth.password' | translate"
       [ngModel]="password()"
       (ngModelChange)="password.set($event)"
-      (enter)="onSubmit()"
-    />
-    <a routerLink="/auth/forgot-password" class="forgot-link">{{ 'auth.forgotPassword' | translate }}</a>
+      (enter)="onSubmit()" />
+    <a
+      routerLink="/auth/forgot-password"
+      class="forgot-link"
+      >{{ 'auth.forgotPassword' | translate }}</a
+    >
     <app-button
       variant="primary"
       size="lg"
@@ -31,18 +33,31 @@
       [loading]="isLoading()"
       [disabled]="!email() || !password()"
       (clicked)="onSubmit()"
-    >{{ 'auth.login' | translate }}</app-button>
+      >{{ 'auth.login' | translate }}</app-button
+    >
   </app-card-content>
   <app-card-footer>
     <p class="text-link">
       {{ 'auth.noAccount' | translate }}
-      <a routerLink="/auth/register" class="text-link-active">{{ 'auth.signUpHere' | translate }}</a>
+      <a
+        routerLink="/auth/register"
+        class="text-link-active"
+        >{{ 'auth.signUpHere' | translate }}</a
+      >
     </p>
     <p class="terms-link">
       {{ 'auth.agreeTerms' | translate }}
-      <a routerLink="/auth/terms" class="terms-link-active">{{ 'auth.terms' | translate }}</a>
+      <a
+        routerLink="/auth/terms"
+        class="terms-link-active"
+        >{{ 'auth.terms' | translate }}</a
+      >
       {{ 'common.and' | translate }}
-      <a routerLink="/auth/privacy" class="terms-link-active">{{ 'auth.privacy' | translate }}</a>.
+      <a
+        routerLink="/auth/privacy"
+        class="terms-link-active"
+        >{{ 'auth.privacy' | translate }}</a
+      >.
     </p>
   </app-card-footer>
 </app-card>

@@ -1,11 +1,36 @@
 import { Pin } from '@shared/interfaces/pin.interface';
 
 const AUTHORS = [
-  { id: 'u1', username: 'fondecranvip', displayName: 'Fond Ecran VIP', avatarUrl: 'https://i.pravatar.cc/150?img=1' },
-  { id: 'u2', username: 'design_lover', displayName: 'Design Lover', avatarUrl: 'https://i.pravatar.cc/150?img=2' },
-  { id: 'u3', username: 'art_studio', displayName: 'Art Studio', avatarUrl: 'https://i.pravatar.cc/150?img=3' },
-  { id: 'u4', username: 'photo_world', displayName: 'Photo World', avatarUrl: 'https://i.pravatar.cc/150?img=4' },
-  { id: 'u5', username: 'creative_hub', displayName: 'Creative Hub', avatarUrl: 'https://i.pravatar.cc/150?img=5' },
+  {
+    id: 'u1',
+    username: 'fondecranvip',
+    displayName: 'Fond Ecran VIP',
+    avatarUrl: 'https://i.pravatar.cc/150?img=1',
+  },
+  {
+    id: 'u2',
+    username: 'design_lover',
+    displayName: 'Design Lover',
+    avatarUrl: 'https://i.pravatar.cc/150?img=2',
+  },
+  {
+    id: 'u3',
+    username: 'art_studio',
+    displayName: 'Art Studio',
+    avatarUrl: 'https://i.pravatar.cc/150?img=3',
+  },
+  {
+    id: 'u4',
+    username: 'photo_world',
+    displayName: 'Photo World',
+    avatarUrl: 'https://i.pravatar.cc/150?img=4',
+  },
+  {
+    id: 'u5',
+    username: 'creative_hub',
+    displayName: 'Creative Hub',
+    avatarUrl: 'https://i.pravatar.cc/150?img=5',
+  },
 ];
 
 const PICSUM_SEEDS = [

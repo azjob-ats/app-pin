@@ -10,7 +10,11 @@ import { PinCardComponent } from '@shared/components/pin-card/pin-card.component
   template: `
     <div class="masonry-grid" [class]="'cols-' + columnCount()">
       @for (pin of pins(); track pin.id) {
-        <app-pin-card [pin]="pin" (saved)="pinSaved.emit($event)" (shared)="pinShared.emit($event)" />
+        <app-pin-card
+          [pin]="pin"
+          (saved)="pinSaved.emit($event)"
+          (shared)="pinShared.emit($event)"
+        />
       }
     </div>
   `,

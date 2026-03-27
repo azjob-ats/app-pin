@@ -22,10 +22,20 @@ import {
   selector: 'app-create',
   standalone: true,
   imports: [
-    CommonModule, FormsModule, TranslateModule,
-    ButtonComponent, InputComponent, TextareaComponent, SelectComponent, UploadAreaComponent,
-    CardBoardComponent, CardContainerComponent, CardHeaderComponent,
-    CardSectionLeftComponent, CardSectionRightComponent, CardBodyComponent,
+    CommonModule,
+    FormsModule,
+    TranslateModule,
+    ButtonComponent,
+    InputComponent,
+    TextareaComponent,
+    SelectComponent,
+    UploadAreaComponent,
+    CardBoardComponent,
+    CardContainerComponent,
+    CardHeaderComponent,
+    CardSectionLeftComponent,
+    CardSectionRightComponent,
+    CardBodyComponent,
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss',
@@ -45,8 +55,8 @@ export class CreateComponent {
   private router = inject(Router);
 
   constructor() {
-    this.boardService.getUserBoards('u1').subscribe(boards => {
-      this.boards.set(boards.map(b => ({ value: b.id, label: b.name })));
+    this.boardService.getUserBoards('u1').subscribe((boards) => {
+      this.boards.set(boards.map((b) => ({ value: b.id, label: b.name })));
       if (boards.length) this.selectedBoardId.set(boards[0].id);
     });
   }

@@ -9,9 +9,13 @@
   background: transparent;
   font-family: var(--font-family);
   cursor: pointer;
-  transition: color var(--pin-transition), border-color var(--pin-transition);
+  transition:
+    color var(--pin-transition),
+    border-color var(--pin-transition);
 
-  &:hover { color: var(--pin-text-primary); }
+  &:hover {
+    color: var(--pin-text-primary);
+  }
 
   &.active {
     color: var(--pin-red);

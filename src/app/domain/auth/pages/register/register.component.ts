@@ -6,7 +6,13 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { DividerComponent } from '@shared/components/divider/divider.component';
 import { InputComponent } from '@shared/components/input/input.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent, CardFooterComponent } from '@shared/components/card/card.component';
+import {
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleComponent,
+  CardContentComponent,
+  CardFooterComponent,
+} from '@shared/components/card/card.component';
 import { LabelButtonComponent } from '@shared/components/button-provider/label-button/label-button.component';
 import { GoogleProviderComponent } from '@shared/components/button-provider/google-provider/google-provider.component';
 import { ButtonProviderComponent } from '@shared/components/button-provider/button-provider/button-provider.component';
@@ -14,8 +20,24 @@ import { ButtonProviderComponent } from '@shared/components/button-provider/butt
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, DividerComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent, CardFooterComponent, ButtonProviderComponent, GoogleProviderComponent, LabelButtonComponent],
-  templateUrl: './register.component.html'
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    TranslateModule,
+    ButtonComponent,
+    DividerComponent,
+    InputComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardTitleComponent,
+    CardContentComponent,
+    CardFooterComponent,
+    ButtonProviderComponent,
+    GoogleProviderComponent,
+    LabelButtonComponent,
+  ],
+  templateUrl: './register.component.html',
 })
 export class RegisterComponent {
   readonly name = signal('');

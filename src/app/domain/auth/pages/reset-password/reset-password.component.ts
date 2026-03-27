@@ -5,12 +5,28 @@ import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { InputComponent } from '@shared/components/input/input.component';
-import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent } from '@shared/components/card/card.component';
+import {
+  CardComponent,
+  CardHeaderComponent,
+  CardTitleComponent,
+  CardContentComponent,
+} from '@shared/components/card/card.component';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, TranslateModule, ButtonComponent, InputComponent, CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    TranslateModule,
+    ButtonComponent,
+    InputComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardTitleComponent,
+    CardContentComponent,
+  ],
   template: `
     <app-card>
       <app-card-header>
@@ -42,7 +58,8 @@ import { CardComponent, CardHeaderComponent, CardTitleComponent, CardContentComp
           [loading]="isLoading()"
           [disabled]="!password() || passwordMismatch()"
           (clicked)="onSubmit()"
-        >{{ 'auth.resetPassword' | translate }}</app-button>
+          >{{ 'auth.resetPassword' | translate }}</app-button
+        >
       </app-card-content>
     </app-card>
   `,
@@ -52,13 +69,20 @@ export class ResetPasswordComponent {
   readonly confirm = signal('');
   readonly isLoading = signal(false);
 
-  readonly passwordMismatch = computed(() => !!this.confirm() && this.password() !== this.confirm());
-  readonly confirmError = computed(() => this.passwordMismatch() ? 'Passwords do not match.' : '');
+  readonly passwordMismatch = computed(
+    () => !!this.confirm() && this.password() !== this.confirm(),
+  );
+  readonly confirmError = computed(() =>
+    this.passwordMismatch() ? 'Passwords do not match.' : '',
+  );
 
   constructor(private router: Router) {}
 
   onSubmit(): void {
     this.isLoading.set(true);
-    setTimeout(() => { this.isLoading.set(false); this.router.navigate(['/auth/login']); }, 1200);
+    setTimeout(() => {
+      this.isLoading.set(false);
+      this.router.navigate(['/auth/login']);
+    }, 1200);
   }
 }

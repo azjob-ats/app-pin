@@ -5,7 +5,9 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="empty-state" role="status">
-      <span class="material-symbols-rounded empty-state__icon" aria-hidden="true">{{ icon() }}</span>
+      <span class="material-symbols-rounded empty-state__icon" aria-hidden="true">{{
+        icon()
+      }}</span>
       <p class="empty-state__message">{{ message() }}</p>
       @if (subtitle()) {
         <p class="empty-state__subtitle">{{ subtitle() }}</p>
@@ -22,5 +24,7 @@ export class EmptyStateComponent {
   enable(): void {}
   disable(): void {}
   resetToInitialState(): void {}
-  isRequired(): boolean { return false; }
+  isRequired(): boolean {
+    return false;
+  }
 }

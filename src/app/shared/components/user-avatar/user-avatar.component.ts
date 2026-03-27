@@ -8,12 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="user-avatar" [class]="'size-' + size()" [class.clickable]="!!link()">
       @if (imageUrl()) {
-        <img
-          [src]="imageUrl()"
-          [alt]="alt()"
-          class="avatar-img"
-          loading="lazy"
-        />
+        <img [src]="imageUrl()" [alt]="alt()" class="avatar-img" loading="lazy" />
       } @else {
         <div class="avatar-fallback">
           {{ alt().charAt(0).toUpperCase() }}
