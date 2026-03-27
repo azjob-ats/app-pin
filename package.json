@@ -1,12 +1,21 @@
 {
-  "name": "app-pin",
-  "version": "0.0.0",
+  "name": "realwe",
+  "version": "0.0.1",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port 4200",
-    "build": "ng build",
+    "ng": "ng serve --host 0.0.0.0",
+    "start": "npm run start:production",
+    "dev": "npm run start:development",
+    "start:production": "NODE_ENV=production ng serve",
+    "start:development": "NODE_ENV=development ng serve --host 0.0.0.0 --port 4200",
+    "build": "NODE_ENV=production ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "npx eslint --fix src/",
+    "format": "prettier --write \"src/**/*.{ts,js,json,html,scss}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,json,html,scss}\""
+  },
+  "engines": {
+    "node": "22.21.0"
   },
   "private": true,
   "packageManager": "npm@10.9.4",
@@ -31,6 +40,14 @@
     "@angular/cli": "^21.2.1",
     "@angular/compiler-cli": "^21.2.0",
     "prettier": "^3.8.1",
+    "@angular-eslint/eslint-plugin": "^18.0.0",
+    "@angular-eslint/eslint-plugin-template": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "typescript": "~5.9.2"
   }
 }
