@@ -1,0 +1,4 @@
+export enum StorageStrategy {
+  LOCAL_STORAGE = 'LOCAL_STORAGE',
+  SESSION_STORAGE = 'SESSION_STORAGE',
+}
