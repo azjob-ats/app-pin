@@ -1759,6 +1759,108 @@
       </section>
     }
 
+    <!-- RADIO GROUP -->
+    @if (activeSection() === 'comp-radio-group') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Radio Group</h1>
+        <p class="sg-section__desc">
+          Single-selection list rendered as radio buttons. Implements
+          <code>ControlValueAccessor</code> — use with <code>[(ngModel)]</code> or reactive forms.
+        </p>
+
+        <h3 class="sg-subsection__title">Import</h3>
+        <pre class="sg-code-block"><code>import &#123; RadioGroupComponent &#125; from '@shared/components/radio-group/radio-group.component';</code></pre>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="max-width: 360px">
+            <app-radio-group
+              label="Duração do Vídeo"
+              [options]="radioOptions"
+              [ngModel]="radioValue"
+              (ngModelChange)="radioValue = $event" />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>label</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Group label (aria-labelledby)</td>
+            </tr>
+            <tr>
+              <td><code>options</code></td>
+              <td>RadioOption[]</td>
+              <td>[]</td>
+              <td>List of &#123; label, value &#125; options</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    <!-- CHECKBOX GROUP -->
+    @if (activeSection() === 'comp-checkbox-group') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Checkbox Group</h1>
+        <p class="sg-section__desc">
+          Multi-selection list rendered as checkboxes. Implements
+          <code>ControlValueAccessor</code> — value is <code>string[]</code>.
+        </p>
+
+        <h3 class="sg-subsection__title">Import</h3>
+        <pre class="sg-code-block"><code>import &#123; CheckboxGroupComponent &#125; from '@shared/components/checkbox-group/checkbox-group.component';</code></pre>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="max-width: 360px">
+            <app-checkbox-group
+              label="Tema"
+              [options]="checkboxOptions"
+              [ngModel]="checkboxValues"
+              (ngModelChange)="checkboxValues = $event" />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>label</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Group label (aria-labelledby)</td>
+            </tr>
+            <tr>
+              <td><code>options</code></td>
+              <td>CheckboxOption[]</td>
+              <td>[]</td>
+              <td>List of &#123; label, value &#125; options</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
     <!-- DIVIDER -->
     @if (activeSection() === 'comp-divider') {
       <section class="sg-section">

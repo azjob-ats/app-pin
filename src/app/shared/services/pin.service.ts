@@ -56,8 +56,16 @@ export class PinService {
     );
   }
 
-  getSearchPins(query: string, page = 0): Observable<Pin[]> {
-    return this.pinsApi.list(page + 1, 20, query).pipe(
+  getSearchPins(
+    query: string,
+    filters: Record<string, string | string[]> = {},
+    page = 0,
+  ): Observable<Pin[]> {
+    const flatFilters: Record<string, string> = {};
+    for (const [k, v] of Object.entries(filters)) {
+      flatFilters[k] = Array.isArray(v) ? v.join(',') : v;
+    }
+    return this.pinsApi.list(page + 1, 20, query, flatFilters).pipe(
       map((response) => response.data?.data ?? []),
     );
   }

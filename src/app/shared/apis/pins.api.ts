@@ -16,10 +16,20 @@ export class PinsApi {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.API_BASE_URL;
 
-  public list(page = 1, pageSize = 20, search?: string): Observable<ApiResponse<List<Pin[]>>> {
+  public list(
+    page = 1,
+    pageSize = 20,
+    search?: string,
+    filters?: Record<string, string>,
+  ): Observable<ApiResponse<List<Pin[]>>> {
     const url = `${this.baseUrl}${environment.API.PINS.LIST}`;
     let params = new HttpParams().set('page', page).set('pageSize', pageSize);
     if (search) params = params.set('search', search);
+    if (filters) {
+      for (const [k, v] of Object.entries(filters)) {
+        if (v) params = params.set(k, v);
+      }
+    }
 
     return this.http
       .get<ApiResponse<PinListResponse>>(url, { params })

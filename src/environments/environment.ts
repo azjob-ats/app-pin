@@ -60,6 +60,10 @@ export const environment = {
     RELEVANT_RESEARCH: {
       LIST: '/api/relevant-research',
     },
+    SEARCH: {
+      CATALOGS: '/api/search/catalogs',
+      FILTER_ATTRIBUTES: '/api/search/filter-attributes',
+    },
   },
   ROUTES: {
     AUTH: {

@@ -1,0 +1,128 @@
+.fal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pin-border);
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--pin-text-primary);
+    transition: background var(--pin-transition);
+
+    &:hover {
+      background: var(--pin-bg-secondary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-text-primary);
+      outline-offset: 2px;
+    }
+
+    .material-symbols-rounded {
+      font-size: 20px;
+    }
+  }
+
+  &__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--pin-text-primary);
+  }
+}
+
+.fal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fal-list__item {
+  border-bottom: 1px solid var(--pin-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.fal-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--pin-transition);
+  border-radius: var(--radius-md);
+
+  &:hover {
+    background: var(--pin-bg-secondary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-text-primary);
+    outline-offset: -2px;
+  }
+
+  &--active {
+    background: var(--pin-red, #e60023);
+    border-radius: var(--radius-md);
+
+    &:hover {
+      background: color-mix(in srgb, var(--pin-red, #e60023) 90%, black);
+    }
+
+    .fal-row__name,
+    .fal-row__value,
+    .fal-row__chevron {
+      color: #fff;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--pin-text-primary);
+    line-height: 1.3;
+  }
+
+  &__value {
+    font-size: var(--text-sm);
+    color: var(--pin-text-primary);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__chevron {
+    font-size: 20px;
+    color: var(--pin-text-secondary);
+    flex-shrink: 0;
+    margin-left: 8px;
+  }
+}

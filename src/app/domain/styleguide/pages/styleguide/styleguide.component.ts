@@ -55,6 +55,8 @@ import {
   ChipItem,
 } from '@shared/components/chip-scroll/chip-scroll.component';
 import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
+import { RadioGroupComponent, RadioOption } from '@shared/components/radio-group/radio-group.component';
+import { CheckboxGroupComponent, CheckboxOption } from '@shared/components/checkbox-group/checkbox-group.component';
 import { PinCardComponent } from '@shared/components/pin-card/pin-card.component';
 import { Notification } from '@shared/interfaces/entity/notification';
 import { Pin } from '@shared/interfaces/entity/pin';
@@ -135,6 +137,8 @@ export interface SearchResult {
     CardBodyComponent,
     ChipScrollComponent,
     SplitButtonComponent,
+    RadioGroupComponent,
+    CheckboxGroupComponent,
     PinCardComponent,
     CommentInputComponent,
     CommentSubmitComponent,
@@ -176,6 +180,24 @@ export class StyleguideComponent {
   inputValue = '';
   textareaValue = '';
   selectValue = '';
+  radioValue = '';
+  checkboxValues: string[] = [];
+
+  readonly radioOptions: RadioOption[] = [
+    { label: 'Até 1 minuto', value: 'lt1' },
+    { label: '1 – 5 minutos', value: '1to5' },
+    { label: '5 – 10 minutos', value: '5to10' },
+    { label: '10 – 30 minutos', value: '10to30' },
+    { label: 'Acima de 30 minutos', value: 'gt30' },
+  ];
+
+  readonly checkboxOptions: CheckboxOption[] = [
+    { label: 'Mercado de Trabalho', value: 'mercado' },
+    { label: 'Tecnologia', value: 'tech' },
+    { label: 'Startups', value: 'startups' },
+    { label: 'Economia', value: 'economia' },
+    { label: 'Carreira', value: 'carreira' },
+  ];
 
   readonly sidebarOpen = signal(false);
   readonly searchQuery = signal('');
@@ -422,6 +444,8 @@ export class StyleguideComponent {
         { id: 'comp-input', label: 'Input', icon: 'input' },
         { id: 'comp-textarea', label: 'Textarea', icon: 'notes' },
         { id: 'comp-select', label: 'Select', icon: 'arrow_drop_down_circle' },
+        { id: 'comp-radio-group', label: 'Radio Group', icon: 'radio_button_checked' },
+        { id: 'comp-checkbox-group', label: 'Checkbox Group', icon: 'check_box' },
         { id: 'comp-divider', label: 'Divider', icon: 'horizontal_rule' },
         { id: 'comp-card', label: 'Card', icon: 'credit_card' },
         { id: 'comp-user-avatar', label: 'User Avatar', icon: 'account_circle' },

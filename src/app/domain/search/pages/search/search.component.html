@@ -1,9 +1,11 @@
 <div class="search-page">
-  <!-- Categories scroll bar -->
-  <app-chip-scroll-text
-    [chips]="chipItems()"
-    [selected]="selectedCategory()"
-    (chipSelect)="selectCategory($event)" />
+  <!-- Dynamic filter menu: categories + attribute panel -->
+  <app-search-filter-menu
+    [catalogs]="catalogs()"
+    [resultCount]="resultCount()"
+    (catalogSelect)="onCatalogSelected($event)"
+    (filterChange)="onFilterChange($event)"
+  />
 
   <!-- Results -->
   @if (query()) {

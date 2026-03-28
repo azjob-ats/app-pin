@@ -1,0 +1,57 @@
+<!-- Chip scroll bar -->
+<div class="sfm-chip-bar">
+  <div class="sfm-chip-track" #track>
+    @for (catalog of catalogs(); track catalog.key) {
+      <button
+        #chipBtn
+        class="sfm-chip"
+        type="button"
+        [class.sfm-chip--active]="isActive(catalog)"
+        [class.sfm-chip--selected]="selectedCatalog()?.key === catalog.key && !isPanelOpen()"
+        [attr.aria-pressed]="isActive(catalog)"
+        [attr.aria-expanded]="catalog.attributes?.length ? isActive(catalog) : null"
+        (click)="selectCatalog(catalog)"
+      >
+        <span>{{ catalog.label }}</span>
+      </button>
+    }
+  </div>
+</div>
+
+<!-- Filter panel -->
+@if (isPanelOpen() && selectedCatalog()?.attributes?.length) {
+  <div
+    class="sfm-backdrop"
+    aria-hidden="true"
+    (click)="closePanel()"
+  ></div>
+
+  <div
+    class="sfm-panel"
+    role="dialog"
+    [attr.aria-label]="'Filtros de ' + selectedCatalog()!.label"
+  >
+    @if (isLoadingAttributes()) {
+      <div class="sfm-panel__loading" aria-live="polite" aria-label="Carregando filtros">
+        <span class="sfm-panel__loading-spinner" aria-hidden="true"></span>
+        <span>Carregando filtros…</span>
+      </div>
+    } @else if (currentStep() === 0) {
+      <app-filter-attribute-list
+        [attributes]="selectedCatalog()!.attributes!"
+        [resultCount]="resultCount()"
+        (attributeSelect)="goToAttribute($event)"
+        (close)="closePanel()"
+      />
+    }
+
+    @if (currentStep() === 1 && selectedAttribute()) {
+      <app-filter-detail
+        [attribute]="selectedAttribute()!"
+        (back)="goBack()"
+        (valueChange)="onFilterValue($event)"
+        (reset)="onResetAttribute()"
+      />
+    }
+  </div>
+}

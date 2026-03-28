@@ -1,0 +1,42 @@
+<div class="fal-header">
+  <div class="fal-header__left">
+    <button
+      class="fal-header__back"
+      type="button"
+      aria-label="Fechar filtros"
+      (click)="close.emit()"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+    </button>
+
+    <span class="fal-header__title">
+      @if (resultCount() !== null) {
+        {{ resultCount()?.toLocaleString('pt-BR') }} resultados
+      } @else {
+        Filtros
+      }
+    </span>
+  </div>
+</div>
+
+<ul class="fal-list" role="list" aria-label="Atributos de filtro">
+  @for (attr of attributes(); track attr.key) {
+    <li class="fal-list__item">
+      <button
+        class="fal-row"
+        type="button"
+        [class.fal-row--active]="hasSelection(attr)"
+        [attr.aria-label]="attr.name + (hasSelection(attr) ? ': ' + selectionLabel(attr) : '')"
+        (click)="attributeSelect.emit(attr)"
+      >
+        <span class="fal-row__content">
+          <span class="fal-row__name">{{ attr.name }}</span>
+          @if (hasSelection(attr)) {
+            <span class="fal-row__value">{{ selectionLabel(attr) }}</span>
+          }
+        </span>
+        <span class="material-symbols-rounded fal-row__chevron" aria-hidden="true">chevron_right</span>
+      </button>
+    </li>
+  }
+</ul>

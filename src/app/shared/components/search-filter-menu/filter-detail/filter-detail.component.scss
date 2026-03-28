@@ -1,0 +1,74 @@
+.fd-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pin-border);
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--pin-text-primary);
+    flex-shrink: 0;
+    transition: background var(--pin-transition);
+
+    &:hover {
+      background: var(--pin-bg-secondary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-text-primary);
+      outline-offset: 2px;
+    }
+
+    .material-symbols-rounded {
+      font-size: 20px;
+    }
+  }
+
+  &__title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--pin-text-primary);
+    margin: 0;
+  }
+}
+
+.fd-body {
+  padding: 8px 16px;
+}
+
+.fd-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 16px 16px;
+
+  &__reset {
+    background: none;
+    border: none;
+    font-family: var(--font-family);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--pin-red, #e60023);
+    cursor: pointer;
+    padding: 4px 0;
+    transition: opacity var(--pin-transition);
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-red, #e60023);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+}

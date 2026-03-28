@@ -1,0 +1,107 @@
+:host {
+  display: block;
+}
+
+// ── Chip bar ──────────────────────────────────────────────────────────────────
+.sfm-chip-bar {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--pin-border);
+  position: sticky;
+  top: 0;
+  background: var(--pin-bg);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.sfm-chip-track {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.sfm-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 24px;
+  border: none;
+  background: var(--pin-bg-secondary);
+  color: var(--pin-text-primary);
+  font-family: var(--font-family);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--pin-transition);
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--pin-border);
+  }
+
+  &--active,
+  &--selected {
+    background: var(--pin-text-primary);
+    color: var(--pin-bg);
+  }
+}
+
+// ── Backdrop ──────────────────────────────────────────────────────────────────
+.sfm-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+}
+
+// ── Panel ─────────────────────────────────────────────────────────────────────
+.sfm-panel {
+  position: relative;
+  z-index: 91;
+  background: var(--pin-bg);
+  border-bottom: 1px solid var(--pin-border);
+  animation: sfm-panel-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  min-height: 200px;
+}
+
+.sfm-panel__loading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px;
+  font-size: var(--text-base);
+  color: var(--pin-text-secondary);
+}
+
+.sfm-panel__loading-spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--pin-border);
+  border-top-color: var(--pin-text-primary);
+  animation: sfm-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes sfm-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes sfm-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

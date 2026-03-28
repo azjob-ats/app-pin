@@ -1,0 +1,48 @@
+<div class="fd-header">
+  <button
+    class="fd-header__back"
+    type="button"
+    [attr.aria-label]="'Voltar de ' + attribute().name"
+    (click)="back.emit()"
+  >
+    <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+  </button>
+  <h2 class="fd-header__title">{{ attribute().name }}</h2>
+</div>
+
+<div class="fd-body">
+  @if (attribute().filterComponent.type === 'radio') {
+    <app-radio-group
+      [options]="attribute().filterComponent.options"
+      [ngModel]="radioValue()"
+      (ngModelChange)="onRadioChange($event)"
+    />
+  }
+
+  @if (attribute().filterComponent.type === 'checkbox') {
+    <app-checkbox-group
+      [options]="attribute().filterComponent.options"
+      [ngModel]="checkboxValues()"
+      (ngModelChange)="onCheckboxChange($event)"
+    />
+  }
+
+  @if (attribute().filterComponent.type === 'select') {
+    <app-select
+      [options]="attribute().filterComponent.options"
+      [ngModel]="selectValue()"
+      (ngModelChange)="onSelectChange($event)"
+    />
+  }
+</div>
+
+<div class="fd-footer">
+  <button
+    class="fd-footer__reset"
+    type="button"
+    aria-label="Redefinir filtro"
+    (click)="onReset()"
+  >
+    Redefinir
+  </button>
+</div>
