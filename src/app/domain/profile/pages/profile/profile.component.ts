@@ -15,6 +15,7 @@ import { Pin } from '@shared/interfaces/entity/pin';
 import { User } from '@shared/interfaces/entity/user';
 import { BoardService } from '@shared/services/board.service';
 import { PinService } from '@shared/services/pin.service';
+import { SeoService } from '@shared/services/seo.service';
 import { UserService } from '@shared/services/user.service';
 
 @Component({
@@ -46,12 +47,17 @@ export class ProfileComponent implements OnInit {
   private userService = inject(UserService);
   private pinService = inject(PinService);
   private boardService = inject(BoardService);
+  private seoService = inject(SeoService);
 
   ngOnInit(): void {
     const username = this.route.snapshot.paramMap.get('username') ?? 'fondecranvip';
     this.userService.getUserByUsername(username).subscribe((user) => {
       this.user.set(user);
       this.isLoading.set(false);
+      this.seoService.setPage(
+        user.displayName,
+        user.bio ?? `Veja os pins e boards de ${user.displayName} na RealWe.`,
+      );
     });
     this.pinService.getUserPins('u1').subscribe((pins) => this.createdPins.set(pins));
     this.pinService.getUserPins('u1', 1).subscribe((pins) => this.savedPins.set(pins));

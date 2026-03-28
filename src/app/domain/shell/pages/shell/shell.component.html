@@ -31,11 +31,11 @@
             [tooltipDelay]="300">
             @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
               <span class="nav-icon-wrap d-flex align-center justify-center">
-                <span class="material-symbols-rounded">{{ item.icon }}</span>
+                <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
                 <span class="notif-dot radius-circle"></span>
               </span>
             } @else {
-              <span class="material-symbols-rounded">{{ item.icon }}</span>
+              <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
             }
           </a>
         }
@@ -51,7 +51,7 @@
         [tooltipDelay]="300"
         (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
         <span class="nav-icon-wrap d-flex align-center justify-center">
-          <span class="material-symbols-rounded">more_horiz</span>
+          <span class="material-symbols-rounded" aria-hidden="true">more_horiz</span>
         </span>
       </a>
     </app-sidebar-footer>
@@ -65,7 +65,7 @@
         <!-- Mobile: hamburger -->
         @if (isMobile()) {
           <div (click)="isMobileMenuOpen.set(!isMobileMenuOpen())">
-            <span class="material-symbols-rounded">menu</span>
+            <span class="material-symbols-rounded" aria-hidden="true">menu</span>
           </div>
           <a
             routerLink="/home"
@@ -149,11 +149,11 @@
           [routerLinkActiveOptions]="{ exact: !!item.exact }">
           @if (item.route === '/notifications' && notifService.unreadCount() > 0) {
             <span class="nav-icon-wrap d-flex align-center justify-center">
-              <span class="material-symbols-rounded">{{ item.icon }}</span>
+              <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
               <span class="notif-dot radius-circle"></span>
             </span>
           } @else {
-            <span class="material-symbols-rounded">{{ item.icon }}</span>
+            <span class="material-symbols-rounded" aria-hidden="true">{{ item.icon }}</span>
           }
           <span class="bottom-nav-label text-3xs fw-semibold">{{ item.labelKey | translate }}</span>
         </a>
@@ -182,7 +182,7 @@
           routerLink="/home"
           class="drawer-logo d-flex align-center gap-2"
           (click)="isMobileMenuOpen.set(false)">
-          <span class="material-symbols-rounded">arrow_left_alt</span>
+          <span class="material-symbols-rounded" aria-hidden="true">arrow_left_alt</span>
           <span class="drawer-logo-text text-4 fw-bold">Mais</span>
         </a>
         <app-button
@@ -206,7 +206,7 @@
               informações da sua conta.
             </p>
           </div>
-          <span class="material-symbols-rounded p-2 flex-shrink-0">arrow_forward_ios</span>
+          <span class="material-symbols-rounded p-2 flex-shrink-0" aria-hidden="true">arrow_forward_ios</span>
         </div>
         <br />
         <div class="d-flex justify-between align-center">
@@ -217,7 +217,7 @@
               empresa
             </p>
           </div>
-          <span class="material-symbols-rounded p-2 flex-shrink-0">arrow_forward_ios</span>
+          <span class="material-symbols-rounded p-2 flex-shrink-0" aria-hidden="true">arrow_forward_ios</span>
         </div>
       </div>
     </div>
@@ -256,7 +256,7 @@
           <span class="lang-item-flag text-5">{{ lang.flag }}</span>
           <span class="lang-item-label">{{ lang.label }}</span>
           @if (languageService.currentLang() === lang.code) {
-            <span class="material-symbols-rounded check-icon text-5 pin-red">check</span>
+            <span class="material-symbols-rounded check-icon text-5 pin-red" aria-hidden="true">check</span>
           }
         </button>
       }

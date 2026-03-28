@@ -14,6 +14,7 @@ import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.
 import { Comment } from '@shared/interfaces/entity/comment';
 import { Pin } from '@shared/interfaces/entity/pin';
 import { PinService } from '@shared/services/pin.service';
+import { SeoService } from '@shared/services/seo.service';
 
 const MOCK_COMMENTS: Comment[] = [
   {
@@ -90,6 +91,7 @@ export class PinComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private pinService = inject(PinService);
+  private seoService = inject(SeoService);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '296604325483937524';
@@ -97,6 +99,10 @@ export class PinComponent implements OnInit {
       this.pin.set(pin);
       this.isSaved.set(pin.isSaved ?? false);
       this.isLoading.set(false);
+      this.seoService.setPage(
+        pin.title ?? 'Pin',
+        pin.description ?? `Pin de ${pin.author.displayName} na RealWe.`,
+      );
     });
     this.pinService.getRelatedPins(id).subscribe((pins) => this.relatedPins.set(pins));
   }

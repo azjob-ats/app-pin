@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Páginas privadas — não indexar
+Disallow: /create
+Disallow: /notifications
+
+Sitemap: https://realweapp.com/sitemap.xml
