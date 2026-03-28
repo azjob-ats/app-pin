@@ -29,12 +29,44 @@ export const environment = {
   ROUTES: {
     AUTH: {
       ROOT: 'auth',
-      SIGN_IN: '/auth/sign-in',
-      SIGN_UP: '/auth/sign-up',
-      CONFIRM_EMAIL: '/auth/confirm-email',
-      RESET_PASSWORD: '/auth/reset-password',
+      LOGIN: 'login',
+      REGISTER: 'register',
+      FORGOT_PASSWORD: 'forgot-password',
+      RESET_PASSWORD: 'reset-password',
+      VERIFY_EMAIL: 'verify-email',
+      VERIFY_CODE: 'verify-code',
+      SIGN_IN: '/auth/login',
+      SIGN_UP: '/auth/register',
+      CONFIRM_EMAIL: '/auth/verify-email',
       FORGOT: '/auth/forgot-password',
       LOGOUT: '/auth/logout',
+    },
+    STYLEGUIDE: {
+      ROOT: 'styleguide',
+    },
+    HOME: {
+      ROOT: 'home',
+    },
+    EXPLORE: {
+      ROOT: 'explore',
+    },
+    SEARCH: {
+      ROOT: 'search',
+    },
+    CREATE: {
+      ROOT: 'create',
+    },
+    NOTIFICATIONS: {
+      ROOT: 'notifications',
+    },
+    PIN: {
+      ROOT: 'pin',
+    },
+    PROFILE: {
+      ROOT: ':username',
+    },
+    BOARD: {
+      ROOT: ':username/boards/:boardId',
     },
   },
 };

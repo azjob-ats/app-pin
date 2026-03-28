@@ -1,62 +1,65 @@
 import { Routes } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
+const { ROUTES } = environment;
 
 export const routes: Routes = [
   {
-    path: 'styleguide',
+    path: ROUTES.STYLEGUIDE.ROOT,
     loadComponent: () =>
       import('./domain/styleguide/pages/styleguide/styleguide.component').then(
         (m) => m.StyleguideComponent,
       ),
   },
   {
-    path: 'styleguide/:section',
+    path: `${ROUTES.STYLEGUIDE.ROOT}/:section`,
     loadComponent: () =>
       import('./domain/styleguide/pages/styleguide/styleguide.component').then(
         (m) => m.StyleguideComponent,
       ),
   },
   {
-    path: 'auth',
+    path: ROUTES.AUTH.ROOT,
     loadComponent: () =>
       import('./domain/auth/pages/auth-layout/auth-layout.component').then(
         (m) => m.AuthLayoutComponent,
       ),
     children: [
       {
-        path: 'login',
+        path: ROUTES.AUTH.LOGIN,
         loadComponent: () =>
           import('./domain/auth/pages/login/login.component').then((m) => m.LoginComponent),
       },
       {
-        path: 'register',
+        path: ROUTES.AUTH.REGISTER,
         loadComponent: () =>
           import('./domain/auth/pages/register/register.component').then(
             (m) => m.RegisterComponent,
           ),
       },
       {
-        path: 'forgot-password',
+        path: ROUTES.AUTH.FORGOT_PASSWORD,
         loadComponent: () =>
           import('./domain/auth/pages/forgot-password/forgot-password.component').then(
             (m) => m.ForgotPasswordComponent,
           ),
       },
       {
-        path: 'reset-password',
+        path: ROUTES.AUTH.RESET_PASSWORD,
         loadComponent: () =>
           import('./domain/auth/pages/reset-password/reset-password.component').then(
             (m) => m.ResetPasswordComponent,
           ),
       },
       {
-        path: 'verify-email',
+        path: ROUTES.AUTH.VERIFY_EMAIL,
         loadComponent: () =>
           import('./domain/auth/pages/verify-email/verify-email.component').then(
             (m) => m.VerifyEmailComponent,
           ),
       },
       {
-        path: 'verify-code',
+        path: ROUTES.AUTH.VERIFY_CODE,
         loadComponent: () =>
           import('./domain/auth/pages/verify-code/verify-code.component').then(
             (m) => m.VerifyCodeComponent,
@@ -71,63 +74,63 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: ROUTES.HOME.ROOT,
         pathMatch: 'full',
       },
       {
-        path: 'home',
+        path: ROUTES.HOME.ROOT,
         loadComponent: () =>
           import('./domain/home/pages/home/home.component').then((m) => m.HomeComponent),
       },
       {
-        path: 'explore',
+        path: ROUTES.EXPLORE.ROOT,
         loadComponent: () =>
           import('./domain/explore/pages/explore/explore.component').then(
             (m) => m.ExploreComponent,
           ),
       },
       {
-        path: 'explore/:category',
+        path: `${ROUTES.EXPLORE.ROOT}/:category`,
         loadComponent: () =>
           import('./domain/explore/pages/explore/explore.component').then(
             (m) => m.ExploreComponent,
           ),
       },
       {
-        path: 'search',
+        path: ROUTES.SEARCH.ROOT,
         loadComponent: () =>
           import('./domain/search/pages/search/search.component').then((m) => m.SearchComponent),
       },
       {
-        path: 'create',
+        path: ROUTES.CREATE.ROOT,
         loadComponent: () =>
           import('./domain/create/pages/create/create.component').then((m) => m.CreateComponent),
       },
       {
-        path: 'notifications',
+        path: ROUTES.NOTIFICATIONS.ROOT,
         loadComponent: () =>
           import('./domain/notifications/pages/notifications/notifications.component').then(
             (m) => m.NotificationsComponent,
           ),
       },
       {
-        path: 'pin/:id',
+        path: `${ROUTES.PIN.ROOT}/:id`,
         loadComponent: () =>
           import('./domain/pin/pages/pin/pin.component').then((m) => m.PinComponent),
       },
       {
-        path: ':username',
+        path: ROUTES.PROFILE.ROOT,
         loadComponent: () =>
           import('./domain/profile/pages/profile/profile.component').then(
             (m) => m.ProfileComponent,
           ),
       },
       {
-        path: ':username/boards/:boardId',
+        path: ROUTES.BOARD.ROOT,
         loadComponent: () =>
           import('./domain/board/pages/board/board.component').then((m) => m.BoardComponent),
       },
     ],
   },
-  { path: '**', redirectTo: '/home' },
+  { path: '**', redirectTo: `/${ROUTES.HOME.ROOT}` },
 ];
