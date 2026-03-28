@@ -16,7 +16,11 @@ import { ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.
 import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
 import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
+import { ContentCategoryApi } from '@shared/apis/content-category.api';
+import { RelevantResearchApi } from '@shared/apis/relevant-research.api';
 import { Board } from '@shared/interfaces/entity/board';
+import { ContentCategory } from '@shared/interfaces/entity/content-category';
+import { RelevantResearch } from '@shared/interfaces/entity/relevant-research';
 import { Pin } from '@shared/interfaces/entity/pin';
 import { BoardService } from '@shared/services/board.service';
 import { PinService } from '@shared/services/pin.service';
@@ -40,45 +44,29 @@ export class HomeComponent {
   readonly pins = signal<Pin[]>([]);
   readonly isLoading = signal(true);
   readonly isLoadingMore = signal(false);
-  private boardService = inject(BoardService);
-  private router = inject(Router);
-  private destroyRef = inject(DestroyRef);
+  readonly categories = signal<ContentCategory[]>([]);
+  readonly popularSearches = signal<RelevantResearch[]>([]);
+  readonly isLoadingCategories = signal(true);
+  readonly isLoadingPopularSearches = signal(true);
+  readonly isLoadingBoards = signal(true);
+  readonly isLoadingChips = computed(() => this.isLoadingCategories() || this.isLoadingPopularSearches());
+
+  private readonly boardService = inject(BoardService);
+  private readonly contentCategoryApi = inject(ContentCategoryApi);
+  private readonly relevantResearchApi = inject(RelevantResearchApi);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   private page = 0;
+
   readonly selectedCategory = signal<string>('all');
-  readonly popularSearches = [
-    'Como perder peso rápido',
-    'empregos ameaçados pela IA',
-    'idéia em um negócio online',
-    'Planejamento financeiro inteligente',
-    '10 Ferramentas de IA para Negócio',
-    'vendendo no TIKTOK SHOP',
-    'prospectar clientes',
-    'Como se Comunicar Melhor',
-  ];
-  readonly popularSearchChips = computed(() =>
-    this.popularSearches.map((term) => ({ key: term, icon: 'trending_up', labelKey: term })),
+
+  readonly relevantResearch = computed(() =>
+    this.popularSearches().map((item) => ({ key: item.term, icon: 'trending_up', labelKey: item.term })),
   );
-  readonly chipItems = computed(() =>
-    this.categories.map((cat) => ({ key: cat.key, icon: cat.icon, labelKey: '' + cat.key })),
+  readonly gridRecentContent = computed(() =>
+    this.categories().map((cat) => ({ key: cat.key, icon: cat.icon ?? undefined, labelKey: '' + cat.key })),
   );
-  readonly categories: any[] = [
-    { key: 'all', icon: 'apps' },
-    { key: 'Para você' },
-    { key: 'Hypados' },
-    { key: 'Fitness e Saúde' },
-    { key: 'Educação' },
-    { key: 'Tecnologia' },
-    { key: 'Noticias' },
-    { key: 'Inteligência artificial' },
-    { key: 'Empreendedorismo' },
-    { key: 'Monetizações' },
-    { key: 'Ao vivo' },
-    { key: 'Psicologia' },
-    { key: 'Enviados recentemente' },
-    { key: 'Assistidos' },
-    { key: 'Cursos' },
-    { key: 'Shopping' },
-  ];
+
   readonly boards = signal<Board[]>([]);
   readonly query = signal('');
 
@@ -140,6 +128,7 @@ export class HomeComponent {
     });
 
     this.loadPins();
+    this.loadHomeContent();
   }
 
   loadPins(): void {
@@ -149,7 +138,24 @@ export class HomeComponent {
       this.isLoading.set(false);
     });
 
-    this.boardService.getUserBoards('u1').subscribe((boards) => this.boards.set(boards));
+    this.boardService.getUserBoards('u1').subscribe((boards) => {
+      this.boards.set(boards);
+      this.isLoadingBoards.set(false);
+    });
+  }
+
+  private loadHomeContent(): void {
+    this.contentCategoryApi.list().subscribe({
+      next: (response) => this.categories.set(response.data?.data ?? []),
+      error: () => {},
+      complete: () => this.isLoadingCategories.set(false),
+    });
+
+    this.relevantResearchApi.list().subscribe({
+      next: (response) => this.popularSearches.set(response.data?.data ?? []),
+      error: () => {},
+      complete: () => this.isLoadingPopularSearches.set(false),
+    });
   }
 
   selectCategory(key: string): void {

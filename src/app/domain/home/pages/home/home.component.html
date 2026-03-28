@@ -1,25 +1,53 @@
 <div class="home-page">
   <!-- Popular search suggestions -->
-  <app-chip-scroll
-    [chips]="popularSearchChips()"
-    (chipSelect)="search($event)" />
+  @if (isLoadingChips()) {
+    <div class="skeleton-chip-row">
+      @for (w of [96, 140, 112, 160, 120, 88, 144, 104]; track $index) {
+        <div class="skeleton-chip" [style.width.px]="w"></div>
+      }
+    </div>
+  } @else {
+    <app-chip-scroll
+      [chips]="relevantResearch()"
+      (chipSelect)="search($event)" />
+  }
 
   <!-- User boards -->
   <div class="boards-scroll-bar">
     <div
       class="boards-scroll-track"
       #boardsTrack>
-      @for (board of boards(); track board.id) {
-        <app-board-card [board]="board" />
+      @if (isLoadingBoards()) {
+        @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+          <div class="skeleton-board-card">
+            <div class="skeleton-board-cover"></div>
+            <div class="skeleton-board-info">
+              <div class="skeleton-board-title"></div>
+              <div class="skeleton-board-count"></div>
+            </div>
+          </div>
+        }
+      } @else {
+        @for (board of boards(); track board.id) {
+          <app-board-card [board]="board" />
+        }
       }
     </div>
   </div>
 
   <!-- Category filters -->
-  <app-chip-scroll
-    [chips]="chipItems()"
-    [selected]="selectedCategory()"
-    (chipSelect)="selectCategory($event)" />
+  @if (isLoadingChips()) {
+    <div class="skeleton-chip-row">
+      @for (w of [56, 80, 120, 96, 104, 72, 136, 88, 64, 112]; track $index) {
+        <div class="skeleton-chip" [style.width.px]="w"></div>
+      }
+    </div>
+  } @else {
+    <app-chip-scroll
+      [chips]="gridRecentContent()"
+      [selected]="selectedCategory()"
+      (chipSelect)="selectCategory($event)" />
+  }
 
   <!-- Pins feed -->
   <div class="py-4">

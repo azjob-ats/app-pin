@@ -54,6 +54,12 @@ export const environment = {
       READ: '/api/notifications/:id/read',
       READ_ALL: '/api/notifications/read-all',
     },
+    CONTENT_CATEGORY: {
+      LIST: '/api/content-category',
+    },
+    RELEVANT_RESEARCH: {
+      LIST: '/api/relevant-research',
+    },
   },
   ROUTES: {
     AUTH: {
