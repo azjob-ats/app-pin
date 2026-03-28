@@ -11,8 +11,8 @@ import { CommentSubmitComponent } from '@shared/components/comment-submit/commen
 import { FollowButtonComponent } from '@shared/components/follow-button/follow-button.component';
 import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
 import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
-import { Comment } from '@shared/interfaces/comment.interface';
-import { Pin } from '@shared/interfaces/pin.interface';
+import { Comment } from '@shared/interfaces/entity/comment';
+import { Pin } from '@shared/interfaces/entity/pin';
 import { PinService } from '@shared/services/pin.service';
 
 const MOCK_COMMENTS: Comment[] = [

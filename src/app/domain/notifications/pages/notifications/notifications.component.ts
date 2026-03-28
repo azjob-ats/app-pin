@@ -2,7 +2,7 @@ import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NotificationService } from '@shared/services/notification.service';
-import { Notification } from '@shared/interfaces/notification.interface';
+import { Notification } from '@shared/interfaces/entity/notification';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { NotificationItemComponent } from '@shared/components/notification-item/notification-item.component';
 

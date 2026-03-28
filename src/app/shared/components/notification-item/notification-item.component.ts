@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Notification, NotificationType } from '@shared/interfaces/notification.interface';
+import { Notification, NotificationType } from '@shared/interfaces/entity/notification';
 
 const NOTIF_ICONS: Record<NotificationType, string> = {
   new_follower: 'person_add',

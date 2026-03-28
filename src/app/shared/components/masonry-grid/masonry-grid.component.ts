@@ -1,6 +1,6 @@
 import { Component, input, output, HostListener, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Pin } from '@shared/interfaces/pin.interface';
+import { Pin } from '@shared/interfaces/entity/pin';
 import { PinCardComponent } from '@shared/components/pin-card/pin-card.component';
 
 @Component({

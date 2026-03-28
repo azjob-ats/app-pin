@@ -10,9 +10,9 @@ import { AppTabPanelComponent } from '@shared/components/tabs/tab-panel.componen
 import { AppTabComponent } from '@shared/components/tabs/tab.component';
 import { AppTabsComponent } from '@shared/components/tabs/tabs.component';
 import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
-import { Board } from '@shared/interfaces/board.interface';
-import { Pin } from '@shared/interfaces/pin.interface';
-import { User } from '@shared/interfaces/user.interface';
+import { Board } from '@shared/interfaces/entity/board';
+import { Pin } from '@shared/interfaces/entity/pin';
+import { User } from '@shared/interfaces/entity/user';
 import { BoardService } from '@shared/services/board.service';
 import { PinService } from '@shared/services/pin.service';
 import { UserService } from '@shared/services/user.service';

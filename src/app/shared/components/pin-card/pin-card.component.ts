@@ -2,7 +2,7 @@ import { Component, input, output, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Pin } from '@shared/interfaces/pin.interface';
+import { Pin } from '@shared/interfaces/entity/pin';
 import { PinService } from '@shared/services/pin.service';
 @Component({
   selector: 'app-pin-card',

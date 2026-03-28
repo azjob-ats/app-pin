@@ -1,28 +1,38 @@
-import { Injectable, signal } from '@angular/core';
-import { Observable, of, delay } from 'rxjs';
-import { Notification } from '@shared/interfaces/notification.interface';
-import { MOCK_NOTIFICATIONS } from '@shared/mocks/notifications.mock';
+import { inject, Injectable, signal } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
+import { Notification } from '@shared/interfaces/entity/notification';
+import { NotificationsApi } from '@shared/apis/notifications.api';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
-  readonly unreadCount = signal(MOCK_NOTIFICATIONS.filter((n) => !n.isRead).length);
+  private readonly notificationsApi = inject(NotificationsApi);
+
+  readonly unreadCount = signal(0);
 
   getNotifications(): Observable<Notification[]> {
-    return of(MOCK_NOTIFICATIONS).pipe(delay(300));
+    return this.notificationsApi.list().pipe(
+      tap((response) => {
+        const items = response.data?.data ?? [];
+        this.unreadCount.set(items.filter((n) => !n.isRead).length);
+      }),
+      map((response) => response.data?.data ?? []),
+    );
   }
 
   markAsRead(id: string): Observable<void> {
-    const notif = MOCK_NOTIFICATIONS.find((n) => n.id === id);
-    if (notif && !notif.isRead) {
-      notif.isRead = true;
-      this.unreadCount.update((c) => Math.max(0, c - 1));
-    }
-    return of(undefined).pipe(delay(100));
+    return this.notificationsApi.markAsRead(id).pipe(
+      tap((response) => {
+        if (response.data && !response.data.isRead) return;
+        this.unreadCount.update((c) => Math.max(0, c - 1));
+      }),
+      map(() => undefined),
+    );
   }
 
   markAllAsRead(): Observable<void> {
-    MOCK_NOTIFICATIONS.forEach((n) => (n.isRead = true));
-    this.unreadCount.set(0);
-    return of(undefined).pipe(delay(100));
+    return this.notificationsApi.markAllAsRead().pipe(
+      tap(() => this.unreadCount.set(0)),
+      map(() => undefined),
+    );
   }
 }

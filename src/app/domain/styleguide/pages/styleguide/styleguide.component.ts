@@ -56,9 +56,9 @@ import {
 } from '@shared/components/chip-scroll/chip-scroll.component';
 import { SplitButtonComponent } from '@shared/components/splitbutton/splitbutton.component';
 import { PinCardComponent } from '@shared/components/pin-card/pin-card.component';
-import { Notification } from '@shared/interfaces/notification.interface';
-import { Pin } from '@shared/interfaces/pin.interface';
-import { Board } from '@shared/interfaces/board.interface';
+import { Notification } from '@shared/interfaces/entity/notification';
+import { Pin } from '@shared/interfaces/entity/pin';
+import { Board } from '@shared/interfaces/entity/board';
 import { CommentInputComponent } from '@shared/components/comment-input/comment-input.component';
 import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
 import { BoardCardComponent } from '@shared/components/board-card/board-card.component';

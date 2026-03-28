@@ -28,6 +28,32 @@ export const environment = {
     INPUT_MENU_STEP_SECTION: {
       SECTION: '/api/v1/public/input-menu-section',
     },
+    PINS: {
+      LIST: '/api/pins',
+      FEED: '/api/pins/feed',
+      DETAIL: '/api/pins/:id',
+      RELATED: '/api/pins/:id/related',
+      COMMENTS: '/api/pins/:id/comments',
+      SAVE: '/api/pins/:id/save',
+    },
+    USERS: {
+      LIST: '/api/users',
+      ME: '/api/users/me',
+      DETAIL: '/api/users/:id',
+      PINS: '/api/users/:id/pins',
+      BOARDS: '/api/users/:id/boards',
+      FOLLOW: '/api/users/:id/follow',
+    },
+    BOARDS: {
+      LIST: '/api/boards',
+      DETAIL: '/api/boards/:id',
+      PINS: '/api/boards/:id/pins',
+    },
+    NOTIFICATIONS: {
+      LIST: '/api/notifications',
+      READ: '/api/notifications/:id/read',
+      READ_ALL: '/api/notifications/read-all',
+    },
   },
   ROUTES: {
     AUTH: {

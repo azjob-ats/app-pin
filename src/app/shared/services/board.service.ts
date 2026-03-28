@@ -1,17 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, delay } from 'rxjs';
-import { Board } from '@shared/interfaces/board.interface';
-import { MOCK_BOARDS } from '@shared/mocks/boards.mock';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
+import { Board } from '@shared/interfaces/entity/board';
+import { BoardsApi } from '@shared/apis/boards.api';
+import { UsersApi } from '@shared/apis/users.api';
 
 @Injectable({ providedIn: 'root' })
 export class BoardService {
+  private readonly boardsApi = inject(BoardsApi);
+  private readonly usersApi = inject(UsersApi);
+
   getUserBoards(userId: string): Observable<Board[]> {
-    return of(MOCK_BOARDS).pipe(delay(300));
+    return this.usersApi.getBoards(userId).pipe(
+      map((response) => response.data?.data ?? []),
+    );
   }
 
   getBoardById(boardId: string): Observable<Board> {
-    const board = MOCK_BOARDS.find((b) => b.id === boardId) ?? MOCK_BOARDS[0];
-    return of(board).pipe(delay(300));
+    return this.boardsApi.getById(boardId).pipe(
+      map((response) => response.data!),
+    );
   }
 
   createBoard(name: string, description?: string): Observable<Board> {
@@ -23,6 +30,9 @@ export class BoardService {
       owner: { id: 'current', username: 'myprofile', displayName: 'Meu Perfil' },
       createdAt: new Date().toISOString(),
     };
-    return of(newBoard).pipe(delay(300));
+    return new Observable((observer) => {
+      observer.next(newBoard);
+      observer.complete();
+    });
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PinService } from '@shared/services/pin.service';
-import { Pin } from '@shared/interfaces/pin.interface';
+import { Pin } from '@shared/interfaces/entity/pin';
 import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';

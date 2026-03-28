@@ -16,8 +16,8 @@ import { ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.
 import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
 import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
-import { Board } from '@shared/interfaces/board.interface';
-import { Pin } from '@shared/interfaces/pin.interface';
+import { Board } from '@shared/interfaces/entity/board';
+import { Pin } from '@shared/interfaces/entity/pin';
 import { BoardService } from '@shared/services/board.service';
 import { PinService } from '@shared/services/pin.service';
 
