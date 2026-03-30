@@ -81,11 +81,11 @@
   }
 
   &--active {
-    background: var(--pin-red, #e60023);
+    background: var(--pin-text-primary);
     border-radius: var(--radius-md);
 
     &:hover {
-      background: color-mix(in srgb, var(--pin-red, #e60023) 90%, black);
+      background: color-mix(in srgb, var(--pin-text-primary) 90%, black);
     }
 
     .fal-row__name,

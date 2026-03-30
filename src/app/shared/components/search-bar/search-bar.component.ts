@@ -1,12 +1,13 @@
-import { Component, output, signal, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, output, signal, inject, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [FormsModule, TranslateModule],
   template: `
     <div class="search-bar" [class.focused]="isFocused()">
       <span class="material-symbols-rounded search-icon">search</span>
@@ -14,12 +15,13 @@ import { ActivatedRoute } from '@angular/router';
         class="search-input"
         type="text"
         [placeholder]="'search.placeholder' | translate"
-        [(ngModel)]="query"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
         (focus)="isFocused.set(true)"
         (blur)="isFocused.set(false)"
         (keydown.enter)="onSubmit()"
       />
-      @if (query) {
+      @if (query()) {
         <button class="search-clear" (click)="clear()">
           <span class="material-symbols-rounded">close</span>
         </button>
@@ -31,16 +33,32 @@ import { ActivatedRoute } from '@angular/router';
 export class SearchBarComponent {
   readonly search = output<string>();
 
-  query = inject(ActivatedRoute).snapshot.queryParams['q'] ?? '';
+  private readonly router = inject(Router);
+
+  private readonly routeQuery = toSignal(
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.router.parseUrl(this.router.url).queryParams['q'] ?? '')
+    ),
+    { initialValue: this.router.parseUrl(this.router.url).queryParams['q'] ?? '' }
+  );
+
+  readonly query = signal(this.routeQuery());
   readonly isFocused = signal(false);
 
+  constructor() {
+    effect(() => {
+      this.query.set(this.routeQuery());
+    });
+  }
+
   onSubmit(): void {
-    if (this.query.trim()) {
-      this.search.emit(this.query.trim());
+    if (this.query().trim()) {
+      this.search.emit(this.query().trim());
     }
   }
 
   clear(): void {
-    this.query = '';
+    this.query.set('');
   }
 }

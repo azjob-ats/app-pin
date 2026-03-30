@@ -45,7 +45,8 @@
   flex-shrink: 0;
 
   &:hover {
-    background: var(--pin-border);
+     color: var(--pin-text-primary);
+    background: var(--pin-text-muted);
   }
 
   &--active,
