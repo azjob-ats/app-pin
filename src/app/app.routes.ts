@@ -154,6 +154,17 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./domain/board/pages/board/board.component').then((m) => m.BoardComponent),
       },
+      {
+        path: ROUTES.ABOUT_REALWE.APP_VERSION,
+        loadComponent: () =>
+          import('./domain/about-realwe/pages/app-version/app-version.component').then(
+            (m) => m.AppVersionComponent,
+          ),
+        data: {
+          title: 'Sobre o App',
+          description: 'Versão atual, data da última atualização e informações de Copyright.',
+        },
+      },
     ],
   },
   { path: '**', redirectTo: `/${ROUTES.HOME.ROOT}` },

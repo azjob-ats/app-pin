@@ -171,77 +171,22 @@
   }
 
   <!-- ── Mobile drawer menu ────────────────────────────────────────── -->
-  <app-drawer
-    [(visible)]="isMobileMenuOpen"
-    position="left"
-    styleClass="mobile-drawer"
-    [modal]="true">
-    <ng-template #header>
-      <div class="drawer-header d-flex align-center justify-between w-full">
-        <a
-          routerLink="/home"
-          class="drawer-logo d-flex align-center gap-2"
-          (click)="isMobileMenuOpen.set(false)">
-          <span class="material-symbols-rounded" aria-hidden="true">arrow_left_alt</span>
-          <span class="drawer-logo-text text-4 fw-bold">Mais</span>
-        </a>
-        <app-button
-          variant="ghost"
-          size="sm"
-          shape="circle"
-          icon="close"
-          [ariaLabel]="'common.close' | translate"
-          (clicked)="isMobileMenuOpen.set(false)" />
-      </div>
+  <app-drawer-menu [(visible)]="isMobileMenuOpen">
+    <ng-template #drawerFooter>
+      <app-button
+        variant="outline"
+        size="sm"
+        (clicked)="goToAuth()">
+        {{ 'auth.login' | translate }}
+      </app-button>
+      <app-button
+        variant="primary"
+        size="sm"
+        (clicked)="goToRegister()">
+        {{ 'auth.register' | translate }}
+      </app-button>
     </ng-template>
-
-    <div class="drawer-body">
-      <!-- Configurações -->
-      <div class="drawer-section">
-        <div class="d-flex justify-between align-center">
-          <div class="p-1">
-            <p class="drawer-action-text flex-1 text-3 fw-bold">Configurações e Preferencias</p>
-            <p class="text-3">
-              Altere sua senha, defina o idioma e o tema (claro ou escuro), além de visualizar as
-              informações da sua conta.
-            </p>
-          </div>
-          <span class="material-symbols-rounded p-2 flex-shrink-0" aria-hidden="true">arrow_forward_ios</span>
-        </div>
-        <br />
-        <div class="d-flex justify-between align-center">
-          <div class="p-1">
-            <p class="drawer-action-text flex-1 text-3 fw-bold">Feedback, Ajuda e Sobre</p>
-            <p class="text-3">
-              Coletar sugestões e opiniões, acessar a central de ajuda e obter informações sobre a
-              empresa
-            </p>
-          </div>
-          <span class="material-symbols-rounded p-2 flex-shrink-0" aria-hidden="true">arrow_forward_ios</span>
-        </div>
-      </div>
-    </div>
-
-    <ng-template #footer>
-      <div class="drawer-footer d-flex flex-col gap-2">
-        <div class="d-flex align-center gap-2 flex-shrink-0">
-          <!-- Auth buttons -->
-          <app-button
-            variant="outline"
-            size="sm"
-            (clicked)="goToAuth()">
-            {{ 'auth.login' | translate }}
-          </app-button>
-          <app-button
-            variant="primary"
-            size="sm"
-            (clicked)="goToRegister()">
-            {{ 'auth.register' | translate }}
-          </app-button>
-        </div>
-      </div>
-    </ng-template>
-  </app-drawer>
+  </app-drawer-menu>
 
   <!-- ── Language overlay panel ─────────────────────────────────── -->
   <app-popover

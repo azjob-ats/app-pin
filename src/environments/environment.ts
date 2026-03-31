@@ -64,6 +64,10 @@ export const environment = {
       CATALOGS: '/api/search/catalogs',
       FILTER_ATTRIBUTES: '/api/search/filter-attributes',
     },
+    MENU: {
+      SECTIONS: '/api/menu',
+      SECTION_ITEMS: '/api/menu/:id',
+    },
   },
   ROUTES: {
     AUTH: {
@@ -106,6 +110,9 @@ export const environment = {
     },
     BOARD: {
       ROOT: ':username/boards/:boardId',
+    },
+    ABOUT_REALWE: {
+      APP_VERSION: 'about-realwe/app-version',
     },
   },
 };

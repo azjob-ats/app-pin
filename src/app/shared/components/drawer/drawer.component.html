@@ -1,6 +1,7 @@
 @if (visible()) {
   <!-- Backdrop -->
   <div
+    @backdropAnim
     class="app-drawer-backdrop"
     [class.active]="modal()"
     (click)="onBackdropClick()"
@@ -8,6 +9,7 @@
 
   <!-- Panel -->
   <div
+    [@panelAnim]="panelAnimParams()"
     class="app-drawer-panel"
     [class]="'app-drawer-panel--' + position() + (styleClass() ? ' ' + styleClass() : '')"
     role="dialog"

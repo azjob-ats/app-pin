@@ -9,7 +9,7 @@ import { NotificationService } from '@shared/services/notification.service';
 import { Language } from '@shared/enums/language.enum';
 import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { DrawerComponent } from '@shared/components/drawer/drawer.component';
+import { DrawerMenuComponent } from '@shared/components/drawer-menu/drawer-menu.component';
 import { PopoverComponent } from '@shared/components/popover/popover.component';
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip.directive';
 import { SidebarComponent } from '@shared/components/sidebar/sidebar.component';
@@ -41,7 +41,7 @@ interface NavItem {
     FormsModule,
     SearchBarComponent,
     ButtonComponent,
-    DrawerComponent,
+    DrawerMenuComponent,
     PopoverComponent,
     TooltipDirective,
     SidebarComponent,

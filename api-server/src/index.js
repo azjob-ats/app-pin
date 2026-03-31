@@ -8,6 +8,7 @@ const notificationsRouter = require('./routes/notifications');
 const contentCategoryRouter = require('./routes/content-category');
 const relevantResearchRouter = require('./routes/relevant-research');
 const searchRouter = require('./routes/search');
+const menuRouter = require('./routes/menu');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ if (process.env.MOCK_DELAY) {
   app.use((_req, _res, next) => setTimeout(next, delay));
 }
 
+app.use('/api/menu', menuRouter);
 app.use('/api/pins', pinsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/boards', boardsRouter);
@@ -63,4 +65,6 @@ app.listen(PORT, () => {
   console.log('  GET    /api/relevant-research');
   console.log('  GET    /api/search/catalogs');
   console.log('  GET    /api/search/filter-attributes/:catalogKey');
+  console.log('  GET    /api/menu');
+  console.log('  GET    /api/menu/:id');
 });
