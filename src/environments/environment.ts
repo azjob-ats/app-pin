@@ -112,7 +112,50 @@ export const environment = {
       ROOT: ':username/boards/:boardId',
     },
     ABOUT_REALWE: {
+      ROOT: 'about-realwe',
       APP_VERSION: 'about-realwe/app-version',
+    },
+    TERMS_AND_POLICIES: {
+      ROOT: 'terms-and-policies',
+    },
+    HIRE_SUPPORT: {
+      ROOT: 'hire-support',
+    },
+    HELP_CENTER: {
+      ROOT: 'help-center',
+    },
+    SEND_FEEDBACK: {
+      ROOT: 'send-feedback',
+    },
+    NOTIFICATION_SETTINGS: {
+      ROOT: 'notification-settings',
+    },
+    CONNECTED_DEVICES: {
+      ROOT: 'connected-devices',
+    },
+    CONSENT_MANAGEMENT: {
+      ROOT: 'consent-management',
+    },
+    DEACTIVATE_ACCOUNT: {
+      ROOT: 'deactivate-account',
+    },
+    DOWNLOAD_DATA: {
+      ROOT: 'download-data',
+    },
+    ACTIVITY_VISIBILITY: {
+      ROOT: 'activity-visibility',
+    },
+    CLEAR_HISTORY: {
+      ROOT: 'clear-history',
+    },
+    DELETE_ACCOUNT: {
+      ROOT: 'delete-account',
+    },
+    ACCOUNT_INFO: {
+      ROOT: 'account-info',
+    },
+    CHANGE_PASSWORD: {
+      ROOT: 'change-password',
     },
   },
 };

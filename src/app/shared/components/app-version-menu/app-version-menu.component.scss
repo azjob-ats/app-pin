@@ -1,0 +1,72 @@
+.app-version {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  &__icon {
+    font-size: 3rem;
+    color: var(--pin-text);
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--pin-text);
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 0.875rem;
+    color: var(--pin-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--pin-border, rgba(0, 0, 0, 0.1));
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--pin-border, rgba(0, 0, 0, 0.1));
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--full {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+
+  &__item-label {
+    font-size: 0.8125rem;
+    color: var(--pin-text);
+  }
+
+  &__item-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--pin-text);
+  }
+}
