@@ -1,0 +1,40 @@
+.toggle-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--pin-border, rgba(0, 0, 0, 0.2));
+  background: none;
+  color: var(--pin-text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  padding: 0;
+  flex-shrink: 0;
+
+  .material-symbols-rounded {
+    font-size: 1.125rem;
+    opacity: 0.35;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-primary, #e60023);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--on {
+    background: var(--pin-primary, #e60023);
+    border-color: var(--pin-primary, #e60023);
+
+    .material-symbols-rounded {
+      color: #fff;
+      opacity: 1;
+    }
+  }
+}

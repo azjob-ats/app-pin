@@ -4342,6 +4342,190 @@
         </table>
       </section>
     }
+
+    @if (activeSection() === 'comp-toggle-switch') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Toggle Switch</h1>
+        <p class="sg-section__desc">
+          A stylized toggle switch for turning preferences on or off. Accessible using the <code class="sg-inline-code">role="switch"</code> pattern.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="
+            importTpl;
+            context: {
+              code: 'import { ToggleSwitchComponent } from \'@shared/components/toggle-switch/toggle-switch.component\';',
+            }
+          "></ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; gap: 2rem; align-items: center; padding: 1rem">
+            <app-toggle-switch
+              [checked]="toggleSwitchChecked()"
+              ariaLabel="Toggle preference"
+              (checkedChange)="toggleSwitchChecked.set($event)"
+            />
+            <app-toggle-switch
+              [checked]="true"
+              ariaLabel="Disabled on state"
+              [disabled]="true"
+            />
+            <app-toggle-switch
+              [checked]="false"
+              ariaLabel="Disabled off state"
+              [disabled]="true"
+            />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="
+              codeTpl;
+              context: {
+                code: '<app-toggle-switch\n  [checked]=\'mySignal()\'\n  ariaLabel=\'Enable feature\'\n  (checkedChange)=\'mySignal.set($event)\'\n/>',
+              }
+            "></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checked</code></td>
+              <td>boolean</td>
+              <td>Required</td>
+              <td>Current toggle state</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>Required</td>
+              <td>Accessibility label for the switch input</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">disabled</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Disables the switch interaction visually and functionally</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checkedChange</code></td>
+              <td>boolean</td>
+              <td>Emits the new toggled state</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-toggle-check') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Toggle Check</h1>
+        <p class="sg-section__desc">
+          A circular toggle checkbox typically used in lists. Accessible using the <code class="sg-inline-code">role="checkbox"</code> pattern.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="
+            importTpl;
+            context: {
+              code: 'import { ToggleCheckComponent } from \'@shared/components/toggle-check/toggle-check.component\';',
+            }
+          "></ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; gap: 2rem; align-items: center; padding: 1rem">
+            <app-toggle-check
+              [checked]="toggleCheckChecked()"
+              ariaLabel="Toggle option"
+              (checkedChange)="toggleCheckChecked.set($event)"
+            />
+            <app-toggle-check
+              [checked]="true"
+              ariaLabel="Disabled on state"
+              [disabled]="true"
+            />
+            <app-toggle-check
+              [checked]="false"
+              ariaLabel="Disabled off state"
+              [disabled]="true"
+            />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="
+              codeTpl;
+              context: {
+                code: '<app-toggle-check\n  [checked]=\'mySignal()\'\n  ariaLabel=\'Enable feature\'\n  (checkedChange)=\'mySignal.set($event)\'\n/>',
+              }
+            "></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checked</code></td>
+              <td>boolean</td>
+              <td>Required</td>
+              <td>Current toggled state</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>Required</td>
+              <td>Accessibility label for the checkbox</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">disabled</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Disables the interaction visually and functionally</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checkedChange</code></td>
+              <td>boolean</td>
+              <td>Emits the new toggled state</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
   </main>
 </div>
 

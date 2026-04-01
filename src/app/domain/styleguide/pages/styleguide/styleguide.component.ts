@@ -74,6 +74,8 @@ import { TopbarContentComponent } from '@shared/components/topbar/topbar-content
 import { TopbarGroupComponent } from '@shared/components/topbar/topbar-group.component';
 import { ButtonUploadComponent } from '@shared/components/button-upload/button-upload.component';
 import { SpinnerStepsComponent } from '@shared/components/spinner-steps/spinner-steps.component';
+import { ToggleSwitchComponent } from '@shared/components/toggle-switch/toggle-switch.component';
+import { ToggleCheckComponent } from '@shared/components/toggle-check/toggle-check.component';
 import { environment } from '@env/environment';
 
 export interface NavItem {
@@ -155,6 +157,8 @@ export interface SearchResult {
     TopbarGroupComponent,
     ButtonUploadComponent,
     SpinnerStepsComponent,
+    ToggleSwitchComponent,
+    ToggleCheckComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -237,6 +241,8 @@ export class StyleguideComponent {
   readonly drawerOpen = signal(false);
   readonly spinnerCurrentStep = signal(1);
   readonly spinnerTotalSteps = 5;
+  readonly toggleSwitchChecked = signal(true);
+  readonly toggleCheckChecked = signal(true);
   readonly popoverSelected = signal<string | null>(null);
   readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
   readonly infiniteLoading = signal(false);
@@ -478,6 +484,8 @@ export class StyleguideComponent {
         { id: 'comp-topbar', label: 'Topbar', icon: 'web_asset' },
         { id: 'comp-button-upload', label: 'Button Upload', icon: 'upload_file' },
         { id: 'comp-spinner-steps', label: 'Spinner Steps', icon: 'rotate_right' },
+        { id: 'comp-toggle-switch', label: 'Toggle Switch', icon: 'toggle_on' },
+        { id: 'comp-toggle-check', label: 'Toggle Check', icon: 'check_circle' },
       ],
     },
   ];

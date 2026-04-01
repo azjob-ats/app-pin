@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { ToggleSwitchComponent } from '@shared/components/toggle-switch/toggle-switch.component';
 
 interface ConsentItem {
   id: string;
@@ -15,7 +16,7 @@ type FormStatus = 'idle' | 'saving' | 'saved';
 @Component({
   selector: 'app-consent-management-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, ToggleSwitchComponent],
   styleUrl: './consent-management-menu.component.scss',
   template: `
     <div class="consent">
@@ -68,17 +69,11 @@ type FormStatus = 'idle' | 'saving' | 'saved';
                   <span class="consent__item-description">{{ item.description }}</span>
                 </div>
               </div>
-              <button
-                class="consent__toggle"
-                type="button"
-                role="switch"
-                [attr.aria-checked]="item.enabled"
-                [attr.aria-label]="(item.enabled ? 'Desativar' : 'Ativar') + ' ' + item.title"
-                [class.consent__toggle--on]="item.enabled"
-                (click)="toggle(item.id)"
-              >
-                <span class="consent__toggle-thumb"></span>
-              </button>
+              <app-toggle-switch
+                [checked]="item.enabled"
+                [ariaLabel]="(item.enabled ? 'Desativar' : 'Ativar') + ' ' + item.title"
+                (checkedChange)="toggle(item.id)"
+              />
             </li>
           }
         </ul>

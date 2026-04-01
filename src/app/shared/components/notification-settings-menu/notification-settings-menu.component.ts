@@ -1,5 +1,7 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { ToggleSwitchComponent } from '@shared/components/toggle-switch/toggle-switch.component';
+import { ToggleCheckComponent } from '@shared/components/toggle-check/toggle-check.component';
 
 interface NotificationChannel {
   id: string;
@@ -37,7 +39,7 @@ type FormStatus = 'idle' | 'saving' | 'saved';
 @Component({
   selector: 'app-notification-settings-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, ToggleSwitchComponent, ToggleCheckComponent],
   styleUrl: './notification-settings-menu.component.scss',
   template: `
     <div class="notif-settings">
@@ -62,17 +64,11 @@ type FormStatus = 'idle' | 'saving' | 'saved';
                   <span class="notif-settings__item-description">{{ channel.description }}</span>
                 </div>
               </div>
-              <button
-                class="notif-settings__toggle"
-                type="button"
-                role="switch"
-                [attr.aria-checked]="channelEnabled(channel.id)"
-                [attr.aria-label]="'Ativar notificações por ' + channel.label"
-                [class.notif-settings__toggle--on]="channelEnabled(channel.id)"
-                (click)="toggleChannel(channel.id)"
-              >
-                <span class="notif-settings__toggle-thumb"></span>
-              </button>
+              <app-toggle-switch
+                [checked]="channelEnabled(channel.id)"
+                [ariaLabel]="'Ativar notificações por ' + channel.label"
+                (checkedChange)="toggleChannel(channel.id)"
+              />
             </li>
           }
         </ul>
@@ -110,34 +106,18 @@ type FormStatus = 'idle' | 'saving' | 'saved';
                     </div>
                   </td>
                   <td class="notif-settings__td">
-                    <button
-                      class="notif-settings__check"
-                      type="button"
-                      role="checkbox"
-                      [attr.aria-checked]="topic.email"
-                      [attr.aria-label]="'Receber ' + topic.label + ' por e-mail'"
-                      [class.notif-settings__check--on]="topic.email"
-                      (click)="toggleTopic(topic.id, 'email')"
-                    >
-                      <span class="material-symbols-rounded" aria-hidden="true">
-                        {{ topic.email ? 'check' : 'remove' }}
-                      </span>
-                    </button>
+                    <app-toggle-check
+                      [checked]="topic.email"
+                      [ariaLabel]="'Receber ' + topic.label + ' por e-mail'"
+                      (checkedChange)="toggleTopic(topic.id, 'email')"
+                    />
                   </td>
                   <td class="notif-settings__td">
-                    <button
-                      class="notif-settings__check"
-                      type="button"
-                      role="checkbox"
-                      [attr.aria-checked]="topic.push"
-                      [attr.aria-label]="'Receber ' + topic.label + ' por push'"
-                      [class.notif-settings__check--on]="topic.push"
-                      (click)="toggleTopic(topic.id, 'push')"
-                    >
-                      <span class="material-symbols-rounded" aria-hidden="true">
-                        {{ topic.push ? 'check' : 'remove' }}
-                      </span>
-                    </button>
+                    <app-toggle-check
+                      [checked]="topic.push"
+                      [ariaLabel]="'Receber ' + topic.label + ' por push'"
+                      (checkedChange)="toggleTopic(topic.id, 'push')"
+                    />
                   </td>
                 </tr>
               }

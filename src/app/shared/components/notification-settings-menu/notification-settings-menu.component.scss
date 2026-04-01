@@ -111,45 +111,6 @@
     line-height: 1.4;
   }
 
-  // Toggle switch
-  &__toggle {
-    position: relative;
-    width: 2.75rem;
-    height: 1.5rem;
-    border-radius: 2rem;
-    border: none;
-    background: var(--pin-border, rgba(0, 0, 0, 0.18));
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: background 0.2s;
-    padding: 0;
-
-    &:focus-visible {
-      outline: 2px solid var(--pin-primary, #e60023);
-      outline-offset: 2px;
-    }
-
-    &--on {
-      background: var(--pin-primary, #e60023);
-    }
-  }
-
-  &__toggle-thumb {
-    position: absolute;
-    top: 0.1875rem;
-    left: 0.1875rem;
-    width: 1.125rem;
-    height: 1.125rem;
-    border-radius: 50%;
-    background: #fff;
-    transition: transform 0.2s;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-
-    .notif-settings__toggle--on & {
-      transform: translateX(1.25rem);
-    }
-  }
-
   // Table
   &__table-wrap {
     border: 1px solid var(--pin-border, rgba(0, 0, 0, 0.1));
@@ -230,41 +191,6 @@
     opacity: 0.55;
     line-height: 1.4;
     margin-top: 0.1rem;
-  }
-
-  // Checkbox button
-  &__check {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    border: 1.5px solid var(--pin-border, rgba(0, 0, 0, 0.2));
-    background: none;
-    color: var(--pin-text);
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s, color 0.15s;
-
-    .material-symbols-rounded {
-      font-size: 1.125rem;
-      opacity: 0.35;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--pin-primary, #e60023);
-      outline-offset: 2px;
-    }
-
-    &--on {
-      background: var(--pin-primary, #e60023);
-      border-color: var(--pin-primary, #e60023);
-
-      .material-symbols-rounded {
-        color: #fff;
-        opacity: 1;
-      }
-    }
   }
 
   &__actions {
