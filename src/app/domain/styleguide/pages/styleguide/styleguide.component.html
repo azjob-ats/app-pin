@@ -4188,6 +4188,160 @@
         </div>
       </section>
     }
+
+    @if (activeSection() === 'comp-button-upload') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Button Upload</h1>
+        <p class="sg-section__desc">
+          File upload button with drag-and-drop support, file preview, size validation, and remove functionality.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="
+            importTpl;
+            context: {
+              code: 'import { ButtonUploadComponent } from \'@shared/components/button-upload/button-upload.component\';',
+            }
+          "></ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-button-upload style="max-width: 400px; display: block" />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="
+              codeTpl;
+              context: {
+                code: '<app-button-upload\n  accept=\'.pdf\'\n  [maxFileSizeMB]=\'10\'\n  (fileChange)=\'onFile($event)\'\n/>',
+              }
+            "></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">accept</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Accepted file types (e.g. <code class="sg-inline-code">.pdf</code>, <code class="sg-inline-code">image/*</code>)</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">maxFileSizeMB</code></td>
+              <td>number</td>
+              <td>15</td>
+              <td>Maximum allowed file size in megabytes</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">multiple</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Allow selecting multiple files</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">fileChange</code></td>
+              <td>File | null</td>
+              <td>Emits the selected file, or null when removed</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
+    @if (activeSection() === 'comp-spinner-steps') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Spinner Steps</h1>
+        <p class="sg-section__desc">
+          Circular progress indicator showing current step out of total steps, with an animated conic-gradient fill.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="
+            importTpl;
+            context: {
+              code: 'import { SpinnerStepsComponent } from \'@shared/components/spinner-steps/spinner-steps.component\';',
+            }
+          "></ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <app-spinner-steps [currentStep]="spinnerCurrentStep()" [totalSteps]="spinnerTotalSteps" />
+            <div style="display: flex; gap: 8px;">
+              <button
+                type="button"
+                class="sg-btn"
+                [disabled]="spinnerCurrentStep() <= 1"
+                (click)="spinnerCurrentStep.update(s => s - 1)"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+                Voltar
+              </button>
+              <button
+                type="button"
+                class="sg-btn"
+                [disabled]="spinnerCurrentStep() >= spinnerTotalSteps"
+                (click)="spinnerCurrentStep.update(s => s + 1)"
+              >
+                Próximo
+                <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="
+              codeTpl;
+              context: {
+                code: '<app-spinner-steps\n  [currentStep]=\'2\'\n  [totalSteps]=\'5\'\n/>',
+              }
+            "></ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">currentStep</code></td>
+              <td>number</td>
+              <td>0</td>
+              <td>Current step number</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">totalSteps</code></td>
+              <td>number</td>
+              <td>0</td>
+              <td>Total number of steps</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
   </main>
 </div>
 

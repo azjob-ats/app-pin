@@ -627,6 +627,34 @@ $topbar-height: 64px;
 
 // ── Demo helpers ─────────────────────────────────────────────────────────────
 
+.sg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border: 1px solid var(--pin-border);
+  border-radius: var(--radius-sm);
+  background: var(--pin-bg);
+  color: var(--pin-text-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  .material-symbols-rounded {
+    font-size: 1rem;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--pin-bg-secondary);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
 .sg-box {
   padding: 8px 16px;
   background: var(--pin-bg-secondary);

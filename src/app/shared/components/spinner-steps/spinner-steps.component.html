@@ -1,0 +1,13 @@
+<div
+  class="progress-container"
+  role="progressbar"
+  [attr.aria-valuenow]="currentStep()"
+  [attr.aria-valuemin]="0"
+  [attr.aria-valuemax]="totalSteps()"
+  [attr.aria-label]="label()"
+>
+  <div class="progress-track"></div>
+  <div class="progress-fill" [style.--spinner-progress]="progressPercentage() + '%'">
+    <div class="progress-label" aria-hidden="true">{{ label() }}</div>
+  </div>
+</div>

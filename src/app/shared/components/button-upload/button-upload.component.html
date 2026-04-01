@@ -1,0 +1,51 @@
+@if (attachedFile(); as file) {
+  <div class="upload-preview">
+    <span class="material-symbols-rounded upload-preview__icon" aria-hidden="true">description</span>
+    <span class="upload-preview__name">{{ file.name }}</span>
+    <button
+      type="button"
+      class="upload-preview__remove"
+      (click)="removeFile($event)"
+      aria-label="Remover arquivo"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">close</span>
+    </button>
+  </div>
+} @else {
+  <div
+    class="upload-area"
+    [class.upload-area--dragging]="isDragging()"
+    role="button"
+    tabindex="0"
+    (click)="openFilePicker()"
+    (keydown.enter)="openFilePicker()"
+    (keydown.space)="openFilePicker()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    (drop)="onDrop($event)"
+    aria-label="Clique ou arraste um arquivo para anexar"
+  >
+    <span class="upload-area__icon material-symbols-rounded" aria-hidden="true">add</span>
+  </div>
+  <p class="upload-hint">
+    @if (accept()) {
+      {{ accept().toUpperCase().replace('.', '') }} —
+    }
+    Máx. {{ maxFileSizeMB() }}MB
+  </p>
+}
+
+@if (errorMessage()) {
+  <p class="upload-error" role="alert">{{ errorMessage() }}</p>
+}
+
+<input
+  #fileInput
+  type="file"
+  class="upload-hidden-input"
+  [accept]="accept()"
+  [multiple]="multiple()"
+  (change)="onFileSelect($event)"
+  tabindex="-1"
+  aria-hidden="true"
+/>

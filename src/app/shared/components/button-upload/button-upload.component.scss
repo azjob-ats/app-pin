@@ -1,0 +1,88 @@
+:host {
+  display: block;
+}
+
+.upload-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  border: 2px dashed var(--pin-border, #e5e7eb);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: transparent;
+
+  &:hover,
+  &--dragging {
+    border-color: var(--pin-primary, #e53935);
+    background: color-mix(in srgb, var(--pin-primary, #e53935) 5%, transparent);
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: var(--pin-text-secondary);
+  }
+}
+
+.upload-hint {
+  margin-top: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--pin-text-secondary);
+}
+
+.upload-error {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #e53935;
+}
+
+.upload-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--pin-border, #e5e7eb);
+  border-radius: 10px;
+  background: var(--pin-bg);
+
+  &__icon {
+    color: var(--pin-primary, #e53935);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  &__name {
+    flex: 1;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    color: var(--pin-text-secondary);
+    transition: background 0.2s;
+
+    &:hover {
+      background: var(--pin-secondary-bg, #f3f4f6);
+    }
+
+    .material-symbols-rounded {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.upload-hidden-input {
+  display: none;
+}

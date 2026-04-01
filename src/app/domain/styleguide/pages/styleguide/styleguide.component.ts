@@ -72,6 +72,8 @@ import { SidebarFooterComponent } from '@shared/components/sidebar/sidebar-foote
 import { TopbarComponent } from '@shared/components/topbar/topbar.component';
 import { TopbarContentComponent } from '@shared/components/topbar/topbar-content.component';
 import { TopbarGroupComponent } from '@shared/components/topbar/topbar-group.component';
+import { ButtonUploadComponent } from '@shared/components/button-upload/button-upload.component';
+import { SpinnerStepsComponent } from '@shared/components/spinner-steps/spinner-steps.component';
 import { environment } from '@env/environment';
 
 export interface NavItem {
@@ -151,6 +153,8 @@ export interface SearchResult {
     TopbarComponent,
     TopbarContentComponent,
     TopbarGroupComponent,
+    ButtonUploadComponent,
+    SpinnerStepsComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -231,6 +235,8 @@ export class StyleguideComponent {
   });
 
   readonly drawerOpen = signal(false);
+  readonly spinnerCurrentStep = signal(1);
+  readonly spinnerTotalSteps = 5;
   readonly popoverSelected = signal<string | null>(null);
   readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
   readonly infiniteLoading = signal(false);
@@ -470,6 +476,8 @@ export class StyleguideComponent {
         { id: 'comp-pin-card', label: 'Pin Card', icon: 'image' },
         { id: 'comp-sidebar', label: 'Sidebar', icon: 'dock_to_left' },
         { id: 'comp-topbar', label: 'Topbar', icon: 'web_asset' },
+        { id: 'comp-button-upload', label: 'Button Upload', icon: 'upload_file' },
+        { id: 'comp-spinner-steps', label: 'Spinner Steps', icon: 'rotate_right' },
       ],
     },
   ];
