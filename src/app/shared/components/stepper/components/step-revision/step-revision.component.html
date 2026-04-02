@@ -1,0 +1,30 @@
+<div class="step-revision">
+  @for (step of formSteps(); track step.step) {
+    <section class="revision-section" [attr.aria-label]="step.title">
+      <h4 class="revision-section__title">{{ step.title }}</h4>
+      <div class="revision-fields">
+        @for (element of step.dynamicForm?.elements ?? []; track element.id) {
+          <div class="revision-field">
+            <span class="revision-field__label">{{ element.label }}</span>
+            <span class="revision-field__value">
+              {{ getDisplayValue(step.data, element.id, element.type, element.options) }}
+            </span>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  @if (showPrivacyPolicy()) {
+    <div class="privacy-policy">
+      <app-toggle-check
+        [checked]="privacyChecked()"
+        ariaLabel="Aceitar a Política de Privacidade"
+        (checkedChange)="privacyAccepted.emit($event)" />
+      <span class="privacy-policy__text">
+        Li e aceito a
+        <a href="#" class="privacy-policy__link">Política de Privacidade</a>
+      </span>
+    </div>
+  }
+</div>

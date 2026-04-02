@@ -1,0 +1,126 @@
+<div class="learn-more">
+  @switch (viewState()) {
+
+    <!-- ── Loading ──────────────────────────────────────────────────── -->
+    @case ('loading') {
+      <div class="state-page" aria-busy="true" aria-live="polite">
+        <app-lottie-player
+          jsonPath="/animations/bouncing-fruits.json"
+          [loop]="true"
+          [autoplay]="true"
+          [speed]="1.5"
+          width="300px"
+          height="300px" />
+        <h2 class="state-page__title">Estamos quase lá</h2>
+        <p class="state-page__subtitle">
+          Estamos preparando tudo para você. Só um instante
+        </p>
+      </div>
+    }
+
+    <!-- ── Stepper ──────────────────────────────────────────────────── -->
+    @case ('stepper') {
+      @if (stepperConfig(); as config) {
+        <app-generic-stepper
+          [showStepProgress]="config.showStepProgress"
+          [nameLastButton]="config.nameLastButton ?? 'Enviar'"
+          (allStepsCompleted)="onAllStepsCompleted($event)"
+          (close)="onClose.emit()">
+
+          <!--
+            All steps are kept in the DOM (display:none for inactive) so
+            DynamicFormComponent instances retain their FormGroup state while
+            the user navigates back and forth.
+          -->
+          @for (step of config.steps; track step.step) {
+            <div
+              [attr.data-step]="step.step"
+              [style.display]="step.step === stepperService.currentStep() ? 'block' : 'none'">
+
+              @switch (step.identifier) {
+
+                @case ('dynamicForm') {
+                  <h3 class="step-title">{{ step.title }}</h3>
+                  <app-dynamic-form
+                    [formStructure]="step.dynamicForm!"
+                    (formChange)="onFormChange($event, step.step)" />
+                }
+
+                @case ('stepTextInContent') {
+                  <app-step-text-html [html]="step.text ?? ''" />
+                }
+
+                @case ('revisionStepper') {
+                  <h3 class="step-title">{{ step.title }}</h3>
+                  <app-step-revision
+                    [steps]="stepperService.getAllData()"
+                    [showPrivacyPolicy]="config.showCheckboxPrivacyPolicy ?? false"
+                    [privacyChecked]="stepperService.isStepValid(step.step)"
+                    (privacyAccepted)="onPrivacyAccepted($event)" />
+                }
+
+              }
+            </div>
+          }
+
+        </app-generic-stepper>
+      }
+    }
+
+    <!-- ── Submitting ──────────────────────────────────────────────── -->
+    @case ('submitting') {
+      <div class="state-page" aria-busy="true" aria-live="polite">
+        <app-lottie-player
+          jsonPath="/animations/bouncing-fruits.json"
+          [loop]="true"
+          [autoplay]="true"
+          [speed]="1.5"
+          width="300px"
+          height="300px" />
+        <h2 class="state-page__title">Enviando sua candidatura...</h2>
+        <p class="state-page__subtitle">
+          Aguarde um instante enquanto processamos suas informações.
+        </p>
+      </div>
+    }
+
+    <!-- ── Success ─────────────────────────────────────────────────── -->
+    @case ('success') {
+      <div class="state-page">
+        <app-lottie-player
+          jsonPath="/animations/trophy.json"
+          [loop]="false"
+          [autoplay]="true"
+          [speed]="1"
+          width="300px"
+          height="300px" />
+        <h2 class="state-page__title">Tudo certo! Já está com a gente</h2>
+        <p class="state-page__subtitle">Sua inscrição foi registrada com sucesso.</p>
+        <div class="state-page__actions">
+          <app-button variant="secondary" (clicked)="onClose.emit()">Fechar</app-button>
+          <app-button variant="primary" (clicked)="onTrackApplication.emit()">
+            Acompanhe sua inscrição
+          </app-button>
+        </div>
+      </div>
+    }
+
+    <!-- ── Error ───────────────────────────────────────────────────── -->
+    @case ('error') {
+      <div class="state-page">
+        <span class="material-symbols-rounded state-page__error-icon" aria-hidden="true">
+          error_outline
+        </span>
+        <h2 class="state-page__title">Erro ao enviar</h2>
+        <p class="state-page__subtitle">
+          Não foi possível concluir o envio da sua candidatura.
+        </p>
+        <div class="state-page__actions">
+          <app-button variant="secondary" (clicked)="onClose.emit()">Fechar</app-button>
+          <app-button variant="primary" (clicked)="retry()">Tentar novamente</app-button>
+        </div>
+      </div>
+    }
+
+  }
+</div>

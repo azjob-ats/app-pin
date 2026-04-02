@@ -68,6 +68,10 @@ export const environment = {
       SECTIONS: '/api/menu',
       SECTION_ITEMS: '/api/menu/:id',
     },
+    LEARN_MORE: {
+      CONFIG: '/api/v1/learn-more/:pinId',
+      SUBMIT: '/api/v1/learn-more/:pinId/submit',
+    },
   },
   ROUTES: {
     AUTH: {

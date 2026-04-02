@@ -7,6 +7,12 @@
     font-size: var(--text-sm);
     font-weight: var(--font-weight-bold);
     color: var(--pin-text-primary);
+
+    .required-star {
+      color: var(--color-danger, #e53e3e);
+      font-weight: var(--font-weight-bold, 700);
+      margin-right: 0.2rem;
+    }
   }
 
   &__wrapper {

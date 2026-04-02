@@ -1,0 +1,50 @@
+<div class="generic-stepper">
+
+  <!-- Header -->
+  <div class="generic-stepper__header" role="navigation" aria-label="Progresso do formulário">
+    @if (!isFirstStep()) {
+    <button type="button" class="generic-stepper__icon-btn" aria-label="Voltar" (click)="onPrevious()">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+    </button>
+    } @else {
+    <div class="generic-stepper__spacer"></div>
+    }
+
+    @if (showStepProgress()) {
+    <app-spinner-steps [currentStep]="currentStep()" [totalSteps]="totalSteps()" />
+    }
+
+    <button type="button" class="generic-stepper__icon-btn" aria-label="Fechar" (click)="close.emit()">
+      <span class="material-symbols-rounded" aria-hidden="true">close</span>
+    </button>
+  </div>
+
+  <!-- Step content (projected from parent) -->
+  <div class="generic-stepper__content">
+    <ng-content />
+  </div>
+
+  <!-- Footer -->
+  <div class="generic-stepper__footer">
+    <div class="d-flex justify-content-end gap-6">
+      @if(!isFirstStep()){
+        <app-button           
+          variant="outline"  
+          (clicked)="onPrevious()"
+        >
+          Voltar
+        </app-button>
+      }
+               
+      <app-button 
+        variant="primary" 
+        [fullWidth]="(device$ | async) === 'mobile'" 
+        [disabled]="!isCurrentStepValid()" 
+        (clicked)="onNext()"
+      >
+        {{ isLastStep() ? nameLastButton() : 'Próximo' }}
+      </app-button>
+    </div>
+  </div>
+
+</div>

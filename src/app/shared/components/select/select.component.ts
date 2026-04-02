@@ -21,7 +21,9 @@ let selectIdCounter = 0;
   template: `
     <div class="select-field">
       @if (label()) {
-        <label class="select-field__label" [for]="selectId">{{ label() }}</label>
+        <label class="select-field__label" [for]="selectId">
+            @if (required()) {<span class="required-star" aria-hidden="true">*</span>}{{ label() }}
+          </label>
       }
 
       <div
@@ -37,6 +39,9 @@ let selectIdCounter = 0;
           (change)="_onChange($event)"
           (blur)="_onTouched()"
         >
+          @if (placeholder()) {
+            <option value="" disabled [selected]="!_value()">{{ placeholder() }}</option>
+          }
           @for (opt of options(); track opt.value) {
             <option [value]="opt.value" [selected]="opt.value === _value()">{{ opt.label }}</option>
           }
@@ -59,6 +64,8 @@ let selectIdCounter = 0;
 })
 export class SelectComponent implements ControlValueAccessor {
   readonly label = input('');
+  readonly required = input(false);
+  readonly placeholder = input('');
   readonly options = input<SelectOption[]>([]);
   readonly hint = input('');
   readonly errorMessage = input('');

@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+  <div class="grid">
+    @for (element of formStructure.elements; track element.id) {
+      <div [class]="element.classes?.join(' ') ?? 'col-12'">
+        <ng-container dynamicField [element]="element" [form]="form" />
+      </div>
+    }
+  </div>
+</form>

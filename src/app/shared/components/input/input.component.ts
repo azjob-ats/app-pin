@@ -26,7 +26,9 @@ let inputIdCounter = 0;
   template: `
     <div class="input-field">
       @if (label()) {
-        <label class="input-field__label" [for]="inputId">{{ label() }}</label>
+        <label class="input-field__label" [for]="inputId">
+            @if (required()) {<span class="required-star" aria-hidden="true">*</span>}{{ label() }}
+          </label>
       }
 
       <div
@@ -75,6 +77,7 @@ let inputIdCounter = 0;
 })
 export class InputComponent implements ControlValueAccessor {
   readonly label = input('');
+  readonly required = input(false);
   readonly type = input<InputType>('text');
   readonly placeholder = input('');
   readonly hint = input('');

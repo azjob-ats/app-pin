@@ -39,6 +39,7 @@
             <app-button
               variant="primary"
               size="md"
+              (clicked)="showLearnMoreDrawer.set(true)"
               >Saiba Mais</app-button
             >
           </div>
@@ -145,3 +146,14 @@
     </div>
   }
 </div>
+
+<app-drawer
+  [(visible)]="showLearnMoreDrawer"
+  position="right"
+  styleClass="learn-more-drawer">
+  @if (showLearnMoreDrawer()) {
+    <app-learn-more
+      [pinId]="pin()?.id ?? ''"
+      (onClose)="showLearnMoreDrawer.set(false)" />
+  }
+</app-drawer>
