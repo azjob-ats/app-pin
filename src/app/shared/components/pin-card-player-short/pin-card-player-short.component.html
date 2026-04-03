@@ -17,9 +17,7 @@
           [src]="post().media.thumbnail"
           [alt]="post().media.title"
           loading="lazy" />
-        <div class="pcps__thumb-overlay" aria-hidden="true">
-          <span class="pcps__thumb-play material-symbols-rounded">play_circle</span>
-        </div>
+        <div class="pcps__thumb-overlay" aria-hidden="true"></div>
       </button>
     }
 
@@ -38,10 +36,15 @@
       </video>
 
       <!-- Controls overlay -->
-      <div class="pcps__overlay">
+      <div
+        class="pcps__overlay"
+        (click)="onOverlayInteract($event)"
+        (mousemove)="onOverlayMouseMove()">
 
         <!-- Top row: volume + navigation -->
-        <div class="pcps__overlay-top">
+        <div
+          class="pcps__overlay-top"
+          [class.pcps__overlay-top--hidden]="!controlsVisible()">
           <button
             class="pcps__ctrl-btn"
             type="button"
@@ -65,17 +68,12 @@
           type="button"
           [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'"
           (click)="togglePlayPause($event)">
-          @if (!isPlaying()) {
-            <span
-              class="pcps__play-pause-icon material-symbols-rounded"
-              aria-hidden="true">
-              play_arrow
-            </span>
-          }
         </button>
 
         <!-- Bottom: time display + progress bar -->
-        <div class="pcps__bottom">
+        <div
+          class="pcps__bottom"
+          [class.pcps__bottom--hidden]="!controlsVisible()">
           <!--<div
             class="pcps__time"
             aria-live="off"

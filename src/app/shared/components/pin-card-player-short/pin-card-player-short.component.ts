@@ -33,20 +33,19 @@ export class PinCardPlayerShortComponent implements OnDestroy {
   readonly tooltipTime = signal(0);
   readonly tooltipLeft = signal(0);
   readonly showTooltip = signal(false);
+  readonly controlsVisible = signal(true);
 
   private scrubWasPlaying = false;
   private rafId: number | null = null;
+  private hideTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly aspectRatioCss = computed(() =>
     this.post().media.aspectRatio.replace(':', '/')
   );
 
-  readonly volumeIcon = computed(() => {
-    if (this.isMuted()) return 'volume_off';
-    const v = this.volume();
-    if (v === 0) return 'volume_off';
-    return v < 0.5 ? 'volume_down' : 'volume_up';
-  });
+  readonly volumeIcon = computed(() =>
+    this.isMuted() ? 'volume_off' : 'volume_up'
+  );
 
   readonly progressPercent = computed(() => {
     const d = this.duration();
@@ -78,12 +77,15 @@ export class PinCardPlayerShortComponent implements OnDestroy {
     video.play().then(() => {
       this.isPlaying.set(true);
       this.startRaf();
+      this.scheduleHide();
     }).catch(() => {});
   }
 
   onVideoEnded(): void {
     this.isPlaying.set(false);
     this.stopRaf();
+    this.clearHideTimer();
+    this.controlsVisible.set(true);
   }
 
   togglePlayPause(event: Event): void {
@@ -94,11 +96,46 @@ export class PinCardPlayerShortComponent implements OnDestroy {
       video.pause();
       this.isPlaying.set(false);
       this.stopRaf();
+      this.clearHideTimer();
+      this.controlsVisible.set(true);
     } else {
       video.play().then(() => {
         this.isPlaying.set(true);
         this.startRaf();
+        this.scheduleHide();
       }).catch(() => {});
+    }
+  }
+
+  onOverlayInteract(event: Event): void {
+    if (!this.controlsVisible()) {
+      this.showControls();
+      return;
+    }
+    this.togglePlayPause(event);
+  }
+
+  onOverlayMouseMove(): void {
+    this.showControls();
+  }
+
+  private showControls(): void {
+    this.controlsVisible.set(true);
+    this.scheduleHide();
+  }
+
+  private scheduleHide(): void {
+    this.clearHideTimer();
+    if (!this.isPlaying()) return;
+    this.hideTimer = setTimeout(() => {
+      this.controlsVisible.set(false);
+    }, 5000);
+  }
+
+  private clearHideTimer(): void {
+    if (this.hideTimer !== null) {
+      clearTimeout(this.hideTimer);
+      this.hideTimer = null;
     }
   }
 
@@ -204,5 +241,6 @@ export class PinCardPlayerShortComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.stopRaf();
+    this.clearHideTimer();
   }
 }
