@@ -1,0 +1,54 @@
+.select-button-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 72px;
+  padding: 0.875rem 0.5rem;
+  background: none;
+  border: 1px solid var(--pin-border, rgba(0, 0, 0, 0.15));
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: var(--pin-surface-hover, rgba(0, 0, 0, 0.04));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-primary, #e60023);
+    outline-offset: 2px;
+  }
+
+  &--selected {
+    border-color: var(--pin-primary, #e60023);
+    background: rgba(230, 0, 35, 0.06);
+
+    .select-button-option__icon {
+      color: var(--pin-primary, #e60023);
+      opacity: 1;
+    }
+
+    .select-button-option__label {
+      color: var(--pin-primary, #e60023);
+      font-weight: 600;
+      opacity: 1;
+    }
+  }
+
+  &__icon {
+    font-size: 1.75rem;
+    color: var(--pin-text);
+    opacity: 0.5;
+  }
+
+  &__label {
+    font-size: 0.6875rem;
+    color: var(--pin-text);
+    text-align: center;
+    line-height: 1.3;
+    opacity: 0.65;
+  }
+}

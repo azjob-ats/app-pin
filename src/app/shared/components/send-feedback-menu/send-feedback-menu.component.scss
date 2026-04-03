@@ -110,66 +110,6 @@
     flex-wrap: wrap;
   }
 
-  &__rating-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-    flex: 1;
-    min-width: 72px;
-    padding: 0.875rem 0.5rem;
-    background: none;
-    border: 1px solid var(--pin-border, rgba(0, 0, 0, 0.15));
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-
-    &:hover {
-      background: var(--pin-surface-hover, rgba(0, 0, 0, 0.04));
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--pin-primary, #e60023);
-      outline-offset: 2px;
-    }
-
-    &--active {
-      border-color: var(--pin-primary, #e60023);
-      background: rgba(230, 0, 35, 0.06);
-
-      .send-feedback__rating-icon {
-        color: var(--pin-primary, #e60023);
-      }
-
-      .send-feedback__rating-label {
-        color: var(--pin-primary, #e60023);
-        font-weight: 600;
-      }
-    }
-  }
-
-  &__rating-icon {
-    font-size: 1.75rem;
-    color: var(--pin-text);
-    opacity: 0.5;
-
-    .send-feedback__rating-btn--active & {
-      opacity: 1;
-    }
-  }
-
-  &__rating-label {
-    font-size: 0.6875rem;
-    color: var(--pin-text);
-    text-align: center;
-    line-height: 1.3;
-    opacity: 0.65;
-
-    .send-feedback__rating-btn--active & {
-      opacity: 1;
-    }
-  }
-
   &__fields {
     display: flex;
     flex-direction: column;

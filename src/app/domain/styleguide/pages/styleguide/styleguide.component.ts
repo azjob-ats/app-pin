@@ -82,6 +82,7 @@ import { StepPageComponent, StepDef } from '@shared/components/step-page/step-pa
 import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
 import { AppSelectButtonComponent } from '@shared/components/app-select-button/app-select-button.component';
 import { AppCheckListComponent } from '@shared/components/check-list/app-check-list.component';
+import { SelectButtonOptionComponent } from '@shared/components/select-button-option/select-button-option.component';
 import { environment } from '@env/environment';
 
 
@@ -173,6 +174,7 @@ export interface SearchResult {
     AppCheckComponent,
     AppSelectButtonComponent,
     AppCheckListComponent,
+    SelectButtonOptionComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -280,6 +282,15 @@ export class StyleguideComponent {
   (checkedChange)="mySignal.set($event)"
 />`;
 
+  readonly selectButtonOptionImportCode = `import { SelectButtonOptionComponent } from '@shared/components/select-button-option/select-button-option.component';`;
+
+  readonly selectButtonOptionCode = `<app-select-button-option
+  [selected]="selected === option.value"
+  [icon]="option.icon"
+  [label]="option.label"
+  (clicked)="selected = option.value"
+/>`;
+
   readonly stepPageImportCode = `import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';`;
 
   readonly stepPageCode = `<app-step-page [steps]="steps" [activeStep]="activeStep()">
@@ -352,6 +363,7 @@ export class StyleguideComponent {
   readonly appCheckChecked = signal(true);
   readonly checkListSelected = signal('json');
   readonly selectButtonSelected = signal('week');
+  readonly selectButtonOptionSelected = signal('good');
   readonly selectButtonMultiSelected = signal<Set<string>>(new Set(['tech', 'design']));
   readonly popoverSelected = signal<string | null>(null);
   readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
@@ -602,6 +614,7 @@ export class StyleguideComponent {
         { id: 'comp-check', label: 'Check Box', icon: 'check_box' },
         { id: 'comp-select-button', label: 'Select Button', icon: 'pill' },
         { id: 'comp-check-list', label: 'Check List', icon: 'checklist' },
+        { id: 'comp-select-button-option', label: 'Select Button Option', icon: 'apps' },
       ],
     },
   ];

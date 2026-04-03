@@ -5178,6 +5178,127 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-select-button-option') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Select Button Option</h1>
+        <p class="sg-section__desc">
+          A vertical card-style selectable button with an optional icon above and a label below.
+          Uses <code class="sg-inline-code">aria-pressed</code> for accessibility. Designed for
+          compact option pickers such as mood or rating selectors.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: selectButtonOptionImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; gap: 0.5rem; padding: 1rem; flex-wrap: wrap;">
+            <app-select-button-option
+              [selected]="selectButtonOptionSelected() === 'bad'"
+              icon="sentiment_very_dissatisfied"
+              label="Muito ruim"
+              (clicked)="selectButtonOptionSelected.set('bad')"
+            />
+            <app-select-button-option
+              [selected]="selectButtonOptionSelected() === 'poor'"
+              icon="sentiment_dissatisfied"
+              label="Ruim"
+              (clicked)="selectButtonOptionSelected.set('poor')"
+            />
+            <app-select-button-option
+              [selected]="selectButtonOptionSelected() === 'ok'"
+              icon="sentiment_neutral"
+              label="Neutro"
+              (clicked)="selectButtonOptionSelected.set('ok')"
+            />
+            <app-select-button-option
+              [selected]="selectButtonOptionSelected() === 'good'"
+              icon="sentiment_satisfied"
+              label="Bom"
+              (clicked)="selectButtonOptionSelected.set('good')"
+            />
+            <app-select-button-option
+              [selected]="selectButtonOptionSelected() === 'great'"
+              icon="sentiment_very_satisfied"
+              label="Ótimo"
+              (clicked)="selectButtonOptionSelected.set('great')"
+            />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: selectButtonOptionCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Without Icon</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; gap: 0.5rem; padding: 1rem; flex-wrap: wrap;">
+            <app-select-button-option
+              [selected]="true"
+              label="Selecionado"
+            />
+            <app-select-button-option
+              [selected]="false"
+              label="Não selecionado"
+            />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">selected</code></td>
+              <td>boolean</td>
+              <td>Required</td>
+              <td>Whether the button is in the active/selected state</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">label</code></td>
+              <td>string</td>
+              <td>Required</td>
+              <td>Text label displayed below the icon</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">icon</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Material Symbols icon name shown above the label; hidden when empty</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Explicit <code class="sg-code">aria-label</code>; falls back to button text content</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">clicked</code></td>
+              <td>void</td>
+              <td>Emitted on click; parent manages the selected state</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
   </main>
 </div>
 
