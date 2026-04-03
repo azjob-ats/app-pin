@@ -38,6 +38,7 @@ export class PinCardPlayerShortComponent implements OnDestroy {
   private scrubWasPlaying = false;
   private rafId: number | null = null;
   private hideTimer: ReturnType<typeof setTimeout> | null = null;
+  private suppressNextClick = false;
 
   readonly aspectRatioCss = computed(() =>
     this.post().media.aspectRatio.replace(':', '/')
@@ -107,7 +108,20 @@ export class PinCardPlayerShortComponent implements OnDestroy {
     }
   }
 
+  onOverlayTouchStart(event: TouchEvent): void {
+    if (!this.controlsVisible()) {
+      event.stopPropagation();
+      this.suppressNextClick = true;
+      this.showControls();
+    }
+  }
+
   onOverlayInteract(event: Event): void {
+    event.stopPropagation();
+    if (this.suppressNextClick) {
+      this.suppressNextClick = false;
+      return;
+    }
     if (!this.controlsVisible()) {
       this.showControls();
       return;

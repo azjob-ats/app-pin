@@ -39,6 +39,7 @@
       <div
         class="pcps__overlay"
         (click)="onOverlayInteract($event)"
+        (touchstart)="onOverlayTouchStart($event)"
         (mousemove)="onOverlayMouseMove()">
 
         <!-- Top row: volume + navigation -->
@@ -67,7 +68,7 @@
           class="pcps__play-pause"
           type="button"
           [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'"
-          (click)="togglePlayPause($event)">
+          (click)="onOverlayInteract($event)">
         </button>
 
         <!-- Bottom: time display + progress bar -->
