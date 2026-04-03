@@ -78,6 +78,7 @@ import { ToggleSwitchComponent } from '@shared/components/toggle-switch/toggle-s
 import { ToggleCheckComponent } from '@shared/components/toggle-check/toggle-check.component';
 import { SectionListComponent, SectionItemComponent } from '@shared/components/section-list/section-list.component';
 import { RadioButtonComponent } from '@shared/components/radio-button/radio-button.component';
+import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';
 import { environment } from '@env/environment';
 
 
@@ -165,6 +166,7 @@ export interface SearchResult {
     SectionListComponent,
     SectionItemComponent,
     RadioButtonComponent,
+    StepPageComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -230,14 +232,39 @@ export class StyleguideComponent {
 
   readonly radioButtonImportCode = `import { RadioButtonComponent } from '@shared/components/radio-button/radio-button.component';`;
 
-  readonly radioButtonCode = `<app-radio-button 
-  [checked]="true" 
+  readonly radioButtonCode = `<app-radio-button
+  [checked]="true"
   ariaLabel="Option label"
   (checkedChange)="onToggle($event)"
 >
   Option label
 </app-radio-button>`;
 
+  readonly stepPageImportCode = `import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';`;
+
+  readonly stepPageCode = `<app-step-page [steps]="steps" [activeStep]="activeStep()">
+  <!-- step content projected here -->
+</app-step-page>`;
+
+  readonly demoStepPageSteps: StepDef[] = [
+    { key: 'info', index: 1, label: 'Informações' },
+    { key: 'review', index: 2, label: 'Revisão' },
+    { key: 'confirm', index: 3, label: 'Confirmação' },
+  ];
+
+  readonly demoStepPageActive = signal<string>('info');
+
+  nextDemoStep(): void {
+    const order = this.demoStepPageSteps.map((s) => s.key);
+    const idx = order.indexOf(this.demoStepPageActive());
+    if (idx < order.length - 1) this.demoStepPageActive.set(order[idx + 1]);
+  }
+
+  prevDemoStep(): void {
+    const order = this.demoStepPageSteps.map((s) => s.key);
+    const idx = order.indexOf(this.demoStepPageActive());
+    if (idx > 0) this.demoStepPageActive.set(order[idx - 1]);
+  }
 
   readonly searchQuery = signal('');
   readonly searchActive = signal(false);
@@ -519,6 +546,7 @@ export class StyleguideComponent {
         { id: 'comp-toggle-check', label: 'Toggle Check', icon: 'check_circle' },
         { id: 'comp-section-list', label: 'Section List', icon: 'format_list_bulleted' },
         { id: 'comp-radio-button', label: 'Radio Button', icon: 'radio_button_checked' },
+        { id: 'comp-step-page', label: 'Step Page', icon: 'linear_scale' },
       ],
     },
   ];

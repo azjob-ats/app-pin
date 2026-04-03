@@ -4714,6 +4714,138 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-step-page') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Step Page</h1>
+        <p class="sg-section__desc">
+          A reusable stepper component for multi-step flows. Renders a visual step indicator
+          with active, done, and pending states. Content is projected below the stepper via
+          <code class="sg-inline-code">ng-content</code>. The accent color is customizable
+          via the <code class="sg-inline-code">--step-page-accent</code> CSS variable.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: stepPageImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div style="max-width: 420px; width: 100%;">
+              <app-step-page
+                [steps]="demoStepPageSteps"
+                [activeStep]="demoStepPageActive()"
+              >
+                <div class="flex flex-col gap-4 mt-2">
+                  @switch (demoStepPageActive()) {
+                    @case ('info') {
+                      <p style="font-size: 0.9375rem; color: var(--pin-text); margin: 0;">
+                        Preencha as informações iniciais para continuar.
+                      </p>
+                    }
+                    @case ('review') {
+                      <p style="font-size: 0.9375rem; color: var(--pin-text); margin: 0;">
+                        Revise os dados antes de confirmar.
+                      </p>
+                    }
+                    @case ('confirm') {
+                      <p style="font-size: 0.9375rem; color: var(--pin-text); margin: 0;">
+                        Tudo certo! Confirme para finalizar.
+                      </p>
+                    }
+                  }
+                  <div class="flex gap-3" style="justify-content: flex-end;">
+                    @if (demoStepPageActive() !== 'info') {
+                      <app-button variant="ghost" (clicked)="prevDemoStep()">Voltar</app-button>
+                    }
+                    @if (demoStepPageActive() !== 'confirm') {
+                      <app-button variant="outline" (clicked)="nextDemoStep()">Continuar</app-button>
+                    } @else {
+                      <app-button variant="primary" (clicked)="demoStepPageActive.set('info')">Reiniciar</app-button>
+                    }
+                  </div>
+                </div>
+              </app-step-page>
+            </div>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: stepPageCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">steps</code></td>
+              <td>StepDef[]</td>
+              <td>(required)</td>
+              <td>Array of step definitions with <code class="sg-code">key</code>, <code class="sg-code">index</code>, and <code class="sg-code">label</code></td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">activeStep</code></td>
+              <td>string</td>
+              <td>(required)</td>
+              <td>The <code class="sg-code">key</code> of the currently active step</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="sg-subsection__title mt-4">StepDef Interface</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">key</code></td>
+              <td>string</td>
+              <td>Unique identifier for the step</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">index</code></td>
+              <td>number</td>
+              <td>Display number shown in the step dot</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">label</code></td>
+              <td>string</td>
+              <td>Text label displayed below the step dot</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="sg-subsection__title mt-4">CSS Custom Properties</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">--step-page-accent</code></td>
+              <td>var(--pin-primary)</td>
+              <td>Color used for active step border, done step background, and connector line</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
   </main>
 </div>
 
