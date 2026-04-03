@@ -1,0 +1,46 @@
+.app-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: var(--pin-text);
+  opacity: 0.3;
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: opacity 0.15s, color 0.15s;
+
+  .material-symbols-rounded {
+    font-size: 1.5rem;
+    display: block;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-primary, #e60023);
+    outline-offset: 2px;
+  }
+
+  &--on {
+    color: var(--pin-primary, #e60023);
+    opacity: 1;
+
+    &:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+
+    &.app-check--on {
+      opacity: 0.4;
+    }
+  }
+}

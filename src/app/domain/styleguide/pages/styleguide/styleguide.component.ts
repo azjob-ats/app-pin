@@ -79,6 +79,7 @@ import { ToggleCheckComponent } from '@shared/components/toggle-check/toggle-che
 import { SectionListComponent, SectionItemComponent } from '@shared/components/section-list/section-list.component';
 import { RadioButtonComponent } from '@shared/components/radio-button/radio-button.component';
 import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';
+import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
 import { environment } from '@env/environment';
 
 
@@ -167,6 +168,7 @@ export interface SearchResult {
     SectionItemComponent,
     RadioButtonComponent,
     StepPageComponent,
+    AppCheckComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -240,6 +242,14 @@ export class StyleguideComponent {
   Option label
 </app-radio-button>`;
 
+  readonly appCheckImportCode = `import { AppCheckComponent } from '@shared/components/app-check/app-check.component';`;
+
+  readonly appCheckCode = `<app-check
+  [checked]="mySignal()"
+  ariaLabel="Select option"
+  (checkedChange)="mySignal.set($event)"
+/>`;
+
   readonly stepPageImportCode = `import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';`;
 
   readonly stepPageCode = `<app-step-page [steps]="steps" [activeStep]="activeStep()">
@@ -301,6 +311,7 @@ export class StyleguideComponent {
   readonly spinnerTotalSteps = 5;
   readonly toggleSwitchChecked = signal(true);
   readonly toggleCheckChecked = signal(true);
+  readonly appCheckChecked = signal(true);
   readonly popoverSelected = signal<string | null>(null);
   readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
   readonly infiniteLoading = signal(false);
@@ -547,6 +558,7 @@ export class StyleguideComponent {
         { id: 'comp-section-list', label: 'Section List', icon: 'format_list_bulleted' },
         { id: 'comp-radio-button', label: 'Radio Button', icon: 'radio_button_checked' },
         { id: 'comp-step-page', label: 'Step Page', icon: 'linear_scale' },
+        { id: 'comp-check', label: 'Check Box', icon: 'check_box' },
       ],
     },
   ];

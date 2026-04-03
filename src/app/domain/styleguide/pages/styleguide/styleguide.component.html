@@ -4846,6 +4846,93 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-check') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Check Box</h1>
+        <p class="sg-section__desc">
+          A standalone checkbox button using the Material Symbols <code class="sg-inline-code">check_box</code> /
+          <code class="sg-inline-code">check_box_outline_blank</code> icons. Accessible via
+          <code class="sg-inline-code">role="checkbox"</code> and <code class="sg-inline-code">aria-checked</code>.
+          Suitable for use in lists and forms as an independent interactive element.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: appCheckImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; gap: 2rem; align-items: center; padding: 1rem">
+            <app-check
+              [checked]="appCheckChecked()"
+              ariaLabel="Toggle option"
+              (checkedChange)="appCheckChecked.set($event)"
+            />
+            <app-check
+              [checked]="true"
+              ariaLabel="Disabled checked state"
+              [disabled]="true"
+            />
+            <app-check
+              [checked]="false"
+              ariaLabel="Disabled unchecked state"
+              [disabled]="true"
+            />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: appCheckCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checked</code></td>
+              <td>boolean</td>
+              <td>Required</td>
+              <td>Current checked state of the checkbox</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>Required</td>
+              <td>Accessibility label for screen readers</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">disabled</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Disables interaction and dims the visual state</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checkedChange</code></td>
+              <td>boolean</td>
+              <td>Emits the new checked state on click</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
   </main>
 </div>
 

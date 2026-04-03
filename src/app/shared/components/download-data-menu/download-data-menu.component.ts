@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ButtonComponent } from '@shared/components/button/button.component';
+import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
 
 interface DataCategory {
   id: string;
@@ -22,7 +23,7 @@ type FormStatus = 'idle' | 'submitting' | 'submitted';
 @Component({
   selector: 'app-download-data-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, AppCheckComponent],
   styleUrl: './download-data-menu.component.scss',
   template: `
     <div class="download-data">
@@ -51,19 +52,11 @@ type FormStatus = 'idle' | 'submitting' | 'submitted';
                   <span class="download-data__item-description">{{ category.description }}</span>
                 </div>
               </div>
-              <button
-                class="download-data__check"
-                type="button"
-                role="checkbox"
-                [attr.aria-checked]="category.selected"
-                [attr.aria-label]="(category.selected ? 'Desmarcar' : 'Selecionar') + ' ' + category.title"
-                [class.download-data__check--on]="category.selected"
-                (click)="toggleCategory(category.id)"
-              >
-                <span class="material-symbols-rounded" aria-hidden="true">
-                  {{ category.selected ? 'check_box' : 'check_box_outline_blank' }}
-                </span>
-              </button>
+              <app-check
+                [checked]="category.selected"
+                [ariaLabel]="(category.selected ? 'Desmarcar' : 'Selecionar') + ' ' + category.title"
+                (checkedChange)="toggleCategory(category.id)"
+              />
             </li>
           }
         </ul>
