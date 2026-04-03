@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { InputComponent } from '@shared/components/input/input.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { SelectButtonOptionComponent } from '@shared/components/select-button-option/select-button-option.component';
 
 interface FeedbackCategory {
   value: string;
@@ -37,7 +36,7 @@ type FormStatus = 'idle' | 'submitting' | 'success';
 @Component({
   selector: 'app-send-feedback-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, InputComponent, ButtonComponent, SelectButtonOptionComponent],
+  imports: [FormsModule, InputComponent, ButtonComponent],
   styleUrl: './send-feedback-menu.component.scss',
   template: `
     <div class="send-feedback">
@@ -91,13 +90,17 @@ type FormStatus = 'idle' | 'submitting' | 'success';
             <h2 id="rating-heading" class="send-feedback__section-title">Como você avalia sua experiência?</h2>
             <div class="send-feedback__rating" role="group" aria-labelledby="rating-heading">
               @for (option of ratingOptions; track option.value) {
-                <app-select-button-option
-                  [selected]="selectedRating() === option.value"
-                  [icon]="option.icon"
-                  [label]="option.label"
-                  [ariaLabel]="option.label"
-                  (clicked)="selectRating(option.value)"
-                />
+                <button
+                  type="button"
+                  class="send-feedback__rating-btn"
+                  [class.send-feedback__rating-btn--active]="selectedRating() === option.value"
+                  [attr.aria-pressed]="selectedRating() === option.value"
+                  [attr.aria-label]="option.label"
+                  (click)="selectRating(option.value)"
+                >
+                  <span class="material-symbols-rounded send-feedback__rating-icon" aria-hidden="true">{{ option.icon }}</span>
+                  <span class="send-feedback__rating-label">{{ option.label }}</span>
+                </button>
               }
             </div>
             @if (submitted() && !selectedRating()) {
