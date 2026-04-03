@@ -80,6 +80,7 @@ import { SectionListComponent, SectionItemComponent } from '@shared/components/s
 import { RadioButtonComponent } from '@shared/components/radio-button/radio-button.component';
 import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';
 import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
+import { AppSelectButtonComponent } from '@shared/components/app-select-button/app-select-button.component';
 import { environment } from '@env/environment';
 
 
@@ -169,6 +170,7 @@ export interface SearchResult {
     RadioButtonComponent,
     StepPageComponent,
     AppCheckComponent,
+    AppSelectButtonComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -242,6 +244,22 @@ export class StyleguideComponent {
   Option label
 </app-radio-button>`;
 
+  readonly appSelectButtonImportCode = `import { AppSelectButtonComponent } from '@shared/components/app-select-button/app-select-button.component';`;
+
+  readonly appSelectButtonCode = `<app-select-button
+  [selected]="selected === option.value"
+  (clicked)="selected = option.value"
+>
+  {{ option.label }}
+</app-select-button>`;
+
+  readonly appSelectButtonMultiCode = `<app-select-button
+  [selected]="selectedSet().has(option.value)"
+  (clicked)="toggleOption(option.value)"
+>
+  {{ option.label }}
+</app-select-button>`;
+
   readonly appCheckImportCode = `import { AppCheckComponent } from '@shared/components/app-check/app-check.component';`;
 
   readonly appCheckCode = `<app-check
@@ -255,6 +273,14 @@ export class StyleguideComponent {
   readonly stepPageCode = `<app-step-page [steps]="steps" [activeStep]="activeStep()">
   <!-- step content projected here -->
 </app-step-page>`;
+
+  toggleSelectButtonMulti(value: string): void {
+    this.selectButtonMultiSelected.update((set) => {
+      const next = new Set(set);
+      next.has(value) ? next.delete(value) : next.add(value);
+      return next;
+    });
+  }
 
   readonly demoStepPageSteps: StepDef[] = [
     { key: 'info', index: 1, label: 'Informações' },
@@ -312,6 +338,8 @@ export class StyleguideComponent {
   readonly toggleSwitchChecked = signal(true);
   readonly toggleCheckChecked = signal(true);
   readonly appCheckChecked = signal(true);
+  readonly selectButtonSelected = signal('week');
+  readonly selectButtonMultiSelected = signal<Set<string>>(new Set(['tech', 'design']));
   readonly popoverSelected = signal<string | null>(null);
   readonly drawerPosition = signal<'left' | 'right' | 'top' | 'bottom'>('right');
   readonly infiniteLoading = signal(false);
@@ -559,6 +587,7 @@ export class StyleguideComponent {
         { id: 'comp-radio-button', label: 'Radio Button', icon: 'radio_button_checked' },
         { id: 'comp-step-page', label: 'Step Page', icon: 'linear_scale' },
         { id: 'comp-check', label: 'Check Box', icon: 'check_box' },
+        { id: 'comp-select-button', label: 'Select Button', icon: 'pill' },
       ],
     },
   ];

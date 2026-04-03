@@ -1,0 +1,35 @@
+.app-select-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4375rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--pin-text);
+  background: none;
+  border: 1px solid var(--pin-border, rgba(0, 0, 0, 0.15));
+  border-radius: 2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: var(--pin-surface-hover, rgba(0, 0, 0, 0.04));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-primary, #e60023);
+    outline-offset: 2px;
+  }
+
+  &--selected {
+    background: var(--pin-primary, #e60023);
+    border-color: var(--pin-primary, #e60023);
+    color: #fff;
+
+    &:hover {
+      background: var(--pin-primary, #e60023);
+    }
+  }
+}

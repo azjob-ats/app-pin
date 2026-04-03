@@ -4846,6 +4846,130 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-select-button') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Select Button</h1>
+        <p class="sg-section__desc">
+          A pill-shaped selectable button for choosing one option from a set. Uses
+          <code class="sg-inline-code">aria-pressed</code> for accessibility. Supports text-only
+          or icon + text content via <code class="sg-inline-code">ng-content</code> projection.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: appSelectButtonImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 1rem">
+            <app-select-button
+              [selected]="selectButtonSelected() === 'day'"
+              (clicked)="selectButtonSelected.set('day')"
+            >Hoje</app-select-button>
+            <app-select-button
+              [selected]="selectButtonSelected() === 'week'"
+              (clicked)="selectButtonSelected.set('week')"
+            >Última semana</app-select-button>
+            <app-select-button
+              [selected]="selectButtonSelected() === 'month'"
+              (clicked)="selectButtonSelected.set('month')"
+            >Último mês</app-select-button>
+            <app-select-button
+              [selected]="selectButtonSelected() === 'all'"
+              (clicked)="selectButtonSelected.set('all')"
+            >Todo o histórico</app-select-button>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: appSelectButtonCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Multi-select</h3>
+        <p class="sg-section__desc" style="margin: 0">
+          Para seleção múltipla, gerencie um <code class="sg-inline-code">Set&lt;string&gt;</code> no componente pai
+          e use <code class="sg-inline-code">.has()</code> para verificar o estado de cada botão.
+        </p>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 1rem">
+            @for (opt of [
+              { value: 'tech', label: 'Tecnologia' },
+              { value: 'design', label: 'Design' },
+              { value: 'career', label: 'Carreira' },
+              { value: 'startup', label: 'Startups' },
+              { value: 'economy', label: 'Economia' }
+            ]; track opt.value) {
+              <app-select-button
+                [selected]="selectButtonMultiSelected().has(opt.value)"
+                (clicked)="toggleSelectButtonMulti(opt.value)"
+              >{{ opt.label }}</app-select-button>
+            }
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: appSelectButtonMultiCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">With Icon</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 1rem">
+            <app-select-button [selected]="true" (clicked)="null">
+              <span class="material-symbols-rounded" aria-hidden="true" style="font-size:1rem">lightbulb</span>
+              Sugestão
+            </app-select-button>
+            <app-select-button [selected]="false" (clicked)="null">
+              <span class="material-symbols-rounded" aria-hidden="true" style="font-size:1rem">bug_report</span>
+              Problema técnico
+            </app-select-button>
+            <app-select-button [selected]="false" (clicked)="null">
+              <span class="material-symbols-rounded" aria-hidden="true" style="font-size:1rem">palette</span>
+              Design
+            </app-select-button>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">selected</code></td>
+              <td>boolean</td>
+              <td>Required</td>
+              <td>Whether the button is in the active/selected state</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Optional explicit <code class="sg-code">aria-label</code>; falls back to button text content</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">clicked</code></td>
+              <td>void</td>
+              <td>Emitted when the button is clicked; parent manages the selected state</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
     @if (activeSection() === 'comp-check') {
       <section class="sg-section">
         <h1 class="sg-section__title">Check Box</h1>
