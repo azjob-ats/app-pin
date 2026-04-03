@@ -76,6 +76,7 @@ import { ButtonUploadComponent } from '@shared/components/button-upload/button-u
 import { SpinnerStepsComponent } from '@shared/components/spinner-steps/spinner-steps.component';
 import { ToggleSwitchComponent } from '@shared/components/toggle-switch/toggle-switch.component';
 import { ToggleCheckComponent } from '@shared/components/toggle-check/toggle-check.component';
+import { SectionListComponent, SectionItemComponent } from '@shared/components/section-list/section-list.component';
 import { environment } from '@env/environment';
 
 export interface NavItem {
@@ -159,6 +160,8 @@ export interface SearchResult {
     SpinnerStepsComponent,
     ToggleSwitchComponent,
     ToggleCheckComponent,
+    SectionListComponent,
+    SectionItemComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -208,6 +211,20 @@ export class StyleguideComponent {
   ];
 
   readonly sidebarOpen = signal(false);
+
+  readonly importCode = `import { SectionListComponent, SectionItemComponent } from '@shared/components/section-list/section-list.component';`;
+
+  readonly sectionListCode = `<app-section-list>
+  <app-section-item [clickable]="true">
+    <span item-start class="material-symbols-rounded">laptop</span>
+    <div>
+      <strong>Device Name</strong>
+      <span>macOS · Safari 17</span>
+    </div>
+    <app-button item-end variant="ghost" size="sm">Encerrar</app-button>
+  </app-section-item>
+</app-section-list>`;
+
   readonly searchQuery = signal('');
   readonly searchActive = signal(false);
   readonly copiedCode = signal<string | null>(null);
@@ -486,6 +503,7 @@ export class StyleguideComponent {
         { id: 'comp-spinner-steps', label: 'Spinner Steps', icon: 'rotate_right' },
         { id: 'comp-toggle-switch', label: 'Toggle Switch', icon: 'toggle_on' },
         { id: 'comp-toggle-check', label: 'Toggle Check', icon: 'check_circle' },
+        { id: 'comp-section-list', label: 'Section List', icon: 'format_list_bulleted' },
       ],
     },
   ];

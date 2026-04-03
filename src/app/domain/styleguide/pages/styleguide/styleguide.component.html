@@ -4526,6 +4526,100 @@
         </table>
       </section>
     }
+
+    @if (activeSection() === 'comp-section-list') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Section List</h1>
+        <p class="sg-section__desc">
+          Container for list items with consistent borders, spacing, and optional hover states.
+          Use <code class="sg-inline-code">app-section-list</code> as the wrapper and
+          <code class="sg-inline-code">app-section-item</code> for each row.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: importCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <app-section-list style="max-width: 420px; width: 100%;">
+              <app-section-item [clickable]="true">
+                <span item-start class="material-symbols-rounded" style="font-size:1.5rem;opacity:.5;">laptop</span>
+                <div>
+                  <strong style="display:block;font-size:.9375rem;">MacBook Pro</strong>
+                  <span style="font-size:.8125rem;opacity:.6;">macOS · Safari 17</span>
+                </div>
+                <app-button item-end variant="ghost" size="sm">Encerrar</app-button>
+              </app-section-item>
+              <app-section-item [clickable]="true">
+                <span item-start class="material-symbols-rounded" style="font-size:1.5rem;opacity:.5;">smartphone</span>
+                <div>
+                  <strong style="display:block;font-size:.9375rem;">iPhone 15</strong>
+                  <span style="font-size:.8125rem;opacity:.6;">iOS 17 · Safari</span>
+                </div>
+                <app-button item-end variant="ghost" size="sm">Encerrar</app-button>
+              </app-section-item>
+              <app-section-item [clickable]="true">
+                <span item-start class="material-symbols-rounded" style="font-size:1.5rem;opacity:.5;">tablet</span>
+                <div>
+                  <strong style="display:block;font-size:.9375rem;">iPad Air</strong>
+                  <span style="font-size:.8125rem;opacity:.6;">iPadOS 17 · Chrome</span>
+                </div>
+                <app-button item-end variant="ghost" size="sm">Encerrar</app-button>
+              </app-section-item>
+            </app-section-list>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: sectionListCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API — app-section-item</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">clickable</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Enables hover highlight and pointer cursor on the row</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="sg-subsection__title">Content Projection Slots</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Slot</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">[item-start]</code></td>
+              <td>Content at the start of the row — icons, avatars, checkboxes</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">(default)</code></td>
+              <td>Primary body content — grows to fill available space</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">[item-end]</code></td>
+              <td>Content at the end of the row — buttons, badges, arrows</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
   </main>
 </div>
 
