@@ -77,7 +77,9 @@ import { SpinnerStepsComponent } from '@shared/components/spinner-steps/spinner-
 import { ToggleSwitchComponent } from '@shared/components/toggle-switch/toggle-switch.component';
 import { ToggleCheckComponent } from '@shared/components/toggle-check/toggle-check.component';
 import { SectionListComponent, SectionItemComponent } from '@shared/components/section-list/section-list.component';
+import { RadioButtonComponent } from '@shared/components/radio-button/radio-button.component';
 import { environment } from '@env/environment';
+
 
 export interface NavItem {
   id: string;
@@ -162,6 +164,7 @@ export interface SearchResult {
     ToggleCheckComponent,
     SectionListComponent,
     SectionItemComponent,
+    RadioButtonComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -224,6 +227,17 @@ export class StyleguideComponent {
     <app-button item-end variant="ghost" size="sm">Encerrar</app-button>
   </app-section-item>
 </app-section-list>`;
+
+  readonly radioButtonImportCode = `import { RadioButtonComponent } from '@shared/components/radio-button/radio-button.component';`;
+
+  readonly radioButtonCode = `<app-radio-button 
+  [checked]="true" 
+  ariaLabel="Option label"
+  (checkedChange)="onToggle($event)"
+>
+  Option label
+</app-radio-button>`;
+
 
   readonly searchQuery = signal('');
   readonly searchActive = signal(false);
@@ -504,6 +518,7 @@ export class StyleguideComponent {
         { id: 'comp-toggle-switch', label: 'Toggle Switch', icon: 'toggle_on' },
         { id: 'comp-toggle-check', label: 'Toggle Check', icon: 'check_circle' },
         { id: 'comp-section-list', label: 'Section List', icon: 'format_list_bulleted' },
+        { id: 'comp-radio-button', label: 'Radio Button', icon: 'radio_button_checked' },
       ],
     },
   ];

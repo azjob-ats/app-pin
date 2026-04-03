@@ -4620,6 +4620,100 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-radio-button') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Radio Button</h1>
+        <p class="sg-section__desc">
+          A custom radio button component used for selection in lists or forms.
+          Features a consistent visual state, accessibility, and smooth transitions.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: radioButtonImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview">
+            <div class="flex flex-col gap-3 w-full" style="max-width: 400px;">
+              <app-radio-button 
+                [checked]="radioValue === 'opt1'" 
+                ariaLabel="Option 1"
+                (checkedChange)="radioValue = 'opt1'"
+              >
+                Option 1 (Default)
+              </app-radio-button>
+              <app-radio-button 
+                [checked]="radioValue === 'opt2'" 
+                ariaLabel="Option 2"
+                (checkedChange)="radioValue = 'opt2'"
+              >
+                Option 2 (Active State)
+              </app-radio-button>
+              <app-radio-button 
+                [checked]="false" 
+                [disabled]="true"
+                ariaLabel="Option Disabled"
+              >
+                Option Disabled
+              </app-radio-button>
+            </div>
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: radioButtonCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checked</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Whether the radio button is selected</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>(required)</td>
+              <td>Accessibility label for the button</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">disabled</code></td>
+              <td>boolean</td>
+              <td>false</td>
+              <td>Enables/disables user interaction</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="sg-table mt-4">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Payload</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">checkedChange</code></td>
+              <td>boolean</td>
+              <td>Emitted when the radio button is clicked (if not disabled)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
   </main>
 </div>
 
