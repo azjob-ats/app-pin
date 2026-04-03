@@ -4970,6 +4970,127 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-check-list') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Check List</h1>
+        <p class="sg-section__desc">
+          A card-style selectable button with an optional left icon, a title, an optional description,
+          and a <code class="sg-inline-code">check_circle</code> indicator on the right when selected.
+          Uses <code class="sg-inline-code">aria-pressed</code> for accessibility. Ideal for format, plan,
+          or option pickers.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: appCheckListImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; max-width: 480px; width: 100%">
+            <app-check-list
+              [selected]="checkListSelected() === 'json'"
+              icon="data_object"
+              label="JSON"
+              description="Estruturado, ideal para desenvolvedores."
+              (clicked)="checkListSelected.set('json')"
+            />
+            <app-check-list
+              [selected]="checkListSelected() === 'csv'"
+              icon="table"
+              label="CSV"
+              description="Compatível com planilhas como Excel."
+              (clicked)="checkListSelected.set('csv')"
+            />
+            <app-check-list
+              [selected]="checkListSelected() === 'pdf'"
+              icon="picture_as_pdf"
+              label="PDF"
+              description="Pronto para impressão e leitura."
+              (clicked)="checkListSelected.set('pdf')"
+            />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: appCheckListCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Without Icon</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem; max-width: 480px; width: 100%">
+            <app-check-list
+              [selected]="true"
+              label="Opção selecionada"
+              description="Descrição opcional do item."
+            />
+            <app-check-list
+              [selected]="false"
+              label="Opção não selecionada"
+              description="Descrição opcional do item."
+            />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <table class="sg-table">
+          <thead>
+            <tr>
+              <th>Input</th>
+              <th>Type</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">selected</code></td>
+              <td>boolean</td>
+              <td>Required</td>
+              <td>Whether the item is in the active/selected state</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">label</code></td>
+              <td>string</td>
+              <td>Required</td>
+              <td>Primary text displayed as the item title</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">icon</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Material Symbols icon name for the left slot; hidden when empty</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">description</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Optional subtitle shown below the label</td>
+            </tr>
+            <tr>
+              <td><code class="sg-code">ariaLabel</code></td>
+              <td>string</td>
+              <td>''</td>
+              <td>Explicit <code class="sg-code">aria-label</code>; falls back to button text content</td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="sg-table mt-3">
+          <thead>
+            <tr>
+              <th>Output</th>
+              <th>Parameters</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code class="sg-code">clicked</code></td>
+              <td>void</td>
+              <td>Emitted on click; parent manages the selected state</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    }
+
     @if (activeSection() === 'comp-check') {
       <section class="sg-section">
         <h1 class="sg-section__title">Check Box</h1>

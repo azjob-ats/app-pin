@@ -81,6 +81,7 @@ import { RadioButtonComponent } from '@shared/components/radio-button/radio-butt
 import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';
 import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
 import { AppSelectButtonComponent } from '@shared/components/app-select-button/app-select-button.component';
+import { AppCheckListComponent } from '@shared/components/check-list/app-check-list.component';
 import { environment } from '@env/environment';
 
 
@@ -171,6 +172,7 @@ export interface SearchResult {
     StepPageComponent,
     AppCheckComponent,
     AppSelectButtonComponent,
+    AppCheckListComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -260,6 +262,16 @@ export class StyleguideComponent {
   {{ option.label }}
 </app-select-button>`;
 
+  readonly appCheckListImportCode = `import { AppCheckListComponent } from '@shared/components/check-list/app-check-list.component';`;
+
+  readonly appCheckListCode = `<app-check-list
+  [selected]="selectedOption === opt.value"
+  [icon]="opt.icon"
+  [label]="opt.label"
+  [description]="opt.description"
+  (clicked)="selectedOption = opt.value"
+/>`;
+
   readonly appCheckImportCode = `import { AppCheckComponent } from '@shared/components/app-check/app-check.component';`;
 
   readonly appCheckCode = `<app-check
@@ -338,6 +350,7 @@ export class StyleguideComponent {
   readonly toggleSwitchChecked = signal(true);
   readonly toggleCheckChecked = signal(true);
   readonly appCheckChecked = signal(true);
+  readonly checkListSelected = signal('json');
   readonly selectButtonSelected = signal('week');
   readonly selectButtonMultiSelected = signal<Set<string>>(new Set(['tech', 'design']));
   readonly popoverSelected = signal<string | null>(null);
@@ -588,6 +601,7 @@ export class StyleguideComponent {
         { id: 'comp-step-page', label: 'Step Page', icon: 'linear_scale' },
         { id: 'comp-check', label: 'Check Box', icon: 'check_box' },
         { id: 'comp-select-button', label: 'Select Button', icon: 'pill' },
+        { id: 'comp-check-list', label: 'Check List', icon: 'checklist' },
       ],
     },
   ];

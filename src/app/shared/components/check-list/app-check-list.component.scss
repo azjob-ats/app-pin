@@ -1,0 +1,61 @@
+.check-list {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: 1px solid var(--pin-border, rgba(0, 0, 0, 0.12));
+  border-radius: 0.75rem;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: var(--pin-surface-hover, rgba(0, 0, 0, 0.04));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-primary, #e60023);
+    outline-offset: 2px;
+  }
+
+  &--selected {
+    border-color: var(--pin-primary, #e60023);
+    background: rgba(230, 0, 35, 0.04);
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    color: var(--pin-primary, #e60023);
+    flex-shrink: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--pin-text);
+  }
+
+  &__description {
+    font-size: 0.8125rem;
+    color: var(--pin-text);
+    opacity: 0.6;
+    line-height: 1.45;
+  }
+
+  &__check {
+    font-size: 1.25rem;
+    color: var(--pin-primary, #e60023);
+    flex-shrink: 0;
+  }
+}
