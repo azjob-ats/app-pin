@@ -5299,6 +5299,102 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-pin-card-player-short') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Pin Card Player Short</h1>
+        <p class="sg-section__desc">
+          A video-based card component that preserves the visual identity of PinCard while replacing
+          the image with a fully interactive short-video player. Supports lazy loading (thumbnail →
+          video on click), play/pause, volume toggle, progress scrubbing with tooltip, time display,
+          and aspect-ratio-aware layout.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: pinCardPlayerShortImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div
+            class="sg-demo__preview"
+            style="max-width: 240px; padding: 1rem;">
+            <app-pin-card-player-short [post]="mockPost" />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: pinCardPlayerShortCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Behavior</h3>
+        <ul class="sg-list">
+          <li>Renders the <strong>thumbnail</strong> initially; video is not loaded until the user clicks.</li>
+          <li>On click: replaces thumbnail with a <code class="sg-inline-code">&lt;video&gt;</code> element and auto-plays.</li>
+          <li>Clicking the video area toggles <strong>play / pause</strong>.</li>
+          <li><strong>Volume button</strong> (top-left) cycles between mute / unmute states.</li>
+          <li><strong>Navigation arrow</strong> (top-right) routes to <code class="sg-inline-code">/pin/:id</code>.</li>
+          <li>Progress bar supports <strong>click-to-seek</strong>, <strong>drag scrubbing</strong>, and a <strong>hover tooltip</strong> with time preview.</li>
+          <li>Current time / duration displayed above the progress bar.</li>
+          <li>Aspect ratio driven by <code class="sg-inline-code">post.media.aspectRatio</code> (e.g. <code class="sg-inline-code">9:16</code>, <code class="sg-inline-code">16:9</code>, <code class="sg-inline-code">4:3</code>).</li>
+        </ul>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Input</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">post</code></td>
+                <td>Post</td>
+                <td>Yes</td>
+                <td>Full post object including media (video URLs, thumbnail, aspectRatio) and channel info.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">Post.media fields</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">long</code></td>
+                <td>string</td>
+                <td>Main video source URL used for playback.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">thumbnail</code></td>
+                <td>string</td>
+                <td>Preview image shown before video loads.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">aspectRatio</code></td>
+                <td>'9:16' | '16:9' | '4:3'</td>
+                <td>Controls the container proportions — no distortion.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">title</code></td>
+                <td>string</td>
+                <td>Displayed in the card footer.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 

@@ -1,0 +1,150 @@
+<div class="pcps">
+
+  <!-- ── Media container ──────────────────────────────────────────── -->
+  <div
+    class="pcps__media"
+    [style.aspect-ratio]="aspectRatioCss()">
+
+    <!-- Thumbnail phase -->
+    @if (!isVideoLoaded()) {
+      <button
+        class="pcps__thumbnail-btn"
+        type="button"
+        aria-label="Play video"
+        (click)="onThumbnailClick()">
+        <img
+          class="pcps__thumbnail"
+          [src]="post().media.thumbnail"
+          [alt]="post().media.title"
+          loading="lazy" />
+        <div class="pcps__thumb-overlay" aria-hidden="true">
+          <span class="pcps__thumb-play material-symbols-rounded">play_circle</span>
+        </div>
+      </button>
+    }
+
+    <!-- Video phase -->
+    @if (isVideoLoaded()) {
+      <video
+        #videoEl
+        class="pcps__video"
+        [src]="post().media.long"
+        [poster]="post().media.thumbnail"
+        preload="auto"
+        playsinline
+        (loadedmetadata)="onVideoLoadedMetadata()"
+        (canplay)="onVideoCanPlay()"
+        (ended)="onVideoEnded()">
+      </video>
+
+      <!-- Controls overlay -->
+      <div class="pcps__overlay">
+
+        <!-- Top row: volume + navigation -->
+        <div class="pcps__overlay-top">
+          <button
+            class="pcps__ctrl-btn"
+            type="button"
+            [attr.aria-label]="isMuted() ? 'Unmute' : 'Mute'"
+            (click)="toggleMute($event)">
+            <span class="material-symbols-rounded" aria-hidden="true">{{ volumeIcon() }}</span>
+          </button>
+
+          <a
+            class="pcps__ctrl-btn"
+            [routerLink]="['/pin', post().id]"
+            aria-label="Open full post"
+            (click)="$event.stopPropagation()">
+            <span class="material-symbols-rounded" aria-hidden="true">arrow_right_alt</span>
+          </a>
+        </div>
+
+        <!-- Center: play / pause toggle -->
+        <button
+          class="pcps__play-pause"
+          type="button"
+          [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'"
+          (click)="togglePlayPause($event)">
+          @if (!isPlaying()) {
+            <span
+              class="pcps__play-pause-icon material-symbols-rounded"
+              aria-hidden="true">
+              play_arrow
+            </span>
+          }
+        </button>
+
+        <!-- Bottom: time display + progress bar -->
+        <div class="pcps__bottom">
+          <!--<div
+            class="pcps__time"
+            aria-live="off"
+            aria-atomic="true">
+            <span>{{ formatTime(currentTime()) }}</span>
+            <span class="pcps__time-sep" aria-hidden="true">/</span>
+            <span>{{ formatTime(duration()) }}</span>
+          </div>-->
+
+          <div
+            class="pcps__progress"
+            role="slider"
+            [attr.aria-valuenow]="progressPercent()"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-label="Video progress"
+            (click)="onProgressClick($event)"
+            (mousedown)="onProgressMouseDown($event)"
+            (mouseup)="onProgressMouseUp($event)"
+            (mousemove)="onProgressMouseMove($event)"
+            (mouseleave)="onProgressMouseLeave()">
+
+            @if (showTooltip()) {
+              <div
+                class="pcps__tooltip"
+                [style.left.px]="tooltipLeft()">
+                {{ formatTime(tooltipTime()) }}
+              </div>
+            }
+
+            <div class="pcps__track">
+              <div
+                class="pcps__fill"
+                [style.width.%]="progressPercent()">
+              </div>
+              <div
+                class="pcps__thumb"
+                [style.left.%]="progressPercent()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    }
+
+  </div>
+
+  <!-- ── Footer ───────────────────────────────────────────────────── -->
+  <div class="pcps__footer">
+    @if (post().media.title) {
+      <p class="pcps__title mb-2">{{ post().media.title }}</p>
+    }
+    <div class="pcps__channel">
+      @if (post().channel.profilePicture) {
+        <img
+          class="pcps__channel-avatar"
+          [src]="post().channel.profilePicture"
+          [alt]="post().channel.profileName"
+          loading="lazy" />
+      }
+      <span class="pcps__channel-name">{{ post().channel.profileNameOfficial }}</span>
+      @if (post().channel.verified) {
+        <span
+          class="pcps__verified material-symbols-rounded"
+          aria-label="Verified account">
+          verified
+        </span>
+      }
+    </div>
+  </div>
+</div>

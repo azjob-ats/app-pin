@@ -83,6 +83,8 @@ import { AppCheckComponent } from '@shared/components/app-check/app-check.compon
 import { AppSelectButtonComponent } from '@shared/components/app-select-button/app-select-button.component';
 import { AppCheckListComponent } from '@shared/components/check-list/app-check-list.component';
 import { SelectButtonOptionComponent } from '@shared/components/select-button-option/select-button-option.component';
+import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-short/pin-card-player-short.component';
+import { Post } from '@shared/components/pin-card-player-short/pin-card-player-short.interface';
 import { environment } from '@env/environment';
 
 
@@ -175,6 +177,7 @@ export interface SearchResult {
     AppSelectButtonComponent,
     AppCheckListComponent,
     SelectButtonOptionComponent,
+    PinCardPlayerShortComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -290,6 +293,64 @@ export class StyleguideComponent {
   [label]="option.label"
   (clicked)="selected = option.value"
 />`;
+
+  readonly pinCardPlayerShortImportCode = `import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-short/pin-card-player-short.component';`;
+
+  readonly pinCardPlayerShortCode = `<app-pin-card-player-short [post]="post" />`;
+
+  readonly mockPost: Post = {
+    id: '6fdg5f6dDrguurd6558',
+    postType: 'vacancy',
+    timestamp: '2025-03-07 21:29:25.187',
+    isLiked: true,
+    likes: 1247,
+    comments: 28,
+    shares: 156,
+    views: 12589,
+    isReported: false,
+    isBlocked: false,
+    media: {
+      contentType: 'vacancies',
+      aspectRatio: '9:16',
+      resolution: '1920x1080',
+      guidance: 'portrait',
+      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753308/1740402910314_w3k5da.mp4',
+      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753308/1740402910314_w3k5da.mp4',
+      thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1740402886175_fhpcci.jpg',
+      description: 'Vaga para Engenheiro de Software Especialista em Python.',
+      slang: ['#VagasTI', '#PythonJobs', '#DesenvolvimentoBackend'],
+      id: 'fg558djhjDrgrd6ff558',
+      title: 'Engenheiro de Software Especialista',
+      photoPreviewIcon: '',
+      isPlaying: false,
+      isMuted: false,
+      volume: 0.5,
+      progress: 0,
+    },
+    channel: {
+      id: 'fdfdfhthFGDdg65',
+      profileName: 'Digix',
+      profileNameOfficial: 'Digix',
+      profilePicture: 'https://www.azjob.com.br/mock/digix_logo.png',
+      coverPicture: 'https://www.azjob.com.br/mock/somosdigix_cover.jpg',
+      numberOfFollowers: 15200,
+      numberOfPublication: 324,
+      numberOfToFollow: 45,
+      verified: true,
+      email: 'contato@digix.com',
+      isReported: false,
+      isBlocked: false,
+      overview: 'somos dos digix',
+      visitWebsite: 'digix.com',
+    },
+    comment: {
+      data: [],
+      page: 1,
+      pageSize: 4,
+      pages: 2,
+      totalRecords: 6,
+    },
+  };
 
   readonly stepPageImportCode = `import { StepPageComponent, StepDef } from '@shared/components/step-page/step-page.component';`;
 
@@ -615,6 +676,7 @@ export class StyleguideComponent {
         { id: 'comp-select-button', label: 'Select Button', icon: 'pill' },
         { id: 'comp-check-list', label: 'Check List', icon: 'checklist' },
         { id: 'comp-select-button-option', label: 'Select Button Option', icon: 'apps' },
+        { id: 'comp-pin-card-player-short', label: 'Pin Card Player Short', icon: 'smart_display' },
       ],
     },
   ];
