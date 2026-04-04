@@ -1,0 +1,12 @@
+@if (isLoading()) {
+  <div class="skeleton-chip-row">
+    @for (w of skeletonWidths; track $index) {
+      <div class="skeleton-chip" [style.width.px]="w"></div>
+    }
+  </div>
+} @else {
+  <app-chip-scroll
+    [chips]="chips()"
+    [selected]="selectedTab()"
+    (chipSelect)="tabSelect.emit($event)" />
+}

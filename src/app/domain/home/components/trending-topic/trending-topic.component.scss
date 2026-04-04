@@ -1,0 +1,29 @@
+@mixin shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--pin-bg-secondary) 25%,
+    var(--pin-bg-tertiary) 37%,
+    var(--pin-bg-secondary) 63%
+  );
+  background-size: 200% 100%;
+  animation: trending-shimmer 1.4s ease infinite;
+}
+
+@keyframes trending-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-chip-row {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  overflow: hidden;
+}
+
+.skeleton-chip {
+  flex-shrink: 0;
+  height: 36px;
+  border-radius: 20px;
+  @include shimmer;
+}

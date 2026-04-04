@@ -1,0 +1,19 @@
+<div class="daily-story-scroll">
+  <div class="daily-story-track" #storyTrack>
+    @if (isLoading()) {
+      @for (i of skeletonItems; track i) {
+        <div class="skeleton-story">
+          <div class="skeleton-story-cover"></div>
+          <div class="skeleton-story-info">
+            <div class="skeleton-story-title"></div>
+            <div class="skeleton-story-count"></div>
+          </div>
+        </div>
+      }
+    } @else {
+      @for (story of stories(); track story.id) {
+        <app-board-card [board]="story" />
+      }
+    }
+  </div>
+</div>

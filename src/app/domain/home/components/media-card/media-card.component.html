@@ -1,0 +1,16 @@
+<div class="media-card-feed py-4">
+  @if (selectedCategory() !== 'all') {
+    <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">{{ selectedCategory() }}</h2>
+  } @else {
+    <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">
+      {{ 'explore.trending' | translate }}
+    </h2>
+  }
+
+  @if (isLoading()) {
+    <app-skeleton-loader [count]="20" />
+  } @else {
+    <app-masonry-grid [pins]="pins()" />
+    <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="loadMore.emit()" />
+  }
+</div>

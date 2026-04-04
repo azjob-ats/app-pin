@@ -1,6 +1,8 @@
 import { StorageStrategy } from '@shared/enums/storage.enum';
 
 export const environment = {
+  URL_LOGO_ICON: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245595/oie_transparent_2_jhx0jk.png',
+  URL_LOGO_ICON_TEXT: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245621/realweicontext_transparent_ho13mx.png',
   API_BASE_URL: import.meta.env.NG_APP_BASE_URL,
   APP_NAME: import.meta.env.NG_APP_NAME,
   PAY_LOAD_STORAGE: {

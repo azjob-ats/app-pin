@@ -5324,6 +5324,20 @@
           </ng-container>
         </div>
 
+        <h3 class="sg-subsection__title">Demo — Formatos</h3>
+        <p class="sg-section__desc">
+          Exemplos populados com dados reais do feed: vacancy, enterprise, content e training.
+          Cada card usa <code class="sg-inline-code">aspectRatio: '9:16'</code> e <code class="sg-inline-code">guidance: 'portrait'</code>.
+        </p>
+        <div class="sg-demo sg-demo--formatos">
+          @for (post of mockPostsFormatos; track post.id) {
+            <div class="sg-demo__preview sg-demo__preview--card">
+              <span class="sg-demo__label">{{ post.postType }}</span>
+              <app-pin-card-player-short [post]="post" />
+            </div>
+          }
+        </div>
+
         <h3 class="sg-subsection__title">Behavior</h3>
         <ul class="sg-list">
           <li>Renders the <strong>thumbnail</strong> initially; video is not loaded until the user clicks.</li>

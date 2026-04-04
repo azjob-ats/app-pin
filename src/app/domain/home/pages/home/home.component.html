@@ -1,71 +1,23 @@
 <div class="home-page">
-  <!-- Popular search suggestions -->
-  @if (isLoadingChips()) {
-    <div class="skeleton-chip-row">
-      @for (w of [96, 140, 112, 160, 120, 88, 144, 104]; track $index) {
-        <div class="skeleton-chip" [style.width.px]="w"></div>
-      }
-    </div>
-  } @else {
-    <app-chip-scroll
-      [chips]="relevantResearch()"
-      (chipSelect)="search($event)" />
-  }
+  <home-trending-topic
+    [topics]="trendingTopics()"
+    [isLoading]="isLoadingTrendingTopics()"
+    (topicSelect)="search($event)" />
 
-  <!-- User boards -->
-  <div class="boards-scroll-bar">
-    <div
-      class="boards-scroll-track"
-      #boardsTrack>
-      @if (isLoadingBoards()) {
-        @for (i of [1, 2, 3, 4, 5, 6]; track i) {
-          <div class="skeleton-board-card">
-            <div class="skeleton-board-cover"></div>
-            <div class="skeleton-board-info">
-              <div class="skeleton-board-title"></div>
-              <div class="skeleton-board-count"></div>
-            </div>
-          </div>
-        }
-      } @else {
-        @for (board of boards(); track board.id) {
-          <app-board-card [board]="board" />
-        }
-      }
-    </div>
-  </div>
+  <home-daily-story
+    [stories]="dailyStories()"
+    [isLoading]="isLoadingDailyStories()" />
 
-  <!-- Category filters -->
-  @if (isLoadingChips()) {
-    <div class="skeleton-chip-row">
-      @for (w of [56, 80, 120, 96, 104, 72, 136, 88, 64, 112]; track $index) {
-        <div class="skeleton-chip" [style.width.px]="w"></div>
-      }
-    </div>
-  } @else {
-    <app-chip-scroll
-      [chips]="gridRecentContent()"
-      [selected]="selectedCategory()"
-      (chipSelect)="selectCategory($event)" />
-  }
+  <home-dynamic-interest-tabs
+    [tabs]="interestTabs()"
+    [selectedTab]="selectedCategory()"
+    [isLoading]="isLoadingInterestTabs()"
+    (tabSelect)="selectCategory($event)" />
 
-  <!-- Pins feed -->
-  <div class="py-4">
-    @if (selectedCategory() !== 'all') {
-      <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">{{ selectedCategory() }}</h2>
-    } @else {
-      <h2 class="feed-title text-5 fw-bold text-1xl-title px-4 mb-4">
-        {{ 'explore.trending' | translate }}
-      </h2>
-    }
-
-    @if (isLoading()) {
-      <app-skeleton-loader [count]="20" />
-    } @else {
-      <app-masonry-grid [pins]="pins()" />
-      <app-infinite-scroll
-        [loading]="isLoadingMore()"
-        (loadMore)="onLoadMore()" />
-    }
-  </div>
+  <home-media-card
+    [mediaItems]="mediaItems()"
+    [isLoading]="isLoading()"
+    [isLoadingMore]="isLoadingMore()"
+    [selectedCategory]="selectedCategory()"
+    (loadMore)="onLoadMore()" />
 </div>
