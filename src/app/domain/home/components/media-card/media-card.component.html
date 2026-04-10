@@ -8,9 +8,13 @@
   }
 
   @if (isLoading()) {
-    <app-skeleton-loader [count]="20" />
+    <app-skeleton-loader [count]="12" />
   } @else {
-    <app-masonry-grid [pins]="pins()" />
+    <div class="post-grid"> 
+      @for (post of posts(); track post.id) {
+        <app-pin-card-player-short [post]="post" />
+      }
+    </div>
     <app-infinite-scroll [loading]="isLoadingMore()" (loadMore)="loadMore.emit()" />
   }
 </div>

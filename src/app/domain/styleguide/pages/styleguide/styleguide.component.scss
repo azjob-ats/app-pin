@@ -611,7 +611,7 @@ $topbar-height: 64px;
 .sg-demo__preview {
   padding: 24px;
   background: var(--pin-bg);
-  border: 1px solid var(--pin-border);
+  border: 0px solid var(--pin-border);
   border-radius: var(--radius-md);
 
   &--outlined {

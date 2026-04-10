@@ -1,18 +1,16 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContentCategoryApi } from '@shared/apis/content-category.api';
+import { PostApi } from '@shared/apis/post.api';
 import { RelevantResearchApi } from '@shared/apis/relevant-research.api';
-import { Board } from '@shared/interfaces/entity/board';
 import { ContentCategory } from '@shared/interfaces/entity/content-category';
-import { Pin } from '@shared/interfaces/entity/pin';
+import { Post } from '@shared/interfaces/entity/post';
 import { BoardService } from '@shared/services/board.service';
-import { PinService } from '@shared/services/pin.service';
 import { DailyStoryComponent } from '../../components/daily-story/daily-story.component';
 import { DynamicInterestTabsComponent } from '../../components/dynamic-interest-tabs/dynamic-interest-tabs.component';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { TrendingTopicComponent } from '../../components/trending-topic/trending-topic.component';
 import { DailyStory } from '../../interfaces/daily-story';
-import { MediaContent } from '../../interfaces/media-content';
 import { TrendingTopic } from '../../interfaces/trending-topic';
 
 @Component({
@@ -28,7 +26,7 @@ import { TrendingTopic } from '../../interfaces/trending-topic';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  readonly mediaItems = signal<MediaContent[]>([]);
+  readonly posts = signal<Post[]>([]);
   readonly isLoading = signal(true);
   readonly isLoadingMore = signal(false);
   readonly interestTabs = signal<ContentCategory[]>([]);
@@ -38,28 +36,25 @@ export class HomeComponent {
   readonly isLoadingDailyStories = signal(true);
   readonly selectedCategory = signal<string>('all');
   readonly dailyStories = signal<DailyStory[]>([]);
-  readonly query = signal('');
 
-  readonly isLoadingChips = computed(
-    () => this.isLoadingInterestTabs() || this.isLoadingTrendingTopics(),
-  );
-
+  private readonly postApi = inject(PostApi);
   private readonly boardService = inject(BoardService);
   private readonly contentCategoryApi = inject(ContentCategoryApi);
   private readonly relevantResearchApi = inject(RelevantResearchApi);
   private readonly router = inject(Router);
-  private page = 0;
+  private page = 1;
 
-  constructor(private pinService: PinService) {
-    this.loadMediaItems();
+  constructor() {
+    this.loadPosts();
     this.loadHomeContent();
   }
 
-  loadMediaItems(): void {
+  loadPosts(): void {
     this.isLoading.set(true);
-    this.pinService.getPins(this.page).subscribe((pins) => {
-      this.mediaItems.set(pins as unknown as MediaContent[]);
-      this.isLoading.set(false);
+    this.postApi.list(this.page).subscribe({
+      next: (response) => this.posts.set(response.data?.data ?? []),
+      error: () => {},
+      complete: () => this.isLoading.set(false),
     });
 
     this.boardService.getUserBoards('u1').subscribe((boards) => {
@@ -87,38 +82,38 @@ export class HomeComponent {
 
   selectCategory(key: string): void {
     this.selectedCategory.set(key);
-    this.page = 0;
-    this.mediaItems.set([]);
+    this.page = 1;
+    this.posts.set([]);
     this.isLoading.set(true);
     if (key !== 'all') {
       this.router.navigate(['/home', key]);
     } else {
       this.router.navigate(['/home']);
     }
-    this.loadMediaItems();
+    this.loadPosts();
   }
 
   onLoadMore(): void {
     if (this.isLoadingMore()) return;
     this.isLoadingMore.set(true);
     this.page++;
-    this.pinService.getPins(this.page).subscribe((pins) => {
-      this.mediaItems.update((current) => [
-        ...current,
-        ...(pins as unknown as MediaContent[]),
-      ]);
-      this.isLoadingMore.set(false);
+    this.postApi.list(this.page).subscribe({
+      next: (response) =>
+        this.posts.update((current) => [...current, ...(response.data?.data ?? [])]),
+      error: () => {},
+      complete: () => this.isLoadingMore.set(false),
     });
   }
 
   search(q: string): void {
-    this.query.set(q);
-    this.page = 0;
+    this.page = 1;
     this.isLoading.set(true);
     this.router.navigate(['/search'], { queryParams: { q } });
-    this.pinService.getSearchPins(q).subscribe((pins) => {
-      this.mediaItems.set(pins as unknown as MediaContent[]);
-      this.isLoading.set(false);
+    // Search uses the posts endpoint filtered by category context
+    this.postApi.list(this.page).subscribe({
+      next: (response) => this.posts.set(response.data?.data ?? []),
+      error: () => {},
+      complete: () => this.isLoading.set(false),
     });
   }
 }

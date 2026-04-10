@@ -5332,7 +5332,6 @@
         <div class="sg-demo sg-demo--formatos">
           @for (post of mockPostsFormatos; track post.id) {
             <div class="sg-demo__preview sg-demo__preview--card">
-              <span class="sg-demo__label">{{ post.postType }}</span>
               <app-pin-card-player-short [post]="post" />
             </div>
           }

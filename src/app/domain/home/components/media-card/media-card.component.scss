@@ -1,3 +1,21 @@
+$mobile: 768px;
+
 .feed-title {
   text-transform: capitalize;
+}
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 0 16px;
+}
+
+
+@media (max-width: $mobile) {
+  .post-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+    gap: 16px;
+    padding: 0 16px;
+  }
 }

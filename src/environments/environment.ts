@@ -74,6 +74,10 @@ export const environment = {
       CONFIG: '/api/v1/learn-more/:pinId',
       SUBMIT: '/api/v1/learn-more/:pinId/submit',
     },
+    POST: {
+      LIST: '/api/post',
+      DETAIL: '/api/post/:id',
+    },
   },
   ROUTES: {
     AUTH: {

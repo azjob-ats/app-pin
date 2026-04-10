@@ -10,6 +10,7 @@ const relevantResearchRouter = require('./routes/relevant-research');
 const searchRouter = require('./routes/search');
 const menuRouter = require('./routes/menu');
 const learnMoreRouter = require('./routes/learn-more');
+const postRouter = require('./routes/post');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use('/api/notifications', notificationsRouter);
 app.use('/api/content-category', contentCategoryRouter);
 app.use('/api/relevant-research', relevantResearchRouter);
 app.use('/api/search', searchRouter);
+app.use('/api/post', postRouter);
 
 // Health check
 app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -71,4 +73,6 @@ app.listen(PORT, () => {
   console.log('  GET    /api/menu/:id');
   console.log('  GET    /api/v1/learn-more/:pinId');
   console.log('  POST   /api/v1/learn-more/:pinId/submit');
+  console.log('  GET    /api/post');
+  console.log('  GET    /api/post/:id');
 });
