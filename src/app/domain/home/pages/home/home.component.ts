@@ -1,8 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
+import { CollectionBundleApi } from '@shared/apis/collection-bundle.api';
 import { ContentCategoryApi } from '@shared/apis/content-category.api';
 import { PostApi } from '@shared/apis/post.api';
 import { RelevantResearchApi } from '@shared/apis/relevant-research.api';
+import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { ContentCategory } from '@shared/interfaces/entity/content-category';
 import { Post } from '@shared/interfaces/entity/post';
 import { BoardService } from '@shared/services/board.service';
@@ -11,6 +13,7 @@ import { DynamicInterestTabsComponent } from '../../components/dynamic-interest-
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { TrendingTopicComponent } from '../../components/trending-topic/trending-topic.component';
 import { DailyStory } from '../../interfaces/daily-story';
+import { FeedItem } from '../../interfaces/feed-item';
 import { TrendingTopic } from '../../interfaces/trending-topic';
 
 @Component({
@@ -27,6 +30,7 @@ import { TrendingTopic } from '../../interfaces/trending-topic';
 })
 export class HomeComponent {
   readonly posts = signal<Post[]>([]);
+  readonly collections = signal<CollectionBundle[]>([]);
   readonly isLoading = signal(true);
   readonly isLoadingMore = signal(false);
   readonly interestTabs = signal<ContentCategory[]>([]);
@@ -37,7 +41,29 @@ export class HomeComponent {
   readonly selectedCategory = signal<string>('all');
   readonly dailyStories = signal<DailyStory[]>([]);
 
+  /** Feed híbrido: insere 1 collection a cada 2 posts; os restantes são adicionados ao final */
+  readonly feedItems = computed<FeedItem[]>(() => {
+    const posts = this.posts();
+    const collections = this.collections();
+    const result: FeedItem[] = [];
+    let collectionIndex = 0;
+
+    for (let i = 0; i < posts.length; i++) {
+      result.push({ kind: 'post', data: posts[i] });
+      if ((i + 1) % 2 === 0 && collectionIndex < collections.length) {
+        result.push({ kind: 'collection', data: collections[collectionIndex++] });
+      }
+    }
+
+    while (collectionIndex < collections.length) {
+      result.push({ kind: 'collection', data: collections[collectionIndex++] });
+    }
+
+    return result;
+  });
+
   private readonly postApi = inject(PostApi);
+  private readonly collectionBundleApi = inject(CollectionBundleApi);
   private readonly boardService = inject(BoardService);
   private readonly contentCategoryApi = inject(ContentCategoryApi);
   private readonly relevantResearchApi = inject(RelevantResearchApi);
@@ -45,16 +71,22 @@ export class HomeComponent {
   private page = 1;
 
   constructor() {
-    this.loadPosts();
+    this.loadFeed();
     this.loadHomeContent();
   }
 
-  loadPosts(): void {
+  loadFeed(): void {
     this.isLoading.set(true);
+
     this.postApi.list(this.page).subscribe({
       next: (response) => this.posts.set(response.data?.data ?? []),
       error: () => {},
       complete: () => this.isLoading.set(false),
+    });
+
+    this.collectionBundleApi.list().subscribe({
+      next: (response) => this.collections.set(response.data?.data ?? []),
+      error: () => {},
     });
 
     this.boardService.getUserBoards('u1').subscribe((boards) => {
@@ -90,7 +122,7 @@ export class HomeComponent {
     } else {
       this.router.navigate(['/home']);
     }
-    this.loadPosts();
+    this.loadFeed();
   }
 
   onLoadMore(): void {
@@ -105,11 +137,14 @@ export class HomeComponent {
     });
   }
 
+  onOpenCollection(bundle: CollectionBundle): void {
+    this.router.navigate([`/${bundle.username}/collection/${bundle.id}`]);
+  }
+
   search(q: string): void {
     this.page = 1;
     this.isLoading.set(true);
     this.router.navigate(['/search'], { queryParams: { q } });
-    // Search uses the posts endpoint filtered by category context
     this.postApi.list(this.page).subscribe({
       next: (response) => this.posts.set(response.data?.data ?? []),
       error: () => {},

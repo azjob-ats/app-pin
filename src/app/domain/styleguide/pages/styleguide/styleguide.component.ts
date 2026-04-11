@@ -85,6 +85,8 @@ import { AppCheckListComponent } from '@shared/components/check-list/app-check-l
 import { SelectButtonOptionComponent } from '@shared/components/select-button-option/select-button-option.component';
 import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-short/pin-card-player-short.component';
 import { Post } from '@shared/components/pin-card-player-short/pin-card-player-short.interface';
+import { CollectionBundleComponent } from '@shared/components/collection-bundle/collection-bundle.component';
+import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { environment } from '@env/environment';
 
 
@@ -178,6 +180,7 @@ export interface SearchResult {
     AppCheckListComponent,
     SelectButtonOptionComponent,
     PinCardPlayerShortComponent,
+    CollectionBundleComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -1532,6 +1535,29 @@ export class StyleguideComponent {
     },
   ];
 
+  readonly collectionBundleImportCode = `import { CollectionBundleComponent } from '@shared/components/collection-bundle/collection-bundle.component';`;
+  readonly collectionBundleCode = `<app-collection-bundle [bundle]="bundle" />`;
+
+  readonly mockCollectionBundle: CollectionBundle = {
+    id: 'bundle-habix-001',
+    channel: 'Digix',
+    username: 'digix',
+    description: 'Primeiros passos de como utilizar a plataforma Habix',
+    items: [
+      { type: 'video', thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png' },
+      { type: 'video', thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1740402886175_fhpcci.jpg' },
+      { type: 'video', thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244746/Captura_de_tela_2026-04-03_163203_pig2z5.png' },
+    ],
+  };
+
+  readonly mockCollectionBundleEmpty: CollectionBundle = {
+    id: 'bundle-empty-001',
+    channel: 'Digix',
+    username: 'digix',
+    description: 'Coleção sem mídias cadastradas',
+    items: [],
+  };
+
   readonly selectOptions: SelectOption[] = [
     { value: 'opt1', label: 'Option 1' },
     { value: 'opt2', label: 'Option 2' },
@@ -1645,6 +1671,7 @@ export class StyleguideComponent {
         { id: 'comp-check-list', label: 'Check List', icon: 'checklist' },
         { id: 'comp-select-button-option', label: 'Select Button Option', icon: 'apps' },
         { id: 'comp-pin-card-player-short', label: 'Pin Card Player Short', icon: 'smart_display' },
+        { id: 'comp-collection-bundle', label: 'Collection Bundle', icon: 'collections_bookmark' },
       ],
     },
   ];

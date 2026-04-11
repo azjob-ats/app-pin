@@ -11,6 +11,7 @@ const MOCK_CATEGORIES = [
   { key: 'Monetizações', icon: null },
   { key: 'Ao vivo', icon: null },
   { key: 'Psicologia', icon: null },
+  { key: 'Vagas', icon: null },
   { key: 'Enviados recentemente', icon: null },
   { key: 'Assistidos', icon: null },
   { key: 'Cursos', icon: null },

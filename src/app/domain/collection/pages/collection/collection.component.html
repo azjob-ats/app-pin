@@ -1,0 +1,317 @@
+@if (isLoading()) {
+  <div class="pin-detail-skeleton flex gap-6 p-6">
+    <div class="skeleton img-skeleton"></div>
+    <div class="flex-1 flex flex-col gap-4 pt-5">
+      <div class="skeleton title-skeleton"></div>
+      <div class="skeleton desc-skeleton"></div>
+      <div class="skeleton desc-skeleton short"></div>
+    </div>
+  </div>
+
+} @else if (hasError() || !bundle()) {
+  <div class="cp-center">
+    <app-empty-state
+      icon="error_outline"
+      message="Coleção não encontrada"
+      subtitle="Verifique o link ou explore outras coleções." />
+  </div>
+
+} @else if (bundle()!.items.length === 0) {
+  <div class="cp-center">
+    <app-empty-state
+      icon="collections_bookmark"
+      message="Esta coleção ainda não tem conteúdo"
+      subtitle="Em breve novos vídeos serão adicionados aqui." />
+  </div>
+
+} @else {
+
+  <div class="pin-detail-container flex overflow-hidden">
+
+    <!-- ══ LEFT — player + post details + comments ═══════════════════════ -->
+    <div class="pin-detail-image-side cp-left flex flex-col overflow-auto">
+
+      <!-- Video / thumbnail -->
+      <div class="cp-media-wrap">
+        @if (currentItem()?.videoUrl) {
+          <video
+            #videoEl
+            class="cp-media"
+            [src]="currentItem()!.videoUrl"
+            [poster]="currentItem()?.thumbnailUrl"
+            preload="metadata"
+            playsinline
+            (timeupdate)="onVideoTimeUpdate($event)"
+            (ended)="onVideoEnded()"
+            aria-label="Player de vídeo">
+          </video>
+        } @else if (currentItem()?.thumbnailUrl) {
+          <img
+            class="cp-media"
+            [src]="currentItem()!.thumbnailUrl!"
+            [alt]="currentItem()?.title"
+            loading="lazy" />
+        }
+      </div>
+
+      <!-- Controls bar -->
+      <div class="cp-controls flex align-center justify-center gap-6 py-3" role="group" aria-label="Controles do player">
+        <button
+          class="cp-ctrl cp-ctrl--skip"
+          type="button"
+          aria-label="Item anterior"
+          [class.cp-ctrl--disabled]="!hasPrev()"
+          [attr.aria-disabled]="!hasPrev()"
+          (click)="prev()">
+          <span class="material-symbols-rounded">skip_previous</span>
+        </button>
+
+        <button
+          class="cp-ctrl cp-ctrl--play"
+          type="button"
+          [attr.aria-label]="isPlaying() ? 'Pausar' : 'Reproduzir'"
+          (click)="togglePlay()">
+          <span class="material-symbols-rounded">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
+        </button>
+
+        <button
+          class="cp-ctrl cp-ctrl--skip"
+          type="button"
+          aria-label="Próximo item"
+          [class.cp-ctrl--disabled]="!hasNext()"
+          [attr.aria-disabled]="!hasNext()"
+          (click)="next()">
+          <span class="material-symbols-rounded">skip_next</span>
+        </button>
+      </div>
+
+      <!-- Post details -->
+      <div class="cp-post-details flex flex-col p-4">
+
+        @if (currentPost(); as post) {
+          <!-- Views + time -->
+          <div class="pin-save-count flex align-center text-2 text-7-title mb-2">
+            <span>{{ formatCount(post.views) }} visualizações</span>
+            &nbsp;•&nbsp;
+            <span>{{ timeAgo(post.timestamp) }}</span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="pin-detail-title title-primary">{{ post.media.title }}</h1>
+
+          <!-- Description + hashtags -->
+          <p class="text-base text-6-title mb-4">
+            {{ post.media.description }}
+            @if (post.media.slang.length > 0) {
+              <span class="pin-hashtags text-2xs">
+                @for (tag of post.media.slang; track tag) { {{ tag }} }
+              </span>
+            }
+          </p>
+        }
+
+        <!-- Channel row -->
+        <div class="pin-detail-author flex align-center gap-3 py-3 mb-4">
+          <app-user-avatar
+            [imageUrl]="currentPost()?.channel?.profilePicture ?? bundle()!.channelPicture ?? ''"
+            [alt]="currentPost()?.channel?.profileName ?? bundle()!.channel"
+            size="md" />
+          <div class="flex-1 flex flex-col">
+            <span class="author-name fw-bold text-base text-1xl-title">
+              {{ currentPost()?.channel?.profileName ?? bundle()!.channel }}
+            </span>
+            @if (currentPost()?.channel?.numberOfFollowers) {
+              <span class="text-1 text-7-title">
+                {{ formatCount(currentPost()!.channel.numberOfFollowers) }} seguidores
+              </span>
+            }
+          </div>
+          <app-button-inscription [subscribed]="false" />
+        </div>
+
+        <!-- Comments -->
+        <div class="flex flex-col gap-4">
+          <h3 class="text-4 fw-bold text-1xl-title">Comentários</h3>
+
+          <div class="gap-3 flex align-center">
+            <app-user-avatar
+              imageUrl="https://i.pravatar.cc/150?img=10"
+              alt="Me"
+              size="sm" />
+            <div class="comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
+              <app-comment-input
+                [value]="commentText()"
+                placeholder="Adicione um comentário"
+                (valueChange)="commentText.set($event)"
+                (enter)="addComment()" />
+              @if (commentText()) {
+                <app-comment-submit (submitted)="addComment()" />
+              }
+            </div>
+          </div>
+
+          @if (currentPost(); as post) {
+            <div class="flex flex-col gap-4">
+              @for (comment of post.comment.data; track comment.id) {
+                <div class="gap-3 flex">
+                  <app-user-avatar
+                    [imageUrl]="comment.avatar"
+                    [alt]="comment.user"
+                    size="sm" />
+                  <div class="flex-1">
+                    <div class="comment-header flex gap-2 mb-1">
+                      <span class="text-2 fw-bold text-1xl-title">{{ comment.user }}</span>
+                      <span class="text-1 text-5xl-title">{{ commentTimeAgo(comment.time) }}</span>
+                    </div>
+                    <p class="comment-text text-3 text-7-title">{{ comment.text }}</p>
+                    @if ((comment.likes ?? 0) > 0) {
+                      <span class="comment-likes flex align-center gap-1 text-1 text-7-title mt-1">
+                        <span class="material-symbols-rounded heart text-4 pin-red">favorite</span>
+                        {{ comment.likes }}
+                      </span>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ RIGHT — collection sidebar ════════════════════════════════════ -->
+    <div class="pin-detail-info flex flex-col flex-1 p-3 overflow-auto">
+
+      <!-- Collection header: title + channel + count -->
+      <div class="cp-col-header flex gap-3 mb-4 mt-2">
+        <div class="cp-col-cover" aria-hidden="true">
+          @if (coverImages().length >= 3) {
+            <div class="cp-cover-grid">
+              <img [src]="coverImages()[0]" [alt]="bundle()!.description" class="cp-cover-main" loading="lazy" />
+              <div class="cp-cover-side">
+                <img [src]="coverImages()[1]" [alt]="bundle()!.description" class="cp-cover-sm" loading="lazy" />
+                <img [src]="coverImages()[2]" [alt]="bundle()!.description" class="cp-cover-sm" loading="lazy" />
+              </div>
+            </div>
+          } @else if (coverImages().length > 0) {
+            <img [src]="coverImages()[0]" [alt]="bundle()!.description" class="cp-cover-single" loading="lazy" />
+          } @else {
+            <div class="cp-cover-placeholder">
+              <span class="material-symbols-rounded">collections_bookmark</span>
+            </div>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1 flex-1">
+          <h2 class="cp-col-title text-base fw-bold text-1xl-title">{{ bundle()!.description }}</h2>
+          <div class="flex align-center gap-1">
+            @if (bundle()!.channelPicture) {
+              <img
+                class="cp-channel-avatar"
+                [src]="bundle()!.channelPicture"
+                [alt]="bundle()!.channel"
+                loading="lazy"
+                aria-hidden="true" />
+            }
+            <span class="text-2 text-7-title">{{ bundle()!.channel }}</span>
+            @if (bundle()!.verified) {
+              <span class="material-symbols-rounded cp-verified" aria-label="Conta verificada">verified</span>
+            }
+          </div>
+          <span class="text-1 text-7-title">
+            {{ bundle()!.items.length }} {{ bundle()!.items.length === 1 ? 'vídeo' : 'vídeos' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="flex align-center gap-2 flex-wrap mb-4">
+        <app-button variant="secondary" size="md" ariaLabel="Salvar coleção">Salvar</app-button>
+        <app-button variant="secondary" size="md" ariaLabel="Compartilhar coleção">Compartilhar</app-button>
+        <app-button
+          variant="secondary"
+          shape="circle"
+          size="md"
+          icon="more_horiz"
+          ariaLabel="Mais opções" />
+        <div class="save-group flex align-center gap-2">
+          <app-button variant="primary" size="md" ariaLabel="Saiba mais sobre esta coleção">Saiba Mais</app-button>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="flex flex-col gap-1 mb-4">
+        <div class="flex justify-between text-2 text-7-title">
+          <span>Progresso</span>
+          <span>{{ overallProgress() }}%</span>
+        </div>
+        <div class="cp-progress-bar" role="progressbar"
+          [attr.aria-valuenow]="overallProgress()"
+          aria-valuemin="0" aria-valuemax="100">
+          <div class="cp-progress-fill" [style.width.%]="overallProgress()"></div>
+        </div>
+      </div>
+
+      <!-- Playlist -->
+      <section aria-label="Conteúdos da coleção">
+        <h3 class="text-4 fw-bold text-1xl-title mb-3">Conteúdos</h3>
+        <ul class="cp-playlist-list" role="list">
+          @for (item of bundle()!.items; track $index) {
+            <li
+              class="cp-item"
+              [class.cp-item--active]="currentIndex() === $index"
+              [class.cp-item--done]="itemStates()[$index]?.status === 'done'"
+              role="listitem">
+              <button
+                class="cp-item-btn flex align-center gap-3 w-full"
+                type="button"
+                [attr.aria-label]="'Reproduzir: ' + (item.title ?? 'Item ' + ($index + 1))"
+                [attr.aria-pressed]="currentIndex() === $index"
+                (click)="selectItem($index)">
+
+                <div class="cp-item-thumb">
+                  @if (item.thumbnailUrl) {
+                    <img [src]="item.thumbnailUrl" [alt]="item.title" loading="lazy" />
+                  } @else {
+                    <span class="material-symbols-rounded cp-item-thumb-icon">play_circle</span>
+                  }
+                  @if (currentIndex() === $index && isPlaying()) {
+                    <div class="cp-item-playing-overlay" aria-hidden="true">
+                      <span class="material-symbols-rounded">graphic_eq</span>
+                    </div>
+                  }
+                </div>
+
+                <div class="flex flex-col flex-1" style="min-width:0">
+                  <p class="cp-item-title text-3 fw-medium text-1xl-title">
+                    {{ item.title ?? 'Item ' + ($index + 1) }}
+                  </p>
+                  @if (item.duration) {
+                    <span class="text-1 text-7-title">{{ formatDuration(item.duration) }}</span>
+                  }
+                  @if (itemStates()[$index]?.progress) {
+                    <div class="cp-item-progress" role="progressbar"
+                      [attr.aria-valuenow]="itemStates()[$index].progress"
+                      aria-valuemin="0" aria-valuemax="100">
+                      <div class="cp-item-progress-fill" [style.width.%]="itemStates()[$index].progress"></div>
+                    </div>
+                  }
+                </div>
+
+                <span
+                  class="cp-item-status material-symbols-rounded"
+                  [class.cp-item-status--done]="itemStates()[$index]?.status === 'done'"
+                  aria-hidden="true">
+                  {{ itemStatusIcon(itemStates()[$index]) }}
+                </span>
+              </button>
+            </li>
+          }
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+}

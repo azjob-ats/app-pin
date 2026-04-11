@@ -1,0 +1,72 @@
+<a
+  class="collection-bundle"
+  [routerLink]="['/' + bundle().username + '/collection/' + bundle().id]"
+  [attr.aria-label]="bundle().description">
+
+  <!-- Cover -->
+  <div class="cb-cover" aria-hidden="true">
+    @if (hasImages()) {
+      @if (coverImages().length >= 3) {
+        <div class="cb-cover-grid">
+          <img
+            [src]="coverImages()[0]"
+            [alt]="bundle().description"
+            class="cb-cover-main"
+            loading="lazy" />
+          <div class="cb-cover-side">
+            <img
+              [src]="coverImages()[1]"
+              [alt]="bundle().description"
+              class="cb-cover-sm"
+              loading="lazy" />
+            <img
+              [src]="coverImages()[2]"
+              [alt]="bundle().description"
+              class="cb-cover-sm"
+              loading="lazy" />
+          </div>
+        </div>
+      } @else {
+        <img
+          [src]="coverImages()[0]"
+          [alt]="bundle().description"
+          class="cb-cover-single"
+          loading="lazy" />
+      }
+    } @else {
+      <div class="cb-cover-placeholder">
+        <span class="material-symbols-rounded">collections_bookmark</span>
+      </div>
+    }
+
+    <!-- Type badge for single cover -->
+    @if (bundle().items.length > 0) {
+      <span class="cb-badge" aria-hidden="true">
+        <span class="material-symbols-rounded">{{ typeIcon[bundle().items[0].type] }}</span>
+      </span>
+    }
+  </div>
+
+  <!-- Info -->
+  <div class="cb-info">
+    <p class="cb-title">{{ bundle().description }}</p>
+    <div class="cb-channel">
+      @if (bundle().channelPicture) {
+        <img
+          class="cb-channel-avatar"
+          [src]="bundle().channelPicture"
+          [alt]="bundle().channel"
+          loading="lazy" />
+      }
+      <span class="cb-channel-name">{{ bundle().channel }}</span>
+      @if (bundle().verified) {
+        <span
+          class="cb-verified material-symbols-rounded"
+          aria-label="Verified account"
+          aria-hidden="true">
+          verified
+        </span>
+      }
+    </div>
+  </div>
+</a>

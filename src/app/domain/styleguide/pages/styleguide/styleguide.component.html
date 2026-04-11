@@ -5408,6 +5408,99 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-collection-bundle') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Collection Bundle</h1>
+        <p class="sg-section__desc">
+          Card clicável que agrupa um conjunto de mídias relacionadas dentro de um canal.
+          Exibe até 3 thumbnails em grid (2fr | 1fr), com fallback para imagem única ou placeholder.
+          Navega para <code class="sg-inline-code">/:channel/collection/:id</code> via routerLink.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: collectionBundleImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo — Com mídias</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="max-width: 220px; padding: 1rem;">
+            <app-collection-bundle [bundle]="mockCollectionBundle" />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: collectionBundleCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Demo — Empty state</h3>
+        <div class="sg-demo">
+          <div class="sg-demo__preview" style="max-width: 220px; padding: 1rem;">
+            <app-collection-bundle [bundle]="mockCollectionBundleEmpty" />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">API</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Input</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">bundle</code></td>
+                <td>CollectionBundle</td>
+                <td>Yes</td>
+                <td>Objeto com id, channel, description, items e coverUrl opcional.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">CollectionBundle interface</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Campo</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">id</code></td>
+                <td>string</td>
+                <td>Identificador único da coleção.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">channel</code></td>
+                <td>string</td>
+                <td>Nome do canal dono da coleção (exibido em negrito).</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">description</code></td>
+                <td>string</td>
+                <td>Descrição exibida abaixo do nome do canal.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">items</code></td>
+                <td>CollectionItem[]</td>
+                <td>Lista de mídias — thumbnails usados como capa do card.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">coverUrl</code></td>
+                <td>string?</td>
+                <td>Imagem de capa explícita; sobrescreve thumbnails dos items.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 

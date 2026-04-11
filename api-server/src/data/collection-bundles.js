@@ -1,0 +1,91 @@
+const MOCK_COLLECTION_BUNDLES = [
+  {
+    id: 'bundle-habix-001',
+    channel: 'Digix',
+    username: 'digix',
+    channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+    verified: true,
+    description: 'Primeiros passos de como utilizar a plataforma Habix',
+    items: [
+      {
+        type: 'video',
+        postId: 'c091c66a-0e28-4e7c-a1c9-1b4cef6da742',
+        title: 'O que é o Habix?',
+        duration: 142,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753315/1749151420019_nfnwon.mp4',
+      },
+      {
+        type: 'video',
+        postId: '0a51b6fa-6076-4aa8-b436-49640ef61dbb',
+        title: 'Cadastro e primeiros passos',
+        duration: 98,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1740402886175_fhpcci.jpg',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753308/1740402910314_w3k5da.mp4',
+      },
+      {
+        type: 'video',
+        postId: 'dbbb73d8-298e-4dce-b75d-293da1b68519',
+        title: 'Como configurar seu perfil',
+        duration: 75,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244746/Captura_de_tela_2026-04-03_163203_pig2z5.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753309/1748009896339_t9mgnh.mp4',
+      },
+    ],
+  },
+  {
+    id: 'bundle-vagas-001',
+    channel: 'Digix',
+    username: 'digix',
+    channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+    verified: true,
+    description: 'Vagas abertas — Python, Backend e Engenharia de Software',
+    items: [
+      {
+        type: 'video',
+        postId: '0a51b6fa-6076-4aa8-b436-49640ef61dbb',
+        title: 'Engenheiro de Software Especialista',
+        duration: 120,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1740402886175_fhpcci.jpg',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753308/1740402910314_w3k5da.mp4',
+      },
+      {
+        type: 'video',
+        postId: 'dbbb73d8-298e-4dce-b75d-293da1b68519',
+        title: 'Como é trabalhar na Digix?',
+        duration: 88,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244746/Captura_de_tela_2026-04-03_163203_pig2z5.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753309/1748009896339_t9mgnh.mp4',
+      },
+    ],
+  },
+  {
+    id: 'bundle-cultura-001',
+    channel: 'Digix',
+    username: 'digix',
+    channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+    verified: true,
+    description: 'Cultura e ambiente de trabalho na Digix — Great Place to Work 2025',
+    items: [
+      {
+        type: 'video',
+        postId: 'dbbb73d8-298e-4dce-b75d-293da1b68519',
+        title: 'Digix é Great Place to Work 2025',
+        duration: 210,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753309/1748009896339_t9mgnh.mp4',
+      },
+    ],
+  },
+  {
+    id: 'bundle-empty-001',
+    channel: 'Digix',
+    username: 'digix',
+    channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+    verified: true,
+    description: 'Coleção sem mídias cadastradas',
+    items: [],
+  },
+];
+
+module.exports = { MOCK_COLLECTION_BUNDLES };

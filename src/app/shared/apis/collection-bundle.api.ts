@@ -3,36 +3,36 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { ApiResponse, ErrorType } from '@shared/interfaces/base/api-response';
 import { List } from '@shared/interfaces/base/pages-total-records';
-import { PostListResponse } from '@shared/interfaces/dto/response/post';
-import { Post } from '@shared/interfaces/entity/post';
-import { PostMap } from '@shared/maps/post.map';
+import { CollectionBundleListResponse } from '@shared/interfaces/dto/response/collection-bundle';
+import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
+import { CollectionBundleMap } from '@shared/maps/collection-bundle.map';
 import { catchError, map, Observable, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class PostApi {
+export class CollectionBundleApi {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.API_BASE_URL;
 
-  public list(page = 1, pageSize = 20): Observable<ApiResponse<List<Post[]>>> {
-    const url = `${this.baseUrl}${environment.API.POST.LIST}`;
+  public detail(id: string): Observable<ApiResponse<CollectionBundle>> {
+    const url = `${this.baseUrl}${environment.API.COLLECTION_BUNDLE.DETAIL.replace(':id', id)}`;
+    return this.http
+      .get<ApiResponse<CollectionBundle>>(url)
+      .pipe(catchError(this.handleError('collection-bundle/detail')));
+  }
+
+  public list(page = 1, pageSize = 20): Observable<ApiResponse<List<CollectionBundle[]>>> {
+    const url = `${this.baseUrl}${environment.API.COLLECTION_BUNDLE.LIST}`;
     const params = new HttpParams().set('page', page).set('pageSize', pageSize);
 
     return this.http
-      .get<ApiResponse<PostListResponse>>(url, { params })
+      .get<ApiResponse<CollectionBundleListResponse>>(url, { params })
       .pipe(
         map((response) => ({
           ...response,
-          data: response.data ? PostMap.toEntityList(response.data) : undefined,
+          data: response.data ? CollectionBundleMap.toEntityList(response.data) : undefined,
         })),
-        catchError(this.handleError('post/list')),
+        catchError(this.handleError('collection-bundle/list')),
       );
-  }
-
-  public detail(id: string): Observable<ApiResponse<Post>> {
-    const url = `${this.baseUrl}${environment.API.POST.DETAIL.replace(':id', id)}`;
-    return this.http
-      .get<ApiResponse<Post>>(url)
-      .pipe(catchError(this.handleError('post/detail')));
   }
 
   private handleError(code: string) {

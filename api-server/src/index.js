@@ -11,6 +11,7 @@ const searchRouter = require('./routes/search');
 const menuRouter = require('./routes/menu');
 const learnMoreRouter = require('./routes/learn-more');
 const postRouter = require('./routes/post');
+const collectionBundleRouter = require('./routes/collection-bundle');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -34,6 +35,7 @@ app.use('/api/content-category', contentCategoryRouter);
 app.use('/api/relevant-research', relevantResearchRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/post', postRouter);
+app.use('/api/collection-bundle', collectionBundleRouter);
 
 // Health check
 app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -75,4 +77,6 @@ app.listen(PORT, () => {
   console.log('  POST   /api/v1/learn-more/:pinId/submit');
   console.log('  GET    /api/post');
   console.log('  GET    /api/post/:id');
+  console.log('  GET    /api/collection-bundle');
+  console.log('  GET    /api/collection-bundle/:id');
 });

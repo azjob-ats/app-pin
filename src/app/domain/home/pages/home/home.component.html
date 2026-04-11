@@ -15,9 +15,10 @@
     (tabSelect)="selectCategory($event)" />
 
   <home-media-card
-    [posts]="posts()"
+    [feedItems]="feedItems()"
     [isLoading]="isLoading()"
     [isLoadingMore]="isLoadingMore()"
     [selectedCategory]="selectedCategory()"
-    (loadMore)="onLoadMore()" />
+    (loadMore)="onLoadMore()"
+    (openCollection)="onOpenCollection($event)" />
 </div>

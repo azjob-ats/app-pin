@@ -78,6 +78,10 @@ export const environment = {
       LIST: '/api/post',
       DETAIL: '/api/post/:id',
     },
+    COLLECTION_BUNDLE: {
+      LIST: '/api/collection-bundle',
+      DETAIL: '/api/collection-bundle/:id',
+    },
   },
   ROUTES: {
     AUTH: {
@@ -120,6 +124,9 @@ export const environment = {
     },
     BOARD: {
       ROOT: ':username/boards/:boardId',
+    },
+    COLLECTION: {
+      ROOT: ':username/collection/:id',
     },
     ABOUT_REALWE: {
       ROOT: 'about-realwe',

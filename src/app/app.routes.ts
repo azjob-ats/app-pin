@@ -330,6 +330,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./domain/board/pages/board/board.component').then((m) => m.BoardComponent),
       },
+      {
+        path: ROUTES.COLLECTION.ROOT,
+        loadComponent: () =>
+          import('./domain/collection/pages/collection/collection.component').then(
+            (m) => m.CollectionPageComponent,
+          ),
+        data: { title: 'Collection', description: 'Explore esta coleção de conteúdos' },
+      },
     ],
   },
   { path: '**', redirectTo: `/${ROUTES.HOME.ROOT}` },
