@@ -65,6 +65,32 @@ const MOCK_COLLECTION_BUNDLES = [
       },
     ],
   },
+  {
+    id: 'tret5rt4-6r6r-5e58r-0e28-84t4d8t458trd',
+    channel: 'Digix',
+    username: 'digix',
+    channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+    verified: true,
+    description: 'Modulo de Cyber Security',
+    items: [
+      {
+        type: 'video',
+        postId: '7db72442-7a66-4fd3-abb7-eb33e19b645c',
+        title: 'Hack Hunters - Cyber investigations',
+        duration: 354,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
+      },
+      {
+        type: 'video',
+        postId: '2ee1d128-366e-4e8e-821b-d5b0f8e273d5',
+        title: 'Visão geral da RealWe',
+        duration: 104,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
+      },
+    ]
+  }
 ];
 
 module.exports = { MOCK_COLLECTION_BUNDLES };

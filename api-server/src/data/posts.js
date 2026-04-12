@@ -1,5 +1,213 @@
 MOCK_POSTS = [
   {
+    media: {
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
+      resolution: '1920x1080',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
+      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
+      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
+      thumbnail: "https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png",
+      description: 'O curso Hack Hunters é um treinamento imersivo projetado para transformar entusiastas e profissionais de TI em verdadeiros "caçadores" no ciberespaço. Mais do que apenas segurança, este curso foca na investigação ativa: como pensar como um atacante para conseguir antecipar seus passos e coletar evidências digitais irrefutáveis.',
+      slang: ['#HackHuntersTraining', '#TrabalheNaDigix'],
+      id: '5358f749-6c47-40f0-9932-3bd5a7d21871',
+      title: 'Hack Hunters - Cyber investigations',
+      photoPreviewIcon: '',
+      isPlaying: false,
+      isMuted: false,
+      volume: 0.5,
+      progress: 0
+    },
+    channel: {
+      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
+      profileName: 'Digix',
+      profileNameOfficial: 'Digix',
+      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
+      numberOfFollowers: 15200,
+      numberOfPublication: 324,
+      numberOfToFollow: 45,
+      verified: true,
+      email: 'contato@digix.com',
+      isReported: false,
+      isBlocked: false,
+      overview: 'somos dos digix',
+      visitWebsite: 'digix.com'
+    },
+    comment: {
+      data: [
+        {
+          id: 1,
+          replied: null,
+          user: '@ana_tech',
+          avatar: 'https://i.pravatar.cc/150?img=1',
+          text: 'Que vídeo inspirador! Trabalhar no setor público realmente tem essa missão de servir à sociedade.',
+          time: new Date(Date.now() - 2 * 60 * 60 * 1000),
+          likes: 42,
+          replies: {
+            totalRecords: 9
+          }
+        },
+        {
+          id: 2,
+          replied: null,
+          user: '@pedro_dev',
+          avatar: 'https://i.pravatar.cc/150?img=2',
+          text: 'Como desenvolvedor, vejo a importância da tecnologia para melhorar os serviços públicos. Parabéns pelo trabalho!',
+          time: new Date(Date.now() - 5 * 60 * 60 * 1000),
+          likes: 31,
+          replies: {
+            totalRecords: 4
+          }
+        },
+        {
+          id: 3,
+          replied: null,
+          user: '@maria_adm',
+          avatar: 'https://i.pravatar.cc/150?img=5',
+          text: 'Há 15 anos no serviço público e confirmo: servir é realmente a essência. Boa lembrança no vídeo!',
+          time: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          likes: 89,
+          replies: {
+            totalRecords: 0
+          }
+        },
+        {
+          id: 4,
+          replied: null,
+          user: '@tech_recruiter',
+          avatar: 'https://i.pravatar.cc/150?img=8',
+          text: 'Excelente conteúdo! Vocês estão com vagas abertas para desenvolvedores backend?',
+          time: new Date(Date.now() - 3 * 60 * 60 * 1000),
+          likes: 15,
+          replies: {
+            totalRecords: 1
+          }
+        }
+      ],
+      page: 1,
+      pageSize: 4,
+      pages: 2,
+      totalRecords: 6
+    },
+    episode: 1,
+    isAlbum: false,
+    id: '7db72442-7a66-4fd3-abb7-eb33e19b645c',
+    postType: 'training',
+    timestamp: '2025-03-07 21:29:25.187',
+    isLiked: true,
+    likes: 1247,
+    comments: 28,
+    shares: 156,
+    views: 12589,
+    isReported: false,
+    isBlocked: false
+  },
+  {
+    media: {
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
+      resolution: '1920x1080',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
+      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
+      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
+      thumbnail: "https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png",
+      description: 'Primeiros passos de como ultilizar a plataforma',
+      slang: ['#RealWeTraining', '#TrabalheNaDigix'],
+      id: '42df8491-c499-418c-8b88-9c7bcf85ee86',
+      title: 'Visão geral da RealWe',
+      photoPreviewIcon: '',
+      isPlaying: false,
+      isMuted: false,
+      volume: 0.5,
+      progress: 0
+    },
+    channel: {
+      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
+      profileName: 'Digix',
+      profileNameOfficial: 'Digix',
+      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
+      numberOfFollowers: 15200,
+      numberOfPublication: 324,
+      numberOfToFollow: 45,
+      verified: true,
+      email: 'contato@digix.com',
+      isReported: false,
+      isBlocked: false,
+      overview: 'somos dos digix',
+      visitWebsite: 'digix.com'
+    },
+    comment: {
+      data: [
+        {
+          id: 1,
+          replied: null,
+          user: '@ana_tech',
+          avatar: 'https://i.pravatar.cc/150?img=1',
+          text: 'Que vídeo inspirador! Trabalhar no setor público realmente tem essa missão de servir à sociedade.',
+          time: new Date(Date.now() - 2 * 60 * 60 * 1000),
+          likes: 42,
+          replies: {
+            totalRecords: 9
+          }
+        },
+        {
+          id: 2,
+          replied: null,
+          user: '@pedro_dev',
+          avatar: 'https://i.pravatar.cc/150?img=2',
+          text: 'Como desenvolvedor, vejo a importância da tecnologia para melhorar os serviços públicos. Parabéns pelo trabalho!',
+          time: new Date(Date.now() - 5 * 60 * 60 * 1000),
+          likes: 31,
+          replies: {
+            totalRecords: 4
+          }
+        },
+        {
+          id: 3,
+          replied: null,
+          user: '@maria_adm',
+          avatar: 'https://i.pravatar.cc/150?img=5',
+          text: 'Há 15 anos no serviço público e confirmo: servir é realmente a essência. Boa lembrança no vídeo!',
+          time: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          likes: 89,
+          replies: {
+            totalRecords: 0
+          }
+        },
+        {
+          id: 4,
+          replied: null,
+          user: '@tech_recruiter',
+          avatar: 'https://i.pravatar.cc/150?img=8',
+          text: 'Excelente conteúdo! Vocês estão com vagas abertas para desenvolvedores backend?',
+          time: new Date(Date.now() - 3 * 60 * 60 * 1000),
+          likes: 15,
+          replies: {
+            totalRecords: 1
+          }
+        }
+      ],
+      page: 1,
+      pageSize: 4,
+      pages: 2,
+      totalRecords: 6
+    },
+    episode: 1,
+    isAlbum: false,
+    id: '2ee1d128-366e-4e8e-821b-d5b0f8e273d5',
+    postType: 'training',
+    timestamp: '2025-03-07 21:29:25.187',
+    isLiked: true,
+    likes: 1247,
+    comments: 28,
+    shares: 156,
+    views: 12589,
+    isReported: false,
+    isBlocked: false
+  },
+  {
     id: 'a348561f-bf76-4b9a-a8cf-2b0491f4fd48',
     postType: 'training',
     timestamp: '2025-03-07 21:29:25.187',
