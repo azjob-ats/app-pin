@@ -290,3 +290,12 @@
     font-variation-settings: 'FILL' 1;
   }
 }
+
+.border-line-channel {
+  border-top: 1px solid var(--pin-border);
+  border-bottom: 1px solid var(--pin-border);
+}
+
+.pin-hashtags {
+  font-weight: 900;
+}

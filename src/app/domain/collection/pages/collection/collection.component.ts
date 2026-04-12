@@ -21,6 +21,7 @@ import { CommentInputComponent } from '@shared/components/comment-input/comment-
 import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
 import { CollectionBundle, CollectionItem } from '@shared/interfaces/entity/collection-bundle';
 import { Post } from '@shared/interfaces/entity/post';
+import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
 
 export interface ItemPlayState {
   status: 'idle' | 'playing' | 'done';
@@ -38,6 +39,7 @@ export interface ItemPlayState {
     UserAvatarComponent,
     CommentInputComponent,
     CommentSubmitComponent,
+    ButtonLikeComponent
   ],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.scss',
