@@ -341,8 +341,8 @@ export const routes: Routes = [
       {
         path: `${ROUTES.POST.ROOT}/:id`,
         loadComponent: () =>
-          import('./domain/post/pages/post/post.component').then((m) => m.PostPageComponent),
-        data: { title: 'Post', description: 'Assista e engaje com este conteúdo.' },
+          import('./domain/watch/pages/watch/watch.component').then((m) => m.WatchPageComponent),
+        data: { title: 'Watch', description: 'Assista e engaje com este conteúdo.' },
       },
     ],
   },

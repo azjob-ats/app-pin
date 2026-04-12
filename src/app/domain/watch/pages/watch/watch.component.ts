@@ -24,7 +24,7 @@ import { CommentSubmitComponent } from '@shared/components/comment-submit/commen
 import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
 
 @Component({
-  selector: 'app-post',
+  selector: 'app-watch',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
@@ -38,10 +38,10 @@ import { ButtonLikeComponent } from '@shared/components/button-like/button-like.
     CommentSubmitComponent,
     ButtonLikeComponent,
   ],
-  templateUrl: './post.component.html',
-  styleUrl: './post.component.scss',
+  templateUrl: './watch.component.html',
+  styleUrl: './watch.component.scss',
 })
-export class PostPageComponent {
+export class WatchPageComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly postApi = inject(PostApi);

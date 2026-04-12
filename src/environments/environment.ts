@@ -129,7 +129,7 @@ export const environment = {
       ROOT: ':username/collection/:id',
     },
     POST: {
-      ROOT: 'post',
+      ROOT: 'watch',
     },
     ABOUT_REALWE: {
       ROOT: 'about-realwe',
