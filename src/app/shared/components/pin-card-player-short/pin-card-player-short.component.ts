@@ -17,6 +17,9 @@ import { Post } from './pin-card-player-short.interface';
   imports: [RouterLink],
   templateUrl: './pin-card-player-short.component.html',
   styleUrl: './pin-card-player-short.component.scss',
+  host: {
+    '[class.is-landscape]': 'isLandscape()',
+  },
 })
 export class PinCardPlayerShortComponent implements OnDestroy {
   readonly post = input.required<Post>();
@@ -47,6 +50,11 @@ export class PinCardPlayerShortComponent implements OnDestroy {
   readonly isPortrait = computed(() => {
     const [w, h] = this.post().media.aspectRatio.split(':').map(Number);
     return w / h < 3 / 4;
+  });
+
+  readonly isLandscape = computed(() => {
+    const [w, h] = this.post().media.aspectRatio.split(':').map(Number);
+    return w / h > 1;
   });
 
   readonly volumeIcon = computed(() =>

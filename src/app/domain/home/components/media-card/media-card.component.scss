@@ -15,10 +15,19 @@ $mobile: 768px;
     width: 100%;
     margin-bottom: 16px;
   }
+
+  @media (max-width: $mobile) {
+    padding: 0 4px;
+    column-gap: 6px;
+  }
 }
 
 @media (max-width: $mobile) {
   .post-grid {
     columns: 2;
+  }
+
+  app-pin-card-player-short.is-landscape {
+    column-span: all;
   }
 }
