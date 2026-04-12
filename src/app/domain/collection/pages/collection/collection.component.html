@@ -48,7 +48,9 @@
               (canplay)="onVideoCanPlay()"
               (timeupdate)="onVideoTimeUpdate($event)"
               (ended)="onVideoEnded()"
-              aria-label="Player de vídeo">
+              (click)="togglePlay()"
+              aria-label="Player de vídeo"
+              style="cursor: pointer">
             </video>
           } @else if (currentItem()?.thumbnailUrl) {
             <img
@@ -162,7 +164,8 @@
               class="cp-ctrl cp-ctrl--icon cp-ctrl--fullscreen"
               type="button"
               (click)="toggleFullscreen()"
-              [attr.aria-label]="isFullscreen() ? 'Sair da tela cheia' : 'Tela cheia'">
+              [attr.aria-label]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'"
+              [attr.data-tooltip]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'">
               <span class="material-symbols-rounded">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</span>
             </button>
 

@@ -1,6 +1,10 @@
 
 .pin-detail-container {
   margin: 20px;
+  
+  @media (max-width: 900px) {
+    margin: 0px;
+  }
 }
 // ── Empty / error states ───────────────────────────────────────────────────
 
@@ -45,10 +49,15 @@
 .cp-media-wrap {
   position: relative;
   width: 100%;
-  background: #000;
+  background: #00000000;
   flex-shrink: 0;
   border-radius: 15px;
   overflow: hidden;
+
+  @media (max-width: 900px) {
+    max-height: 60vw;
+    border-radius: 0px;
+  }
 }
 
 .cp-media {
@@ -60,6 +69,7 @@
 
   @media (max-width: 900px) {
     max-height: 60vw;
+    border-radius: 0px;
   }
 }
 
@@ -307,9 +317,32 @@
   }
 
   &.cp-ctrl--fullscreen {
+    position: relative;
     background: rgba(0, 0, 0, 0.45);
     border-radius: var(--radius-circle);
     padding: 10px;
+
+    &::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 0;
+      background: rgba(0, 0, 0, 0.78);
+      color: #fff;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 100;
+      padding: 15px;
+      transition: opacity 0.15s ease;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
 
     &:hover {
       background: rgba(0, 0, 0, 0.65);
