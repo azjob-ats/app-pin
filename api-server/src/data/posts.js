@@ -523,10 +523,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244964/videoplayback_h16clw.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244964/videoplayback_h16clw.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245008/Captura_de_tela_2026-04-03_163637_xvrmh3.png',
@@ -576,10 +576,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244878/videoplayback_lytoc8.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244878/videoplayback_lytoc8.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244938/Captura_de_tela_2026-04-03_163522_rkzhfu.png',
@@ -623,10 +623,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244776/videoplayback_a29noz.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244776/videoplayback_a29noz.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244841/Captura_de_tela_2026-04-03_163345_xnyqvs.png',
@@ -670,10 +670,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244664/videoplayback_fxg57h.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244664/videoplayback_fxg57h.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244746/Captura_de_tela_2026-04-03_163203_pig2z5.png',
@@ -717,10 +717,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244549/videoplayback_kskm98.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244549/videoplayback_kskm98.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244628/Captura_de_tela_2026-04-03_163003_mbgoq6.png',
@@ -764,10 +764,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244437/videoplayback_hi8dog.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244437/videoplayback_hi8dog.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244514/Captura_de_tela_2026-04-03_162813_fd7fqb.png',
@@ -811,10 +811,10 @@ MOCK_POSTS = [
     isReported: false,
     isBlocked: false,
     media: {
-      contentType: 'movie',
-      aspectRatio: '9:16',
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
-      guidance: 'portrait',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
       thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244405/Captura_de_tela_2026-04-03_162600_lipa3h.png',
