@@ -31,58 +31,133 @@
     <!-- ══ LEFT — player + post details + comments ═══════════════════════ -->
     <div class="pin-detail-image-side cp-left flex flex-col overflow-auto">
 
-      <!-- Video / thumbnail -->
-      <div class="cp-media-wrap">
-        @if (currentItem()?.videoUrl) {
-          <video
-            #videoEl
-            class="cp-media"
-            [src]="currentItem()!.videoUrl"
-            [poster]="currentItem()?.thumbnailUrl"
-            preload="metadata"
-            playsinline
-            (timeupdate)="onVideoTimeUpdate($event)"
-            (ended)="onVideoEnded()"
-            aria-label="Player de vídeo">
-          </video>
-        } @else if (currentItem()?.thumbnailUrl) {
-          <img
-            class="cp-media"
-            [src]="currentItem()!.thumbnailUrl!"
-            [alt]="currentItem()?.title"
-            loading="lazy" />
-        }
-      </div>
+      <!-- Player wrapper (media + controls, used for fullscreen) -->
+      <div class="cp-player" #playerWrap>
 
-      <!-- Controls bar -->
-      <div class="cp-controls flex align-center justify-center gap-6 py-3" role="group" aria-label="Controles do player">
-        <button
-          class="cp-ctrl cp-ctrl--skip"
-          type="button"
-          aria-label="Item anterior"
-          [class.cp-ctrl--disabled]="!hasPrev()"
-          [attr.aria-disabled]="!hasPrev()"
-          (click)="prev()">
-          <span class="material-symbols-rounded">skip_previous</span>
-        </button>
+        <!-- Video / thumbnail + overlay controls -->
+        <div class="cp-media-wrap">
+          @if (currentItem()?.videoUrl) {
+            <video
+              #videoEl
+              class="cp-media"
+              [src]="currentItem()!.videoUrl"
+              [poster]="currentItem()?.thumbnailUrl"
+              preload="metadata"
+              playsinline
+              (loadedmetadata)="onVideoLoadedMetadata($event)"
+              (timeupdate)="onVideoTimeUpdate($event)"
+              (ended)="onVideoEnded()"
+              aria-label="Player de vídeo">
+            </video>
+          } @else if (currentItem()?.thumbnailUrl) {
+            <img
+              class="cp-media"
+              [src]="currentItem()!.thumbnailUrl!"
+              [alt]="currentItem()?.title"
+              loading="lazy" />
+          }
 
-        <button
-          class="cp-ctrl cp-ctrl--play"
-          type="button"
-          [attr.aria-label]="isPlaying() ? 'Pausar' : 'Reproduzir'"
-          (click)="togglePlay()">
-          <span class="material-symbols-rounded">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
-        </button>
+          <!-- Controls overlay -->
+          <div class="cp-controls" role="group" aria-label="Controles do player">
 
-        <button
-          class="cp-ctrl cp-ctrl--skip"
-          type="button"
-          aria-label="Próximo item"
-          [class.cp-ctrl--disabled]="!hasNext()"
-          [attr.aria-disabled]="!hasNext()"
-          (click)="next()">
-          <span class="material-symbols-rounded">skip_next</span>
-        </button>
+          <!-- Seekbar row -->
+          <div class="cp-seekbar-wrap px-3 pt-2"
+               (mousemove)="onSeekbarHover($event)"
+               (mouseleave)="onSeekbarLeave()">
+            <div class="cp-seekbar-track" aria-hidden="true">
+              <div class="cp-seekbar-fill" [style.width.%]="videoProgress()"></div>
+              <div class="cp-seekbar-thumb" [style.left.%]="videoProgress()"></div>
+            </div>
+            <input
+              type="range"
+              class="cp-seekbar-input"
+              [min]="0"
+              [max]="duration() || 100"
+              [step]="0.1"
+              [value]="currentTime()"
+              (input)="onSeekbarInput($event)"
+              aria-label="Progresso do vídeo" />
+            @if (tooltipVisible()) {
+              <div class="cp-seekbar-tooltip" [style.left.px]="tooltipX()" aria-hidden="true">
+                {{ tooltipTime() }}
+              </div>
+            }
+          </div>
+
+          <!-- Controls row -->
+          <div class="cp-ctrl-row flex align-center gap-1 px-3 py-2">
+
+            <!-- Playback -->
+            <button
+              class="cp-ctrl cp-ctrl--skip"
+              type="button"
+              aria-label="Item anterior"
+              [class.cp-ctrl--disabled]="!hasPrev()"
+              [attr.aria-disabled]="!hasPrev()"
+              (click)="prev()">
+              <span class="material-symbols-rounded">skip_previous</span>
+            </button>
+
+            <button
+              class="cp-ctrl cp-ctrl--play"
+              type="button"
+              [attr.aria-label]="isPlaying() ? 'Pausar' : 'Reproduzir'"
+              (click)="togglePlay()">
+              <span class="material-symbols-rounded">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
+            </button>
+
+            <button
+              class="cp-ctrl cp-ctrl--skip"
+              type="button"
+              aria-label="Próximo item"
+              [class.cp-ctrl--disabled]="!hasNext()"
+              [attr.aria-disabled]="!hasNext()"
+              (click)="next()">
+              <span class="material-symbols-rounded">skip_next</span>
+            </button>
+
+            <!-- Volume (icon always visible; slider expands on hover) -->
+            <div class="cp-volume-wrap">
+              <button
+                class="cp-ctrl cp-ctrl--icon"
+                type="button"
+                (click)="toggleMute()"
+                aria-label="Alternar mudo">
+                <span class="material-symbols-rounded">{{ volumeIcon() }}</span>
+              </button>
+              <input
+                type="range"
+                class="cp-volume-slider"
+                min="0"
+                max="1"
+                step="0.01"
+                [value]="isMuted() ? 0 : volume()"
+                [style.background]="volumeSliderBg()"
+                (input)="onVolumeChange($event)"
+                aria-label="Volume" />
+            </div>
+
+            <!-- Time display (right of volume) -->
+            <span class="cp-time-display">
+              {{ formatTime(currentTime()) }} / {{ formatTime(duration()) }}
+            </span>
+
+            <!-- Spacer -->
+            <div class="flex-1"></div>
+
+            <!-- Fullscreen -->
+            <button
+              class="cp-ctrl cp-ctrl--icon cp-ctrl--fullscreen"
+              type="button"
+              (click)="toggleFullscreen()"
+              [attr.aria-label]="isFullscreen() ? 'Sair da tela cheia' : 'Tela cheia'">
+              <span class="material-symbols-rounded">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</span>
+            </button>
+
+          </div>
+        </div>
+        </div>
+
       </div>
 
       <!-- Post details -->

@@ -43,10 +43,12 @@
 // ── Media (video / img) wrapper ────────────────────────────────────────────
 
 .cp-media-wrap {
+  position: relative;
   width: 100%;
   background: #000;
   flex-shrink: 0;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .cp-media {
@@ -61,12 +63,217 @@
   }
 }
 
-// ── Controls bar ───────────────────────────────────────────────────────────
+// ── Player wrapper ──────────────────────────────────────────────────────────
+
+.cp-player {
+  display: flex;
+  flex-direction: column;
+
+  &:fullscreen {
+    background: #000;
+
+    .cp-media-wrap {
+      flex: 1;
+      min-height: 0;
+    }
+  }
+}
+
+// ── Controls bar (overlay inside video) ────────────────────────────────────
 
 .cp-controls {
-  background: var(--pin-bg);
-  border-top: 1px solid var(--pin-border);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+  padding-bottom: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  .material-symbols-rounded {
+    color: #fff;
+  }
+}
+
+.cp-media-wrap:hover .cp-controls {
+  opacity: 1;
+}
+
+// ── Seekbar ─────────────────────────────────────────────────────────────────
+
+.cp-seekbar-wrap {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  cursor: pointer;
+}
+
+.cp-seekbar-track {
+  position: relative;
+  height: 6px;
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: var(--radius-pill);
+}
+
+.cp-seekbar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--pin-red, #e60023);
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+.cp-seekbar-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.cp-seekbar-wrap:hover .cp-seekbar-thumb {
+  opacity: 1;
+}
+
+.cp-seekbar-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+
+  &:focus-visible ~ .cp-seekbar-track {
+    outline: 2px solid var(--pin-red);
+    outline-offset: 2px;
+  }
+}
+
+.cp-seekbar-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  border-radius: 50px;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  padding: 10px;
+  font-weight: bold;
+}
+
+// ── Controls row ─────────────────────────────────────────────────────────────
+
+.cp-ctrl-row {
+  min-height: 44px;
+}
+
+// ── Time display ─────────────────────────────────────────────────────────────
+
+.cp-time-display {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.266);
+  padding: 20px;
+}
+
+// ── Volume wrap + slider ──────────────────────────────────────────────────────
+
+.cp-volume-wrap {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.266);
+  padding: 10px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.65);
+
+    .cp-volume-slider {
+      width: 72px;
+      opacity: 1;
+      margin-left: 6px;
+    }
+  }
+}
+
+.cp-volume-slider {
+  width: 0;
+  opacity: 0;
+  height: 3px;
+  appearance: none;
+  border-radius: var(--radius-pill);
+  outline: none;
+  cursor: pointer;
   flex-shrink: 0;
+  transition: width 0.2s ease, opacity 0.2s ease, margin 0.2s ease;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  &::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-red);
+    outline-offset: 2px;
+  }
+}
+
+// ── Icon control button ───────────────────────────────────────────────────────
+
+.cp-ctrl--icon {
+  flex-shrink: 0;
+
+  .material-symbols-rounded {
+    font-size: var(--text-xl);
+  }
+
+  &:hover { transform: scale(1.1); }
+
+  &.cp-ctrl--fullscreen {
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: var(--radius-circle);
+    padding: 10px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.65);
+      transform: scale(1.05);
+    }
+  }
 }
 
 .cp-ctrl {
@@ -76,7 +283,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  color: var(--pin-text-primary);
+  color: #fff;
   transition: transform 0.12s ease, opacity 0.12s ease;
 
   &:focus-visible {

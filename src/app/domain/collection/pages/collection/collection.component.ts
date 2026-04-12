@@ -7,6 +7,7 @@ import {
   viewChild,
   ElementRef,
   afterNextRender,
+  DestroyRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
@@ -49,6 +50,7 @@ export class CollectionPageComponent {
   private readonly router = inject(Router);
   private readonly collectionApi = inject(CollectionBundleApi);
   private readonly postApi = inject(PostApi);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly bundle = signal<CollectionBundle | null>(null);
   readonly posts = signal<Post[]>([]);
@@ -59,7 +61,17 @@ export class CollectionPageComponent {
   readonly itemStates = signal<ItemPlayState[]>([]);
   readonly commentText = signal('');
 
+  readonly currentTime = signal(0);
+  readonly duration = signal(0);
+  readonly isMuted = signal(false);
+  readonly volume = signal(1);
+  readonly tooltipVisible = signal(false);
+  readonly tooltipX = signal(0);
+  readonly tooltipTime = signal('');
+  readonly isFullscreen = signal(false);
+
   readonly videoEl = viewChild<ElementRef<HTMLVideoElement>>('videoEl');
+  readonly playerWrap = viewChild<ElementRef<HTMLDivElement>>('playerWrap');
 
   readonly currentItem = computed<CollectionItem | null>(
     () => this.bundle()?.items[this.currentIndex()] ?? null,
@@ -85,6 +97,22 @@ export class CollectionPageComponent {
     }
 
     return null;
+  });
+
+  readonly videoProgress = computed(() => {
+    const d = this.duration();
+    return d ? (this.currentTime() / d) * 100 : 0;
+  });
+
+  readonly volumeIcon = computed(() => {
+    if (this.isMuted() || this.volume() === 0) return 'volume_off';
+    if (this.volume() < 0.5) return 'volume_down';
+    return 'volume_up';
+  });
+
+  readonly volumeSliderBg = computed(() => {
+    const pct = (this.isMuted() ? 0 : this.volume()) * 100;
+    return `linear-gradient(to right, #fff ${pct}%, rgba(128,128,128,0.3) ${pct}%)`;
   });
 
   readonly hasPrev = computed(() => this.currentIndex() > 0);
@@ -118,6 +146,10 @@ export class CollectionPageComponent {
         return;
       }
       this.loadData(id);
+
+      const onFullscreenChange = () => this.isFullscreen.set(!!document.fullscreenElement);
+      document.addEventListener('fullscreenchange', onFullscreenChange);
+      this.destroyRef.onDestroy(() => document.removeEventListener('fullscreenchange', onFullscreenChange));
     });
   }
 
@@ -169,11 +201,74 @@ export class CollectionPageComponent {
     this.isPlaying.set(false);
   }
 
+  onVideoLoadedMetadata(event: Event): void {
+    const video = event.target as HTMLVideoElement;
+    this.duration.set(video.duration);
+    this.volume.set(video.volume);
+    this.isMuted.set(video.muted);
+  }
+
   onVideoTimeUpdate(event: Event): void {
     const video = event.target as HTMLVideoElement;
     if (!video.duration) return;
+    this.currentTime.set(video.currentTime);
+    this.duration.set(video.duration);
     const progress = Math.round((video.currentTime / video.duration) * 100);
     this.updateItemProgress(this.currentIndex(), 'playing', progress);
+  }
+
+  toggleMute(): void {
+    const video = this.videoEl()?.nativeElement;
+    const next = !this.isMuted();
+    this.isMuted.set(next);
+    if (video) video.muted = next;
+  }
+
+  onVolumeChange(event: Event): void {
+    const val = parseFloat((event.target as HTMLInputElement).value);
+    const video = this.videoEl()?.nativeElement;
+    this.volume.set(val);
+    this.isMuted.set(val === 0);
+    if (video) {
+      video.volume = val;
+      video.muted = val === 0;
+    }
+  }
+
+  onSeekbarInput(event: Event): void {
+    const val = parseFloat((event.target as HTMLInputElement).value);
+    this.currentTime.set(val);
+    const video = this.videoEl()?.nativeElement;
+    if (video) video.currentTime = val;
+  }
+
+  onSeekbarHover(event: MouseEvent): void {
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    this.tooltipX.set(event.clientX - rect.left);
+    this.tooltipTime.set(this.formatTime(ratio * this.duration()));
+    this.tooltipVisible.set(true);
+  }
+
+  onSeekbarLeave(): void {
+    this.tooltipVisible.set(false);
+  }
+
+  toggleFullscreen(): void {
+    const wrap = this.playerWrap()?.nativeElement;
+    if (!wrap) return;
+    if (!document.fullscreenElement) {
+      wrap.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+
+  formatTime(seconds: number): string {
+    if (!isFinite(seconds) || seconds < 0) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
   }
 
   onVideoEnded(): void {
