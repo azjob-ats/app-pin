@@ -264,6 +264,48 @@
 
   &:hover { transform: scale(1.1); }
 
+  &.cp-ctrl--autoplay {
+    position: relative;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: var(--radius-circle);
+    padding: 10px;
+    opacity: 0.45;
+    transition: background 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+
+    &::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      right: 0;
+      transform: none;
+      background: rgba(0, 0, 0, 0.78);
+      color: #fff;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 100;
+      transition: opacity 0.15s ease;
+      font-weight: bold;
+      padding: 15px;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+
+    &.cp-ctrl--autoplay-on {
+      opacity: 1;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.326);
+      transform: scale(1.05);
+    }
+  }
+
   &.cp-ctrl--fullscreen {
     background: rgba(0, 0, 0, 0.45);
     border-radius: var(--radius-circle);

@@ -69,6 +69,7 @@ export class CollectionPageComponent {
   readonly tooltipX = signal(0);
   readonly tooltipTime = signal('');
   readonly isFullscreen = signal(false);
+  readonly autoplay = signal(true);
 
   readonly videoEl = viewChild<ElementRef<HTMLVideoElement>>('videoEl');
   readonly playerWrap = viewChild<ElementRef<HTMLDivElement>>('playerWrap');
@@ -201,6 +202,12 @@ export class CollectionPageComponent {
     this.isPlaying.set(false);
   }
 
+  onVideoCanPlay(): void {
+    if (this.isPlaying()) {
+      this.videoEl()?.nativeElement.play();
+    }
+  }
+
   onVideoLoadedMetadata(event: Event): void {
     const video = event.target as HTMLVideoElement;
     this.duration.set(video.duration);
@@ -271,10 +278,14 @@ export class CollectionPageComponent {
     return `${m}:${s.toString().padStart(2, '0')}`;
   }
 
+  toggleAutoplay(): void {
+    this.autoplay.update((v) => !v);
+  }
+
   onVideoEnded(): void {
     const index = this.currentIndex();
     this.updateItemProgress(index, 'done', 100);
-    if (this.hasNext()) {
+    if (this.hasNext() && this.autoplay()) {
       setTimeout(() => {
         this.currentIndex.update((i) => i + 1);
         this.isPlaying.set(true);

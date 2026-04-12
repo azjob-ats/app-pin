@@ -45,6 +45,7 @@
               preload="metadata"
               playsinline
               (loadedmetadata)="onVideoLoadedMetadata($event)"
+              (canplay)="onVideoCanPlay()"
               (timeupdate)="onVideoTimeUpdate($event)"
               (ended)="onVideoEnded()"
               aria-label="Player de vídeo">
@@ -145,6 +146,17 @@
             <!-- Spacer -->
             <div class="flex-1"></div>
 
+            <!-- Autoplay -->
+            <button
+              class="cp-ctrl cp-ctrl--icon cp-ctrl--autoplay"
+              type="button"
+              (click)="toggleAutoplay()"
+              [class.cp-ctrl--autoplay-on]="autoplay()"
+              [attr.aria-label]="autoplay() ? 'Desativar reprodução automática' : 'Ativar reprodução automática'"
+              [attr.data-tooltip]="autoplay() ? 'A reprodução automática está ativada' : 'A reprodução automática está desativada'">
+              <span class="material-symbols-rounded">{{ autoplay() ? 'repeat_one' : 'repeat_one_on' }}</span>
+            </button>
+
             <!-- Fullscreen -->
             <button
               class="cp-ctrl cp-ctrl--icon cp-ctrl--fullscreen"
@@ -161,7 +173,7 @@
       </div>
 
       <!-- Post details -->
-      <div class="cp-post-details flex flex-col p-1">
+      <div class="cp-post-details flex flex-col p-1 mt-4">
 
       <!-- Action buttons -->
       <div class=" flex align-center gap-2 flex-wrap mb-4">
