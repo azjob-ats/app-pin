@@ -4,11 +4,14 @@ import {
   input,
   signal,
   computed,
+  effect,
+  inject,
   ElementRef,
   viewChild,
   OnDestroy,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { VideoSinglePlaybackService } from '@shared/services/video-single-playback.service';
 import { Post } from './pin-card-player-short.interface';
 
 @Component({
@@ -24,7 +27,18 @@ import { Post } from './pin-card-player-short.interface';
 export class PinCardPlayerShortComponent implements OnDestroy {
   readonly post = input.required<Post>();
 
+  private readonly playback = inject(VideoSinglePlaybackService);
+
   readonly videoRef = viewChild<ElementRef<HTMLVideoElement>>('videoEl');
+
+  constructor() {
+    effect(() => {
+      const activeId = this.playback.activeId();
+      if (activeId !== this.post().id && this.isPlaying()) {
+        this.pauseVideo();
+      }
+    });
+  }
 
   readonly isVideoLoaded = signal(false);
   readonly isPlaying = signal(false);
@@ -88,6 +102,7 @@ export class PinCardPlayerShortComponent implements OnDestroy {
   onVideoCanPlay(): void {
     const video = this.videoRef()?.nativeElement;
     if (!video || this.isPlaying()) return;
+    this.playback.setActive(this.post().id);
     video.play().then(() => {
       this.isPlaying.set(true);
       this.startRaf();
@@ -96,6 +111,7 @@ export class PinCardPlayerShortComponent implements OnDestroy {
   }
 
   onVideoEnded(): void {
+    this.playback.clearActive(this.post().id);
     this.isPlaying.set(false);
     this.stopRaf();
     this.clearHideTimer();
@@ -107,18 +123,24 @@ export class PinCardPlayerShortComponent implements OnDestroy {
     const video = this.videoRef()?.nativeElement;
     if (!video) return;
     if (this.isPlaying()) {
-      video.pause();
-      this.isPlaying.set(false);
-      this.stopRaf();
-      this.clearHideTimer();
-      this.controlsVisible.set(true);
+      this.pauseVideo();
     } else {
+      this.playback.setActive(this.post().id);
       video.play().then(() => {
         this.isPlaying.set(true);
         this.startRaf();
         this.scheduleHide();
       }).catch(() => {});
     }
+  }
+
+  private pauseVideo(): void {
+    const video = this.videoRef()?.nativeElement;
+    if (video) video.pause();
+    this.isPlaying.set(false);
+    this.stopRaf();
+    this.clearHideTimer();
+    this.controlsVisible.set(true);
   }
 
   onOverlayTouchStart(event: TouchEvent): void {
@@ -269,5 +291,6 @@ export class PinCardPlayerShortComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.stopRaf();
     this.clearHideTimer();
+    this.playback.clearActive(this.post().id);
   }
 }
