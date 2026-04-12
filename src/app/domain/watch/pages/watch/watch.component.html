@@ -275,37 +275,39 @@
           @for (related of filteredRelated(); track related.id) {
             <li role="listitem">
               <a
-                class="pp-related-item flex gap-3 align-center"
+                class="pp-related-card"
                 [routerLink]="['/watch', related.id]"
                 [attr.aria-label]="'Ver: ' + related.media.title">
 
-                <!-- Thumbnail -->
-                <div class="pp-related-thumb">
-                  @if (related.media.thumbnail) {
-                    <img
-                      [src]="related.media.thumbnail"
-                      [alt]="related.media.title"
-                      loading="lazy" />
-                  } @else {
-                    <span class="material-symbols-rounded pp-related-thumb-icon">play_circle</span>
-                  }
-                  <span class="pp-related-badge material-symbols-rounded" aria-hidden="true">play_arrow</span>
+                <!-- Header: avatar + channel + meta -->
+                <div class="pp-related-card-header flex align-center gap-3">
+                  <app-user-avatar
+                    [imageUrl]="related.channel.profilePicture"
+                    [alt]="related.channel.profileName"
+                    size="sm" />
+                  <div class="flex flex-col" style="min-width:0">
+                    <span class="pp-related-card-channel text-2 fw-bold text-1xl-title flex align-center gap-1">
+                      {{ related.channel.profileName }}
+                      @if (related.channel.verified) {
+                        <span class="material-symbols-rounded pp-related-verified" aria-hidden="true">verified</span>
+                      }
+                    </span>
+                    <span class="pp-related-card-meta text-1 text-7-title">
+                      {{ formatCount(related.views) }} views &nbsp;•&nbsp; {{ timeAgo(related.timestamp) }}
+                    </span>
+                  </div>
                 </div>
 
-                <!-- Info -->
-                <div class="flex flex-col flex-1" style="min-width:0">
-                  <p class="pp-related-title text-3 fw-medium text-1xl-title">
+                <!-- Body: title + description -->
+                <div class="pp-related-card-body flex flex-col gap-1">
+                  <p class="pp-related-card-title text-3 fw-medium text-1xl-title">
                     {{ related.media.title }}
                   </p>
-                  <span class="pp-related-channel text-1 text-7-title flex align-center gap-1">
-                    {{ related.channel.profileName }}
-                    @if (related.channel.verified) {
-                      <span class="material-symbols-rounded pp-related-verified" aria-hidden="true">verified</span>
-                    }
-                  </span>
-                  <span class="pp-related-meta text-1 text-7-title">
-                    {{ formatCount(related.views) }} views &nbsp;•&nbsp; {{ timeAgo(related.timestamp) }}
-                  </span>
+                  @if (related.media.description) {
+                    <p class="pp-related-card-desc text-2 text-7-title">
+                      {{ related.media.description }}
+                    </p>
+                  }
                 </div>
 
               </a>

@@ -428,7 +428,6 @@
 
 .pp-hashtags {
   font-weight: 900;
-  color: var(--pin-red, #e60023);
 }
 
 // ── Channel row ───────────────────────────────────────────────────────────────
@@ -516,89 +515,64 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-sm);
 }
 
-.pp-related-item {
-  padding: var(--space-xs) var(--space-sm);
+.pp-related-card {
+  display: block;
+  border: 0;
   border-radius: var(--radius-md);
+  overflow: hidden;
   text-decoration: none;
-  transition: background 0.12s ease;
+  transition: background 0.12s ease, border-color 0.12s ease;
 
   &:hover {
     background: var(--pin-bg-secondary);
-
-    .pp-related-badge {
-      opacity: 1;
-    }
+    border-color: var(--pin-border-hover, rgba(128, 128, 128, 0.35));
   }
 
   &:focus-visible {
     outline: 2px solid var(--pin-red);
     outline-offset: 2px;
-    border-radius: var(--radius-md);
   }
 }
 
-.pp-related-thumb {
-  position: relative;
-  flex-shrink: 0;
-  width: 120px;
-  height: 68px;
-  border-radius: var(--radius-sm);
+.pp-related-card-header {
+  padding:  var(--space-sm);
+}
+
+.pp-related-card-channel {
   overflow: hidden;
-  background: var(--pin-bg-tertiary);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.pp-related-thumb-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: var(--text-xl);
-  color: var(--pin-text-muted);
-}
-
-.pp-related-badge {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.45);
-  font-size: 28px;
-  color: #fff;
-  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.pp-related-title {
-  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  line-height: 1.35;
-  margin-bottom: 2px;
-}
-
-.pp-related-channel {
-  gap: 2px;
 }
 
 .pp-related-verified {
   font-size: 12px;
   color: var(--pin-red, #e60023);
   font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  flex-shrink: 0;
 }
 
-.pp-related-meta {
-  margin-top: 2px;
+.pp-related-card-body {
+  padding:  var(--space-sm);
+  padding-top: 0;
+}
+
+.pp-related-card-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1;
+}
+
+.pp-related-card-desc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1;
 }
