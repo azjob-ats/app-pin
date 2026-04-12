@@ -128,6 +128,9 @@ export const environment = {
     COLLECTION: {
       ROOT: ':username/collection/:id',
     },
+    POST: {
+      ROOT: 'post',
+    },
     ABOUT_REALWE: {
       ROOT: 'about-realwe',
       APP_VERSION: 'about-realwe/app-version',

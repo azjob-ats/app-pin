@@ -1,0 +1,327 @@
+@if (isLoading()) {
+  <div class="pp-skeleton flex gap-6 p-6">
+    <div class="skeleton pp-skeleton-video"></div>
+    <div class="flex-1 flex flex-col gap-4 pt-5">
+      <div class="skeleton pp-skeleton-title"></div>
+      <div class="skeleton pp-skeleton-line"></div>
+      <div class="skeleton pp-skeleton-line short"></div>
+    </div>
+  </div>
+
+} @else if (hasError() || !post()) {
+  <div class="pp-center">
+    <app-empty-state
+      icon="error_outline"
+      message="Post não encontrado"
+      subtitle="Verifique o link ou explore outros conteúdos." />
+  </div>
+
+} @else {
+  <div class="pp-container flex overflow-hidden">
+
+    <!-- ══ LEFT — player + post details + comments ══════════════════════════ -->
+    <div class="pp-left flex flex-col overflow-auto">
+
+      <!-- Player wrapper -->
+      <div class="pp-player" #playerWrap>
+        <div class="pp-media-wrap">
+          @if (post()!.media.long) {
+            <video
+              #videoEl
+              class="pp-media"
+              [src]="post()!.media.long"
+              [poster]="post()!.media.thumbnail"
+              preload="metadata"
+              playsinline
+              (loadedmetadata)="onVideoLoadedMetadata($event)"
+              (canplay)="onVideoCanPlay()"
+              (timeupdate)="onVideoTimeUpdate($event)"
+              (ended)="onVideoEnded()"
+              (click)="togglePlay()"
+              aria-label="Player de vídeo"
+              style="cursor: pointer">
+            </video>
+          } @else {
+            <img
+              class="pp-media"
+              [src]="post()!.media.thumbnail"
+              [alt]="post()!.media.title"
+              loading="lazy" />
+          }
+
+          <!-- Play overlay (center) -->
+          @if (!isPlaying() && post()!.media.long) {
+            <button
+              class="pp-play-overlay"
+              type="button"
+              aria-label="Reproduzir vídeo"
+              (click)="togglePlay()">
+              <span class="material-symbols-rounded pp-play-icon">play_circle</span>
+            </button>
+          }
+
+          <!-- Duration badge -->
+          @if (duration() > 0) {
+            <span class="pp-duration-badge" aria-label="Duração do vídeo">
+              {{ formatTime(duration()) }}
+            </span>
+          }
+
+          <!-- Controls overlay -->
+          <div class="pp-controls" role="group" aria-label="Controles do player">
+
+            <!-- Seekbar -->
+            <div class="pp-seekbar-wrap px-3 pt-2"
+                 (mousemove)="onSeekbarHover($event)"
+                 (mouseleave)="onSeekbarLeave()">
+              <div class="pp-seekbar-track" aria-hidden="true">
+                <div class="pp-seekbar-fill" [style.width.%]="videoProgress()"></div>
+                <div class="pp-seekbar-thumb" [style.left.%]="videoProgress()"></div>
+              </div>
+              <input
+                type="range"
+                class="pp-seekbar-input"
+                [min]="0"
+                [max]="duration() || 100"
+                step="0.1"
+                [value]="currentTime()"
+                (input)="onSeekbarInput($event)"
+                aria-label="Progresso do vídeo" />
+              @if (tooltipVisible()) {
+                <div class="pp-seekbar-tooltip" [style.left.px]="tooltipX()" aria-hidden="true">
+                  {{ tooltipTime() }}
+                </div>
+              }
+            </div>
+
+            <!-- Controls row -->
+            <div class="pp-ctrl-row flex align-center gap-1 px-3 py-2">
+
+              <button
+                class="pp-ctrl pp-ctrl--play"
+                type="button"
+                [attr.aria-label]="isPlaying() ? 'Pausar' : 'Reproduzir'"
+                (click)="togglePlay()">
+                <span class="material-symbols-rounded">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
+              </button>
+
+              <!-- Volume -->
+              <div class="pp-volume-wrap">
+                <button
+                  class="pp-ctrl pp-ctrl--icon"
+                  type="button"
+                  (click)="toggleMute()"
+                  aria-label="Alternar mudo">
+                  <span class="material-symbols-rounded">{{ volumeIcon() }}</span>
+                </button>
+                <input
+                  type="range"
+                  class="pp-volume-slider"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  [value]="isMuted() ? 0 : volume()"
+                  [style.background]="volumeSliderBg()"
+                  (input)="onVolumeChange($event)"
+                  aria-label="Volume" />
+              </div>
+
+              <!-- Time -->
+              <span class="pp-time-display">
+                {{ formatTime(currentTime()) }} / {{ formatTime(duration()) }}
+              </span>
+
+              <div class="flex-1"></div>
+
+              <!-- Fullscreen -->
+              <button
+                class="pp-ctrl pp-ctrl--icon pp-ctrl--fullscreen"
+                type="button"
+                (click)="toggleFullscreen()"
+                [attr.aria-label]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'"
+                [attr.data-tooltip]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'">
+                <span class="material-symbols-rounded">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Post details -->
+      <div class="cp-post-details flex flex-col p-1 mt-4">
+
+        <!-- Action bar -->
+        <div class="flex align-center gap-2 flex-wrap mb-4">
+          <app-button-like [count]="post()!.likes" [liked]="post()!.isLiked" />
+          <app-button variant="secondary" size="md" ariaLabel="Salvar post">Salvar</app-button>
+          <app-button variant="secondary" size="md" ariaLabel="Compartilhar post" class="pp-btn-share">Compartilhar</app-button>
+          <app-button
+            variant="secondary"
+            shape="circle"
+            size="md"
+            icon="more_horiz"
+            ariaLabel="Mais opções" />
+          <div class="flex-1"></div>
+          <app-button variant="primary" size="md" ariaLabel="Saiba mais sobre este conteúdo">
+            Saiba Mais
+          </app-button>
+        </div>
+
+        <!-- Views + time -->
+        <div class="pp-meta flex align-center text-2 text-7-title mb-2">
+          <span>{{ formatCount(post()!.views) }} visualizações</span>
+          &nbsp;•&nbsp;
+          <span>{{ timeAgo(post()!.timestamp) }}</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="pin-detail-title title-primary">{{ post()!.media.title }}</h1>
+
+        <!-- Description + hashtags -->
+        <p class="text-base text-6-title mb-4">
+          {{ post()!.media.description }}
+          @if (post()!.media.slang.length > 0) {
+            <br />
+            <span class="pp-hashtags text-2xs">
+              @for (tag of post()!.media.slang; track tag) { {{ tag }} }
+            </span>
+          }
+        </p>
+
+        <!-- Channel row -->
+        <div class="pp-channel-row flex align-center gap-3 py-3 mb-4">
+          <app-user-avatar
+            [imageUrl]="post()!.channel.profilePicture"
+            [alt]="post()!.channel.profileName"
+            size="md" />
+          <div class="flex-1 flex flex-col">
+            <span class="pp-channel-name fw-bold text-base text-1xl-title flex align-center gap-1">
+              {{ post()!.channel.profileName }}
+              @if (post()!.channel.verified) {
+                <span class="material-symbols-rounded pp-verified" aria-label="Canal verificado">verified</span>
+              }
+            </span>
+            @if (post()!.channel.numberOfFollowers) {
+              <span class="text-1 text-7-title">
+                {{ formatCount(post()!.channel.numberOfFollowers) }} seguidores
+              </span>
+            }
+          </div>
+          <app-button-inscription [subscribed]="false" />
+        </div>
+
+        <!-- Comments -->
+        <div class="flex flex-col gap-4">
+          <h3 class="text-4 fw-bold text-1xl-title">Comentários</h3>
+
+          <div class="gap-3 flex align-center">
+            <app-user-avatar
+              imageUrl="https://i.pravatar.cc/150?img=10"
+              alt="Você"
+              size="sm" />
+            <div class="pp-comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
+              <app-comment-input
+                [value]="commentText()"
+                placeholder="Adicione um comentário"
+                (valueChange)="commentText.set($event)"
+                (enter)="addComment()" />
+              @if (commentText()) {
+                <app-comment-submit (submitted)="addComment()" />
+              }
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            @for (comment of post()!.comment.data; track comment.id) {
+              <div class="gap-3 flex">
+                <app-user-avatar
+                  [imageUrl]="comment.avatar"
+                  [alt]="comment.user"
+                  size="sm" />
+                <div class="flex-1">
+                  <div class="pp-comment-header flex gap-2 mb-1">
+                    <span class="text-2 fw-bold text-1xl-title">{{ comment.user }}</span>
+                    <span class="text-1 text-5xl-title">{{ commentTimeAgo(comment.time) }}</span>
+                  </div>
+                  <p class="pp-comment-text text-3 text-7-title">{{ comment.text }}</p>
+                  @if ((comment.likes ?? 0) > 0) {
+                    <span class="pp-comment-likes flex align-center gap-1 text-1 text-7-title mt-1">
+                      <span class="material-symbols-rounded pp-heart text-4 pin-red">favorite</span>
+                      {{ comment.likes }}
+                    </span>
+                  }
+                  @if (comment.replies.totalRecords > 0) {
+                    <button class="pp-replies-btn text-1 fw-bold mt-1" type="button">
+                      {{ comment.replies.totalRecords }} resposta{{ comment.replies.totalRecords > 1 ? 's' : '' }}
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ RIGHT — related posts sidebar ════════════════════════════════════ -->
+    <div class="pp-sidebar flex flex-col flex-1 p-3 overflow-auto">
+
+      <h2 class="pp-sidebar-title text-base fw-bold text-1xl-title mb-4">Conteúdos relacionados</h2>
+
+      <section aria-label="Conteúdos relacionados">
+        <ul class="pp-related-list" role="list">
+          @for (related of filteredRelated(); track related.id) {
+            <li role="listitem">
+              <a
+                class="pp-related-item flex gap-3 align-center"
+                [routerLink]="['/post', related.id]"
+                [attr.aria-label]="'Ver: ' + related.media.title">
+
+                <!-- Thumbnail -->
+                <div class="pp-related-thumb">
+                  @if (related.media.thumbnail) {
+                    <img
+                      [src]="related.media.thumbnail"
+                      [alt]="related.media.title"
+                      loading="lazy" />
+                  } @else {
+                    <span class="material-symbols-rounded pp-related-thumb-icon">play_circle</span>
+                  }
+                  <span class="pp-related-badge material-symbols-rounded" aria-hidden="true">play_arrow</span>
+                </div>
+
+                <!-- Info -->
+                <div class="flex flex-col flex-1" style="min-width:0">
+                  <p class="pp-related-title text-3 fw-medium text-1xl-title">
+                    {{ related.media.title }}
+                  </p>
+                  <span class="pp-related-channel text-1 text-7-title flex align-center gap-1">
+                    {{ related.channel.profileName }}
+                    @if (related.channel.verified) {
+                      <span class="material-symbols-rounded pp-related-verified" aria-hidden="true">verified</span>
+                    }
+                  </span>
+                  <span class="pp-related-meta text-1 text-7-title">
+                    {{ formatCount(related.views) }} views &nbsp;•&nbsp; {{ timeAgo(related.timestamp) }}
+                  </span>
+                </div>
+
+              </a>
+            </li>
+          } @empty {
+            <li>
+              <app-empty-state
+                icon="video_library"
+                message="Sem conteúdos relacionados"
+                subtitle="Explore outros conteúdos na plataforma." />
+            </li>
+          }
+        </ul>
+      </section>
+
+    </div>
+
+  </div>
+}

@@ -338,6 +338,12 @@ export const routes: Routes = [
           ),
         data: { title: 'Collection', description: 'Explore esta coleção de conteúdos' },
       },
+      {
+        path: `${ROUTES.POST.ROOT}/:id`,
+        loadComponent: () =>
+          import('./domain/post/pages/post/post.component').then((m) => m.PostPageComponent),
+        data: { title: 'Post', description: 'Assista e engaje com este conteúdo.' },
+      },
     ],
   },
   { path: '**', redirectTo: `/${ROUTES.HOME.ROOT}` },
