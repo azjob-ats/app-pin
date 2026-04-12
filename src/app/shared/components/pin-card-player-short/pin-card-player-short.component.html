@@ -3,6 +3,7 @@
   <!-- ── Media container ──────────────────────────────────────────── -->
   <div
     class="pcps__media"
+    [class.pcps__media--portrait]="isPortrait()"
     [style.aspect-ratio]="aspectRatioCss()">
 
     <!-- Thumbnail phase -->

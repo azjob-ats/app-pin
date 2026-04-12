@@ -44,6 +44,11 @@ export class PinCardPlayerShortComponent implements OnDestroy {
     this.post().media.aspectRatio.replace(':', '/')
   );
 
+  readonly isPortrait = computed(() => {
+    const [w, h] = this.post().media.aspectRatio.split(':').map(Number);
+    return w / h < 3 / 4;
+  });
+
   readonly volumeIcon = computed(() =>
     this.isMuted() ? 'volume_off' : 'volume_up'
   );

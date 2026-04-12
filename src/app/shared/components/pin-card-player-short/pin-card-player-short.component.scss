@@ -16,6 +16,16 @@
   overflow: hidden;
   background: var(--pin-bg-secondary);
   width: 100%;
+
+  @media (max-width: 900px) {
+     border-radius: 10px;
+  }
+
+  &--portrait {
+    @media (min-width: 769px) {
+      aspect-ratio: 3/4 !important;
+    }
+  }
 }
 
 // ── Thumbnail ──────────────────────────────────────────────────────────────
