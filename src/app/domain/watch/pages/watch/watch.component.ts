@@ -10,6 +10,7 @@ import {
   afterNextRender,
   DestroyRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { PostApi } from '@shared/apis/post.api';
@@ -89,20 +90,39 @@ export class WatchPageComponent {
   });
 
   constructor() {
-    afterNextRender(() => {
-      const id = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const id = params.get('id');
       if (!id) {
         this.router.navigate(['/']);
         return;
       }
+      this.resetPlayerState();
       this.loadData(id);
+    });
 
+    afterNextRender(() => {
       const onFullscreenChange = () => this.isFullscreen.set(!!document.fullscreenElement);
       document.addEventListener('fullscreenchange', onFullscreenChange);
       this.destroyRef.onDestroy(() =>
         document.removeEventListener('fullscreenchange', onFullscreenChange),
       );
     });
+  }
+
+  private resetPlayerState(): void {
+    const video = this.videoEl()?.nativeElement;
+    if (video) {
+      video.pause();
+      video.src = '';
+    }
+    this.isLoading.set(true);
+    this.hasError.set(false);
+    this.post.set(null);
+    this.isPlaying.set(false);
+    this.currentTime.set(0);
+    this.duration.set(0);
+    this.autoplay.set(false);
+    document.querySelector('.pp-left')?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   private loadData(id: string): void {
