@@ -560,6 +560,7 @@
 }
 
 .pp-related-card-title {
+  font-size: 16px !important;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -569,10 +570,36 @@
 }
 
 .pp-related-card-desc {
+  font-size: 16px !important;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-height: 1;
+}
+
+.pp-related-card-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 96px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--pin-bg-tertiary);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.pp-related-card-thumb-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--text-xl);
+  color: var(--pin-text-muted);
 }

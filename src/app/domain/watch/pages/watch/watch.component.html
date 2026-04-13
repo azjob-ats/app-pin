@@ -298,16 +298,30 @@
                   </div>
                 </div>
 
-                <!-- Body: title + description -->
-                <div class="pp-related-card-body flex flex-col gap-1">
-                  <p class="pp-related-card-title text-3 fw-medium text-1xl-title">
-                    {{ related.media.title }}
-                  </p>
-                  @if (related.media.description) {
-                    <p class="pp-related-card-desc text-2 text-7-title">
-                      {{ related.media.description }}
+                <!-- Body: title + description + thumbnail -->
+                <div class="pp-related-card-body flex gap-3 align-start">
+                  <div class="flex flex-col gap-1 flex-1" style="min-width:0">
+                    <p class="pp-related-card-title text-3 fw-medium text-1xl-title">
+                      {{ related.media.title }}
                     </p>
-                  }
+                    @if (related.media.description) {
+                      <p class="pp-related-card-desc text-2 text-7-title">
+                        {{ related.media.description }}
+                      </p>
+                    }
+                  </div>
+
+                  <!-- Thumbnail -->
+                  <div class="pp-related-card-thumb" aria-hidden="true">
+                    @if (related.media.thumbnail) {
+                      <img
+                        [src]="related.media.thumbnail"
+                        [alt]="related.media.title"
+                        loading="lazy" />
+                    } @else {
+                      <span class="material-symbols-rounded pp-related-card-thumb-icon">play_circle</span>
+                    }
+                  </div>
                 </div>
 
               </a>
