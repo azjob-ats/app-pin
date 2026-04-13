@@ -139,8 +139,22 @@ export class WatchPageComponent {
   }
 
   onVideoCanPlay(): void {
-    if (this.isPlaying()) {
-      this.videoEl()?.nativeElement.play();
+    const video = this.videoEl()?.nativeElement;
+    if (!video) return;
+
+    if (!this.autoplay()) {
+      this.autoplay.set(true);
+      video.play()
+        .then(() => this.isPlaying.set(true))
+        .catch(() => {
+          video.muted = true;
+          this.isMuted.set(true);
+          video.play()
+            .then(() => this.isPlaying.set(true))
+            .catch(() => {});
+        });
+    } else if (this.isPlaying()) {
+      video.play();
     }
   }
 
