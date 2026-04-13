@@ -36,9 +36,7 @@
   }
 
   &__dropdown {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
+    position: fixed;
     min-width: 160px;
     background: var(--pin-bg);
     border: 1px solid var(--pin-border);
