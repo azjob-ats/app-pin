@@ -192,7 +192,13 @@
           icon="more_horiz"
           ariaLabel="Mais opções" />
         <div class="save-group flex align-center gap-2" style="margin-left: auto">
-          <app-button variant="primary" size="md" ariaLabel="Saiba mais sobre esta coleção">Saiba Mais</app-button>
+          <app-button
+            ariaLabel="Saiba mais sobre este conteúdo"
+            variant="primary"
+            size="md"
+            (clicked)="showLearnMoreDrawer.set(true)"
+            >Saiba Mais</app-button
+          >
         </div>
       </div>
 
@@ -373,3 +379,13 @@
   </div>
 
 }
+<app-drawer
+  [(visible)]="showLearnMoreDrawer"
+  position="right"
+  styleClass="learn-more-drawer">
+  @if (showLearnMoreDrawer()) {
+    <app-learn-more
+      [pinId]="pin()?.id ?? ''"
+      (onClose)="showLearnMoreDrawer.set(false)" />
+  }
+</app-drawer>

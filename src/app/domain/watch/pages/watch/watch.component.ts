@@ -23,6 +23,9 @@ import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.
 import { CommentInputComponent } from '@shared/components/comment-input/comment-input.component';
 import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
 import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
+import { DrawerComponent } from '@shared/components/drawer/drawer.component';
+import { LearnMoreComponent } from '@shared/components/learn-more/learn-more.component';
+import { Pin } from '@shared/interfaces/entity/pin';
 
 @Component({
   selector: 'app-watch',
@@ -38,6 +41,8 @@ import { ButtonLikeComponent } from '@shared/components/button-like/button-like.
     CommentInputComponent,
     CommentSubmitComponent,
     ButtonLikeComponent,
+    DrawerComponent,
+    LearnMoreComponent,
   ],
   templateUrl: './watch.component.html',
   styleUrl: './watch.component.scss',
@@ -53,6 +58,8 @@ export class WatchPageComponent {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
   readonly commentText = signal('');
+  readonly showLearnMoreDrawer = signal(false);
+  readonly pin = signal<Pin | null>(null);
 
   readonly isPlaying = signal(false);
   readonly currentTime = signal(0);

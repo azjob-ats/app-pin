@@ -29,8 +29,7 @@ export class LearnMoreApi {
   }
 
   public submit(payload: LearnMoreSubmitRequest): Observable<ApiResponse<void>> {
-    const url = `${this.baseUrl}${environment.API.LEARN_MORE.SUBMIT.replace(':pinId', payload.pinId)}`;
-
+    const url = `${this.baseUrl}${environment.API.LEARN_MORE.SUBMIT.replace(':id', payload.pinId)}`;
     return this.http
       .post<ApiResponse<void>>(url, payload)
       .pipe(catchError(this.handleError('learn-more/submit')));

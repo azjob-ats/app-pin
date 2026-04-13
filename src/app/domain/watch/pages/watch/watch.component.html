@@ -158,9 +158,13 @@
             icon="more_horiz"
             ariaLabel="Mais opções" />
           <div class="flex-1"></div>
-          <app-button variant="primary" size="md" ariaLabel="Saiba mais sobre este conteúdo">
-            Saiba Mais
-          </app-button>
+            <app-button
+              ariaLabel="Saiba mais sobre este conteúdo"
+              variant="primary"
+              size="md"
+              (clicked)="showLearnMoreDrawer.set(true)"
+              >Saiba Mais</app-button
+            >
         </div>
 
         <!-- Views + time -->
@@ -336,3 +340,13 @@
 
   </div>
 }
+<app-drawer
+  [(visible)]="showLearnMoreDrawer"
+  position="right"
+  styleClass="learn-more-drawer">
+  @if (showLearnMoreDrawer()) {
+    <app-learn-more
+      [pinId]="pin()?.id ?? ''"
+      (onClose)="showLearnMoreDrawer.set(false)" />
+  }
+</app-drawer>

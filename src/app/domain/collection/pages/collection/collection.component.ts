@@ -23,6 +23,9 @@ import { CommentSubmitComponent } from '@shared/components/comment-submit/commen
 import { CollectionBundle, CollectionItem } from '@shared/interfaces/entity/collection-bundle';
 import { Post } from '@shared/interfaces/entity/post';
 import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
+import { Pin } from '@shared/interfaces/entity/pin';
+import { DrawerComponent } from '@shared/components/drawer/drawer.component';
+import { LearnMoreComponent } from '@shared/components/learn-more/learn-more.component';
 
 export interface ItemPlayState {
   status: 'idle' | 'playing' | 'done';
@@ -40,7 +43,9 @@ export interface ItemPlayState {
     UserAvatarComponent,
     CommentInputComponent,
     CommentSubmitComponent,
-    ButtonLikeComponent
+    ButtonLikeComponent,
+    DrawerComponent,
+    LearnMoreComponent,
   ],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.scss',
@@ -60,6 +65,8 @@ export class CollectionPageComponent {
   readonly isPlaying = signal(false);
   readonly itemStates = signal<ItemPlayState[]>([]);
   readonly commentText = signal('');
+  readonly showLearnMoreDrawer = signal(false);
+  readonly pin = signal<Pin | null>(null);
 
   readonly currentTime = signal(0);
   readonly duration = signal(0);
