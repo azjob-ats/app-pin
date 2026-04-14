@@ -25,9 +25,9 @@ router.get('/', (req, res) => {
   res.json(success(paginated(items, page, pageSize, source.length)));
 });
 
-// GET /api/collection-bundle/:id
-router.get('/:id', (req, res) => {
-  const bundle = MOCK_COLLECTION_BUNDLES.find((b) => b.id === req.params.id);
+// GET /api/collection-bundle/:collectionNameKey
+router.get('/:collectionNameKey', (req, res) => {
+  const bundle = MOCK_COLLECTION_BUNDLES.find((b) => b.collectionNameKey === req.params.collectionNameKey);
   if (!bundle) return res.status(404).json({ error: 'Collection bundle not found' });
   res.json(success(bundle));
 });

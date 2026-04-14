@@ -137,7 +137,7 @@ export class HomeComponent {
   }
 
   onOpenCollection(bundle: CollectionBundle): void {
-    this.router.navigate([`/${bundle.username}/collection/${bundle.id}`]);
+    this.router.navigate([`/${bundle.username}/collection/${bundle.collectionNameKey}`]);
   }
 
   search(q: string): void {

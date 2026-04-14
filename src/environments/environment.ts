@@ -80,7 +80,7 @@ export const environment = {
     },
     COLLECTION_BUNDLE: {
       LIST: '/api/collection-bundle',
-      DETAIL: '/api/collection-bundle/:id',
+      DETAIL: '/api/collection-bundle/:collectionNameKey',
     },
   },
   ROUTES: {
@@ -126,7 +126,7 @@ export const environment = {
       ROOT: ':username/boards/:boardId',
     },
     COLLECTION: {
-      ROOT: ':username/collection/:id',
+      ROOT: ':username/collection/:collectionNameKey',
     },
     POST: {
       ROOT: 'watch',

@@ -10,6 +10,7 @@ import {
   DestroyRef,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { forkJoin } from 'rxjs';
 import { CollectionBundleApi } from '@shared/apis/collection-bundle.api';
 import { PostApi } from '@shared/apis/post.api';
@@ -147,23 +148,25 @@ export class CollectionPageComponent {
   });
 
   constructor() {
-    afterNextRender(() => {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (!id) {
+    this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {
+      const collectionNameKey = params.get('collectionNameKey');
+      if (!collectionNameKey) {
         this.router.navigate(['/']);
         return;
       }
-      this.loadData(id);
+      this.loadData(collectionNameKey);
+    });
 
+    afterNextRender(() => {
       const onFullscreenChange = () => this.isFullscreen.set(!!document.fullscreenElement);
       document.addEventListener('fullscreenchange', onFullscreenChange);
       this.destroyRef.onDestroy(() => document.removeEventListener('fullscreenchange', onFullscreenChange));
     });
   }
 
-  private loadData(bundleId: string): void {
+  private loadData(collectionNameKey: string): void {
     forkJoin({
-      bundle: this.collectionApi.detail(bundleId),
+      bundle: this.collectionApi.detail(collectionNameKey),
       posts: this.postApi.list(1, 100),
     }).subscribe({
       next: ({ bundle, posts }) => {

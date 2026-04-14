@@ -13,8 +13,8 @@ export class CollectionBundleApi {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.API_BASE_URL;
 
-  public detail(id: string): Observable<ApiResponse<CollectionBundle>> {
-    const url = `${this.baseUrl}${environment.API.COLLECTION_BUNDLE.DETAIL.replace(':id', id)}`;
+  public detail(collectionNameKey: string): Observable<ApiResponse<CollectionBundle>> {
+    const url = `${this.baseUrl}${environment.API.COLLECTION_BUNDLE.DETAIL.replace(':collectionNameKey', collectionNameKey)}`;
     return this.http
       .get<ApiResponse<CollectionBundle>>(url)
       .pipe(catchError(this.handleError('collection-bundle/detail')));

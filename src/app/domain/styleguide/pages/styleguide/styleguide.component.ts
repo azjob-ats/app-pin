@@ -1542,6 +1542,7 @@ export class StyleguideComponent {
     id: 'bundle-habix-001',
     channel: 'Digix',
     username: 'digix',
+    collectionNameKey: 'treinamento-da-plataforma-habix',
     description: 'Primeiros passos de como utilizar a plataforma Habix',
     items: [
       { type: 'video', thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png' },
@@ -1554,6 +1555,7 @@ export class StyleguideComponent {
     id: 'bundle-empty-001',
     channel: 'Digix',
     username: 'digix',
+    collectionNameKey: 'colecao-sem-midias',
     description: 'Coleção sem mídias cadastradas',
     items: [],
   };

@@ -11,6 +11,7 @@ export interface CollectionBundle {
   id: string;
   channel: string;
   username: string;
+  collectionNameKey: string;
   channelPicture?: string;
   verified?: boolean;
   description: string;

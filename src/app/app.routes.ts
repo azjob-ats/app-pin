@@ -319,13 +319,6 @@ export const routes: Routes = [
         },
       },
       {
-        path: ROUTES.PROFILE.ROOT,
-        loadComponent: () =>
-          import('./domain/profile/pages/profile/profile.component').then(
-            (m) => m.ProfileComponent,
-          ),
-      },
-      {
         path: ROUTES.BOARD.ROOT,
         loadComponent: () =>
           import('./domain/board/pages/board/board.component').then((m) => m.BoardComponent),
@@ -343,6 +336,14 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./domain/watch/pages/watch/watch.component').then((m) => m.WatchPageComponent),
         data: { title: 'Watch', description: 'Assista e engaje com este conteúdo.' },
+      },
+      {
+        path: ROUTES.PROFILE.ROOT,
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./domain/profile/pages/profile/profile.component').then(
+            (m) => m.ProfileComponent,
+          ),
       },
     ],
   },
