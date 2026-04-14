@@ -8,10 +8,21 @@ const router = Router();
 router.get('/', (req, res) => {
   const page = Math.max(1, parseInt(req.query.page) || 1);
   const pageSize = Math.min(40, Math.max(1, parseInt(req.query.pageSize) || 20));
-  const start = (page - 1) * pageSize;
-  const items = MOCK_COLLECTION_BUNDLES.slice(start, start + pageSize);
+  const category = req.query.category ? req.query.category.toLowerCase() : null;
 
-  res.json(success(paginated(items, page, pageSize, MOCK_COLLECTION_BUNDLES.length)));
+  const source =
+    category && category !== 'all'
+      ? MOCK_COLLECTION_BUNDLES.filter(
+          (b) =>
+            Array.isArray(b.slang) &&
+            b.slang.some((tag) => tag.toLowerCase() === category),
+        )
+      : MOCK_COLLECTION_BUNDLES;
+
+  const start = (page - 1) * pageSize;
+  const items = source.slice(start, start + pageSize);
+
+  res.json(success(paginated(items, page, pageSize, source.length)));
 });
 
 // GET /api/collection-bundle/:id

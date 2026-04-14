@@ -5,6 +5,7 @@ const MOCK_COLLECTION_BUNDLES = [
     username: 'digix',
     channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
     verified: true,
+    slang: ['Habix', 'Onboarding', 'Treinamento', 'Digix', 'Educação'],
     description: 'Primeiros passos de como utilizar a plataforma Habix',
     items: [
       {
@@ -72,6 +73,7 @@ const MOCK_COLLECTION_BUNDLES = [
     channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
     verified: true,
     description: 'Modulo de Cyber Security',
+    slang: ['Hack Hunters', 'Trabalhe na Digix', 'Educação'],
     items: [
       {
         type: 'video',

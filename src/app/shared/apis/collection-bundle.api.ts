@@ -20,9 +20,12 @@ export class CollectionBundleApi {
       .pipe(catchError(this.handleError('collection-bundle/detail')));
   }
 
-  public list(page = 1, pageSize = 20): Observable<ApiResponse<List<CollectionBundle[]>>> {
+  public list(page = 1, pageSize = 20, category?: string): Observable<ApiResponse<List<CollectionBundle[]>>> {
     const url = `${this.baseUrl}${environment.API.COLLECTION_BUNDLE.LIST}`;
-    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+    let params = new HttpParams().set('page', page).set('pageSize', pageSize);
+    if (category && category !== 'all') {
+      params = params.set('category', category);
+    }
 
     return this.http
       .get<ApiResponse<CollectionBundleListResponse>>(url, { params })

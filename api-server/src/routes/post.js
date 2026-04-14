@@ -8,10 +8,20 @@ const router = Router();
 router.get('/', (req, res) => {
   const page = Math.max(1, parseInt(req.query.page) || 1);
   const pageSize = Math.min(40, Math.max(1, parseInt(req.query.pageSize) || 20));
-  const start = (page - 1) * pageSize;
-  const items = MOCK_POSTS.slice(start, start + pageSize);
+  const category = req.query.category ? req.query.category.toLowerCase() : null;
 
-  res.json(success(paginated(items, page, pageSize, MOCK_POSTS.length)));
+  const source =
+    category && category !== 'all'
+      ? MOCK_POSTS.filter((p) =>
+          Array.isArray(p.media.slang) &&
+          p.media.slang.some((tag) => tag.toLowerCase() === category),
+        )
+      : MOCK_POSTS;
+
+  const start = (page - 1) * pageSize;
+  const items = source.slice(start, start + pageSize);
+
+  res.json(success(paginated(items, page, pageSize, source.length)));
 });
 
 // GET /api/post/:id

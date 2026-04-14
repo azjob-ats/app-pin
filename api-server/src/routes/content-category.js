@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { MOCK_CATEGORIES } = require('../data/home');
+const { MOCK_CATEGORIES } = require('../data/categories');
 const { success, paginated } = require('../helpers/response');
 
 const router = Router();

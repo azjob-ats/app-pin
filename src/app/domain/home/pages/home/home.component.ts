@@ -71,20 +71,20 @@ export class HomeComponent {
   private page = 1;
 
   constructor() {
-    this.loadFeed();
+    this.loadFeed(this.selectedCategory());
     this.loadHomeContent();
   }
 
-  loadFeed(): void {
+  loadFeed(category = 'all'): void {
     this.isLoading.set(true);
 
-    this.postApi.list(this.page).subscribe({
+    this.postApi.list(this.page, 20, category).subscribe({
       next: (response) => this.posts.set(response.data?.data ?? []),
       error: () => {},
       complete: () => this.isLoading.set(false),
     });
 
-    this.collectionBundleApi.list().subscribe({
+    this.collectionBundleApi.list(1, 20, category).subscribe({
       next: (response) => this.collections.set(response.data?.data ?? []),
       error: () => {},
     });
@@ -116,20 +116,19 @@ export class HomeComponent {
     this.selectedCategory.set(key);
     this.page = 1;
     this.posts.set([]);
-    this.isLoading.set(true);
     if (key !== 'all') {
       this.router.navigate(['/home', key]);
     } else {
       this.router.navigate(['/home']);
     }
-    this.loadFeed();
+    this.loadFeed(key);
   }
 
   onLoadMore(): void {
     if (this.isLoadingMore()) return;
     this.isLoadingMore.set(true);
     this.page++;
-    this.postApi.list(this.page).subscribe({
+    this.postApi.list(this.page, 20, this.selectedCategory()).subscribe({
       next: (response) =>
         this.posts.update((current) => [...current, ...(response.data?.data ?? [])]),
       error: () => {},

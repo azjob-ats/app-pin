@@ -13,9 +13,12 @@ export class PostApi {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.API_BASE_URL;
 
-  public list(page = 1, pageSize = 20): Observable<ApiResponse<List<Post[]>>> {
+  public list(page = 1, pageSize = 20, category?: string): Observable<ApiResponse<List<Post[]>>> {
     const url = `${this.baseUrl}${environment.API.POST.LIST}`;
-    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+    let params = new HttpParams().set('page', page).set('pageSize', pageSize);
+    if (category && category !== 'all') {
+      params = params.set('category', category);
+    }
 
     return this.http
       .get<ApiResponse<PostListResponse>>(url, { params })
