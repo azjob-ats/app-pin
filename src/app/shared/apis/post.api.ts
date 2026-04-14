@@ -31,6 +31,24 @@ export class PostApi {
       );
   }
 
+  public search(term: string, page = 1, pageSize = 20): Observable<ApiResponse<List<Post[]>>> {
+    const url = `${this.baseUrl}${environment.API.POST.LIST}`;
+    const params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize)
+      .set('search', term);
+
+    return this.http
+      .get<ApiResponse<PostListResponse>>(url, { params })
+      .pipe(
+        map((response) => ({
+          ...response,
+          data: response.data ? PostMap.toEntityList(response.data) : undefined,
+        })),
+        catchError(this.handleError('post/search')),
+      );
+  }
+
   public detail(id: string): Observable<ApiResponse<Post>> {
     const url = `${this.baseUrl}${environment.API.POST.DETAIL.replace(':id', id)}`;
     return this.http

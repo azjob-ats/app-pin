@@ -1,3 +1,30 @@
+$mobile: 768px;
+
 .search-page {
   min-height: 100%;
+}
+
+.post-grid {
+  columns: 3;
+  column-gap: 16px;
+  padding: 0 16px;
+
+  > * {
+    break-inside: avoid;
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: $mobile) {
+    columns: 2;
+    padding: 0 4px;
+    column-gap: 6px;
+  }
+}
+
+@media (max-width: $mobile) {
+  app-pin-card-player-short.is-landscape {
+    column-span: all;
+  }
 }

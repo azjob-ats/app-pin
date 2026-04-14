@@ -1,28 +1,26 @@
 import { Component, OnInit, signal, inject, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { distinctUntilChanged } from 'rxjs';
-import { PinService } from '@shared/services/pin.service';
+import { PostApi } from '@shared/apis/post.api';
 import { SearchFilterService } from '@shared/services/search-filter.service';
-import { Pin } from '@shared/interfaces/entity/pin';
+import { Post } from '@shared/interfaces/entity/post';
 import { ICatalog } from '@shared/interfaces/entity/search-filter';
-import { MasonryGridComponent } from '@shared/components/masonry-grid/masonry-grid.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { SearchFilterMenuComponent } from '@shared/components/search-filter-menu/search-filter-menu.component';
+import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-short/pin-card-player-short.component';
 
 @Component({
   selector: 'app-search',
   imports: [
-    CommonModule,
     TranslateModule,
-    MasonryGridComponent,
     SkeletonLoaderComponent,
     InfiniteScrollComponent,
     EmptyStateComponent,
     SearchFilterMenuComponent,
+    PinCardPlayerShortComponent,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
@@ -30,18 +28,17 @@ import { SearchFilterMenuComponent } from '@shared/components/search-filter-menu
 export class SearchComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
-  private readonly pinService = inject(PinService);
+  private readonly postApi = inject(PostApi);
   private readonly searchFilterService = inject(SearchFilterService);
 
   readonly catalogs = signal<ICatalog[]>([]);
-  readonly pins = signal<Pin[]>([]);
+  readonly posts = signal<Post[]>([]);
   readonly isLoading = signal(false);
   readonly isLoadingMore = signal(false);
   readonly query = signal('');
-  readonly activeFilters = signal<Record<string, string | string[]>>({});
-  readonly resultCount = computed(() => this.pins().length || null);
+  readonly resultCount = computed(() => this.posts().length || null);
 
-  private page = 0;
+  private page = 1;
 
   ngOnInit(): void {
     this.searchFilterService.getCatalogs().subscribe((catalogs) =>
@@ -53,7 +50,7 @@ export class SearchComponent implements OnInit {
     ).subscribe((params) => {
       const q = params['q'] ?? '';
       this.query.set(q);
-      if (q) this._fetchResults(params);
+      if (q) this._fetchResults(q);
     });
   }
 
@@ -66,19 +63,15 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  private _fetchResults(params: Record<string, string>): void {
-    const { q, catalog, ...rest } = params;
-    const filters: Record<string, string | string[]> = {};
-    if (catalog) filters['catalog'] = catalog;
-    for (const [k, v] of Object.entries(rest)) {
-      filters[k] = String(v).includes(',') ? String(v).split(',') : v;
-    }
-
-    this.page = 0;
+  private _fetchResults(term: string): void {
+    this.page = 1;
     this.isLoading.set(true);
-    this.pinService.getSearchPins(q, filters).subscribe((pins) => {
-      this.pins.set(pins);
-      this.isLoading.set(false);
+    this.postApi.search(term, this.page).subscribe({
+      next: (response) => {
+        this.posts.set(response.data?.data ?? []);
+        this.isLoading.set(false);
+      },
+      error: () => this.isLoading.set(false),
     });
   }
 
@@ -92,17 +85,18 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  onFilterChange(filters: Record<string, string | string[]>): void {
-    this.activeFilters.set(filters);
-  }
+  onFilterChange(_filters: Record<string, string | string[]>): void {}
 
   onLoadMore(): void {
     if (this.isLoadingMore() || !this.query()) return;
     this.isLoadingMore.set(true);
     this.page++;
-    this.pinService.getSearchPins(this.query(), this.activeFilters(), this.page).subscribe((pins) => {
-      this.pins.update((c) => [...c, ...pins]);
-      this.isLoadingMore.set(false);
+    this.postApi.search(this.query(), this.page).subscribe({
+      next: (response) => {
+        this.posts.update((c) => [...c, ...(response.data?.data ?? [])]);
+        this.isLoadingMore.set(false);
+      },
+      error: () => this.isLoadingMore.set(false),
     });
   }
 }
