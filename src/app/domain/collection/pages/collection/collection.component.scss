@@ -457,6 +457,14 @@
 
 .cp-col-title { line-height: 1.3; }
 
+.cp-col-channel-logo {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-circle);
+  object-fit: cover;
+}
+
 .cp-channel-avatar {
   width: 16px;
   height: 16px;

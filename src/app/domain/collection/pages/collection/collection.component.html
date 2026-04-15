@@ -297,9 +297,18 @@
     <!-- ══ RIGHT — collection sidebar ════════════════════════════════════ -->
     <div class="pin-detail-info flex flex-col flex-1 p-3 overflow-auto">
 
-      <div class="cp-col-header flex gap-3 mb-4 mt-2">
+      <div class="cp-col-header flex items-center gap-3 mb-4 mt-2">
+        @if (bundle()!.channelPicture) {
+          <img
+            class="cp-col-channel-logo"
+            [src]="bundle()!.channelPicture"
+            [alt]="bundle()!.channel"
+            width="36"
+            height="36" />
+        }
         <div class="flex flex-col gap-1 flex-1">
-          <h2 class="cp-col-title text-base fw-bold text-1xl-title">{{ bundle()!.description }}</h2>
+          <h2 class="cp-col-title text-base fw-bold text-1xl-title">{{ bundle()!.collectionName }}</h2>
+          <p class="text-1 text-7-title">{{ bundle()!.description }}</p>
           <span class="text-1 text-7-title">
             {{ bundle()!.items.length }} {{ bundle()!.items.length === 1 ? 'vídeo' : 'vídeos' }}
           </span>

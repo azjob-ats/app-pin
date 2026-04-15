@@ -1542,6 +1542,7 @@ export class StyleguideComponent {
     id: 'bundle-habix-001',
     channel: 'Digix',
     username: 'digix',
+    collectionName: 'Treinamento da plataforma Habix',
     collectionNameKey: 'treinamento-da-plataforma-habix',
     description: 'Primeiros passos de como utilizar a plataforma Habix',
     items: [
@@ -1555,6 +1556,7 @@ export class StyleguideComponent {
     id: 'bundle-empty-001',
     channel: 'Digix',
     username: 'digix',
+    collectionName: 'Coleção sem mídias',
     collectionNameKey: 'colecao-sem-midias',
     description: 'Coleção sem mídias cadastradas',
     items: [],
