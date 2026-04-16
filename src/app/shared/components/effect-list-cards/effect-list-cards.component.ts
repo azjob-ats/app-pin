@@ -11,8 +11,10 @@ import {
 import { EffectListCardMedia } from './effect-list-cards.interface';
 
 const CARD_WIDTH = 280;
-const THRESHOLD = CARD_WIDTH * 0.5;
+const THRESHOLD = CARD_WIDTH * 0.35;
+const VELOCITY_THRESHOLD = 0.4;
 const MAX_VISIBLE = 4;
+const ANIMATION_MS = 300;
 
 @Component({
   selector: 'app-effect-list-cards',
@@ -32,6 +34,7 @@ export class EffectListCardsComponent implements OnDestroy {
 
   private startX = 0;
   private startY = 0;
+  private startTime = 0;
   private isHorizontalDrag: boolean | null = null;
 
   private boundOnPointerMove = this.onPointerMove.bind(this);
@@ -75,9 +78,9 @@ export class EffectListCardsComponent implements OnDestroy {
   getCardTransition(visualIndex: number): string {
     if (this.isDragging()) return 'none';
     if (visualIndex === 0 && this.isAnimating()) {
-      return 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+      return 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
     }
-    return 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    return 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
   }
 
   getVisualIndex(itemIndex: number): number {
@@ -96,12 +99,15 @@ export class EffectListCardsComponent implements OnDestroy {
   }
 
   onPointerDown(event: PointerEvent): void {
-    if (this.isAnimating()) return;
+    if (this.isAnimating()) {
+      this.isAnimating.set(false);
+    }
     event.preventDefault();
 
     this.isDragging.set(true);
     this.startX = event.clientX;
     this.startY = event.clientY;
+    this.startTime = Date.now();
     this.isHorizontalDrag = null;
     this.dragX.set(0);
 
@@ -136,9 +142,11 @@ export class EffectListCardsComponent implements OnDestroy {
 
     const dx = this.dragX();
     const absDx = Math.abs(dx);
+    const elapsed = Date.now() - this.startTime;
+    const velocity = elapsed > 0 ? absDx / elapsed : 0;
 
-    if (absDx >= THRESHOLD) {
-      this.cycleCard();
+    if (absDx >= THRESHOLD || velocity >= VELOCITY_THRESHOLD) {
+      this.cycleCard(dx < 0 ? 1 : -1);
     } else {
       this.snapBack();
     }
@@ -146,7 +154,7 @@ export class EffectListCardsComponent implements OnDestroy {
     this.finishDrag();
   }
 
-  private cycleCard(): void {
+  private cycleCard(direction: number): void {
     const total = this.totalItems();
     if (total <= 1) {
       this.snapBack();
@@ -155,11 +163,11 @@ export class EffectListCardsComponent implements OnDestroy {
 
     this.isAnimating.set(true);
     this.dragX.set(0);
-    this.activeIndex.update((i) => (i + 1) % total);
+    this.activeIndex.update((i) => (i + direction + total) % total);
 
     setTimeout(() => {
       this.isAnimating.set(false);
-    }, 500);
+    }, ANIMATION_MS);
   }
 
   private snapBack(): void {
@@ -168,7 +176,7 @@ export class EffectListCardsComponent implements OnDestroy {
 
     setTimeout(() => {
       this.isAnimating.set(false);
-    }, 500);
+    }, ANIMATION_MS);
   }
 
   private finishDrag(): void {
