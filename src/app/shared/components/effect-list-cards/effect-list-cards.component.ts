@@ -11,6 +11,7 @@ import {
 import { EffectListCardMedia } from './effect-list-cards.interface';
 
 const CARD_WIDTH = 280;
+const MAX_DRAG = CARD_WIDTH * 0.85;
 const THRESHOLD = CARD_WIDTH * 0.35;
 const VELOCITY_THRESHOLD = 0.4;
 const MAX_VISIBLE = 4;
@@ -55,18 +56,54 @@ export class EffectListCardsComponent implements OnDestroy {
       return `translate3d(${dx}px, 0, 0) rotate(${rotation}deg)`;
     }
 
+    const absDx = Math.abs(dx);
     const baseX = visualIndex * 8;
 
-    const dragProgress = Math.abs(dx) / THRESHOLD;
-    const advanceFactor = Math.min(dragProgress, 1);
+    if (absDx <= THRESHOLD) {
+      const progress = absDx / THRESHOLD;
+      const translateX = baseX - 8 * progress;
+      return `translate3d(${translateX}px, 0, 0)`;
+    }
 
-    const translateX = baseX - 8 * advanceFactor;
+    const beyondProgress = Math.min((absDx - THRESHOLD) / (MAX_DRAG - THRESHOLD), 1);
+    const targetX = (visualIndex - 1) * 8;
+    const translateX = targetX * (1 - beyondProgress);
+
+    if (visualIndex === 1) {
+      const scale = 1 + 0.03 * beyondProgress;
+      const liftY = -6 * beyondProgress;
+      const rotateY = -4 * beyondProgress * (dx > 0 ? 1 : -1);
+      return `translate3d(${translateX}px, ${liftY}px, 0) scale(${scale}) rotateY(${rotateY}deg)`;
+    }
 
     return `translate3d(${translateX}px, 0, 0)`;
   }
 
   getCardZIndex(visualIndex: number): number {
+    const absDx = Math.abs(this.dragX());
+    if (absDx > THRESHOLD && visualIndex === 0) {
+      return MAX_VISIBLE - 1;
+    }
+    if (absDx > THRESHOLD && visualIndex === 1) {
+      return MAX_VISIBLE;
+    }
     return MAX_VISIBLE - visualIndex;
+  }
+
+  isCardRising(visualIndex: number): boolean {
+    return visualIndex === 1 && Math.abs(this.dragX()) > THRESHOLD;
+  }
+
+  getCardShadow(visualIndex: number): string {
+    const absDx = Math.abs(this.dragX());
+    if (visualIndex === 1 && absDx > THRESHOLD) {
+      const beyondProgress = Math.min((absDx - THRESHOLD) / (MAX_DRAG - THRESHOLD), 1);
+      const blur = 16 + 24 * beyondProgress;
+      const spread = 4 + 8 * beyondProgress;
+      const opacity = 0.08 + 0.14 * beyondProgress;
+      return `0 ${spread}px ${blur}px rgba(0, 0, 0, ${opacity})`;
+    }
+    return '';
   }
 
   getCardOpacity(visualIndex: number): number {
@@ -133,7 +170,7 @@ export class EffectListCardsComponent implements OnDestroy {
       }
     }
 
-    const clamped = Math.max(-THRESHOLD, Math.min(THRESHOLD, deltaX));
+    const clamped = Math.max(-MAX_DRAG, Math.min(MAX_DRAG, deltaX));
     this.dragX.set(clamped);
   }
 

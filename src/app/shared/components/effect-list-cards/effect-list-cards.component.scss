@@ -17,6 +17,7 @@
     position: relative;
     width: 280px;
     height: 380px;
+    perspective: 800px;
   }
 
   &__card {
@@ -44,6 +45,10 @@
       box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.18),
         0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    &--rising {
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
     }
   }
 

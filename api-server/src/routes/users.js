@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { MOCK_USERS, MOCK_CURRENT_USER } = require('../data/users');
-const { MOCK_BOARDS } = require('../data/boards');
+const { MOCK_BOARDS } = require('../data/daily-story');
 const { generatePins } = require('../data/pins');
 const { success, failure, paginated } = require('../helpers/response');
 

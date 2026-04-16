@@ -5,10 +5,12 @@
         class="effect-cards__card"
         [class.effect-cards__card--active]="getVisualIndex($index) === 0"
         [class.effect-cards__card--dragging]="isDragging() && getVisualIndex($index) === 0"
+        [class.effect-cards__card--rising]="isCardRising(getVisualIndex($index))"
         [style.transform]="getCardTransform(getVisualIndex($index))"
         [style.z-index]="getCardZIndex(getVisualIndex($index))"
         [style.opacity]="getCardOpacity(getVisualIndex($index))"
         [style.transition]="getCardTransition(getVisualIndex($index))"
+        [style.box-shadow]="getCardShadow(getVisualIndex($index))"
         (pointerdown)="getVisualIndex($index) === 0 ? onPointerDown($event) : null"
       >
         <img
