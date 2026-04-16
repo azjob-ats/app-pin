@@ -20,4 +20,18 @@
       </div>
     }
   </div>
+
+  <div class="effect-cards__pagination" role="tablist" aria-label="Card navigation">
+    @for (item of items(); track $index) {
+      <button
+        class="effect-cards__dot"
+        [class.effect-cards__dot--active]="activeIndex() === $index"
+        type="button"
+        role="tab"
+        [attr.aria-selected]="activeIndex() === $index"
+        [attr.aria-label]="'Card ' + ($index + 1)"
+        (click)="goToCard($index)"
+      ></button>
+    }
+  </div>
 </div>

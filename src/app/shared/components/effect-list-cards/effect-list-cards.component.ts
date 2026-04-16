@@ -87,6 +87,14 @@ export class EffectListCardsComponent implements OnDestroy {
     return (itemIndex - active + total) % total;
   }
 
+  goToCard(index: number): void {
+    if (this.isAnimating() || index === this.activeIndex()) return;
+    this.isAnimating.set(true);
+    this.dragX.set(0);
+    this.activeIndex.set(index);
+    setTimeout(() => this.isAnimating.set(false), 500);
+  }
+
   onPointerDown(event: PointerEvent): void {
     if (this.isAnimating()) return;
     event.preventDefault();
