@@ -87,6 +87,8 @@ import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-
 import { Post } from '@shared/components/pin-card-player-short/pin-card-player-short.interface';
 import { CollectionBundleComponent } from '@shared/components/collection-bundle/collection-bundle.component';
 import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
+import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';
+import { EffectListCardMedia } from '@shared/components/effect-list-cards/effect-list-cards.interface';
 import { environment } from '@env/environment';
 
 
@@ -181,6 +183,7 @@ export interface SearchResult {
     SelectButtonOptionComponent,
     PinCardPlayerShortComponent,
     CollectionBundleComponent,
+    EffectListCardsComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -1538,6 +1541,19 @@ export class StyleguideComponent {
   readonly collectionBundleImportCode = `import { CollectionBundleComponent } from '@shared/components/collection-bundle/collection-bundle.component';`;
   readonly collectionBundleCode = `<app-collection-bundle [bundle]="bundle" />`;
 
+  readonly effectListCardsImportCode = `import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';`;
+  readonly effectListCardsCode = `<app-effect-list-cards [media]="media" />`;
+
+  readonly mockEffectListCardMedia: EffectListCardMedia = {
+    id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
+    coverUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
+    items: [
+      { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png' },
+      { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png' },
+      { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1741383679533_gjteyc.jpg' },
+    ],
+  };
+
   readonly mockCollectionBundle: CollectionBundle = {
     id: 'bundle-habix-001',
     channel: 'Digix',
@@ -1676,6 +1692,7 @@ export class StyleguideComponent {
         { id: 'comp-select-button-option', label: 'Select Button Option', icon: 'apps' },
         { id: 'comp-pin-card-player-short', label: 'Pin Card Player Short', icon: 'smart_display' },
         { id: 'comp-collection-bundle', label: 'Collection Bundle', icon: 'collections_bookmark' },
+        { id: 'comp-effect-list-cards', label: 'Effect List Cards', icon: 'layers' },
       ],
     },
   ];

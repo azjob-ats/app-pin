@@ -1,0 +1,23 @@
+<div class="effect-cards" #container>
+  <div class="effect-cards__stack">
+    @for (item of items(); track $index) {
+      <div
+        class="effect-cards__card"
+        [class.effect-cards__card--active]="getVisualIndex($index) === 0"
+        [class.effect-cards__card--dragging]="isDragging() && getVisualIndex($index) === 0"
+        [style.transform]="getCardTransform(getVisualIndex($index))"
+        [style.z-index]="getCardZIndex(getVisualIndex($index))"
+        [style.opacity]="getCardOpacity(getVisualIndex($index))"
+        [style.transition]="getCardTransition(getVisualIndex($index))"
+        (pointerdown)="getVisualIndex($index) === 0 ? onPointerDown($event) : null"
+      >
+        <img
+          class="effect-cards__image"
+          [src]="item.thumbnailUrl"
+          [alt]="'Card ' + ($index + 1)"
+          draggable="false"
+        />
+      </div>
+    }
+  </div>
+</div>

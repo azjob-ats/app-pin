@@ -5501,6 +5501,84 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-effect-list-cards') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Effect List Cards</h1>
+        <p class="sg-section__desc">
+          Componente interativo de stack de cards com efeito de empilhamento 3D inspirado no Swiper Effect Cards.
+          Suporta drag horizontal (touch e mouse), rotação suave durante o arrasto,
+          transição spring ao soltar, e ciclo infinito dos cards na pilha.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: effectListCardsImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo</h3>
+        <div class="sg-demo">
+          <div
+            class="sg-demo__preview"
+            style="display: flex; justify-content: center; padding: 2rem;">
+            <app-effect-list-cards [media]="mockEffectListCardMedia" />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">Usage</h3>
+        <ng-container
+          *ngTemplateOutlet="codeTpl; context: { code: effectListCardsCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Inputs</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">media</code></td>
+                <td>EffectListCardMedia</td>
+                <td>Required. Object containing the card items with thumbnail URLs.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">EffectListCardMedia interface</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Campo</th>
+                <th>Tipo</th>
+                <th>Descricao</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">id</code></td>
+                <td>string</td>
+                <td>Identificador unico do grupo de cards.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">coverUrl</code></td>
+                <td>string</td>
+                <td>URL da imagem de capa.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">items</code></td>
+                <td>EffectListCardItem[]</td>
+                <td>Lista de items com thumbnailUrl para cada card.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 
