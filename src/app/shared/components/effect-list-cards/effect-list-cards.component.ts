@@ -52,16 +52,14 @@ export class EffectListCardsComponent implements OnDestroy {
       return `translate3d(${dx}px, 0, 0) rotate(${rotation}deg)`;
     }
 
-    const baseScale = 1 - visualIndex * 0.05;
-    const baseY = visualIndex * 10;
+    const baseX = visualIndex * 8;
 
     const dragProgress = Math.abs(dx) / THRESHOLD;
     const advanceFactor = Math.min(dragProgress, 1);
 
-    const scale = baseScale + 0.05 * advanceFactor;
-    const translateY = baseY - 10 * advanceFactor;
+    const translateX = baseX - 8 * advanceFactor;
 
-    return `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+    return `translate3d(${translateX}px, 0, 0)`;
   }
 
   getCardZIndex(visualIndex: number): number {
