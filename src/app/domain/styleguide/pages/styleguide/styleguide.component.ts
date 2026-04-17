@@ -1547,6 +1547,12 @@ export class StyleguideComponent {
   readonly mockEffectListCardMedia: EffectListCardMedia = {
     id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
     coverUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
+    title: 'Primeiros passos na plataforma Habix',
+    channel: {
+      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+      profileNameOfficial: 'Digix',
+      verified: true,
+    },
     items: [
       { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png' },
       { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png' },

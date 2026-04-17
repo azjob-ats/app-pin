@@ -36,4 +36,28 @@
       </div>
     }
   </div>
+
+  <div class="effect-cards__footer">
+    @if (media().title) {
+      <p class="effect-cards__title">{{ media().title }}</p>
+    }
+    <div class="effect-cards__channel">
+      @if (media().channel.profilePicture) {
+        <img
+          class="effect-cards__channel-avatar"
+          [src]="media().channel.profilePicture"
+          [alt]="media().channel.profileNameOfficial"
+          loading="lazy"
+        />
+      }
+      <span class="effect-cards__channel-name">{{ media().channel.profileNameOfficial }}</span>
+      @if (media().channel.verified) {
+        <span
+          class="effect-cards__verified material-symbols-rounded"
+          aria-label="Verified account">
+          verified
+        </span>
+      }
+    </div>
+  </div>
 </div>
