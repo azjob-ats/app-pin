@@ -38,8 +38,12 @@
   </div>
 
   <div class="effect-cards__footer">
-    @if (media().title) {
-      <p class="effect-cards__title">{{ media().title }}</p>
+    @if (activeItem().title) {
+      <button
+        type="button"
+        class="effect-cards__title"
+        (click)="onTitleClick()"
+      >{{ activeItem().title }}</button>
     }
     <div class="effect-cards__channel">
       @if (media().channel.profilePicture) {

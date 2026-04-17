@@ -1542,21 +1542,38 @@ export class StyleguideComponent {
   readonly collectionBundleCode = `<app-collection-bundle [bundle]="bundle" />`;
 
   readonly effectListCardsImportCode = `import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';`;
-  readonly effectListCardsCode = `<app-effect-list-cards [media]="media" />`;
+  readonly effectListCardsCode = `<app-effect-list-cards
+  [media]="media"
+  (titleClick)="onTitleClick($event)"
+/>`;
+
+  onEffectListCardsTitleClick(postId: string): void {
+    console.log('Effect list cards title clicked:', postId);
+  }
 
   readonly mockEffectListCardMedia: EffectListCardMedia = {
     id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
-    coverUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
-    title: 'Primeiros passos na plataforma Habix',
     channel: {
       profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
       profileNameOfficial: 'Digix',
       verified: true,
     },
     items: [
-      { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png' },
-      { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png' },
-      { thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1741383679533_gjteyc.jpg' },
+      {
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png',
+        postId: '7db72442-7a66-4fd3-abb7-eb33e19b645c',
+        title: 'Hack Hunters - Cyber investigations',
+      },
+      {
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png',
+        postId: '2ee1d128-366e-4e8e-821b-d5b0f8e273d5',
+        title: 'Visão geral da RealWe',
+      },
+      {
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1741383679533_gjteyc.jpg',
+        postId: '28d973c2-d2df-4efd-944b-3da8ee17f252',
+        title: 'Dia da Mulher: reflexão, celebração e luta por equidade',
+      },
     ],
   };
 

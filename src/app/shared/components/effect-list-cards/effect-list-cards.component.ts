@@ -2,10 +2,9 @@ import {
   Component,
   ChangeDetectionStrategy,
   input,
+  output,
   signal,
   computed,
-  ElementRef,
-  viewChild,
   OnDestroy,
 } from '@angular/core';
 import { EffectListCardMedia } from './effect-list-cards.interface';
@@ -25,8 +24,7 @@ const ANIMATION_MS = 300;
 })
 export class EffectListCardsComponent implements OnDestroy {
   readonly media = input.required<EffectListCardMedia>();
-
-  private readonly containerRef = viewChild<ElementRef<HTMLElement>>('container');
+  readonly titleClick = output<string>();
 
   readonly activeIndex = signal(0);
   readonly dragX = signal(0);
@@ -43,6 +41,14 @@ export class EffectListCardsComponent implements OnDestroy {
 
   readonly items = computed(() => this.media().items);
   readonly totalItems = computed(() => this.items().length);
+  readonly activeItem = computed(() => this.items()[this.activeIndex()]);
+
+  onTitleClick(): void {
+    const item = this.activeItem();
+    if (item) {
+      this.titleClick.emit(item.postId);
+    }
+  }
 
   getCardTransform(visualIndex: number): string {
     const dx = this.dragX();

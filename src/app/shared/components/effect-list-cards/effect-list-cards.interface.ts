@@ -1,4 +1,6 @@
 export interface EffectListCardItem {
+  postId: string;
+  title: string;
   thumbnailUrl: string;
 }
 
@@ -10,8 +12,6 @@ export interface EffectListCardChannel {
 
 export interface EffectListCardMedia {
   id: string;
-  coverUrl: string;
-  title: string;
   channel: EffectListCardChannel;
   items: EffectListCardItem[];
 }

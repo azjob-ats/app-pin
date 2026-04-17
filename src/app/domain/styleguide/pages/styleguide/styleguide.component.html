@@ -5518,7 +5518,10 @@
           <div
             class="sg-demo__preview"
             style="display: flex; justify-content: center; padding: 2rem;">
-            <app-effect-list-cards [media]="mockEffectListCardMedia" />
+            <app-effect-list-cards
+              [media]="mockEffectListCardMedia"
+              (titleClick)="onEffectListCardsTitleClick($event)"
+            />
           </div>
         </div>
 
@@ -5564,16 +5567,6 @@
                 <td>Identificador unico do grupo de cards.</td>
               </tr>
               <tr>
-                <td><code class="sg-code">coverUrl</code></td>
-                <td>string</td>
-                <td>URL da imagem de capa.</td>
-              </tr>
-              <tr>
-                <td><code class="sg-code">title</code></td>
-                <td>string</td>
-                <td>Titulo exibido abaixo do stack de cards.</td>
-              </tr>
-              <tr>
                 <td><code class="sg-code">channel</code></td>
                 <td>EffectListCardChannel</td>
                 <td>Dados do canal exibidos no rodape (avatar, nome e verificacao).</td>
@@ -5581,7 +5574,7 @@
               <tr>
                 <td><code class="sg-code">items</code></td>
                 <td>EffectListCardItem[]</td>
-                <td>Lista de items com thumbnailUrl para cada card.</td>
+                <td>Lista de items com postId, title e thumbnailUrl por card.</td>
               </tr>
             </tbody>
           </table>
