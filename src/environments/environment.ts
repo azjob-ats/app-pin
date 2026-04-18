@@ -82,6 +82,9 @@ export const environment = {
       LIST: '/api/collection-bundle',
       DETAIL: '/api/collection-bundle/:collectionNameKey',
     },
+    SHOP_WINDOW: {
+      LIST: '/api/shop-window',
+    },
   },
   ROUTES: {
     AUTH: {

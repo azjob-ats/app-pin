@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const pinsRouter = require('./routes/pins');
 const usersRouter = require('./routes/users');
-const boardsRouter = require('./routes/boards');
+const boardsRouter = require('./routes/daily-story');
 const notificationsRouter = require('./routes/notifications');
 const contentCategoryRouter = require('./routes/content-category');
 const relevantResearchRouter = require('./routes/relevant-research');
@@ -12,6 +12,7 @@ const menuRouter = require('./routes/menu');
 const learnMoreRouter = require('./routes/learn-more');
 const postRouter = require('./routes/post');
 const collectionBundleRouter = require('./routes/collection-bundle');
+const shopWindowRouter = require('./routes/shop-window');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +37,7 @@ app.use('/api/relevant-research', relevantResearchRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/post', postRouter);
 app.use('/api/collection-bundle', collectionBundleRouter);
+app.use('/api/shop-window', shopWindowRouter);
 
 // Health check
 app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -79,4 +81,5 @@ app.listen(PORT, () => {
   console.log('  GET    /api/post/:id');
   console.log('  GET    /api/collection-bundle');
   console.log('  GET    /api/collection-bundle/:id');
+  console.log('  GET    /api/shop-window');
 });
