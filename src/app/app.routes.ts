@@ -338,6 +338,14 @@ export const routes: Routes = [
         data: { title: 'Watch', description: 'Assista e engaje com este conteúdo.' },
       },
       {
+        path: ROUTES.SHOWCASE.ROOT,
+        loadComponent: () =>
+          import('./domain/showcase/pages/showcase/showcase.component').then(
+            (m) => m.ShowcasePageComponent,
+          ),
+        data: { title: 'Showcase', description: 'Explore a vitrine de conteúdos do criador.' },
+      },
+      {
         path: ROUTES.PROFILE.ROOT,
         pathMatch: 'full',
         loadComponent: () =>

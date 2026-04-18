@@ -12,7 +12,7 @@
       }
     } @else {
       @for (story of stories(); track story.id) {
-        <app-effect-list-cards [media]="story" (titleClick)="onTitleClick($event)" />
+        <app-effect-list-cards [media]="story" (titleClick)="onTitleClick(story, $event)" />
       }
     }
   </div>

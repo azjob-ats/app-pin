@@ -8,7 +8,9 @@ import {
   input,
   viewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';
+import { EffectListCardItem } from '@shared/components/effect-list-cards/effect-list-cards.interface';
 import { ShopWindow } from '@shared/interfaces/entity/shop-window';
 
 @Component({
@@ -22,14 +24,15 @@ export class DailyStoryComponent {
   readonly stories = input<ShopWindow[]>([]);
   readonly isLoading = input(false);
 
-  onTitleClick(postId: string): void {
-    console.log('Title clicked:', postId);
-  }
-
   readonly skeletonItems = [1, 2, 3, 4, 5, 6];
 
   private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
   private readonly trackRef = viewChild<ElementRef<HTMLDivElement>>('storyTrack');
+
+  onTitleClick(story: ShopWindow, item: EffectListCardItem): void {
+    this.router.navigate(['/', story.channel.profileNameOfficial, 'showcase', item.titleLink]);
+  }
 
   constructor() {
     afterNextRender(() => {

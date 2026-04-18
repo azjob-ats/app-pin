@@ -134,6 +134,9 @@ export const environment = {
     POST: {
       ROOT: ':username/watch/:titleLink',
     },
+    SHOWCASE: {
+      ROOT: ':username/showcase/:titleLink',
+    },
     ABOUT_REALWE: {
       ROOT: 'about-realwe',
       APP_VERSION: 'about-realwe/app-version',

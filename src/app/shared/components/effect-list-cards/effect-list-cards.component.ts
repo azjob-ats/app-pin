@@ -13,7 +13,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { VideoSinglePlaybackService } from '@shared/services/video-single-playback.service';
-import { EffectListCardMedia } from './effect-list-cards.interface';
+import { EffectListCardItem, EffectListCardMedia } from './effect-list-cards.interface';
 
 const CARD_WIDTH = 280;
 const MAX_DRAG = CARD_WIDTH * 0.85;
@@ -30,7 +30,7 @@ const ANIMATION_MS = 300;
 })
 export class EffectListCardsComponent implements OnDestroy {
   readonly media = input.required<EffectListCardMedia>();
-  readonly titleClick = output<string>();
+  readonly titleClick = output<EffectListCardItem>();
 
   readonly activeIndex = signal(0);
   readonly dragX = signal(0);
@@ -105,7 +105,7 @@ export class EffectListCardsComponent implements OnDestroy {
   onTitleClick(): void {
     const item = this.activeItem();
     if (item) {
-      this.titleClick.emit(item.postId);
+      this.titleClick.emit(item);
     }
   }
 

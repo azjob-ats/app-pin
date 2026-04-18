@@ -88,7 +88,7 @@ import { Post } from '@shared/components/pin-card-player-short/pin-card-player-s
 import { CollectionBundleComponent } from '@shared/components/collection-bundle/collection-bundle.component';
 import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';
-import { EffectListCardMedia } from '@shared/components/effect-list-cards/effect-list-cards.interface';
+import { EffectListCardItem, EffectListCardMedia } from '@shared/components/effect-list-cards/effect-list-cards.interface';
 import { environment } from '@env/environment';
 
 
@@ -1565,8 +1565,8 @@ export class StyleguideComponent {
   (titleClick)="onTitleClick($event)"
 />`;
 
-  onEffectListCardsTitleClick(postId: string): void {
-    console.log('Effect list cards title clicked:', postId);
+  onEffectListCardsTitleClick(item: EffectListCardItem): void {
+    console.log('Effect list cards title clicked:', item);
   }
 
   readonly mockEffectListCardMedia: EffectListCardMedia = {
@@ -1582,17 +1582,20 @@ export class StyleguideComponent {
         short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
         postId: '7db72442-7a66-4fd3-abb7-eb33e19b645c',
         title: 'Hack Hunters - Cyber investigations',
+        titleLink: 'hack-hunters-cyber-investigations',
       },
       {
         thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png',
         short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
         postId: '2ee1d128-366e-4e8e-821b-d5b0f8e273d5',
         title: 'Visão geral da RealWe',
+        titleLink: 'visao-geral-da-realwe',
       },
       {
         thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1741383679533_gjteyc.jpg',
         postId: '28d973c2-d2df-4efd-944b-3da8ee17f252',
         title: 'Dia da Mulher: reflexão, celebração e luta por equidade',
+        titleLink: 'dia-da-mulher-reflexao-celebracao-e-luta-por-equidade',
       },
     ],
   };

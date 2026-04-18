@@ -1,6 +1,7 @@
 export interface EffectListCardItem {
   postId: string;
   title: string;
+  titleLink: string;
   thumbnailUrl: string;
   short?: string;
 }
