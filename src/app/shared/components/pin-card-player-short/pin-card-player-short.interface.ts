@@ -10,6 +10,7 @@ export interface PostMedia {
   slang: string[];
   id: string;
   title: string;
+  titleLink: string;
   photoPreviewIcon: string;
   isPlaying: boolean;
   isMuted: boolean;

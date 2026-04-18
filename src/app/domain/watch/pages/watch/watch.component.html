@@ -275,7 +275,7 @@
             <li role="listitem">
               <a
                 class="pp-related-card"
-                [routerLink]="['/watch', related.id]"
+                [routerLink]="['/', related.channel.profileName, 'watch', related.media.titleLink]"
                 [attr.aria-label]="'Ver: ' + related.media.title">
 
                 <!-- Header: avatar + channel + meta -->

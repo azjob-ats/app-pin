@@ -76,7 +76,7 @@ export const environment = {
     },
     POST: {
       LIST: '/api/post',
-      DETAIL: '/api/post/:id',
+      DETAIL: '/api/post/:username/:titleLink',
     },
     COLLECTION_BUNDLE: {
       LIST: '/api/collection-bundle',
@@ -132,7 +132,7 @@ export const environment = {
       ROOT: ':username/collection/:collectionNameKey',
     },
     POST: {
-      ROOT: 'watch',
+      ROOT: ':username/watch/:titleLink',
     },
     ABOUT_REALWE: {
       ROOT: 'about-realwe',

@@ -98,13 +98,14 @@ export class WatchPageComponent {
 
   constructor() {
     this.route.paramMap.pipe(takeUntilDestroyed()).subscribe((params) => {
-      const id = params.get('id');
-      if (!id) {
+      const username = params.get('username');
+      const titleLink = params.get('titleLink');
+      if (!username || !titleLink) {
         this.router.navigate(['/']);
         return;
       }
       this.resetPlayerState();
-      this.loadData(id);
+      this.loadData(username, titleLink);
     });
 
     afterNextRender(() => {
@@ -132,9 +133,9 @@ export class WatchPageComponent {
     document.querySelector('.pp-left')?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  private loadData(id: string): void {
+  private loadData(username: string, titleLink: string): void {
     forkJoin({
-      post: this.postApi.detail(id),
+      post: this.postApi.detail(username, titleLink),
       related: this.postApi.list(1, 20),
     }).subscribe({
       next: ({ post, related }) => {

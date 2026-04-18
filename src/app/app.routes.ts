@@ -332,7 +332,7 @@ export const routes: Routes = [
         data: { title: 'Collection', description: 'Explore esta coleção de conteúdos' },
       },
       {
-        path: `${ROUTES.POST.ROOT}/:id`,
+        path: ROUTES.POST.ROOT,
         loadComponent: () =>
           import('./domain/watch/pages/watch/watch.component').then((m) => m.WatchPageComponent),
         data: { title: 'Watch', description: 'Assista e engaje com este conteúdo.' },

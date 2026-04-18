@@ -57,7 +57,7 @@
 
           <a
             class="pcps__ctrl-btn"
-            [routerLink]="['/watch', post().id]"
+            [routerLink]="['/', post().channel.profileName, 'watch', post().media.titleLink]"
             aria-label="Open full post"
             (click)="$event.stopPropagation()">
             <span class="material-symbols-rounded" aria-hidden="true">arrow_right_alt</span>

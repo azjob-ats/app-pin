@@ -78,7 +78,7 @@ app.listen(PORT, () => {
   console.log('  GET    /api/v1/learn-more/:pinId');
   console.log('  POST   /api/v1/learn-more/:pinId/submit');
   console.log('  GET    /api/post');
-  console.log('  GET    /api/post/:id');
+  console.log('  GET    /api/post/:username/:titleLink');
   console.log('  GET    /api/collection-bundle');
   console.log('  GET    /api/collection-bundle/:id');
   console.log('  GET    /api/shop-window');

@@ -68,9 +68,14 @@ router.get('/', (req, res) => {
   res.json(success(paginated(items, page, pageSize, source.length)));
 });
 
-// GET /api/post/:id
-router.get('/:id', (req, res) => {
-  const post = MOCK_POSTS.find((p) => p.id === req.params.id);
+// GET /api/post/:username/:titleLink
+router.get('/:username/:titleLink', (req, res) => {
+  const { username, titleLink } = req.params;
+  const post = MOCK_POSTS.find(
+    (p) =>
+      p.channel?.profileName?.toLowerCase() === username.toLowerCase() &&
+      p.media?.titleLink === titleLink,
+  );
   if (!post) return res.status(404).json({ error: 'Post not found' });
   res.json(success(post));
 });

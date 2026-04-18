@@ -49,8 +49,8 @@ export class PostApi {
       );
   }
 
-  public detail(id: string): Observable<ApiResponse<Post>> {
-    const url = `${this.baseUrl}${environment.API.POST.DETAIL.replace(':id', id)}`;
+  public detail(username: string, titleLink: string): Observable<ApiResponse<Post>> {
+    const url = `${this.baseUrl}${environment.API.POST.DETAIL.replace(':username', username).replace(':titleLink', titleLink)}`;
     return this.http
       .get<ApiResponse<Post>>(url)
       .pipe(catchError(this.handleError('post/detail')));
