@@ -95,6 +95,14 @@ const MOCK_COLLECTION_BUNDLES = [
         thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png',
         videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
       },
+      {
+        type: 'video',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753317/1741383679533_whx8ci.mp4',
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1741383679533_gjteyc.jpg',
+        title: 'Dia da Mulher: reflexão, celebração e luta por equidade',
+        postId: '28d973c2-d2df-4efd-944b-3da8ee17f252',
+        duration: 84,
+      }
     ]
   }
 ];

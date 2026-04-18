@@ -13,12 +13,127 @@
         [style.box-shadow]="getCardShadow(getVisualIndex($index))"
         (pointerdown)="getVisualIndex($index) === 0 ? onPointerDown($event) : null"
       >
-        <img
-          class="effect-cards__image"
-          [src]="item.thumbnailUrl"
-          [alt]="'Card ' + ($index + 1)"
-          draggable="false"
-        />
+        @if (getVisualIndex($index) === 0 && isVideoLoaded() && activeItem().short) {
+          <video
+            #videoEl
+            class="effect-cards__video"
+            [src]="activeItem().short!"
+            [poster]="activeItem().thumbnailUrl"
+            preload="auto"
+            playsinline
+            (loadedmetadata)="onVideoLoadedMetadata()"
+            (canplay)="onVideoCanPlay()"
+            (play)="onVideoPlay()"
+            (pause)="onVideoPause()"
+            (ended)="onVideoEnded()"
+          ></video>
+
+          <div
+            class="effect-cards__overlay"
+            (click)="onOverlayInteract($event)"
+            (touchstart)="onOverlayTouchStart($event)"
+            (mousemove)="onOverlayMouseMove()"
+          >
+            <div
+              class="effect-cards__overlay-top"
+              [class.effect-cards__overlay-top--hidden]="!controlsVisible()"
+            >
+              <button
+                class="effect-cards__ctrl-btn"
+                type="button"
+                [attr.aria-label]="isMuted() ? 'Unmute' : 'Mute'"
+                (mousedown)="onThumbnailPlayPointerDown($event)"
+                (pointerdown)="onThumbnailPlayPointerDown($event)"
+                (touchstart)="onThumbnailPlayPointerDown($event)"
+                (click)="toggleMute($event)"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">{{ volumeIcon() }}</span>
+              </button>
+            </div>
+
+            <button
+              class="effect-cards__play-pause"
+              [class.effect-cards__play-pause--paused]="!isPlaying()"
+              [class.effect-cards__play-pause--hidden]="isPlaying() && !controlsVisible()"
+              type="button"
+              [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'"
+              (mousedown)="onThumbnailPlayPointerDown($event)"
+              (pointerdown)="onThumbnailPlayPointerDown($event)"
+              (touchstart)="onThumbnailPlayPointerDown($event)"
+              (click)="togglePlayPause($event)"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">
+                {{ isPlaying() ? 'pause' : 'play_arrow' }}
+              </span>
+            </button>
+
+            <div
+              class="effect-cards__bottom"
+              [class.effect-cards__bottom--hidden]="!controlsVisible()"
+            >
+              <div class="effect-cards__time" aria-live="off" aria-atomic="true">
+                <span>{{ formatTime(currentTime()) }}</span>
+                <span class="effect-cards__time-sep" aria-hidden="true">/</span>
+                <span>{{ formatTime(duration()) }}</span>
+              </div>
+
+              <div
+                class="effect-cards__progress"
+                role="slider"
+                [attr.aria-valuenow]="progressPercent()"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-label="Video progress"
+                (click)="onProgressClick($event)"
+                (mousedown)="onProgressMouseDown($event)"
+                (mouseup)="onProgressMouseUp($event)"
+                (mousemove)="onProgressMouseMove($event)"
+                (mouseleave)="onProgressMouseLeave()"
+              >
+                @if (showTooltip()) {
+                  <div
+                    class="effect-cards__tooltip"
+                    [style.left.px]="tooltipLeft()"
+                  >
+                    {{ formatTime(tooltipTime()) }}
+                  </div>
+                }
+
+                <div class="effect-cards__track-bar">
+                  <div
+                    class="effect-cards__fill"
+                    [style.width.%]="progressPercent()"
+                  ></div>
+                  <div
+                    class="effect-cards__thumb"
+                    [style.left.%]="progressPercent()"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        } @else {
+          <img
+            class="effect-cards__image"
+            [src]="item.thumbnailUrl"
+            [alt]="'Card ' + ($index + 1)"
+            draggable="false"
+          />
+
+          @if (getVisualIndex($index) === 0 && item.short) {
+            <button
+              type="button"
+              class="effect-cards__play-btn"
+              aria-label="Play video"
+              (mousedown)="onThumbnailPlayPointerDown($event)"
+              (pointerdown)="onThumbnailPlayPointerDown($event)"
+              (touchstart)="onThumbnailPlayPointerDown($event)"
+              (click)="onThumbnailPlayClick($event)"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">play_arrow</span>
+            </button>
+          }
+        }
       </div>
     }
   </div>

@@ -8,19 +8,23 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { BoardCardComponent } from '@shared/components/board-card/board-card.component';
-import { DailyStory } from '../../interfaces/daily-story';
+import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';
+import { ShopWindow } from '@shared/interfaces/entity/shop-window';
 
 @Component({
   selector: 'home-daily-story',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BoardCardComponent],
+  imports: [EffectListCardsComponent],
   templateUrl: './daily-story.component.html',
   styleUrl: './daily-story.component.scss',
 })
 export class DailyStoryComponent {
-  readonly stories = input<DailyStory[]>([]);
+  readonly stories = input<ShopWindow[]>([]);
   readonly isLoading = input(false);
+
+  onTitleClick(postId: string): void {
+    console.log('Title clicked:', postId);
+  }
 
   readonly skeletonItems = [1, 2, 3, 4, 5, 6];
 

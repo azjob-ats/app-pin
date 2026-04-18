@@ -4,15 +4,15 @@ import { CollectionBundleApi } from '@shared/apis/collection-bundle.api';
 import { ContentCategoryApi } from '@shared/apis/content-category.api';
 import { PostApi } from '@shared/apis/post.api';
 import { RelevantResearchApi } from '@shared/apis/relevant-research.api';
+import { ShopWindowApi } from '@shared/apis/shop-window.api';
 import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { ContentCategory } from '@shared/interfaces/entity/content-category';
 import { Post } from '@shared/interfaces/entity/post';
-import { BoardService } from '@shared/services/board.service';
+import { ShopWindow } from '@shared/interfaces/entity/shop-window';
 import { DailyStoryComponent } from '../../components/daily-story/daily-story.component';
 import { DynamicInterestTabsComponent } from '../../components/dynamic-interest-tabs/dynamic-interest-tabs.component';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { TrendingTopicComponent } from '../../components/trending-topic/trending-topic.component';
-import { DailyStory } from '../../interfaces/daily-story';
 import { FeedItem } from '../../interfaces/feed-item';
 import { TrendingTopic } from '../../interfaces/trending-topic';
 
@@ -39,7 +39,7 @@ export class HomeComponent {
   readonly isLoadingTrendingTopics = signal(true);
   readonly isLoadingDailyStories = signal(true);
   readonly selectedCategory = signal<string>('all');
-  readonly dailyStories = signal<DailyStory[]>([]);
+  readonly dailyStories = signal<ShopWindow[]>([]);
 
   /** Feed híbrido: insere 1 collection a cada 2 posts; os restantes são adicionados ao final */
   readonly feedItems = computed<FeedItem[]>(() => {
@@ -64,7 +64,7 @@ export class HomeComponent {
 
   private readonly postApi = inject(PostApi);
   private readonly collectionBundleApi = inject(CollectionBundleApi);
-  private readonly boardService = inject(BoardService);
+  private readonly shopWindowApi = inject(ShopWindowApi);
   private readonly contentCategoryApi = inject(ContentCategoryApi);
   private readonly relevantResearchApi = inject(RelevantResearchApi);
   private readonly router = inject(Router);
@@ -89,9 +89,10 @@ export class HomeComponent {
       error: () => {},
     });
 
-    this.boardService.getUserBoards('u1').subscribe((boards) => {
-      this.dailyStories.set(boards as unknown as DailyStory[]);
-      this.isLoadingDailyStories.set(false);
+    this.shopWindowApi.list().subscribe({
+      next: (response) => this.dailyStories.set(response.data?.data ?? []),
+      error: () => {},
+      complete: () => this.isLoadingDailyStories.set(false),
     });
   }
 

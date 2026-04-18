@@ -2,6 +2,7 @@ export interface EffectListCardItem {
   postId: string;
   title: string;
   thumbnailUrl: string;
+  short?: string;
 }
 
 export interface EffectListCardChannel {

@@ -2,6 +2,7 @@ export interface ShopWindowItem {
   postId: string;
   title: string;
   thumbnailUrl: string;
+  short?: string;
 }
 
 export interface ShopWindowChannel {
