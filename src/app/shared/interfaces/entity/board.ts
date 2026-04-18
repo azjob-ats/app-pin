@@ -2,6 +2,10 @@ export interface Board {
   id: string;
   name: string;
   description?: string;
+  profileNameOfficial?: string;
+  profileName?: string;
+  verified?: string;
+  profilePicture?: string;
   coverImageUrl?: string;
   coverImages?: string[];
   pinsCount: number;

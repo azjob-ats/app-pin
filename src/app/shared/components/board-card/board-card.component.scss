@@ -80,6 +80,36 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-bottom: 4px;
+}
+
+.board-channel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.board-channel-avatar {
+  width: var(--size-xs, 24px);
+  height: var(--size-xs, 24px);
+  border-radius: var(--radius-circle);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.board-channel-name {
+  font-size: var(--text-xs);
+  color: var(--pin-text-secondary);
+  font-weight: var(--font-weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.board-verified {
+  font-size: var(--text-sm);
+  color: var(--pin-red, #e60023);
+  flex-shrink: 0;
 }
 
 .board-count {

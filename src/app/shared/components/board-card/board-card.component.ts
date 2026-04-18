@@ -52,8 +52,23 @@ import { Board } from '@shared/interfaces/entity/board';
         }
       </div>
       <div class="board-info">
-        <p class="board-name">{{ board().name }}</p>
-        <p class="board-count">{{ board().pinsCount }} {{ 'board.pins' | translate }}</p>
+        <div class="board-channel">
+            <img
+              class="board-channel-avatar"
+              [src]="board().profilePicture"
+              [alt]="board().profileName"
+              loading="lazy"
+            />
+          
+          <span class="board-channel-name">{{ board().profileName }}</span>
+          @if (board().verified) {
+            <span
+              class="board-verified material-symbols-rounded"
+              aria-label="Verified account">
+              verified
+            </span>
+          }
+        </div>
       </div>
     </a>
   `,

@@ -12,6 +12,10 @@ export interface BoardResponse {
   name: string;
   description?: string;
   coverImageUrl?: string;
+  profileNameOfficial?: string;
+  profileName?: string;
+  verified?: string;
+  profilePicture?: string;
   coverImages?: string[];
   pinsCount: number;
   followersCount?: number;

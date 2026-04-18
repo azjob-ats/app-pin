@@ -7,6 +7,10 @@ export class BoardMap {
     return {
       id: dto.id,
       name: dto.name,
+      profileNameOfficial: dto.profileNameOfficial,
+      profileName: dto.profileName,
+      verified: dto.verified,
+      profilePicture: dto.profilePicture,
       description: dto.description,
       coverImageUrl: dto.coverImageUrl,
       coverImages: dto.coverImages,
