@@ -19,11 +19,6 @@ import { Post } from '@shared/interfaces/entity/post';
 import { ShopWindowItem } from '@shared/interfaces/entity/shop-window';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { ButtonInscriptionComponent } from '@shared/components/button-inscription/button-inscription.component';
-import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
-import { CommentInputComponent } from '@shared/components/comment-input/comment-input.component';
-import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
-import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
 import { DrawerComponent } from '@shared/components/drawer/drawer.component';
 import { LearnMoreComponent } from '@shared/components/learn-more/learn-more.component';
 import { Pin } from '@shared/interfaces/entity/pin';
@@ -40,11 +35,6 @@ interface ShowcaseRelatedItem extends ShopWindowItem {
     RouterLink,
     EmptyStateComponent,
     ButtonComponent,
-    ButtonInscriptionComponent,
-    UserAvatarComponent,
-    CommentInputComponent,
-    CommentSubmitComponent,
-    ButtonLikeComponent,
     DrawerComponent,
     LearnMoreComponent,
   ],
@@ -62,7 +52,6 @@ export class ShowcasePageComponent {
   readonly relatedItems = signal<ShowcaseRelatedItem[]>([]);
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
-  readonly commentText = signal('');
   readonly showLearnMoreDrawer = signal(false);
   readonly pin = signal<Pin | null>(null);
 
@@ -137,7 +126,7 @@ export class ShowcasePageComponent {
     this.currentTime.set(0);
     this.duration.set(0);
     this.autoplay.set(false);
-    document.querySelector('.pp-left')?.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.pp-sidebar')?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   private loadData(username: string, titleLink: string): void {
@@ -271,36 +260,4 @@ export class ShowcasePageComponent {
     return `${m}:${s.toString().padStart(2, '0')}`;
   }
 
-  formatCount(n: number): string {
-    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
-    if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
-    return n.toString();
-  }
-
-  timeAgo(timestamp: string): string {
-    const diff = Date.now() - new Date(timestamp).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 60) return `${mins} min atrás`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h atrás`;
-    const days = Math.floor(hrs / 24);
-    if (days < 30) return `${days} dia${days > 1 ? 's' : ''} atrás`;
-    const months = Math.floor(days / 30);
-    if (months < 12) return `${months} ${months > 1 ? 'meses' : 'mês'} atrás`;
-    const years = Math.floor(months / 12);
-    return `${years} ano${years > 1 ? 's' : ''} atrás`;
-  }
-
-  commentTimeAgo(date: Date): string {
-    const diff = Date.now() - new Date(date).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 60) return `${mins}m`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h`;
-    return `${Math.floor(hrs / 24)}d`;
-  }
-
-  addComment(): void {
-    this.commentText.set('');
-  }
 }
