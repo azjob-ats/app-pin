@@ -426,6 +426,11 @@
   color: #fff;
 }
 
+.pp-more-btn .btn {
+  background: #fff;
+  color: #000;
+}
+
 .pp-post-title {
   color: #fff;
   margin: 0;
@@ -447,8 +452,8 @@
   @media (max-width: 900px) {
     height: auto;
     overflow-y: visible;
-    border-top: 1px solid var(--pin-border);
-    padding-top: 16px;
+    border-top: 0;
+    padding-top: 0;
   }
 }
 
@@ -516,12 +521,4 @@
   line-height: 1.3;
   padding: var(--space-xs) var(--space-2xs) 0;
   margin: 0;
-}
-
-::ng-deep .pp-post-details {
-  app-button {
-    button{
-      background: #fff !important;
-    }
-  }
 }
