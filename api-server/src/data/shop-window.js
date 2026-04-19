@@ -10,7 +10,12 @@ const DIGIX_CHANNEL = {
 const SHOWCASE_POST_TITLE_LINKS = [
   'visao-geral-da-realwe',
   'hack-hunters-cyber-investigations',
+  'digix-no-tech-summit-2025-inovacao-no-setor-publico',
+  'engenheiro-de-software-especialista',
+  'habix-revoluciona-gestao-habitacional-em-ms',
+  'digix-e-reconhecida-como-great-place-to-work-2025',
   'dia-da-mulher-reflexao-celebracao-e-luta-por-equidade',
+  'a-arte-do-feedback-como-crescer-com-criticas-construtivas',
 ];
 
 function buildItemFromPost(titleLink) {
