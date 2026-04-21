@@ -11,13 +11,9 @@
     <app-skeleton-loader [count]="12" />
   } @else {
     <div class="post-grid">
-      @for (item of feedItems(); track item.kind === 'post' ? item.data.id : item.data.id) {
+      @for (item of feedItems(); track item.data.id) {
         @if (item.kind === 'post') {
           <app-pin-card-player-short [post]="item.data" />
-        } @else {
-          <app-collection-bundle
-            [bundle]="item.data"
-            (click)="openCollection.emit(item.data)" />
         }
       }
     </div>

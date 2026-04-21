@@ -12,19 +12,13 @@
 
 .pcps__media {
   position: relative;
-  border-radius: var(--pin-card-radius);
+  border-radius: 7px;
   overflow: hidden;
   background: var(--pin-bg-secondary);
   width: 100%;
 
   @media (max-width: 900px) {
-     border-radius: 10px;
-  }
-
-  &--portrait {
-    @media (min-width: 769px) {
-      aspect-ratio: 3/4 !important;
-    }
+     border-radius: 7px;
   }
 }
 
