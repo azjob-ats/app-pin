@@ -22,10 +22,12 @@ import { Post } from './pin-card-player-short.interface';
   styleUrl: './pin-card-player-short.component.scss',
   host: {
     '[class.is-landscape]': 'isLandscape()',
+    '[class.uniform-aspect]': 'uniformAspect()',
   },
 })
 export class PinCardPlayerShortComponent implements OnDestroy {
   readonly post = input.required<Post>();
+  readonly uniformAspect = input(false);
 
   private readonly playback = inject(VideoSinglePlaybackService);
 

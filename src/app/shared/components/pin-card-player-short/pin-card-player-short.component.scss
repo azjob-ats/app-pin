@@ -2,7 +2,7 @@
 
 .pcps {
   break-inside: avoid;
-  margin-bottom: var(--space-lg);
+  margin-bottom: 0;
   border-radius: var(--pin-card-radius);
   overflow: visible;
   background: transparent;
@@ -12,7 +12,7 @@
 
 .pcps__media {
   position: relative;
-  border-radius: 7px;
+  border-radius: 0px;
   overflow: hidden;
   background: var(--pin-bg-secondary);
   width: 100%;
@@ -20,6 +20,14 @@
   @media (max-width: 900px) {
      border-radius: 7px;
   }
+}
+
+// ── Uniform-aspect mode (opt-in via [uniformAspect]) ───────────────────────
+// Default 9/16 para portrait/square. Landscape sobrescreve via --pcps-aspect
+// no parent (depende do span/largura na grid de cada tela).
+
+:host(.uniform-aspect) .pcps__media {
+  aspect-ratio: var(--pcps-aspect, 9 / 16);
 }
 
 // ── Thumbnail ──────────────────────────────────────────────────────────────

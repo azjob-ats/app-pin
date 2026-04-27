@@ -5,29 +5,32 @@ $mobile: 768px;
 }
 
 .post-grid {
-  columns: 5;
-  column-gap: 16px;
-  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-flow: dense;
+  align-items: start;
+  gap: 1px;
+  padding: 0 1px;
 
   > * {
-    break-inside: avoid;
     display: block;
     width: 100%;
-    margin-bottom: 16px;
-  }
-
-  @media (max-width: $mobile) {
-    padding: 0 4px;
-    column-gap: 6px;
-  }
-}
-
-@media (max-width: $mobile) {
-  .post-grid {
-    columns: 2;
+    min-width: 0;
   }
 
   app-pin-card-player-short.is-landscape {
-    column-span: all;
+    grid-column: span 3;
+    --pcps-aspect: 27 / 16;
+  }
+
+  @media (max-width: $mobile) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    padding: 0 4px;
+
+    app-pin-card-player-short.is-landscape {
+      grid-column: span 2;
+      --pcps-aspect: 9 / 8;
+    }
   }
 }

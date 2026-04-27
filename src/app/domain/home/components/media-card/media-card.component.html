@@ -13,7 +13,7 @@
     <div class="post-grid">
       @for (item of feedItems(); track item.data.id) {
         @if (item.kind === 'post') {
-          <app-pin-card-player-short [post]="item.data" />
+          <app-pin-card-player-short [post]="item.data" [uniformAspect]="true" />
         }
       }
     </div>

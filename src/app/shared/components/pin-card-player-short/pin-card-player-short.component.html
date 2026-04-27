@@ -4,7 +4,7 @@
   <div
     class="pcps__media"
     [class.pcps__media--portrait]="isPortrait()"
-    [style.aspect-ratio]="aspectRatioCss()">
+    [style.aspect-ratio]="uniformAspect() ? null : aspectRatioCss()">
 
     <!-- Thumbnail phase -->
     @if (!isVideoLoaded()) {
@@ -122,29 +122,5 @@
       </div>
     }
 
-  </div>
-
-  <!-- ── Footer ───────────────────────────────────────────────────── -->
-  <div class="pcps__footer">
-    @if (post().media.title) {
-      <p class="pcps__title mb-2">{{ post().media.title }}</p>
-    }
-    <div class="pcps__channel">
-      @if (post().channel.profilePicture) {
-        <img
-          class="pcps__channel-avatar"
-          [src]="post().channel.profilePicture"
-          [alt]="post().channel.profileName"
-          loading="lazy" />
-      }
-      <span class="pcps__channel-name">{{ post().channel.profileNameOfficial }}</span>
-      @if (post().channel.verified) {
-        <span
-          class="pcps__verified material-symbols-rounded"
-          aria-label="Verified account">
-          verified
-        </span>
-      }
-    </div>
   </div>
 </div>

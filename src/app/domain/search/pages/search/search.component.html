@@ -20,7 +20,7 @@
       } @else {
         <div class="post-grid">
           @for (post of posts(); track post.id) {
-            <app-pin-card-player-short [post]="post" />
+            <app-pin-card-player-short [post]="post" [uniformAspect]="true" />
           }
         </div>
         <app-infinite-scroll
