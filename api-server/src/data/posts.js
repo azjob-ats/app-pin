@@ -5,111 +5,6 @@ MOCK_POSTS = [
       aspectRatio: '16:9',//4:3 | 9:16 |  16:9
       resolution: '1920x1080',
       guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
-      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
-      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
-      thumbnail: "https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png",
-      description: 'O curso Hack Hunters é um treinamento imersivo projetado para transformar entusiastas e profissionais de TI em verdadeiros "caçadores" no ciberespaço. Mais do que apenas segurança, este curso foca na investigação ativa: como pensar como um atacante para conseguir antecipar seus passos e coletar evidências digitais irrefutáveis.',
-      slang: ['Hack Hunters', 'Trabalhe na Digix', 'Educação'],
-      id: '5358f749-6c47-40f0-9932-3bd5a7d21871',
-      title: 'Hack Hunters - Cyber investigations',
-      titleLink: 'hack-hunters-cyber-investigations',
-      photoPreviewIcon: '',
-      isPlaying: false,
-      isMuted: false,
-      volume: 0.5,
-      progress: 0
-    },
-    channel: {
-      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
-      profileName: 'Digix',
-      profileNameOfficial: 'Digix',
-      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
-      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
-      numberOfFollowers: 15200,
-      numberOfPublication: 324,
-      numberOfToFollow: 45,
-      verified: true,
-      email: 'contato@digix.com',
-      isReported: false,
-      isBlocked: false,
-      overview: 'somos dos digix',
-      visitWebsite: 'digix.com'
-    },
-    comment: {
-      data: [
-        {
-          id: 1,
-          replied: null,
-          user: '@ana_tech',
-          avatar: 'https://i.pravatar.cc/150?img=1',
-          text: 'Que vídeo inspirador! Trabalhar no setor público realmente tem essa missão de servir à sociedade.',
-          time: new Date(Date.now() - 2 * 60 * 60 * 1000),
-          likes: 42,
-          replies: {
-            totalRecords: 9
-          }
-        },
-        {
-          id: 2,
-          replied: null,
-          user: '@pedro_dev',
-          avatar: 'https://i.pravatar.cc/150?img=2',
-          text: 'Como desenvolvedor, vejo a importância da tecnologia para melhorar os serviços públicos. Parabéns pelo trabalho!',
-          time: new Date(Date.now() - 5 * 60 * 60 * 1000),
-          likes: 31,
-          replies: {
-            totalRecords: 4
-          }
-        },
-        {
-          id: 3,
-          replied: null,
-          user: '@maria_adm',
-          avatar: 'https://i.pravatar.cc/150?img=5',
-          text: 'Há 15 anos no serviço público e confirmo: servir é realmente a essência. Boa lembrança no vídeo!',
-          time: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-          likes: 89,
-          replies: {
-            totalRecords: 0
-          }
-        },
-        {
-          id: 4,
-          replied: null,
-          user: '@tech_recruiter',
-          avatar: 'https://i.pravatar.cc/150?img=8',
-          text: 'Excelente conteúdo! Vocês estão com vagas abertas para desenvolvedores backend?',
-          time: new Date(Date.now() - 3 * 60 * 60 * 1000),
-          likes: 15,
-          replies: {
-            totalRecords: 1
-          }
-        }
-      ],
-      page: 1,
-      pageSize: 4,
-      pages: 2,
-      totalRecords: 6
-    },
-    episode: 1,
-    isAlbum: false,
-    id: '7db72442-7a66-4fd3-abb7-eb33e19b645c',
-    postType: 'training',
-    timestamp: '2025-03-07 21:29:25.187',
-    isLiked: true,
-    likes: 1247,
-    comments: 28,
-    shares: 156,
-    views: 12589,
-    isReported: false,
-    isBlocked: false
-  },
-  {
-    media: {
-      contentType: 'movie',//movie, photo, text, app
-      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
-      resolution: '1920x1080',
-      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
       long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
       short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245131/O_que_%C3%A9_a_RealWe__gkbyde.mp4',
       thumbnail: "https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245204/Captura_de_tela_2026-04-03_163946_tauf7k.png",
@@ -368,6 +263,111 @@ MOCK_POSTS = [
     },
   },
   {
+    media: {
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
+      resolution: '1920x1080',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
+      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
+      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775245259/scene_1_jxxydk.mp4',
+      thumbnail: "https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245377/Captura_de_tela_2026-04-03_164241_wraelh.png",
+      description: 'O curso Hack Hunters é um treinamento imersivo projetado para transformar entusiastas e profissionais de TI em verdadeiros "caçadores" no ciberespaço. Mais do que apenas segurança, este curso foca na investigação ativa: como pensar como um atacante para conseguir antecipar seus passos e coletar evidências digitais irrefutáveis.',
+      slang: ['Hack Hunters', 'Trabalhe na Digix', 'Educação'],
+      id: '5358f749-6c47-40f0-9932-3bd5a7d21871',
+      title: 'Hack Hunters - Cyber investigations',
+      titleLink: 'hack-hunters-cyber-investigations',
+      photoPreviewIcon: '',
+      isPlaying: false,
+      isMuted: false,
+      volume: 0.5,
+      progress: 0
+    },
+    channel: {
+      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
+      profileName: 'Digix',
+      profileNameOfficial: 'Digix',
+      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
+      numberOfFollowers: 15200,
+      numberOfPublication: 324,
+      numberOfToFollow: 45,
+      verified: true,
+      email: 'contato@digix.com',
+      isReported: false,
+      isBlocked: false,
+      overview: 'somos dos digix',
+      visitWebsite: 'digix.com'
+    },
+    comment: {
+      data: [
+        {
+          id: 1,
+          replied: null,
+          user: '@ana_tech',
+          avatar: 'https://i.pravatar.cc/150?img=1',
+          text: 'Que vídeo inspirador! Trabalhar no setor público realmente tem essa missão de servir à sociedade.',
+          time: new Date(Date.now() - 2 * 60 * 60 * 1000),
+          likes: 42,
+          replies: {
+            totalRecords: 9
+          }
+        },
+        {
+          id: 2,
+          replied: null,
+          user: '@pedro_dev',
+          avatar: 'https://i.pravatar.cc/150?img=2',
+          text: 'Como desenvolvedor, vejo a importância da tecnologia para melhorar os serviços públicos. Parabéns pelo trabalho!',
+          time: new Date(Date.now() - 5 * 60 * 60 * 1000),
+          likes: 31,
+          replies: {
+            totalRecords: 4
+          }
+        },
+        {
+          id: 3,
+          replied: null,
+          user: '@maria_adm',
+          avatar: 'https://i.pravatar.cc/150?img=5',
+          text: 'Há 15 anos no serviço público e confirmo: servir é realmente a essência. Boa lembrança no vídeo!',
+          time: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+          likes: 89,
+          replies: {
+            totalRecords: 0
+          }
+        },
+        {
+          id: 4,
+          replied: null,
+          user: '@tech_recruiter',
+          avatar: 'https://i.pravatar.cc/150?img=8',
+          text: 'Excelente conteúdo! Vocês estão com vagas abertas para desenvolvedores backend?',
+          time: new Date(Date.now() - 3 * 60 * 60 * 1000),
+          likes: 15,
+          replies: {
+            totalRecords: 1
+          }
+        }
+      ],
+      page: 1,
+      pageSize: 4,
+      pages: 2,
+      totalRecords: 6
+    },
+    episode: 1,
+    isAlbum: false,
+    id: '7db72442-7a66-4fd3-abb7-eb33e19b645c',
+    postType: 'training',
+    timestamp: '2025-03-07 21:29:25.187',
+    isLiked: true,
+    likes: 1247,
+    comments: 28,
+    shares: 156,
+    views: 12589,
+    isReported: false,
+    isBlocked: false
+  },
+  {
     id: 'dbbb73d8-298e-4dce-b75d-293da1b68519',
     postType: 'enterprise',
     timestamp: '2025-03-07 21:29:25.187',
@@ -421,6 +421,54 @@ MOCK_POSTS = [
       ],
       page: 1, pageSize: 3, pages: 3, totalRecords: 47,
     },
+  },
+  {
+    id: '0258a18a-d0d0-408f-b0c0-0ace9d7565a4',
+    postType: 'training',
+    timestamp: '2025-06-07 10:00:00.000',
+    isLiked: false,
+    likes: 27,
+    comments: 2,
+    shares: 1,
+    views: 380,
+    isReported: false,
+    isBlocked: false,
+    media: {
+      contentType: 'movie',//movie, photo, text, app
+      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
+      resolution: '1920x1080',
+      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
+      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
+      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
+      thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244405/Captura_de_tela_2026-04-03_162600_lipa3h.png',
+      description: 'Saiba como entrar em contato com a equipe do Habix para obter suporte personalizado quando precisar.',
+      slang: ['Habix', 'Onboarding', 'Treinamento', 'Digix', 'Educação'],
+      id: '0258a18a-media-001',
+      title: 'Como entrar em contato conosco',
+      titleLink: 'como-entrar-em-contato-conosco',
+      photoPreviewIcon: '',
+      isPlaying: false,
+      isMuted: false,
+      volume: 0.5,
+      progress: 0,
+    },
+    channel: {
+      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
+      profileName: 'Digix',
+      profileNameOfficial: 'Digix',
+      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
+      numberOfFollowers: 15200,
+      numberOfPublication: 324,
+      numberOfToFollow: 45,
+      verified: true,
+      email: 'contato@digix.com',
+      isReported: false,
+      isBlocked: false,
+      overview: 'Soluções tecnológicas para o setor público.',
+      visitWebsite: 'digix.com',
+    },
+    comment: { data: [], page: 1, pageSize: 2, pages: 1, totalRecords: 0 },
   },
   {
     id: '4993f426-f01b-4112-8f85-dec1f65e6dec',
@@ -518,7 +566,6 @@ MOCK_POSTS = [
     },
     comment: { data: [], page: 1, pageSize: 2, pages: 1, totalRecords: 2 },
   },
-  // ── Habix collection posts ────────────────────────────────────────────────
   {
     id: 'e1f75b19-b171-4ce3-ab65-be049617dcbc',
     postType: 'training',
@@ -718,6 +765,61 @@ MOCK_POSTS = [
     comment: { data: [], page: 1, pageSize: 2, pages: 1, totalRecords: 0 },
   },
   {
+    id: '0a51b6fa-6076-4aa8-b436-49640ef61dbb',
+    postType: 'vacancy',
+    timestamp: '2025-03-07 21:29:25.187',
+    isLiked: true,
+    likes: 1247,
+    comments: 28,
+    shares: 156,
+    views: 12589,
+    isReported: false,
+    isBlocked: false,
+    media: {
+      contentType: 'movie',
+      aspectRatio: '9:16',
+      resolution: '1920x1080',
+      guidance: 'portrait',
+      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753308/1740402910314_w3k5da.mp4',
+      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1767753308/1740402910314_w3k5da.mp4',
+      thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1740402886175_fhpcci.jpg',
+      description: 'Vaga para Engenheiro de Software Especialista em Python. Requisitos: +5 anos experiência, Django/FastAPI, Docker, AWS, e vivência com metodologias ágeis.',
+      slang: ['Vagas', 'Python', 'Desenvolvimento Backend', 'Trabalhe na Digix'],
+      id: '7361408a-ee83-482c-b798-a3c8861273e4',
+      title: 'Engenheiro de Software Especialista',
+      titleLink: 'engenheiro-de-software-especialista',
+      photoPreviewIcon: '',
+      isPlaying: false,
+      isMuted: false,
+      volume: 0.5,
+      progress: 0,
+    },
+    channel: {
+      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
+      profileName: 'Digix',
+      profileNameOfficial: 'Digix',
+      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
+      numberOfFollowers: 15200,
+      numberOfPublication: 324,
+      numberOfToFollow: 45,
+      verified: true,
+      email: 'contato@digix.com',
+      isReported: false,
+      isBlocked: false,
+      overview: 'Soluções tecnológicas para o setor público.',
+      visitWebsite: 'digix.com',
+    },
+    comment: {
+      data: [
+        { id: 1, replied: null, user: '@tech_recruiter', avatar: 'https://i.pravatar.cc/150?img=8', text: 'Excelente vaga! Estou me candidatando agora. Quais são os benefícios?', time: new Date(Date.now() - 3 * 60 * 60 * 1000), likes: 15, replies: { totalRecords: 2 } },
+        { id: 2, replied: null, user: '@dev_python', avatar: 'https://i.pravatar.cc/150?img=3', text: 'Ótima oportunidade para quem quer trabalhar com tecnologia de impacto no setor público!', time: new Date(Date.now() - 8 * 60 * 60 * 1000), likes: 27, replies: { totalRecords: 0 } },
+        { id: 3, replied: null, user: '@carreira_ti', avatar: 'https://i.pravatar.cc/150?img=6', text: 'A Digix é uma das melhores empresas para trabalhar em MS. Recomendo!', time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), likes: 54, replies: { totalRecords: 1 } },
+      ],
+      page: 1, pageSize: 3, pages: 2, totalRecords: 28,
+    },
+  },
+  {
     id: 'adeee71f-cad6-42bc-aeb9-311a4b5b5032',
     postType: 'training',
     timestamp: '2025-06-05 10:00:00.000',
@@ -789,54 +891,6 @@ MOCK_POSTS = [
       id: 'fc9c6ade-media-001',
       title: 'Central de ajuda',
       titleLink: 'central-de-ajuda',
-      photoPreviewIcon: '',
-      isPlaying: false,
-      isMuted: false,
-      volume: 0.5,
-      progress: 0,
-    },
-    channel: {
-      id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
-      profileName: 'Digix',
-      profileNameOfficial: 'Digix',
-      profilePicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
-      coverPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245557/somosdigix_cover_innpe4.jpg',
-      numberOfFollowers: 15200,
-      numberOfPublication: 324,
-      numberOfToFollow: 45,
-      verified: true,
-      email: 'contato@digix.com',
-      isReported: false,
-      isBlocked: false,
-      overview: 'Soluções tecnológicas para o setor público.',
-      visitWebsite: 'digix.com',
-    },
-    comment: { data: [], page: 1, pageSize: 2, pages: 1, totalRecords: 0 },
-  },
-  {
-    id: '0258a18a-d0d0-408f-b0c0-0ace9d7565a4',
-    postType: 'training',
-    timestamp: '2025-06-07 10:00:00.000',
-    isLiked: false,
-    likes: 27,
-    comments: 2,
-    shares: 1,
-    views: 380,
-    isReported: false,
-    isBlocked: false,
-    media: {
-      contentType: 'movie',//movie, photo, text, app
-      aspectRatio: '16:9',//4:3 | 9:16 |  16:9
-      resolution: '1920x1080',
-      guidance: 'landscape',//Horizontal (Landscape) | Vertical (Portrait)
-      long: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
-      short: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
-      thumbnail: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244405/Captura_de_tela_2026-04-03_162600_lipa3h.png',
-      description: 'Saiba como entrar em contato com a equipe do Habix para obter suporte personalizado quando precisar.',
-      slang: ['Habix', 'Onboarding', 'Treinamento', 'Digix', 'Educação'],
-      id: '0258a18a-media-001',
-      title: 'Como entrar em contato conosco',
-      titleLink: 'como-entrar-em-contato-conosco',
       photoPreviewIcon: '',
       isPlaying: false,
       isMuted: false,

@@ -13,6 +13,7 @@ const learnMoreRouter = require('./routes/learn-more');
 const postRouter = require('./routes/post');
 const collectionBundleRouter = require('./routes/collection-bundle');
 const shopWindowRouter = require('./routes/shop-window');
+const winningSlotsRouter = require('./routes/winning-slots');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ app.use('/api/search', searchRouter);
 app.use('/api/post', postRouter);
 app.use('/api/collection-bundle', collectionBundleRouter);
 app.use('/api/shop-window', shopWindowRouter);
+app.use('/api/winning-slots', winningSlotsRouter);
 
 // Health check
 app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -82,4 +84,5 @@ app.listen(PORT, () => {
   console.log('  GET    /api/collection-bundle');
   console.log('  GET    /api/collection-bundle/:id');
   console.log('  GET    /api/shop-window');
+  console.log('  GET    /api/winning-slots');
 });

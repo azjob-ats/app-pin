@@ -1,0 +1,49 @@
+<div class="wsc">
+  <div class="wsc__media">
+    @if (movieMedia(); as movie) {
+      <video
+        class="wsc__video"
+        [src]="movie.long"
+        [poster]="movie.thumbnail"
+        controls
+        playsinline
+        preload="metadata">
+      </video>
+    } @else if (imageMedia(); as image) {
+      @if (image.link) {
+        <a
+          class="wsc__image-link"
+          [href]="image.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          [attr.aria-label]="image.cta || image.title">
+          <img
+            class="wsc__image"
+            [src]="image.image"
+            [alt]="image.title"
+            loading="lazy" />
+          @if (image.cta) {
+            <span class="wsc__cta">{{ image.cta }}</span>
+          }
+        </a>
+      } @else {
+        <img
+          class="wsc__image"
+          [src]="image.image"
+          [alt]="image.title"
+          loading="lazy" />
+      }
+    } @else if (htmlMedia()) {
+      <div class="wsc__html" [innerHTML]="scopedHtml() | safeHtml"></div>
+    } @else if (componentMedia(); as cmp) {
+      <div class="wsc__component">
+        <span class="wsc__component-id">{{ cmp.componentId }}</span>
+        <p class="wsc__component-title">{{ cmp.title }}</p>
+      </div>
+    }
+
+    @if (slot().slotKind === 'ad') {
+      <span class="wsc__sponsored" aria-hidden="true">Patrocinado</span>
+    }
+  </div>
+</div>

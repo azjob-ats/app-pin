@@ -12,8 +12,13 @@
   } @else {
     <div class="post-grid">
       @for (item of feedItems(); track item.data.id) {
-        @if (item.kind === 'post') {
-          <app-pin-card-player-short [post]="item.data" [uniformAspect]="true" />
+        @switch (item.kind) {
+          @case ('post') {
+            <app-pin-card-player-short [post]="item.data" [uniformAspect]="true" />
+          }
+          @case ('winning-slot') {
+            <app-winning-slot-card [slot]="item.data" />
+          }
         }
       }
     </div>

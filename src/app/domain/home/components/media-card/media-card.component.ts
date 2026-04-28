@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { CollectionBundleComponent } from '@shared/components/collection-bundle/collection-bundle.component';
 import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-short/pin-card-player-short.component';
 import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { InfiniteScrollComponent } from '@shared/components/infinite-scroll/infinite-scroll.component';
+import { WinningSlotCardComponent } from '@shared/components/winning-slot-card/winning-slot-card.component';
 import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { FeedItem } from '../../interfaces/feed-item';
 
@@ -13,9 +13,9 @@ import { FeedItem } from '../../interfaces/feed-item';
   imports: [
     TranslateModule,
     PinCardPlayerShortComponent,
-    CollectionBundleComponent,
     SkeletonLoaderComponent,
     InfiniteScrollComponent,
+    WinningSlotCardComponent,
   ],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.scss',

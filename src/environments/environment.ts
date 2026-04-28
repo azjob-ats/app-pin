@@ -85,6 +85,9 @@ export const environment = {
     SHOP_WINDOW: {
       LIST: '/api/shop-window',
     },
+    WINNING_SLOTS: {
+      LIST: '/api/winning-slots',
+    },
   },
   ROUTES: {
     AUTH: {
