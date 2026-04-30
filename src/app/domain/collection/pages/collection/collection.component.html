@@ -1,15 +1,15 @@
 @if (isLoading()) {
-  <div class="pin-detail-skeleton flex gap-6 p-6">
-    <div class="skeleton img-skeleton"></div>
+  <div class="pp-skeleton flex gap-6 p-6">
+    <div class="skeleton pp-skeleton-video"></div>
     <div class="flex-1 flex flex-col gap-4 pt-5">
-      <div class="skeleton title-skeleton"></div>
-      <div class="skeleton desc-skeleton"></div>
-      <div class="skeleton desc-skeleton short"></div>
+      <div class="skeleton pp-skeleton-title"></div>
+      <div class="skeleton pp-skeleton-line"></div>
+      <div class="skeleton pp-skeleton-line short"></div>
     </div>
   </div>
 
 } @else if (hasError() || !bundle()) {
-  <div class="cp-center">
+  <div class="pp-center">
     <app-empty-state
       icon="error_outline"
       message="Coleção não encontrada"
@@ -17,7 +17,7 @@
   </div>
 
 } @else if (bundle()!.items.length === 0) {
-  <div class="cp-center">
+  <div class="pp-center">
     <app-empty-state
       icon="collections_bookmark"
       message="Esta coleção ainda não tem conteúdo"
@@ -26,20 +26,18 @@
 
 } @else {
 
-  <div class="pin-detail-container flex overflow-hidden">
+  <div class="pp-container flex overflow-hidden">
 
-    <!-- ══ LEFT — player + post details + comments ═══════════════════════ -->
-    <div class="pin-detail-image-side cp-left flex flex-col overflow-auto">
+    <!-- ══ LEFT — player + minimal post bar ════════════════════════════════ -->
+    <div class="pp-left flex flex-col overflow-auto">
 
-      <!-- Player wrapper (media + controls, used for fullscreen) -->
-      <div class="cp-player" #playerWrap>
-
-        <!-- Video / thumbnail + overlay controls -->
-        <div class="cp-media-wrap">
+      <!-- Player wrapper -->
+      <div class="pp-player" #playerWrap>
+        <div class="pp-media-wrap">
           @if (currentItem()?.videoUrl) {
             <video
               #videoEl
-              class="cp-media"
+              class="pp-media"
               [src]="currentItem()!.videoUrl"
               [poster]="currentItem()?.thumbnailUrl"
               preload="metadata"
@@ -54,340 +52,244 @@
             </video>
           } @else if (currentItem()?.thumbnailUrl) {
             <img
-              class="cp-media"
+              class="pp-media"
               [src]="currentItem()!.thumbnailUrl!"
               [alt]="currentItem()?.title"
               loading="lazy" />
           }
 
-          <!-- Controls overlay -->
-          <div class="cp-controls" role="group" aria-label="Controles do player">
-
-          <!-- Seekbar row -->
-          <div class="cp-seekbar-wrap px-3 pt-2"
-               (mousemove)="onSeekbarHover($event)"
-               (mouseleave)="onSeekbarLeave()">
-            <div class="cp-seekbar-track" aria-hidden="true">
-              <div class="cp-seekbar-fill" [style.width.%]="videoProgress()"></div>
-              <div class="cp-seekbar-thumb" [style.left.%]="videoProgress()"></div>
-            </div>
-            <input
-              type="range"
-              class="cp-seekbar-input"
-              [min]="0"
-              [max]="duration() || 100"
-              [step]="0.1"
-              [value]="currentTime()"
-              (input)="onSeekbarInput($event)"
-              aria-label="Progresso do vídeo" />
-            @if (tooltipVisible()) {
-              <div class="cp-seekbar-tooltip" [style.left.px]="tooltipX()" aria-hidden="true">
-                {{ tooltipTime() }}
-              </div>
-            }
-          </div>
-
-          <!-- Controls row -->
-          <div class="cp-ctrl-row flex align-center gap-1 px-3 py-2">
-
-            <!-- Playback -->
+          <!-- Play overlay (center) -->
+          @if (!isPlaying() && currentItem()?.videoUrl) {
             <button
-              class="cp-ctrl cp-ctrl--skip"
+              class="pp-play-overlay"
               type="button"
-              aria-label="Item anterior"
-              [class.cp-ctrl--disabled]="!hasPrev()"
-              [attr.aria-disabled]="!hasPrev()"
-              (click)="prev()">
-              <span class="material-symbols-rounded">skip_previous</span>
-            </button>
-
-            <button
-              class="cp-ctrl cp-ctrl--play"
-              type="button"
-              [attr.aria-label]="isPlaying() ? 'Pausar' : 'Reproduzir'"
+              aria-label="Reproduzir vídeo"
               (click)="togglePlay()">
-              <span class="material-symbols-rounded">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
+              <span class="material-symbols-rounded pp-play-icon">play_circle</span>
             </button>
+          }
 
-            <button
-              class="cp-ctrl cp-ctrl--skip"
-              type="button"
-              aria-label="Próximo item"
-              [class.cp-ctrl--disabled]="!hasNext()"
-              [attr.aria-disabled]="!hasNext()"
-              (click)="next()">
-              <span class="material-symbols-rounded">skip_next</span>
-            </button>
+          <!-- Controls overlay -->
+          <div class="pp-controls" role="group" aria-label="Controles do player">
 
-            <!-- Volume (icon always visible; slider expands on hover) -->
-            <div class="cp-volume-wrap">
-              <button
-                class="cp-ctrl cp-ctrl--icon"
-                type="button"
-                (click)="toggleMute()"
-                aria-label="Alternar mudo">
-                <span class="material-symbols-rounded">{{ volumeIcon() }}</span>
-              </button>
+            <!-- Seekbar -->
+            <div class="pp-seekbar-wrap px-3 pt-2"
+                 (mousemove)="onSeekbarHover($event)"
+                 (mouseleave)="onSeekbarLeave()">
+              <div class="pp-seekbar-track" aria-hidden="true">
+                <div class="pp-seekbar-fill" [style.width.%]="videoProgress()"></div>
+                <div class="pp-seekbar-thumb" [style.left.%]="videoProgress()"></div>
+              </div>
               <input
                 type="range"
-                class="cp-volume-slider"
-                min="0"
-                max="1"
-                step="0.01"
-                [value]="isMuted() ? 0 : volume()"
-                [style.background]="volumeSliderBg()"
-                (input)="onVolumeChange($event)"
-                aria-label="Volume" />
+                class="pp-seekbar-input"
+                [min]="0"
+                [max]="duration() || 100"
+                [step]="0.1"
+                [value]="currentTime()"
+                (input)="onSeekbarInput($event)"
+                aria-label="Progresso do vídeo" />
+              @if (tooltipVisible()) {
+                <div class="pp-seekbar-tooltip" [style.left.px]="tooltipX()" aria-hidden="true">
+                  {{ tooltipTime() }}
+                </div>
+              }
             </div>
 
-            <!-- Time display (right of volume) -->
-            <span class="cp-time-display">
-              {{ formatTime(currentTime()) }} / {{ formatTime(duration()) }}
-            </span>
+            <!-- Controls row -->
+            <div class="pp-ctrl-row flex align-center gap-1 px-3 py-2">
 
-            <!-- Spacer -->
-            <div class="flex-1"></div>
+              <!-- Previous -->
+              <button
+                class="pp-ctrl pp-ctrl--icon pp-ctrl--skip"
+                type="button"
+                aria-label="Item anterior"
+                [class.pp-ctrl--disabled]="!hasPrev()"
+                [attr.aria-disabled]="!hasPrev()"
+                (click)="prev()">
+                <span class="material-symbols-rounded">skip_previous</span>
+              </button>
 
-            <!-- Autoplay -->
-            <button
-              class="cp-ctrl cp-ctrl--icon cp-ctrl--autoplay"
-              type="button"
-              (click)="toggleAutoplay()"
-              [class.cp-ctrl--autoplay-on]="autoplay()"
-              [attr.aria-label]="autoplay() ? 'Desativar reprodução automática' : 'Ativar reprodução automática'"
-              [attr.data-tooltip]="autoplay() ? 'A reprodução automática está ativada' : 'A reprodução automática está desativada'">
-              <span class="material-symbols-rounded">{{ autoplay() ? 'repeat_one' : 'repeat_one_on' }}</span>
-            </button>
+              <!-- Play / Pause -->
+              <button
+                class="pp-ctrl pp-ctrl--play"
+                type="button"
+                [attr.aria-label]="isPlaying() ? 'Pausar' : 'Reproduzir'"
+                (click)="togglePlay()">
+                <span class="material-symbols-rounded">{{ isPlaying() ? 'pause' : 'play_arrow' }}</span>
+              </button>
 
-            <!-- Fullscreen -->
-            <button
-              class="cp-ctrl cp-ctrl--icon cp-ctrl--fullscreen"
-              type="button"
-              (click)="toggleFullscreen()"
-              [attr.aria-label]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'"
-              [attr.data-tooltip]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'">
-              <span class="material-symbols-rounded">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</span>
-            </button>
+              <!-- Next -->
+              <button
+                class="pp-ctrl pp-ctrl--icon pp-ctrl--skip"
+                type="button"
+                aria-label="Próximo item"
+                [class.pp-ctrl--disabled]="!hasNext()"
+                [attr.aria-disabled]="!hasNext()"
+                (click)="next()">
+                <span class="material-symbols-rounded">skip_next</span>
+              </button>
 
+              <!-- Volume -->
+              <div class="pp-volume-wrap">
+                <button
+                  class="pp-ctrl pp-ctrl--icon"
+                  type="button"
+                  (click)="toggleMute()"
+                  aria-label="Alternar mudo">
+                  <span class="material-symbols-rounded">{{ volumeIcon() }}</span>
+                </button>
+                <input
+                  type="range"
+                  class="pp-volume-slider"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  [value]="isMuted() ? 0 : volume()"
+                  [style.background]="volumeSliderBg()"
+                  (input)="onVolumeChange($event)"
+                  aria-label="Volume" />
+              </div>
+
+              <!-- Time -->
+              <span class="pp-time-display">
+                {{ formatTime(currentTime()) }} / {{ formatTime(duration()) }}
+              </span>
+
+              <div class="flex-1"></div>
+
+              <!-- Autoplay -->
+              <button
+                class="pp-ctrl pp-ctrl--icon pp-ctrl--autoplay"
+                type="button"
+                (click)="toggleAutoplay()"
+                [class.pp-ctrl--autoplay-on]="autoplay()"
+                [attr.aria-label]="autoplay() ? 'Desativar reprodução automática' : 'Ativar reprodução automática'"
+                [attr.data-tooltip]="autoplay() ? 'Reprodução automática ativada' : 'Reprodução automática desativada'">
+                <span class="material-symbols-rounded">{{ autoplay() ? 'repeat_one_on' : 'repeat_one' }}</span>
+              </button>
+
+              <!-- Fullscreen -->
+              <button
+                class="pp-ctrl pp-ctrl--icon pp-ctrl--fullscreen"
+                type="button"
+                (click)="toggleFullscreen()"
+                [attr.aria-label]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'"
+                [attr.data-tooltip]="isFullscreen() ? 'Sair da tela inteira' : 'Tela inteira'">
+                <span class="material-symbols-rounded">{{ isFullscreen() ? 'fullscreen_exit' : 'fullscreen' }}</span>
+              </button>
+
+            </div>
           </div>
         </div>
-        </div>
-
       </div>
 
-      <!-- Post details -->
-      <div class="cp-post-details flex flex-col p-1 mt-4">
+      <!-- Minimal post bar (Watch pattern) -->
+      <div class="pp-post-details flex align-center gap-2 p-4">
+        <h1 class="pp-post-title flex-1 title-primary">
+          {{ currentItem()?.title ?? bundle()!.collectionName }}
+        </h1>
 
-      <!-- Action buttons -->
-      <div class=" flex align-center gap-2 flex-wrap mb-4">
-          <app-button-like
-            [count]="107"
-            [liked]="false" />
-        <app-button variant="secondary" size="md" ariaLabel="Salvar coleção">Salvar</app-button>
-        <app-button variant="secondary" size="md" ariaLabel="Compartilhar coleção" class="btn-shered">Compartilhar</app-button>
         <app-button
+          class="pp-more-btn"
           variant="secondary"
           shape="circle"
           size="md"
           icon="more_horiz"
-          ariaLabel="Mais opções" />
-        <div class="save-group flex align-center gap-2" style="margin-left: auto">
-          <app-button
-            ariaLabel="Saiba mais sobre este conteúdo"
-            variant="primary"
-            size="md"
-            (clicked)="showLearnMoreDrawer.set(true)"
-            >Saiba Mais</app-button
-          >
-        </div>
-      </div>
+          ariaLabel="Mais opções"
+          (clicked)="showDetailsSheet.set(true)" />
 
-        @if (currentPost(); as post) {
-          <!-- Views + time -->
-          <div class="pin-save-count flex align-center text-2 text-7-title mb-2">
-            <span>{{ formatCount(post.views) }} visualizações</span>
-            &nbsp;•&nbsp;
-            <span>{{ timeAgo(post.timestamp) }}</span>
-          </div>
-
-          <!-- Title -->
-          <h1 class="pin-detail-title title-primary">{{ post.media.title }}</h1>
-
-          <!-- Description + hashtags -->
-          <p class="text-base text-6-title mb-4">
-            {{ post.media.description }}<br/>
-            @if (post.media.slang.length > 0) {
-              <span class="pin-hashtags text-2xs">
-                @for (tag of post.media.slang; track tag) { {{ tag }} }
-              </span>
-            }
-          </p>
-        }
-
-        <!-- Channel row -->
-        <div class="border-line-channel flex align-center gap-3 py-3 mb-4">
-          <app-user-avatar
-            [imageUrl]="currentPost()?.channel?.profilePicture ?? bundle()!.channelPicture ?? ''"
-            [alt]="currentPost()?.channel?.profileName ?? bundle()!.channel"
-            size="md" />
-          <div class="flex-1 flex flex-col">
-            <span class="author-name fw-bold text-base text-1xl-title">
-              {{ currentPost()?.channel?.profileName ?? bundle()!.channel }}
-            </span>
-            @if (currentPost()?.channel?.numberOfFollowers) {
-              <span class="text-1 text-7-title">
-                {{ formatCount(currentPost()!.channel.numberOfFollowers) }} seguidores
-              </span>
-            }
-          </div>
-          <app-button-inscription [subscribed]="false" />
-        </div>
-
-        <!-- Comments -->
-        <div class="flex flex-col gap-4">
-          <h3 class="text-4 fw-bold text-1xl-title">Comentários</h3>
-
-          <div class="gap-3 flex align-center">
-            <app-user-avatar
-              imageUrl="https://i.pravatar.cc/150?img=10"
-              alt="Me"
-              size="sm" />
-            <div class="comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
-              <app-comment-input
-                [value]="commentText()"
-                placeholder="Adicione um comentário"
-                (valueChange)="commentText.set($event)"
-                (enter)="addComment()" />
-              @if (commentText()) {
-                <app-comment-submit (submitted)="addComment()" />
-              }
-            </div>
-          </div>
-
-          @if (currentPost(); as post) {
-            <div class="flex flex-col gap-4">
-              @for (comment of post.comment.data; track comment.id) {
-                <div class="gap-3 flex">
-                  <app-user-avatar
-                    [imageUrl]="comment.avatar"
-                    [alt]="comment.user"
-                    size="sm" />
-                  <div class="flex-1">
-                    <div class="comment-header flex gap-2 mb-1">
-                      <span class="text-2 fw-bold text-1xl-title">{{ comment.user }}</span>
-                      <span class="text-1 text-5xl-title">{{ commentTimeAgo(comment.time) }}</span>
-                    </div>
-                    <p class="comment-text text-3 text-7-title">{{ comment.text }}</p>
-                    @if ((comment.likes ?? 0) > 0) {
-                      <span class="comment-likes flex align-center gap-1 text-1 text-7-title mt-1">
-                        <span class="material-symbols-rounded heart text-4 pin-red">favorite</span>
-                        {{ comment.likes }}
-                      </span>
-                    }
-                  </div>
-                </div>
-              }
-            </div>
-          }
-        </div>
-
+        <app-button
+          ariaLabel="Saiba mais sobre este conteúdo"
+          variant="primary"
+          size="md"
+          (clicked)="showLearnMoreDrawer.set(true)"
+          >Saiba Mais</app-button>
       </div>
     </div>
 
-    <!-- ══ RIGHT — collection sidebar ════════════════════════════════════ -->
-    <div class="pin-detail-info flex flex-col flex-1 p-3 overflow-auto">
+    <!-- ══ RIGHT — collection masonry playlist ═════════════════════════════ -->
+    <div class="pp-sidebar flex flex-col flex-1 p-0">
 
-      <div class="cp-col-header flex items-center gap-3 mb-4 mt-2">
-        @if (bundle()!.channelPicture) {
-          <img
-            class="cp-col-channel-logo"
-            [src]="bundle()!.channelPicture"
-            [alt]="bundle()!.channel"
-            width="36"
-            height="36" />
+      <!-- Bundle header -->
+      <header class="pp-bundle-header flex flex-col gap-1">
+        <h2 class="pp-bundle-title text-base fw-bold text-1xl-title">{{ bundle()!.collectionName }}</h2>
+        @if (bundle()!.description) {
+          <p class="pp-bundle-desc text-1 text-7-title">{{ bundle()!.description }}</p>
         }
-        <div class="flex flex-col gap-1 flex-1">
-          <h2 class="cp-col-title text-base fw-bold text-1xl-title">{{ bundle()!.collectionName }}</h2>
-          <p class="text-1 text-7-title">{{ bundle()!.description }}</p>
-          <span class="text-1 text-7-title">
-            {{ bundle()!.items.length }} {{ bundle()!.items.length === 1 ? 'vídeo' : 'vídeos' }}
-          </span>
+        <div class="pp-bundle-progress-row flex align-center gap-2 text-1 text-7-title">
+          <span>{{ bundle()!.items.length }} {{ bundle()!.items.length === 1 ? 'vídeo' : 'vídeos' }}</span>
+          <span aria-hidden="true">•</span>
+          <span>{{ overallProgress() }}%</span>
         </div>
-      </div>
+        <div class="pp-bundle-progress" role="progressbar"
+             [attr.aria-valuenow]="overallProgress()"
+             aria-valuemin="0" aria-valuemax="100">
+          <div class="pp-bundle-progress-fill" [style.width.%]="overallProgress()"></div>
+        </div>
+      </header>
 
-      <!-- Playlist -->
+      <!-- Playlist as masonry grid -->
       <section aria-label="Conteúdos da coleção">
-        <!-- Progress -->
-        <div class="flex flex-col gap-1 mb-4">
-          <div class="flex justify-between text-2 text-7-title">
-            <span class="text-4 fw-bold text-1xl-title mb-0">Conteúdos</span>
-            <span>{{ overallProgress() }}%</span>
-          </div>
-          <div class="cp-progress-bar" role="progressbar"
-            [attr.aria-valuenow]="overallProgress()"
-            aria-valuemin="0" aria-valuemax="100">
-            <div class="cp-progress-fill" [style.width.%]="overallProgress()"></div>
-          </div>
-        </div>
-        <ul class="cp-playlist-list" role="list">
+        <div class="pp-related-grid" role="list">
           @for (item of bundle()!.items; track $index) {
-            <li
-              class="cp-item"
-              [class.cp-item--active]="currentIndex() === $index"
-              [class.cp-item--done]="itemStates()[$index]?.status === 'done'"
-              role="listitem">
-              <button
-                class="cp-item-btn flex align-center gap-3 w-full"
-                type="button"
-                [attr.aria-label]="'Reproduzir: ' + (item.title ?? 'Item ' + ($index + 1))"
-                [attr.aria-pressed]="currentIndex() === $index"
-                (click)="selectItem($index)">
+            <button
+              role="listitem"
+              type="button"
+              class="pp-related-card pp-item"
+              [class.pp-item--active]="currentIndex() === $index"
+              [class.pp-item--done]="itemStates()[$index]?.status === 'done'"
+              [attr.aria-label]="'Reproduzir: ' + (item.title ?? 'Item ' + ($index + 1))"
+              [attr.aria-pressed]="currentIndex() === $index"
+              (click)="selectItem($index)">
 
-                <div class="cp-item-thumb">
-                  @if (item.thumbnailUrl) {
-                    <img [src]="item.thumbnailUrl" [alt]="item.title" loading="lazy" />
-                  } @else {
-                    <span class="material-symbols-rounded cp-item-thumb-icon">play_circle</span>
-                  }
-                  @if (currentIndex() === $index && isPlaying()) {
-                    <div class="cp-item-playing-overlay" aria-hidden="true">
-                      <span class="material-symbols-rounded">graphic_eq</span>
-                    </div>
-                  }
-                </div>
+              <div class="pp-related-card-thumb">
+                @if (item.thumbnailUrl) {
+                  <img [src]="item.thumbnailUrl" [alt]="item.title" loading="lazy" />
+                } @else {
+                  <span class="material-symbols-rounded pp-related-card-thumb-icon" aria-hidden="true">play_circle</span>
+                }
 
-                <div class="flex flex-col flex-1" style="min-width:0">
-                  <p class="cp-item-title text-3 fw-medium text-1xl-title">
-                    {{ item.title ?? 'Item ' + ($index + 1) }}
-                  </p>
+                @if (currentIndex() === $index && isPlaying()) {
+                  <div class="pp-item-playing-overlay" aria-hidden="true">
+                    <span class="material-symbols-rounded">graphic_eq</span>
+                  </div>
+                }
+
+                @if (itemStates()[$index]?.status === 'done') {
+                  <div class="pp-item-done-overlay" aria-hidden="true">
+                    <span class="material-symbols-rounded">check_circle</span>
+                  </div>
+                }
+
+                @if (itemStates()[$index]?.progress) {
+                  <div class="pp-item-progress" aria-hidden="true">
+                    <div class="pp-item-progress-fill" [style.width.%]="itemStates()[$index].progress"></div>
+                  </div>
+                }
+              </div>
+
+              <div class="pcps__bottom">
+                @if (item.title) {
+                  <p class="pcps__title">{{ item.title }}</p>
+                }
+                <p class="pcps__meta">
+                  <span>{{ $index + 1 }} de {{ bundle()!.items.length }}</span>
                   @if (item.duration) {
-                    <span class="text-1 text-7-title">{{ formatDuration(item.duration) }}</span>
+                    <span class="pcps__meta-sep" aria-hidden="true">•</span>
+                    <span>{{ formatDuration(item.duration) }}</span>
                   }
-                  @if (itemStates()[$index]?.progress) {
-                    <div class="cp-item-progress" role="progressbar"
-                      [attr.aria-valuenow]="itemStates()[$index].progress"
-                      aria-valuemin="0" aria-valuemax="100">
-                      <div class="cp-item-progress-fill" [style.width.%]="itemStates()[$index].progress"></div>
-                    </div>
-                  }
-                </div>
-
-                <span
-                  class="cp-item-status material-symbols-rounded"
-                  [class.cp-item-status--done]="itemStates()[$index]?.status === 'done'"
-                  aria-hidden="true">
-                  {{ itemStatusIcon(itemStates()[$index]) }}
-                </span>
-              </button>
-            </li>
+                </p>
+              </div>
+            </button>
           }
-        </ul>
+        </div>
       </section>
-
     </div>
-  </div>
 
+  </div>
 }
+
 <app-drawer
   [(visible)]="showLearnMoreDrawer"
   position="right"
@@ -398,3 +300,13 @@
       (onClose)="showLearnMoreDrawer.set(false)" />
   }
 </app-drawer>
+
+<app-bottom-sheet
+  [(visible)]="showDetailsSheet"
+  styleClass="collection-details-sheet">
+  @if (showDetailsSheet() && currentPost()) {
+    <app-post-details
+      [post]="currentPost()!"
+      (learnMoreClicked)="showDetailsSheet.set(false); showLearnMoreDrawer.set(true)" />
+  }
+</app-bottom-sheet>

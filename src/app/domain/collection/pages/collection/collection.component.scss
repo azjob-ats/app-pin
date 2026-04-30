@@ -1,102 +1,151 @@
-.btn-shered {
+// ── Layout ────────────────────────────────────────────────────────────────────
+
+.pp-container {
+  margin: 0px;
+  height: 100%;
+
   @media (max-width: 900px) {
-     display: none;
+    margin: 0;
+    height: auto;
+    flex-direction: column;
   }
 }
 
-.pin-detail-container {
-  margin: 20px;
-  
-  @media (max-width: 900px) {
-    margin: 0px;
-  }
-}
-// ── Empty / error states ───────────────────────────────────────────────────
-
-.cp-center {
+.pp-center {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 60vh;
 }
 
-// ── Skeleton ───────────────────────────────────────────────────────────────
+// ── Skeleton ──────────────────────────────────────────────────────────────────
 
-.pin-detail-skeleton {
+.pp-skeleton {
   max-width: 1100px;
   margin: 0 auto;
 }
 
-.skeleton { border-radius: var(--radius-lg); }
-.img-skeleton   { width: 480px; min-height: 600px; flex-shrink: 0; }
-.title-skeleton { height: 32px; width: 80%; }
-.desc-skeleton  { height: 16px; width: 100%; &.short { width: 60%; } }
+.skeleton {
+  border-radius: var(--radius-lg);
+}
 
-// ── Left panel override (replaces pin-detail-image-side defaults) ──────────
-// pin-detail-image-side sets background:#000 and max-width:55%.
-// Collection needs a wider, scrollable content column.
+.pp-skeleton-video {
+  width: 480px;
+  min-height: 360px;
+  flex-shrink: 0;
+}
 
-.cp-left {
+.pp-skeleton-title {
+  height: 32px;
+  width: 80%;
+}
+
+.pp-skeleton-line {
+  height: 16px;
+  width: 100%;
+
+  &.short {
+    width: 60%;
+  }
+}
+
+// ── Left panel ────────────────────────────────────────────────────────────────
+
+.pp-left {
+  margin: 0px;
   flex: 0 0 65%;
   max-width: 65%;
   background: var(--pin-bg);
-  overflow-y: auto;
+  overflow: hidden;
 
   @media (max-width: 900px) {
     flex: none;
     max-width: 100%;
-    overflow-y: visible;
+    overflow: visible;
   }
 }
 
-// ── Media (video / img) wrapper ────────────────────────────────────────────
+// ── Player ────────────────────────────────────────────────────────────────────
 
-.cp-media-wrap {
-  position: relative;
-  width: 100%;
-  background: #00000000;
-  flex-shrink: 0;
-  border-radius: 15px;
-  overflow: hidden;
-
-  @media (max-width: 900px) {
-    max-height: 60vw;
-    border-radius: 0px;
-  }
-}
-
-.cp-media {
-  border-radius: 15px;
-  width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-
-  @media (max-width: 900px) {
-    max-height: 60vw;
-    border-radius: 0px;
-  }
-}
-
-// ── Player wrapper ──────────────────────────────────────────────────────────
-
-.cp-player {
+.pp-player {
   display: flex;
   flex-direction: column;
 
   &:fullscreen {
     background: #000;
 
-    .cp-media-wrap {
+    .pp-media-wrap {
       flex: 1;
       min-height: 0;
     }
   }
 }
 
-// ── Controls bar (overlay inside video) ────────────────────────────────────
+.pp-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 0px;
+  overflow: hidden;
+  flex-shrink: 0;
 
-.cp-controls {
+  @media (max-width: 900px) {
+    border-radius: 0;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.pp-media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 0px;
+
+  @media (max-width: 900px) {
+    border-radius: 0;
+  }
+}
+
+// ── Play center overlay ───────────────────────────────────────────────────────
+
+.pp-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.4);
+
+    .pp-play-icon {
+      transform: scale(1.12);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-red);
+    outline-offset: 2px;
+  }
+}
+
+.pp-play-icon {
+  font-size: 72px;
+  color: #fff;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  transition: transform 0.15s ease;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+// ── Controls overlay ──────────────────────────────────────────────────────────
+
+.pp-controls {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -110,31 +159,31 @@
 
   .material-symbols-rounded {
     color: #fff;
-    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
   }
 }
 
-.cp-media-wrap:hover .cp-controls {
+.pp-media-wrap:hover .pp-controls {
   opacity: 1;
 }
 
-// ── Seekbar ─────────────────────────────────────────────────────────────────
+// ── Seekbar ───────────────────────────────────────────────────────────────────
 
-.cp-seekbar-wrap {
+.pp-seekbar-wrap {
   position: relative;
   padding-top: 10px;
   padding-bottom: 4px;
   cursor: pointer;
 }
 
-.cp-seekbar-track {
+.pp-seekbar-track {
   position: relative;
   height: 6px;
   background: rgba(128, 128, 128, 0.3);
   border-radius: var(--radius-pill);
 }
 
-.cp-seekbar-fill {
+.pp-seekbar-fill {
   position: absolute;
   left: 0;
   top: 0;
@@ -145,7 +194,7 @@
   transition: width 0.1s linear;
 }
 
-.cp-seekbar-thumb {
+.pp-seekbar-thumb {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -158,11 +207,11 @@
   transition: opacity 0.15s;
 }
 
-.cp-seekbar-wrap:hover .cp-seekbar-thumb {
+.pp-seekbar-wrap:hover .pp-seekbar-thumb {
   opacity: 1;
 }
 
-.cp-seekbar-input {
+.pp-seekbar-input {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -171,13 +220,13 @@
   opacity: 0;
   cursor: pointer;
 
-  &:focus-visible ~ .cp-seekbar-track {
+  &:focus-visible ~ .pp-seekbar-track {
     outline: 2px solid var(--pin-red);
     outline-offset: 2px;
   }
 }
 
-.cp-seekbar-tooltip {
+.pp-seekbar-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);
   transform: translateX(-50%);
@@ -192,15 +241,116 @@
   font-weight: bold;
 }
 
-// ── Controls row ─────────────────────────────────────────────────────────────
+// ── Controls row ──────────────────────────────────────────────────────────────
 
-.cp-ctrl-row {
+.pp-ctrl-row {
   min-height: 44px;
 }
 
-// ── Time display ─────────────────────────────────────────────────────────────
+.pp-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.12s ease, opacity 0.12s ease;
 
-.cp-time-display {
+  &:focus-visible {
+    outline: 2px solid var(--pin-red);
+    outline-offset: 2px;
+    border-radius: var(--radius-circle);
+  }
+
+  &--play {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-circle);
+    background: var(--pin-red, #e60023);
+    color: #fff;
+
+    .material-symbols-rounded {
+      font-size: var(--text-3xl);
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+
+    &:hover {
+      background: color-mix(in srgb, var(--pin-red) 85%, #000);
+      transform: scale(1.05);
+    }
+  }
+
+  &--icon {
+    flex-shrink: 0;
+
+    .material-symbols-rounded {
+      font-size: var(--text-xl);
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &.pp-ctrl--fullscreen,
+    &.pp-ctrl--autoplay {
+      position: relative;
+      background: rgba(0, 0, 0, 0.45);
+      border-radius: var(--radius-circle);
+      padding: 10px;
+
+      &::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: 0;
+        background: rgba(0, 0, 0, 0.78);
+        color: #fff;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        z-index: 100;
+        padding: 15px;
+        transition: opacity 0.15s ease;
+      }
+
+      &:hover::after {
+        opacity: 1;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.65);
+        transform: scale(1.05);
+      }
+    }
+
+    &.pp-ctrl--autoplay-on .material-symbols-rounded {
+      color: var(--pin-red);
+    }
+  }
+
+  &--skip {
+    padding: 8px;
+
+    .material-symbols-rounded {
+      font-size: var(--text-2xl);
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
+// ── Time display ──────────────────────────────────────────────────────────────
+
+.pp-time-display {
   display: flex;
   align-items: center;
   font-size: 12px;
@@ -211,12 +361,11 @@
   border-radius: var(--radius-pill);
   background: rgba(0, 0, 0, 0.266);
   padding: 15px;
-
 }
 
-// ── Volume wrap + slider ──────────────────────────────────────────────────────
+// ── Volume ────────────────────────────────────────────────────────────────────
 
-.cp-volume-wrap {
+.pp-volume-wrap {
   display: flex;
   align-items: center;
   border-radius: var(--radius-pill);
@@ -227,7 +376,7 @@
   &:hover {
     background: rgba(0, 0, 0, 0.65);
 
-    .cp-volume-slider {
+    .pp-volume-slider {
       width: 72px;
       opacity: 1;
       margin-left: 6px;
@@ -235,7 +384,7 @@
   }
 }
 
-.cp-volume-slider {
+.pp-volume-slider {
   width: 0;
   opacity: 0;
   height: 3px;
@@ -270,340 +419,237 @@
   }
 }
 
-// ── Icon control button ───────────────────────────────────────────────────────
+// ── Post details (minimal black bar) ──────────────────────────────────────────
 
-.cp-ctrl--icon {
-  flex-shrink: 0;
-
-  .material-symbols-rounded {
-    font-size: var(--text-xl);
-    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
-  }
-
-  &:hover { transform: scale(1.1); }
-
-  &.cp-ctrl--autoplay {
-    position: relative;
-    background: rgba(0, 0, 0, 0.45);
-    border-radius: var(--radius-circle);
-    padding: 10px;
-    opacity: 0.45;
-    transition: background 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
-
-    &::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: calc(100% + 8px);
-      right: 0;
-      transform: none;
-      background: rgba(0, 0, 0, 0.78);
-      color: #fff;
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: bold;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      z-index: 100;
-      transition: opacity 0.15s ease;
-      font-weight: bold;
-      padding: 15px;
-    }
-
-    &:hover::after {
-      opacity: 1;
-    }
-
-    &.cp-ctrl--autoplay-on {
-      opacity: 1;
-    }
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.326);
-      transform: scale(1.05);
-    }
-  }
-
-  &.cp-ctrl--fullscreen {
-    position: relative;
-    background: rgba(0, 0, 0, 0.45);
-    border-radius: var(--radius-circle);
-    padding: 10px;
-
-    &::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: calc(100% + 8px);
-      right: 0;
-      background: rgba(0, 0, 0, 0.78);
-      color: #fff;
-      border-radius: 50px;
-      font-size: 14px;
-      font-weight: bold;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      z-index: 100;
-      padding: 15px;
-      transition: opacity 0.15s ease;
-    }
-
-    &:hover::after {
-      opacity: 1;
-    }
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.65);
-      transform: scale(1.05);
-    }
-  }
-}
-
-.cp-ctrl {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  color: #fff;
-  transition: transform 0.12s ease, opacity 0.12s ease;
-
-  &:focus-visible {
-    outline: 2px solid var(--pin-red);
-    outline-offset: 2px;
-    border-radius: var(--radius-circle);
-  }
-
-  &--skip {
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radius-circle);
-
-    .material-symbols-rounded {
-      font-size: var(--text-2xl);
-      font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
-    }
-
-    &:hover { transform: scale(1.1); }
-  }
-
-  &--play {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-circle);
-    background: var(--pin-red, #e60023);
-    color: #fff;
-
-    .material-symbols-rounded {
-      font-size: var(--text-3xl);
-      font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
-    }
-
-    &:hover {
-      background: color-mix(in srgb, var(--pin-red) 85%, #000);
-      transform: scale(1.05);
-    }
-  }
-
-  &--disabled {
-    opacity: 0.35;
-    pointer-events: none;
-  }
-}
-
-// ── Post details (inside left panel) ──────────────────────────────────────
-
-.cp-post-details {
+.pp-post-details {
   flex: 1;
+  min-height: 0;
+  background: #000;
+  color: #fff;
 }
 
-// ── Collection sidebar header ──────────────────────────────────────────────
+.pp-more-btn .btn {
+  background: #fff;
+  color: #000;
+}
 
-.cp-col-cover {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radius-md);
+.pp-post-title {
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
   overflow: hidden;
-  background: var(--pin-bg-secondary);
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.cp-cover-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+// ── Sidebar (bundle header + masonry playlist) ────────────────────────────────
+
+.pp-sidebar {
   height: 100%;
-  gap: 2px;
-}
+  overflow-y: auto;
+  padding-top: 0px;
+  background-color: #000000;
 
-.cp-cover-main   { width: 100%; height: 100%; object-fit: cover; }
-.cp-cover-side   { display: flex; flex-direction: column; gap: 2px; }
-.cp-cover-sm     { width: 100%; flex: 1; object-fit: cover; }
-.cp-cover-single { width: 100%; height: 100%; object-fit: cover; }
-
-.cp-cover-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .material-symbols-rounded {
-    font-size: var(--text-3xl); 
-    color: var(--pin-text-muted);
-    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+  @media (max-width: 900px) {
+    height: auto;
+    overflow-y: visible;
+    border-top: 0;
+    padding-top: 0;
   }
 }
 
-.cp-col-title { line-height: 1.3; }
-
-.cp-col-channel-logo {
-  flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-circle);
-  object-fit: cover;
+.pp-bundle-header {
+  padding: var(--space-md) var(--space-md) var(--space-sm);
+  border-bottom: 1px solid var(--pin-border);
+  background-color: #000;
 }
 
-.cp-channel-avatar {
-  width: 16px;
-  height: 16px;
-  border-radius: var(--radius-circle);
-  object-fit: cover;
-  flex-shrink: 0;
+.pp-bundle-title {
+  margin: 0;
+  line-height: 1.3;
 }
 
-.cp-verified {
-  font-size: 14px;
-  color: var(--pin-red, #e60023);
-  flex-shrink: 0;
+.pp-bundle-desc {
+  margin: 0;
+  line-height: 1.4;
 }
 
-// ── Progress bar ───────────────────────────────────────────────────────────
+.pp-bundle-progress-row {
+  user-select: none;
+}
 
-.cp-progress-bar {
+.pp-bundle-progress {
+  width: 100%;
   height: 4px;
-  background: var(--pin-bg-secondary);
+  background: var(--pin-bg-tertiary, rgba(128, 128, 128, 0.25));
   border-radius: var(--radius-pill);
   overflow: hidden;
+  margin-top: 4px;
 }
 
-.cp-progress-fill {
+.pp-bundle-progress-fill {
   height: 100%;
   background: var(--pin-red, #e60023);
   border-radius: var(--radius-pill);
-  transition: width 0.3s ease;
+  transition: width 0.25s ease;
 }
 
-// ── Playlist ───────────────────────────────────────────────────────────────
+// ── Masonry playlist ──────────────────────────────────────────────────────────
 
-.cp-playlist-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+.pp-related-grid {
+  columns: 2;
+  column-gap: 0;
 
-.cp-item {
-  border-radius: var(--radius-md);
-  overflow: hidden;
+  @media (max-width: 900px) {
+    columns: 3;
+  }
 
-  &--active { background: var(--pin-bg-secondary); }
-  &--done   { opacity: 0.7; }
-}
-
-.cp-item-btn {
-  padding: var(--space-xs) var(--space-sm);
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  border-radius: var(--radius-md);
-  transition: background 0.12s ease;
-
-  &:hover { background: var(--pin-bg-secondary); }
-
-  &:focus-visible {
-    outline: 2px solid var(--pin-red);
-    outline-offset: 2px;
+  @media (max-width: 600px) {
+    columns: 2;
   }
 }
 
-.cp-item-thumb {
-  position: relative;
-  flex-shrink: 0;
-  width: 80px;
-  height: 52px;
-  border-radius: var(--radius-sm);
+.pp-related-card {
+  display: inline-block;
+  width: 100%;
+  break-inside: avoid;
+  margin-bottom: -5px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0;
   overflow: hidden;
-  background: var(--pin-bg-tertiary);
+  text-decoration: none;
+  transition: transform 0.15s ease;
 
-  img { width: 100%; height: 100%; object-fit: cover; }
+  &:hover .pp-related-card-thumb img {
+    filter: brightness(0.9);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-red);
+    outline-offset: -2px;
+  }
 }
 
-.cp-item-thumb-icon {
+.pp-related-card-thumb {
+  position: relative;
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--pin-bg-tertiary);
+  transition: filter 0.15s ease;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.pp-related-card-thumb-icon {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: var(--text-xl);
+  font-size: var(--text-3xl);
   color: var(--pin-text-muted);
 }
 
-.cp-item-playing-overlay {
+// ── Caption below card ────────────────────────────────────────────────────────
+
+.pp-related-card {
+  .pcps__bottom {
+    padding: 8px 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pcps__title {
+    margin: 0;
+    color: #ffffff;
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .pcps__meta {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    font-size: var(--text-2xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--pin-text-muted);
+    user-select: none;
+  }
+
+  .pcps__meta-sep {
+    opacity: 0.65;
+  }
+}
+
+// ── Per-item state overlays ───────────────────────────────────────────────────
+
+.pp-item--active .pp-related-card-thumb {
+  outline: 2px solid var(--pin-red);
+  outline-offset: -2px;
+}
+
+.pp-item--active .pcps__title {
+  color: var(--pin-red);
+}
+
+.pp-item-playing-overlay,
+.pp-item-done-overlay {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
 
   .material-symbols-rounded {
-    font-size: var(--text-lg);
+    font-size: 36px;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
     color: #fff;
-    font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
   }
 }
 
-.cp-item-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.pp-item-done-overlay .material-symbols-rounded {
+  color: #4ade80;
 }
 
-.cp-item-progress {
+.pp-item-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   height: 3px;
-  background: var(--pin-bg-tertiary);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  margin-top: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
 }
 
-.cp-item-progress-fill {
+.pp-item-progress-fill {
   height: 100%;
   background: var(--pin-red, #e60023);
-  border-radius: var(--radius-pill);
   transition: width 0.2s ease;
 }
 
-.cp-item-status {
-  flex-shrink: 0;
-  font-size: var(--text-lg);
-  color: var(--pin-text-muted);
-
-  &--done {
-    color: var(--pin-green, #00a651);
-    font-variation-settings: 'FILL' 1;
-  }
-}
-
-.border-line-channel {
-  border-top: 1px solid var(--pin-border);
-  border-bottom: 1px solid var(--pin-border);
-}
-
-.pin-hashtags {
-  font-weight: 900;
+.text-1xl-title {
+  color: #ffffff;
 }

@@ -1,6 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
+  ViewEncapsulation,
   inject,
   signal,
   computed,
@@ -15,38 +16,31 @@ import { forkJoin } from 'rxjs';
 import { CollectionBundleApi } from '@shared/apis/collection-bundle.api';
 import { PostApi } from '@shared/apis/post.api';
 import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.component';
-import { SkeletonLoaderComponent } from '@shared/components/skeleton-loader/skeleton-loader.component';
 import { ButtonComponent } from '@shared/components/button/button.component';
-import { ButtonInscriptionComponent } from '@shared/components/button-inscription/button-inscription.component';
-import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
-import { CommentInputComponent } from '@shared/components/comment-input/comment-input.component';
-import { CommentSubmitComponent } from '@shared/components/comment-submit/comment-submit.component';
-import { CollectionBundle, CollectionItem } from '@shared/interfaces/entity/collection-bundle';
-import { Post } from '@shared/interfaces/entity/post';
-import { ButtonLikeComponent } from '@shared/components/button-like/button-like.component';
-import { Pin } from '@shared/interfaces/entity/pin';
 import { DrawerComponent } from '@shared/components/drawer/drawer.component';
 import { LearnMoreComponent } from '@shared/components/learn-more/learn-more.component';
+import { BottomSheetComponent } from '@shared/components/bottom-sheet/bottom-sheet.component';
+import { PostDetailsComponent } from '@shared/components/post-details/post-details.component';
+import { CollectionBundle, CollectionItem } from '@shared/interfaces/entity/collection-bundle';
+import { Post } from '@shared/interfaces/entity/post';
+import { Pin } from '@shared/interfaces/entity/pin';
 
 export interface ItemPlayState {
   status: 'idle' | 'playing' | 'done';
-  progress: number; // 0–100
+  progress: number;
 }
 
 @Component({
   selector: 'app-collection',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   imports: [
     EmptyStateComponent,
-    SkeletonLoaderComponent,
     ButtonComponent,
-    ButtonInscriptionComponent,
-    UserAvatarComponent,
-    CommentInputComponent,
-    CommentSubmitComponent,
-    ButtonLikeComponent,
     DrawerComponent,
     LearnMoreComponent,
+    BottomSheetComponent,
+    PostDetailsComponent,
   ],
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.scss',
@@ -65,8 +59,8 @@ export class CollectionPageComponent {
   readonly currentIndex = signal(0);
   readonly isPlaying = signal(false);
   readonly itemStates = signal<ItemPlayState[]>([]);
-  readonly commentText = signal('');
   readonly showLearnMoreDrawer = signal(false);
+  readonly showDetailsSheet = signal(false);
   readonly pin = signal<Pin | null>(null);
 
   readonly currentTime = signal(0);
@@ -86,7 +80,6 @@ export class CollectionPageComponent {
     () => this.bundle()?.items[this.currentIndex()] ?? null,
   );
 
-  /** Matches the current bundle item to a Post by postId, then by videoUrl */
   readonly currentPost = computed<Post | null>(() => {
     const item = this.currentItem();
     const allPosts = this.posts();
@@ -135,16 +128,6 @@ export class CollectionPageComponent {
     if (!states.length) return 0;
     const total = states.reduce((s, i) => s + i.progress, 0);
     return Math.round(total / states.length);
-  });
-
-  readonly coverImages = computed<string[]>(() => {
-    const b = this.bundle();
-    if (!b) return [];
-    if (b.coverUrl) return [b.coverUrl];
-    return b.items
-      .filter((i): i is CollectionItem & { thumbnailUrl: string } => !!i.thumbnailUrl)
-      .slice(0, 3)
-      .map((i) => i.thumbnailUrl);
   });
 
   constructor() {
@@ -281,13 +264,6 @@ export class CollectionPageComponent {
     }
   }
 
-  formatTime(seconds: number): string {
-    if (!isFinite(seconds) || seconds < 0) return '0:00';
-    const m = Math.floor(seconds / 60);
-    const s = Math.floor(seconds % 60);
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  }
-
   toggleAutoplay(): void {
     this.autoplay.update((v) => !v);
   }
@@ -306,37 +282,11 @@ export class CollectionPageComponent {
     }
   }
 
-  addComment(): void {
-    this.commentText.set('');
-  }
-
-  formatCount(n: number): string {
-    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
-    if (n >= 1_000) return (n / 1_000).toFixed(1) + 'K';
-    return n.toString();
-  }
-
-  timeAgo(timestamp: string): string {
-    const diff = Date.now() - new Date(timestamp).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 60) return `${mins} min atrás`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h atrás`;
-    const days = Math.floor(hrs / 24);
-    if (days < 30) return `${days} dia${days > 1 ? 's' : ''} atrás`;
-    const months = Math.floor(days / 30);
-    if (months < 12) return `${months} ${months > 1 ? 'meses' : 'mês'} atrás`;
-    const years = Math.floor(months / 12);
-    return `${years} ano${years > 1 ? 's' : ''} atrás`;
-  }
-
-  commentTimeAgo(date: Date): string {
-    const diff = Date.now() - new Date(date).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 60) return `${mins}m`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h`;
-    return `${Math.floor(hrs / 24)}d`;
+  formatTime(seconds: number): string {
+    if (!isFinite(seconds) || seconds < 0) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
   }
 
   formatDuration(seconds: number | undefined): string {
@@ -344,13 +294,6 @@ export class CollectionPageComponent {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
     return `${m}:${s.toString().padStart(2, '0')}`;
-  }
-
-  itemStatusIcon(state: ItemPlayState | undefined): string {
-    if (!state) return 'radio_button_unchecked';
-    if (state.status === 'done') return 'check_circle';
-    if (state.status === 'playing') return 'play_circle';
-    return 'radio_button_unchecked';
   }
 
   private markPlaying(index: number): void {

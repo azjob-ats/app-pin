@@ -464,6 +464,7 @@
 .pp-related-grid {
   columns: 2;
   column-gap: 0;
+  background-color: black;
 
   @media (max-width: 900px) {
     columns: 3;
