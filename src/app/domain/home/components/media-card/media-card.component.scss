@@ -25,12 +25,12 @@ $mobile: 768px;
 
   @media (max-width: $mobile) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    padding: 0 4px;
+    gap: 2px;
+    padding: 2px;
 
     app-pin-card-player-short.is-landscape {
       grid-column: span 2;
-      --pcps-aspect: 9 / 8;
+      --pcps-aspect: 27 / 16;
     }
   }
 }

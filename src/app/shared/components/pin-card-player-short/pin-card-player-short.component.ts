@@ -89,6 +89,28 @@ export class PinCardPlayerShortComponent implements OnDestroy {
     return `${m}:${s.toString().padStart(2, '0')}`;
   }
 
+  formatViews(value: number): string {
+    if (!value || value < 1000) return String(value ?? 0);
+    if (value < 1_000_000) return `${(value / 1000).toFixed(1).replace('.', ',').replace(',0', '')} mil`;
+    if (value < 1_000_000_000) return `${(value / 1_000_000).toFixed(1).replace('.', ',').replace(',0', '')} mi`;
+    return `${(value / 1_000_000_000).toFixed(1).replace('.', ',').replace(',0', '')} bi`;
+  }
+
+  timeAgo(dateStr: string): string {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    if (!isFinite(diff) || diff < 0) return '';
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'agora';
+    if (mins < 60) return `há ${mins} min`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `há ${hrs} h`;
+    const days = Math.floor(hrs / 24);
+    if (days < 7) return `há ${days} d`;
+    if (days < 30) return `há ${Math.floor(days / 7)} sem`;
+    if (days < 365) return `há ${Math.floor(days / 30)} meses`;
+    return `há ${Math.floor(days / 365)} anos`;
+  }
+
   onThumbnailClick(): void {
     this.isVideoLoaded.set(true);
   }

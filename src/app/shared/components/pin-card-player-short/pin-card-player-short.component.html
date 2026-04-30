@@ -72,18 +72,21 @@
           (click)="onOverlayInteract($event)">
         </button>
 
-        <!-- Bottom: time display + progress bar -->
+        <!-- Bottom: title + meta + progress bar -->
         <div
           class="pcps__bottom"
           [class.pcps__bottom--hidden]="!controlsVisible()">
-          <!----><div
-            class="pcps__time"
-            aria-live="off"
-            aria-atomic="true">
-            <span>{{ formatTime(currentTime()) }}</span>
-            <span class="pcps__time-sep" aria-hidden="true">/</span>
-            <span>{{ formatTime(duration()) }}</span>
-          </div>
+          @if (post().media.title) {
+            <p class="pcps__title">{{ post().media.title }}</p>
+          }
+
+          <p class="pcps__meta">
+            <span class="pcps__meta-channel">{{ post().channel.profileNameOfficial }}</span>
+            <span class="pcps__meta-sep" aria-hidden="true">•</span>
+            <span>{{ formatViews(post().views) }} visualizações</span>
+            <span class="pcps__meta-sep" aria-hidden="true">•</span>
+            <span>{{ timeAgo(post().timestamp) }}</span>
+          </p>
 
           <div
             class="pcps__progress"
