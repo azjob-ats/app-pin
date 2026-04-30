@@ -22,7 +22,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { DrawerComponent } from '@shared/components/drawer/drawer.component';
 import { LearnMoreComponent } from '@shared/components/learn-more/learn-more.component';
 import { BottomSheetComponent } from '@shared/components/bottom-sheet/bottom-sheet.component';
-import { PostDetailsComponent } from '@domain/showcase/components/post-details/post-details.component';
+import { PostDetailsComponent } from '@shared/components/post-details/post-details.component';
 import { Pin } from '@shared/interfaces/entity/pin';
 
 interface ShowcaseRelatedItem extends ShopWindowItem {

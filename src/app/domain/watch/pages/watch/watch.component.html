@@ -19,7 +19,7 @@
 } @else {
   <div class="pp-container flex overflow-hidden">
 
-    <!-- ══ LEFT — player + post details + comments ══════════════════════════ -->
+    <!-- ══ LEFT — player + minimal post bar ════════════════════════════════ -->
     <div class="pp-left flex flex-col overflow-auto">
 
       <!-- Player wrapper -->
@@ -59,8 +59,6 @@
               <span class="material-symbols-rounded pp-play-icon">play_circle</span>
             </button>
           }
-
-
 
           <!-- Controls overlay -->
           <div class="pp-controls" role="group" aria-label="Controles do player">
@@ -143,203 +141,63 @@
         </div>
       </div>
 
-      <!-- Post details -->
-      <div class="cp-post-details flex flex-col p-1 mt-4">
+      <!-- Minimal post bar (Showcase pattern) -->
+      <div class="pp-post-details flex align-center gap-2 p-4">
+        <h1 class="pp-post-title flex-1 title-primary">{{ post()!.media.title }}</h1>
 
-        <!-- Action bar -->
-        <div class="flex align-center gap-2 flex-wrap mb-4">
-          <app-button-like [count]="post()!.likes" [liked]="post()!.isLiked" />
-          <app-button variant="secondary" size="md" ariaLabel="Salvar post">Salvar</app-button>
-          <app-button variant="secondary" size="md" ariaLabel="Compartilhar post" class="pp-btn-share">Compartilhar</app-button>
-          <app-button
-            variant="secondary"
-            shape="circle"
-            size="md"
-            icon="more_horiz"
-            ariaLabel="Mais opções" />
-          <div class="flex-1"></div>
-            <app-button
-              ariaLabel="Saiba mais sobre este conteúdo"
-              variant="primary"
-              size="md"
-              (clicked)="showLearnMoreDrawer.set(true)"
-              >Saiba Mais</app-button
-            >
-        </div>
+        <app-button
+          class="pp-more-btn"
+          variant="secondary"
+          shape="circle"
+          size="md"
+          icon="more_horiz"
+          ariaLabel="Mais opções"
+          (clicked)="showDetailsSheet.set(true)" />
 
-        <!-- Views + time -->
-        <div class="pp-meta flex align-center text-2 text-7-title mb-2">
-          <span>{{ formatCount(post()!.views) }} visualizações</span>
-          &nbsp;•&nbsp;
-          <span>{{ timeAgo(post()!.timestamp) }}</span>
-        </div>
-
-        <!-- Title -->
-        <h1 class="pin-detail-title title-primary">{{ post()!.media.title }}</h1>
-
-        <!-- Description + hashtags -->
-        <p class="text-base text-6-title mb-4">
-          {{ post()!.media.description }}
-          @if (post()!.media.slang.length > 0) {
-            <br />
-            <span class="pp-hashtags text-2xs">
-              @for (tag of post()!.media.slang; track tag) { {{ tag }} }
-            </span>
-          }
-        </p>
-
-        <!-- Channel row -->
-        <div class="pp-channel-row flex align-center gap-3 py-3 mb-4">
-          <app-user-avatar
-            [imageUrl]="post()!.channel.profilePicture"
-            [alt]="post()!.channel.profileName"
-            size="md" />
-          <div class="flex-1 flex flex-col">
-            <span class="pp-channel-name fw-bold text-base text-1xl-title flex align-center gap-1">
-              {{ post()!.channel.profileName }}
-              @if (post()!.channel.verified) {
-                <span class="material-symbols-rounded pp-verified" aria-label="Canal verificado">verified</span>
-              }
-            </span>
-            @if (post()!.channel.numberOfFollowers) {
-              <span class="text-1 text-7-title">
-                {{ formatCount(post()!.channel.numberOfFollowers) }} seguidores
-              </span>
-            }
-          </div>
-          <app-button-inscription [subscribed]="false" />
-        </div>
-
-        <!-- Comments -->
-        <div class="flex flex-col gap-4">
-          <h3 class="text-4 fw-bold text-1xl-title">Comentários</h3>
-
-          <div class="gap-3 flex align-center">
-            <app-user-avatar
-              imageUrl="https://i.pravatar.cc/150?img=10"
-              alt="Você"
-              size="sm" />
-            <div class="pp-comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
-              <app-comment-input
-                [value]="commentText()"
-                placeholder="Adicione um comentário"
-                (valueChange)="commentText.set($event)"
-                (enter)="addComment()" />
-              @if (commentText()) {
-                <app-comment-submit (submitted)="addComment()" />
-              }
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-4">
-            @for (comment of post()!.comment.data; track comment.id) {
-              <div class="gap-3 flex">
-                <app-user-avatar
-                  [imageUrl]="comment.avatar"
-                  [alt]="comment.user"
-                  size="sm" />
-                <div class="flex-1">
-                  <div class="pp-comment-header flex gap-2 mb-1">
-                    <span class="text-2 fw-bold text-1xl-title">{{ comment.user }}</span>
-                    <span class="text-1 text-5xl-title">{{ commentTimeAgo(comment.time) }}</span>
-                  </div>
-                  <p class="pp-comment-text text-3 text-7-title">{{ comment.text }}</p>
-                  @if ((comment.likes ?? 0) > 0) {
-                    <span class="pp-comment-likes flex align-center gap-1 text-1 text-7-title mt-1">
-                      <span class="material-symbols-rounded pp-heart text-4 pin-red">favorite</span>
-                      {{ comment.likes }}
-                    </span>
-                  }
-                  @if (comment.replies.totalRecords > 0) {
-                    <button class="pp-replies-btn text-1 fw-bold mt-1" type="button">
-                      {{ comment.replies.totalRecords }} resposta{{ comment.replies.totalRecords > 1 ? 's' : '' }}
-                    </button>
-                  }
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-
+        <app-button
+          ariaLabel="Saiba mais sobre este conteúdo"
+          variant="primary"
+          size="md"
+          (clicked)="showLearnMoreDrawer.set(true)"
+          >Saiba Mais</app-button>
       </div>
     </div>
 
-    <!-- ══ RIGHT — related posts sidebar ════════════════════════════════════ -->
-    <div class="pp-sidebar flex flex-col flex-1 p-3">
-
-      <h2 class="pp-sidebar-title text-base fw-bold text-1xl-title mb-4">Conteúdos relacionados</h2>
-
+    <!-- ══ RIGHT — masonry related grid (Showcase pattern) ═════════════════ -->
+    <div class="pp-sidebar flex flex-col flex-1 p-0">
       <section aria-label="Conteúdos relacionados">
-        <ul class="pp-related-list" role="list">
+        <div class="pp-related-grid" role="list">
           @for (related of filteredRelated(); track related.id) {
-            <li role="listitem">
-              <a
-                class="pp-related-card"
-                [routerLink]="['/', related.channel.profileName, 'watch', related.media.titleLink]"
-                [attr.aria-label]="'Ver: ' + related.media.title">
+            <a
+              role="listitem"
+              class="pp-related-card"
+              [routerLink]="['/', related.channel.profileName, 'watch', related.media.titleLink]"
+              [attr.aria-label]="'Ver: ' + related.media.title">
 
-                <!-- Header: avatar + channel + meta -->
-                <div class="pp-related-card-header flex align-center gap-3">
-                  <app-user-avatar
-                    [imageUrl]="related.channel.profilePicture"
-                    [alt]="related.channel.profileName"
-                    size="sm" />
-                  <div class="flex flex-col" style="min-width:0">
-                    <span class="pp-related-card-channel text-2 fw-bold text-1xl-title flex align-center gap-1">
-                      {{ related.channel.profileName }}
-                      @if (related.channel.verified) {
-                        <span class="material-symbols-rounded pp-related-verified" aria-hidden="true">verified</span>
-                      }
-                    </span>
-                    <span class="pp-related-card-meta text-1 text-7-title">
-                      {{ formatCount(related.views) }} views &nbsp;•&nbsp; {{ timeAgo(related.timestamp) }}
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Body: title + description + thumbnail -->
-                <div class="pp-related-card-body flex gap-3 align-start">
-                  <div class="flex flex-col gap-1 flex-1" style="min-width:0">
-                    <p class="pp-related-card-title text-3 fw-medium text-1xl-title">
-                      {{ related.media.title }}
-                    </p>
-                    @if (related.media.description) {
-                      <p class="pp-related-card-desc text-2 text-7-title">
-                        {{ related.media.description }}
-                      </p>
-                    }
-                  </div>
-
-                  <!-- Thumbnail -->
-                  <div class="pp-related-card-thumb" aria-hidden="true">
-                    @if (related.media.thumbnail) {
-                      <img
-                        [src]="related.media.thumbnail"
-                        [alt]="related.media.title"
-                        loading="lazy" />
-                    } @else {
-                      <span class="material-symbols-rounded pp-related-card-thumb-icon">play_circle</span>
-                    }
-                  </div>
-                </div>
-
-              </a>
-            </li>
+              <div class="pp-related-card-thumb" aria-hidden="true">
+                @if (related.media.thumbnail) {
+                  <img
+                    [src]="related.media.thumbnail"
+                    [alt]="related.media.title"
+                    loading="lazy" />
+                } @else {
+                  <span class="material-symbols-rounded pp-related-card-thumb-icon">play_circle</span>
+                }
+              </div>
+            </a>
           } @empty {
-            <li>
-              <app-empty-state
-                icon="video_library"
-                message="Sem conteúdos relacionados"
-                subtitle="Explore outros conteúdos na plataforma." />
-            </li>
+            <app-empty-state
+              icon="video_library"
+              message="Sem conteúdos relacionados"
+              subtitle="Explore outros conteúdos na plataforma." />
           }
-        </ul>
+        </div>
       </section>
-
     </div>
 
   </div>
 }
+
 <app-drawer
   [(visible)]="showLearnMoreDrawer"
   position="right"
@@ -350,3 +208,13 @@
       (onClose)="showLearnMoreDrawer.set(false)" />
   }
 </app-drawer>
+
+<app-bottom-sheet
+  [(visible)]="showDetailsSheet"
+  styleClass="watch-details-sheet">
+  @if (showDetailsSheet() && post()) {
+    <app-post-details
+      [post]="post()!"
+      (learnMoreClicked)="showDetailsSheet.set(false); showLearnMoreDrawer.set(true)" />
+  }
+</app-bottom-sheet>
