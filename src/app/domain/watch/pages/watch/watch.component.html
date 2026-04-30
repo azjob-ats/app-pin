@@ -174,15 +174,29 @@
               [routerLink]="['/', related.channel.profileName, 'watch', related.media.titleLink]"
               [attr.aria-label]="'Ver: ' + related.media.title">
 
-              <div class="pp-related-card-thumb" aria-hidden="true">
+              <div class="pp-related-card-thumb">
                 @if (related.media.thumbnail) {
                   <img
                     [src]="related.media.thumbnail"
                     [alt]="related.media.title"
                     loading="lazy" />
                 } @else {
-                  <span class="material-symbols-rounded pp-related-card-thumb-icon">play_circle</span>
+                  <span class="material-symbols-rounded pp-related-card-thumb-icon" aria-hidden="true">play_circle</span>
                 }
+              </div>
+
+              <div class="pcps__bottom">
+                @if (related.media.title) {
+                  <p class="pcps__title">{{ related.media.title }}</p>
+                }
+
+                <p class="pcps__meta">
+                  <span class="pcps__meta-channel">{{ related.channel.profileNameOfficial }}</span>
+                  <span class="pcps__meta-sep" aria-hidden="true">•</span>
+                  <span>{{ formatViews(related.views) }} visualizações</span>
+                  <span class="pcps__meta-sep" aria-hidden="true">•</span>
+                  <span>{{ timeAgo(related.timestamp) }}</span>
+                </p>
               </div>
             </a>
           } @empty {
