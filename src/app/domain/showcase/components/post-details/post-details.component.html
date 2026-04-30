@@ -1,0 +1,117 @@
+<div class="cp-post-details flex flex-col p-1 mt-4">
+
+  <!-- Action bar -->
+  <div class="flex align-center gap-2 flex-wrap mb-4">
+    <app-button-like [count]="post().likes" [liked]="post().isLiked" />
+    <app-button variant="secondary" size="md" ariaLabel="Salvar post">Salvar</app-button>
+    <app-button variant="secondary" size="md" ariaLabel="Compartilhar post" class="pp-btn-share">Compartilhar</app-button>
+    <app-button
+      variant="secondary"
+      shape="circle"
+      size="md"
+      icon="more_horiz"
+      ariaLabel="Mais opções" />
+    <div class="flex-1"></div>
+    <app-button
+      ariaLabel="Saiba mais sobre este conteúdo"
+      variant="primary"
+      size="md"
+      (clicked)="onLearnMore()"
+      >Saiba Mais</app-button>
+  </div>
+
+  <!-- Views + time -->
+  <div class="pp-meta flex align-center text-2 text-7-title mb-2">
+    <span>{{ formatCount(post().views) }} visualizações</span>
+    &nbsp;•&nbsp;
+    <span>{{ timeAgo(post().timestamp) }}</span>
+  </div>
+
+  <!-- Title -->
+  <h1 class="pin-detail-title title-primary">{{ post().media.title }}</h1>
+
+  <!-- Description + hashtags -->
+  <p class="text-base text-6-title mb-4">
+    {{ post().media.description }}
+    @if (post().media.slang.length > 0) {
+      <br />
+      <span class="pp-hashtags text-2xs">
+        @for (tag of post().media.slang; track tag) { {{ tag }} }
+      </span>
+    }
+  </p>
+
+  <!-- Channel row -->
+  <div class="pp-channel-row flex align-center gap-3 py-3 mb-4">
+    <app-user-avatar
+      [imageUrl]="post().channel.profilePicture"
+      [alt]="post().channel.profileName"
+      size="md" />
+    <div class="flex-1 flex flex-col">
+      <span class="pp-channel-name fw-bold text-base text-1xl-title flex align-center gap-1">
+        {{ post().channel.profileName }}
+        @if (post().channel.verified) {
+          <span class="material-symbols-rounded pp-verified" aria-label="Canal verificado">verified</span>
+        }
+      </span>
+      @if (post().channel.numberOfFollowers) {
+        <span class="text-1 text-7-title">
+          {{ formatCount(post().channel.numberOfFollowers) }} seguidores
+        </span>
+      }
+    </div>
+    <app-button-inscription [subscribed]="false" />
+  </div>
+
+  <!-- Comments -->
+  <div class="flex flex-col gap-4">
+    <h3 class="text-4 fw-bold text-1xl-title">Comentários</h3>
+
+    <div class="gap-3 flex align-center">
+      <app-user-avatar
+        imageUrl="https://i.pravatar.cc/150?img=10"
+        alt="Você"
+        size="sm" />
+      <div class="pp-comment-input-wrap flex-1 flex align-center bg-secondary radius-5 px-4">
+        <app-comment-input
+          [value]="commentText()"
+          placeholder="Adicione um comentário"
+          (valueChange)="commentText.set($event)"
+          (enter)="addComment()" />
+        @if (commentText()) {
+          <app-comment-submit (submitted)="addComment()" />
+        }
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      @for (comment of post().comment.data; track comment.id) {
+        <div class="gap-3 flex">
+          <app-user-avatar
+            [imageUrl]="comment.avatar"
+            [alt]="comment.user"
+            size="sm" />
+          <div class="flex-1">
+            <div class="pp-comment-header flex gap-2 mb-1">
+              <span class="text-2 fw-bold text-1xl-title">{{ comment.user }}</span>
+              <span class="text-1 text-5xl-title">{{ commentTimeAgo(comment.time) }}</span>
+            </div>
+            <p class="pp-comment-text text-3 text-7-title">{{ comment.text }}</p>
+            @if ((comment.likes ?? 0) > 0) {
+              <span class="pp-comment-likes flex align-center gap-1 text-1 text-7-title mt-1">
+                <span class="material-symbols-rounded pp-heart text-4 pin-red">favorite</span>
+                {{ comment.likes }}
+              </span>
+            }
+            @if (comment.replies.totalRecords > 0) {
+              <button class="pp-replies-btn text-1 fw-bold mt-1" type="button">
+                {{ comment.replies.totalRecords }} resposta{{ comment.replies.totalRecords > 1 ? 's' : '' }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

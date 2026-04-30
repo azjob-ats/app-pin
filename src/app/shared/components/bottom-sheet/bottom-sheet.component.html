@@ -1,0 +1,42 @@
+@if (visible()) {
+  <div
+    @backdropAnim
+    class="app-bottom-sheet-backdrop"
+    [class.active]="modal()"
+    (click)="onBackdropClick()"
+    role="presentation"></div>
+
+  <div
+    @panelAnim
+    class="app-bottom-sheet-panel"
+    [class]="styleClass()"
+    role="dialog"
+    aria-modal="true">
+
+    @if (showHandle()) {
+      <button
+        type="button"
+        class="app-bottom-sheet-handle-wrap"
+        (click)="close()"
+        aria-label="Fechar">
+        <span class="app-bottom-sheet-text" aria-hidden="true">Fechar</span>
+      </button>
+    }
+
+    @if (headerTpl()) {
+      <div class="app-bottom-sheet-header">
+        <ng-container [ngTemplateOutlet]="headerTpl()!"></ng-container>
+      </div>
+    }
+
+    <div class="app-bottom-sheet-content">
+      <ng-content></ng-content>
+    </div>
+
+    @if (footerTpl()) {
+      <div class="app-bottom-sheet-footer">
+        <ng-container [ngTemplateOutlet]="footerTpl()!"></ng-container>
+      </div>
+    }
+  </div>
+}

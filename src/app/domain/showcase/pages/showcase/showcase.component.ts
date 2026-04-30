@@ -21,6 +21,8 @@ import { EmptyStateComponent } from '@shared/components/empty-state/empty-state.
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { DrawerComponent } from '@shared/components/drawer/drawer.component';
 import { LearnMoreComponent } from '@shared/components/learn-more/learn-more.component';
+import { BottomSheetComponent } from '@shared/components/bottom-sheet/bottom-sheet.component';
+import { PostDetailsComponent } from '@domain/showcase/components/post-details/post-details.component';
 import { Pin } from '@shared/interfaces/entity/pin';
 
 interface ShowcaseRelatedItem extends ShopWindowItem {
@@ -37,6 +39,8 @@ interface ShowcaseRelatedItem extends ShopWindowItem {
     ButtonComponent,
     DrawerComponent,
     LearnMoreComponent,
+    BottomSheetComponent,
+    PostDetailsComponent,
   ],
   templateUrl: './showcase.component.html',
   styleUrl: './showcase.component.scss',
@@ -53,6 +57,7 @@ export class ShowcasePageComponent {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
   readonly showLearnMoreDrawer = signal(false);
+  readonly showDetailsSheet = signal(false);
   readonly pin = signal<Pin | null>(null);
 
   readonly isPlaying = signal(false);

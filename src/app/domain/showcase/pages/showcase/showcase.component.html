@@ -153,7 +153,8 @@
           shape="circle"
           size="md"
           icon="more_horiz"
-          ariaLabel="Mais opções" />
+          ariaLabel="Mais opções"
+          (clicked)="showDetailsSheet.set(true)" />
 
         <app-button
           ariaLabel="Saiba mais sobre este conteúdo"
@@ -209,3 +210,13 @@
       (onClose)="showLearnMoreDrawer.set(false)" />
   }
 </app-drawer>
+
+<app-bottom-sheet
+  [(visible)]="showDetailsSheet"
+  styleClass="showcase-details-sheet">
+  @if (showDetailsSheet() && post()) {
+    <app-post-details
+      [post]="post()!"
+      (learnMoreClicked)="showDetailsSheet.set(false); showLearnMoreDrawer.set(true)" />
+  }
+</app-bottom-sheet>
