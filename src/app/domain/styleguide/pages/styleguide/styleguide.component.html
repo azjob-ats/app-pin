@@ -5582,6 +5582,129 @@
       </section>
     }
 
+    @if (activeSection() === 'comp-polaroid-photo-card') {
+      <section class="sg-section">
+        <h1 class="sg-section__title">Polaroid Photo Card</h1>
+        <p class="sg-section__desc">
+          Card estilo Polaroid (vintage/analógico) que renderiza uma <code class="sg-inline-code">CollectionBundle</code>:
+          a primeira mídia (ou <code class="sg-inline-code">coverUrl</code>) preenche a área da foto, e a moldura
+          inferior exibe o <code class="sg-inline-code">collectionName</code> manuscrito junto com avatar, nome
+          e selo de verificação do canal. Quando o bundle tem mais de um item, cards de “fotos atrás” aparecem
+          empilhados automaticamente.
+        </p>
+        <ng-container
+          *ngTemplateOutlet="importTpl; context: { code: polaroidPhotoCardImportCode }">
+        </ng-container>
+
+        <h3 class="sg-subsection__title">Demo — Bundle com stack automático</h3>
+        <div class="sg-demo">
+          <div
+            class="sg-demo__preview"
+            style="display: flex; justify-content: center; padding: 3rem; background: #efe9dd;">
+            <app-polaroid-photo-card
+              [bundle]="mockPolaroidBundle"
+              [rotate]="true"
+              style="width: 260px;"
+            />
+          </div>
+          <ng-container
+            *ngTemplateOutlet="codeTpl; context: { code: polaroidPhotoCardCode }">
+          </ng-container>
+        </div>
+
+        <h3 class="sg-subsection__title">Demo — Single item (sem stack)</h3>
+        <div class="sg-demo">
+          <div
+            class="sg-demo__preview"
+            style="display: flex; justify-content: center; padding: 3rem; background: #efe9dd;">
+            <app-polaroid-photo-card
+              [bundle]="mockPolaroidBundleSingle"
+              [rotate]="true"
+              style="width: 240px;"
+            />
+          </div>
+        </div>
+
+        <h3 class="sg-subsection__title">Inputs</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">bundle</code></td>
+                <td>CollectionBundle</td>
+                <td>—</td>
+                <td>Required. Objeto com canal, collectionName, items e demais metadados.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">rotate</code></td>
+                <td>boolean</td>
+                <td><code class="sg-code">false</code></td>
+                <td>Rotação suave entre -2° e +2°, derivada do <code class="sg-inline-code">bundle.id</code> (estável entre renderizações).</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">shadow</code></td>
+                <td>boolean</td>
+                <td><code class="sg-code">true</code></td>
+                <td>Ativa sombra em camadas sob o card.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">stack</code></td>
+                <td>boolean | null</td>
+                <td><code class="sg-code">null</code></td>
+                <td>Força o stack on/off. <code class="sg-inline-code">null</code> = automático (ativo se <code class="sg-inline-code">items.length &gt; 1</code>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sg-subsection__title">Mapeamento de campos</h3>
+        <div class="sg-table-wrapper">
+          <table class="sg-table">
+            <thead>
+              <tr>
+                <th>Campo do bundle</th>
+                <th>Onde aparece</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code class="sg-code">coverUrl</code> ou primeiro <code class="sg-code">items[].thumbnailUrl</code></td>
+                <td>Imagem principal da foto Polaroid.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">collectionName</code></td>
+                <td>Legenda manuscrita (caption) na borda inferior.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">channelPicture</code></td>
+                <td>Avatar pequeno ao lado do nome do canal.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">channel</code></td>
+                <td>Nome do canal exibido abaixo da legenda.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">verified</code></td>
+                <td>Selo de verificação ao lado do nome do canal.</td>
+              </tr>
+              <tr>
+                <td><code class="sg-code">items[1..2].thumbnailUrl</code></td>
+                <td>Cards empilhados atrás (quando stack está ativo).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
   </main>
 </div>
 

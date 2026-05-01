@@ -4,19 +4,19 @@ import {
   DestroyRef,
   ElementRef,
   afterNextRender,
+  computed,
   inject,
   input,
   viewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';
-import { EffectListCardItem } from '@shared/components/effect-list-cards/effect-list-cards.interface';
+import { PolaroidPhotoCardComponent } from '@shared/components/polaroid-photo-card/polaroid-photo-card.component';
+import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { ShopWindow } from '@shared/interfaces/entity/shop-window';
 
 @Component({
   selector: 'home-daily-story',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [EffectListCardsComponent],
+  imports: [PolaroidPhotoCardComponent],
   templateUrl: './daily-story.component.html',
   styleUrl: './daily-story.component.scss',
 })
@@ -26,13 +26,28 @@ export class DailyStoryComponent {
 
   readonly skeletonItems = [1, 2, 3, 4, 5, 6];
 
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly router = inject(Router);
-  private readonly trackRef = viewChild<ElementRef<HTMLDivElement>>('storyTrack');
+  readonly bundles = computed<CollectionBundle[]>(() =>
+    this.stories().map((story) => ({
+      id: story.id,
+      channel: story.channel.profileNameOfficial,
+      username: story.channel.profileNameOfficial,
+      collectionName: story.channel.profileNameOfficial,
+      collectionNameKey: story.id,
+      channelPicture: story.channel.profilePicture,
+      verified: story.channel.verified,
+      description: '',
+      items: story.items.map((it) => ({
+        type: 'video',
+        postId: it.postId,
+        title: it.title,
+        thumbnailUrl: it.thumbnailUrl,
+        videoUrl: it.short,
+      })),
+    })),
+  );
 
-  onTitleClick(story: ShopWindow, item: EffectListCardItem): void {
-    this.router.navigate(['/', story.channel.profileNameOfficial, 'showcase', item.titleLink]);
-  }
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly trackRef = viewChild<ElementRef<HTMLDivElement>>('storyTrack');
 
   constructor() {
     afterNextRender(() => {

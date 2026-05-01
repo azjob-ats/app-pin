@@ -16,6 +16,7 @@ export interface CollectionBundle {
   channelPicture?: string;
   verified?: boolean;
   description: string;
+  slang?: string[];
   items: CollectionItem[];
   coverUrl?: string;
 }

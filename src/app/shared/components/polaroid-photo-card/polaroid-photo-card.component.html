@@ -1,0 +1,169 @@
+<figure
+  class="polaroid"
+  [class.polaroid--rotated]="rotate()"
+  [class.polaroid--shadow]="shadow()"
+  [class.polaroid--stack]="hasStack()"
+  [class.polaroid--video]="isVideoLoaded()"
+  [style.--polaroid-rotation]="rotation()"
+>
+  @if (hasStack()) {
+    @for (layer of stackLayers(); track layer.thumbnail; let i = $index) {
+      <span
+        class="polaroid__layer"
+        aria-hidden="true"
+        [style.transform]="
+          'translate(' + layer.tx + 'px, ' + layer.ty + 'px) rotate(' + layer.rotation + 'deg)'
+        "
+        [style.z-index]="-(i + 1)"
+      >
+        <span
+          class="polaroid__layer-photo"
+          [style.background-image]="'url(\'' + layer.thumbnail + '\')'"
+        ></span>
+        @if (layer.title) {
+          <span class="polaroid__layer-title">{{ layer.title }}</span>
+        }
+      </span>
+    }
+  }
+
+  <div class="polaroid__frame">
+    <div class="polaroid__photo">
+      @if (isVideoLoaded() && currentVideoUrl()) {
+        <video
+          #videoEl
+          class="polaroid__video"
+          [src]="currentVideoUrl()!"
+          [poster]="coverImage() ?? ''"
+          preload="auto"
+          playsinline
+          (loadedmetadata)="onVideoLoadedMetadata()"
+          (canplay)="onVideoCanPlay()"
+          (play)="onVideoPlay()"
+          (pause)="onVideoPause()"
+          (ended)="onVideoEnded()"
+        ></video>
+
+        <div
+          class="polaroid__overlay"
+          (click)="onOverlayInteract($event)"
+          (touchstart)="onOverlayTouchStart($event)"
+          (mousemove)="onOverlayMouseMove()"
+        >
+          <div
+            class="polaroid__overlay-top"
+            [class.polaroid__overlay-top--hidden]="!controlsVisible()"
+          >
+            <button
+              type="button"
+              class="polaroid__ctrl-btn"
+              [attr.aria-label]="isMuted() ? 'Unmute' : 'Mute'"
+              (click)="toggleMute($event)"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">{{ volumeIcon() }}</span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="polaroid__play-pause"
+            [class.polaroid__play-pause--paused]="!isPlaying()"
+            [class.polaroid__play-pause--hidden]="isPlaying() && !controlsVisible()"
+            [attr.aria-label]="isPlaying() ? 'Pause' : 'Play'"
+            (click)="togglePlayPause($event)"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">
+              {{ isPlaying() ? 'pause' : 'play_arrow' }}
+            </span>
+          </button>
+
+          <div
+            class="polaroid__bottom"
+            [class.polaroid__bottom--hidden]="!controlsVisible()"
+          >
+            <div class="polaroid__time" aria-live="off" aria-atomic="true">
+              <span>{{ formatTime(currentTime()) }}</span>
+              <span class="polaroid__time-sep" aria-hidden="true">/</span>
+              <span>{{ formatTime(duration()) }}</span>
+            </div>
+
+            <div
+              class="polaroid__progress"
+              role="slider"
+              [attr.aria-valuenow]="progressPercent()"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-label="Video progress"
+              (click)="onProgressClick($event)"
+              (mousedown)="onProgressMouseDown($event)"
+              (mouseup)="onProgressMouseUp($event)"
+              (mousemove)="onProgressMouseMove($event)"
+              (mouseleave)="onProgressMouseLeave()"
+            >
+              @if (showTooltip()) {
+                <div class="polaroid__tooltip" [style.left.px]="tooltipLeft()">
+                  {{ formatTime(tooltipTime()) }}
+                </div>
+              }
+
+              <div class="polaroid__track-bar">
+                <div class="polaroid__fill" [style.width.%]="progressPercent()"></div>
+                <div class="polaroid__progress-thumb" [style.left.%]="progressPercent()"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else if (coverImage()) {
+        <img
+          class="polaroid__image"
+          [src]="coverImage()"
+          [alt]="coverTitle()"
+          loading="lazy"
+          decoding="async"
+          draggable="false"
+        />
+        <span class="polaroid__grain" aria-hidden="true"></span>
+        <span class="polaroid__light" aria-hidden="true"></span>
+
+        @if (hasVideo()) {
+          <button
+            type="button"
+            class="polaroid__play-btn"
+            aria-label="Play video"
+            (click)="onPlayBtnClick($event)"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">play_arrow</span>
+          </button>
+        }
+      } @else if (canRestore()) {
+        <button
+          type="button"
+          class="polaroid__restore"
+          aria-label="Restaurar pilha"
+          (click)="restore()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">restart_alt</span>
+        </button>
+      } @else {
+        <div class="polaroid__placeholder" aria-hidden="true">
+          <span class="material-symbols-rounded">photo_camera</span>
+        </div>
+      }
+
+      @if (canDismiss()) {
+        <button
+          type="button"
+          class="polaroid__close"
+          aria-label="Descartar foto"
+          (click)="dismiss()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">close</span>
+        </button>
+      }
+    </div>
+
+    <figcaption class="polaroid__caption">
+      <span class="polaroid__title">{{ coverTitle() }}</span>
+    </figcaption>
+  </div>
+</figure>

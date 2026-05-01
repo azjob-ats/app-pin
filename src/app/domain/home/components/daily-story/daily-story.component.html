@@ -11,8 +11,8 @@
         </div>
       }
     } @else {
-      @for (story of stories(); track story.id) {
-        <app-effect-list-cards [media]="story" (titleClick)="onTitleClick(story, $event)" />
+      @for (bundle of bundles(); track bundle.id) {
+        <app-polaroid-photo-card [bundle]="bundle" [rotate]="true" />
       }
     }
   </div>

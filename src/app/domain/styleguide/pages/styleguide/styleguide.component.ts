@@ -89,6 +89,7 @@ import { CollectionBundleComponent } from '@shared/components/collection-bundle/
 import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { EffectListCardsComponent } from '@shared/components/effect-list-cards/effect-list-cards.component';
 import { EffectListCardItem, EffectListCardMedia } from '@shared/components/effect-list-cards/effect-list-cards.interface';
+import { PolaroidPhotoCardComponent } from '@shared/components/polaroid-photo-card/polaroid-photo-card.component';
 import { environment } from '@env/environment';
 
 
@@ -184,6 +185,7 @@ export interface SearchResult {
     PinCardPlayerShortComponent,
     CollectionBundleComponent,
     EffectListCardsComponent,
+    PolaroidPhotoCardComponent,
   ],
   templateUrl: './styleguide.component.html',
   styleUrl: './styleguide.component.scss',
@@ -1565,6 +1567,90 @@ export class StyleguideComponent {
   (titleClick)="onTitleClick($event)"
 />`;
 
+  readonly polaroidPhotoCardImportCode = `import { PolaroidPhotoCardComponent } from '@shared/components/polaroid-photo-card/polaroid-photo-card.component';`;
+
+  readonly polaroidPhotoCardCode = `<app-polaroid-photo-card
+  [bundle]="bundle"
+  [rotate]="true"
+/>`;
+
+  readonly mockPolaroidBundle: CollectionBundle = {
+    id: 'dbbb73d8-4dce-4e7c-0e28-49640ef61dbb',
+    channel: 'Digix',
+    username: 'digix',
+    collectionName: 'Treinamento da plataforma Habix',
+    collectionNameKey: 'treinamento-da-plataforma-habix',
+    channelPicture: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245540/digix_logo_sguqv0.jpg',
+    verified: true,
+    slang: ['Habix', 'Onboarding', 'Treinamento', 'Digix', 'Educação'],
+    description: 'Primeiros passos de como utilizar a plataforma Habix',
+    items: [
+      {
+        type: 'video',
+        postId: 'e1f75b19-b171-4ce3-ab65-be049617dcbc',
+        title: 'Primeiro acesso',
+        duration: 158,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775245008/Captura_de_tela_2026-04-03_163637_xvrmh3.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244964/videoplayback_h16clw.mp4',
+      },
+      {
+        type: 'video',
+        postId: 'bd9439b9-3767-4ede-bece-50e56b47ba36',
+        title: 'Explorando a busca pelos documentos',
+        duration: 94,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244938/Captura_de_tela_2026-04-03_163522_rkzhfu.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244878/videoplayback_lytoc8.mp4',
+      },
+      {
+        type: 'video',
+        postId: '65943965-bb67-47bb-bdf9-3a346fe69743',
+        title: 'Download dos processos',
+        duration: 178,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244841/Captura_de_tela_2026-04-03_163345_xnyqvs.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244776/videoplayback_a29noz.mp4',
+      },
+      {
+        type: 'video',
+        postId: 'a8949c52-75af-49ac-81f9-bd158687754d',
+        title: 'Busca por pasta atual',
+        duration: 119,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244746/Captura_de_tela_2026-04-03_163203_pig2z5.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244664/videoplayback_fxg57h.mp4',
+      },
+      {
+        type: 'video',
+        postId: 'adeee71f-cad6-42bc-aeb9-311a4b5b5032',
+        title: 'Busca pelo conteúdo',
+        duration: 63,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244628/Captura_de_tela_2026-04-03_163003_mbgoq6.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244549/videoplayback_kskm98.mp4',
+      },
+      {
+        type: 'video',
+        postId: 'fc9c6ade-b9e6-4a21-8c7b-0ad3a8eeb0d0',
+        title: 'Central de ajuda',
+        duration: 57,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244514/Captura_de_tela_2026-04-03_162813_fd7fqb.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244437/videoplayback_hi8dog.mp4',
+      },
+      {
+        type: 'video',
+        postId: '0258a18a-d0d0-408f-b0c0-0ace9d7565a4',
+        title: 'Como entrar em contato conosco',
+        duration: 60,
+        thumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1775244405/Captura_de_tela_2026-04-03_162600_lipa3h.png',
+        videoUrl: 'https://res.cloudinary.com/ddvgzvqsm/video/upload/v1775244148/videoplayback_jcbgyy.mp4',
+      },
+    ],
+  };
+
+  readonly mockPolaroidBundleSingle: CollectionBundle = {
+    ...this.mockPolaroidBundle,
+    id: 'polaroid-single-001',
+    collectionName: 'Primeiro acesso',
+    items: [this.mockPolaroidBundle.items[0]],
+  };
+
   onEffectListCardsTitleClick(item: EffectListCardItem): void {
     console.log('Effect list cards title clicked:', item);
   }
@@ -1739,6 +1825,7 @@ export class StyleguideComponent {
         { id: 'comp-pin-card-player-short', label: 'Pin Card Player Short', icon: 'smart_display' },
         { id: 'comp-collection-bundle', label: 'Collection Bundle', icon: 'collections_bookmark' },
         { id: 'comp-effect-list-cards', label: 'Effect List Cards', icon: 'layers' },
+        { id: 'comp-polaroid-photo-card', label: 'Polaroid Photo Card', icon: 'photo_camera' },
       ],
     },
   ];

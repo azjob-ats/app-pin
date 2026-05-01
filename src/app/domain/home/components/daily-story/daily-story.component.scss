@@ -23,19 +23,20 @@
 .daily-story-track {
   display: flex;
   gap: 16px;
-  padding: 16px;
+  padding: 80px;
   overflow-x: auto;
   scrollbar-width: none;
   cursor: grab;
   user-select: none;
+  padding-left: 110px;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
-  app-effect-list-cards {
+  app-polaroid-photo-card {
     flex-shrink: 0;
-    width: 280px;
+    width: 240px;
   }
 }
 

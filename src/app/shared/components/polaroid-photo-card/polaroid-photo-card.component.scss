@@ -1,0 +1,492 @@
+:host {
+  display: inline-block;
+  position: relative;
+  perspective: 800px;
+}
+
+.polaroid {
+  --polaroid-rotation: 0deg;
+  --polaroid-bg: #fdfdfc;
+  --polaroid-frame-side: 14px;
+  --polaroid-frame-top: 14px;
+  --polaroid-frame-bottom: 56px;
+  --polaroid-radius: 4px;
+  --polaroid-shadow:
+    0 1px 2px rgba(20, 14, 8, 0.08),
+    0 8px 18px rgba(20, 14, 8, 0.18),
+    0 22px 40px rgba(20, 14, 8, 0.12);
+
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  transform: rotate(var(--polaroid-rotation));
+  isolation: isolate;
+}
+
+.polaroid__frame {
+  position: relative;
+  background: var(--polaroid-bg);
+  padding:
+    var(--polaroid-frame-top)
+    var(--polaroid-frame-side)
+    var(--polaroid-frame-bottom);
+  border-radius: var(--polaroid-radius);
+  background-color: #fff;
+}
+
+.polaroid--shadow .polaroid__frame {
+  box-shadow: var(--polaroid-shadow);
+}
+
+.polaroid__photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: #1a1a1a;
+  border-radius: 1px;
+  aspect-ratio: 1 / 1;
+}
+
+.polaroid__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(0.95) brightness(1.05) saturate(0.9) sepia(0.04);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.polaroid__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2622 0%, #1a1714 100%);
+  color: rgba(255, 240, 210, 0.55);
+
+  > .material-symbols-rounded {
+    font-size: 2.5rem;
+  }
+}
+
+.polaroid__restore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  border: none;
+  background: linear-gradient(135deg, #2a2622 0%, #1a1714 100%);
+  color: rgba(255, 240, 210, 0.78);
+  cursor: pointer;
+  font: inherit;
+  transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+
+  > .material-symbols-rounded {
+    font-size: 2.75rem;
+    line-height: 1;
+    transition: transform 220ms ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: #fdfdfc;
+    background: linear-gradient(135deg, #3a3228 0%, #221d18 100%);
+
+    > .material-symbols-rounded {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fdfdfc;
+    outline-offset: -4px;
+  }
+}
+
+.polaroid__restore-label {
+  font-family: 'Caveat', 'Patrick Hand', 'Segoe Script', cursive;
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
+}
+
+.polaroid__grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+}
+
+.polaroid__light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      120% 80% at 20% 10%,
+      rgba(255, 235, 190, 0.18) 0%,
+      rgba(255, 235, 190, 0) 55%
+    ),
+    radial-gradient(
+      100% 70% at 90% 100%,
+      rgba(40, 20, 10, 0.18) 0%,
+      rgba(40, 20, 10, 0) 60%
+    );
+}
+
+.polaroid__caption {
+  position: absolute;
+  left: var(--polaroid-frame-side);
+  right: var(--polaroid-frame-side);
+  bottom: 14px;
+  text-align: center;
+}
+
+.polaroid__title {
+  font-family: 'Caveat', 'Patrick Hand', 'Segoe Script', cursive;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  color: #2b2317;
+  letter-spacing: 0.2px;
+  transform: rotate(-0.5deg);
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.polaroid__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(20, 14, 8, 0.55);
+  color: #fdfdfc;
+  cursor: pointer;
+  z-index: 5;
+  transition: background-color 160ms ease, transform 160ms ease;
+
+  > .material-symbols-rounded {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(20, 14, 8, 0.78);
+    transform: scale(1.05);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fdfdfc;
+    outline-offset: 2px;
+  }
+}
+
+.polaroid__layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: var(--polaroid-bg);
+  border-radius: var(--polaroid-radius);
+  box-shadow: var(--polaroid-shadow);
+  padding:
+    var(--polaroid-frame-top)
+    var(--polaroid-frame-side)
+    var(--polaroid-frame-bottom);
+  transform-origin: center;
+  filter: brightness(0.97) saturate(0.85);
+  pointer-events: none;
+}
+
+.polaroid__layer-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #1a1a1a;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 1px;
+  filter: contrast(0.95) brightness(1.02) saturate(0.85) sepia(0.06);
+}
+
+.polaroid__layer-title {
+  position: absolute;
+  left: var(--polaroid-frame-side);
+  right: var(--polaroid-frame-side);
+  bottom: 14px;
+  text-align: center;
+  font-family: 'Caveat', 'Patrick Hand', 'Segoe Script', cursive;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: #2b2317;
+  letter-spacing: 0.2px;
+  transform: rotate(-0.5deg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.85;
+}
+
+// ── Video playback ───────────────────────────────────────────────────────────
+
+.polaroid__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+  filter: contrast(0.95) brightness(1.05) saturate(0.9) sepia(0.04);
+  user-select: none;
+}
+
+.polaroid--video {
+  .polaroid__grain,
+  .polaroid__light {
+    display: none;
+  }
+}
+
+.polaroid__play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--pin-red, #e60023);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease;
+  z-index: 3;
+
+  > .material-symbols-rounded {
+    font-size: 32px;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.polaroid__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.48) 0%,
+    transparent 28%,
+    transparent 58%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+}
+
+.polaroid__overlay-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  &--hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+  }
+}
+
+.polaroid__ctrl-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.12s ease, transform 0.12s ease;
+
+  > .material-symbols-rounded {
+    font-size: 1.15rem;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
+  &:hover {
+    transform: scale(1.07);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.polaroid__play-pause {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--pin-red, #e60023);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.25s ease, transform 0.15s ease;
+
+  > .material-symbols-rounded {
+    font-size: 32px;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  }
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  &--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.polaroid__bottom {
+  padding: 4px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  &--hidden {
+    opacity: 0;
+    transform: translateY(100%);
+    pointer-events: none;
+  }
+}
+
+.polaroid__time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.polaroid__time-sep {
+  opacity: 0.65;
+}
+
+.polaroid__progress {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover .polaroid__track-bar {
+    height: 5px;
+  }
+
+  &:hover .polaroid__progress-thumb {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.polaroid__track-bar {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.32);
+  border-radius: 9999px;
+  overflow: visible;
+  transition: height 0.15s ease;
+}
+
+.polaroid__fill {
+  height: 100%;
+  background: var(--pin-red, #e60023);
+  border-radius: 9999px;
+}
+
+.polaroid__progress-thumb {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translateX(-50%) scale(0);
+  margin-top: -6px;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.polaroid__tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.82);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
