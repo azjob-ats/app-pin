@@ -1,12 +1,26 @@
 <div class="home-page">
+  <!--
+    FEATURE DESATIVADA: home-trending-topic (2026-05-05)
+    Motivo: testes com modelos não resultaram em compatibilidade com o projeto.
+    Referência da decisão: /spec/home-trending-topic/decision.md
+  -->
+  <!--
   <home-trending-topic
     [topics]="trendingTopics()"
     [isLoading]="isLoadingTrendingTopics()"
     (topicSelect)="search($event)" />
+  -->
 
+  <!--
+    FEATURE DESATIVADA: home-daily-story (2026-05-05)
+    Motivo: testes com modelos não resultaram em compatibilidade com o projeto.
+    Referência da decisão: /spec/daily-story/decision.md
+  -->
+  <!--
   <home-daily-story
     [stories]="dailyStories()"
     [isLoading]="isLoadingDailyStories()" />
+  -->
 
   <home-dynamic-interest-tabs
     [tabs]="interestTabs()"

@@ -3,21 +3,24 @@ import { Router } from '@angular/router';
 import { CollectionBundleApi } from '@shared/apis/collection-bundle.api';
 import { ContentCategoryApi } from '@shared/apis/content-category.api';
 import { PostApi } from '@shared/apis/post.api';
-import { RelevantResearchApi } from '@shared/apis/relevant-research.api';
-import { ShopWindowApi } from '@shared/apis/shop-window.api';
+// FEATURE DESATIVADA: home-trending-topic (2026-05-05) — ver /spec/home-trending-topic/decision.md
+// import { RelevantResearchApi } from '@shared/apis/relevant-research.api';
+// FEATURE DESATIVADA: home-daily-story (2026-05-05) — ver /spec/daily-story/decision.md
+// import { ShopWindowApi } from '@shared/apis/shop-window.api';
 import { WinningSlotsApi } from '@shared/apis/winning-slots.api';
 import { CollectionBundle } from '@shared/interfaces/entity/collection-bundle';
 import { ContentCategory } from '@shared/interfaces/entity/content-category';
 import { Post } from '@shared/interfaces/entity/post';
-import { ShopWindow } from '@shared/interfaces/entity/shop-window';
+// import { ShopWindow } from '@shared/interfaces/entity/shop-window';
 import { WinningSlot } from '@shared/interfaces/entity/winning-slot';
 import { FeedComposerService } from '@shared/services/feed-composer.service';
-import { DailyStoryComponent } from '../../components/daily-story/daily-story.component';
+// import { DailyStoryComponent } from '../../components/daily-story/daily-story.component';
 import { DynamicInterestTabsComponent } from '../../components/dynamic-interest-tabs/dynamic-interest-tabs.component';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
-import { TrendingTopicComponent } from '../../components/trending-topic/trending-topic.component';
+// FEATURE DESATIVADA: home-trending-topic (2026-05-05) — ver /spec/home-trending-topic/decision.md
+// import { TrendingTopicComponent } from '../../components/trending-topic/trending-topic.component';
 import { FeedItem } from '../../interfaces/feed-item';
-import { TrendingTopic } from '../../interfaces/trending-topic';
+// import { TrendingTopic } from '../../interfaces/trending-topic';
 
 const MOBILE_BREAKPOINT_PX = 768;
 const COLUMNS_DESKTOP = 6;
@@ -25,12 +28,10 @@ const COLUMNS_MOBILE = 2;
 
 @Component({
   selector: 'app-home',
-  imports: [
-    TrendingTopicComponent,
-    DailyStoryComponent,
-    DynamicInterestTabsComponent,
-    MediaCardComponent,
-  ],
+  // FEATURES DESATIVADAS no imports[] abaixo:
+  //   - TrendingTopicComponent (home-trending-topic) — ver /spec/home-trending-topic/decision.md
+  //   - DailyStoryComponent (home-daily-story) — ver /spec/daily-story/decision.md
+  imports: [DynamicInterestTabsComponent, MediaCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -41,12 +42,14 @@ export class HomeComponent {
   readonly isLoading = signal(true);
   readonly isLoadingMore = signal(false);
   readonly interestTabs = signal<ContentCategory[]>([]);
-  readonly trendingTopics = signal<TrendingTopic[]>([]);
+  // FEATURE DESATIVADA: home-trending-topic — ver /spec/home-trending-topic/decision.md
+  // readonly trendingTopics = signal<TrendingTopic[]>([]);
   readonly isLoadingInterestTabs = signal(true);
-  readonly isLoadingTrendingTopics = signal(true);
-  readonly isLoadingDailyStories = signal(true);
+  // readonly isLoadingTrendingTopics = signal(true);
+  // FEATURE DESATIVADA: home-daily-story — ver /spec/daily-story/decision.md
+  // readonly isLoadingDailyStories = signal(true);
   readonly selectedCategory = signal<string>('all');
-  readonly dailyStories = signal<ShopWindow[]>([]);
+  // readonly dailyStories = signal<ShopWindow[]>([]);
 
   private readonly columnCount = signal(this.detectColumns());
 
@@ -61,9 +64,11 @@ export class HomeComponent {
 
   private readonly postApi = inject(PostApi);
   private readonly collectionBundleApi = inject(CollectionBundleApi);
-  private readonly shopWindowApi = inject(ShopWindowApi);
+  // FEATURE DESATIVADA: home-daily-story — ver /spec/daily-story/decision.md
+  // private readonly shopWindowApi = inject(ShopWindowApi);
   private readonly contentCategoryApi = inject(ContentCategoryApi);
-  private readonly relevantResearchApi = inject(RelevantResearchApi);
+  // FEATURE DESATIVADA: home-trending-topic — ver /spec/home-trending-topic/decision.md
+  // private readonly relevantResearchApi = inject(RelevantResearchApi);
   private readonly winningSlotsApi = inject(WinningSlotsApi);
   private readonly composer = inject(FeedComposerService);
   private readonly router = inject(Router);
@@ -91,11 +96,12 @@ export class HomeComponent {
       error: () => {},
     });
 
-    this.shopWindowApi.list().subscribe({
-      next: (response) => this.dailyStories.set(response.data?.data ?? []),
-      error: () => {},
-      complete: () => this.isLoadingDailyStories.set(false),
-    });
+    // FEATURE DESATIVADA: home-daily-story — ver /spec/daily-story/decision.md
+    // this.shopWindowApi.list().subscribe({
+    //   next: (response) => this.dailyStories.set(response.data?.data ?? []),
+    //   error: () => {},
+    //   complete: () => this.isLoadingDailyStories.set(false),
+    // });
   }
 
   private loadWinningSlots(): void {
@@ -112,14 +118,15 @@ export class HomeComponent {
       complete: () => this.isLoadingInterestTabs.set(false),
     });
 
-    this.relevantResearchApi.list().subscribe({
-      next: (response) =>
-        this.trendingTopics.set(
-          (response.data?.data ?? []).map((r) => ({ term: r.term } satisfies TrendingTopic)),
-        ),
-      error: () => {},
-      complete: () => this.isLoadingTrendingTopics.set(false),
-    });
+    // FEATURE DESATIVADA: home-trending-topic — ver /spec/home-trending-topic/decision.md
+    // this.relevantResearchApi.list().subscribe({
+    //   next: (response) =>
+    //     this.trendingTopics.set(
+    //       (response.data?.data ?? []).map((r) => ({ term: r.term } satisfies TrendingTopic)),
+    //     ),
+    //   error: () => {},
+    //   complete: () => this.isLoadingTrendingTopics.set(false),
+    // });
   }
 
   selectCategory(key: string): void {
