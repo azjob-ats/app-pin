@@ -80,13 +80,15 @@
             <p class="pcps__title">{{ post().media.title }}</p>
           }
 
-          <p class="pcps__meta">
-            <span class="pcps__meta-channel">{{ post().channel.profileNameOfficial }}</span>
-            <span class="pcps__meta-sep" aria-hidden="true">•</span>
-            <span>{{ formatViews(post().views) }} visualizações</span>
-            <span class="pcps__meta-sep" aria-hidden="true">•</span>
-            <span>{{ timeAgo(post().timestamp) }}</span>
-          </p>
+          @if (!hideMeta()) {
+            <p class="pcps__meta">
+              <span class="pcps__meta-channel">{{ post().channel.profileNameOfficial }}</span>
+              <span class="pcps__meta-sep" aria-hidden="true">•</span>
+              <span>{{ formatViews(post().views) }} visualizações</span>
+              <span class="pcps__meta-sep" aria-hidden="true">•</span>
+              <span>{{ timeAgo(post().timestamp) }}</span>
+            </p>
+          }
 
           <div
             class="pcps__progress"

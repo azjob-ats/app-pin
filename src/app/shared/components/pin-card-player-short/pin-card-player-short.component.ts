@@ -28,6 +28,7 @@ import { Post } from './pin-card-player-short.interface';
 export class PinCardPlayerShortComponent implements OnDestroy {
   readonly post = input.required<Post>();
   readonly uniformAspect = input(false);
+  readonly hideMeta = input(false);
 
   private readonly playback = inject(VideoSinglePlaybackService);
 

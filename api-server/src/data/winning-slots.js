@@ -71,7 +71,7 @@ const MOCK_WINNING_SLOTS = [
   {
     id: 'ws-mv-916-001',
     postType: 'winning-slot',
-    slotKind: 'recommendation',
+    slotKind: 'ad',
     timestamp: '2025-03-07 21:29:25.187',
     isLiked: false,
     likes: 2876,
@@ -167,7 +167,7 @@ const MOCK_WINNING_SLOTS = [
       title: 'Vagas abertas',
       titleLink: 'vagas-abertas',
       link: 'https://digix.com/vagas',
-      cta: 'Aplicar',
+      cta: 'Saiba Mais',
     },
     channel: DIGIX_CHANNEL,
     comment: EMPTY_COMMENT,

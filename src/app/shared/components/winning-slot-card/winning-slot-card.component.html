@@ -1,14 +1,11 @@
 <div class="wsc">
   <div class="wsc__media">
-    @if (movieMedia(); as movie) {
-      <video
-        class="wsc__video"
-        [src]="movie.long"
-        [poster]="movie.thumbnail"
-        controls
-        playsinline
-        preload="metadata">
-      </video>
+    @if (moviePost(); as moviePost) {
+      <app-pin-card-player-short
+        class="wsc__player"
+        [post]="moviePost"
+        [uniformAspect]="true"
+        [hideMeta]="true" />
     } @else if (imageMedia(); as image) {
       @if (image.link) {
         <a

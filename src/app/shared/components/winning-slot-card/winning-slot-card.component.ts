@@ -1,5 +1,7 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type, computed, inject, input } from '@angular/core';
+import { PinCardPlayerShortComponent } from '@shared/components/pin-card-player-short/pin-card-player-short.component';
+import { Post } from '@shared/interfaces/entity/post';
 import { SafeHtmlPipe } from '@shared/pipes/safe-html/safe-html.pipe';
 import { SlotComponentRegistryService } from '@shared/services/slot-component-registry.service';
 import {
@@ -13,7 +15,7 @@ import {
 @Component({
   selector: 'app-winning-slot-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgComponentOutlet, SafeHtmlPipe],
+  imports: [NgComponentOutlet, PinCardPlayerShortComponent, SafeHtmlPipe],
   templateUrl: './winning-slot-card.component.html',
   styleUrl: './winning-slot-card.component.scss',
   host: {
@@ -36,6 +38,9 @@ export class WinningSlotCardComponent {
 
   readonly movieMedia = computed<WinningSlotMovieMedia | null>(() =>
     this.slot().media.contentType === 'movie' ? (this.slot().media as WinningSlotMovieMedia) : null,
+  );
+  readonly moviePost = computed<Post | null>(() =>
+    this.slot().media.contentType === 'movie' ? (this.slot() as unknown as Post) : null,
   );
   readonly imageMedia = computed<WinningSlotImageMedia | null>(() =>
     this.slot().media.contentType === 'image' ? (this.slot().media as WinningSlotImageMedia) : null,
