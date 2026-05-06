@@ -35,32 +35,64 @@ interface RowPattern {
   v: number;
 }
 
-/**
- * Tabela determinística de preenchimento. Dada a contagem (H, V) da linha
- * incompleta, lista os aspect ratios a inserir, na ordem em que devem entrar
- * no final da linha.
- *
- * Pressuposto: grid de 6 colunas com H=3 col e V=1 col.
- */
-const FILL_RULES: ReadonlyArray<{
+interface FillRule {
   pattern: RowPattern;
   fill: ReadonlyArray<WinningSlotAspectRatio>;
-}> = [
-  // Regra 1 — (H=1, V=0): só um horizontal na linha → completa com mais 1 H.
-  { pattern: { h: 1, v: 0 }, fill: ['16:9'] },
-  // Regra 2 — (H=0, V=1): apenas um vertical → adiciona 2 V (linha = 3V).
-  { pattern: { h: 0, v: 1 }, fill: ['9:16', '9:16'] },
-  // Regra 3 — (H=1, V=1): pareia com 2 V → 1H + 3V.
-  { pattern: { h: 1, v: 1 }, fill: ['9:16', '9:16'] },
-  // Regra 4 — (H=1, V=2): falta 1 V → 1H + 3V.
-  { pattern: { h: 1, v: 2 }, fill: ['9:16'] },
-  // Regra 5 — (H=0, V=2): adiciona 1 H → 1H + 2V.
-  { pattern: { h: 0, v: 2 }, fill: ['16:9'] },
-  // Regra 6 — (H=0, V=3): adiciona 1 H → 1H + 3V.
-  { pattern: { h: 0, v: 3 }, fill: ['16:9'] },
-  // Regra 7 — (H=0, V=4): adiciona 2 V → 6V (linha cheia de verticais).
-  { pattern: { h: 0, v: 4 }, fill: ['9:16', '9:16'] },
-];
+}
+
+interface ColumnConfig {
+  /** Span esperado para 16:9 nesse layout (validado contra `spanFor`). */
+  hSpan: number;
+  /** Span esperado para 9:16 nesse layout. */
+  vSpan: number;
+  /** Regras de preenchimento por padrão (H, V) da linha. */
+  rules: ReadonlyArray<FillRule>;
+}
+
+/**
+ * Tabelas determinísticas de preenchimento por contagem de colunas. Dada a
+ * contagem (H, V) da linha incompleta, lista os aspect ratios a inserir, na
+ * ordem em que devem entrar no final da linha.
+ *
+ * Para adicionar suporte a um novo layout (ex.: tablet 4 col), basta declarar
+ * a entrada com `hSpan`/`vSpan` esperados e as regras de gap-fill aplicáveis.
+ */
+const FILL_RULES_BY_COLUMNS: ReadonlyMap<number, ColumnConfig> = new Map([
+  // Desktop — 6 col (H=3 col, V=1 col).
+  [
+    6,
+    {
+      hSpan: 3,
+      vSpan: 1,
+      rules: [
+        // (H=1, V=0): só um horizontal → completa com mais 1 H.
+        { pattern: { h: 1, v: 0 }, fill: ['16:9'] },
+        // (H=0, V=1): apenas um vertical → adiciona 2 V (linha = 3V).
+        { pattern: { h: 0, v: 1 }, fill: ['9:16', '9:16'] },
+        // (H=1, V=1): pareia com 2 V → 1H + 3V.
+        { pattern: { h: 1, v: 1 }, fill: ['9:16', '9:16'] },
+        // (H=1, V=2): falta 1 V → 1H + 3V.
+        { pattern: { h: 1, v: 2 }, fill: ['9:16'] },
+        // (H=0, V=2): adiciona 1 H → 1H + 2V.
+        { pattern: { h: 0, v: 2 }, fill: ['16:9'] },
+        // (H=0, V=3): adiciona 1 H → 1H + 3V.
+        { pattern: { h: 0, v: 3 }, fill: ['16:9'] },
+        // (H=0, V=4): adiciona 2 V → 6V (linha cheia de verticais).
+        { pattern: { h: 0, v: 4 }, fill: ['9:16', '9:16'] },
+      ],
+    },
+  ],
+  // Mobile — 2 col (H=2 col / linha cheia, V=1 col).
+  // Único padrão incompleto possível é (H=0, V=1): completa com mais 1 V.
+  [
+    2,
+    {
+      hSpan: 2,
+      vSpan: 1,
+      rules: [{ pattern: { h: 0, v: 1 }, fill: ['9:16'] }],
+    },
+  ],
+]);
 
 /**
  * Compõe o feed final aplicando regras determinísticas de preenchimento de
@@ -69,9 +101,9 @@ const FILL_RULES: ReadonlyArray<{
  * Regras globais:
  *  - Linha única no grid → não preenche.
  *  - Múltiplas linhas → não preenche a ÚLTIMA linha.
- *  - Linhas intermediárias incompletas → consulta FILL_RULES.
- *  - As regras assumem grid 6 col (H=3, V=1). Para layouts diferentes
- *    (ex.: mobile 2 col), o fill é desabilitado preservando os posts.
+ *  - Linhas intermediárias incompletas → consulta `FILL_RULES_BY_COLUMNS`
+ *    pelo número de colunas atual (suporta 6-col desktop e 2-col mobile).
+ *  - Layouts não mapeados → fill é desabilitado preservando os posts.
  */
 @Injectable({ providedIn: 'root' })
 export class FeedComposerService {
@@ -87,7 +119,7 @@ export class FeedComposerService {
     const cursor = new SlotCursor(winningSlots);
     const rulesEnabled = this.areFillRulesApplicable(columns, spanFor);
 
-    return this.assembleFeed(rows, cursor, rulesEnabled);
+    return this.assembleFeed(rows, cursor, rulesEnabled, columns);
   }
 
   /** Distribui posts em linhas respeitando a capacidade da grid. */
@@ -126,9 +158,14 @@ export class FeedComposerService {
     return { h, v };
   }
 
-  /** Resolve o fill consultando a tabela determinística. */
-  private decideRowFill(pattern: RowPattern): ReadonlyArray<WinningSlotAspectRatio> {
-    const rule = FILL_RULES.find(
+  /** Resolve o fill consultando a tabela do layout (columns) atual. */
+  private decideRowFill(
+    pattern: RowPattern,
+    columns: number,
+  ): ReadonlyArray<WinningSlotAspectRatio> {
+    const rules = FILL_RULES_BY_COLUMNS.get(columns)?.rules;
+    if (!rules) return [];
+    const rule = rules.find(
       (r) => r.pattern.h === pattern.h && r.pattern.v === pattern.v,
     );
     return rule ? rule.fill : [];
@@ -139,6 +176,7 @@ export class FeedComposerService {
     rows: ReadonlyArray<ReadonlyArray<Post>>,
     cursor: SlotCursor,
     rulesEnabled: boolean,
+    columns: number,
   ): ComposedFeedItem[] {
     const out: ComposedFeedItem[] = [];
     const isSingleRow = rows.length === 1;
@@ -153,7 +191,7 @@ export class FeedComposerService {
 
       if (!rulesEnabled || isSingleRow || isLastRow) continue;
 
-      const fill = this.decideRowFill(this.detectRowPattern(row));
+      const fill = this.decideRowFill(this.detectRowPattern(row), columns);
       for (const aspect of fill) {
         const slot = cursor.takeByAspect(aspect);
         if (slot) out.push({ kind: 'winning-slot', data: slot });
@@ -167,7 +205,9 @@ export class FeedComposerService {
     columns: number,
     spanFor: NonNullable<ComposeFeedOptions['spanFor']>,
   ): boolean {
-    return columns === 6 && spanFor('16:9', columns) === 3 && spanFor('9:16', columns) === 1;
+    const config = FILL_RULES_BY_COLUMNS.get(columns);
+    if (!config) return false;
+    return spanFor('16:9', columns) === config.hSpan && spanFor('9:16', columns) === config.vSpan;
   }
 }
 
