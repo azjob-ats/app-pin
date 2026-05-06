@@ -45,8 +45,8 @@
   position: absolute;
   left: 12px;
   bottom: 12px;
-  background: #fff;
-  color: #111;
+  background: #e60023;
+  color: #fff;
   font-weight: 700;
   font-size: 0.85rem;
   padding: 6px 14px;
@@ -75,6 +75,13 @@
   gap: 6px;
 }
 
+.wsc__component--resolved {
+  display: block;
+  padding: 0;
+  background: transparent;
+  text-align: left;
+}
+
 .wsc__component-id {
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -94,7 +101,7 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  background: rgba(0, 0, 0, 0.65);
+  background: #e60023;
   color: #fff;
   font-size: 0.65rem;
   font-weight: 600;

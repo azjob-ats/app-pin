@@ -36,10 +36,17 @@
     } @else if (htmlMedia()) {
       <div class="wsc__html" [innerHTML]="scopedHtml() | safeHtml"></div>
     } @else if (componentMedia(); as cmp) {
-      <div class="wsc__component">
-        <span class="wsc__component-id">{{ cmp.componentId }}</span>
-        <p class="wsc__component-title">{{ cmp.title }}</p>
-      </div>
+      @if (resolvedComponent(); as componentType) {
+        <div class="wsc__component wsc__component--resolved">
+          <ng-container
+            *ngComponentOutlet="componentType; inputs: resolvedComponentInputs()" />
+        </div>
+      } @else {
+        <div class="wsc__component">
+          <span class="wsc__component-id">{{ cmp.componentId }}</span>
+          <p class="wsc__component-title">{{ cmp.title }}</p>
+        </div>
+      }
     }
 
     @if (slot().slotKind === 'ad') {
