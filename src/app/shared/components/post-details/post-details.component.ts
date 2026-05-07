@@ -5,6 +5,7 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Post } from '@shared/interfaces/entity/post';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { ButtonInscriptionComponent } from '@shared/components/button-inscription/button-inscription.component';
@@ -17,6 +18,7 @@ import { CommentSubmitComponent } from '@shared/components/comment-submit/commen
   selector: 'app-post-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    RouterLink,
     ButtonComponent,
     ButtonInscriptionComponent,
     ButtonLikeComponent,

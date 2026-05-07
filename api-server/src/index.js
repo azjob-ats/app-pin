@@ -12,6 +12,7 @@ const menuRouter = require('./routes/menu');
 const learnMoreRouter = require('./routes/learn-more');
 const postRouter = require('./routes/post');
 const collectionBundleRouter = require('./routes/collection-bundle');
+const channelRouter = require('./routes/channel');
 const shopWindowRouter = require('./routes/shop-window');
 const winningSlotsRouter = require('./routes/winning-slots');
 
@@ -38,6 +39,7 @@ app.use('/api/relevant-research', relevantResearchRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/post', postRouter);
 app.use('/api/collection-bundle', collectionBundleRouter);
+app.use('/api/channel', channelRouter);
 app.use('/api/shop-window', shopWindowRouter);
 app.use('/api/winning-slots', winningSlotsRouter);
 
@@ -83,6 +85,9 @@ app.listen(PORT, () => {
   console.log('  GET    /api/post/:username/:titleLink');
   console.log('  GET    /api/collection-bundle');
   console.log('  GET    /api/collection-bundle/:id');
+  console.log('  GET    /api/channel/:profileName');
+  console.log('  GET    /api/channel/:profileName/gallery');
+  console.log('  GET    /api/channel/:profileName/collection');
   console.log('  GET    /api/shop-window');
   console.log('  GET    /api/winning-slots');
 });

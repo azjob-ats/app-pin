@@ -21,6 +21,21 @@
   border-bottom: 1px solid var(--pin-border);
 }
 
+.pp-channel-link {
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--radius-sm);
+
+  &:hover .pp-channel-name {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pin-red);
+    outline-offset: 2px;
+  }
+}
+
 .pp-channel-name {
   line-height: 1.3;
 }

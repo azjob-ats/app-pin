@@ -349,9 +349,10 @@ export const routes: Routes = [
         path: ROUTES.PROFILE.ROOT,
         pathMatch: 'full',
         loadComponent: () =>
-          import('./domain/profile/pages/profile/profile.component').then(
-            (m) => m.ProfileComponent,
+          import('./domain/channel/pages/channel/channel.component').then(
+            (m) => m.ChannelPageComponent,
           ),
+        data: { title: 'Channel', description: 'Veja a galeria e coleções deste canal.' },
       },
     ],
   },

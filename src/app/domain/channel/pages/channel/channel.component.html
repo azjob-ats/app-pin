@@ -1,0 +1,134 @@
+<div class="channel-page">
+  @if (isLoading()) {
+    <div class="d-flex flex-col align-center gap-4 py-7 px-5">
+      <div class="skeleton avatar-skeleton"></div>
+      <div class="skeleton name-skeleton"></div>
+      <div class="skeleton bio-skeleton"></div>
+    </div>
+  }
+
+  @if (channel(); as channel) {
+    <!-- Cover -->
+    <div class="channel-cover" aria-hidden="true">
+      @if (channel.coverPicture) {
+        <img
+          [src]="channel.coverPicture"
+          [alt]="channel.profileNameOfficial"
+          class="channel-cover-img"
+          loading="lazy" />
+      }
+    </div>
+
+    <!-- Header -->
+    <div class="channel-header d-flex flex-col align-center text-center">
+      <app-user-avatar
+        [imageUrl]="channel.profilePicture"
+        [alt]="channel.profileNameOfficial"
+        size="xl"
+        class="channel-avatar mb-4" />
+
+      <h1 class="channel-name text-7 fw-bold text-1xl-title mb-1 flex align-center gap-1">
+        {{ channel.profileNameOfficial }}
+        @if (channel.verified) {
+          <span
+            class="material-symbols-rounded channel-verified"
+            aria-label="Canal verificado">
+            verified
+          </span>
+        }
+      </h1>
+      <p class="text-2 text-7-title mb-4">&#64;{{ channel.profileName }}</p>
+
+      <div class="d-flex align-center gap-4 mb-3">
+        <div class="d-flex flex-col align-center">
+          <span class="stat-value fw-bold text-1xl-title">
+            {{ formatCount(channel.numberOfFollowers) }}
+          </span>
+          <span class="text-1 text-7-title">{{ 'profile.followers' | translate }}</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="d-flex flex-col align-center">
+          <span class="stat-value fw-bold text-1xl-title">
+            {{ formatCount(channel.numberOfPublication) }}
+          </span>
+          <span class="text-1 text-7-title">{{ 'profile.publications' | translate }}</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="d-flex flex-col align-center">
+          <span class="stat-value fw-bold text-1xl-title">
+            {{ formatCount(channel.numberOfToFollow) }}
+          </span>
+          <span class="text-1 text-7-title">{{ 'profile.following' | translate }}</span>
+        </div>
+      </div>
+
+      @if (channel.overview) {
+        <p class="channel-bio text-base text-7-title mb-3">{{ channel.overview }}</p>
+      }
+
+      @if (channel.visitWebsite) {
+        <a
+          class="channel-website d-flex align-center gap-1 text-2 text-7-title mb-4"
+          [href]="websiteHref()"
+          target="_blank"
+          rel="noopener">
+          <span class="material-symbols-rounded">link</span>
+          {{ websiteLabel() }}
+        </a>
+      }
+
+      <div class="d-flex align-center gap-2">
+        <app-button-inscription [subscribed]="false" />
+        <app-button
+          variant="secondary"
+          shape="circle"
+          icon="chat_bubble"
+          ariaLabel="Send message" />
+        <app-button
+          variant="secondary"
+          shape="circle"
+          icon="share"
+          ariaLabel="Share channel" />
+        <app-button
+          variant="secondary"
+          shape="circle"
+          icon="more_horiz"
+          ariaLabel="More options" />
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <app-tabs defaultTab="gallery">
+      <app-tab id="gallery">{{ 'profile.gallery' | translate }}</app-tab>
+      <app-tab id="collection">{{ 'profile.collection' | translate }}</app-tab>
+
+      <app-tab-panel id="gallery">
+        @if (gallery().length === 0) {
+          <app-empty-state
+            icon="movie"
+            [message]="'profile.noGallery' | translate" />
+        } @else {
+          <div class="channel-gallery-grid">
+            @for (post of gallery(); track post.id) {
+              <app-pin-card-player-short [post]="post" [uniformAspect]="true" />
+            }
+          </div>
+        }
+      </app-tab-panel>
+
+      <app-tab-panel id="collection">
+        @if (collection().length === 0) {
+          <app-empty-state
+            icon="collections_bookmark"
+            [message]="'profile.noCollection' | translate" />
+        } @else {
+          <div class="channel-collection-grid d-grid gap-4 p-4">
+            @for (bundle of collection(); track bundle.id) {
+              <app-collection-bundle [bundle]="bundle" />
+            }
+          </div>
+        }
+      </app-tab-panel>
+    </app-tabs>
+  }
+</div>

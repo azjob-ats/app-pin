@@ -1,4 +1,4 @@
-MOCK_CHANNEL = [
+const MOCK_CHANNEL = [
 {
       id: '124e9f9f-6310-447f-9ba3-29e90219ff99',
       profileName: 'Digix',

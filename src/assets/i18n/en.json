@@ -76,8 +76,13 @@
     "created": "Created",
     "saved": "Saved",
     "boards": "Boards",
+    "gallery": "Gallery",
+    "collection": "Collection",
+    "publications": "Publications",
     "noPins": "No pins yet",
-    "noBoards": "No boards yet"
+    "noBoards": "No boards yet",
+    "noGallery": "No publications yet",
+    "noCollection": "No collections yet"
   },
   "explore": {
     "title": "Explore ideas",

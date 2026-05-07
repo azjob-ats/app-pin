@@ -43,23 +43,28 @@
 
   <!-- Channel row -->
   <div class="pp-channel-row flex align-center gap-3 py-3 mb-4">
-    <app-user-avatar
-      [imageUrl]="post().channel.profilePicture"
-      [alt]="post().channel.profileName"
-      size="md" />
-    <div class="flex-1 flex flex-col">
-      <span class="pp-channel-name fw-bold text-base text-1xl-title flex align-center gap-1">
-        {{ post().channel.profileName }}
-        @if (post().channel.verified) {
-          <span class="material-symbols-rounded pp-verified" aria-label="Canal verificado">verified</span>
-        }
-      </span>
-      @if (post().channel.numberOfFollowers) {
-        <span class="text-1 text-7-title">
-          {{ formatCount(post().channel.numberOfFollowers) }} seguidores
+    <a
+      class="pp-channel-link flex align-center gap-3 flex-1"
+      [routerLink]="['/', post().channel.profileName]"
+      [attr.aria-label]="'Ver canal ' + post().channel.profileName">
+      <app-user-avatar
+        [imageUrl]="post().channel.profilePicture"
+        [alt]="post().channel.profileName"
+        size="md" />
+      <div class="flex-1 flex flex-col">
+        <span class="pp-channel-name fw-bold text-base text-1xl-title flex align-center gap-1">
+          {{ post().channel.profileName }}
+          @if (post().channel.verified) {
+            <span class="material-symbols-rounded pp-verified" aria-label="Canal verificado">verified</span>
+          }
         </span>
-      }
-    </div>
+        @if (post().channel.numberOfFollowers) {
+          <span class="text-1 text-7-title">
+            {{ formatCount(post().channel.numberOfFollowers) }} seguidores
+          </span>
+        }
+      </div>
+    </a>
     <app-button-inscription [subscribed]="false" />
   </div>
 

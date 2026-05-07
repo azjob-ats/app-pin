@@ -88,6 +88,11 @@ export const environment = {
     WINNING_SLOTS: {
       LIST: '/api/winning-slots',
     },
+    CHANNEL: {
+      DETAIL: '/api/channel/:profileName',
+      GALLERY: '/api/channel/:profileName/gallery',
+      COLLECTION: '/api/channel/:profileName/collection',
+    },
   },
   ROUTES: {
     AUTH: {

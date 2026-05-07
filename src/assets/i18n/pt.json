@@ -76,8 +76,13 @@
     "created": "Criados",
     "saved": "Salvos",
     "boards": "Painéis",
+    "gallery": "Galeria",
+    "collection": "Coleção",
+    "publications": "Publicações",
     "noPins": "Nenhum pin ainda",
-    "noBoards": "Nenhum painel ainda"
+    "noBoards": "Nenhum painel ainda",
+    "noGallery": "Nenhuma publicação ainda",
+    "noCollection": "Nenhuma coleção ainda"
   },
   "explore": {
     "title": "Explorar ideias",
