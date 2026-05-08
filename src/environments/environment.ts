@@ -115,9 +115,6 @@ export const environment = {
     HOME: {
       ROOT: 'home',
     },
-    EXPLORE: {
-      ROOT: 'explore',
-    },
     SEARCH: {
       ROOT: 'search',
     },
@@ -127,14 +124,8 @@ export const environment = {
     NOTIFICATIONS: {
       ROOT: 'notifications',
     },
-    PIN: {
-      ROOT: 'pin',
-    },
     PROFILE: {
       ROOT: ':username',
-    },
-    BOARD: {
-      ROOT: ':username/boards/:boardId',
     },
     COLLECTION: {
       ROOT: ':username/collection/:collectionNameKey',

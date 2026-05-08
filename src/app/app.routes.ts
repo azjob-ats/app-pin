@@ -93,28 +93,6 @@ export const routes: Routes = [
         },
       },
       {
-        path: ROUTES.EXPLORE.ROOT,
-        loadComponent: () =>
-          import('./domain/explore/pages/explore/explore.component').then(
-            (m) => m.ExploreComponent,
-          ),
-        data: {
-          title: 'Explorar',
-          description: 'Explore conteúdo por categorias: Vagas, Produtos, Treinamentos, Experiências e muito mais.',
-        },
-      },
-      {
-        path: `${ROUTES.EXPLORE.ROOT}/:category`,
-        loadComponent: () =>
-          import('./domain/explore/pages/explore/explore.component').then(
-            (m) => m.ExploreComponent,
-          ),
-        data: {
-          title: 'Explorar',
-          description: 'Explore conteúdo por categorias: Vagas, Produtos, Treinamentos, Experiências e muito mais.',
-        },
-      },
-      {
         path: ROUTES.SEARCH.ROOT,
         loadComponent: () =>
           import('./domain/search/pages/search/search.component').then((m) => m.SearchComponent),
@@ -136,11 +114,6 @@ export const routes: Routes = [
             (m) => m.NotificationsComponent,
           ),
         data: { title: 'Notificações' },
-      },
-      {
-        path: `${ROUTES.PIN.ROOT}/:id`,
-        loadComponent: () =>
-          import('./domain/pin/pages/pin/pin.component').then((m) => m.PinComponent),
       },
       {
         path: ROUTES.CHANGE_PASSWORD.ROOT,
@@ -317,11 +290,6 @@ export const routes: Routes = [
           title: 'Sobre o App',
           description: 'Versão atual, data da última atualização e informações de Copyright.',
         },
-      },
-      {
-        path: ROUTES.BOARD.ROOT,
-        loadComponent: () =>
-          import('./domain/board/pages/board/board.component').then((m) => m.BoardComponent),
       },
       {
         path: ROUTES.COLLECTION.ROOT,
