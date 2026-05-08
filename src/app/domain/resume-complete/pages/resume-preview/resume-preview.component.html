@@ -1,0 +1,35 @@
+<div class="resume-preview">
+  <header class="resume-preview__topbar">
+    <button type="button" class="resume-preview__back" (click)="back()" aria-label="Voltar à trilha">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+      Voltar à trilha
+    </button>
+    <span class="resume-preview__pill">Modo preview</span>
+  </header>
+
+  <main class="resume-preview__main">
+    @if (isLoading()) {
+      <p class="resume-preview__loading">Carregando…</p>
+    } @else if (portfolioPreview(); as p) {
+      <app-portfolio-hero [portfolio]="p" [isOwner]="true" />
+
+      @if (p.about) {
+        <section>
+          <h2 class="resume-preview__section-title">Sobre</h2>
+          <p class="resume-preview__about">{{ p.about }}</p>
+        </section>
+      }
+
+      <app-portfolio-timeline [experiences]="p.experiences" />
+
+      <app-portfolio-credentials
+        [skills]="p.skills"
+        [languages]="p.languages"
+        [educations]="p.educations"
+        [certifications]="p.certifications"
+      />
+
+      <app-portfolio-community [community]="p.community" [socials]="p.socials" />
+    }
+  </main>
+</div>

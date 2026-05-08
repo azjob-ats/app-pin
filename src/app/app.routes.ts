@@ -74,6 +74,39 @@ export const routes: Routes = [
     ],
   },
   {
+    path: ROUTES.RESUME.COMPLETE,
+    loadComponent: () =>
+      import('./domain/resume-complete/pages/resume-shell/resume-shell.component').then(
+        (m) => m.ResumeShellComponent,
+      ),
+    data: {
+      title: 'Completar currículo',
+      description: 'Trilha gamificada para preencher seu currículo profissional.',
+    },
+  },
+  {
+    path: ROUTES.RESUME.COMPLETE_TRACK,
+    loadComponent: () =>
+      import('./domain/resume-complete/pages/resume-shell/resume-shell.component').then(
+        (m) => m.ResumeShellComponent,
+      ),
+    data: {
+      title: 'Completar currículo',
+      description: 'Trilha gamificada para preencher seu currículo profissional.',
+    },
+  },
+  {
+    path: ROUTES.RESUME.PREVIEW,
+    loadComponent: () =>
+      import('./domain/resume-complete/pages/resume-preview/resume-preview.component').then(
+        (m) => m.ResumePreviewComponent,
+      ),
+    data: {
+      title: 'Preview do portfólio',
+      description: 'Pré-visualização do seu portfólio público antes da publicação.',
+    },
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./domain/shell/pages/shell/shell.component').then((m) => m.ShellComponent),
@@ -312,6 +345,28 @@ export const routes: Routes = [
             (m) => m.ShowcasePageComponent,
           ),
         data: { title: 'Showcase', description: 'Explore a vitrine de conteúdos do criador.' },
+      },
+      {
+        path: ROUTES.INSCRIPTIONS.ROOT,
+        loadComponent: () =>
+          import('./domain/inscriptions/pages/inscriptions/inscriptions.component').then(
+            (m) => m.InscriptionsComponent,
+          ),
+        data: {
+          title: 'Minhas inscrições',
+          description: 'Histórico das ações que você fez ao clicar em "Saiba Mais".',
+        },
+      },
+      {
+        path: ROUTES.CREATOR_PORTFOLIO.ROOT,
+        loadComponent: () =>
+          import(
+            './domain/creator-portfolio/pages/creator-portfolio/creator-portfolio.component'
+          ).then((m) => m.CreatorPortfolioComponent),
+        data: {
+          title: 'Portfólio do creator',
+          description: 'Currículo público auditável do creator institucionalizado.',
+        },
       },
       {
         path: ROUTES.PROFILE.ROOT,

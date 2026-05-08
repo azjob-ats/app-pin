@@ -1,0 +1,85 @@
+<section class="creator-portfolio">
+  @if (isLoading()) {
+    <div class="creator-portfolio__skeleton" aria-busy="true" aria-label="Carregando portfólio">
+      <div class="skeleton creator-portfolio__skeleton-cover"></div>
+      <div class="creator-portfolio__skeleton-row">
+        <div class="skeleton creator-portfolio__skeleton-avatar"></div>
+        <div class="creator-portfolio__skeleton-lines">
+          <div class="skeleton creator-portfolio__skeleton-line creator-portfolio__skeleton-line--lg"></div>
+          <div class="skeleton creator-portfolio__skeleton-line creator-portfolio__skeleton-line--md"></div>
+        </div>
+      </div>
+      <div class="creator-portfolio__skeleton-grid">
+        <div class="skeleton creator-portfolio__skeleton-card"></div>
+        <div class="skeleton creator-portfolio__skeleton-card"></div>
+        <div class="skeleton creator-portfolio__skeleton-card"></div>
+        <div class="skeleton creator-portfolio__skeleton-card"></div>
+      </div>
+    </div>
+  } @else if (errorKind() === 'not-found') {
+    <div class="creator-portfolio__error" role="status">
+      <span class="material-symbols-rounded creator-portfolio__error-icon" aria-hidden="true">person_off</span>
+      <h2 class="creator-portfolio__error-title">Creator não encontrado</h2>
+      <p class="creator-portfolio__error-message">
+        Não localizamos um portfólio com esse nome. O handle pode ter sido alterado ou não existe ainda.
+      </p>
+      <a class="creator-portfolio__cta" [routerLink]="searchLink">
+        <span class="material-symbols-rounded icon-sm" aria-hidden="true">search</span>
+        Procurar creators
+      </a>
+    </div>
+  } @else if (errorKind() === 'unknown') {
+    <div class="creator-portfolio__error" role="alert">
+      <span class="material-symbols-rounded creator-portfolio__error-icon" aria-hidden="true">error</span>
+      <h2 class="creator-portfolio__error-title">Não foi possível carregar</h2>
+      <p class="creator-portfolio__error-message">{{ errorMessage() }}</p>
+    </div>
+  } @else if (portfolio(); as data) {
+    @if (!isPublishedFor3rdParty()) {
+      <div class="creator-portfolio__notice" role="status">
+        <span class="material-symbols-rounded" aria-hidden="true">visibility_off</span>
+        Este creator ainda está finalizando o portfólio.
+      </div>
+    } @else {
+      @if (isOwner() && !data.isPublished) {
+        <div class="creator-portfolio__notice creator-portfolio__notice--warning" role="status">
+          <span class="material-symbols-rounded" aria-hidden="true">drafts</span>
+          Você está vendo o seu portfólio em modo rascunho. Termine a trilha para publicá-lo.
+        </div>
+      }
+
+      <app-portfolio-hero
+        [portfolio]="data"
+        [isOwner]="isOwner()"
+        (follow)="onFollow()"
+        (contact)="onContact()"
+        (edit)="onEdit()"
+      />
+
+      @if (data.about) {
+        <section class="creator-portfolio__about" aria-label="Sobre">
+          <h2 class="creator-portfolio__section-title">Sobre</h2>
+          <p class="creator-portfolio__about-text">{{ data.about }}</p>
+        </section>
+      }
+
+      <app-portfolio-metrics [metrics]="data.metrics" />
+
+      <app-portfolio-timeline [experiences]="data.experiences" />
+
+      <app-portfolio-highlights
+        [highlights]="data.highlights"
+        (open)="onOpenHighlight($event)"
+      />
+
+      <app-portfolio-credentials
+        [skills]="data.skills"
+        [languages]="data.languages"
+        [educations]="data.educations"
+        [certifications]="data.certifications"
+      />
+
+      <app-portfolio-community [community]="data.community" [socials]="data.socials" />
+    }
+  }
+</section>

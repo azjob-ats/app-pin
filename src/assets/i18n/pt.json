@@ -6,7 +6,10 @@
     "notifications": "Notificações",
     "profile": "Perfil",
     "saved": "Salvos",
-    "search": "Buscar"
+    "search": "Buscar",
+    "inscriptions": "Inscrições",
+    "resume": "Currículo",
+    "portfolio": "Portfólio"
   },
   "auth": {
     "login": "Entrar",

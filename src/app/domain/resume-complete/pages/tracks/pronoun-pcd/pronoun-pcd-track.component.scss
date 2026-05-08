@@ -1,0 +1,82 @@
+.pronoun-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  &__fieldset {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  &__legend {
+    font-size: var(--text-xs);
+    color: var(--pin-text-secondary);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  &__chip {
+    appearance: none;
+    border: 1px solid var(--pin-border);
+    background: var(--pin-card-bg);
+    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.95rem;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    color: var(--pin-text-primary);
+
+    &.is-selected {
+      background: var(--pin-text-primary);
+      color: var(--pin-text-inverse);
+      border-color: var(--pin-text-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-border-focus);
+      outline-offset: 2px;
+    }
+  }
+
+  &__check {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    color: var(--pin-text-primary);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+
+    textarea {
+      appearance: none;
+      border: 1px solid var(--pin-border);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.9rem;
+      font-size: var(--text-sm);
+      background: var(--pin-card-bg);
+      color: var(--pin-text-primary);
+      font-family: inherit;
+      resize: vertical;
+    }
+  }
+
+  &__label {
+    font-size: var(--text-xs);
+    color: var(--pin-text-secondary);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}

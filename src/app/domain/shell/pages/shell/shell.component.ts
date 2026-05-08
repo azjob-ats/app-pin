@@ -78,6 +78,20 @@ export class ShellComponent {
       labelKey: 'nav.notifications',
       route: '/notifications',
     },
+    { icon: 'inbox', iconFilled: 'inbox', labelKey: 'nav.inscriptions', route: '/inscriptions' },
+    {
+      icon: 'assignment',
+      iconFilled: 'assignment',
+      labelKey: 'nav.resume',
+      route: '/resume/complete',
+    },
+    {
+      icon: 'badge',
+      iconFilled: 'badge',
+      labelKey: 'nav.portfolio',
+      route: '/creator/currentuser',
+      exact: true,
+    },
   ];
 
   onResize(): void {

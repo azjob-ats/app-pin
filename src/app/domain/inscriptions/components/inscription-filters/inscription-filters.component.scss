@@ -1,0 +1,78 @@
+.inscription-filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  &__label {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--pin-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  &__chip {
+    appearance: none;
+    border: 1px solid var(--pin-border);
+    background: var(--pin-card-bg);
+    color: var(--pin-text-primary);
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: var(--pin-transition);
+
+    &:hover {
+      background: var(--pin-bg-tertiary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-border-focus);
+      outline-offset: 2px;
+    }
+
+    &.is-selected {
+      background: var(--pin-text-primary);
+      color: var(--pin-text-inverse);
+      border-color: var(--pin-text-primary);
+    }
+  }
+
+  &__clear {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    background: transparent;
+    border: none;
+    color: var(--pin-text-secondary);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    padding: var(--space-2xs) var(--space-xs);
+    border-radius: var(--radius-md);
+
+    &:hover {
+      color: var(--pin-text-primary);
+      background: var(--pin-bg-tertiary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-border-focus);
+      outline-offset: 2px;
+    }
+  }
+}

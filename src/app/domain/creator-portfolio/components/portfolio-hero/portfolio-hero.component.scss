@@ -1,0 +1,139 @@
+.portfolio-hero {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--pin-card-bg);
+  border: 1px solid var(--pin-border);
+
+  &__cover {
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    background-color: var(--pin-bg-secondary);
+    background-size: cover;
+    background-position: center;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-md);
+    align-items: end;
+    padding: 0 var(--space-lg) var(--space-lg);
+  }
+
+  &__avatar {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    border: 4px solid var(--pin-card-bg);
+    margin-top: -64px;
+    object-fit: cover;
+    background: var(--pin-bg-secondary);
+    box-shadow: var(--pin-shadow-md);
+  }
+
+  &__identity {
+    min-width: 0;
+    padding-bottom: var(--space-xs);
+  }
+
+  &__name-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+  }
+
+  &__name {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--pin-text-primary);
+    margin: 0;
+  }
+
+  &__handle {
+    font-size: var(--text-md);
+    color: var(--pin-text-muted);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &__pronoun {
+    font-size: var(--text-xs);
+    padding: 0.15rem 0.55rem;
+    background: var(--pin-bg-secondary);
+    border-radius: var(--radius-pill);
+    color: var(--pin-text-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &__headline {
+    font-size: var(--text-md);
+    color: var(--pin-text-secondary);
+    margin: var(--space-2xs) 0 0;
+  }
+
+  &__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding-bottom: var(--space-xs);
+  }
+
+  &__btn-primary,
+  &__btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    appearance: none;
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: 0.6rem 1.25rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: var(--pin-transition);
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-border-focus);
+      outline-offset: 2px;
+    }
+  }
+
+  &__btn-primary {
+    background: var(--pin-text-primary);
+    color: var(--pin-text-inverse);
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+
+  &__btn-secondary {
+    background: transparent;
+    color: var(--pin-text-primary);
+    border: 1px solid var(--pin-border);
+
+    &:hover {
+      background: var(--pin-bg-tertiary);
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .portfolio-hero {
+    &__body {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+      padding: 0 var(--space-md) var(--space-md);
+    }
+
+    &__avatar {
+      width: 96px;
+      height: 96px;
+      margin-top: -48px;
+    }
+
+    &__actions {
+      flex-wrap: wrap;
+    }
+  }
+}

@@ -1,0 +1,108 @@
+.languages-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  &__hint {
+    color: var(--pin-text-secondary);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-md);
+    align-items: center;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--pin-border);
+    border-radius: var(--radius-md);
+    background: var(--pin-card-bg);
+  }
+
+  &__name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--pin-text-primary);
+    font-size: var(--text-sm);
+  }
+
+  &__level {
+    font-size: var(--text-xs);
+    color: var(--pin-text-secondary);
+    background: var(--pin-bg-tertiary);
+    padding: 0.15rem 0.55rem;
+    border-radius: var(--radius-pill);
+  }
+
+  &__remove {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--pin-text-muted);
+    padding: 4px;
+    border-radius: 50%;
+
+    &:hover {
+      background: var(--pin-bg-tertiary);
+      color: var(--pin-text-primary);
+    }
+  }
+
+  &__add {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: var(--space-xs);
+  }
+
+  &__input,
+  &__select {
+    appearance: none;
+    border: 1px solid var(--pin-border);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.9rem;
+    font-size: var(--text-sm);
+    background: var(--pin-card-bg);
+    color: var(--pin-text-primary);
+
+    &:focus-visible {
+      outline: 2px solid var(--pin-border-focus);
+      outline-offset: 0;
+    }
+  }
+
+  &__add-btn {
+    appearance: none;
+    border: 1px solid var(--pin-border);
+    background: var(--pin-card-bg);
+    border-radius: var(--radius-md);
+    padding: 0.55rem 0.95rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: var(--pin-bg-tertiary);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .languages-track__add {
+    grid-template-columns: 1fr;
+  }
+}

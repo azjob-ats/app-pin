@@ -1,0 +1,128 @@
+.exp-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--pin-border);
+    border-radius: var(--radius-md);
+    background: var(--pin-card-bg);
+    font-size: var(--text-sm);
+  }
+
+  &__remove {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--pin-text-muted);
+
+    &:hover {
+      color: #b91c1c;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: 0;
+    padding: var(--space-md);
+    border: 1px dashed var(--pin-border);
+    border-radius: var(--radius-md);
+
+    legend {
+      font-size: var(--text-sm);
+      font-weight: var(--font-weight-semibold);
+      padding: 0 var(--space-xs);
+      color: var(--pin-text-secondary);
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      font-size: var(--text-xs);
+      color: var(--pin-text-secondary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    input,
+    select {
+      appearance: none;
+      border: 1px solid var(--pin-border);
+      border-radius: var(--radius-md);
+      padding: 0.55rem 0.85rem;
+      font-size: var(--text-sm);
+      background: var(--pin-card-bg);
+      color: var(--pin-text-primary);
+
+      &:focus-visible {
+        outline: 2px solid var(--pin-border-focus);
+        outline-offset: 0;
+      }
+
+      &:disabled {
+        background: var(--pin-bg-tertiary);
+        color: var(--pin-text-muted);
+      }
+    }
+  }
+
+  &__check {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    color: var(--pin-text-primary);
+  }
+
+  &__add-btn {
+    align-self: flex-start;
+    appearance: none;
+    border: 1px solid var(--pin-border);
+    background: var(--pin-card-bg);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 1rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: var(--pin-bg-tertiary);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .exp-track__row {
+    grid-template-columns: 1fr;
+  }
+}

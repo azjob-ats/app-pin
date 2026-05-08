@@ -1,0 +1,123 @@
+<div class="resume-shell">
+  <header class="resume-shell__topbar">
+    <button type="button" class="resume-shell__exit" (click)="exit()" aria-label="Sair">
+      <span class="material-symbols-rounded" aria-hidden="true">close</span>
+    </button>
+
+    <app-resume-progress-bar
+      [completed]="completedCount()"
+      [total]="totalTracks"
+      [savingState]="savingState()"
+      [streak]="1"
+    />
+
+    <button
+      type="button"
+      class="resume-shell__preview-btn"
+      (click)="openPreview()"
+      [disabled]="isLoading()"
+    >
+      <span class="material-symbols-rounded icon-sm" aria-hidden="true">visibility</span>
+      Preview
+    </button>
+  </header>
+
+  <main class="resume-shell__main">
+    @if (isLoading()) {
+      <div class="resume-shell__loading" aria-busy="true">
+        <p>Carregando seu currículo…</p>
+      </div>
+    } @else if (loadError(); as msg) {
+      <div class="resume-shell__error" role="alert">
+        <span class="material-symbols-rounded" aria-hidden="true">error</span>
+        <p>{{ msg }}</p>
+      </div>
+    } @else {
+      <ol class="resume-shell__path" role="list">
+        @for (track of tracks; track track.id; let i = $index) {
+          <li class="resume-shell__path-item" [class.is-right]="i % 2 === 1">
+            <app-resume-track-node
+              [track]="track"
+              [progress]="progress()[i]"
+              [isCurrent]="i === currentTrackIndex()"
+              (select)="selectTrack(track.id)"
+            />
+          </li>
+        }
+      </ol>
+
+      <section class="resume-shell__publish">
+        @if (canPublish()) {
+          <button type="button" class="resume-shell__publish-btn" (click)="publish()">
+            <span class="material-symbols-rounded" aria-hidden="true">rocket_launch</span>
+            Publicar portfólio
+          </button>
+        } @else {
+          <p class="resume-shell__publish-hint">
+            Conclua ao menos 5 trilhos para liberar a publicação ({{ completedCount() }}/5).
+          </p>
+        }
+        @if (publishError(); as msg) {
+          <p class="resume-shell__publish-error" role="alert">{{ msg }}</p>
+        }
+      </section>
+    }
+  </main>
+
+  @if (activeDef(); as def) {
+    <app-track-bottom-sheet [track]="def" (close)="closeSheet()">
+      @switch (def.id) {
+        @case (Track.Skills) {
+          <app-skills-track
+            [initialSkills]="payload()?.skills ?? []"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.About) {
+          <app-about-track
+            [initialText]="payload()?.about ?? ''"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.Contact) {
+          <app-contact-track
+            [initial]="payload()?.contact ?? { email: null, phone: null, city: null, country: null }"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.PronounPcd) {
+          <app-pronoun-pcd-track
+            [initialPronoun]="payload()?.pronoun ?? null"
+            [initialIsPcd]="payload()?.isPcd ?? false"
+            [initialPcdNotes]="payload()?.pcdNotes ?? null"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.Languages) {
+          <app-languages-track
+            [initial]="payload()?.languages ?? []"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.Experience) {
+          <app-experience-track
+            [initial]="payload()?.experiences ?? []"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.Education) {
+          <app-education-track
+            [initial]="payload()?.educations ?? []"
+            (save)="saveActive($event)"
+          />
+        }
+        @case (Track.Certifications) {
+          <app-certifications-track
+            [initial]="payload()?.certifications ?? []"
+            (save)="saveActive($event)"
+          />
+        }
+      }
+    </app-track-bottom-sheet>
+  }
+</div>

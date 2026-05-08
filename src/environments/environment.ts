@@ -93,6 +93,18 @@ export const environment = {
       GALLERY: '/api/channel/:profileName/gallery',
       COLLECTION: '/api/channel/:profileName/collection',
     },
+    CREATOR_PORTFOLIO: {
+      DETAIL: '/api/v1/creator-portfolio/:handle',
+    },
+    INSCRIPTIONS: {
+      LIST: '/api/v1/me/inscriptions',
+      CANCEL: '/api/v1/me/inscriptions/:id/cancel',
+    },
+    RESUME: {
+      DRAFT: '/api/v1/me/resume',
+      SAVE_TRACK: '/api/v1/me/resume/:trackId',
+      PUBLISH: '/api/v1/me/resume/publish',
+    },
   },
   ROUTES: {
     AUTH: {
@@ -181,6 +193,18 @@ export const environment = {
     },
     CHANGE_PASSWORD: {
       ROOT: 'change-password',
+    },
+    CREATOR_PORTFOLIO: {
+      ROOT: 'creator/:handle',
+      PATH: 'creator',
+    },
+    INSCRIPTIONS: {
+      ROOT: 'inscriptions',
+    },
+    RESUME: {
+      COMPLETE: 'resume/complete',
+      COMPLETE_TRACK: 'resume/complete/:trackId',
+      PREVIEW: 'resume/preview',
     },
   },
 };

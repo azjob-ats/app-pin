@@ -1,0 +1,91 @@
+.portfolio-timeline {
+  &__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--pin-text-primary);
+    margin: 0 0 var(--space-md);
+  }
+
+  &__empty {
+    color: var(--pin-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--pin-card-bg);
+    border: 1px solid var(--pin-border);
+    border-radius: var(--radius-lg);
+  }
+
+  &__logo {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-md);
+    background: var(--pin-bg-secondary);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pin-text-muted);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xs);
+  }
+
+  &__role {
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--pin-text-primary);
+  }
+
+  &__company {
+    font-size: var(--text-sm);
+    color: var(--pin-text-secondary);
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  &__sep {
+    color: var(--pin-text-muted);
+  }
+
+  &__period {
+    font-size: var(--text-xs);
+    color: var(--pin-text-muted);
+  }
+
+  &__current {
+    color: var(--pin-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__description {
+    font-size: var(--text-sm);
+    color: var(--pin-text-secondary);
+    margin: var(--space-2xs) 0 0;
+    line-height: 1.5;
+  }
+}
