@@ -1,24 +1,60 @@
 ## Objetivo do projeto RealWe
-A **RealWe** é uma plataforma onde empresas mostram como realmente trabalham, através de conteúdos criados pelos próprios colaboradores. focada no conceito de que **"pessoas confiam em pessoas"**.
+A **RealWe** é o **LinkedIn criativo da economia de mídia** — a plataforma onde empresas hospedam *creators institucionalizados*: profissionais reais que produzem conteúdo dentro de canais corporativos sem perder a própria assinatura.
+
+A tese é simples:
+
+> A empresa fornece o palco.</br>
+> O creator fornece a assinatura.</br>
+> Ambos acumulam reputação juntos.
+
+Isso resolve o problema central de qualquer plataforma de conteúdo profissional — fazer com que pessoas reais publiquem com **consistência ao longo do tempo** — separando, com clareza, o que pertence à empresa (canal, audiência, distribuição) do que pertence ao creator (assinatura, portfólio, reputação transferível).
+
+> Detalhamento completo do conceito em [doc/Creator Institucionalizado.md](doc/Creator%20Institucionalizado.md).
+
+### Dois ativos, dois donos
+
+| Ativo | Dono |
+|-------|------|
+| Audiência / canal / distribuição | Empresa |
+| Reputação / assinatura / portfólio | Creator |
+
+Inspirações desse modelo: diretor dentro da Pixar, fotógrafo dentro da Vogue, chef dentro de restaurante famoso, streamer dentro de organização de e-sports. **O palco é institucional — mas o prestígio individual continua acumulando.**
+
+Toda peça de conteúdo carrega obrigatoriamente os dois nomes, com hierarquia visual deliberada:
+
+```text
+Nubank
+by Amanda Silva
+```
+
+Cada conteúdo se torna **portfólio vivo do creator**, mesmo após ele sair da empresa. O crédito permanece — vira currículo público auditável. Tese central: *“pessoas confiam em pessoas”* só funciona se a pessoa for um ativo durável, não um rosto descartável.
 
 ### Concept: O Funil de Conteúdo
 A plataforma opera em quatro estágios principais para transformar curiosidade em confiança:
 1. **Descoberta:** Vídeos curtos (shorts) que funcionam como "trailers" para despertar interesse.
-2. **Profundidade:** Vídeos longos onde o criador (colaborador) aprofunda o tema, ensina e constrói autoridade.
-3. **Conversão:** Botão "Saiba Mais" que direciona para ações concretas (vagas, vendas, treinamentos).
-4. **Comunidade:** Espaço de interação e relacionamento contínuo com a audiência.
+2. **Profundidade:** Vídeos longos onde o creator aprofunda o tema, ensina e constrói autoridade.
+3. **Conversão:** Botão "Saiba Mais" polimórfico que direciona para ações concretas (vagas, vendas, treinamentos, agendamentos, deep links de produto).
+4. **Comunidade:** Espaço de interação e relacionamento contínuo com a audiência, em torno do acervo do canal.
 
 ### Pilares da Plataforma
-- **Pessoas Reais:** Colaboradores atuam como criadores autorizados, mostrando o dia a dia, ferramentas e desafios reais.
-- **Autoridade Profissional:** O foco não é venda direta, mas sim a construção de reputação e transparência.
+- **Creators Institucionalizados:** Profissionais reais com assinatura própria publicando dentro de canais corporativos. Carreira acumulativa, reputação transferível.
+- **Portfólio Público Auditável:** Cada creator tem currículo vivo com retenção, conversão e histórico cross-empresa — o que LinkedIn não entrega.
+- **Conversão Atribuível:** Cada conteúdo conecta diretamente ao destino e expõe métricas de impacto por creator.
+- **Autoridade Profissional:** O foco não é venda direta, mas construção de reputação e transparência.
+- **Métricas e Qualidade:** Retenção e engajamento validam conteúdos. Campanhas patrocinadas só são permitidas para conteúdos com bom desempenho orgânico (sponsored qualificado).
 - **Ecossistema Completo:** Organizado por categorias como Vagas, Produtos, Treinamentos, Experiências e Empresas.
-- **Métricas e Qualidade:** Uso de retenção e engajamento para validar conteúdos. Campanhas patrocinadas só são permitidas para conteúdos com bom desempenho orgânico.
 
 ### Aplicabilidade
-Este projeto busca resolver o distanciamento entre marcas e pessoas, substituindo o marketing institucional por conexões humanas. Para o desenvolvimento, os componentes devem focar em descoberta visual (scroll de vídeos), conversão dinâmica (formulários customizáveis) e gestão de autoridade (perfis integrados e métricas).
+Este projeto resolve o distanciamento entre marcas e pessoas, substituindo o marketing institucional por **conexões humanas com responsabilidade dupla**. Para o desenvolvimento, os componentes devem focar em:
+
+- **Descoberta visual** (grid de vídeos curtos)
+- **Profundidade contextualizada** (vídeo longo + creator + comunidade ativa na mesma tela)
+- **Conversão dinâmica** (formulários customizáveis, deep links, agendamentos)
+- **Portfólio Público do Creator** como tela-âncora — não acessório, não tela de configuração
+- **"Presented by"** como elemento estrutural de UI (empresa + creator visíveis em todo card, vídeo, resultado de busca e campanha patrocinada)
 
 ### 🎨 Design System e Inspiração
-O layout, a paleta de cores, a tipografia e a experiência de navegação da plataforma foram diretamente inspirados no **Design System do Pinterest**. Isso reflete em uma interface limpa, focada em "cards" visuais, descoberta infinita e uma estética premium e minimalista. Todo o layout, a paleta de cores e a tipografia da plataforma RealWe foram inspirados no Design System do Pinterest, priorizando uma estética de "cards" visuais, descoberta infinita e uma interface limpa e minimalista que facilita o consumo de conteúdo profissional.
+O layout, a paleta de cores, a tipografia e a experiência de navegação da plataforma foram diretamente inspirados no **Design System do Pinterest** — interface limpa, foco em "cards" visuais, descoberta infinita e estética premium e minimalista que facilita o consumo de conteúdo profissional.
 
 ## Fazer login com o GitHub no WSL (Windows Subsystem for Linux)
 ```sh

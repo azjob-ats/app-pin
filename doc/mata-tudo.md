@@ -1,6 +1,11 @@
+O ponto que, se não resolver, mata tudo
+
 RealWe propõe o creator publicando como representante autorizado da empresa. 
 Quando ele sai, perde o palco. O incentivo individual é frágil por design.
 
+
+
+---------------------------
 
 Não é:
 

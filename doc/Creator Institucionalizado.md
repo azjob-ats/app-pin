@@ -218,3 +218,22 @@ Ele resolve isso separando, com clareza, o que pertence à empresa (palco) do qu
 
 Sem este conceito, a RealWe é uma plataforma de marketing institucional disfarçada.</br>
 Com este conceito, a RealWe é uma nova categoria de produto.
+
+> "idéia clara, ainda não-validada, com plano coerente". Para virar 9, é trabalho de campo. Não é trabalho de pensamento.
+
+- Portfólio Público do Creator como tela-âncora (não construído)
+
+- "Presented by" como sistema de UI (não construído)
+
+- Contrato-padrão jurídico empresa × creator (não desenhado)
+
+- Métricas auditáveis públicas (não estruturadas)
+
+- Janela de residual pós-saída (não definida)
+5+ entrevistas com creators reais que assinaram disposição de publicar.
+
+- 3+ empresas como design partners, com nome.
+
+- Pelo menos 1 contrato-padrão revisado por advogado.
+
+- 1 tela do Portfólio Público funcionando, mesmo que com dado fake.
