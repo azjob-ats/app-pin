@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ownerPortfolioGuard } from '@shared/guards/owner-portfolio.guard';
 import { environment } from 'src/environments/environment';
 
 const { ROUTES } = environment;
@@ -359,6 +360,7 @@ export const routes: Routes = [
       },
       {
         path: ROUTES.CREATOR_PORTFOLIO.ROOT,
+        canActivate: [ownerPortfolioGuard],
         loadComponent: () =>
           import(
             './domain/creator-portfolio/pages/creator-portfolio/creator-portfolio.component'

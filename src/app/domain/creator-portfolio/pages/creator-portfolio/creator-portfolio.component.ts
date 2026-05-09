@@ -75,13 +75,6 @@ export class CreatorPortfolioComponent {
       }
     });
 
-    effect(() => {
-      const p = this.portfolio();
-      if (p && this.isOwner() && !p.isPublished) {
-        void this.router.navigateByUrl(this.resumeLink);
-      }
-    });
-
     this.destroyRef.onDestroy(() => this.facade.reset());
   }
 
