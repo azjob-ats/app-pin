@@ -35,19 +35,12 @@
       <p class="creator-portfolio__error-message">{{ errorMessage() }}</p>
     </div>
   } @else if (portfolio(); as data) {
-    @if (!isPublishedFor3rdParty()) {
+    @if (isDraftForViewer() && !isOwner()) {
       <div class="creator-portfolio__notice" role="status">
         <span class="material-symbols-rounded" aria-hidden="true">visibility_off</span>
         Este creator ainda está finalizando o portfólio.
       </div>
-    } @else {
-      @if (isOwner() && !data.isPublished) {
-        <div class="creator-portfolio__notice creator-portfolio__notice--warning" role="status">
-          <span class="material-symbols-rounded" aria-hidden="true">drafts</span>
-          Você está vendo o seu portfólio em modo rascunho. Termine a trilha para publicá-lo.
-        </div>
-      }
-
+    } @else if (data.isPublished) {
       <app-portfolio-hero
         [portfolio]="data"
         [isOwner]="isOwner()"
@@ -83,3 +76,4 @@
     }
   }
 </section>
+

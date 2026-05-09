@@ -58,10 +58,10 @@ export class CreatorPortfolioComponent {
     return p ? this.currentUser.isOwner(p.handle) : false;
   });
 
-  readonly isPublishedFor3rdParty = computed(() => {
+  readonly isDraftForViewer = computed(() => {
     const p = this.portfolio();
-    if (!p) return true;
-    return p.isPublished || this.isOwner();
+    if (!p) return false;
+    return !p.isPublished;
   });
 
   readonly searchLink = `/${environment.ROUTES.SEARCH.ROOT}`;
@@ -72,6 +72,13 @@ export class CreatorPortfolioComponent {
       const handle = this.handle();
       if (handle) {
         this.facade.load(handle);
+      }
+    });
+
+    effect(() => {
+      const p = this.portfolio();
+      if (p && this.isOwner() && !p.isPublished) {
+        void this.router.navigateByUrl(this.resumeLink);
       }
     });
 

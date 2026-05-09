@@ -70,7 +70,6 @@ export class ShellComponent {
 
   readonly navItems: NavItem[] = [
     { icon: 'home', iconFilled: 'home', labelKey: 'nav.home', route: '/home', exact: true },
-    { icon: 'kid_star', iconFilled: 'kid_star', labelKey: 'nav.explore', route: '/explore' },
     { icon: 'add_circle', iconFilled: 'add_circle', labelKey: 'nav.create', route: '/create' },
     {
       icon: 'notifications',
@@ -80,15 +79,9 @@ export class ShellComponent {
     },
     { icon: 'inbox', iconFilled: 'inbox', labelKey: 'nav.inscriptions', route: '/inscriptions' },
     {
-      icon: 'assignment',
-      iconFilled: 'assignment',
-      labelKey: 'nav.resume',
-      route: '/resume/complete',
-    },
-    {
-      icon: 'badge',
-      iconFilled: 'badge',
-      labelKey: 'nav.portfolio',
+      icon: 'person',
+      iconFilled: 'person',
+      labelKey: 'nav.you',
       route: '/creator/currentuser',
       exact: true,
     },
