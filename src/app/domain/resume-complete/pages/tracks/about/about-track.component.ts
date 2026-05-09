@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 
 const MAX_LENGTH = 600;
 
@@ -31,7 +31,7 @@ const MAX_LENGTH = 600;
   styleUrl: './about-track.component.scss',
 })
 export class AboutTrackComponent {
-  readonly initialText = input<string>('');
+  readonly initialText = input.required<string>();
   readonly save = output<{ about: string }>();
 
   protected readonly maxLength = MAX_LENGTH;
@@ -39,11 +39,11 @@ export class AboutTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.text.set(this.initialText() || '');
-        this.hasInit = true;
-      }
+    effect(() => {
+      const initial = this.initialText();
+      if (this.hasInit) return;
+      this.text.set(initial ?? '');
+      this.hasInit = true;
     });
   }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 
 const PRONOUN_OPTIONS = ['ele/dele', 'ela/dela', 'elu/delu', 'eles/delas', 'prefiro não informar'];
 
@@ -56,9 +56,9 @@ const PRONOUN_OPTIONS = ['ele/dele', 'ela/dela', 'elu/delu', 'eles/delas', 'pref
   styleUrl: './pronoun-pcd-track.component.scss',
 })
 export class PronounPcdTrackComponent {
-  readonly initialPronoun = input<string | null>(null);
-  readonly initialIsPcd = input<boolean>(false);
-  readonly initialPcdNotes = input<string | null>(null);
+  readonly initialPronoun = input.required<string | null>();
+  readonly initialIsPcd = input.required<boolean>();
+  readonly initialPcdNotes = input.required<string | null>();
 
   readonly save = output<{ pronoun: string | null; isPcd: boolean; pcdNotes: string | null }>();
 
@@ -70,13 +70,15 @@ export class PronounPcdTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.pronoun.set(this.initialPronoun());
-        this.isPcd.set(this.initialIsPcd());
-        this.pcdNotes.set(this.initialPcdNotes() ?? '');
-        this.hasInit = true;
-      }
+    effect(() => {
+      const pronoun = this.initialPronoun();
+      const isPcd = this.initialIsPcd();
+      const notes = this.initialPcdNotes();
+      if (this.hasInit) return;
+      this.pronoun.set(pronoun);
+      this.isPcd.set(isPcd);
+      this.pcdNotes.set(notes ?? '');
+      this.hasInit = true;
     });
   }
 

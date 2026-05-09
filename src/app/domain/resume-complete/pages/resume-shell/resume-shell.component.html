@@ -65,59 +65,40 @@
   </main>
 
   @if (activeDef(); as def) {
-    <app-track-bottom-sheet [track]="def" (close)="closeSheet()">
-      @switch (def.id) {
-        @case (Track.Skills) {
-          <app-skills-track
-            [initialSkills]="payload()?.skills ?? []"
-            (save)="saveActive($event)"
-          />
+    @if (payload(); as p) {
+      <app-track-bottom-sheet [track]="def" (close)="closeSheet()">
+        @switch (def.id) {
+          @case (Track.Skills) {
+            <app-skills-track [initialSkills]="p.skills" (save)="saveActive($event)" />
+          }
+          @case (Track.About) {
+            <app-about-track [initialText]="p.about" (save)="saveActive($event)" />
+          }
+          @case (Track.Contact) {
+            <app-contact-track [initial]="p.contact" (save)="saveActive($event)" />
+          }
+          @case (Track.PronounPcd) {
+            <app-pronoun-pcd-track
+              [initialPronoun]="p.pronoun"
+              [initialIsPcd]="p.isPcd"
+              [initialPcdNotes]="p.pcdNotes"
+              (save)="saveActive($event)"
+            />
+          }
+          @case (Track.Languages) {
+            <app-languages-track [initial]="p.languages" (save)="saveActive($event)" />
+          }
+          @case (Track.Experience) {
+            <app-experience-track [initial]="p.experiences" (save)="saveActive($event)" />
+          }
+          @case (Track.Education) {
+            <app-education-track [initial]="p.educations" (save)="saveActive($event)" />
+          }
+          @case (Track.Certifications) {
+            <app-certifications-track [initial]="p.certifications" (save)="saveActive($event)" />
+          }
         }
-        @case (Track.About) {
-          <app-about-track
-            [initialText]="payload()?.about ?? ''"
-            (save)="saveActive($event)"
-          />
-        }
-        @case (Track.Contact) {
-          <app-contact-track
-            [initial]="payload()?.contact ?? { email: null, phone: null, city: null, country: null }"
-            (save)="saveActive($event)"
-          />
-        }
-        @case (Track.PronounPcd) {
-          <app-pronoun-pcd-track
-            [initialPronoun]="payload()?.pronoun ?? null"
-            [initialIsPcd]="payload()?.isPcd ?? false"
-            [initialPcdNotes]="payload()?.pcdNotes ?? null"
-            (save)="saveActive($event)"
-          />
-        }
-        @case (Track.Languages) {
-          <app-languages-track
-            [initial]="payload()?.languages ?? []"
-            (save)="saveActive($event)"
-          />
-        }
-        @case (Track.Experience) {
-          <app-experience-track
-            [initial]="payload()?.experiences ?? []"
-            (save)="saveActive($event)"
-          />
-        }
-        @case (Track.Education) {
-          <app-education-track
-            [initial]="payload()?.educations ?? []"
-            (save)="saveActive($event)"
-          />
-        }
-        @case (Track.Certifications) {
-          <app-certifications-track
-            [initial]="payload()?.certifications ?? []"
-            (save)="saveActive($event)"
-          />
-        }
-      }
-    </app-track-bottom-sheet>
+      </app-track-bottom-sheet>
+    }
   }
 </div>

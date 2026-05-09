@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 import { EmploymentType } from '@shared/enums/employment-type.enum';
 import { WorkMode } from '@shared/enums/work-mode.enum';
 import { Experience } from '@shared/interfaces/entity/creator-portfolio';
@@ -137,7 +137,7 @@ const EMPTY_DRAFT: DraftExp = {
   styleUrl: './experience-track.component.scss',
 })
 export class ExperienceTrackComponent {
-  readonly initial = input<Experience[]>([]);
+  readonly initial = input.required<Experience[]>();
   readonly save = output<{ experiences: Experience[] }>();
 
   protected readonly employmentOptions = EMPLOYMENT_OPTIONS;
@@ -149,11 +149,11 @@ export class ExperienceTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.items.set([...this.initial()]);
-        this.hasInit = true;
-      }
+    effect(() => {
+      const initial = this.initial();
+      if (this.hasInit) return;
+      this.items.set([...initial]);
+      this.hasInit = true;
     });
   }
 

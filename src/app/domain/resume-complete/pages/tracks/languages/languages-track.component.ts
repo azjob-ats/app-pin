@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 import { LanguageProficiency } from '@shared/enums/language-proficiency.enum';
 import { Language } from '@shared/interfaces/entity/creator-portfolio';
 
@@ -65,7 +65,7 @@ const PROFICIENCY_OPTIONS: { value: LanguageProficiency; label: string }[] = [
   styleUrl: './languages-track.component.scss',
 })
 export class LanguagesTrackComponent {
-  readonly initial = input<Language[]>([]);
+  readonly initial = input.required<Language[]>();
   readonly save = output<{ languages: Language[] }>();
 
   protected readonly options = PROFICIENCY_OPTIONS;
@@ -76,11 +76,11 @@ export class LanguagesTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.languages.set([...this.initial()]);
-        this.hasInit = true;
-      }
+    effect(() => {
+      const initial = this.initial();
+      if (this.hasInit) return;
+      this.languages.set([...initial]);
+      this.hasInit = true;
     });
   }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 import { Certification } from '@shared/interfaces/entity/creator-portfolio';
 
 interface DraftCert {
@@ -67,7 +67,7 @@ const EMPTY: DraftCert = { name: '', issuerName: '', issuedAt: '', credentialUrl
   `,
 })
 export class CertificationsTrackComponent {
-  readonly initial = input<Certification[]>([]);
+  readonly initial = input.required<Certification[]>();
   readonly save = output<{ certifications: Certification[] }>();
 
   protected readonly items = signal<Certification[]>([]);
@@ -76,11 +76,11 @@ export class CertificationsTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.items.set([...this.initial()]);
-        this.hasInit = true;
-      }
+    effect(() => {
+      const initial = this.initial();
+      if (this.hasInit) return;
+      this.items.set([...initial]);
+      this.hasInit = true;
     });
   }
 

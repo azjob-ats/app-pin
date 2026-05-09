@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-skills-track',
@@ -45,7 +45,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input,
   styleUrl: './skills-track.component.scss',
 })
 export class SkillsTrackComponent {
-  readonly initialSkills = input<string[]>([]);
+  readonly initialSkills = input.required<string[]>();
   readonly save = output<{ skills: string[] }>();
 
   protected readonly skills = signal<string[]>([]);
@@ -53,11 +53,11 @@ export class SkillsTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.skills.set([...this.initialSkills()]);
-        this.hasInit = true;
-      }
+    effect(() => {
+      const initial = this.initialSkills();
+      if (this.hasInit) return;
+      this.skills.set([...initial]);
+      this.hasInit = true;
     });
   }
 

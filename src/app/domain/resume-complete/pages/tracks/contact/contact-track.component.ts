@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 import { ContactInfo } from '@shared/interfaces/entity/creator-portfolio';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -65,7 +65,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   styleUrl: './contact-track.component.scss',
 })
 export class ContactTrackComponent {
-  readonly initial = input<ContactInfo>({ email: null, phone: null, city: null, country: null });
+  readonly initial = input.required<ContactInfo>();
   readonly save = output<{ contact: ContactInfo }>();
 
   protected readonly email = signal<string>('');
@@ -76,15 +76,14 @@ export class ContactTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        const init = this.initial();
-        this.email.set(init.email ?? '');
-        this.phone.set(init.phone ?? '');
-        this.city.set(init.city ?? '');
-        this.country.set(init.country ?? '');
-        this.hasInit = true;
-      }
+    effect(() => {
+      const init = this.initial();
+      if (this.hasInit) return;
+      this.email.set(init.email ?? '');
+      this.phone.set(init.phone ?? '');
+      this.city.set(init.city ?? '');
+      this.country.set(init.country ?? '');
+      this.hasInit = true;
     });
   }
 

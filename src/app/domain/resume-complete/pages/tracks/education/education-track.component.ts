@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
 import { Education } from '@shared/interfaces/entity/creator-portfolio';
 
 interface DraftEdu {
@@ -67,7 +67,7 @@ const EMPTY: DraftEdu = { institutionName: '', course: '', startDate: '', endDat
   `,
 })
 export class EducationTrackComponent {
-  readonly initial = input<Education[]>([]);
+  readonly initial = input.required<Education[]>();
   readonly save = output<{ educations: Education[] }>();
 
   protected readonly items = signal<Education[]>([]);
@@ -76,11 +76,11 @@ export class EducationTrackComponent {
   private hasInit = false;
 
   constructor() {
-    queueMicrotask(() => {
-      if (!this.hasInit) {
-        this.items.set([...this.initial()]);
-        this.hasInit = true;
-      }
+    effect(() => {
+      const initial = this.initial();
+      if (this.hasInit) return;
+      this.items.set([...initial]);
+      this.hasInit = true;
     });
   }
 
