@@ -1,9 +1,9 @@
 {
   "currentuser": {
     "ownerHandle": "currentuser",
-    "updatedAt": "2026-05-12T19:32:17.305Z",
-    "isPublished": false,
-    "publishedAt": null,
+    "updatedAt": "2026-05-12T21:44:04.486Z",
+    "isPublished": true,
+    "publishedAt": "2026-05-12T21:44:04.486Z",
     "tracks": {
       "skills": {
         "status": "completed",
@@ -16,19 +16,19 @@
         "lastSavedAt": "2026-05-12T19:32:17.305Z"
       },
       "education": {
-        "status": "empty",
-        "completion": 0,
-        "lastSavedAt": null
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-12T21:06:07.130Z"
       },
       "languages": {
         "status": "in_progress",
-        "completion": 0.66,
-        "lastSavedAt": "2026-05-09T00:00:00.000Z"
+        "completion": 0.5,
+        "lastSavedAt": "2026-05-12T21:42:35.626Z"
       },
       "certifications": {
-        "status": "empty",
-        "completion": 0,
-        "lastSavedAt": null
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-12T21:42:57.655Z"
       },
       "about": {
         "status": "completed",
@@ -36,21 +36,21 @@
         "lastSavedAt": "2026-05-09T00:00:00.000Z"
       },
       "contact": {
-        "status": "in_progress",
-        "completion": 0.5,
-        "lastSavedAt": "2026-05-09T00:00:00.000Z"
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-12T21:16:08.440Z"
       },
       "pronoun_pcd": {
-        "status": "empty",
-        "completion": 0,
-        "lastSavedAt": null
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-12T21:43:07.213Z"
       }
     },
     "payload": {
       "about": "Profissional explorando o uso de mídia profissional como currículo vivo. Curioso sobre design e produto.",
       "contact": {
         "email": "me@realwe.dev",
-        "phone": null,
+        "phone": "2799041192",
         "city": "São Paulo",
         "country": "Brasil"
       },
@@ -69,7 +69,16 @@
           "description": null
         }
       ],
-      "educations": [],
+      "educations": [
+        {
+          "id": "edu-1778619964217",
+          "institutionName": "Faculdade Pitagoras",
+          "institutionLogoUrl": null,
+          "course": "Ciência da Computação",
+          "startDate": "2015-01-01T00:00:00.000Z",
+          "endDate": "2019-01-01T00:00:00.000Z"
+        }
+      ],
       "skills": [
         "TypeScript",
         "Angular",
@@ -78,18 +87,23 @@
       ],
       "languages": [
         {
-          "id": "lan1",
-          "name": "Português",
-          "proficiency": "native"
-        },
-        {
-          "id": "lan2",
-          "name": "Inglês",
-          "proficiency": "intermediate"
+          "id": "lan-1778622154567",
+          "name": "portuges",
+          "proficiency": "basic"
         }
       ],
-      "certifications": [],
-      "pronoun": "ele/dele",
+      "certifications": [
+        {
+          "id": "cert-1778622176461",
+          "name": "aws",
+          "issuerName": "amazaon",
+          "issuerLogoUrl": null,
+          "issuedAt": "2026-05-01T00:00:00.000Z",
+          "expiresAt": null,
+          "credentialUrl": null
+        }
+      ],
+      "pronoun": "ela/dela",
       "isPcd": false,
       "pcdNotes": null
     }
