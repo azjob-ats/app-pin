@@ -1,0 +1,97 @@
+{
+  "currentuser": {
+    "ownerHandle": "currentuser",
+    "updatedAt": "2026-05-12T19:32:17.305Z",
+    "isPublished": false,
+    "publishedAt": null,
+    "tracks": {
+      "skills": {
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-12T19:18:43.822Z"
+      },
+      "experience": {
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-12T19:32:17.305Z"
+      },
+      "education": {
+        "status": "empty",
+        "completion": 0,
+        "lastSavedAt": null
+      },
+      "languages": {
+        "status": "in_progress",
+        "completion": 0.66,
+        "lastSavedAt": "2026-05-09T00:00:00.000Z"
+      },
+      "certifications": {
+        "status": "empty",
+        "completion": 0,
+        "lastSavedAt": null
+      },
+      "about": {
+        "status": "completed",
+        "completion": 1,
+        "lastSavedAt": "2026-05-09T00:00:00.000Z"
+      },
+      "contact": {
+        "status": "in_progress",
+        "completion": 0.5,
+        "lastSavedAt": "2026-05-09T00:00:00.000Z"
+      },
+      "pronoun_pcd": {
+        "status": "empty",
+        "completion": 0,
+        "lastSavedAt": null
+      }
+    },
+    "payload": {
+      "about": "Profissional explorando o uso de mídia profissional como currículo vivo. Curioso sobre design e produto.",
+      "contact": {
+        "email": "me@realwe.dev",
+        "phone": null,
+        "city": "São Paulo",
+        "country": "Brasil"
+      },
+      "experiences": [
+        {
+          "id": "exp-1778613666087",
+          "role": "Desenvolvedor de Software",
+          "companyName": "Nubank",
+          "companyLogoUrl": null,
+          "employmentType": "full_time",
+          "workMode": "on_site",
+          "location": "Vitoria",
+          "startDate": "2026-04-01T00:00:00.000Z",
+          "endDate": null,
+          "isCurrent": true,
+          "description": null
+        }
+      ],
+      "educations": [],
+      "skills": [
+        "TypeScript",
+        "Angular",
+        "UX",
+        "Persistência"
+      ],
+      "languages": [
+        {
+          "id": "lan1",
+          "name": "Português",
+          "proficiency": "native"
+        },
+        {
+          "id": "lan2",
+          "name": "Inglês",
+          "proficiency": "intermediate"
+        }
+      ],
+      "certifications": [],
+      "pronoun": "ele/dele",
+      "isPcd": false,
+      "pcdNotes": null
+    }
+  }
+}
