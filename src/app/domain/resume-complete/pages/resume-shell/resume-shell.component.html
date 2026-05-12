@@ -6,7 +6,6 @@
       (click)="openPreview()"
       [disabled]="isLoading()"
     >
-      <span class="material-symbols-rounded icon-sm" aria-hidden="true">visibility</span>
       Preview
     </button>
 
@@ -18,7 +17,6 @@
     <app-button
       variant="primary"
       size="sm"
-      icon="rocket_launch"
       [disabled]="!canPublish() || isLoading()"
       [ariaLabel]="
         canPublish()
