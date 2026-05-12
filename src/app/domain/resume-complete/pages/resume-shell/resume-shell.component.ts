@@ -152,7 +152,11 @@ export class ResumeShellComponent {
     this.facade
       .saveTrack(active, this.serialize(patch))
       .pipe(take(1), takeUntilDestroyed(this.destroyRef))
-      .subscribe();
+      .subscribe(() => {
+        if (this.savingState() === 'saved') {
+          this.closeSheet();
+        }
+      });
   }
 
   private serialize(patch: TrackSavePatch): Partial<ResumePayloadResponse> {
