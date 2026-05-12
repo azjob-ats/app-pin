@@ -1,13 +1,13 @@
 <div class="resume-shell">
   <header class="resume-shell__topbar">
-    <button
-      type="button"
-      class="resume-shell__preview-btn"
-      (click)="openPreview()"
+    <app-button
+      variant="outline"
+      size="sm"
       [disabled]="isLoading()"
+      (clicked)="openPreview()"
     >
       Preview
-    </button>
+    </app-button>
 
     <app-resume-progress-bar
       [completed]="completedCount()"
