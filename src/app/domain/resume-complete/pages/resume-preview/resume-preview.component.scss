@@ -1,11 +1,8 @@
 .resume-preview {
-  position: fixed;
-  inset: 0;
   background: var(--pin-bg);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  z-index: 50;
+  min-height: 100%;
 
   &__topbar {
     display: flex;

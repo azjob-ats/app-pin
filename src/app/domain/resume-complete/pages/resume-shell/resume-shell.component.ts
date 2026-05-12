@@ -10,6 +10,7 @@ import {
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '@env/environment';
+import { ButtonComponent } from '@shared/components/button/button.component';
 import { ResumeProgressBarComponent } from '@domain/resume-complete/components/resume-progress-bar/resume-progress-bar.component';
 import { ResumeTrackNodeComponent } from '@domain/resume-complete/components/resume-track-node/resume-track-node.component';
 import { TrackBottomSheetComponent } from '@domain/resume-complete/components/track-bottom-sheet/track-bottom-sheet.component';
@@ -63,6 +64,7 @@ import { SkillsTrackComponent } from '../tracks/skills/skills-track.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [
+    ButtonComponent,
     ResumeProgressBarComponent,
     ResumeTrackNodeComponent,
     TrackBottomSheetComponent,
@@ -100,7 +102,6 @@ export class ResumeShellComponent {
   readonly activeTrack = this.facade.activeTrack;
 
   readonly previewLink = `/${environment.ROUTES.RESUME.PREVIEW}`;
-  readonly homeLink = `/${environment.ROUTES.HOME.ROOT}`;
 
   readonly currentTrackIndex = computed(() => {
     const items = this.progress();
@@ -139,10 +140,6 @@ export class ResumeShellComponent {
 
   closeSheet(): void {
     void this.router.navigate(['/resume/complete']);
-  }
-
-  exit(): void {
-    void this.router.navigateByUrl(this.homeLink);
   }
 
   openPreview(): void {

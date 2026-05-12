@@ -75,39 +75,6 @@ export const routes: Routes = [
     ],
   },
   {
-    path: ROUTES.RESUME.COMPLETE,
-    loadComponent: () =>
-      import('./domain/resume-complete/pages/resume-shell/resume-shell.component').then(
-        (m) => m.ResumeShellComponent,
-      ),
-    data: {
-      title: 'Completar currículo',
-      description: 'Trilha gamificada para preencher seu currículo profissional.',
-    },
-  },
-  {
-    path: ROUTES.RESUME.COMPLETE_TRACK,
-    loadComponent: () =>
-      import('./domain/resume-complete/pages/resume-shell/resume-shell.component').then(
-        (m) => m.ResumeShellComponent,
-      ),
-    data: {
-      title: 'Completar currículo',
-      description: 'Trilha gamificada para preencher seu currículo profissional.',
-    },
-  },
-  {
-    path: ROUTES.RESUME.PREVIEW,
-    loadComponent: () =>
-      import('./domain/resume-complete/pages/resume-preview/resume-preview.component').then(
-        (m) => m.ResumePreviewComponent,
-      ),
-    data: {
-      title: 'Preview do portfólio',
-      description: 'Pré-visualização do seu portfólio público antes da publicação.',
-    },
-  },
-  {
     path: '',
     loadComponent: () =>
       import('./domain/shell/pages/shell/shell.component').then((m) => m.ShellComponent),
@@ -116,6 +83,39 @@ export const routes: Routes = [
         path: '',
         redirectTo: ROUTES.HOME.ROOT,
         pathMatch: 'full',
+      },
+      {
+        path: ROUTES.RESUME.COMPLETE,
+        loadComponent: () =>
+          import('./domain/resume-complete/pages/resume-shell/resume-shell.component').then(
+            (m) => m.ResumeShellComponent,
+          ),
+        data: {
+          title: 'Completar currículo',
+          description: 'Trilha gamificada para preencher seu currículo profissional.',
+        },
+      },
+      {
+        path: ROUTES.RESUME.COMPLETE_TRACK,
+        loadComponent: () =>
+          import('./domain/resume-complete/pages/resume-shell/resume-shell.component').then(
+            (m) => m.ResumeShellComponent,
+          ),
+        data: {
+          title: 'Completar currículo',
+          description: 'Trilha gamificada para preencher seu currículo profissional.',
+        },
+      },
+      {
+        path: ROUTES.RESUME.PREVIEW,
+        loadComponent: () =>
+          import('./domain/resume-complete/pages/resume-preview/resume-preview.component').then(
+            (m) => m.ResumePreviewComponent,
+          ),
+        data: {
+          title: 'Preview do portfólio',
+          description: 'Pré-visualização do seu portfólio público antes da publicação.',
+        },
       },
       {
         path: ROUTES.HOME.ROOT,
