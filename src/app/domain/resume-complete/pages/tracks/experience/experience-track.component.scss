@@ -3,38 +3,6 @@
   flex-direction: column;
   gap: var(--space-md);
 
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
-  &__item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.6rem 0.9rem;
-    border: 1px solid var(--pin-border);
-    border-radius: var(--radius-md);
-    background: var(--pin-card-bg);
-    font-size: var(--text-sm);
-  }
-
-  &__remove {
-    appearance: none;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--pin-text-muted);
-
-    &:hover {
-      color: #b91c1c;
-    }
-  }
-
   &__form {
     display: flex;
     flex-direction: column;
@@ -99,25 +67,11 @@
     color: var(--pin-text-primary);
   }
 
-  &__add-btn {
-    align-self: flex-start;
-    appearance: none;
-    border: 1px solid var(--pin-border);
-    background: var(--pin-card-bg);
-    border-radius: var(--radius-pill);
-    padding: 0.5rem 1rem;
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-    cursor: pointer;
-
-    &:hover:not(:disabled) {
-      background: var(--pin-bg-tertiary);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+  &__form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
   }
 }
 

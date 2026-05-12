@@ -1,9 +1,22 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ChipItem, ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.component';
+import { InputComponent } from '@shared/components/input/input.component';
+import { SelectComponent, SelectOption } from '@shared/components/select/select.component';
 import { EmploymentType } from '@shared/enums/employment-type.enum';
 import { WorkMode } from '@shared/enums/work-mode.enum';
 import { Experience } from '@shared/interfaces/entity/creator-portfolio';
 
-const EMPLOYMENT_OPTIONS: { value: EmploymentType; label: string }[] = [
+function toMonthInput(date: Date | null): string {
+  if (!date) return '';
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  return `${y}-${m}`;
+}
+
+const EMPLOYMENT_OPTIONS: SelectOption[] = [
   { value: EmploymentType.FullTime, label: 'Tempo integral' },
   { value: EmploymentType.PartTime, label: 'Meio período' },
   { value: EmploymentType.Internship, label: 'Estágio' },
@@ -13,7 +26,7 @@ const EMPLOYMENT_OPTIONS: { value: EmploymentType; label: string }[] = [
   { value: EmploymentType.Volunteer, label: 'Voluntário' },
 ];
 
-const WORK_MODE_OPTIONS: { value: WorkMode; label: string }[] = [
+const WORK_MODE_OPTIONS: SelectOption[] = [
   { value: WorkMode.Remote, label: 'Remoto' },
   { value: WorkMode.Hybrid, label: 'Híbrido' },
   { value: WorkMode.OnSite, label: 'Presencial' },
@@ -47,53 +60,55 @@ const EMPTY_DRAFT: DraftExp = {
   selector: 'app-experience-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [
+    FormsModule,
+    AppCheckComponent,
+    ButtonComponent,
+    ChipScrollComponent,
+    InputComponent,
+    SelectComponent,
+  ],
   template: `
     <div class="exp-track">
-      @if (items().length > 0) {
-        <ul class="exp-track__list" role="list">
-          @for (item of items(); track item.id) {
-            <li class="exp-track__item">
-              <div>
-                <strong>{{ item.role }}</strong> · {{ item.companyName }}
-              </div>
-              <button type="button" class="exp-track__remove" (click)="remove(item.id)" aria-label="Remover">
-                <span class="material-symbols-rounded icon-sm" aria-hidden="true">delete</span>
-              </button>
-            </li>
-          }
-        </ul>
+      @if (chips().length > 0) {
+        <app-chip-scroll
+          [chips]="chips()"
+          [selected]="editingId() ?? ''"
+          (chipSelect)="onChipSelect($event)"
+        />
       }
 
       <fieldset class="exp-track__form">
-        <legend>Adicionar experiência</legend>
+        <legend>{{ isEditing() ? 'Editar experiência' : 'Adicionar experiência' }}</legend>
+
         <div class="exp-track__row">
-          <label class="exp-track__field">
-            <span>Cargo</span>
-            <input type="text" [value]="draft().role" (input)="patch({ role: $any($event.target).value })" />
-          </label>
-          <label class="exp-track__field">
-            <span>Empresa</span>
-            <input type="text" [value]="draft().companyName" (input)="patch({ companyName: $any($event.target).value })" />
-          </label>
+          <app-input
+            label="Cargo"
+            [ngModel]="draft().role"
+            (ngModelChange)="patch({ role: $event })"
+          />
+          <app-input
+            label="Empresa"
+            [ngModel]="draft().companyName"
+            (ngModelChange)="patch({ companyName: $event })"
+          />
         </div>
+
         <div class="exp-track__row">
-          <label class="exp-track__field">
-            <span>Modalidade</span>
-            <select [value]="draft().employmentType" (change)="onEmploymentChange($event)">
-              @for (opt of employmentOptions; track opt.value) {
-                <option [value]="opt.value">{{ opt.label }}</option>
-              }
-            </select>
-          </label>
-          <label class="exp-track__field">
-            <span>Modelo</span>
-            <select [value]="draft().workMode" (change)="onModeChange($event)">
-              @for (opt of modeOptions; track opt.value) {
-                <option [value]="opt.value">{{ opt.label }}</option>
-              }
-            </select>
-          </label>
+          <app-select
+            label="Modalidade"
+            [options]="employmentOptions"
+            [ngModel]="draft().employmentType"
+            (ngModelChange)="onEmploymentChange($event)"
+          />
+          <app-select
+            label="Modelo"
+            [options]="modeOptions"
+            [ngModel]="draft().workMode"
+            (ngModelChange)="onModeChange($event)"
+          />
         </div>
+
         <div class="exp-track__row">
           <label class="exp-track__field">
             <span>Início</span>
@@ -109,21 +124,51 @@ const EMPTY_DRAFT: DraftExp = {
             />
           </label>
         </div>
+
         <label class="exp-track__check">
-          <input
-            type="checkbox"
+          <app-check
             [checked]="draft().isCurrent"
-            (change)="patch({ isCurrent: $any($event.target).checked })"
+            ariaLabel="Trabalho atual"
+            (checkedChange)="patch({ isCurrent: $event })"
           />
           Trabalho atual
         </label>
-        <label class="exp-track__field">
-          <span>Localização (opcional)</span>
-          <input type="text" [value]="draft().location" (input)="patch({ location: $any($event.target).value })" />
-        </label>
-        <button type="button" class="exp-track__add-btn" (click)="addItem()" [disabled]="!canAdd()">
-          Adicionar à lista
-        </button>
+
+        <app-input
+          label="Localização (opcional)"
+          [ngModel]="draft().location"
+          (ngModelChange)="patch({ location: $event })"
+        />
+
+        <div class="exp-track__form-actions">
+          <app-button
+            variant="secondary"
+            size="sm"
+            [disabled]="!canAdd()"
+            (clicked)="addItem()"
+          >
+            {{ isEditing() ? 'Atualizar' : 'Adicionar à lista' }}
+          </app-button>
+
+          @if (isEditing()) {
+            <app-button
+              variant="secondary"
+              size="sm"
+              (clicked)="cancelEdit()"
+            >
+              Cancelar
+            </app-button>
+
+            <app-button
+              variant="secondary"
+              size="sm"
+              ariaLabel="Excluir experiência"
+              (clicked)="removeCurrent()"
+            >
+              Excluir
+            </app-button>
+          }
+        </div>
       </fieldset>
 
       <footer class="track-form-footer">
@@ -134,7 +179,7 @@ const EMPTY_DRAFT: DraftExp = {
       </footer>
     </div>
   `,
-  styleUrl: './experience-track.component.scss',
+  styleUrls: ['./experience-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class ExperienceTrackComponent {
   readonly initial = input.required<Experience[]>();
@@ -145,6 +190,16 @@ export class ExperienceTrackComponent {
 
   protected readonly items = signal<Experience[]>([]);
   protected readonly draft = signal<DraftExp>({ ...EMPTY_DRAFT });
+  protected readonly editingId = signal<string | null>(null);
+
+  protected readonly chips = computed<ChipItem[]>(() =>
+    this.items().map((e) => ({
+      key: e.id,
+      labelKey: e.companyName,
+    })),
+  );
+
+  protected readonly isEditing = computed(() => this.editingId() !== null);
 
   private hasInit = false;
 
@@ -169,19 +224,21 @@ export class ExperienceTrackComponent {
     this.draft.update((d) => ({ ...d, ...p }));
   }
 
-  protected onEmploymentChange(event: Event): void {
-    this.patch({ employmentType: (event.target as HTMLSelectElement).value as EmploymentType });
+  protected onEmploymentChange(value: string): void {
+    this.patch({ employmentType: value as EmploymentType });
   }
 
-  protected onModeChange(event: Event): void {
-    this.patch({ workMode: (event.target as HTMLSelectElement).value as WorkMode });
+  protected onModeChange(value: string): void {
+    this.patch({ workMode: value as WorkMode });
   }
 
   protected addItem(): void {
     if (!this.canAdd()) return;
     const d = this.draft();
+    const editing = this.editingId();
+    const id = editing ?? `exp-${Date.now()}`;
     const item: Experience = {
-      id: `exp-${Date.now()}`,
+      id,
       role: d.role.trim(),
       companyName: d.companyName.trim(),
       companyLogoUrl: null,
@@ -193,12 +250,43 @@ export class ExperienceTrackComponent {
       isCurrent: d.isCurrent,
       description: d.description.trim() || null,
     };
-    this.items.update((list) => [...list, item]);
-    this.draft.set({ ...EMPTY_DRAFT });
+
+    if (editing) {
+      this.items.update((list) => list.map((e) => (e.id === editing ? item : e)));
+    } else {
+      this.items.update((list) => [...list, item]);
+    }
+
+    this.cancelEdit();
   }
 
-  protected remove(id: string): void {
-    this.items.update((list) => list.filter((e) => e.id !== id));
+  protected onChipSelect(id: string): void {
+    const item = this.items().find((e) => e.id === id);
+    if (!item) return;
+    this.draft.set({
+      role: item.role,
+      companyName: item.companyName,
+      employmentType: item.employmentType,
+      workMode: item.workMode,
+      location: item.location ?? '',
+      startDate: toMonthInput(item.startDate),
+      endDate: toMonthInput(item.endDate),
+      isCurrent: item.isCurrent,
+      description: item.description ?? '',
+    });
+    this.editingId.set(id);
+  }
+
+  protected cancelEdit(): void {
+    this.draft.set({ ...EMPTY_DRAFT });
+    this.editingId.set(null);
+  }
+
+  protected removeCurrent(): void {
+    const editing = this.editingId();
+    if (!editing) return;
+    this.items.update((list) => list.filter((e) => e.id !== editing));
+    this.cancelEdit();
   }
 
   protected emitSave(): void {
