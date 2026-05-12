@@ -78,9 +78,7 @@ const EMPTY_DRAFT: DraftExp = {
         />
       }
 
-      <fieldset class="exp-track__form">
-        <legend>{{ isEditing() ? 'Editar experiência' : 'Adicionar experiência' }}</legend>
-
+      <div class="exp-track__form">
         <div class="exp-track__row">
           <app-input
             label="Cargo"
@@ -169,10 +167,9 @@ const EMPTY_DRAFT: DraftExp = {
             </app-button>
           }
         </div>
-      </fieldset>
+      </div>
 
       <footer class="track-form-footer">
-        <span class="track-form-footer__count">{{ items().length }} experiência(s)</span>
         <button type="button" class="track-form-footer__save" (click)="emitSave()" [disabled]="!isDirty()">
           Salvar
         </button>
