@@ -7,6 +7,9 @@
 /bazel-out
 /api-server/node_modules
 
+# Mock server runtime state (only the seed is versioned)
+/api-server/src/data/resume-store.json
+
 # Node
 /node_modules
 npm-debug.log

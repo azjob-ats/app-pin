@@ -1,3 +1,9 @@
+const fs = require('node:fs');
+const path = require('node:path');
+
+const STORE_FILE = path.join(__dirname, 'resume-store.json');
+const SEED_FILE = path.join(__dirname, 'resume-store.seed.json');
+
 const TRACK_IDS = [
   'skills',
   'experience',
@@ -32,47 +38,33 @@ function emptyPayload() {
   };
 }
 
-function buildSeedDraft() {
-  const tracks = emptyTracks();
-  const now = new Date().toISOString();
-
-  tracks.about = { status: 'completed', completion: 1, lastSavedAt: now };
-  tracks.skills = { status: 'completed', completion: 1, lastSavedAt: now };
-  tracks.contact = { status: 'in_progress', completion: 0.5, lastSavedAt: now };
-  tracks.languages = { status: 'in_progress', completion: 0.66, lastSavedAt: now };
-
-  return {
-    ownerHandle: 'currentuser',
-    updatedAt: now,
-    isPublished: false,
-    publishedAt: null,
-    tracks,
-    payload: {
-      about:
-        'Profissional explorando o uso de mídia profissional como currículo vivo. Curioso sobre design e produto.',
-      contact: {
-        email: 'me@realwe.dev',
-        phone: null,
-        city: 'São Paulo',
-        country: 'Brasil',
-      },
-      experiences: [],
-      educations: [],
-      skills: ['TypeScript', 'Angular', 'UX'],
-      languages: [
-        { id: 'lan1', name: 'Português', proficiency: 'native' },
-        { id: 'lan2', name: 'Inglês', proficiency: 'intermediate' },
-      ],
-      certifications: [],
-      pronoun: 'ele/dele',
-      isPcd: false,
-      pcdNotes: null,
-    },
-  };
+function loadStore() {
+  try {
+    if (fs.existsSync(STORE_FILE)) {
+      return JSON.parse(fs.readFileSync(STORE_FILE, 'utf8'));
+    }
+    const seed = JSON.parse(fs.readFileSync(SEED_FILE, 'utf8'));
+    fs.writeFileSync(STORE_FILE, JSON.stringify(seed, null, 2), 'utf8');
+    return seed;
+  } catch (err) {
+    console.error('[resume-draft] failed to load store, falling back to empty:', err.message);
+    return {};
+  }
 }
 
 const RESUME_DRAFTS = new Map();
-RESUME_DRAFTS.set('currentuser', buildSeedDraft());
+for (const [handle, draft] of Object.entries(loadStore())) {
+  RESUME_DRAFTS.set(handle, draft);
+}
+
+function persist() {
+  try {
+    const obj = Object.fromEntries(RESUME_DRAFTS.entries());
+    fs.writeFileSync(STORE_FILE, JSON.stringify(obj, null, 2), 'utf8');
+  } catch (err) {
+    console.error('[resume-draft] failed to persist:', err.message);
+  }
+}
 
 function ensureDraft(handle) {
   if (!RESUME_DRAFTS.has(handle)) {
@@ -84,6 +76,7 @@ function ensureDraft(handle) {
       tracks: emptyTracks(),
       payload: emptyPayload(),
     });
+    persist();
   }
   return RESUME_DRAFTS.get(handle);
 }
@@ -126,4 +119,5 @@ module.exports = {
   ensureDraft,
   computeCompletion,
   statusFromCompletion,
+  persist,
 };

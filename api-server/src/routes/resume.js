@@ -4,6 +4,7 @@ const {
   ensureDraft,
   computeCompletion,
   statusFromCompletion,
+  persist,
 } = require('../data/resume-draft');
 const { findByHandle, MOCK_CREATOR_PORTFOLIOS } = require('../data/creator-portfolio');
 const { success, failure } = require('../helpers/response');
@@ -44,6 +45,8 @@ router.patch('/:trackId', (req, res) => {
     lastSavedAt: now,
   };
   draft.updatedAt = now;
+
+  persist();
 
   res.json(success(draft, 200, 'Trilho salvo.'));
 });
@@ -122,6 +125,8 @@ router.post('/publish', (_req, res) => {
   } else {
     Object.assign(existing, merged);
   }
+
+  persist();
 
   res.json(success(merged, 200, 'Portfólio publicado.'));
 });
