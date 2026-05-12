@@ -1,4 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ChipItem, ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.component';
+import { InputComponent } from '@shared/components/input/input.component';
 import { Certification } from '@shared/interfaces/entity/creator-portfolio';
 
 interface DraftCert {
@@ -10,55 +14,88 @@ interface DraftCert {
 
 const EMPTY: DraftCert = { name: '', issuerName: '', issuedAt: '', credentialUrl: '' };
 
+function toMonthInput(date: Date | null): string {
+  if (!date) return '';
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  return `${y}-${m}`;
+}
+
 @Component({
   selector: 'app-certifications-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [FormsModule, ButtonComponent, ChipScrollComponent, InputComponent],
   styleUrls: ['../experience/experience-track.component.scss', '../track-form-footer.shared.scss'],
   template: `
     <div class="exp-track">
-      @if (items().length > 0) {
-        <ul class="exp-track__list" role="list">
-          @for (item of items(); track item.id) {
-            <li class="exp-track__item">
-              <div><strong>{{ item.name }}</strong> · {{ item.issuerName }}</div>
-              <button type="button" class="exp-track__remove" (click)="remove(item.id)" aria-label="Remover">
-                <span class="material-symbols-rounded icon-sm" aria-hidden="true">delete</span>
-              </button>
-            </li>
-          }
-        </ul>
+      @if (chips().length > 0) {
+        <app-chip-scroll
+          [chips]="chips()"
+          [selected]="editingId() ?? ''"
+          (chipSelect)="onChipSelect($event)"
+        />
       }
 
-      <fieldset class="exp-track__form">
-        <legend>Adicionar certificação</legend>
+      <div class="exp-track__form">
         <div class="exp-track__row">
-          <label class="exp-track__field">
-            <span>Nome</span>
-            <input type="text" [value]="draft().name" (input)="patch({ name: $any($event.target).value })" />
-          </label>
-          <label class="exp-track__field">
-            <span>Instituição</span>
-            <input type="text" [value]="draft().issuerName" (input)="patch({ issuerName: $any($event.target).value })" />
-          </label>
+          <app-input
+            label="Nome"
+            [ngModel]="draft().name"
+            (ngModelChange)="patch({ name: $event })"
+          />
+          <app-input
+            label="Instituição"
+            [ngModel]="draft().issuerName"
+            (ngModelChange)="patch({ issuerName: $event })"
+          />
         </div>
+
         <div class="exp-track__row">
           <label class="exp-track__field">
             <span>Data de emissão</span>
             <input type="month" [value]="draft().issuedAt" (input)="patch({ issuedAt: $any($event.target).value })" />
           </label>
-          <label class="exp-track__field">
-            <span>URL da credencial (opcional)</span>
-            <input type="url" [value]="draft().credentialUrl" (input)="patch({ credentialUrl: $any($event.target).value })" />
-          </label>
+          <app-input
+            label="URL da credencial (opcional)"
+            type="url"
+            [ngModel]="draft().credentialUrl"
+            (ngModelChange)="patch({ credentialUrl: $event })"
+          />
         </div>
-        <button type="button" class="exp-track__add-btn" (click)="addItem()" [disabled]="!canAdd()">
-          Adicionar à lista
-        </button>
-      </fieldset>
+
+        <div class="exp-track__form-actions">
+          <app-button
+            variant="secondary"
+            size="sm"
+            [disabled]="!canAdd()"
+            (clicked)="addItem()"
+          >
+            {{ isEditing() ? 'Atualizar' : 'Adicionar à lista' }}
+          </app-button>
+
+          @if (isEditing()) {
+            <app-button
+              variant="secondary"
+              size="sm"
+              (clicked)="cancelEdit()"
+            >
+              Cancelar
+            </app-button>
+
+            <app-button
+              variant="secondary"
+              size="sm"
+              ariaLabel="Excluir certificação"
+              (clicked)="removeCurrent()"
+            >
+              Excluir
+            </app-button>
+          }
+        </div>
+      </div>
 
       <footer class="track-form-footer">
-        <span class="track-form-footer__count">{{ items().length }} certificação(ões)</span>
         <button type="button" class="track-form-footer__save" (click)="emitSave()" [disabled]="!isDirty()">
           Salvar
         </button>
@@ -72,6 +109,13 @@ export class CertificationsTrackComponent {
 
   protected readonly items = signal<Certification[]>([]);
   protected readonly draft = signal<DraftCert>({ ...EMPTY });
+  protected readonly editingId = signal<string | null>(null);
+
+  protected readonly chips = computed<ChipItem[]>(() =>
+    this.items().map((e) => ({ key: e.id, labelKey: e.name })),
+  );
+
+  protected readonly isEditing = computed(() => this.editingId() !== null);
 
   private hasInit = false;
 
@@ -99,8 +143,10 @@ export class CertificationsTrackComponent {
   protected addItem(): void {
     if (!this.canAdd()) return;
     const d = this.draft();
+    const editing = this.editingId();
+    const id = editing ?? `cert-${Date.now()}`;
     const item: Certification = {
-      id: `cert-${Date.now()}`,
+      id,
       name: d.name.trim(),
       issuerName: d.issuerName.trim(),
       issuerLogoUrl: null,
@@ -108,12 +154,38 @@ export class CertificationsTrackComponent {
       expiresAt: null,
       credentialUrl: d.credentialUrl.trim() || null,
     };
-    this.items.update((list) => [...list, item]);
-    this.draft.set({ ...EMPTY });
+
+    if (editing) {
+      this.items.update((list) => list.map((e) => (e.id === editing ? item : e)));
+    } else {
+      this.items.update((list) => [...list, item]);
+    }
+
+    this.cancelEdit();
   }
 
-  protected remove(id: string): void {
-    this.items.update((list) => list.filter((e) => e.id !== id));
+  protected onChipSelect(id: string): void {
+    const item = this.items().find((e) => e.id === id);
+    if (!item) return;
+    this.draft.set({
+      name: item.name,
+      issuerName: item.issuerName,
+      issuedAt: toMonthInput(item.issuedAt),
+      credentialUrl: item.credentialUrl ?? '',
+    });
+    this.editingId.set(id);
+  }
+
+  protected cancelEdit(): void {
+    this.draft.set({ ...EMPTY });
+    this.editingId.set(null);
+  }
+
+  protected removeCurrent(): void {
+    const editing = this.editingId();
+    if (!editing) return;
+    this.items.update((list) => list.filter((e) => e.id !== editing));
+    this.cancelEdit();
   }
 
   protected emitSave(): void {

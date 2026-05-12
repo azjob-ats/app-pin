@@ -1,48 +1,53 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ChipItem, ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.component';
+import { InputComponent } from '@shared/components/input/input.component';
 
 @Component({
   selector: 'app-skills-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [FormsModule, ButtonComponent, ChipScrollComponent, InputComponent],
+  styleUrls: ['../experience/experience-track.component.scss', '../track-form-footer.shared.scss'],
   template: `
-    <div class="skills-track">
-      <p class="skills-track__hint">Adicione 3 ou mais habilidades para concluir este trilho.</p>
-
-      <ul class="skills-track__chips" role="list">
-        @for (skill of skills(); track skill) {
-          <li class="skills-track__chip">
-            {{ skill }}
-            <button type="button" class="skills-track__remove" (click)="remove(skill)" aria-label="Remover">
-              <span class="material-symbols-rounded icon-sm" aria-hidden="true">close</span>
-            </button>
-          </li>
-        }
-      </ul>
-
-      <div class="skills-track__add">
-        <input
-          type="text"
-          class="skills-track__input"
-          placeholder="Digite uma habilidade e pressione Enter"
-          [value]="draft()"
-          (input)="onInput($event)"
-          (keydown.enter)="add()"
-          aria-label="Nova habilidade"
+    <div class="exp-track">
+      @if (chips().length > 0) {
+        <app-chip-scroll
+          [chips]="chips()"
+          [selected]="''"
+          (chipSelect)="onChipSelect($event)"
         />
-        <button type="button" class="skills-track__add-btn" (click)="add()" [disabled]="!draft().trim()">
-          Adicionar
-        </button>
+      }
+
+      <div class="exp-track__form">
+        <app-input
+          label="Nova habilidade"
+          placeholder="Digite e pressione Enter"
+          [ngModel]="draft()"
+          (ngModelChange)="draft.set($event)"
+          (enter)="add()"
+        />
+
+        <div class="exp-track__form-actions">
+          <app-button
+            variant="secondary"
+            size="sm"
+            [disabled]="!canAdd()"
+            (clicked)="add()"
+          >
+            Adicionar
+          </app-button>
+        </div>
       </div>
 
       <footer class="track-form-footer">
-        <span class="track-form-footer__count">{{ skills().length }} habilidades</span>
         <button type="button" class="track-form-footer__save" (click)="emitSave()" [disabled]="!isDirty()">
           Salvar
         </button>
       </footer>
     </div>
   `,
-  styleUrls: ['./skills-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class SkillsTrackComponent {
   readonly initialSkills = input.required<string[]>();
@@ -50,6 +55,13 @@ export class SkillsTrackComponent {
 
   protected readonly skills = signal<string[]>([]);
   protected readonly draft = signal<string>('');
+
+  protected readonly chips = computed<ChipItem[]>(() =>
+    this.skills().map((s) => ({ key: s, labelKey: s })),
+  );
+
+  protected readonly canAdd = computed(() => this.draft().trim().length > 0);
+
   private hasInit = false;
 
   constructor() {
@@ -65,11 +77,6 @@ export class SkillsTrackComponent {
     () => JSON.stringify(this.skills()) !== JSON.stringify(this.initialSkills()),
   );
 
-  protected onInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.draft.set(target.value);
-  }
-
   protected add(): void {
     const value = this.draft().trim();
     if (!value) return;
@@ -81,8 +88,10 @@ export class SkillsTrackComponent {
     this.draft.set('');
   }
 
-  protected remove(skill: string): void {
-    this.skills.update((list) => list.filter((s) => s !== skill));
+  protected onChipSelect(skill: string): void {
+    if (window.confirm(`Remover "${skill}"?`)) {
+      this.skills.update((list) => list.filter((s) => s !== skill));
+    }
   }
 
   protected emitSave(): void {

@@ -1,4 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AppCheckComponent } from '@shared/components/app-check/app-check.component';
+import { ChipItem, ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.component';
+import { TextareaComponent } from '@shared/components/textarea/textarea.component';
 
 const PRONOUN_OPTIONS = ['ele/dele', 'ela/dela', 'elu/delu', 'eles/delas', 'prefiro não informar'];
 
@@ -6,54 +10,44 @@ const PRONOUN_OPTIONS = ['ele/dele', 'ela/dela', 'elu/delu', 'eles/delas', 'pref
   selector: 'app-pronoun-pcd-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [FormsModule, AppCheckComponent, ChipScrollComponent, TextareaComponent],
+  styleUrls: ['../experience/experience-track.component.scss', '../track-form-footer.shared.scss'],
   template: `
-    <form class="pronoun-track" (submit)="$event.preventDefault(); emitSave()">
-      <fieldset class="pronoun-track__fieldset">
-        <legend class="pronoun-track__legend">Pronome</legend>
-        <div class="pronoun-track__chips" role="radiogroup" aria-label="Pronome">
-          @for (option of options; track option) {
-            <button
-              type="button"
-              role="radio"
-              [attr.aria-checked]="pronoun() === option"
-              class="pronoun-track__chip"
-              [class.is-selected]="pronoun() === option"
-              (click)="pronoun.set(option)"
-            >
-              {{ option }}
-            </button>
-          }
-        </div>
-      </fieldset>
+    <div class="exp-track">
+      <div class="exp-track__form">
+        <app-chip-scroll
+          [chips]="pronounChips"
+          [selected]="pronoun() ?? ''"
+          (chipSelect)="onPronounSelect($event)"
+        />
 
-      <label class="pronoun-track__check">
-        <input type="checkbox" [checked]="isPcd()" (change)="isPcd.set($any($event.target).checked)" />
-        Sou PCD (Pessoa com Deficiência)
-      </label>
-
-      @if (isPcd()) {
-        <label class="pronoun-track__field">
-          <span class="pronoun-track__label">Observações (opcional)</span>
-          <textarea
-            rows="3"
-            [value]="pcdNotes()"
-            (input)="pcdNotes.set($any($event.target).value)"
-            placeholder="Ex.: deficiência visual parcial, uso leitor de tela."
-          ></textarea>
+        <label class="exp-track__check">
+          <app-check
+            [checked]="isPcd()"
+            ariaLabel="Sou PCD"
+            (checkedChange)="isPcd.set($event)"
+          />
+          Sou PCD (Pessoa com Deficiência)
         </label>
-      }
+
+        @if (isPcd()) {
+          <app-textarea
+            label="Observações (opcional)"
+            placeholder="Ex.: deficiência visual parcial, uso leitor de tela."
+            [rows]="3"
+            [ngModel]="pcdNotes()"
+            (ngModelChange)="pcdNotes.set($event)"
+          />
+        }
+      </div>
 
       <footer class="track-form-footer">
-        <span class="track-form-footer__count">
-          @if (pronoun()) { Pronome: {{ pronoun() }} } @else { Sem pronome selecionado }
-        </span>
-        <button type="submit" class="track-form-footer__save" [disabled]="!isDirty()">
+        <button type="button" class="track-form-footer__save" [disabled]="!isDirty()" (click)="emitSave()">
           Salvar
         </button>
       </footer>
-    </form>
+    </div>
   `,
-  styleUrls: ['./pronoun-pcd-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class PronounPcdTrackComponent {
   readonly initialPronoun = input.required<string | null>();
@@ -62,7 +56,11 @@ export class PronounPcdTrackComponent {
 
   readonly save = output<{ pronoun: string | null; isPcd: boolean; pcdNotes: string | null }>();
 
-  protected readonly options = PRONOUN_OPTIONS;
+  protected readonly pronounChips: ChipItem[] = PRONOUN_OPTIONS.map((p) => ({
+    key: p,
+    labelKey: p,
+  }));
+
   protected readonly pronoun = signal<string | null>(null);
   protected readonly isPcd = signal<boolean>(false);
   protected readonly pcdNotes = signal<string>('');
@@ -88,6 +86,10 @@ export class PronounPcdTrackComponent {
       this.isPcd() !== this.initialIsPcd() ||
       (this.pcdNotes() || '') !== (this.initialPcdNotes() ?? ''),
   );
+
+  protected onPronounSelect(value: string): void {
+    this.pronoun.set(this.pronoun() === value ? null : value);
+  }
 
   protected emitSave(): void {
     const notes = this.pcdNotes().trim();

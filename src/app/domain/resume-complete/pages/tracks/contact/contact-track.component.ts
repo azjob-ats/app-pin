@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect, input, output, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputComponent } from '@shared/components/input/input.component';
 import { ContactInfo } from '@shared/interfaces/entity/creator-portfolio';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -7,62 +9,56 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   selector: 'app-contact-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  imports: [FormsModule, InputComponent],
+  styleUrls: ['../experience/experience-track.component.scss', '../track-form-footer.shared.scss'],
   template: `
-    <form class="contact-track" (submit)="$event.preventDefault(); emitSave()">
-      <label class="contact-track__field">
-        <span class="contact-track__label">E-mail</span>
-        <input
+    <div class="exp-track">
+      <div class="exp-track__form">
+        <app-input
+          label="E-mail"
           type="email"
-          [value]="email()"
-          (input)="email.set($any($event.target).value)"
-          autocomplete="email"
           placeholder="voce@dominio.com"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          [errorMessage]="emailInvalid() ? 'Informe um e-mail válido.' : ''"
         />
-        @if (emailInvalid()) {
-          <span class="contact-track__error">Informe um e-mail válido.</span>
-        }
-      </label>
 
-      <label class="contact-track__field">
-        <span class="contact-track__label">Telefone</span>
-        <input
+        <app-input
+          label="Telefone"
           type="tel"
-          [value]="phone()"
-          (input)="phone.set($any($event.target).value)"
           placeholder="(11) 99999-9999"
+          [ngModel]="phone()"
+          (ngModelChange)="phone.set($event)"
         />
-      </label>
 
-      <div class="contact-track__row">
-        <label class="contact-track__field">
-          <span class="contact-track__label">Cidade</span>
-          <input
-            type="text"
-            [value]="city()"
-            (input)="city.set($any($event.target).value)"
+        <div class="exp-track__row">
+          <app-input
+            label="Cidade"
             placeholder="São Paulo"
+            [ngModel]="city()"
+            (ngModelChange)="city.set($event)"
           />
-        </label>
-        <label class="contact-track__field">
-          <span class="contact-track__label">País</span>
-          <input
-            type="text"
-            [value]="country()"
-            (input)="country.set($any($event.target).value)"
+          <app-input
+            label="País"
             placeholder="Brasil"
+            [ngModel]="country()"
+            (ngModelChange)="country.set($event)"
           />
-        </label>
+        </div>
       </div>
 
       <footer class="track-form-footer">
-        <span class="track-form-footer__count">{{ filledCount() }}/4 campos preenchidos</span>
-        <button type="submit" class="track-form-footer__save" [disabled]="!isDirty() || emailInvalid()">
+        <button
+          type="button"
+          class="track-form-footer__save"
+          [disabled]="!isDirty() || emailInvalid()"
+          (click)="emitSave()"
+        >
           Salvar
         </button>
       </footer>
-    </form>
+    </div>
   `,
-  styleUrls: ['./contact-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class ContactTrackComponent {
   readonly initial = input.required<ContactInfo>();
@@ -91,10 +87,6 @@ export class ContactTrackComponent {
     const v = this.email().trim();
     return v !== '' && !EMAIL_RE.test(v);
   });
-
-  protected readonly filledCount = computed(
-    () => [this.email(), this.phone(), this.city(), this.country()].filter((v) => !!v.trim()).length,
-  );
 
   protected readonly isDirty = computed(() => {
     const init = this.initial();
