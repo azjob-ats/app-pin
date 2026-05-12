@@ -53,7 +53,7 @@ const PRONOUN_OPTIONS = ['ele/dele', 'ela/dela', 'elu/delu', 'eles/delas', 'pref
       </footer>
     </form>
   `,
-  styleUrl: './pronoun-pcd-track.component.scss',
+  styleUrls: ['./pronoun-pcd-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class PronounPcdTrackComponent {
   readonly initialPronoun = input.required<string | null>();

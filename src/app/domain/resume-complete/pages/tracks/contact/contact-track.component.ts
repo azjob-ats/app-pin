@@ -62,7 +62,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       </footer>
     </form>
   `,
-  styleUrl: './contact-track.component.scss',
+  styleUrls: ['./contact-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class ContactTrackComponent {
   readonly initial = input.required<ContactInfo>();

@@ -62,7 +62,7 @@ const PROFICIENCY_OPTIONS: { value: LanguageProficiency; label: string }[] = [
       </footer>
     </div>
   `,
-  styleUrl: './languages-track.component.scss',
+  styleUrls: ['./languages-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class LanguagesTrackComponent {
   readonly initial = input.required<Language[]>();

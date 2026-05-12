@@ -42,7 +42,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, effect
       </footer>
     </div>
   `,
-  styleUrl: './skills-track.component.scss',
+  styleUrls: ['./skills-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class SkillsTrackComponent {
   readonly initialSkills = input.required<string[]>();

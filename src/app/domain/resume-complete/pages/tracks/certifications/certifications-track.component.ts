@@ -14,7 +14,7 @@ const EMPTY: DraftCert = { name: '', issuerName: '', issuedAt: '', credentialUrl
   selector: 'app-certifications-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  styleUrl: '../experience/experience-track.component.scss',
+  styleUrls: ['../experience/experience-track.component.scss', '../track-form-footer.shared.scss'],
   template: `
     <div class="exp-track">
       @if (items().length > 0) {

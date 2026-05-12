@@ -14,7 +14,7 @@ const EMPTY: DraftEdu = { institutionName: '', course: '', startDate: '', endDat
   selector: 'app-education-track',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  styleUrl: '../experience/experience-track.component.scss',
+  styleUrls: ['../experience/experience-track.component.scss', '../track-form-footer.shared.scss'],
   template: `
     <div class="exp-track">
       @if (items().length > 0) {

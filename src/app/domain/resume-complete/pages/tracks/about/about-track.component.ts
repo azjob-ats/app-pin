@@ -28,7 +28,7 @@ const MAX_LENGTH = 600;
       </footer>
     </div>
   `,
-  styleUrl: './about-track.component.scss',
+  styleUrls: ['./about-track.component.scss', '../track-form-footer.shared.scss'],
 })
 export class AboutTrackComponent {
   readonly initialText = input.required<string>();
