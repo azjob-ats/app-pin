@@ -48,6 +48,8 @@ export type TrackSavePatch = Partial<{
   pronoun: string | null;
   isPcd: boolean;
   pcdNotes: string | null;
+  avatarUrl: string | null;
+  coverUrl: string | null;
 }>;
 
 import { AboutTrackComponent } from '../tracks/about/about-track.component';
@@ -56,6 +58,7 @@ import { ContactTrackComponent } from '../tracks/contact/contact-track.component
 import { EducationTrackComponent } from '../tracks/education/education-track.component';
 import { ExperienceTrackComponent } from '../tracks/experience/experience-track.component';
 import { LanguagesTrackComponent } from '../tracks/languages/languages-track.component';
+import { MediaTrackComponent } from '../tracks/media/media-track.component';
 import { PronounPcdTrackComponent } from '../tracks/pronoun-pcd/pronoun-pcd-track.component';
 import { SkillsTrackComponent } from '../tracks/skills/skills-track.component';
 
@@ -76,6 +79,7 @@ import { SkillsTrackComponent } from '../tracks/skills/skills-track.component';
     ExperienceTrackComponent,
     EducationTrackComponent,
     CertificationsTrackComponent,
+    MediaTrackComponent,
   ],
   templateUrl: './resume-shell.component.html',
   styleUrl: './resume-shell.component.scss',
@@ -168,6 +172,8 @@ export class ResumeShellComponent {
     if ('pronoun' in patch) out.pronoun = patch.pronoun;
     if ('isPcd' in patch) out.isPcd = patch.isPcd;
     if ('pcdNotes' in patch) out.pcdNotes = patch.pcdNotes;
+    if ('avatarUrl' in patch) out.avatarUrl = patch.avatarUrl;
+    if ('coverUrl' in patch) out.coverUrl = patch.coverUrl;
     if ('experiences' in patch && patch.experiences) {
       out.experiences = patch.experiences.map((e) => this.serializeExperience(e));
     }

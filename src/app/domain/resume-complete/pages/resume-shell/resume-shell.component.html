@@ -97,6 +97,13 @@
           @case (Track.Certifications) {
             <app-certifications-track [initial]="p.certifications" (save)="saveActive($event)" />
           }
+          @case (Track.Media) {
+            <app-media-track
+              [initialAvatarUrl]="p.avatarUrl"
+              [initialCoverUrl]="p.coverUrl"
+              (save)="saveActive($event)"
+            />
+          }
         }
       </app-track-bottom-sheet>
     }

@@ -7,6 +7,7 @@ export enum ResumeTrack {
   About = 'about',
   Contact = 'contact',
   PronounPcd = 'pronoun_pcd',
+  Media = 'media',
 }
 
 export enum TrackProgressStatus {

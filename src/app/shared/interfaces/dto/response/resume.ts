@@ -17,6 +17,8 @@ export interface ResumePayloadResponse {
   pronoun: string | null;
   isPcd: boolean;
   pcdNotes: string | null;
+  avatarUrl: string | null;
+  coverUrl: string | null;
 }
 
 export interface TrackProgressResponse {

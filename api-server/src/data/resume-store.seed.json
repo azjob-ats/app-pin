@@ -12,7 +12,8 @@
       "certifications": { "status": "empty", "completion": 0, "lastSavedAt": null },
       "about": { "status": "completed", "completion": 1, "lastSavedAt": "2026-05-09T00:00:00.000Z" },
       "contact": { "status": "in_progress", "completion": 0.5, "lastSavedAt": "2026-05-09T00:00:00.000Z" },
-      "pronoun_pcd": { "status": "empty", "completion": 0, "lastSavedAt": null }
+      "pronoun_pcd": { "status": "empty", "completion": 0, "lastSavedAt": null },
+      "media": { "status": "empty", "completion": 0, "lastSavedAt": null }
     },
     "payload": {
       "about": "Profissional explorando o uso de mídia profissional como currículo vivo. Curioso sobre design e produto.",
@@ -32,7 +33,9 @@
       "certifications": [],
       "pronoun": "ele/dele",
       "isPcd": false,
-      "pcdNotes": null
+      "pcdNotes": null,
+      "avatarUrl": null,
+      "coverUrl": null
     }
   }
 }

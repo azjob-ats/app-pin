@@ -36,6 +36,7 @@ export class ResumeMap {
       [ResumeTrack.About]: empty,
       [ResumeTrack.Contact]: empty,
       [ResumeTrack.PronounPcd]: empty,
+      [ResumeTrack.Media]: empty,
     } as Record<ResumeTrack, TrackProgress>;
 
     for (const key of Object.keys(raw)) {
@@ -66,6 +67,8 @@ export class ResumeMap {
       pronoun: dto.pronoun,
       isPcd: dto.isPcd,
       pcdNotes: dto.pcdNotes,
+      avatarUrl: dto.avatarUrl ?? null,
+      coverUrl: dto.coverUrl ?? null,
     };
   }
 }

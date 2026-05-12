@@ -13,6 +13,7 @@ const TRACK_IDS = [
   'about',
   'contact',
   'pronoun_pcd',
+  'media',
 ];
 
 function emptyTracks() {
@@ -35,6 +36,8 @@ function emptyPayload() {
     pronoun: null,
     isPcd: false,
     pcdNotes: null,
+    avatarUrl: null,
+    coverUrl: null,
   };
 }
 
@@ -52,9 +55,20 @@ function loadStore() {
   }
 }
 
+function backfillDraft(handle, draft) {
+  return {
+    ownerHandle: draft.ownerHandle ?? handle,
+    updatedAt: draft.updatedAt ?? new Date().toISOString(),
+    isPublished: draft.isPublished ?? false,
+    publishedAt: draft.publishedAt ?? null,
+    tracks: { ...emptyTracks(), ...(draft.tracks ?? {}) },
+    payload: { ...emptyPayload(), ...(draft.payload ?? {}) },
+  };
+}
+
 const RESUME_DRAFTS = new Map();
 for (const [handle, draft] of Object.entries(loadStore())) {
-  RESUME_DRAFTS.set(handle, draft);
+  RESUME_DRAFTS.set(handle, backfillDraft(handle, draft));
 }
 
 function persist() {
@@ -102,6 +116,10 @@ function computeCompletion(trackId, payload) {
     }
     case 'pronoun_pcd':
       return payload.pronoun ? 1 : 0;
+    case 'media': {
+      const filled = (payload.avatarUrl ? 1 : 0) + (payload.coverUrl ? 1 : 0);
+      return filled / 2;
+    }
     default:
       return 0;
   }

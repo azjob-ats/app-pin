@@ -18,6 +18,8 @@ export type ResumePayload = {
   pronoun: string | null;
   isPcd: boolean;
   pcdNotes: string | null;
+  avatarUrl: string | null;
+  coverUrl: string | null;
 };
 
 export interface TrackProgress {

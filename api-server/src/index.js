@@ -23,7 +23,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // Simulate network latency (optional, set MOCK_DELAY=ms to enable)
 if (process.env.MOCK_DELAY) {

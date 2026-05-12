@@ -117,6 +117,8 @@ router.post('/publish', (_req, res) => {
     skills: draft.payload.skills,
     languages: draft.payload.languages,
     certifications: draft.payload.certifications,
+    avatarUrl: draft.payload.avatarUrl || portfolio.avatarUrl,
+    coverUrl: draft.payload.coverUrl || portfolio.coverUrl,
     isPublished: true,
   };
 

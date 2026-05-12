@@ -65,6 +65,13 @@ export const RESUME_TRACKS: ResumeTrackDefinition[] = [
     icon: 'badge',
     color: '#000',
   },
+  {
+    id: ResumeTrack.Media,
+    title: 'Foto e capa',
+    subtitle: 'Sua identidade visual',
+    icon: 'photo_camera',
+    color: '#000',
+  },
 ];
 
 export function findTrackDefinition(id: ResumeTrack): ResumeTrackDefinition | undefined {
