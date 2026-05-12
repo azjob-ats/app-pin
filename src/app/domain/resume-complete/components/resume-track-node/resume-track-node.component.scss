@@ -35,7 +35,7 @@
 
   &__ring-fill {
     fill: none;
-    stroke: #fbbf24;
+    stroke: #000;
     stroke-width: 6;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.4s ease;
@@ -49,13 +49,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #000;
     box-shadow: var(--pin-shadow-md);
     transition: transform 0.2s ease;
 
     .material-symbols-rounded {
       font-size: 2rem;
     }
+  }
+
+  &.is-completed &__circle {
+    color: #fff;
   }
 
   &.is-current &__circle {

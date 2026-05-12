@@ -58,11 +58,7 @@ export class ResumeTrackNodeComponent {
 
   readonly ringOffset = computed(() => 289 * (1 - this.progress().completion));
 
-  readonly circleColor = computed(() => {
-    if (this.isCompleted()) return '#22c55e';
-    if (this.isEmpty()) return '#cbd5e1';
-    return this.track().color;
-  });
+  readonly circleColor = computed(() => (this.isCompleted() ? '#000' : '#f0f0f0'));
 
   readonly ariaLabel = computed(() => {
     const t = this.track();
