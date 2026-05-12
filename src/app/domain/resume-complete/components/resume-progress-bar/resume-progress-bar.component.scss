@@ -39,7 +39,7 @@ app-resume-progress-bar {
     }
 
     &--light {
-      color: #fff;
+      color: var(--pin-text-inverse);
     }
   }
 }
