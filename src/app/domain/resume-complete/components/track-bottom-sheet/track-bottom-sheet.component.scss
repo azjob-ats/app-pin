@@ -103,14 +103,3 @@
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
 }
-
-@media (min-width: 720px) {
-  .track-sheet {
-    align-items: center;
-
-    &__panel {
-      border-radius: var(--radius-xl, 24px);
-      max-height: 86vh;
-    }
-  }
-}
