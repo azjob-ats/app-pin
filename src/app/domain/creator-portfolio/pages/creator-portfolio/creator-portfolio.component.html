@@ -40,7 +40,14 @@
         <span class="material-symbols-rounded" aria-hidden="true">visibility_off</span>
         Este creator ainda está finalizando o portfólio.
       </div>
-    } @else if (data.isPublished) {
+    } @else {
+      @if (isOwner() && !data.isPublished) {
+        <div class="creator-portfolio__notice" role="status">
+          <span class="material-symbols-rounded" aria-hidden="true">visibility_off</span>
+          Este portfólio ainda não foi publicado. Apenas você consegue vê-lo.
+        </div>
+      }
+
       <app-portfolio-hero
         [portfolio]="data"
         [isOwner]="isOwner()"

@@ -26,6 +26,9 @@ function emptyTracks() {
 
 function emptyPayload() {
   return {
+    handle: null,
+    displayName: null,
+    headline: null,
     about: '',
     contact: { email: null, phone: null, city: null, country: null },
     experiences: [],
@@ -107,8 +110,18 @@ function computeCompletion(trackId, payload) {
       return payload.languages?.length ? Math.min(1, payload.languages.length / 2) : 0;
     case 'certifications':
       return payload.certifications?.length ? 1 : 0;
-    case 'about':
-      return payload.about && payload.about.length >= 50 ? 1 : payload.about ? 0.5 : 0;
+    case 'about': {
+      const aboutDone = payload.about && payload.about.length >= 50;
+      const aboutPartial = !!payload.about;
+      const handleDone = !!(payload.handle && payload.handle.trim());
+      const nameDone = !!(payload.displayName && payload.displayName.trim());
+      const headlineDone = !!(payload.headline && payload.headline.trim());
+      const filled =
+        (aboutDone ? 1 : 0) + (handleDone ? 1 : 0) + (nameDone ? 1 : 0) + (headlineDone ? 1 : 0);
+      if (filled === 4) return 1;
+      if (filled > 0 || aboutPartial) return Math.min(0.99, filled / 4 || 0.25);
+      return 0;
+    }
     case 'contact': {
       const c = payload.contact || {};
       const filled = ['email', 'phone', 'city', 'country'].filter((k) => !!c[k]).length;

@@ -4,6 +4,7 @@ import { WorkMode } from '@shared/enums/work-mode.enum';
 
 export interface CreatorPortfolio {
   handle: string;
+  username: string | null;
   displayName: string;
   headline: string;
   avatarUrl: string;

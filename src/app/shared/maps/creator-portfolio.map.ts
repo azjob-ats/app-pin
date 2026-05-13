@@ -26,6 +26,7 @@ export class CreatorPortfolioMap {
   public static toEntity(dto: CreatorPortfolioResponse): CreatorPortfolio {
     return {
       handle: dto.handle,
+      username: dto.username ?? null,
       displayName: dto.displayName,
       headline: dto.headline,
       avatarUrl: dto.avatarUrl,

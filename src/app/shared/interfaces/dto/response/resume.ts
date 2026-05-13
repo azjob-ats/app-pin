@@ -7,6 +7,9 @@ import {
 } from '@shared/interfaces/dto/response/creator-portfolio';
 
 export interface ResumePayloadResponse {
+  handle: string | null;
+  displayName: string | null;
+  headline: string | null;
   about: string;
   contact: ContactInfoResponse;
   experiences: ExperienceResponse[];

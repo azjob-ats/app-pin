@@ -107,6 +107,9 @@ router.post('/publish', (_req, res) => {
 
   const merged = {
     ...portfolio,
+    username: draft.payload.handle || portfolio.username || null,
+    displayName: draft.payload.displayName || portfolio.displayName,
+    headline: draft.payload.headline || portfolio.headline,
     about: draft.payload.about,
     pronoun: draft.payload.pronoun,
     isPcd: draft.payload.isPcd,

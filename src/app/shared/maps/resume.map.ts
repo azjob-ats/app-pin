@@ -57,6 +57,9 @@ export class ResumeMap {
 
   private static toPayload(dto: ResumePayloadResponse): ResumePayload {
     return {
+      handle: dto.handle ?? null,
+      displayName: dto.displayName ?? null,
+      headline: dto.headline ?? null,
       about: dto.about,
       contact: CreatorPortfolioMap.toContact(dto.contact),
       experiences: dto.experiences.map((e) => CreatorPortfolioMap.toExperience(e)),

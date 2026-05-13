@@ -39,6 +39,9 @@ import { map, take } from 'rxjs';
 
 export type TrackSavePatch = Partial<{
   skills: string[];
+  handle: string | null;
+  displayName: string | null;
+  headline: string | null;
   about: string;
   contact: ContactInfo;
   experiences: Experience[];
@@ -166,6 +169,9 @@ export class ResumeShellComponent {
   private serialize(patch: TrackSavePatch): Partial<ResumePayloadResponse> {
     const out: Partial<ResumePayloadResponse> = {};
     if ('skills' in patch) out.skills = patch.skills;
+    if ('handle' in patch) out.handle = patch.handle;
+    if ('displayName' in patch) out.displayName = patch.displayName;
+    if ('headline' in patch) out.headline = patch.headline;
     if ('about' in patch) out.about = patch.about;
     if ('contact' in patch) out.contact = patch.contact;
     if ('languages' in patch) out.languages = patch.languages;

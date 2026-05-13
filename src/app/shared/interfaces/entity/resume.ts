@@ -8,6 +8,9 @@ import {
 } from '@shared/interfaces/entity/creator-portfolio';
 
 export type ResumePayload = {
+  handle: string | null;
+  displayName: string | null;
+  headline: string | null;
   about: string;
   contact: ContactInfo;
   experiences: Experience[];

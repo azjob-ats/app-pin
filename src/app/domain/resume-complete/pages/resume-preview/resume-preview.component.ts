@@ -44,8 +44,9 @@ export class ResumePreviewComponent {
     const handle = this.currentUser.currentHandle();
     return {
       handle,
-      displayName: handle === 'currentuser' ? 'Você' : handle,
-      headline: 'Pré-visualização do portfólio',
+      username: draft.payload.handle ?? null,
+      displayName: draft.payload.displayName ?? (handle === 'currentuser' ? 'Você' : handle),
+      headline: draft.payload.headline ?? 'Pré-visualização do portfólio',
       avatarUrl: draft.payload.avatarUrl ?? 'https://i.pravatar.cc/240?img=10',
       coverUrl: draft.payload.coverUrl ?? 'https://picsum.photos/seed/preview-cover/1600/520',
       about: draft.payload.about,

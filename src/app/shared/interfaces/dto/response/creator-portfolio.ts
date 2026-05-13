@@ -1,5 +1,6 @@
 export interface CreatorPortfolioResponse {
   handle: string;
+  username: string | null;
   displayName: string;
   headline: string;
   avatarUrl: string;

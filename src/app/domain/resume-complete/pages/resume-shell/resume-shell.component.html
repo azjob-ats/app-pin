@@ -72,7 +72,13 @@
             <app-skills-track [initialSkills]="p.skills" (save)="saveActive($event)" />
           }
           @case (Track.About) {
-            <app-about-track [initialText]="p.about" (save)="saveActive($event)" />
+            <app-about-track
+              [initialHandle]="p.handle"
+              [initialDisplayName]="p.displayName"
+              [initialHeadline]="p.headline"
+              [initialAbout]="p.about"
+              (save)="saveActive($event)"
+            />
           }
           @case (Track.Contact) {
             <app-contact-track [initial]="p.contact" (save)="saveActive($event)" />

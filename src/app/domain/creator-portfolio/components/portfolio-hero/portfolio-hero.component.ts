@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output } from '@angular/core';
 import { CreatorPortfolio } from '@shared/interfaces/entity/creator-portfolio';
 
 @Component({
@@ -25,12 +25,30 @@ import { CreatorPortfolio } from '@shared/interfaces/entity/creator-portfolio';
         <div class="portfolio-hero__identity">
           <div class="portfolio-hero__name-row">
             <h1 class="portfolio-hero__name">{{ portfolio().displayName }}</h1>
-            <span class="portfolio-hero__handle">&#64;{{ portfolio().handle }}</span>
+            <span class="portfolio-hero__handle">&#64;{{ portfolio().username ?? portfolio().handle }}</span>
             @if (portfolio().pronoun) {
               <span class="portfolio-hero__pronoun">{{ portfolio().pronoun }}</span>
             }
           </div>
           <p class="portfolio-hero__headline">{{ portfolio().headline }}</p>
+
+          @if (hasContact()) {
+            <ul class="portfolio-hero__contact" role="list">
+              @if (portfolio().contact.email; as email) {
+                <li class="portfolio-hero__contact-item">
+                  <a class="portfolio-hero__contact-link" [href]="'mailto:' + email">{{ email }}</a>
+                </li>
+              }
+              @if (portfolio().contact.phone; as phone) {
+                <li class="portfolio-hero__contact-item">
+                  <a class="portfolio-hero__contact-link" [href]="'tel:' + phone">{{ phone }}</a>
+                </li>
+              }
+              @if (locationLabel(); as location) {
+                <li class="portfolio-hero__contact-item">{{ location }}</li>
+              }
+            </ul>
+          }
         </div>
 
         <div class="portfolio-hero__actions">
@@ -62,4 +80,15 @@ export class PortfolioHeroComponent {
   readonly follow = output<void>();
   readonly contact = output<void>();
   readonly edit = output<void>();
+
+  readonly locationLabel = computed<string | null>(() => {
+    const c = this.portfolio().contact;
+    const parts = [c.city, c.country].filter((v): v is string => !!v && v.trim() !== '');
+    return parts.length ? parts.join(', ') : null;
+  });
+
+  readonly hasContact = computed(() => {
+    const c = this.portfolio().contact;
+    return !!(c.email || c.phone || this.locationLabel());
+  });
 }

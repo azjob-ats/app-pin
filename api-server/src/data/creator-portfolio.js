@@ -1,5 +1,6 @@
 const buildPortfolio = (overrides) => ({
   handle: '',
+  username: null,
   displayName: '',
   headline: '',
   avatarUrl: '',

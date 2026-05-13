@@ -16,6 +16,9 @@
       "media": { "status": "empty", "completion": 0, "lastSavedAt": null }
     },
     "payload": {
+      "handle": null,
+      "displayName": null,
+      "headline": null,
       "about": "Profissional explorando o uso de mídia profissional como currículo vivo. Curioso sobre design e produto.",
       "contact": {
         "email": "me@realwe.dev",
