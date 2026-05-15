@@ -108,6 +108,7 @@ export class CreatorPortfolioMap {
       thumbnailUrl: dto.thumbnailUrl,
       publishedAt: new Date(dto.publishedAt),
       views: dto.views,
+      experienceId: dto.experienceId ?? null,
     };
   }
 

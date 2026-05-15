@@ -5,6 +5,7 @@ import { ButtonComponent } from '@shared/components/button/button.component';
 import { ChipItem, ChipScrollComponent } from '@shared/components/chip-scroll/chip-scroll.component';
 import { InputComponent } from '@shared/components/input/input.component';
 import { SelectComponent, SelectOption } from '@shared/components/select/select.component';
+import { TextareaComponent } from '@shared/components/textarea/textarea.component';
 import { EmploymentType } from '@shared/enums/employment-type.enum';
 import { WorkMode } from '@shared/enums/work-mode.enum';
 import { Experience } from '@shared/interfaces/entity/creator-portfolio';
@@ -67,6 +68,7 @@ const EMPTY_DRAFT: DraftExp = {
     ChipScrollComponent,
     InputComponent,
     SelectComponent,
+    TextareaComponent,
   ],
   template: `
     <div class="exp-track">
@@ -136,6 +138,16 @@ const EMPTY_DRAFT: DraftExp = {
           label="Localização (opcional)"
           [ngModel]="draft().location"
           (ngModelChange)="patch({ location: $event })"
+        />
+
+        <app-textarea
+          label="Descrição da atuação (opcional)"
+          placeholder="Conte o que você fez nesta posição, projetos, responsabilidades e resultados."
+          hint="Máx. 600 caracteres"
+          [rows]="5"
+          [maxlength]="600"
+          [ngModel]="draft().description"
+          (ngModelChange)="patch({ description: $event })"
         />
 
         <div class="exp-track__form-actions">

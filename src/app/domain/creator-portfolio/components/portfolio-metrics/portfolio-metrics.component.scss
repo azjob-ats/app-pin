@@ -1,63 +1,84 @@
 .portfolio-metrics {
-  &__title {
-    font-size: var(--text-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--pin-text-primary);
-    margin: 0 0 var(--space-md);
-  }
-
   &__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-md);
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(16px, 2.5vw, 32px);
+    padding: clamp(20px, 3vw, 32px) 0;
+    border-top: 1px solid var(--uber-divider);
+    border-bottom: 1px solid var(--uber-divider);
   }
 
-  &__card {
+  &__item {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xs);
-    padding: var(--space-md);
-    background: var(--pin-card-bg);
-    border: 1px solid var(--pin-border);
-    border-radius: var(--radius-lg);
+    gap: 4px;
+    min-width: 0;
+    position: relative;
 
-    &:hover {
-      box-shadow: var(--pin-shadow-sm);
+    &:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: calc(clamp(16px, 2.5vw, 32px) / -2);
+      transform: translateY(-50%);
+      width: 1px;
+      height: 60%;
+      background: var(--uber-divider);
     }
   }
 
-  &__icon {
-    font-size: 1.5rem;
-    color: var(--pin-text-muted);
-  }
-
   &__value {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--pin-text-primary);
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    color: var(--uber-text);
     line-height: 1;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
   }
 
   &__label {
-    font-size: var(--text-sm);
-    color: var(--pin-text-secondary);
-    font-weight: var(--font-weight-medium);
+    font-size: 0.85rem;
+    color: var(--uber-text-secondary);
+    font-weight: 500;
+    margin-top: 6px;
+    letter-spacing: -0.005em;
   }
 
   &__hint {
-    font-size: var(--text-xs);
-    color: var(--pin-text-muted);
+    font-size: 0.78rem;
+    color: var(--uber-text-muted);
+    margin-top: 2px;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+  .portfolio-metrics__grid {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 28px;
+  }
+
+  .portfolio-metrics__item:nth-child(3n)::after {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
   .portfolio-metrics__grid {
     grid-template-columns: repeat(2, 1fr);
+    row-gap: 28px;
+  }
+
+  .portfolio-metrics__item::after {
+    display: none;
+  }
+
+  .portfolio-metrics__item:nth-child(odd)::after {
+    display: block;
+  }
+
+  .portfolio-metrics__item:nth-child(2n)::after,
+  .portfolio-metrics__item:last-child::after {
+    display: none;
   }
 }
 
-@media (max-width: 480px) {
-  .portfolio-metrics__grid {
-    grid-template-columns: 1fr;
-  }
-}

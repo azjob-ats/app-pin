@@ -1,9 +1,9 @@
 {
   "currentuser": {
     "ownerHandle": "currentuser",
-    "updatedAt": "2026-05-13T00:15:11.595Z",
+    "updatedAt": "2026-05-14T19:21:45.654Z",
     "isPublished": true,
-    "publishedAt": "2026-05-13T00:15:11.595Z",
+    "publishedAt": "2026-05-14T19:21:45.654Z",
     "tracks": {
       "skills": {
         "status": "completed",
@@ -13,7 +13,7 @@
       "experience": {
         "status": "completed",
         "completion": 1,
-        "lastSavedAt": "2026-05-12T22:30:11.444Z"
+        "lastSavedAt": "2026-05-14T19:20:21.759Z"
       },
       "education": {
         "status": "completed",
@@ -71,10 +71,10 @@
           "employmentType": "full_time",
           "workMode": "on_site",
           "location": "Vitoria-ES, Brasil",
-          "startDate": "2017-01-01T00:00:00.000Z",
-          "endDate": "2018-02-01T00:00:00.000Z",
+          "startDate": "2016-12-01T00:00:00.000Z",
+          "endDate": "2018-01-01T00:00:00.000Z",
           "isCurrent": false,
-          "description": null
+          "description": "Aprendizado inicial na utilização das ferramentas e tecnologias:\n1. Oracle Reports utilizado para geração de relatórios no Conexos ERP\n2. PL/SQL Developer para construção e manutenção de consultas (query's) de\nextração de informação simples.\n3. Resolução de atendimentos (tasks) de clientes com a solicitação de\npequenos incrementos em novos ou relatórios existentes no Conexos ERP"
         },
         {
           "id": "exp-1778624736890",
@@ -84,10 +84,10 @@
           "employmentType": "full_time",
           "workMode": "remote",
           "location": "Guarapari-ES, Vitoria",
-          "startDate": "2018-01-01T00:00:00.000Z",
-          "endDate": "2020-06-01T00:00:00.000Z",
+          "startDate": "2017-12-01T00:00:00.000Z",
+          "endDate": "2020-05-01T00:00:00.000Z",
           "isCurrent": false,
-          "description": null
+          "description": "Na startup 24 easy, desempenhei um papel significativo na comunidade da cidade de Guarapari. Minha missão era facilitar o acesso da população a produtos farmacêuticos, proporcionando preços mais acessíveis e reduzindo o tempo de espera, tudo isso por meio de uma plataforma web inovadora"
         },
         {
           "id": "exp-1778624821940",
@@ -97,10 +97,10 @@
           "employmentType": "full_time",
           "workMode": "remote",
           "location": "Serra-Es, Vitoria",
-          "startDate": "2020-10-01T00:00:00.000Z",
-          "endDate": "2023-09-01T00:00:00.000Z",
+          "startDate": "2020-09-01T00:00:00.000Z",
+          "endDate": "2023-08-01T00:00:00.000Z",
           "isCurrent": false,
-          "description": null
+          "description": "Minhas responsabilidades na Companhia Espírito-santense de Saneamento (CESAN) incluíam a implementação de novas funcionalidades no portal web, visando aprimorar e facilitar o acesso dos cidadãos do Espírito Santo a informações cruciais sobre os serviços de saneamento básico. Trabalhei ativamente no desenvolvimento de recursos que proporcionassem maior transparência e facilidade de uso, permitindo que a população obtivesse informações essenciais sobre abastecimento de água, tratamento de esgoto e gestão de resíduos.\n\nAlém disso, meu papel envolvia a otimização da experiência do usuário no porta"
         },
         {
           "id": "exp-1778624951675",
@@ -110,10 +110,10 @@
           "employmentType": "full_time",
           "workMode": "remote",
           "location": "Blumenau-SC, Brasil",
-          "startDate": "2023-01-01T00:00:00.000Z",
-          "endDate": "2024-01-01T00:00:00.000Z",
+          "startDate": "2022-12-01T00:00:00.000Z",
+          "endDate": "2023-12-01T00:00:00.000Z",
           "isCurrent": false,
-          "description": null
+          "description": "Projeto Portal de Talentos é um dos principais projetos da Senior Sistemas, uma plataforma de recrutamento online que conecta candidatos a oportunidades de trabalho em empresas de diversos setores.\n\nhttps://www.portaldetalentos.senior.com.br\n\nColaboração nas pricipais jornadas do usuario:\n\nparsing do linkedin: Colaboração no desenvolvimento de um processo que envolve a conversão de dados não estruturados em uma forma estruturada, e a separação dessas informações em campos relevantes.\n\nFeedback Contínuo: Os candidatos recebem feedback sobre seu desempenho nas etapas do processo seletivo, o que"
         },
         {
           "id": "exp-1778625008059",

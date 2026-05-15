@@ -83,6 +83,7 @@ export interface HighlightResponse {
   thumbnailUrl: string;
   publishedAt: string;
   views: number;
+  experienceId: string | null;
 }
 
 export interface CommunityInfoResponse {

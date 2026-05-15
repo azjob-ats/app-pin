@@ -21,89 +21,91 @@ const PROFICIENCY_LABELS: Record<LanguageProficiency, string> = {
   encapsulation: ViewEncapsulation.None,
   imports: [DatePipe],
   template: `
-    <section class="portfolio-credentials" aria-label="Habilidades, idiomas e formação">
-      @if (skills().length > 0) {
-        <div class="portfolio-credentials__block">
-          <h3 class="portfolio-credentials__heading">Habilidades</h3>
-          <ul class="portfolio-credentials__chips" role="list">
-            @for (skill of skills(); track skill) {
-              <li class="portfolio-credentials__chip">{{ skill }}</li>
-            }
-          </ul>
-        </div>
-      }
+    <section class="portfolio-credentials" aria-labelledby="credentials-title">
+      <header class="portfolio-credentials__head">
+        <h2 id="credentials-title" class="portfolio-credentials__title">Credenciais</h2>
+      </header>
 
-      @if (languages().length > 0) {
-        <div class="portfolio-credentials__block">
-          <h3 class="portfolio-credentials__heading">Idiomas</h3>
-          <ul class="portfolio-credentials__chips" role="list">
-            @for (lang of languages(); track lang.id) {
-              <li class="portfolio-credentials__chip">
-                {{ lang.name }} <span class="portfolio-credentials__muted">— {{ proficiencyLabel(lang) }}</span>
-              </li>
-            }
-          </ul>
-        </div>
-      }
+      @if (isAllEmpty()) {
+        <p class="portfolio-credentials__empty">Sem credenciais publicadas.</p>
+      } @else {
+        @if (skills().length > 0) {
+          <div class="portfolio-credentials__section">
+            <h3 class="portfolio-credentials__section-title">Habilidades</h3>
+            <ul class="portfolio-credentials__chips" role="list">
+              @for (skill of skills(); track skill) {
+                <li class="portfolio-credentials__chip">{{ skill }}</li>
+              }
+            </ul>
+          </div>
+        }
 
-      @if (educations().length > 0) {
-        <div class="portfolio-credentials__block">
-          <h3 class="portfolio-credentials__heading">Formação</h3>
-          <ul class="portfolio-credentials__list" role="list">
-            @for (edu of educations(); track edu.id) {
-              <li class="portfolio-credentials__row">
-                <span class="material-symbols-rounded portfolio-credentials__row-icon" aria-hidden="true">school</span>
-                <div>
-                  <div class="portfolio-credentials__row-title">{{ edu.course }}</div>
-                  <div class="portfolio-credentials__row-sub">
-                    {{ edu.institutionName }} ·
-                    {{ edu.startDate | date: 'yyyy' }}
-                    —
+        @if (languages().length > 0) {
+          <div class="portfolio-credentials__section">
+            <h3 class="portfolio-credentials__section-title">Idiomas</h3>
+            <ul class="portfolio-credentials__rows" role="list">
+              @for (lang of languages(); track lang.id) {
+                <li class="portfolio-credentials__row">
+                  <span class="portfolio-credentials__row-label">{{ lang.name }}</span>
+                  <span class="portfolio-credentials__row-value">{{ proficiencyLabel(lang) }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        @if (educations().length > 0) {
+          <div class="portfolio-credentials__section">
+            <h3 class="portfolio-credentials__section-title">Formação</h3>
+            <ul class="portfolio-credentials__entries" role="list">
+              @for (edu of educations(); track edu.id) {
+                <li class="portfolio-credentials__entry">
+                  <span class="portfolio-credentials__entry-title">{{ edu.course }}</span>
+                  <span class="portfolio-credentials__entry-sub">
+                    {{ edu.institutionName }}
+                    <span class="portfolio-credentials__entry-dot" aria-hidden="true">·</span>
+                    {{ edu.startDate | date: 'yyyy' }} —
                     @if (edu.endDate) {
                       {{ edu.endDate | date: 'yyyy' }}
                     } @else {
                       em curso
                     }
-                  </div>
-                </div>
-              </li>
-            }
-          </ul>
-        </div>
-      }
+                  </span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
 
-      @if (certifications().length > 0) {
-        <div class="portfolio-credentials__block">
-          <h3 class="portfolio-credentials__heading">Certificações</h3>
-          <ul class="portfolio-credentials__list" role="list">
-            @for (cert of certifications(); track cert.id) {
-              <li class="portfolio-credentials__row">
-                <span class="material-symbols-rounded portfolio-credentials__row-icon" aria-hidden="true">workspace_premium</span>
-                <div>
-                  <div class="portfolio-credentials__row-title">{{ cert.name }}</div>
-                  <div class="portfolio-credentials__row-sub">
-                    {{ cert.issuerName }} · emitida em {{ cert.issuedAt | date: 'MMM yyyy' }}
+        @if (certifications().length > 0) {
+          <div class="portfolio-credentials__section">
+            <h3 class="portfolio-credentials__section-title">Certificações</h3>
+            <ul class="portfolio-credentials__entries" role="list">
+              @for (cert of certifications(); track cert.id) {
+                <li class="portfolio-credentials__entry portfolio-credentials__entry--with-link">
+                  <div class="portfolio-credentials__entry-main">
+                    <span class="portfolio-credentials__entry-title">{{ cert.name }}</span>
+                    <span class="portfolio-credentials__entry-sub">
+                      {{ cert.issuerName }}
+                      <span class="portfolio-credentials__entry-dot" aria-hidden="true">·</span>
+                      {{ cert.issuedAt | date: 'MMM yyyy' }}
+                    </span>
                   </div>
-                </div>
-                @if (cert.credentialUrl) {
-                  <a
-                    class="portfolio-credentials__row-link"
-                    [href]="cert.credentialUrl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ver credencial"
-                  >
-                    <span class="material-symbols-rounded icon-sm" aria-hidden="true">open_in_new</span>
-                  </a>
-                }
-              </li>
-            }
-          </ul>
-        </div>
-      }
-
-      @if (isAllEmpty()) {
-        <p class="portfolio-credentials__empty">Sem credenciais publicadas ainda.</p>
+                  @if (cert.credentialUrl) {
+                    <a
+                      class="portfolio-credentials__entry-link"
+                      [href]="cert.credentialUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ver credencial
+                    </a>
+                  }
+                </li>
+              }
+            </ul>
+          </div>
+        }
       }
     </section>
   `,

@@ -6,11 +6,11 @@ import {
   computed,
   effect,
   inject,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from '@env/environment';
-import { PortfolioCommunityComponent } from '@domain/creator-portfolio/components/portfolio-community/portfolio-community.component';
 import { PortfolioCredentialsComponent } from '@domain/creator-portfolio/components/portfolio-credentials/portfolio-credentials.component';
 import { PortfolioHeroComponent } from '@domain/creator-portfolio/components/portfolio-hero/portfolio-hero.component';
 import { PortfolioHighlightsComponent } from '@domain/creator-portfolio/components/portfolio-highlights/portfolio-highlights.component';
@@ -31,7 +31,6 @@ import { map } from 'rxjs';
     PortfolioTimelineComponent,
     PortfolioHighlightsComponent,
     PortfolioCredentialsComponent,
-    PortfolioCommunityComponent,
   ],
   templateUrl: './creator-portfolio.component.html',
   styleUrl: './creator-portfolio.component.scss',
@@ -64,8 +63,25 @@ export class CreatorPortfolioComponent {
     return !p.isPublished;
   });
 
+  readonly sortedExperiences = computed(() => {
+    const p = this.portfolio();
+    if (!p) return [];
+    return [...p.experiences].sort((a, b) => {
+      const aEnd = a.isCurrent ? Number.POSITIVE_INFINITY : (a.endDate?.getTime() ?? a.startDate.getTime());
+      const bEnd = b.isCurrent ? Number.POSITIVE_INFINITY : (b.endDate?.getTime() ?? b.startDate.getTime());
+      if (aEnd !== bEnd) return bEnd - aEnd;
+      return b.startDate.getTime() - a.startDate.getTime();
+    });
+  });
+
   readonly searchLink = `/${environment.ROUTES.SEARCH.ROOT}`;
   readonly resumeLink = `/${environment.ROUTES.RESUME.COMPLETE}`;
+
+  readonly activeTab = signal<'trabalhos' | 'trajetoria' | 'credenciais'>('trajetoria');
+
+  setTab(tab: 'trabalhos' | 'trajetoria' | 'credenciais'): void {
+    this.activeTab.set(tab);
+  }
 
   constructor() {
     effect(() => {

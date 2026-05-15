@@ -7,14 +7,13 @@ import {
 } from '@angular/core';
 import { PortfolioMetrics } from '@shared/interfaces/entity/creator-portfolio';
 
-interface MetricCard {
-  icon: string;
+interface MetricItem {
   label: string;
   value: string;
   hint?: string;
 }
 
-const NUMBER_FORMATTER = new Intl.NumberFormat('pt-BR');
+const NUMBER_FORMATTER = new Intl.NumberFormat('pt-BR', { notation: 'compact', maximumFractionDigits: 1 });
 const PERCENT_FORMATTER = new Intl.NumberFormat('pt-BR', {
   style: 'percent',
   maximumFractionDigits: 1,
@@ -26,17 +25,13 @@ const PERCENT_FORMATTER = new Intl.NumberFormat('pt-BR', {
   encapsulation: ViewEncapsulation.None,
   template: `
     <section class="portfolio-metrics" aria-label="Métricas auditáveis">
-      <h2 class="portfolio-metrics__title">Métricas auditáveis</h2>
       <div class="portfolio-metrics__grid">
-        @for (card of cards(); track card.label) {
-          <article class="portfolio-metrics__card">
-            <span class="material-symbols-rounded portfolio-metrics__icon" aria-hidden="true">
-              {{ card.icon }}
-            </span>
-            <span class="portfolio-metrics__value">{{ card.value }}</span>
-            <span class="portfolio-metrics__label">{{ card.label }}</span>
-            @if (card.hint) {
-              <span class="portfolio-metrics__hint">{{ card.hint }}</span>
+        @for (item of items(); track item.label) {
+          <article class="portfolio-metrics__item">
+            <span class="portfolio-metrics__value">{{ item.value }}</span>
+            <span class="portfolio-metrics__label">{{ item.label }}</span>
+            @if (item.hint) {
+              <span class="portfolio-metrics__hint">{{ item.hint }}</span>
             }
           </article>
         }
@@ -47,31 +42,32 @@ const PERCENT_FORMATTER = new Intl.NumberFormat('pt-BR', {
 })
 export class PortfolioMetricsComponent {
   readonly metrics = input.required<PortfolioMetrics>();
+  readonly followers = input<number>(0);
 
-  readonly cards = computed<MetricCard[]>(() => {
+  readonly items = computed<MetricItem[]>(() => {
     const m = this.metrics();
     return [
       {
-        icon: 'play_arrow',
-        label: 'Conteúdos publicados',
-        value: NUMBER_FORMATTER.format(m.totalContents),
+        label: 'Seguidores',
+        value: NUMBER_FORMATTER.format(this.followers()),
       },
       {
-        icon: 'visibility',
-        label: 'Visualizações totais',
+        label: 'Visualizações',
         value: NUMBER_FORMATTER.format(m.totalViews),
       },
       {
-        icon: 'timeline',
-        label: 'Retenção média',
-        value: PERCENT_FORMATTER.format(m.averageRetention),
-        hint: 'Quanto do conteúdo as pessoas assistem',
+        label: 'Conteúdos',
+        value: NUMBER_FORMATTER.format(m.totalContents),
       },
       {
-        icon: 'trending_up',
+        label: 'Retenção',
+        value: PERCENT_FORMATTER.format(m.averageRetention),
+        hint: 'média',
+      },
+      {
         label: 'Conversão',
         value: PERCENT_FORMATTER.format(m.conversionRate),
-        hint: m.rankingVertical ? `#${m.rankingVertical} na vertical` : 'Cliques em "Saiba Mais"',
+        hint: m.rankingVertical ? `#${m.rankingVertical} na vertical` : undefined,
       },
     ];
   });

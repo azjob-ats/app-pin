@@ -87,6 +87,7 @@ export interface Highlight {
   thumbnailUrl: string;
   publishedAt: Date;
   views: number;
+  experienceId: string | null;
 }
 
 export interface CommunityInfo {
