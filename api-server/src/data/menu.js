@@ -1,5 +1,11 @@
 const MENU_SECTIONS = [
   {
+    id: 'user',
+    name: 'Para você',
+    description:
+      'Explore conexões, marcas e oportunidades feitas pra você.',
+  },
+  {
     id: 'configuracoes-e-preferencias',
     name: 'Configurações e Preferências',
     description:
@@ -20,6 +26,47 @@ const MENU_SECTIONS = [
 ];
 
 const MENU_ITEMS = {
+  'user': [
+    {
+      icon: 'inbox',
+      name: 'Inscrições',
+      description: 'Acompanhe suas candidaturas, aplicações e o status de cada uma',
+      routerLink: {
+        label: 'Inscrições',
+        link: '/inscriptions',
+        target: null,
+        closeMenu: true,
+      },
+      component: null,
+      text: null,
+    },
+    {
+      icon: 'login',
+      name: 'Entre aqui',
+      description: 'Acesse sua conta para continuar explorando conteúdos, oportunidades e conexões na plataforma.',
+      routerLink: {
+        label: 'Entre aqui',
+        link: '/auth/login',
+        target: null,
+        closeMenu: true,
+      },
+      component: null,
+      text: null,
+    },
+    {
+      icon: 'passkey',
+      name: 'Cadastre-se aqui',
+      description: 'Crie sua conta gratuitamente e comece a publicar, descobrir e se conectar com novas oportunidades.',
+      routerLink: {
+        label: 'Cadastre-se aqui',
+        link: '/auth/register',
+        target: null,
+        closeMenu: true,
+      },
+      component: null,
+      text: null,
+    },
+  ],
   'configuracoes-e-preferencias': [
     {
       icon: 'account_circle',

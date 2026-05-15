@@ -77,7 +77,6 @@ export class ShellComponent {
       labelKey: 'nav.notifications',
       route: '/notifications',
     },
-    { icon: 'inbox', iconFilled: 'inbox', labelKey: 'nav.inscriptions', route: '/inscriptions' },
     {
       icon: 'person',
       iconFilled: 'person',
