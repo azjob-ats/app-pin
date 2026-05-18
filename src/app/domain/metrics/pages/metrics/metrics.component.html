@@ -1,0 +1,83 @@
+<section class="metrics-page" aria-labelledby="metrics-title">
+  <app-metrics-hero [stats]="heroStats()">
+    <app-metrics-period-filter
+      [selected]="period()"
+      (periodChange)="onPeriodChange($event)"
+    />
+  </app-metrics-hero>
+
+  <div class="metrics-page__container">
+    @if (error(); as message) {
+      <div class="metrics-page__alert" role="alert">
+        <span class="metrics-page__alert-dot" aria-hidden="true"></span>
+        {{ message }}
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div class="metrics-page__loading" aria-busy="true" aria-label="Carregando métricas">
+        <div class="skeleton skeleton--card metrics-page__skeleton-row"></div>
+        <div class="metrics-page__skeleton-grid">
+          @for (i of skeletonCards; track i) {
+            <div class="skeleton skeleton--card metrics-page__skeleton-video"></div>
+          }
+        </div>
+      </div>
+    } @else if (hasData()) {
+      <div class="metrics-page__layout">
+        <section
+          class="metrics-page__videos"
+          aria-labelledby="metrics-videos-title"
+        >
+          <header class="metrics-page__section-head">
+            <h2 class="metrics-page__section-title" id="metrics-videos-title">
+              Top vídeos do período
+            </h2>
+            <p class="metrics-page__section-subtitle">
+              Cada card mostra o gancho (3s), o clímax e o ponto de queda da atenção.
+            </p>
+          </header>
+
+          @if (topVideos().length > 0) {
+            <ul class="metrics-page__video-list" role="list">
+              @for (video of topVideos(); track video.id) {
+                <li>
+                  <app-metrics-video-card
+                    [video]="video"
+                    [selected]="video.id === selectedVideoId()"
+                    (select)="onSelectVideo($event)"
+                  />
+                </li>
+              }
+            </ul>
+          } @else {
+            <app-empty-state
+              icon="movie"
+              message="Sem vídeos publicados no período"
+              subtitle="Publique conteúdo para ver retenção, gancho e clímax aqui."
+            />
+          }
+        </section>
+
+        <aside class="metrics-page__aside">
+          <app-metrics-growth-panel [points]="growth()" />
+          @if (insights().length > 0) {
+            <app-metrics-insights [insights]="insights()" />
+          }
+        </aside>
+      </div>
+    } @else {
+      <div class="metrics-page__empty">
+        <app-empty-state
+          icon="analytics"
+          message="Ainda sem métricas para mostrar"
+          subtitle="Publique seu primeiro vídeo longo para começar a medir gancho, retenção e conversão."
+        />
+        <a class="metrics-page__cta" [routerLink]="homeLink">
+          Voltar ao feed
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    }
+  </div>
+</section>

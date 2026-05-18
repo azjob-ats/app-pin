@@ -41,6 +41,20 @@ const MENU_ITEMS = {
       text: null,
     },
     {
+      icon: 'analytics',
+      name: 'Métricas',
+      description:
+        'Veja retenção, gancho, clímax e conversões dos seus vídeos — aprenda com o seu próprio conteúdo.',
+      routerLink: {
+        label: 'Métricas',
+        link: '/metrics',
+        target: null,
+        closeMenu: true,
+      },
+      component: null,
+      text: null,
+    },
+    {
       icon: 'login',
       name: 'Entre aqui',
       description: 'Acesse sua conta para continuar explorando conteúdos, oportunidades e conexões na plataforma.',

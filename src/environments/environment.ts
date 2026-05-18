@@ -100,6 +100,9 @@ export const environment = {
       LIST: '/api/v1/me/inscriptions',
       CANCEL: '/api/v1/me/inscriptions/:id/cancel',
     },
+    METRICS: {
+      OVERVIEW: '/api/v1/me/metrics',
+    },
     RESUME: {
       DRAFT: '/api/v1/me/resume',
       SAVE_TRACK: '/api/v1/me/resume/:trackId',
@@ -200,6 +203,9 @@ export const environment = {
     },
     INSCRIPTIONS: {
       ROOT: 'inscriptions',
+    },
+    METRICS: {
+      ROOT: 'metrics',
     },
     RESUME: {
       COMPLETE: 'resume/complete',

@@ -359,6 +359,18 @@ export const routes: Routes = [
         },
       },
       {
+        path: ROUTES.METRICS.ROOT,
+        loadComponent: () =>
+          import('./domain/metrics/pages/metrics/metrics.component').then(
+            (m) => m.MetricsComponent,
+          ),
+        data: {
+          title: 'Métricas',
+          description:
+            'Painel do criador: retenção, gancho, clímax, queda e conversões dos seus vídeos.',
+        },
+      },
+      {
         path: ROUTES.CREATOR_PORTFOLIO.ROOT,
         canActivate: [ownerPortfolioGuard],
         loadComponent: () =>
