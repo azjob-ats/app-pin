@@ -1,76 +1,77 @@
 <section class="inscriptions-page" aria-labelledby="inscriptions-title">
-  <header class="inscriptions-page__header">
-    <div>
-      <h1 id="inscriptions-title" class="inscriptions-page__title">Minhas inscrições</h1>
-      <p class="inscriptions-page__subtitle">
-        Histórico das ações que você fez ao clicar em "Saiba Mais".
-      </p>
-    </div>
+  <app-inscriptions-hero [stats]="heroStats()">
+    <app-inscription-filters
+      mode="bar"
+      tone="dark"
+      [selectedType]="filters().type"
+      [selectedStatus]="filters().status"
+      (typeChange)="onTypeChange($event)"
+      (clear)="onClearFilters()"
+    />
+  </app-inscriptions-hero>
 
-    @if (hasItems()) {
-      <span class="inscriptions-page__count" aria-live="polite">
-        {{ total() }} {{ total() === 1 ? 'inscrição' : 'inscrições' }}
-      </span>
-    }
-  </header>
+  <div class="inscriptions-page__container">
 
-  <app-inscription-filters
-    [selectedType]="filters().type"
-    [selectedStatus]="filters().status"
-    (typeChange)="onTypeChange($event)"
-    (statusChange)="onStatusChange($event)"
-    (clear)="onClearFilters()"
-  />
-
-  @if (error(); as message) {
-    <div class="inscriptions-page__alert" role="alert">
-      <span class="material-symbols-rounded" aria-hidden="true">error</span>
-      {{ message }}
-    </div>
-  }
-
-  @if (isLoading()) {
-    <ul class="inscriptions-page__list" aria-busy="true" aria-label="Carregando inscrições">
-      @for (i of skeletonRows; track i) {
-        <li class="inscriptions-page__skeleton">
-          <div class="skeleton skeleton--thumb"></div>
-          <div class="skeleton-lines">
-            <div class="skeleton skeleton--line skeleton--xs"></div>
-            <div class="skeleton skeleton--line skeleton--md"></div>
-            <div class="skeleton skeleton--line skeleton--sm"></div>
-          </div>
-        </li>
-      }
-    </ul>
-  } @else if (hasItems()) {
-    <ul class="inscriptions-page__list" role="list">
-      @for (item of items(); track item.id) {
-        <li>
-          <app-inscription-card
-            [inscription]="item"
-            [isCancelling]="cancellingIds().has(item.id)"
-            (cancel)="onCancel($event)"
-          />
-        </li>
-      }
-    </ul>
-  } @else {
-    <div class="inscriptions-page__empty">
-      <app-empty-state
-        icon="inbox"
-        [message]="emptyMessage()"
-        [subtitle]="emptySubtitle()"
+    <!--
+    <div class="inscriptions-page__filters">
+      <app-inscription-filters
+        mode="status"
+        [selectedStatus]="filters().status"
+        (statusChange)="onStatusChange($event)"
       />
-      @if (!hasActiveFilters()) {
-        <a class="inscriptions-page__cta" [routerLink]="homeLink">
-          <span class="material-symbols-rounded" aria-hidden="true">explore</span>
-          Explorar feed
-        </a>
-      } @else {
-        <button type="button" class="inscriptions-page__cta" (click)="onClearFilters()">
-          Limpar filtros
-        </button>
-      }
     </div>
-  }
+    -->
+
+    @if (error(); as message) {
+      <div class="inscriptions-page__alert" role="alert">
+        <span class="inscriptions-page__alert-dot" aria-hidden="true"></span>
+        {{ message }}
+      </div>
+    }
+
+    @if (isLoading()) {
+      <ul class="inscriptions-page__grid" aria-busy="true" aria-label="Carregando inscrições">
+        @for (i of skeletonCards; track i) {
+          <li class="inscriptions-page__skeleton-card">
+            <div class="skeleton skeleton--media"></div>
+            <div class="inscriptions-page__skeleton-body">
+              <div class="skeleton skeleton--line skeleton--xs"></div>
+              <div class="skeleton skeleton--line skeleton--lg"></div>
+              <div class="skeleton skeleton--line skeleton--md"></div>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (hasItems()) {
+      <ul class="inscriptions-page__grid" role="list">
+        @for (item of items(); track item.id) {
+          <li class="inscriptions-page__grid-item">
+            <app-inscription-card
+              [inscription]="item"
+              [isCancelling]="cancellingIds().has(item.id)"
+              (cancel)="onCancel($event)"
+            />
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="inscriptions-page__empty">
+        <app-empty-state
+          icon="inbox"
+          [message]="emptyMessage()"
+          [subtitle]="emptySubtitle()"
+        />
+        @if (!hasActiveFilters()) {
+          <a class="inscriptions-page__cta" [routerLink]="homeLink">
+            Explorar feed
+            <span aria-hidden="true">→</span>
+          </a>
+        } @else {
+          <button type="button" class="inscriptions-page__cta" (click)="onClearFilters()">
+            Limpar filtros
+          </button>
+        }
+      </div>
+    }
+  </div>
 </section>

@@ -1,147 +1,205 @@
 .inscriptions-page {
   width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: var(--space-2xl) var(--space-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
+  background: #000;
+  min-height: 100%;
 
-  &__header {
+  &__container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-3xl) var(--space-5xl);
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-md);
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
 
-  &__title {
-    font-size: var(--text-3xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--pin-text-primary);
-    margin: 0 0 var(--space-2xs);
-  }
-
-  &__subtitle {
-    font-size: var(--text-md);
-    color: var(--pin-text-secondary);
-    margin: 0;
-    max-width: 60ch;
-  }
-
-  &__count {
-    font-size: var(--text-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--pin-text-muted);
+  &__filters {
+    position: sticky;
+    top: var(--pin-topbar-height, 64px);
+    z-index: var(--z-base);
+    background: var(--pin-bg);
+    margin: var(--space-md) calc(var(--space-md) * -1) 0;
+    padding: 0 var(--space-md);
   }
 
   &__alert {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-md);
-    background: rgba(220, 38, 38, 0.08);
-    border: 1px solid rgba(220, 38, 38, 0.25);
-    border-radius: var(--radius-md);
-    color: #b91c1c;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: #fef2f2;
+    border-left: 3px solid var(--pin-color-error);
+    color: #991b1b;
     font-size: var(--text-sm);
     font-weight: var(--font-weight-medium);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
 
-  &__list {
+  &__alert-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-circle);
+    background: var(--pin-color-error);
+    flex-shrink: 0;
+  }
+
+  &__grid {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
+    columns: 2;
+    column-gap: 0;
   }
 
-  &__skeleton {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    border: 1px solid var(--pin-border);
-    border-radius: var(--radius-lg);
+  &__grid-item {
+    display: inline-block;
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: -5px;
 
-    .skeleton-lines {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-xs);
-      justify-content: center;
+    > * {
+      width: 100%;
     }
+  }
 
-    .skeleton--thumb {
-      aspect-ratio: 16 / 10;
-      border-radius: var(--radius-md);
-    }
+  &__skeleton-card {
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+  }
 
-    .skeleton--line {
-      height: 0.85rem;
-      border-radius: var(--radius-pill);
-    }
-
-    .skeleton--xs {
-      width: 30%;
-    }
-    .skeleton--sm {
-      width: 50%;
-    }
-    .skeleton--md {
-      width: 80%;
-      height: 1.1rem;
-    }
+  &__skeleton-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    background: #000;
   }
 
   &__empty {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-2xl) var(--space-lg);
-    border: 1px dashed var(--pin-border);
-    border-radius: var(--radius-lg);
+    gap: var(--space-xl);
+    padding: var(--space-5xl) var(--space-lg);
+    text-align: center;
     background: var(--pin-bg-tertiary);
+    border-radius: var(--radius-xl);
   }
 
   &__cta {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2xs);
+    gap: var(--space-xs);
     appearance: none;
     background: var(--pin-text-primary);
     color: var(--pin-text-inverse);
     border: none;
     border-radius: var(--radius-pill);
-    padding: 0.6rem 1.25rem;
+    padding: 0.95rem 1.85rem;
     font-size: var(--text-sm);
     font-weight: var(--font-weight-semibold);
     cursor: pointer;
     text-decoration: none;
-    transition: var(--pin-transition);
+    letter-spacing: 0.005em;
+    transition: transform 0.12s ease, background 0.12s ease;
 
     &:hover {
       transform: translateY(-1px);
     }
 
+    &:active {
+      transform: translateY(0);
+    }
+
     &:focus-visible {
-      outline: 2px solid var(--pin-border-focus);
-      outline-offset: 2px;
+      outline: 2px solid var(--pin-text-primary);
+      outline-offset: 3px;
+    }
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 0%,
+    #2a2a2a 50%,
+    #1a1a1a 100%
+  );
+  background-size: 200% 100%;
+  animation: inscriptions-skeleton-shimmer 1.6s ease-in-out infinite;
+
+  &--media {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  &--line {
+    height: 0.7rem;
+    border-radius: var(--radius-pill);
+  }
+
+  &--xs {
+    width: 30%;
+    height: 0.55rem;
+  }
+
+  &--lg {
+    width: 88%;
+    height: 0.85rem;
+  }
+
+  &--md {
+    width: 55%;
+  }
+}
+
+@keyframes inscriptions-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .inscriptions-page {
+    &__grid {
+      columns: 3;
+    }
+
+    &__container {
+      padding: 0 var(--space-xl) var(--space-4xl);
+      gap: var(--space-lg);
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .inscriptions-page {
+    &__container {
+      padding: 0 var(--space-lg) var(--space-4xl);
     }
   }
 }
 
 @media (max-width: 600px) {
   .inscriptions-page {
-    padding: var(--space-lg) var(--space-md);
+    &__grid {
+      columns: 2;
+    }
 
-    &__skeleton {
-      grid-template-columns: 1fr;
+    &__container {
+      padding: 0 var(--space-md) var(--space-3xl);
+    }
 
-      .skeleton--thumb {
-        aspect-ratio: 16 / 7;
-      }
+    &__filters {
+      margin: var(--space-sm) calc(var(--space-sm) * -1) 0;
+      padding: 0 var(--space-sm);
     }
   }
 }

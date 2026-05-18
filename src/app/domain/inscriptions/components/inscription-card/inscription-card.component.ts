@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewEncapsulation,
+  computed,
+  input,
+  output,
+} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { InscriptionStatus } from '@shared/enums/inscription-status.enum';
 import { InscriptionType } from '@shared/enums/inscription-type.enum';
@@ -33,24 +40,33 @@ const STATUS_LABELS: Record<InscriptionStatus, string> = {
       [class.is-cancelling]="isCancelling()"
       [class.is-finalized]="isFinalized()"
     >
-      <div class="inscription-card__thumb" aria-hidden="true">
+      <div class="inscription-card__media">
         <img
+          class="inscription-card__image"
           [src]="inscription().pinThumbnailUrl"
-          [alt]="''"
+          alt=""
           loading="lazy"
         />
+        <span
+          class="inscription-card__status"
+          [class]="'status-' + inscription().status"
+        >
+          <span class="inscription-card__status-dot" aria-hidden="true"></span>
+          {{ statusLabel() }}
+        </span>
       </div>
 
       <div class="inscription-card__body">
-        <header class="inscription-card__header">
+        <div class="inscription-card__meta">
           <span class="inscription-card__type">{{ typeLabel() }}</span>
-          <span
-            class="inscription-card__status"
-            [class]="'status-' + inscription().status"
+          <span class="inscription-card__sep" aria-hidden="true">·</span>
+          <time
+            class="inscription-card__date"
+            [attr.datetime]="inscription().submittedAt.toISOString()"
           >
-            {{ statusLabel() }}
-          </span>
-        </header>
+            {{ inscription().submittedAt | date: 'dd MMM yyyy' }}
+          </time>
+        </div>
 
         <h3 class="inscription-card__title">{{ inscription().title }}</h3>
 
@@ -62,44 +78,41 @@ const STATUS_LABELS: Record<InscriptionStatus, string> = {
 
         @if (inscription().nextStep) {
           <p class="inscription-card__next-step">
-            <span class="material-symbols-rounded icon-sm" aria-hidden="true">arrow_forward</span>
-            {{ inscription().nextStep }}
+            <span class="inscription-card__next-step-arrow" aria-hidden="true">→</span>
+            <span class="inscription-card__next-step-text">{{ inscription().nextStep }}</span>
           </p>
         }
 
-        <footer class="inscription-card__footer">
-          <time class="inscription-card__date" [attr.datetime]="inscription().submittedAt.toISOString()">
-            Enviada em {{ inscription().submittedAt | date: 'dd MMM yyyy' }}
-          </time>
+        <div class="inscription-card__actions">
+          @if (inscription().externalUrl) {
+            <a
+              class="inscription-card__action-link"
+              [href]="inscription().externalUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Abrir destino</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          } @else {
+            <span class="inscription-card__action-spacer"></span>
+          }
 
-          <div class="inscription-card__actions">
-            @if (inscription().externalUrl) {
-              <a
-                class="inscription-card__action-link"
-                [href]="inscription().externalUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Abrir destino
-                <span class="material-symbols-rounded icon-sm" aria-hidden="true">open_in_new</span>
-              </a>
-            }
-            @if (inscription().cancellable) {
-              <button
-                type="button"
-                class="inscription-card__action-cancel"
-                [disabled]="isCancelling()"
-                (click)="cancel.emit(inscription().id)"
-              >
-                @if (isCancelling()) {
-                  Cancelando…
-                } @else {
-                  Cancelar
-                }
-              </button>
-            }
-          </div>
-        </footer>
+          @if (inscription().cancellable) {
+            <button
+              type="button"
+              class="inscription-card__action-cancel"
+              [disabled]="isCancelling()"
+              (click)="cancel.emit(inscription().id)"
+            >
+              @if (isCancelling()) {
+                Cancelando…
+              } @else {
+                Cancelar
+              }
+            </button>
+          }
+        </div>
       </div>
     </article>
   `,

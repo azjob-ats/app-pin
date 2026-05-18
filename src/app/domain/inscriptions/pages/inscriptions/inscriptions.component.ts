@@ -15,6 +15,10 @@ import { InscriptionStatus } from '@shared/enums/inscription-status.enum';
 import { InscriptionType } from '@shared/enums/inscription-type.enum';
 import { InscriptionCardComponent } from '@domain/inscriptions/components/inscription-card/inscription-card.component';
 import { InscriptionFiltersComponent } from '@domain/inscriptions/components/inscription-filters/inscription-filters.component';
+import {
+  InscriptionsHeroComponent,
+  InscriptionsHeroStat,
+} from '@domain/inscriptions/components/inscriptions-hero/inscriptions-hero.component';
 import { InscriptionsFacade } from '@domain/inscriptions/services/inscriptions.facade';
 import { take } from 'rxjs';
 
@@ -22,7 +26,13 @@ import { take } from 'rxjs';
   selector: 'app-inscriptions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [RouterLink, EmptyStateComponent, InscriptionFiltersComponent, InscriptionCardComponent],
+  imports: [
+    RouterLink,
+    EmptyStateComponent,
+    InscriptionFiltersComponent,
+    InscriptionCardComponent,
+    InscriptionsHeroComponent,
+  ],
   templateUrl: './inscriptions.component.html',
   styleUrl: './inscriptions.component.scss',
 })
@@ -41,8 +51,25 @@ export class InscriptionsComponent implements OnInit {
   readonly hasItems = this.facade.hasItems;
   readonly hasActiveFilters = this.facade.hasActiveFilters;
 
-  readonly skeletonRows = [0, 1, 2, 3, 4];
+  readonly skeletonCards = [0, 1, 2, 3, 4, 5];
   readonly homeLink = `/${environment.ROUTES.HOME.ROOT}`;
+
+  readonly heroStats = computed<InscriptionsHeroStat[]>(() => {
+    const list = this.items();
+    const byStatus = (status: InscriptionStatus) =>
+      list.filter((item) => item.status === status).length;
+    const concluded =
+      byStatus(InscriptionStatus.Cancelled) +
+      byStatus(InscriptionStatus.Rejected) +
+      byStatus(InscriptionStatus.Expired);
+
+    return [
+      { label: 'Total', value: this.total() },
+      { label: 'Em análise', value: byStatus(InscriptionStatus.InReview) },
+      { label: 'Aprovadas', value: byStatus(InscriptionStatus.Approved) },
+      { label: 'Concluídas', value: concluded },
+    ];
+  });
 
   readonly emptyMessage = computed(() =>
     this.hasActiveFilters()
