@@ -1022,4 +1022,3 @@ Campo de notas internas visível apenas à equipe de recrutamento
 
 
 Histórico de movimentações (quem moveu o card e quando)
-

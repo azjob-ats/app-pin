@@ -42,3 +42,22 @@ services/sponsored-campaigns.store.ts + facade.ts
 shared/apis/sponsored-campaigns.api.ts, enums/sponsored-slot-status.enum.ts
 api-server/src/{data,routes}/sponsored-campaigns.js
 Para testar: npm run start + npm start no api-server/ → menu → "Para você" → "Campanhas Patrocinadas" → "Nova campanha".
+--------------------------------
+Esta pensado em algo assim
+
+tela de historico: historico das Campanha Patrocinada.
+tela de projeção: performace, metrica e estatísticas da Campanha.
+tela de Campanha Patrocinada: criar uma Campanha Patrocinada.
+
+a tela de Campanha Patrocinada quero em 3 stap
+- palavra-chave
+- calendario com intevalo de 30. exemplo 18/05/2026 - 18/06/2026 e horas. mostrar valor das datas e horario, exemplo das 21hs as 05hs valor baixo, 6hs as 13hs valores altos e 14hs a 20hs valor medio, essas informação deve vir do backend pois em determinada datas quero alterar esse valores.
+tambem regras em datas, em um 01-9 alto, 10-25 baixo, 26-31 medio
+- qual video vai ser Patrocinada
+- mostrar um checkout, sem dados de cartão, os dados de cartão vai ser configurado em outra tela, o botão ´Iniciar Campanha Patrocinada´
+´Campanha Patrocinada com sucessso´deve levar para a tela de 
+
+pode avaliar a ideia e criar um plano de ação?
+
+
+Add mock endpoint + route to api-server
