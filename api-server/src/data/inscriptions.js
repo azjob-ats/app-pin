@@ -34,7 +34,7 @@ const PARTY_ITAU = {
 };
 
 const MOCK_INSCRIPTIONS = [
-  {
+ /* {
     id: 'ins-001',
     type: 'job',
     status: 'in_review',
@@ -168,20 +168,20 @@ const MOCK_INSCRIPTIONS = [
     nextStep: null,
     externalUrl: null,
     cancellable: false,
-  },
+  },*/
   {
     id: 'ins-010',
     type: 'job',
     status: 'sent',
-    title: 'Vaga: Tech Lead Plataforma',
+    title: 'Engenheiro de Software Especialista',
     pinId: 'p109',
-    pinThumbnailUrl: 'https://picsum.photos/seed/ins-010/640/360',
+    pinThumbnailUrl: 'https://res.cloudinary.com/ddvgzvqsm/image/upload/v1767753628/1740402886175_fhpcci.jpg',
     creator: PARTY_LUCAS,
     company: PARTY_DIGIX,
     submittedAt: '2026-05-05T07:50:00Z',
     updatedAt: '2026-05-05T07:50:00Z',
     nextStep: 'Aguardando análise inicial',
-    externalUrl: 'https://digix.com.br/jobs/tech-lead',
+    externalUrl: 'https://www.realweapp.com/Digix/watch/engenheiro-de-software-especialista',
     cancellable: true,
   },
 ];
