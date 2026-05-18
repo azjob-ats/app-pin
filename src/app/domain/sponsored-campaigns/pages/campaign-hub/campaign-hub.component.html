@@ -1,0 +1,88 @@
+<section class="campaign-hub" aria-labelledby="campaign-hub-title">
+  <header class="campaign-hub__hero">
+    <div class="campaign-hub__hero-inner">
+      <div class="campaign-hub__intro">
+        <span class="campaign-hub__eyebrow">Modelo de receita</span>
+        <h1 class="campaign-hub__title" id="campaign-hub-title">Campanhas Patrocinadas</h1>
+        <p class="campaign-hub__subtitle">
+          Slot único por busca. Vendido por hora. Só sobe quem já converte organicamente.
+        </p>
+      </div>
+
+      <div class="campaign-hub__actions">
+        <a class="campaign-hub__cta" [routerLink]="newCampaignLink">
+          <span class="material-symbols-rounded" aria-hidden="true">add</span>
+          Nova campanha
+        </a>
+        <a class="campaign-hub__cta campaign-hub__cta--ghost" [routerLink]="metricsLink">
+          <span class="material-symbols-rounded" aria-hidden="true">analytics</span>
+          Ver métricas
+        </a>
+      </div>
+    </div>
+
+    <nav class="campaign-hub__tabs" role="tablist" aria-label="Filtrar campanhas">
+      <button
+        type="button"
+        role="tab"
+        class="campaign-hub__tab"
+        [class.is-active]="tab() === 'active'"
+        [attr.aria-selected]="tab() === 'active'"
+        (click)="onTabChange('active')"
+      >
+        Em andamento
+        <span class="campaign-hub__tab-badge">{{ activeCount() }}</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="campaign-hub__tab"
+        [class.is-active]="tab() === 'history'"
+        [attr.aria-selected]="tab() === 'history'"
+        (click)="onTabChange('history')"
+      >
+        Histórico
+        <span class="campaign-hub__tab-badge">{{ historyCount() }}</span>
+      </button>
+    </nav>
+  </header>
+
+  <div class="campaign-hub__container">
+    @if (error(); as message) {
+      <div class="campaign-hub__alert" role="alert">
+        <span class="campaign-hub__alert-dot" aria-hidden="true"></span>
+        {{ message }}
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div class="campaign-hub__loading" aria-busy="true" aria-label="Carregando campanhas">
+        @for (i of skeletonRows; track i) {
+          <div class="skeleton skeleton--card"></div>
+        }
+      </div>
+    } @else if (hasItems()) {
+      <ul class="campaign-hub__list" role="list">
+        @for (campaign of visibleCampaigns(); track campaign.id) {
+          <li>
+            <app-campaign-summary-card [campaign]="campaign" />
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="campaign-hub__empty">
+        <app-empty-state
+          icon="campaign"
+          [message]="emptyMessage()"
+          [subtitle]="emptySubtitle()"
+        />
+        @if (tab() === 'active') {
+          <a class="campaign-hub__cta" [routerLink]="newCampaignLink">
+            Criar primeira campanha
+            <span aria-hidden="true">→</span>
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>

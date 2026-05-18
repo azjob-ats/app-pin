@@ -18,6 +18,7 @@ const winningSlotsRouter = require('./routes/winning-slots');
 const creatorPortfolioRouter = require('./routes/creator-portfolio');
 const inscriptionsRouter = require('./routes/inscriptions');
 const metricsRouter = require('./routes/metrics');
+const sponsoredCampaignsRouter = require('./routes/campaigns');
 const resumeRouter = require('./routes/resume');
 
 const app = express();
@@ -49,6 +50,7 @@ app.use('/api/winning-slots', winningSlotsRouter);
 app.use('/api/v1/creator-portfolio', creatorPortfolioRouter);
 app.use('/api/v1/me/inscriptions', inscriptionsRouter);
 app.use('/api/v1/me/metrics', metricsRouter);
+app.use('/api/v1/sponsored-campaigns', sponsoredCampaignsRouter);
 app.use('/api/v1/me/resume', resumeRouter);
 
 // Health check
@@ -102,6 +104,13 @@ app.listen(PORT, () => {
   console.log('  GET    /api/v1/me/inscriptions');
   console.log('  PATCH  /api/v1/me/inscriptions/:id/cancel');
   console.log('  GET    /api/v1/me/metrics');
+  console.log('  GET    /api/v1/sponsored-campaigns/campaigns');
+  console.log('  GET    /api/v1/sponsored-campaigns/campaigns/:id');
+  console.log('  POST   /api/v1/sponsored-campaigns/campaigns');
+  console.log('  PATCH  /api/v1/sponsored-campaigns/campaigns/:id/cancel');
+  console.log('  GET    /api/v1/sponsored-campaigns/pricing-calendar');
+  console.log('  GET    /api/v1/sponsored-campaigns/eligible-videos');
+  console.log('  POST   /api/v1/sponsored-campaigns/projection');
   console.log('  GET    /api/v1/me/resume');
   console.log('  PATCH  /api/v1/me/resume/:trackId');
   console.log('  POST   /api/v1/me/resume/publish');

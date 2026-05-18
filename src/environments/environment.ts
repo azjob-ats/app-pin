@@ -103,6 +103,15 @@ export const environment = {
     METRICS: {
       OVERVIEW: '/api/v1/me/metrics',
     },
+    SPONSORED_CAMPAIGNS: {
+      LIST: '/api/v1/sponsored-campaigns/campaigns',
+      DETAIL: '/api/v1/sponsored-campaigns/campaigns/:id',
+      CREATE: '/api/v1/sponsored-campaigns/campaigns',
+      CANCEL: '/api/v1/sponsored-campaigns/campaigns/:id/cancel',
+      PRICING_CALENDAR: '/api/v1/sponsored-campaigns/pricing-calendar',
+      ELIGIBLE_VIDEOS: '/api/v1/sponsored-campaigns/eligible-videos',
+      PROJECTION: '/api/v1/sponsored-campaigns/projection',
+    },
     RESUME: {
       DRAFT: '/api/v1/me/resume',
       SAVE_TRACK: '/api/v1/me/resume/:trackId',
@@ -206,6 +215,14 @@ export const environment = {
     },
     METRICS: {
       ROOT: 'metrics',
+    },
+    SPONSORED_CAMPAIGNS: {
+      ROOT: 'sponsored-campaigns',
+      NEW: 'sponsored-campaigns/new',
+      DETAIL: 'sponsored-campaigns/:id',
+      SUCCESS: 'sponsored-campaigns/success/:id',
+      DETAIL_PATH: 'sponsored-campaigns',
+      SUCCESS_PATH: 'sponsored-campaigns/success',
     },
     RESUME: {
       COMPLETE: 'resume/complete',

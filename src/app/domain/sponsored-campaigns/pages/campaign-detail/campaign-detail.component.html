@@ -1,0 +1,129 @@
+<section class="campaign-detail" aria-labelledby="campaign-detail-title">
+  <header class="campaign-detail__head">
+    <a class="campaign-detail__back" [routerLink]="hubLink">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+      Voltar para campanhas
+    </a>
+  </header>
+
+  <div class="campaign-detail__container">
+    @if (error(); as message) {
+      <div class="campaign-detail__alert" role="alert">
+        <span class="campaign-detail__alert-dot" aria-hidden="true"></span>
+        {{ message }}
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div class="campaign-detail__loading" aria-busy="true">
+        <div class="skeleton skeleton--block"></div>
+        <div class="skeleton skeleton--block"></div>
+      </div>
+    } @else if (campaign(); as c) {
+      <article class="campaign-detail__hero">
+        <div class="campaign-detail__hero-head">
+          <app-campaign-status-badge [status]="c.status" />
+          <p class="campaign-detail__keyword">
+            <span class="material-symbols-rounded" aria-hidden="true">search</span>
+            {{ c.keyword }}
+          </p>
+        </div>
+
+        <h1 class="campaign-detail__title" id="campaign-detail-title">
+          {{ c.video.title }}
+        </h1>
+
+        <p class="campaign-detail__credit">
+          <span class="campaign-detail__channel">{{ c.video.channelName }}</span>
+          <span class="campaign-detail__by">by</span>
+          <span class="campaign-detail__creator">{{ c.video.creatorName }}</span>
+        </p>
+
+        <dl class="campaign-detail__summary">
+          <div>
+            <dt>Janela</dt>
+            <dd>
+              {{ c.windowFrom | date: 'dd MMM yyyy' }}
+              <span aria-hidden="true">→</span>
+              {{ c.windowTo | date: 'dd MMM yyyy' }}
+            </dd>
+          </div>
+          <div>
+            <dt>Horas</dt>
+            <dd>{{ c.hours.length | number: '1.0-0' }}</dd>
+          </div>
+          <div>
+            <dt>Investimento</dt>
+            <dd class="campaign-detail__amount">
+              {{ c.totalCost | currency: 'BRL' : 'symbol' : '1.0-0' : 'pt-BR' }}
+            </dd>
+          </div>
+          <div>
+            <dt>Criada em</dt>
+            <dd>{{ c.createdAt | date: 'dd MMM, HH:mm' }}</dd>
+          </div>
+        </dl>
+
+        @if (canCancel()) {
+          <div class="campaign-detail__actions">
+            <button
+              type="button"
+              class="campaign-detail__btn campaign-detail__btn--ghost"
+              (click)="onCancel()"
+            >
+              Cancelar campanha
+            </button>
+          </div>
+        }
+      </article>
+
+      <div class="campaign-detail__grid">
+        <app-campaign-performance-panel [campaign]="c" />
+
+        <article class="campaign-detail__panel">
+          <h2 class="campaign-detail__panel-title">Pagamento</h2>
+          @if (c.card; as card) {
+            <div class="campaign-detail__card">
+              <span class="campaign-detail__card-brand">{{ card.brand }}</span>
+              <span class="campaign-detail__card-number">•••• {{ card.last4 }}</span>
+              <span class="campaign-detail__card-meta">{{ card.holderName }}</span>
+            </div>
+          } @else {
+            <p class="campaign-detail__no-card">Sem cartão configurado nesta campanha.</p>
+          }
+        </article>
+
+        <article class="campaign-detail__panel">
+          <h2 class="campaign-detail__panel-title">Vídeo no slot</h2>
+          <div class="campaign-detail__video">
+            <img
+              class="campaign-detail__thumb"
+              [src]="c.video.thumbnailUrl"
+              alt=""
+              loading="lazy"
+            />
+            <div>
+              <h3 class="campaign-detail__video-title">{{ c.video.title }}</h3>
+              <p class="campaign-detail__video-credit">
+                {{ c.video.channelName }} <span class="campaign-detail__by">by</span>
+                {{ c.video.creatorName }}
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+    } @else {
+      <div class="campaign-detail__empty">
+        <app-empty-state
+          icon="search_off"
+          message="Campanha não encontrada"
+          subtitle="Pode ter sido removida ou o link está incorreto."
+        />
+        <a class="campaign-detail__btn campaign-detail__btn--primary" [routerLink]="hubLink">
+          Voltar para campanhas
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    }
+  </div>
+</section>

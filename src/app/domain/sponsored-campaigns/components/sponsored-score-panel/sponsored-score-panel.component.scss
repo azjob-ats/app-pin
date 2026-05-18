@@ -1,0 +1,123 @@
+.sponsored-score {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  color: #fff;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__subtitle {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--text-sm);
+  }
+
+  &__bar {
+    display: flex;
+    width: 100%;
+    height: 12px;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &__segment {
+    display: block;
+    height: 100%;
+    transition: filter 0.12s ease;
+
+    &.is-organic {
+      background: #34d399;
+    }
+    &.is-quality {
+      background: #60a5fa;
+    }
+    &.is-conversion {
+      background: #f472b6;
+    }
+    &.is-bid {
+      background: #ffc300;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__item-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-circle);
+
+    &.is-organic {
+      background: #34d399;
+    }
+    &.is-quality {
+      background: #60a5fa;
+    }
+    &.is-conversion {
+      background: #f472b6;
+    }
+    &.is-bid {
+      background: #ffc300;
+    }
+  }
+
+  &__item-label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: #fff;
+  }
+
+  &__item-weight {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-bold);
+    color: rgba(255, 255, 255, 0.8);
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__item-desc {
+    margin: 2px 0 0 calc(8px + var(--space-sm));
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+  }
+}

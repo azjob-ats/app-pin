@@ -1,0 +1,112 @@
+<section class="campaign-wizard" aria-labelledby="campaign-wizard-title">
+  <header class="campaign-wizard__head">
+    <div class="campaign-wizard__head-inner">
+      <a class="campaign-wizard__back" [routerLink]="hubLink">
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+        Cancelar
+      </a>
+      <h1 class="campaign-wizard__title" id="campaign-wizard-title">Nova campanha</h1>
+      <span class="campaign-wizard__step-count">Etapa {{ step() }} de 4</span>
+    </div>
+    <app-wizard-stepper [current]="step()" />
+  </header>
+
+  <div class="campaign-wizard__container">
+    @if (error(); as message) {
+      <div class="campaign-wizard__alert" role="alert">
+        <span class="campaign-wizard__alert-dot" aria-hidden="true"></span>
+        {{ message }}
+      </div>
+    }
+
+    <div class="campaign-wizard__step">
+      @switch (step()) {
+        @case (1) {
+          <app-wizard-keyword-step
+            [value]="keyword()"
+            (valueChange)="onKeywordChange($event)"
+          />
+        }
+        @case (2) {
+          <app-wizard-window-step
+            [windowFrom]="windowFrom()"
+            [calendar]="pricingCalendar()"
+            [selectedIndex]="hoursIndex()"
+            [hoursCount]="hoursCount()"
+            [totalCost]="totalCost()"
+            [loading]="pricingLoading()"
+            (windowFromChange)="onWindowChange($event)"
+            (toggle)="onHourToggle($event)"
+            (toggleDay)="onDayToggle($event)"
+          />
+        }
+        @case (3) {
+          <app-wizard-video-step
+            [videos]="eligibleVideos()"
+            [selectedId]="videoId()"
+            [loading]="videosLoading()"
+            (select)="onVideoSelect($event)"
+          />
+        }
+        @case (4) {
+          <app-wizard-checkout-step
+            [keyword]="keyword()"
+            [video]="selectedVideo()"
+            [hours]="hoursWithPrice()"
+            [card]="checkoutCard()"
+            [projection]="projection()"
+            [totalCost]="totalCost()"
+          />
+        }
+      }
+    </div>
+  </div>
+
+  <footer class="campaign-wizard__footer">
+    <div class="campaign-wizard__footer-inner">
+      @if (step() > 1) {
+        <button
+          type="button"
+          class="campaign-wizard__btn campaign-wizard__btn--ghost"
+          (click)="goBack()"
+          [disabled]="isSubmitting()"
+        >
+          Voltar
+        </button>
+      } @else {
+        <a
+          [routerLink]="hubLink"
+          class="campaign-wizard__btn campaign-wizard__btn--ghost"
+        >
+          Cancelar
+        </a>
+      }
+
+      @if (step() < 4) {
+        <button
+          type="button"
+          class="campaign-wizard__btn campaign-wizard__btn--primary"
+          (click)="goNext()"
+          [disabled]="!canAdvance()"
+        >
+          Próximo
+          <span aria-hidden="true">→</span>
+        </button>
+      } @else {
+        <button
+          type="button"
+          class="campaign-wizard__btn campaign-wizard__btn--primary"
+          (click)="submit()"
+          [disabled]="isSubmitting()"
+        >
+          @if (isSubmitting()) {
+            Criando…
+          } @else {
+            Iniciar Campanha Patrocinada
+            <span aria-hidden="true">→</span>
+          }
+        </button>
+      }
+    </div>
+  </footer>
+</section>

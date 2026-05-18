@@ -371,6 +371,51 @@ export const routes: Routes = [
         },
       },
       {
+        path: ROUTES.SPONSORED_CAMPAIGNS.ROOT,
+        loadComponent: () =>
+          import('./domain/sponsored-campaigns/pages/campaign-hub/campaign-hub.component').then(
+            (m) => m.CampaignHubComponent,
+          ),
+        data: {
+          title: 'Campanhas Patrocinadas',
+          description:
+            'Hub do anunciante: campanhas em andamento, histórico e criação de novas campanhas patrocinadas qualificadas.',
+        },
+      },
+      {
+        path: ROUTES.SPONSORED_CAMPAIGNS.NEW,
+        loadComponent: () =>
+          import(
+            './domain/sponsored-campaigns/pages/campaign-wizard/campaign-wizard.component'
+          ).then((m) => m.CampaignWizardComponent),
+        data: {
+          title: 'Nova campanha patrocinada',
+          description: 'Wizard de 4 etapas para criar uma campanha patrocinada qualificada.',
+        },
+      },
+      {
+        path: ROUTES.SPONSORED_CAMPAIGNS.SUCCESS,
+        loadComponent: () =>
+          import(
+            './domain/sponsored-campaigns/pages/campaign-success/campaign-success.component'
+          ).then((m) => m.CampaignSuccessComponent),
+        data: {
+          title: 'Campanha Patrocinada com sucesso',
+          description: 'Confirmação de criação da campanha patrocinada.',
+        },
+      },
+      {
+        path: ROUTES.SPONSORED_CAMPAIGNS.DETAIL,
+        loadComponent: () =>
+          import(
+            './domain/sponsored-campaigns/pages/campaign-detail/campaign-detail.component'
+          ).then((m) => m.CampaignDetailComponent),
+        data: {
+          title: 'Detalhe da campanha',
+          description: 'Performance, projeção e configurações da campanha patrocinada.',
+        },
+      },
+      {
         path: ROUTES.CREATOR_PORTFOLIO.ROOT,
         canActivate: [ownerPortfolioGuard],
         loadComponent: () =>

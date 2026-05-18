@@ -55,6 +55,20 @@ const MENU_ITEMS = {
       text: null,
     },
     {
+      icon: 'campaign',
+      name: 'Campanhas Patrocinadas',
+      description:
+        'Gerencie suas campanhas: histórico, performance e criação de novos slots patrocinados.',
+      routerLink: {
+        label: 'Campanhas Patrocinadas',
+        link: '/sponsored-campaigns',
+        target: null,
+        closeMenu: true,
+      },
+      component: null,
+      text: null,
+    },
+    {
       icon: 'login',
       name: 'Entre aqui',
       description: 'Acesse sua conta para continuar explorando conteúdos, oportunidades e conexões na plataforma.',
