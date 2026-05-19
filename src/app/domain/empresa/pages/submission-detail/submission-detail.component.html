@@ -1,0 +1,202 @@
+<section class="submission-detail" aria-labelledby="submission-detail-title">
+  <header class="submission-detail__header">
+    <a class="submission-detail__back" [routerLink]="backToTriageLink()" aria-label="Voltar para Triagens">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+      <span>Voltar</span>
+    </a>
+  </header>
+
+  @if (isLoading()) {
+    <p class="submission-detail__loading" role="status">Carregando submissão…</p>
+  } @else if (error() && !submission()) {
+    <div class="submission-detail__error" role="alert">{{ error() }}</div>
+  } @else if (submission(); as s) {
+    <div class="submission-detail__grid">
+      <article class="submission-detail__main">
+        <header class="submission-detail__main-header">
+          <div class="submission-detail__title-row">
+            @if (typeMeta(); as tm) {
+              <span class="submission-detail__type-badge" [style.--type-accent]="tm.color">
+                <span class="material-symbols-rounded" aria-hidden="true">{{ tm.icon }}</span>
+                {{ tm.label }}
+              </span>
+            }
+            @if (phaseMeta(); as pm) {
+              <span class="submission-detail__phase-badge" [style.--phase-accent]="pm.color">
+                {{ pm.label }}
+              </span>
+            }
+          </div>
+
+          <h1 class="submission-detail__title" id="submission-detail-title">
+            Submissão de {{ s.candidate.name }}
+          </h1>
+          <p class="submission-detail__subtitle">
+            <a [routerLink]="productLink()" class="submission-detail__product-link">
+              {{ s.productTitle }}
+            </a>
+          </p>
+
+          <div class="submission-detail__meta">
+            @if (s.candidate.contextLine) {
+              <span class="submission-detail__meta-item">
+                <span class="material-symbols-rounded" aria-hidden="true">badge</span>
+                {{ s.candidate.contextLine }}
+              </span>
+            }
+            <span class="submission-detail__meta-item">
+              <span class="material-symbols-rounded" aria-hidden="true">schedule</span>
+              Candidatou-se em {{ s.createdAt | date: 'dd/MM/yyyy' }}
+            </span>
+            <a class="submission-detail__meta-item submission-detail__meta-link" [routerLink]="publicProfileLink()">
+              <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
+              Ver perfil público
+            </a>
+          </div>
+        </header>
+
+        <section class="submission-detail__section" aria-labelledby="info-title">
+          <h2 id="info-title" class="submission-detail__section-title">Informações cadastradas</h2>
+          @if (s.answers.length === 0) {
+            <p class="submission-detail__empty">Nenhuma resposta recebida.</p>
+          } @else {
+            <dl class="submission-detail__dl">
+              @for (a of s.answers; track answerTrack($index, a)) {
+                <div class="submission-detail__dl-row">
+                  <dt>{{ a.label }}</dt>
+                  <dd>{{ a.value || '—' }}</dd>
+                </div>
+              }
+            </dl>
+          }
+        </section>
+
+        <section class="submission-detail__section" aria-labelledby="screen-title">
+          <h2 id="screen-title" class="submission-detail__section-title">Perguntas de triagem</h2>
+          @if (s.screeningAnswers.length === 0) {
+            <p class="submission-detail__empty">Nenhuma pergunta configurada.</p>
+          } @else {
+            <ol class="submission-detail__screening">
+              @for (q of s.screeningAnswers; track screeningTrack($index, q)) {
+                <li class="submission-detail__screening-item">
+                  <div class="submission-detail__screening-question">
+                    <span class="submission-detail__screening-icon" [class.is-ok]="q.matchesIdeal">
+                      <span class="material-symbols-rounded" aria-hidden="true">
+                        {{ q.matchesIdeal ? 'check_circle' : 'cancel' }}
+                      </span>
+                    </span>
+                    <span>{{ q.question }}</span>
+                    @if (q.required) {
+                      <span class="submission-detail__required-tag">obrigatória</span>
+                    }
+                  </div>
+                  <div class="submission-detail__screening-answers">
+                    <span class="submission-detail__screening-given">
+                      <strong>Resposta:</strong> {{ q.answer || '—' }}
+                    </span>
+                    @if (q.idealAnswer) {
+                      <span class="submission-detail__screening-ideal">
+                        <strong>Ideal:</strong> {{ q.idealAnswer }}
+                      </span>
+                    }
+                  </div>
+                </li>
+              }
+            </ol>
+          }
+        </section>
+
+        <section class="submission-detail__section" aria-labelledby="history-title">
+          <h2 id="history-title" class="submission-detail__section-title">Histórico</h2>
+          <ol class="submission-detail__history">
+            @for (h of s.history; track historyTrack($index, h)) {
+              <li>
+                <div class="submission-detail__history-actor">
+                  <span class="material-symbols-rounded" aria-hidden="true">
+                    {{ h.note ? 'sticky_note_2' : 'swap_horiz' }}
+                  </span>
+                  <strong>{{ h.actor }}</strong>
+                  <span class="submission-detail__history-time">
+                    · {{ h.createdAt | date: 'dd/MM/yyyy HH:mm' }}
+                  </span>
+                </div>
+                <div class="submission-detail__history-body">
+                  {{ h.action }}
+                  @if (h.fromPhase && h.toPhase) {
+                    <span class="submission-detail__history-arrow">
+                      {{ h.fromPhase }} → {{ h.toPhase }}
+                    </span>
+                  }
+                  @if (h.note) {
+                    <p class="submission-detail__history-note">"{{ h.note }}"</p>
+                  }
+                </div>
+              </li>
+            }
+          </ol>
+        </section>
+      </article>
+
+      <aside class="submission-detail__sidebar" aria-label="Ações rápidas">
+        @if (error()) {
+          <div class="submission-detail__sidebar-error" role="alert">{{ error() }}</div>
+        }
+
+        <div class="submission-detail__sidebar-group">
+          <h3 class="submission-detail__sidebar-title">Decisão</h3>
+          @if (nextPhase(); as np) {
+            <button
+              type="button"
+              class="submission-detail__btn submission-detail__btn--primary"
+              [disabled]="isMoving()"
+              (click)="advance()"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+              Avançar fase
+            </button>
+          } @else {
+            <p class="submission-detail__sidebar-hint">
+              Já está na fase final do pipeline.
+            </p>
+          }
+          @if (rejectedPhase()) {
+            <button
+              type="button"
+              class="submission-detail__btn submission-detail__btn--danger"
+              [disabled]="isMoving()"
+              (click)="reject()"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">cancel</span>
+              Reprovar
+            </button>
+          }
+        </div>
+
+        <div class="submission-detail__sidebar-group">
+          <h3 class="submission-detail__sidebar-title">Notas internas</h3>
+          <p class="submission-detail__sidebar-hint">
+            Visíveis apenas à equipe da organização.
+          </p>
+          <textarea
+            class="submission-detail__note"
+            [formControl]="noteControl"
+            rows="4"
+            placeholder="Anote impressões, próximos passos…"
+          ></textarea>
+          <button
+            type="button"
+            class="submission-detail__btn submission-detail__btn--ghost"
+            [disabled]="!noteDirty() || isSavingNote()"
+            (click)="saveNote()"
+          >
+            @if (isSavingNote()) {
+              Salvando…
+            } @else {
+              Salvar nota
+            }
+          </button>
+        </div>
+      </aside>
+    </div>
+  }
+</section>

@@ -1,0 +1,81 @@
+<app-drawer
+  position="right"
+  styleClass="learn-more-drawer"
+  [visible]="isOpen()"
+  (visibleChange)="onVisibleChange($event)"
+>
+  <ng-template #header>
+    <div class="learn-more-drawer__header">
+      <div class="learn-more-drawer__title-wrap">
+        <span class="learn-more-drawer__eyebrow">Saiba mais</span>
+        <h2 class="learn-more-drawer__title">{{ title }}</h2>
+      </div>
+      <button
+        type="button"
+        class="learn-more-drawer__close"
+        aria-label="Fechar"
+        (click)="onClose()"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">close</span>
+      </button>
+    </div>
+  </ng-template>
+
+  <div class="learn-more-drawer__body">
+    @if (submitted()) {
+      <div class="learn-more-drawer__success" role="status">
+        <span class="material-symbols-rounded learn-more-drawer__success-icon" aria-hidden="true">
+          check_circle
+        </span>
+        <h3>Submissão enviada</h3>
+        <p>
+          Recebemos suas informações. Em breve a equipe responsável entrará em contato — sua
+          submissão já entrou na Triagem deste Produto.
+        </p>
+        <button type="button" class="learn-more-drawer__primary" (click)="onClose()">
+          Fechar
+        </button>
+      </div>
+    } @else if (isLoading()) {
+      <p class="learn-more-drawer__loading" role="status">Carregando formulário…</p>
+    } @else if (error() && !structure()) {
+      <div class="learn-more-drawer__error" role="alert">{{ error() }}</div>
+    } @else if (structure(); as fs) {
+      <app-dynamic-form
+        [formStructure]="fs"
+        (formChange)="onFormChange($event)"
+        (formStatusChange)="onFormStatus($event)"
+      />
+      @if (error()) {
+        <p class="learn-more-drawer__inline-error" role="alert">{{ error() }}</p>
+      }
+    }
+  </div>
+
+  <ng-template #footer>
+    @if (!submitted()) {
+      <div class="learn-more-drawer__footer">
+        <button
+          type="button"
+          class="learn-more-drawer__ghost"
+          (click)="onClose()"
+          [disabled]="isSubmitting()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="learn-more-drawer__primary"
+          (click)="onSubmit()"
+          [disabled]="isSubmitting() || isLoading() || !structure()"
+        >
+          @if (isSubmitting()) {
+            Enviando…
+          } @else {
+            {{ submitLabel }}
+          }
+        </button>
+      </div>
+    }
+  </ng-template>
+</app-drawer>

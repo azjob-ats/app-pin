@@ -1,0 +1,128 @@
+<section class="org-list" aria-labelledby="org-list-title" (click)="closeMenu()">
+  <header class="org-list__hero">
+    <div class="org-list__intro">
+      <span class="org-list__eyebrow">Minha Empresa</span>
+      <h1 class="org-list__title" id="org-list-title">Ver e criar organizações</h1>
+      <p class="org-list__subtitle">
+        Toda Vaga, Produto, Treinamento, Notícia ou Experiência é publicada no nome de uma
+        Organização. Crie a sua ou acesse uma à qual você já pertence.
+      </p>
+    </div>
+  </header>
+
+  <div class="org-list__container">
+    @if (isLoading() && !hasItems()) {
+      <div class="org-list__skeleton" aria-hidden="true">
+        <div class="org-list__skeleton-card"></div>
+        <div class="org-list__skeleton-card"></div>
+        <div class="org-list__skeleton-card"></div>
+      </div>
+    } @else if (error() && !hasItems()) {
+      <div class="org-list__error" role="alert">
+        <p>{{ error() }}</p>
+        <button type="button" class="org-list__retry" (click)="retry()">Tentar novamente</button>
+      </div>
+    } @else {
+      <div class="org-list__grid">
+        <a
+          class="org-list__new"
+          [routerLink]="newOrganizationLink"
+          aria-label="Criar nova organização"
+        >
+          <span class="material-symbols-rounded org-list__new-icon" aria-hidden="true">add</span>
+          <span class="org-list__new-label">Nova organização</span>
+        </a>
+
+        @for (org of orderedItems(); track org.id) {
+          <article class="org-list__card" (click)="openOrganization(org)">
+            <header class="org-list__card-header">
+              <img
+                class="org-list__logo"
+                [src]="org.logoUrl"
+                [alt]="'Logo ' + org.name"
+                width="48"
+                height="48"
+                loading="lazy"
+              />
+
+              <button
+                type="button"
+                class="org-list__fav"
+                [class.is-active]="org.isFavorite"
+                [attr.aria-pressed]="org.isFavorite"
+                [attr.aria-label]="
+                  org.isFavorite
+                    ? 'Remover ' + org.name + ' dos favoritos'
+                    : 'Favoritar ' + org.name
+                "
+                (click)="toggleFavorite($event, org)"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">
+                  {{ org.isFavorite ? 'star' : 'star_outline' }}
+                </span>
+              </button>
+            </header>
+
+            <div class="org-list__card-body">
+              <h2 class="org-list__card-name">{{ org.name }}</h2>
+              <p class="org-list__card-domain">{{ org.slug }}.realwe</p>
+            </div>
+
+            <footer class="org-list__card-footer">
+              <dl class="org-list__counters" aria-label="Estatísticas da organização">
+                <div>
+                  <dt>Produtos</dt>
+                  <dd>{{ org.productsCount }}</dd>
+                </div>
+                <div>
+                  <dt>Submissões</dt>
+                  <dd>{{ org.submissionsCount }}</dd>
+                </div>
+                <div>
+                  <dt>Membros</dt>
+                  <dd>{{ org.membersCount }}</dd>
+                </div>
+              </dl>
+
+              <div class="org-list__menu-wrap">
+                <button
+                  type="button"
+                  class="org-list__menu-btn"
+                  [attr.aria-expanded]="openMenuId() === org.id"
+                  [attr.aria-label]="'Mais ações em ' + org.name"
+                  (click)="toggleMenu($event, org)"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">more_vert</span>
+                </button>
+
+                @if (openMenuId() === org.id) {
+                  <ul class="org-list__menu" role="menu" (click)="$event.stopPropagation()">
+                    <li role="menuitem">
+                      <button type="button">Ver membros</button>
+                    </li>
+                    <li role="menuitem">
+                      <button type="button">Deixar de ser membro</button>
+                    </li>
+                    <li role="menuitem">
+                      <button type="button" class="org-list__menu-danger">
+                        Excluir organização
+                      </button>
+                    </li>
+                  </ul>
+                }
+              </div>
+            </footer>
+          </article>
+        }
+      </div>
+
+      @if (!hasItems() && !isLoading()) {
+        <app-empty-state
+          icon="business"
+          message="Você ainda não tem organizações"
+          subtitle="Crie a primeira para começar a publicar Produtos e operar Triagens."
+        />
+      }
+    }
+  </div>
+</section>

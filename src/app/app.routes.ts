@@ -416,6 +416,130 @@ export const routes: Routes = [
         },
       },
       {
+        path: ROUTES.EMPRESA.LIST,
+        loadComponent: () =>
+          import(
+            './domain/empresa/pages/organization-list/organization-list.component'
+          ).then((m) => m.OrganizationListComponent),
+        data: {
+          title: 'Minha Empresa',
+          description:
+            'Crie ou acesse uma Organização para publicar Produtos (Vagas, Serviços, Treinamentos, Notícias e Experiências) e operar Triagens.',
+        },
+      },
+      {
+        path: ROUTES.EMPRESA.NEW,
+        loadComponent: () =>
+          import(
+            './domain/empresa/pages/organization-create/organization-create.component'
+          ).then((m) => m.OrganizationCreateComponent),
+        data: {
+          title: 'Nova Organização',
+          description: 'Cadastre oficialmente sua empresa e crie a página pública do canal.',
+        },
+      },
+      {
+        path: ROUTES.EMPRESA.PRODUCT_NEW,
+        loadComponent: () =>
+          import('./domain/empresa/pages/product-create/product-create.component').then(
+            (m) => m.ProductCreateComponent,
+          ),
+        data: {
+          title: 'Novo Produto',
+          description:
+            'Wizard de 6 etapas para publicar um Produto no canal — Vaga, Serviço, Treinamento, Notícia ou Experiência.',
+        },
+      },
+      {
+        path: ROUTES.EMPRESA.PRODUCT_DETAIL,
+        loadComponent: () =>
+          import('./domain/empresa/pages/product-detail/product-detail.component').then(
+            (m) => m.ProductDetailComponent,
+          ),
+        data: {
+          title: 'Detalhe do Produto',
+          description: 'Visão completa do Produto com ações de mover, editar e gerenciar triagem.',
+        },
+      },
+      {
+        path: ROUTES.EMPRESA.TRIAGE_DETAIL,
+        loadComponent: () =>
+          import('./domain/empresa/pages/submission-detail/submission-detail.component').then(
+            (m) => m.SubmissionDetailComponent,
+          ),
+        data: {
+          title: 'Detalhe da submissão',
+          description:
+            'Dados completos da submissão, perguntas de triagem, ações rápidas, notas internas e histórico.',
+        },
+      },
+      {
+        path: 'empresa/:slug/publico',
+        loadComponent: () =>
+          import('./domain/empresa/pages/organization-public/organization-public.component').then(
+            (m) => m.OrganizationPublicPageComponent,
+          ),
+        data: {
+          title: 'Canal da empresa',
+          description:
+            'Página pública da organização: Vagas, Produtos, Treinamentos, Notícias e Experiências ativos.',
+        },
+      },
+      {
+        path: ROUTES.EMPRESA.PANEL,
+        loadComponent: () =>
+          import(
+            './domain/empresa/pages/organization-panel/organization-panel.component'
+          ).then((m) => m.OrganizationPanelComponent),
+        data: {
+          title: 'Painel da Organização',
+          description: 'Gerencie Produtos, Triagens, Página da Empresa, Pessoas e Métricas.',
+        },
+        children: [
+          { path: '', redirectTo: 'produtos', pathMatch: 'full' },
+          {
+            path: 'produtos',
+            loadComponent: () =>
+              import('./domain/empresa/pages/panel-products/panel-products.component').then(
+                (m) => m.PanelProductsComponent,
+              ),
+            data: { title: 'Gerenciar Produtos' },
+          },
+          {
+            path: 'triagens',
+            loadComponent: () =>
+              import('./domain/empresa/pages/panel-triage/panel-triage.component').then(
+                (m) => m.PanelTriageComponent,
+              ),
+            data: { title: 'Triagens' },
+          },
+          {
+            path: 'pagina',
+            loadComponent: () =>
+              import('./domain/empresa/pages/panel-page/panel-page.component').then(
+                (m) => m.PanelPageComponent,
+              ),
+            data: { title: 'Página da Empresa' },
+          },
+          {
+            path: 'pessoas',
+            loadComponent: () =>
+              import('./domain/empresa/pages/panel-people/panel-people.component').then(
+                (m) => m.PanelPeopleComponent,
+              ),
+            data: { title: 'Pessoas & Permissões' },
+          },
+          {
+            path: 'metricas',
+            loadComponent: () =>
+              import('./domain/empresa/pages/panel-metrics/panel-metrics.component').then(
+                (m) => m.PanelMetricsComponent,
+              ),
+            data: { title: 'Métricas' },
+          },
+        ],
+      },
+      {
         path: ROUTES.CREATOR_PORTFOLIO.ROOT,
         canActivate: [ownerPortfolioGuard],
         loadComponent: () =>

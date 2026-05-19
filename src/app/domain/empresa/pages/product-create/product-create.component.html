@@ -1,0 +1,401 @@
+<section class="product-wizard" aria-labelledby="product-wizard-title">
+  @if (showSuccess() && created()) {
+    <div class="product-wizard__success" role="status">
+      <span class="material-symbols-rounded product-wizard__success-icon" aria-hidden="true">
+        celebration
+      </span>
+      <h1 id="product-wizard-title" class="product-wizard__success-title">
+        Parabéns! Seu Produto foi publicado.
+      </h1>
+      <p class="product-wizard__success-subtitle">
+        <strong>{{ created()!.title }}</strong> está agora na fase <strong>Backlog</strong>. Mova
+        para <strong>Em campanha</strong> quando quiser torná-lo público.
+      </p>
+      <a class="product-wizard__success-cta" [routerLink]="goToProductsLink()">
+        Ver no Kanban
+      </a>
+    </div>
+  } @else {
+    <header class="product-wizard__header">
+      <div class="product-wizard__header-left">
+        <button
+          type="button"
+          class="product-wizard__icon-btn"
+          aria-label="Fechar"
+          (click)="close()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">close</span>
+        </button>
+      </div>
+      <h1 class="product-wizard__title" id="product-wizard-title">
+        Publique um Produto, é grátis e sempre será
+      </h1>
+      <div class="product-wizard__progress" aria-label="Progresso">
+        <span>{{ currentStep() }} / {{ TOTAL_STEPS }}</span>
+      </div>
+    </header>
+
+    <nav class="product-wizard__steps" aria-label="Etapas">
+      @for (
+        step of [1, 2, 3, 4, 5, 6];
+        track step
+      ) {
+        <button
+          type="button"
+          class="product-wizard__step-dot"
+          [class.is-active]="currentStep() === step"
+          [class.is-done]="currentStep() > step"
+          [attr.aria-current]="currentStep() === step ? 'step' : null"
+          [attr.aria-label]="'Ir para etapa ' + step"
+          (click)="jumpToStep(step)"
+        >
+          {{ step }}
+        </button>
+      }
+    </nav>
+
+    @if (serverError()) {
+      <div class="product-wizard__error" role="alert">{{ serverError() }}</div>
+    }
+
+    <div class="product-wizard__content">
+      <!-- ETAPA 1 — Tipo -->
+      @if (currentStep() === 1) {
+        <section class="step" aria-labelledby="step-type-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-type-title">Que tipo de Produto?</h2>
+            <p class="step__hint">
+              Cada tipo define os campos do formulário do Saiba Mais e o pipeline de Triagem.
+            </p>
+          </header>
+
+          <ul class="type-grid" role="radiogroup" aria-label="Tipo de Produto">
+            @for (type of types; track type) {
+              <li>
+                <button
+                  type="button"
+                  role="radio"
+                  class="type-card"
+                  [class.is-selected]="selectedType() === type"
+                  [attr.aria-checked]="selectedType() === type"
+                  [style.--type-accent]="typeMeta[type].color"
+                  (click)="selectType(type)"
+                >
+                  <span class="material-symbols-rounded type-card__icon" aria-hidden="true">
+                    {{ typeMeta[type].icon }}
+                  </span>
+                  <span class="type-card__label">{{ typeMeta[type].label }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+
+      <!-- ETAPA 2 — Identificação -->
+      @if (currentStep() === 2) {
+        <section class="step" aria-labelledby="step-id-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-id-title">Identificação</h2>
+            <p class="step__hint">
+              Campos típicos para <strong>{{ typeLabel(selectedType()!) }}</strong>.
+            </p>
+          </header>
+
+          <form class="form-grid" [formGroup]="stepIdentificationForm" novalidate>
+            @for (field of identificationFields(); track field.key) {
+              <div class="form-field">
+                <label [for]="'id-' + field.key">
+                  {{ field.label }}
+                  @if (field.required) {
+                    <span class="form-field__required" aria-hidden="true">*</span>
+                  }
+                </label>
+                @switch (field.kind) {
+                  @case ('select') {
+                    <select [id]="'id-' + field.key" [formControlName]="field.key">
+                      <option value="">Selecione...</option>
+                      @for (opt of field.options; track opt.value) {
+                        <option [value]="opt.value">{{ opt.label }}</option>
+                      }
+                    </select>
+                  }
+                  @default {
+                    <input
+                      [id]="'id-' + field.key"
+                      type="text"
+                      [formControlName]="field.key"
+                      [placeholder]="field.placeholder || ''"
+                    />
+                  }
+                }
+                @if (hasError(stepIdentificationForm, field.key, 'required')) {
+                  <p class="form-field__error">Campo obrigatório.</p>
+                }
+              </div>
+            }
+          </form>
+        </section>
+      }
+
+      <!-- ETAPA 3 — Descrição -->
+      @if (currentStep() === 3) {
+        <section class="step" aria-labelledby="step-desc-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-desc-title">Descrição</h2>
+            <p class="step__hint">Preencha os blocos relevantes. Vazios serão omitidos.</p>
+          </header>
+
+          <form class="blocks" [formGroup]="stepDescriptionForm" novalidate>
+            @for (block of descriptionBlocks(); track block.key) {
+              <details class="block" [open]="block.required">
+                <summary class="block__summary">
+                  {{ block.title }}
+                  @if (block.required) {
+                    <span class="form-field__required" aria-hidden="true">*</span>
+                  }
+                </summary>
+                <textarea
+                  class="block__textarea"
+                  [formControlName]="block.key"
+                  [placeholder]="block.placeholder"
+                  rows="5"
+                ></textarea>
+                @if (hasError(stepDescriptionForm, block.key, 'required')) {
+                  <p class="form-field__error">Bloco obrigatório.</p>
+                }
+                @if (hasError(stepDescriptionForm, block.key, 'minlength')) {
+                  <p class="form-field__error">Pelo menos 10 caracteres.</p>
+                }
+              </details>
+            }
+          </form>
+        </section>
+      }
+
+      <!-- ETAPA 4 — Coleta de informações (Saiba Mais) -->
+      @if (currentStep() === 4) {
+        <section class="step" aria-labelledby="step-lm-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-lm-title">O que pedir no Saiba Mais</h2>
+            <p class="step__hint">
+              Esses campos formam o formulário dinâmico que abre quando o público clica em
+              <strong>{{ ctaLabel(selectedType()!) }}</strong>.
+            </p>
+          </header>
+
+          <ul class="chip-list" aria-label="Campos disponíveis">
+            @for (field of availableLearnMoreFields(); track field.id) {
+              <li>
+                <button
+                  type="button"
+                  class="chip"
+                  [class.is-selected]="isFieldSelected(field.id)"
+                  [attr.aria-pressed]="isFieldSelected(field.id)"
+                  (click)="toggleLearnMoreField(field)"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">
+                    {{ isFieldSelected(field.id) ? 'check' : 'add' }}
+                  </span>
+                  {{ field.label }}
+                </button>
+              </li>
+            }
+          </ul>
+
+          @if (learnMoreArray.length > 0) {
+            <div class="selected-fields">
+              <h3 class="selected-fields__title">Selecionados ({{ learnMoreArray.length }})</h3>
+              <ul class="selected-fields__list">
+                @for (group of learnMoreArray.controls; track group.controls.id.value) {
+                  <li>
+                    <span class="selected-fields__label">
+                      {{ catalogLabel(group.controls.id.value) }}
+                    </span>
+                    <label class="selected-fields__required">
+                      <input type="checkbox" [formControl]="group.controls.required" />
+                      <span>obrigatório</span>
+                    </label>
+                  </li>
+                }
+              </ul>
+            </div>
+          } @else {
+            <p class="form-field__error">Selecione ao menos um campo.</p>
+          }
+        </section>
+      }
+
+      <!-- ETAPA 5 — Perguntas de triagem -->
+      @if (currentStep() === 5) {
+        <section class="step" aria-labelledby="step-screen-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-screen-title">Perguntas de triagem (opcional)</h2>
+            <p class="step__hint">
+              Perguntas extras feitas no Saiba Mais. Cada pergunta pode ter uma resposta ideal
+              para o operador comparar visualmente.
+            </p>
+          </header>
+
+          <div class="screening" [formGroup]="stepScreeningForm">
+            <div class="screening__list" formArrayName="questions">
+              @for (group of screeningArray.controls; track $index; let i = $index) {
+                <details class="block" open [formGroupName]="i">
+                  <summary class="block__summary">
+                    Pergunta {{ i + 1 }}
+                    <button
+                      type="button"
+                      class="block__remove"
+                      (click)="removeScreeningQuestion(i)"
+                      [attr.aria-label]="'Remover pergunta ' + (i + 1)"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+                    </button>
+                  </summary>
+                  <div class="screening__form">
+                    <div class="form-field">
+                      <label [for]="'q-' + i">Pergunta</label>
+                      <input
+                        [id]="'q-' + i"
+                        type="text"
+                        formControlName="question"
+                        placeholder="Ex.: Quantos anos de experiência com Angular?"
+                      />
+                      @if (screeningHasError(i, 'question', 'required')) {
+                        <p class="form-field__error">Informe a pergunta.</p>
+                      }
+                    </div>
+                    <div class="form-field">
+                      <label [for]="'a-' + i">Resposta ideal</label>
+                      <input
+                        [id]="'a-' + i"
+                        type="text"
+                        formControlName="idealAnswer"
+                        placeholder="Ex.: 5"
+                      />
+                    </div>
+                    <label class="screening__required">
+                      <input type="checkbox" formControlName="required" />
+                      <span>Qualificar como obrigatório</span>
+                    </label>
+                  </div>
+                </details>
+              }
+            </div>
+
+            <button
+              type="button"
+              class="screening__add"
+              (click)="addScreeningQuestion()"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">add</span>
+              Adicionar pergunta
+            </button>
+          </div>
+        </section>
+      }
+
+      <!-- ETAPA 6 — Revisão -->
+      @if (currentStep() === 6) {
+        <section class="step" aria-labelledby="step-review-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-review-title">Revisar e publicar</h2>
+            <p class="step__hint">
+              Após publicar, o Produto entra na fase <strong>Backlog</strong>. Você pode movê-lo
+              para <strong>Em campanha</strong> quando quiser torná-lo público.
+            </p>
+          </header>
+
+          <div class="review">
+            <div class="review__group">
+              <h3>Tipo</h3>
+              <p>{{ typeLabel(selectedType()!) }}</p>
+            </div>
+
+            <div class="review__group">
+              <h3>Identificação</h3>
+              <dl class="review__dl">
+                @for (item of identificationSummary(); track item.label) {
+                  <dt>{{ item.label }}</dt>
+                  <dd>{{ item.value }}</dd>
+                }
+              </dl>
+            </div>
+
+            <div class="review__group">
+              <h3>Descrição</h3>
+              @if (descriptionSummary().length === 0) {
+                <p class="review__empty">Nenhum bloco preenchido.</p>
+              } @else {
+                @for (block of descriptionSummary(); track block.title) {
+                  <h4 class="review__block-title">{{ block.title }}</h4>
+                  <p class="review__block-body">{{ block.body }}</p>
+                }
+              }
+            </div>
+
+            <div class="review__group">
+              <h3>Saiba Mais</h3>
+              <p class="review__cta">
+                Botão exibido ao público: <strong>{{ ctaLabel(selectedType()!) }}</strong>
+              </p>
+              <ul class="review__chips">
+                @for (group of learnMoreArray.controls; track group.controls.id.value) {
+                  <li>
+                    {{ catalogLabel(group.controls.id.value) }}
+                    @if (group.controls.required.value) {
+                      <span class="review__required-tag">obrigatório</span>
+                    }
+                  </li>
+                }
+              </ul>
+            </div>
+
+            <div class="review__group">
+              <h3>Perguntas de triagem</h3>
+              @if (screeningSummary().length === 0) {
+                <p class="review__empty">Nenhuma pergunta configurada.</p>
+              } @else {
+                <ol class="review__questions">
+                  @for (q of screeningSummary(); track $index) {
+                    <li>
+                      <strong>{{ q.question }}</strong>
+                      @if (q.idealAnswer) {
+                        <span> · resposta ideal: {{ q.idealAnswer }}</span>
+                      }
+                      @if (q.required) {
+                        <span class="review__required-tag">obrigatória</span>
+                      }
+                    </li>
+                  }
+                </ol>
+              }
+            </div>
+          </div>
+        </section>
+      }
+    </div>
+
+    <footer class="product-wizard__footer">
+      @if (currentStep() > 1) {
+        <button type="button" class="product-wizard__btn product-wizard__btn--ghost" (click)="goBack()">
+          Voltar
+        </button>
+      }
+      <button
+        type="button"
+        class="product-wizard__btn product-wizard__btn--primary"
+        [disabled]="!isCurrentStepValid() || isSubmitting()"
+        (click)="goNext()"
+      >
+        @if (isSubmitting()) {
+          Publicando...
+        } @else if (currentStep() === TOTAL_STEPS) {
+          Publicar gratuitamente
+        } @else {
+          Próximo
+        }
+      </button>
+    </footer>
+  }
+</section>

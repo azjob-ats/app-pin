@@ -1,0 +1,208 @@
+<section class="product-detail" aria-labelledby="product-detail-title">
+  <header class="product-detail__header">
+    <a class="product-detail__back" [routerLink]="backToProductsLink()" aria-label="Voltar para Produtos">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+      <span>Voltar</span>
+    </a>
+  </header>
+
+  @if (isLoading()) {
+    <p class="product-detail__loading" role="status">Carregando produto…</p>
+  } @else if (error() && !product()) {
+    <div class="product-detail__error" role="alert">{{ error() }}</div>
+  } @else if (product(); as p) {
+    <div class="product-detail__grid">
+      <!-- Coluna esquerda: 70% -->
+      <article class="product-detail__main">
+        <header class="product-detail__main-header">
+          <div class="product-detail__title-row">
+            @if (typeMeta(); as tm) {
+              <span class="product-detail__type-badge" [style.--type-accent]="tm.color">
+                <span class="material-symbols-rounded" aria-hidden="true">{{ tm.icon }}</span>
+                {{ tm.label }}
+              </span>
+            }
+            @if (phaseMeta(); as pm) {
+              <span class="product-detail__phase-badge" [style.--phase-accent]="pm.color">
+                {{ pm.label }}
+              </span>
+            }
+          </div>
+
+          <h1 class="product-detail__title" id="product-detail-title">{{ p.title }}</h1>
+          @if (p.subtitle) {
+            <p class="product-detail__subtitle">{{ p.subtitle }}</p>
+          }
+
+          @if (p.badges.length > 0) {
+            <ul class="product-detail__badges" aria-label="características">
+              @for (badge of p.badges; track badge) {
+                <li>{{ badge }}</li>
+              }
+            </ul>
+          }
+
+          <div class="product-detail__meta">
+            @if (p.location) {
+              <span class="product-detail__meta-item">
+                <span class="material-symbols-rounded" aria-hidden="true">place</span>
+                {{ p.location }}
+              </span>
+            }
+            @if (p.publishedAt) {
+              <span class="product-detail__meta-item">
+                <span class="material-symbols-rounded" aria-hidden="true">schedule</span>
+                Publicado em {{ p.publishedAt | date: 'dd/MM/yyyy' }}
+              </span>
+            }
+            <span class="product-detail__meta-item">
+              <span class="material-symbols-rounded" aria-hidden="true">visibility</span>
+              {{ p.metrics.views }} visualizações
+            </span>
+            <span class="product-detail__meta-item">
+              <span class="material-symbols-rounded" aria-hidden="true">inbox</span>
+              {{ p.metrics.submissions }} submissões
+            </span>
+          </div>
+        </header>
+
+        <section class="product-detail__section" aria-labelledby="desc-title">
+          <h2 id="desc-title" class="product-detail__section-title">Descrição</h2>
+          @if (p.description.length === 0) {
+            <p class="product-detail__empty">Sem descrição cadastrada.</p>
+          } @else {
+            <div class="product-detail__blocks">
+              @for (block of p.description; track trackByBlock($index, block)) {
+                <details class="product-detail__block" open>
+                  <summary>{{ block.title }}</summary>
+                  <p>{{ block.body }}</p>
+                </details>
+              }
+            </div>
+          }
+        </section>
+
+        <section class="product-detail__section" aria-labelledby="lm-title">
+          <h2 id="lm-title" class="product-detail__section-title">
+            Informações solicitadas no Saiba Mais
+          </h2>
+          @if (learnMoreFields().length === 0) {
+            <p class="product-detail__empty">Nenhum campo configurado.</p>
+          } @else {
+            <ul class="product-detail__field-list">
+              @for (field of learnMoreFields(); track trackByField($index, field)) {
+                <li>
+                  <span class="product-detail__field-label">{{ field.label }}</span>
+                  <span
+                    class="product-detail__field-tag"
+                    [class.is-required]="field.required"
+                  >
+                    {{ requiredLabel(field.required) }}
+                  </span>
+                </li>
+              }
+            </ul>
+            <p class="product-detail__cta-hint">
+              Botão exibido ao público:
+              <strong>{{ p.learnMoreConfig.submitButtonLabel }}</strong>
+            </p>
+          }
+        </section>
+
+        <section class="product-detail__section" aria-labelledby="screen-title">
+          <h2 id="screen-title" class="product-detail__section-title">Perguntas de triagem</h2>
+          @if (p.screeningQuestions.length === 0) {
+            <p class="product-detail__empty">Nenhuma pergunta configurada.</p>
+          } @else {
+            <ol class="product-detail__questions">
+              @for (q of p.screeningQuestions; track trackByQuestion($index, q)) {
+                <li>
+                  <p class="product-detail__question-text">{{ q.question }}</p>
+                  <div class="product-detail__question-meta">
+                    @if (q.idealAnswer) {
+                      <span>Resposta ideal: <strong>{{ q.idealAnswer }}</strong></span>
+                    }
+                    @if (q.required) {
+                      <span class="product-detail__required-tag">obrigatória</span>
+                    }
+                  </div>
+                </li>
+              }
+            </ol>
+          }
+        </section>
+      </article>
+
+      <!-- Coluna direita: 30% -->
+      <aside class="product-detail__sidebar" aria-label="Controle do produto">
+        @if (error()) {
+          <div class="product-detail__sidebar-error" role="alert">{{ error() }}</div>
+        }
+
+        <div class="product-detail__sidebar-group">
+          <h3 class="product-detail__sidebar-title">Mover</h3>
+          @if (canActivate()) {
+            <button
+              type="button"
+              class="product-detail__btn product-detail__btn--primary"
+              [disabled]="isMoving()"
+              (click)="activate()"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">campaign</span>
+              Colocar em campanha
+            </button>
+          }
+          @if (canPause()) {
+            <button
+              type="button"
+              class="product-detail__btn product-detail__btn--ghost"
+              [disabled]="isMoving()"
+              (click)="pause()"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">pause</span>
+              Pausar
+            </button>
+          }
+          @if (canClose()) {
+            <button
+              type="button"
+              class="product-detail__btn product-detail__btn--danger"
+              [disabled]="isMoving()"
+              (click)="close()"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">block</span>
+              Encerrar
+            </button>
+          }
+        </div>
+
+        <div class="product-detail__sidebar-group">
+          <h3 class="product-detail__sidebar-title">Saiba Mais</h3>
+          <button
+            type="button"
+            class="product-detail__btn product-detail__btn--primary"
+            (click)="previewLearnMore()"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">touch_app</span>
+            Pré-visualizar formulário
+          </button>
+          <p class="product-detail__sidebar-hint">
+            Abre o drawer como se você fosse o público. Submissões de teste vão para a Triagem.
+          </p>
+        </div>
+
+        <div class="product-detail__sidebar-group">
+          <h3 class="product-detail__sidebar-title">Controle</h3>
+          <a class="product-detail__btn product-detail__btn--ghost" [routerLink]="editLink()">
+            <span class="material-symbols-rounded" aria-hidden="true">edit</span>
+            Editar produto
+          </a>
+          <a class="product-detail__btn product-detail__btn--ghost" [routerLink]="manageTriageLink()">
+            <span class="material-symbols-rounded" aria-hidden="true">view_kanban</span>
+            Gerenciar triagem
+          </a>
+        </div>
+      </aside>
+    </div>
+  }
+</section>

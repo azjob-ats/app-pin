@@ -1,0 +1,179 @@
+<section class="panel-metrics" aria-labelledby="panel-metrics-title">
+  <header class="panel-metrics__header">
+    <h2 class="panel-metrics__title" id="panel-metrics-title">Métricas</h2>
+    <p class="panel-metrics__subtitle">
+      Funil consolidado do canal: do produto publicado às submissões recebidas, por tipo. Identifique
+      Produtos elegíveis para Campanha Patrocinada Qualificada.
+    </p>
+  </header>
+
+  @if (error()) {
+    <div class="panel-metrics__error" role="alert">{{ error() }}</div>
+  }
+
+  @if (isLoading() && performanceByProduct().length === 0) {
+    <p class="panel-metrics__loading" role="status">Carregando métricas…</p>
+  } @else {
+    <!-- KPIs do funil consolidado -->
+    <div class="panel-metrics__kpis" aria-label="KPIs do funil consolidado">
+      <article class="panel-metrics__kpi">
+        <span class="panel-metrics__kpi-label">Produtos publicados</span>
+        <span class="panel-metrics__kpi-value">{{ funnel().totalProducts }}</span>
+        <span class="panel-metrics__kpi-hint">
+          {{ funnel().activeProducts }} em campanha
+        </span>
+      </article>
+      <article class="panel-metrics__kpi">
+        <span class="panel-metrics__kpi-label">Visualizações</span>
+        <span class="panel-metrics__kpi-value">{{ funnel().totalViews | number }}</span>
+        <span class="panel-metrics__kpi-hint">somatório de todos os Produtos</span>
+      </article>
+      <article class="panel-metrics__kpi">
+        <span class="panel-metrics__kpi-label">Submissões</span>
+        <span class="panel-metrics__kpi-value">{{ funnel().totalSubmissions | number }}</span>
+        <span class="panel-metrics__kpi-hint">via Saiba Mais</span>
+      </article>
+      <article class="panel-metrics__kpi panel-metrics__kpi--accent">
+        <span class="panel-metrics__kpi-label">Taxa de conversão</span>
+        <span class="panel-metrics__kpi-value">
+          {{ funnel().overallConversionRate | percent: '1.2-2' }}
+        </span>
+        <span class="panel-metrics__kpi-hint">submissões / visualizações</span>
+      </article>
+    </div>
+
+    <!-- Comparativo por tipo -->
+    <section class="panel-metrics__section" aria-labelledby="by-type-title">
+      <h3 id="by-type-title" class="panel-metrics__section-title">Comparativo por tipo</h3>
+      @if (performanceByType().length === 0) {
+        <p class="panel-metrics__empty">Sem Produtos publicados ainda.</p>
+      } @else {
+        <table class="panel-metrics__table">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th class="num">Produtos</th>
+              <th class="num">Em campanha</th>
+              <th class="num">Views</th>
+              <th class="num">Submissões</th>
+              <th class="num">Conversão</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of performanceByType(); track trackByType($index, row)) {
+              <tr>
+                <td>
+                  <span
+                    class="panel-metrics__type-badge"
+                    [style.--type-accent]="typeMeta[row.type].color"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">
+                      {{ typeMeta[row.type].icon }}
+                    </span>
+                    {{ typeLabel(row.type) }}
+                  </span>
+                </td>
+                <td class="num">{{ row.products }}</td>
+                <td class="num">{{ row.activeProducts }}</td>
+                <td class="num">{{ row.views | number }}</td>
+                <td class="num">{{ row.submissions | number }}</td>
+                <td class="num">
+                  <strong>{{ row.conversionRate | percent: '1.2-2' }}</strong>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </section>
+
+    <!-- Performance por Produto -->
+    <section class="panel-metrics__section" aria-labelledby="by-product-title">
+      <h3 id="by-product-title" class="panel-metrics__section-title">
+        Performance por Produto
+      </h3>
+      @if (performanceByProduct().length === 0) {
+        <p class="panel-metrics__empty">Nenhum Produto publicado.</p>
+      } @else {
+        <table class="panel-metrics__table">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Tipo</th>
+              <th>Fase</th>
+              <th class="num">Views</th>
+              <th class="num">Submissões</th>
+              <th class="num">Conversão</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of performanceByProduct(); track trackByProductId($index, row)) {
+              <tr>
+                <td class="panel-metrics__product-cell">{{ row.product.title }}</td>
+                <td>
+                  <span
+                    class="panel-metrics__type-badge panel-metrics__type-badge--compact"
+                    [style.--type-accent]="typeMeta[row.product.type].color"
+                  >
+                    {{ typeLabel(row.product.type) }}
+                  </span>
+                </td>
+                <td>
+                  <span class="panel-metrics__phase">{{ row.product.phase }}</span>
+                </td>
+                <td class="num">{{ row.product.metrics.views | number }}</td>
+                <td class="num">{{ row.submissions | number }}</td>
+                <td class="num">{{ row.conversionRate | percent: '1.2-2' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </section>
+
+    <!-- Elegíveis para Patrocinada Qualificada -->
+    <section class="panel-metrics__section" aria-labelledby="eligible-title">
+      <h3 id="eligible-title" class="panel-metrics__section-title">
+        Elegíveis para Campanha Patrocinada
+      </h3>
+      <p class="panel-metrics__section-hint">
+        Produtos em campanha que atendem critérios mínimos de visualizações e conversão.
+        Patrocinar acelera resultados de quem já performa organicamente.
+      </p>
+
+      @if (eligibleForSponsored().length === 0) {
+        <p class="panel-metrics__empty">
+          Nenhum Produto elegível ainda. Continue publicando e operando para destravar.
+        </p>
+      } @else {
+        <ul class="panel-metrics__eligible">
+          @for (row of eligibleForSponsored(); track trackByProductId($index, row)) {
+            <li class="panel-metrics__eligible-item">
+              <div class="panel-metrics__eligible-info">
+                <span
+                  class="panel-metrics__type-badge panel-metrics__type-badge--compact"
+                  [style.--type-accent]="typeMeta[row.product.type].color"
+                >
+                  {{ typeLabel(row.product.type) }}
+                </span>
+                <strong class="panel-metrics__eligible-title">{{ row.product.title }}</strong>
+                <span class="panel-metrics__eligible-meta">
+                  {{ row.product.metrics.views | number }} views ·
+                  {{ row.submissions | number }} submissões ·
+                  {{ row.conversionRate | percent: '1.2-2' }}
+                </span>
+              </div>
+              <a
+                class="panel-metrics__sponsor-cta"
+                [routerLink]="sponsorLink(row.product.id)"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">campaign</span>
+                Patrocinar
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</section>

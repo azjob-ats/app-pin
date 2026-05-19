@@ -1,0 +1,332 @@
+.org-public {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 0 0 48px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.org-public__loading,
+.org-public__not-found {
+  margin: 48px auto;
+  text-align: center;
+  color: var(--color-text-secondary, #475569);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  span.material-symbols-rounded {
+    font-size: 48px;
+    color: var(--color-text-muted, #94a3b8);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--color-text-primary, #0f172a);
+  }
+}
+
+// ---------- Hero ----------
+
+.org-public__hero {
+  position: relative;
+  min-height: 200px;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--color-surface-muted, #f1f5f9);
+  display: flex;
+  align-items: flex-end;
+  padding: 24px clamp(16px, 4vw, 48px);
+  overflow: hidden;
+}
+
+.org-public__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 42, 0.72),
+    rgba(15, 23, 42, 0.3) 60%,
+    transparent
+  );
+}
+
+.org-public__hero-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+  width: 100%;
+}
+
+.org-public__logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #ffffff;
+  border: 3px solid #ffffff;
+  flex-shrink: 0;
+}
+
+.org-public__hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #ffffff;
+  flex: 1;
+}
+
+.org-public__eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.org-public__name {
+  margin: 0;
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+}
+
+.org-public__about {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.92;
+  max-width: 720px;
+  line-height: 1.5;
+}
+
+// ---------- Stats ----------
+
+.org-public__stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  padding-bottom: 16px;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary, #0f172a);
+    }
+
+    span {
+      font-size: 12px;
+      color: var(--color-text-muted, #64748b);
+    }
+  }
+}
+
+.org-public__website {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-accent, #2563eb);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+    outline: none;
+  }
+
+  span.material-symbols-rounded {
+    font-size: 16px;
+  }
+}
+
+// ---------- Paused ----------
+
+.org-public__paused {
+  display: flex;
+  gap: 16px;
+  padding: 24px;
+  margin: 0 clamp(16px, 4vw, 48px);
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+
+  span.material-symbols-rounded {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+// ---------- Empty ----------
+
+.org-public__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 64px 24px;
+  color: var(--color-text-muted, #94a3b8);
+  text-align: center;
+
+  span.material-symbols-rounded {
+    font-size: 48px;
+  }
+}
+
+// ---------- Sections per type ----------
+
+.org-public__section {
+  --section-accent: #64748b;
+  padding: 0 clamp(16px, 4vw, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.org-public__section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span.material-symbols-rounded {
+    font-size: 22px;
+    color: var(--section-accent);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text-primary, #0f172a);
+  }
+}
+
+.org-public__section-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--section-accent) 14%, transparent);
+  color: var(--section-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.org-public__products {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.org-public__product {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-left: 3px solid var(--section-accent);
+  border-radius: 12px;
+  padding: 16px;
+  gap: 12px;
+}
+
+.org-public__product-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.org-public__product-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary, #0f172a);
+  line-height: 1.3;
+}
+
+.org-public__product-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary, #475569);
+}
+
+.org-public__product-badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  li {
+    padding: 2px 8px;
+    background: var(--color-surface-muted, #f1f5f9);
+    color: var(--color-text-secondary, #475569);
+    border-radius: 4px;
+    font-size: 11px;
+  }
+}
+
+.org-public__product-location {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-muted, #94a3b8);
+  font-size: 12px;
+
+  span.material-symbols-rounded {
+    font-size: 14px;
+  }
+}
+
+.org-public__cta {
+  background: var(--section-accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: stretch;
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(0.92);
+    outline: none;
+  }
+}

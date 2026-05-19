@@ -1,1024 +1,1001 @@
-MINHA EMPRESA
-A jornada do recrutador na realwe foi pensada para ser simples, eficiente e altamente visual, desde o primeiro acesso. O ponto de partida é a criação ou associação a uma organização, garantindo que todas as vagas e candidaturas estejam vinculadas corretamente a uma empresa real.
+# MINHA EMPRESA — Canal Corporativo Multi-Produto
 
-JORNADA DO RECRUTADOR
+A área **Minha Empresa** é o backstage do canal da empresa na RealWe. Ela deixa de ser exclusiva do recrutador e passa a ser o ambiente operacional de qualquer time que publica algo no canal: RH (vagas), Comercial (produtos e serviços), Educação (treinamentos e conteúdo), Comunicação (notícias) e Operações (experiências e eventos).
 
-Publicação de vagas
-Gerenciamento de candidaturas recebidas
-Visualização de perfis
-Criação de formulários personalizados (questionários)
-Acompanhamento de status e etapas do processo seletivo
-Mensagens para candidatos
-Permissões para equipes e RH
+O modelo é simples e se repete em todos os verticais:
 
-Assim que um recrutador acessa a plataforma pela primeira vez, ele é orientado a criar ou se associar a uma organização (empresa).
-Se o domínio do e-mail for corporativo (ex: @nubank.com.br), a plataforma valida automaticamente e associa o usuário à empresa.
-Se o e-mail for de domínio público (ex: Gmail), será solicitado o envio de uma solicitação de associação, que poderá ser aprovada por um administrador da organização.
-Apenas após a associação à organização, o recrutador tem acesso ao painel de gerenciamento de vagas.
+> **A empresa publica Produtos. Cada Produto carrega um botão "Saiba Mais". O Saiba Mais abre um drawer com um formulário dinâmico. Cada submissão entra em um Kanban de Triagem do Produto.**
 
-Painel da Organização
-Ao entrar em uma organização, o recrutador tem acesso a um painel centralizado, que inclui:
-Lista de vagas publicadas
-Painel Kanban de candidaturas por vaga
-Equipe de recrutadores vinculados à empresa
-Configurações da organização (logo, descrição pública, redes sociais, etc.)
+Esse loop é o que conecta descoberta (vídeo curto), profundidade (vídeo longo), conversão (Saiba Mais) e operação (Triagem) — o funil descrito em [doc/Regra de negocio RealWe.md](../../doc/Regra%20de%20negocio%20RealWe.md).
 
-Publicação de Vagas
-O recrutador pode criar uma vaga através de um formulário simples e flexível, contendo:
-Título da vaga
-Localização e modalidade (remoto, híbrido, presencial)
-Tipo de contrato (CLT, PJ, estágio etc.)
-Descrição das responsabilidades
-Requisitos obrigatórios e diferenciais
-Benefícios oferecidos
-Faixa salarial (opcional)
-Questionário personalizado (opcional)
+---
 
-Toda vaga publicada será exibida publicamente com URL baseada na empresa:
-Exemplo: nubank.realwe/vaga/senior-angular-developer
+## 1. Conceito: Produto como objeto-mãe
 
+**Produto** é o objeto canônico publicado por um canal. Vaga, Serviço, Treinamento, Notícia e Experiência são *tipos* de Produto. Todos compartilham:
 
+- Mesmo ciclo de vida (Backlog → Em campanha → Pausada → Encerrada)
+- Mesmo motor de publicação (Kanban de Gerenciamento de Produtos)
+- Mesmo motor de conversão (botão Saiba Mais → drawer com formulário dinâmico — ver [spec/learn-more/DYNAMIC_ENGINE.md](../learn-more/DYNAMIC_ENGINE.md))
+- Mesmo destino operacional (Kanban de Triagem segmentado por tipo)
+- Mesma elegibilidade para Campanha Patrocinada Qualificada (ver [spec/sponsored-campaigns/doc.md](../sponsored-campaigns/doc.md))
 
-Gerenciamento de Candidaturas (Kanban)
-Cada vaga publicada possui um quadro Kanban exclusivo para organização das candidaturas. O recrutador pode visualizar, mover e interagir com os candidatos conforme o andamento do processo seletivo.
+O que muda entre tipos de Produto é apenas:
 
-Exemplo de colunas no Kanban:
-Recebidas
-Visualizadas
-Pré-selecionadas
-Entrevista agendada
-Finalistas
-Contratados
-Descartados
+1. O **preset de campos** do formulário de criação (o que o time precisa preencher).
+2. O **preset do formulário de Saiba Mais** (o que o público precisa responder).
+3. O **pipeline default da Triagem** (as fases pelas quais a submissão caminha).
 
+---
 
-Cada card de candidato exibe:
-Nome e imagem
-E-mail e LinkedIn
-Currículo enviado
-Respostas ao questionário
-Data da candidatura
+## 2. Catálogo de Tipos de Produto
 
+| Tipo | Time dono | Objetivo do Saiba Mais | Pipeline default da Triagem |
+|---|---|---|---|
+| **Vaga** | RH / Recrutamento | Candidatura | Recebidas → Adequada → Entrevista → Documentos → Aprovado → Rejeitado |
+| **Produto / Serviço** | Comercial | Lead qualificado | Recebido → Qualificado → Reunião → Proposta → Fechado → Perdido |
+| **Treinamento / Conteúdo** | Educação | Inscrição em curso, webinar, workshop | Inscrito → Confirmado → Presente → Concluído → Certificado |
+| **Notícia / Comunicado** | Comunicação | Opt-in editorial, lista de distribuição | Recebido → Segmentado → Engajado → Assinante |
+| **Experiência / Evento** | Operações | Agendamento de visita, demo, encontro | Solicitado → Agendado → Confirmado → Realizado |
 
-O recrutador pode:
-Arrastar o card entre as etapas
-Adicionar observações internas
-Enviar mensagens ao candidato
-Marcar etapas concluídas
+Pipelines são **default editáveis** — cada empresa ajusta fases, cores e ordem.
 
-Encerramento ou Reabertura da Vaga
-Ao final do processo, o recrutador pode:
-Encerrar a vaga, arquivando suas candidaturas
-Marcar um candidato como contratado
-Reabrir o processo seletivo, se necessário
+---
 
+## 3. Jornada do Administrador do Canal
 
-ORGANIZAÇÃO
+A jornada foi pensada para ser simples, eficiente e visual desde o primeiro acesso. O ponto de partida é criar ou se associar a uma Organização, garantindo que todos os Produtos e Triagens estejam vinculados à empresa real.
 
-A tela de Ver e Criar Organizações é o ponto de partida para o recrutador. É aqui que ele poderá criar uma nova organização ou acessar uma organização existente à qual já esteja vinculado. Essa etapa é essencial para iniciar a gestão de vagas, candidaturas e equipe.
+Capacidades disponíveis após associação:
+
+- Publicação de Produtos (qualquer dos 5 tipos)
+- Gerenciamento das Triagens recebidas por Produto
+- Visualização de perfis e submissões
+- Criação de formulários dinâmicos personalizados (Saiba Mais)
+- Acompanhamento de status e fases do funil
+- Mensagens para o público que submeteu
+- Permissões granulares por time (RH, Comercial, Educação, Comunicação, Operações)
+- Página pública do canal com todos os Produtos ativos
+- Métricas de funil (retenção de vídeo, CTR Saiba Mais, conversão por Produto)
+
+### Associação à Organização
+
+Ao acessar a plataforma pela primeira vez, o usuário é orientado a criar ou se associar a uma Organização (empresa).
+
+- Se o domínio do e-mail for corporativo (ex.: `@nubank.com.br`), a plataforma valida automaticamente e associa o usuário.
+- Se o domínio for público (ex.: Gmail), o usuário envia uma solicitação de associação, aprovada por um administrador.
+- Apenas após a associação, o usuário acessa o Painel da Organização.
+
+---
+
+## 4. Organização — Ver e Criar Organizações
+
+Ponto de entrada do backstage corporativo.
+
+```
 Menu → Minha Empresa → Ver e Criar Organizações
+```
 
-Layout da Tela
-1. Bloco "Nova Organização" (quando o usuário ainda não possui organizações)
-Centralizado na tela, exibir um quadro com borda pontilhada (140px de altura).
-Dentro do quadro:
+### Layout da tela
 
+**1. Bloco "Nova Organização"** (sempre visível)
 
-Ícone de “+” (adicionar)
+Quadro centralizado com borda pontilhada (140px de altura), contendo:
 
+- Ícone de "+"
+- Texto: "Nova organização"
+- Ação ao clicar: redireciona para a tela de criação.
 
-Abaixo do ícone, o texto:
- “Nova organização”
+**2. Bloco "Organizações já existentes"**
 
+Se o usuário já está vinculado a uma ou mais organizações, elas são exibidas à direita do bloco "Nova organização", em cards horizontais.
 
-Ação ao clicar:
- Redireciona o usuário para a tela de criação de uma nova organização.
+Cada card contém:
 
-2. Bloco “Organizações já existentes” (caso o usuário pertença a alguma)
-Se o recrutador já estiver vinculado a uma ou mais organizações, elas serão exibidas ao lado direito do quadro "Nova organização", em forma de cards horizontais.
-Cada card de organização deve conter:
-Um retângulo com borda simples (sem preenchimento).
-Topo esquerdo: Logo da empresa.
-Topo direito: Ícone de estrela (para marcar como favorita).
-Centro (alinhado):
+- Retângulo com borda simples (sem preenchimento)
+- Topo esquerdo: logo da empresa
+- Topo direito: ícone de estrela (favoritar)
+- Centro: nome da organização
+- Ao lado do nome: ícone de 3 pontos verticais (mais opções) com Dropdown:
+  - Deixar de ser membro
+  - Excluir organização (se admin)
+  - Ver membros
 
+Ação ao clicar no card: redireciona para o **Painel da Organização** (com a tab **Gerenciar Produtos** aberta por padrão).
 
-Nome da organização
+---
 
+## 5. Nova Organização
 
-Ao lado direito do nome, um ícone de 3 pontos verticais (mais opções).
+A tela **Criar Organização e Página da Empresa** permite cadastrar oficialmente a empresa, criando tanto a estrutura interna (gestão de Produtos e Triagens) quanto a página pública do canal (`empresa.realwe`).
 
+Essa etapa é a base para:
 
-Ao clicar, abre um Dropdown com as ações:
+- Centralizar a gestão de Produtos em um único Painel
+- Associar membros a uma organização validada
+- Garantir autenticidade via verificação do e-mail corporativo
+- Criar um subdomínio exclusivo (ex.: `nubank.realwe`)
+- Expor marca e cultura na página pública
 
+### Layout
 
-Deixar de ser membro
+**Header**
 
+- Esquerda: botão com seta ← (voltar para Ver e Criar Organizações)
+- Centro: título "Nova Organização"
 
-Excluir organização (se tiver permissão de admin)
+**Body (formulário)**
 
+- **Empresa** (texto)
+- **E-mail Corporativo** (texto, com verificação automática via link)
+  - Deve ser o mesmo do usuário logado
+  - Após clicar no link recebido, o campo é validado
+- **Domínio realwe** (texto, gerado a partir do nome — ex.: `nubank.realwe`)
+  - Erro inline se já existir
+- **Site da Empresa** (texto — ex.: `https://nubank.com.br`)
+- **Redes Sociais** (URL, múltiplas entradas; Enter transforma em badge removível)
+- **Banner da Página da Empresa** (upload)
+- **Logo da Página da Empresa** (upload)
+- **Sobre a Empresa** (textarea)
 
-Ver membros (lista de recrutadores)
+**Footer**
 
+- Checkbox: "Declaro que sou representante oficial desta organização"
+- Botão: **Criar página e organização**
 
-Ação ao clicar no card:
-O usuário é redirecionado para o Painel Kanban de Vagas da organização selecionada.
+### Regras de validação
 
+- Tudo válido → redireciona para Ver e Criar Organizações
+- Erros → mensagem no topo "Verifique os campos abaixo"; campos inválidos com borda vermelha e texto explicativo
 
-NOVA ORGANIZAÇÃO
+---
 
-A tela "Criar Organização e Página da Empresa" tem como objetivo permitir que recrutadores cadastrem oficialmente a empresa na plataforma, criando tanto a estrutura interna de organização (utilizada para gestão de vagas e candidaturas) quanto a página pública da empresa (visível para os candidatos).
+## 6. Painel da Organização
 
-Essa etapa é essencial para iniciar a jornada do recrutador dentro da realwe, pois a partir dela é possível:
-Centralizar a gestão das vagas em um único painel (Kanban)
+Ambiente central de operação do canal. Substitui o antigo "Painel Kanban de Vagas" — agora suporta qualquer tipo de Produto e centraliza Triagens.
 
+### Tabs de Gestão
 
-Associar recrutadores a uma organização validada
+```
+[ Gerenciar Produtos ] [ Triagens ] [ Página da Empresa ] [ Pessoas & Permissões ] [ Métricas ]
+```
 
+| Tab | Função |
+|---|---|
+| **Gerenciar Produtos** | Kanban de publicação (Backlog → Em campanha → Pausada → Encerrada). Sub-tabs por tipo de Produto |
+| **Triagens** | Kanban de submissões recebidas via Saiba Mais. Filtros por tipo, Produto, responsável, período |
+| **Página da Empresa** | Configuração da página pública (`empresa.realwe`) |
+| **Pessoas & Permissões** | Membros, Funções, Grupos. Ganha papéis novos: Comercial, Educação, Comunicação, Operações |
+| **Métricas** | Funil consolidado: retenção de vídeo, CTR Saiba Mais, taxa de conversão por Produto, comparativo por tipo |
 
-Garantir segurança e autenticidade por meio da verificação do e-mail corporativo
+---
 
+## 7. Tab: Gerenciar Produtos
 
-Criar um subdomínio exclusivo da empresa (ex: nubank.realwe)
+Tela onde os times publicam, pausam e encerram Produtos. O Kanban de publicação é o **mesmo para todos os tipos** — apenas os cards mudam.
 
+### Sub-tabs por tipo
 
-Expor a marca e cultura organizacional para os candidatos na página pública
+```
+[ Vagas ] [ Produtos ] [ Treinamentos ] [ Notícias ] [ Experiências ] [ + Todos ]
+```
 
+A sub-tab **Todos** mostra todos os Produtos numa única visão (com badge de tipo em cada card).
 
-Em resumo, esta tela estabelece a base para todas as ações de recrutamento, comunicação e gestão de talentos dentro da plataforma.
+### Fases padrão (idênticas para todos os tipos)
 
-Após criada, a página da empresa poderá ser acessada por um subdomínio:
-Menu → Minha Empresa →  nubank.realwe
+1. **Backlog** — onde Produtos novos são criados e aguardam publicação.
+2. **Em campanha** — Produtos visíveis no motor de busca, na timeline e na página pública.
+3. **Pausada** — Produtos ocultos temporariamente (não excluídos).
+4. **Encerrada** — Produtos finalizados, removidos da exibição pública.
 
-Para acessar a organização e o painel de gestão:
-Menu → Minha Empresa → Ver e Criar Organizações
-Clique no bloco da organização (ex: "Nubank") para ser redirecionado ao Painel Kanban de Vagas da empresa.
+O administrador pode adicionar/remover fases personalizadas além das padrão.
 
-Esta tela também alimenta automaticamente todas as informações da página pública da empresa.
-[Clique aqui para saber mais sobre a tela Página da Empresa]
+### Adicionar nova fase
 
+Botão **"+ Nova fase"** ao final da última coluna. Permite definir nome e cor.
 
-Layout da Tela
+### Layout das fases
 
-Header (topo)
-Lado esquerdo: Botão com ícone de seta ← (ação: voltar para a tela de Ver e Criar Organizações)
-Centro: Título da tela: "Nova Organização"
+- Largura: 278px
+- Altura: 100%
+- Header da coluna: 280x40px
+- Espaçamento entre header e coluna: 8px
+- Header exibe: nome da fase + badge com a contagem de Produtos
 
-Body (formulário)
-Empresa(Campo de texto)
+### Comportamento por fase
 
+**Backlog** — header tem botão "+" (abre modal **Criar Produto**). Ao mover para Em campanha, o Produto fica visível publicamente.
 
-E-mail Corporativo(Campo de texto)
-Campo de e-mail com verificação automática via link
-Exemplo: admin@nubank.com.br
-Após clicar no link do e-mail, o campo é validado automaticamente.
-O  e-mail deve ser o mesmo que está logado
+**Em campanha** — Produto ativo, recebendo submissões via Saiba Mais. Aparece em: motor de busca, timeline, página pública (`empresa.realwe`). Cada card mostra contagem de submissões recebidas. Arrastável para Pausada/Encerrada.
 
+**Pausada** — Produto removido temporariamente da exibição pública. Não é encerrado nem excluído. Pode ser reaberto (volta para Em campanha) ou encerrado.
 
-Domínio realwe(Campo de texto)
-Exemplo: nubank.realwe
-Campo de texto gerado automaticamente a partir do nome da empresa
-Se o domínio já existir, exibir uma mensagem de erro abaixo do campo.
+**Encerrada** — Produto desativado totalmente. Sai de busca, timeline e página pública. Submissões já recebidas permanecem acessíveis na Triagem. Possível: ver histórico, clonar, reabrir (volta para Backlog).
 
+### Card do Produto (variação por tipo)
 
-Site da Empresa(Campo de texto)
-Exemplo: https://nubank.com.br
+Todos os cards mostram: título + badge do tipo + badge da fase + contagem de submissões + última atualização. Os campos abaixo variam por tipo:
 
+- **Vaga**: cargo, localidade, modalidade, contrato
+- **Produto/Serviço**: nome, categoria, faixa de preço
+- **Treinamento**: título, data, formato (online/presencial), vagas restantes
+- **Notícia**: manchete, autor, data de publicação
+- **Experiência**: nome, datas disponíveis, local
 
-Redes Sociais(Campo de texto)
-Exemplo: https://www.instagram.com/nubank/?hl=pt-br
-Campo de URL com suporte a múltiplas entradas
-Ao apertar Enter, o link vira um badge com botão de remoção.
+---
 
+## 8. Criar Produto
 
+Modal multi-etapas acessado pelo botão "+" na fase **Backlog**. O fluxo é genérico, com **presets por tipo** definidos na Etapa 0.
 
+### Header
 
-Banner da Página da Empresa(Componente de upload de imagem)
-Logo da Página da Empresa(Componente de upload de imagem)
- 
-Sobre a Empresa(Campo de texto multilinha)
+Botão para fechar o modal + texto centralizado:
+> "Publique um Produto, é grátis e sempre será"
 
-Footer
-Checkbox:"Declaro que sou representante oficial desta organização"
-Texto do botão: Criar página e organização
+### Etapa 0 — Tipo de Produto
 
-Regras de Validação
+Seleção do tipo: Vaga | Produto/Serviço | Treinamento | Notícia | Experiência.
 
-Se tudo estiver válido:
-O usuário será redirecionado para:
- Menu → Minha Empresa → Ver e Criar Organizações
+A escolha define os campos das próximas etapas e o pipeline default da Triagem.
 
-Se houver erros de preenchimento:
-Uma mensagem será exibida no topo do formulário:
- “Verifique os campos abaixo”
+### Etapa 1 — Identificação
 
+Campos variáveis por tipo:
 
-Cada campo inválido:
-Fica com borda na cor de destaque (vermelho)
-Exibe um texto explicativo abaixo, também em vermelho
+| Tipo | Campos |
+|---|---|
+| Vaga | Cargo, Tipo de local (Presencial/Remoto/Híbrido), Localidade, Tipo de vaga (CLT/PJ/Estágio/Tempo integral) |
+| Produto/Serviço | Nome, Categoria, Faixa de preço, Modalidade (digital/físico/recorrente) |
+| Treinamento | Título, Data/horário, Formato (online/presencial/híbrido), Carga horária, Nível (iniciante/intermediário/avançado) |
+| Notícia | Manchete, Categoria editorial, Autor, Data de publicação |
+| Experiência | Nome, Datas disponíveis, Local, Capacidade |
 
+### Etapa 2 — Descrição (Accordion com textarea por bloco)
 
+Blocos variáveis por tipo:
 
+- **Vaga**: Atividades, Requisitos, Salário, Benefícios, Campo livre
+- **Produto/Serviço**: Descrição, Diferenciais, Casos de uso, Preço/condições, Campo livre
+- **Treinamento**: Ementa, Público-alvo, Pré-requisitos, Material incluído, Campo livre
+- **Notícia**: Lide, Corpo, Fontes, Tags, Campo livre
+- **Experiência**: Roteiro, O que está incluído, O que levar, Política de cancelamento, Campo livre
 
+### Etapa 3 — Coleta de informações (formulário do Saiba Mais)
 
+Multi-select chips definindo o que será pedido no Saiba Mais. Catálogo base reutilizável entre tipos:
 
+Nome, Sobrenome, Telefone, E-mail, LinkedIn, País de origem, Cidade, Currículo, Remuneração, Autorização para trabalhar no Brasil, Verificação de antecedência, Trabalho remoto, Localidade, Empresa, Cargo atual, Porte da empresa, Orçamento estimado, Data preferencial, Segmento de interesse.
 
+Cada chip selecionado vira um campo no formulário dinâmico do Saiba Mais ([spec/learn-more/DYNAMIC_ENGINE.md](../learn-more/DYNAMIC_ENGINE.md)).
 
+### Etapa 4 — Perguntas de triagem (opcional)
 
+Accordion com formulário:
 
+- Pergunta (texto — ex.: "Quantos anos de experiência?")
+- Resposta ideal (texto ou numérico — ex.: 5)
+- Qualificar como obrigatório (checkbox)
+- Botão **Adicionar** (à direita)
 
-PAINEL KANBAN DE VAGAS
+Aplicável a qualquer tipo (não só vagas). Em Vendas vira "qualificação BANT"; em Treinamento vira "filtro de pré-requisito"; em Experiência vira "checagem de elegibilidade".
 
-A tela Painel Kanban de Vagas é o ambiente principal de gestão dos processos seletivos dentro de uma organização. Seu objetivo é oferecer ao recrutador uma visão visual, fluida e interativa das vagas, organizadas por fases em um sistema Kanban.
+### Etapa 5 — Revisar e concluir
 
-Tabs de Gestão
-O componente principal desta tela é uma barra de navegação com abas, chamada de Tabs de Gestão, composta por quatro guias:
-Gerenciar Vagas (guia principal)
-Pessoas
-Página da Empresa
+Exibe todas as informações preenchidas em colunas. Botões à direita: **Voltar** | **Publicar gratuitamente**.
 
-GUIA: GERENCIAR VAGA
-A aba Gerenciar Vagas apresenta as fases do processo de publicação e visibilidade das vagas organizadas em colunas Kanban, permitindo que os recrutadores movimentam as vagas entre as fases de forma intuitiva.
+### Etapa 6 — Confirmação
 
-A aba Gerenciar Vagas é onde está localizado o Kanban de triagem, com foco na movimentação e controle de cada vaga publicada.
-Fases padrão:
-Backlog
- Onde novas vagas são criadas e aguardam publicação.
-
-
-Em campanhas
- As vagas nesta fase são exibidas no motor de busca, timeline e página pública da empresa.
-
-
-Pausadas
- Vagas ocultas temporariamente no motor de busca, timeline e página pública da empresa.
-
-
-Encerradas
- Vagas finalizadas, com processo seletivo encerrado.
-
-
-O recrutador pode adicionar ou remover fases personalizadas, além das padrão.
-
-Adicionar nova fase
-Ao final da última fase, é exibido um botão com o texto:
- “+ Nova fase”
-Ação: Adiciona uma nova etapa ao processo seletivo, com nome e cor personalizáveis.
-
-Layout das fases
-Cada fase é representada por uma coluna com as seguintes características:
-Largura: 278px
-Altura: 100%
-Header: 280x40px
-Espaçamento entre header e coluna: 8px
-
-
-No header de cada fase:
-Nome da fase
-Badge com o número de vagas naquela fase
-
-
-Fase:Backlog(Criação de vaga)
-Ações no header da fase Backlog:
-Botão com ícone “+” no canto direito
-Ação: abrir modal para criar nova vaga
-Ao submeter as informações corretamente:
-O card da vaga é adicionado na fase Backlog
-O contador do badge é atualizado
-Ação ao mover vaga para Em campanhas:
-A vaga se torna visível no motor de busca da plataforma e na timeline de vagas.
-Também passa a ser exibida na lista de vagas da empresa na página pública.
-
-Fase: Em Campanha
-A fase "Em campanha" representa o momento em que a vaga está ativa e visível publicamente para os candidatos na plataforma. Ao mover um card para essa fase, a vaga passa a ser exibida em todos os pontos de contato com usuários candidatos.
-
-Comportamento e funcionalidades da fase:
-Quando um card (vaga) é movido para "Em campanha", a plataforma ativa automaticamente a visibilidade pública da vaga.
-A vaga se torna visível em:
- Motor de busca de vagas da plataforma
-Timeline de vagas (interface de navegação por vagas estilo carrossel)
- Página pública da empresa (ex: nubank.realwe)
-O recrutador pode:
-Visualizar o número de candidaturas recebidas
-Acessar o card da vaga e ver o detalhamento
-Arrastar o card para outras fases como "Pausadas" ou "Encerradas" conforme a evolução do processo
-Objetivo da fase
-Permitir ao recrutador controlar com precisão o momento em que a vaga está ativa e recebendo candidaturas, servindo como um gatilho para:
-Aumentar a visibilidade da vaga
-Medir o desempenho da publicação
-Iniciar efetivamente o processo seletivo
-
-
-
-Fase: Pausadas
-
-A fase "Pausadas" representa vagas que foram temporariamente retiradas de exibição pública, mas ainda permanecem ativas internamente para controle e possível reativação futura.
-
-Comportamento e funcionalidades da fase:
-Quando um card (vaga) é movido para a fase "Pausadas", a plataforma remove automaticamente a vaga da exibição pública, suspendendo sua visibilidade nos principais canais
-
-A vaga não será exibida em:
- Motor de busca da plataforma
-Timeline de vagas
-Página pública da empresa
-
-
-Importante: A vaga não é encerrada nem excluída — apenas ocultada temporariamente.
-
-O recrutador pode:
-Reabrir a vaga movendo o card de volta para "Em campanha"
-Editar os detalhes da vaga antes de reativá-la
-Encerrar a vaga se decidir finalizar o processo
-
-Objetivo da fase
-A fase "Pausadas" oferece ao recrutador uma forma de manter controle sobre vagas que precisam ser interrompidas momentaneamente, seja por mudança de estratégia, volume excessivo de candidaturas ou revisão da descrição da vaga.
-Essa abordagem evita a necessidade de exclusão e garante que o histórico da vaga seja preservado para retomada futura.
-
-Fase: Encerradas
-A fase "Encerradas" representa vagas que tiveram seu processo seletivo finalizado. Ao mover um card para essa fase, a vaga é considerada concluída, não está mais ativa, e é retirada permanentemente da exibição pública.
-
-Comportamento e funcionalidades da fase:
-Quando um card (vaga) é movido para a fase "Encerradas", a plataforma desativa totalmente a vaga, tornando-a invisível para os candidatos e inalterável para novas candidaturas.
-A vaga deixa de aparecer em:
-Motor de busca
-Timeline de vagas
-Página pública da empresa
-
-Candidatos que já aplicaram ainda poderão visualizar o status final da candidatura via seu painel pessoal.
-
-
-O recrutador pode:
-Acessar o histórico completo da vaga
-Visualizar estatísticas de candidatura
-Clonar a vaga (caso queira criar uma nova semelhante)
-Reabrir a vaga movendo-a novamente para "Backlog" (opcional)
-
-Objetivo da fase
-A fase "Encerradas" serve como um arquivo controlado das vagas já finalizadas, permitindo que a equipe de recrutamento:
-Mantenha o histórico organizado
-Analise desempenho de campanhas anteriores
-Evite sobrecarga no pipeline ativo
-Mantenha a página da empresa atualizada com apenas vagas abertas
-
-
-
-GUIA: PESSOAS
-A aba "Pessoas" permite o gerenciamento de membros da organização, possibilitando o convite de novos colaboradores e a definição de níveis de acesso personalizados, com base nas funções e permissões.
-
-Objetivo da aba Pessoas
-Permitir que recrutadores com papel de gestor possam:
-Convidar membros da equipe (ex: analistas, coordenadores, parceiros externos)
-Atribuir permissões específicas para cada ação dentro da organização
-Gerenciar quem pode ver, editar, publicar e movimentar vagas
-
-Layout 
-
-texto no lado esquerdo “Pessoas & permissões”
-
-Aba: Pessoas
-A aba Pessoas é responsável por gerenciar os membros de uma organização dentro da plataforma. É onde o recrutador com permissão administrativa pode convidar novos usuários, atribuir funções e permissões e monitorar o status de acesso. Permitir controle completo sobre quem pode acessar a organização, com quais permissões e em quais níveis hierárquicos.
-
-Header
-Campo para buscar a pessoa(alinhado à esquerda)
-Botão: "Convidar membro"(alinhado à direita)
-
-
- Lista de Membros (em tabela)
-Pessoa
-Função atribuída (com rótulo)
-Status: Ativo | Pendente
-Ações (⋮): Editar função | Reenviar convite | Remover membro 
-
-Fluxo de Convite
-Modal com os seguintes campos:
-E-mail corporativo do convidado
-Função a ser atribuída (selecionar "Funções")
-Botão: "Enviar convite"(alinhado à direita)
-
-
-
-Aba: Funções
-A aba Funções permite criar, editar e atribuir papéis personalizados com permissões específicas. Uma função pode ser atribuída a um ou mais usuários e define exatamente o que esse usuário poderá fazer dentro da organização ou no Kanban de vagas. Definir o que cada tipo de usuário pode fazer, com granularidade de permissões.
-Header
-Campo para buscar função(alinhado à esquerda)
-
-
-Lista de funções (em tabela)
-Função 
-Descrição
-Pessoas
-
-Exemplo de funções:
-Administrador: todas as permissões ativas
-Recrutador: pode gerenciar vagas e candidatos, mas não usuários
-Visualizador: apenas leitura
-Convidado externo: acesso limitado a uma fase específica
-
-
-Função 
-Descrição
-Pessoas
-Administrador
-todas as permissões ativas
-1
-Recrutador
-pode gerenciar vagas e candidatos, mas não usuários
-3
-Visualizador
-apenas leitura
-0
-Convidado 
-acesso limitado a uma fase específica
-0
-
-
-
-
-
-
-
-
-Ao selecionar qualquer função da tabela irá apresentar um drawer com as lista de permissões possíveis por função.
-
-layout do drawer
-
-Header
-Função:  Convidado 
-Descrição: Acesso limitado a uma fase específica
-Body
-
-Ação
-Tipo de Permissão
-Criar vaga
-❌
-Editar vaga
-❌
-Mover vaga entre fases
-✅
-Visualizar candidaturas
-✅
-Encerrar vaga
-❌
-Excluir vaga
-❌
-Criar/editar fases do Kanban
-❌
-Acessar aba Pessoas
-❌
-Convidar/gerenciar usuários
-❌
-Editar configurações da empresa
-❌
-
-
-
-Footh
-Botão: "Salvar"
-	
-
-
-
-
-
-
-
-
-
-Aba: Grupos
-A aba Grupos permite organizar usuários em equipes ou departamentos, com o objetivo de facilitar a aplicação em massa de funções e permissões. Agrupar usuários com responsabilidades semelhantes e aplicar permissões de forma centralizada.
-Header
-Campo para buscar a grupos(alinhado à esquerda)
-Botão: "Criar grupo"(alinhado à direita)
-
-Lista de grupos (em tabela)
-Grupos
-Descrição
-Pessoas
-Botões: "Editar grupo" | "Adicionar/Remover membros" | “Excluir grupo”
-Fluxo de criar grupos
-Modal com os seguintes campos:
-Grupo
-Descrição
-Função
-Botão: "Criar grupo” alinhado à direita)
-
-Grupo 
-Descrição
-       Função
-Pessoas
-RH
-todas as permissões ativas
-Recrutador
-1
-Seleção Tech
-pode gerenciar vagas e candidatos, mas não usuários
-Visualizador
-8
-Parceiros externos
-apenas leitura
-Convidado 
-0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Funcionalidades
-Criar novo grupo (ex: RH, Seleção Tech, Parceiros externos)
-Atribuir membros existentes ao grupo
-Associar uma função padrão ao grupo (opcional)
-Visualizar todos os membros de um grupo
-Remover ou mover usuários entre grupos
-
-Regras Gerais de Negócio
-Apenas usuários com permissão de "gerenciar pessoas" podem acessar essas abas
-Um usuário pode pertencer a múltiplos grupos
-A função de um usuário pode ser sobrescrita manualmente (mesmo se estiver em grupo)
-Convites expiram em 7 dias (opcional)
-Logs de ações por usuário podem ser implementados futuramente para rastreamento
-
-Cenário: Ana, nova funcionária do RH
-A Ana entrou para o setor de RH e precisa começar a usar a plataforma.
-O setor de RH já está estruturado com:
-Um Grupo chamado “RH”
-Este grupo já possui uma Função associada, por exemplo: “Recrutador”
-
-
-Fluxo ideal usando o Grupo:
-O administrador acessa:
- Menu → Minha Empresa → Pessoas → Grupos
-Encontra o grupo “RH” e clica em “Adicionar membro”
-Informa o e-mail da Ana e confirma a ação
-Resultado:
-Ana automaticamente herda a função “Recrutador” atribuída ao grupo RH
-Ganha todas as permissões definidas pela função
-Já pode acessar o Kanban e atuar conforme o papel
-
-Vantagens desse fluxo:
-Rápido: em vez de configurar permissão por permissão, você só adiciona ao grupo.
-Escalável: se amanhã mais 3 pessoas entrarem no RH, basta adicioná-las ao mesmo grupo.
-Centralizado: se você mudar a função do grupo RH (ex: tirar a permissão de excluir), todos os membros do grupo serão atualizados automaticamente.
-
-
-
-
-
-
-
-
-GUIA: Página da Empresa
-
-Permitir que os administradores da organização ativem, editem e personalizem a página pública da empresa, que será exibida no endereço:minhaempresa.realwe
-Essa página funciona como um currículo institucional da organização, acessível a qualquer candidato, com as informações da empresa e suas vagas ativas.
-
-Header (topo)
-Centro: Título da tela: Personalização da Página da Empresa"
-
-Body (formulário)
-Empresa(Campo de texto)
-
-
-E-mail Corporativo(Campo de texto)
-Campo de e-mail com verificação automática via link
-Exemplo: admin@nubank.com.br
-Após clicar no link do e-mail, o campo é validado automaticamente.
-O e-mail deve ser o mesmo que está logado
-
-
-Domínio realwe(Campo de texto)
-Exemplo: nubank.realwe
-Campo de texto gerado automaticamente a partir do nome da empresa
-Se o domínio já existir, exibir uma mensagem de erro abaixo do campo.
-
-
-Site da Empresa(Campo de texto)
-Exemplo: https://nubank.com.br
-
-
-Redes Sociais(Campo de texto)
-Exemplo: https://www.instagram.com/nubank/?hl=pt-br
-Campo de URL com suporte a múltiplas entradas
-Ao apertar Enter, o link vira um badge com botão de remoção.
-
-
-
-
-Banner da Página da Empresa(Componente de upload de imagem)
-
-Logo da Página da Empresa(Componente de upload de imagem)
- 
-Sobre a Empresa(Campo de texto multilinha)
-
-Switch: Ativar página pública
-
-texto link “Sua página esta visível em [empresa].realwe”
-
-Footer
-Botão: Atualizar página e organização
-
-CRIAR VAGA
-
-A tela Criar Vaga é apresentada em formato de modal multi-etapas e é acessada dentro do Painel Kanban de Vagas, na fase Backlog. Essa tela permite que o recrutador cadastre uma nova oportunidade de forma progressiva, organizada e intuitiva.
-O processo de criação é dividido em 6 etapas:
-Identificação da vaga
-
-
-Descrição da vaga
-
-
-Coleta de dados do candidato
-
-
-Perguntas de triagem (opcional)
-
-
-Revisão final
-
-
-Confirmação de publicação
-
-
-Cada etapa agrupa campos específicos que ajudam o recrutador a configurar todos os detalhes da vaga antes de disponibilizá-la publicamente na plataforma e na página da empresa.
-
-Para criar uma nova vaga:
-Navegue até: Menu → Minha Empresa → Ver e Criar Organizações
-
-
-Clique no bloco da organização desejada (ex: “Nubank”)
-
-
-Acesse a guia Gerenciar Vagas
-
-
-Na fase Backlog, clique no botão “+” no canto superior direito do header da coluna
-
-
-Um modal será aberto para criar a vaga
-
-LAYOUT DO MODAL PARA CRIAR NOVA VAGA
-
-header
-Um botão para fechar o model e no centro um texto “Anuncie uma vaga, é grátis e sempre será”
-
-body 
-Etapa 1: Identificação da vaga
-Cargo(Campo de texto, Ex: Angular Senior)
-Tipo de local de trabalho(Campo de dropdown, Ex: Presencial)
-Localidade(Campo de dropdown, Ex: Vitória e Regiões)
-Tipo de vaga(Campo de dropdown, Ex:Tempo integral)
-
-Botões alinhados à direita:
-Próximo
-
-
-Etapa 2: Descrição da vaga
-Atividade (Accordion com textarea)
-Requisito (Accordion com textarea)
-Salário (Accordion com textarea)
-Benefício (Accordion com textarea)
-Campo livre (Accordion com textarea)
-
-Botões alinhados à direita:
-Voltar
-Próximo
-
-Etapa 3: Coleta informação do candidato
-Nome (mutli select chips)
-Sobrenome (mutli select chips)
-Telefone (mutli select chips)
-E-mail (mutli select chips
-Linkedin (mutli select chips)
-Pais de origem (mutli select chips)
-Cidade (mutli select chips)
-Currículo (mutli select chips)
-Remuneração (mutli select chips)
-Autorização para trabalhar no Brasil (mutli select chips)
-Verificação de antecedência (mutli select chips)
-Trabalho remoto (mutli select chips)
-Localidade (mutli select chips)
-
-Botões alinhados à direita:
-Voltar
-Próximo
-
-Etapa 4: Perguntas de triagem
-Perguntas(Accordion com formulário)
-Pergunta(Campo de texto, Ex: Quanto anos de experiências)
-Resposta ideal(Campo de numérico, Ex: 5)
-Qualificar como obrigatório (Campo checkbox)
-Adicionar (Botões alinhados à direita)
-
-Botões alinhados à direita:
-Voltar
-Próximo
-
-
-Etapa 5: Revisar e concluir
-Exibe todas as informações preenchidas em colunas
-
-Botões alinhados à direita:
-Voltar
-Anunciar gratuitamente
-
-Etapa 5: Confirmação
 Mensagem:
- Parabéns! Sua vaga foi anunciada com sucesso. Você pode visualizar clicando [aqui]
-Botão:Fechar (largura 100%)
+> "Parabéns! Seu Produto foi publicado com sucesso. Você pode visualizar clicando aqui."
 
+Botão **Fechar** (largura 100%).
 
-DETALHE DA VAGA
-A tela Detalhe da Vaga permite que o recrutador visualize todas as informações completas e estruturadas de uma vaga, conforme definidas no momento da criação. Além disso, oferece controle direto sobre o status da vaga, sua performance e acesso rápido a ações gerenciais.
+---
 
-O recrutador pode visualizar os detalhes completos de uma vaga acessando o Painel Kanban de Vagas da sua organização. A visualização de uma vaga permite revisar todas as informações cadastradas no momento da criação, acompanhar a performance da publicação e gerenciar ações relacionadas àquela vaga.
+## 9. Detalhe do Produto
 
+Acessado ao clicar em qualquer card do Kanban de Gerenciar Produtos.
 
-Caminho para acessar:
-Acesse:
- Menu → Minha Empresa → Ver e Criar Organizações
+### Layout (duas colunas, lado a lado)
 
+- **Coluna esquerda — Detalhe do Produto** (70%)
+- **Coluna direita — Controle do Produto** (30%)
 
-Clique no bloco da organização desejada (ex: “Nubank”)
+### Coluna Detalhe do Produto
 
+**Identificação**
 
-Vá para o guia:
- Gerenciar Vagas
+- Título + badge do tipo
+- Badges de filtros (dinâmicos por tipo — ex.: Remoto, 2 semanas, Pleno, Brasil, CLT)
+- Localidade (cidade/país, alinhado à esquerda)
+- "Publicado por [Empresa] em DD/MM/AAAA"
+- Visualizações (esquerda) + Submissões (direita)
 
+**Descrição** (blocos preenchidos na Etapa 2)
 
-Localize a vaga dentro de uma das fases do Kanban (ex: Backlog, Em campanhas)
+**Informações solicitadas no Saiba Mais** (lista dos campos do formulário dinâmico)
 
+**Perguntas de triagem** (se houver — pergunta + resposta ideal + obrigatoriedade)
 
-Clique no card da vaga desejada → você será redirecionado para a tela Detalhe da Vaga
+### Coluna Controle do Produto
 
-LAYOUT DO MODAL DETALHE DA VAGA
-A visualização é exibida em duas colunas, lado a lado:
+**Movimentação**
+- Título "Mover"
+- Botão **Pausar**
+- Botão **Encerrar**
 
-Coluna detalhe da vaga
-ocupa um espaço de 70%
-alinhada a esquerda
-Coluna controle da vaga
-ocupa um espaço de 30%
-alinhada a direita
+**Controle**
+- Botão **Editar Produto** → tela de edição
+- Botão **Gerenciar Triagem** → abre Kanban de Triagem filtrado pelo Produto
 
+---
 
+## 10. Saiba Mais — Conversão Universal
 
+O botão **Saiba Mais** é o único ponto de conversão da RealWe. Ele aparece em:
 
+- Vídeos curtos (shorts)
+- Vídeos longos (profundidade)
+- Página pública do Produto
+- Cards na timeline
+- Resultados de busca
 
+### Fluxo
 
+```
+Usuário clica Saiba Mais
+        │
+        ▼
+Drawer abre lateralmente
+        │
+        ▼
+Formulário dinâmico (multi-step) é renderizado a partir
+da configuração de coleta definida na Etapa 3 da criação do Produto
+        │
+        ▼
+Usuário preenche e submete
+        │
+        ▼
+Backend cria card na fase inicial do Kanban de Triagem
+do Produto correspondente
+        │
+        ▼
+Notificação para os responsáveis pela Triagem do tipo
+```
 
+### Componente
 
+Drawer responsivo, sempre alinhado à direita. Renderizado pelo Dynamic Form Engine descrito em [spec/learn-more/DYNAMIC_ENGINE.md](../learn-more/DYNAMIC_ENGINE.md):
 
+- Steps configuráveis
+- Validação reativa
+- Step de revisão automática (`setRevisionStepper`)
+- Checkbox opcional de política de privacidade
+- Botão final com texto configurável (ex.: "Candidatar-se", "Falar com vendas", "Inscrever-se", "Receber novidades", "Reservar")
 
-COLUNA DETALHE DA VAGA
- Identificação da vaga
-Título (cargo)
+### Princípio
 
+Adicionar um novo tipo de campo no Saiba Mais = criar 1 componente + 1 linha no registry `COMPONENTS`. Nenhuma tela existente precisa mudar.
 
-Badges de Filtros
+---
 
+## 11. Tab: Triagens
 
-Exibidos abaixo do título, indicam as características da vaga.
+Ambiente onde os times operam as submissões recebidas via Saiba Mais. Substitui o antigo "Kanban de Candidaturas" (que era exclusivo de vagas) por um **Kanban de Triagem unificado**, filtrável por tipo de Produto.
 
+### Objetivo
 
-Exemplo: Remoto, 2 Semanas, Pleno, Brasil, CLT.
+Visão clara e centralizada do status de cada submissão, permitindo:
 
+- Avaliação individual do perfil/lead/inscrito
+- Movimentação por fases (drag & drop)
+- Pipeline personalizado por tipo
+- Decisões rápidas (aprovar, qualificar, agendar, rejeitar)
 
-Os filtros são dinâmicos, podendo variar de acordo com os critérios definidos pelo recrutador.
-Tipo de vaga (ex: CLT, PJ, Estágio)
+### Filtros (header da tab)
 
+- **Tipo de Produto** (chips multi-select)
+- **Produto específico** (dropdown com busca)
+- **Responsável** (dropdown — membros do time)
+- **Período** (date range)
+- **Status** (em aberto / encerradas)
+- **Busca livre** (nome, e-mail, telefone)
 
-Local de trabalho (Presencial, Remoto, Híbrido)
+### Pipelines default por tipo
 
+| Tipo | Fases default |
+|---|---|
+| Vaga | Recebidas → Adequada → Entrevista → Documentos → Aprovado → Rejeitado |
+| Produto/Serviço | Recebido → Qualificado → Reunião → Proposta → Fechado → Perdido |
+| Treinamento | Inscrito → Confirmado → Presente → Concluído → Certificado |
+| Notícia | Recebido → Segmentado → Engajado → Assinante |
+| Experiência | Solicitado → Agendado → Confirmado → Realizado |
 
-Localidade
-Texto
-Cidade e país ( alinhado à esquerda)
-Texto
-Anunciado por Nubank em 14/03/2025 ( alinhado à esquerda)
-Texto
-25 Visualizações ( alinhado à esquerda)
-  1 Candidatura ( alinhado à direita)
-Descrição
-Atividades
+Botão **"+ Nova fase"** ao final da última coluna. Cada empresa ajusta fases, ordem e cores.
 
+### Layout das colunas (idêntico ao Gerenciar Produtos)
 
-Requisitos
+- Largura: 278px / Altura: 100%
+- Header: 280x40px (nome + badge de contagem)
+- Espaçamento header/coluna: 8px
 
+### Card da Submissão
 
-Benefícios
+Compacto e informativo, com variação leve por tipo:
 
+- Avatar/foto (esquerda)
+- Nome completo (lado do avatar)
+- Linha contextual (varia por tipo):
+  - Vaga: cargo atual + localidade
+  - Produto/Serviço: empresa + porte
+  - Treinamento: turma + formato
+  - Notícia: segmento de interesse
+  - Experiência: data solicitada
+- Produto de origem (link clicável)
+- Data da submissão
+- Badge do tipo (canto superior direito)
 
-Salário (se informado)
+### Ações em massa
 
+Seleção múltipla via checkbox no card. Ações em lote:
 
-Campo adicional
-Informações solicitadas ao candidato
-Lista dos dados que serão exigidos no momento da candidatura
- (ex: nome, e-mail, currículo, LinkedIn, cidade, etc.)
-Perguntas de triagem (se houver)
-Lista das perguntas criadas pelo recrutador com as opções de resposta ideal e obrigatoriedade
-COLUNA CONTROLE DA VAGA
-A coluna é dividida em 2 seções:
+- Mover para fase
+- Atribuir responsável
+- Marcar como rejeitado
+- Exportar CSV
 
-Movimentação
-Titulo “Move”
-Botão “Pausar”
-Botão “Encerrar”
+---
 
-Controle
-Botão “Editar vaga”
-Ação: Redireciona para a tela de edição’
-Botão “Gerenciar candidatura”
-Ação: Redireciona para o Kanban de Candidaturas
+## 12. Detalhe da Submissão
 
+Ao clicar num card do Kanban de Triagem, o operador é redirecionado para a tela de detalhe da submissão.
 
+### Objetivo
 
+Exibir de forma clara, organizada e centralizada os dados submetidos, permitindo análise e decisão baseada em evidências diretas.
 
+### Header
 
+- Título principal: "Submissão de [Nome]"
+- Subtítulo: nome do Produto + tipo (badge)
+- Localização / contexto (varia por tipo)
+- Data da submissão
+- Link para perfil público (quando aplicável — ex.: vagas): "Ver perfil completo em `nome.realwe`"
 
+### Seção: Informações cadastradas
 
+Todos os dados coletados pelo Saiba Mais, em blocos com título + valor. Os campos variam conforme a configuração da Etapa 3 do Produto:
 
+- Vaga: nome, e-mail, telefone, LinkedIn, currículo, cidade, remuneração esperada, autorização para trabalhar no Brasil, etc.
+- Produto/Serviço: nome, empresa, cargo, porte, e-mail, telefone, orçamento estimado, prazo
+- Treinamento: nome, e-mail, nível, motivação, disponibilidade
+- Notícia: nome, e-mail, segmento de interesse, frequência desejada
+- Experiência: nome, e-mail, data preferencial, número de pessoas, observações
 
+### Seção: Perguntas de triagem
 
+Se o Produto tinha perguntas de triagem:
 
+- Cada pergunta criada pelo responsável
+- A resposta dada pelo público
+- Indicador visual: atende ✅ / não atende ❌
+- Marca de obrigatório quando aplicável
 
+### Ações rápidas
 
+- Botão **Reprovar / Rejeitar**
+- Botão **Avançar para próxima fase**
+- Campo de notas internas (visível apenas ao time)
+- Histórico de movimentações (quem moveu, quando, para onde)
 
+---
 
+## 13. Verticais — detalhamento de exemplos
 
+Cada vertical é uma instância do mesmo motor. A seguir, exemplos concretos de uso.
 
-KANBAN CANDIDATURA
+### 13.1. Vaga (RH)
 
-A tela Kanban de Candidaturas é o ambiente visual e funcional onde o recrutador realiza a triagem de perfis candidatos a uma vaga específica. Cada vaga publicada possui seu próprio Kanban, que organiza os candidatos por etapas do processo seletivo.
+- **Quando usar**: abrir processo seletivo para uma posição.
+- **Saiba Mais coleta**: dados do candidato + currículo + perguntas de triagem (experiência, senioridade, disponibilidade).
+- **Triagem**: pipeline default de recrutamento.
+- **Resultado**: contratação. Candidato aprovado é marcado como contratado e a Vaga pode ser encerrada.
+- **URL pública**: `nubank.realwe/produto/vaga-senior-angular-developer`
 
-Objetivo da Tela
-Oferecer ao recrutador uma visão clara e centralizada do status de cada candidatura, permitindo:
-Avaliação individual de perfis
-Movimentação de cards por fases (drag & drop)
-Personalização do pipeline conforme a realidade do processo
-Agilidade na tomada de decisões (aprovar, rejeitar, entrevistar, etc.)
+### 13.2. Produto / Serviço (Comercial)
 
-Fases padrão do Kanban de Candidaturas
-O Kanban já vem com fases pré-configuradas que refletem o fluxo básico de um processo seletivo:
-Triagem 
-Onde todos os candidatos entram automaticamente após se aplicarem à vaga.
+- **Quando usar**: gerar leads para um produto/serviço da empresa.
+- **Saiba Mais coleta**: empresa, porte, dor, contato, orçamento, prazo.
+- **Triagem**: pipeline de funil comercial.
+- **Resultado**: contrato fechado. Lead virou cliente.
+- **Diferencial**: cada Produto pode ter perguntas de qualificação que pontuam o lead automaticamente (BANT, MEDDIC ou customizado).
+- **URL pública**: `nubank.realwe/produto/conta-pj-mei`
 
-Rejeitada 
-Para perfis que não avançarão no processo.
+### 13.3. Treinamento / Conteúdo (Educação)
 
-Adequada 
-Perfis promissores, aguardando próximas etapas.
+- **Quando usar**: inscrição em curso, webinar, workshop.
+- **Saiba Mais coleta**: nome, e-mail, nível, motivação, disponibilidade.
+- **Triagem**: pipeline de inscrição → confirmação → presença → certificado.
+- **Resultado**: certificado emitido + alimentação da Comunidade do canal.
+- **Diferencial**: integração com calendário e envio automático de lembretes (próxima iteração).
+- **URL pública**: `nubank.realwe/produto/workshop-fintech-201`
 
-Entrevista 
-Candidatos agendados ou entrevistados.
+### 13.4. Notícia / Comunicado (Comunicação)
 
-Documentos 
-Fase de envio de documentação.
+- **Quando usar**: distribuir comunicado oficial, newsletter ou anúncio institucional com captura de opt-in.
+- **Saiba Mais coleta**: e-mail + segmento de interesse + frequência desejada.
+- **Triagem**: pipeline editorial — submissão vira inscrição segmentada.
+- **Resultado**: lista de distribuição qualificada, segmentada por interesse.
+- **Diferencial**: a própria publicação serve como conteúdo de descoberta no canal, com botão Saiba Mais pedindo opt-in para acompanhar mais.
+- **URL pública**: `nubank.realwe/produto/release-q1-2026`
 
-Aprovados 
-Candidatos finalistas ou já aprovados.
-O recrutador pode adicionar ou remover fases personalizadas conforme a necessidade do processo seletivo.
-Adicionar nova fase
-Ao final da última coluna é exibido um botão:
-"+ Nova fase"
-Ação: Abre modal para criar uma nova etapa
-Permite definir: Nome da fase e cor identificadora
+### 13.5. Experiência / Evento (Operações)
 
+- **Quando usar**: agendar visita, demo, encontro presencial, tour.
+- **Saiba Mais coleta**: nome, contato, data preferencial, número de pessoas, contexto.
+- **Triagem**: pipeline de agendamento.
+- **Resultado**: experiência realizada + feedback opcional.
+- **Diferencial**: capacidade limitada por data — o formulário pode bloquear datas indisponíveis dinamicamente.
+- **URL pública**: `nubank.realwe/produto/visita-sede-sp`
 
+---
 
+## 14. Tab: Pessoas & Permissões
 
+A aba **Pessoas & Permissões** gerencia membros, funções e grupos da organização. Mantém toda a estrutura existente e ganha papéis novos refletindo a expansão multi-produto.
 
+Texto à esquerda no topo: "Pessoas & permissões".
 
+### Aba: Pessoas
 
-Layout das fases
-Cada fase é representada por uma coluna com as seguintes características:
-Largura: 278px
-Altura: 100%
-Header: 280x40px
-Espaçamento entre header e coluna: 8px
+Gerencia membros da organização — convite, função e status.
 
+**Header**
+- Esquerda: campo de busca
+- Direita: botão **Convidar membro**
 
-No header de cada fase:
-Nome da fase
-Badge com o número de vagas naquela fase
+**Lista (tabela)**
+- Pessoa | Função atribuída | Status (Ativo/Pendente) | Ações (⋮): Editar função, Reenviar convite, Remover
 
+**Fluxo de convite (modal)**
+- E-mail corporativo
+- Função a ser atribuída
+- Botão **Enviar convite** (à direita)
 
- Card do Candidato
-Cada candidatura é representada por um card arrastável, com as seguintes informações:
-Imagem do candidato (avatar no lado esquerdo)
-Nome completo (ao lado do avatar)
-Cargo atual (ex: "Senior Angular Developer")
-Localidade (ex: "Vitória, Espírito Santo")
-Data da candidatura (ex: "Candidatou-se em 14/03/2025")
-O layout dos cards deve ser compacto e informativo, possibilitando uma rápida avaliação visual e movimentação entre fases.
- Benefícios deste Kanban
-Otimiza a visualização do funil de talentos
-Facilita decisões rápidas e organizadas
-Garante rastreabilidade do processo
-Permite uma experiência de recrutamento mais dinâmica e colaborativa
+### Aba: Funções
 
+Cria, edita e atribui papéis com permissões granulares.
 
+**Header**
+- Esquerda: campo de busca de função
 
+**Lista (tabela)**
+- Função | Descrição | Quantidade de pessoas
 
+**Exemplos de funções (presets que respeitam a nova taxonomia de Produto)**
 
+| Função | Descrição |
+|---|---|
+| Administrador | todas as permissões ativas |
+| Recrutador | gerencia Produtos do tipo Vaga e suas Triagens |
+| Comercial | gerencia Produtos do tipo Produto/Serviço e suas Triagens |
+| Educação | gerencia Produtos do tipo Treinamento e suas Triagens |
+| Comunicação | gerencia Produtos do tipo Notícia e suas Triagens |
+| Operações | gerencia Produtos do tipo Experiência e suas Triagens |
+| Visualizador | apenas leitura |
+| Convidado | acesso limitado a uma fase específica |
 
+**Drawer de permissões** (ao clicar numa função)
 
+**Header**: Função + Descrição
 
+**Body** — matriz expandida:
 
-DETALHE DO CANDIDATO
-Ao clicar em um card de candidato dentro do Kanban de Candidaturas, o recrutador será redirecionado para a tela de detalhe da candidatura, que reúne todas as informações submetidas por aquele candidato no momento da aplicação.
+| Ação | Permissão |
+|---|---|
+| Criar Produto (Vaga) | ✅/❌ |
+| Criar Produto (Serviço) | ✅/❌ |
+| Criar Produto (Treinamento) | ✅/❌ |
+| Criar Produto (Notícia) | ✅/❌ |
+| Criar Produto (Experiência) | ✅/❌ |
+| Editar Produto | ✅/❌ |
+| Mover Produto entre fases | ✅/❌ |
+| Visualizar Triagem (por tipo) | ✅/❌ |
+| Mover submissão entre fases | ✅/❌ |
+| Encerrar Produto | ✅/❌ |
+| Excluir Produto | ✅/❌ |
+| Criar/editar fases do Kanban | ✅/❌ |
+| Acessar aba Pessoas | ✅/❌ |
+| Convidar/gerenciar usuários | ✅/❌ |
+| Editar configurações da empresa | ✅/❌ |
+| Lançar Campanha Patrocinada | ✅/❌ |
+| Ver Métricas | ✅/❌ |
 
-Objetivo da Tela
-Exibir de forma clara, organizada e centralizada os dados do candidato, possibilitando ao recrutador analisar o perfil, revisar as respostas e tomar decisões com base em evidências diretas.
+**Footer**: botão **Salvar**
 
-Layout da Tela
-Head
-Título principal: Candidatura de Saulo McChelsom
+### Aba: Grupos
 
+Organiza usuários em equipes (RH, Comercial, Educação, Comunicação, Operações, Parceiros externos), facilitando atribuição em massa de funções e permissões.
 
-Subtítulo: Senior Angular
+**Header**
+- Esquerda: campo de busca
+- Direita: botão **Criar grupo**
 
+**Lista (tabela)**
+- Grupo | Descrição | Função padrão | Quantidade de pessoas
+- Ações: **Editar grupo**, **Adicionar/Remover membros**, **Excluir grupo**
 
-Localização: Vitória, Espírito Santo
+**Fluxo de criar grupo (modal)**
+- Grupo
+- Descrição
+- Função padrão
+- Botão **Criar grupo** (à direita)
 
+**Funcionalidades**
+- Criar novo grupo (ex.: RH, Comercial, Educação, Comunicação, Operações, Parceiros externos)
+- Atribuir membros existentes
+- Associar uma função padrão ao grupo (opcional)
+- Visualizar membros
+- Mover/remover usuários entre grupos
 
-Data da candidatura: Candidatou-se em 14/03/2025
+### Regras gerais de negócio
 
+- Apenas usuários com permissão de "gerenciar pessoas" acessam essas abas
+- Um usuário pode pertencer a múltiplos grupos
+- A função de um usuário pode ser sobrescrita manualmente
+- Convites expiram em 7 dias (opcional)
+- Logs de ações por usuário podem ser implementados para rastreamento
 
-Link para currículo online:
- Ver perfil completo do candidato em nome-candidato.realwe
- (Redireciona para a visualização pública do perfil)
+### Cenário: Ana, nova colaboradora do RH
 
-Seção: Informações Cadastradas
-Exibe todos os dados coletados na candidatura, com base nas informações exigidas na configuração da vaga:
-Nome completo
+A Ana entrou no RH e precisa começar a usar a plataforma. O setor já está estruturado com:
 
+- Um Grupo chamado "RH"
+- Esse grupo já tem a Função "Recrutador" associada
 
-E-mail
+**Fluxo ideal usando o Grupo:**
 
+1. Administrador acessa: Menu → Minha Empresa → Pessoas & Permissões → Grupos
+2. Encontra o grupo "RH" e clica em "Adicionar membro"
+3. Informa o e-mail da Ana e confirma
 
-Telefone
+**Resultado**: Ana herda automaticamente a função "Recrutador" do grupo RH, ganha as permissões definidas e já acessa o Kanban de Vagas e suas Triagens.
 
+**Vantagens**: rápido, escalável (se mais pessoas entrarem no RH, basta adicioná-las ao grupo) e centralizado (mudança no grupo se propaga a todos os membros).
 
-LinkedIn
+---
 
+## 15. Tab: Página da Empresa
 
-Cidade / Estado
+Permite que administradores ativem, editem e personalizem a página pública do canal, exibida em `empresa.realwe`.
 
+A página funciona como o currículo institucional do canal — acessível a qualquer visitante, com as informações da empresa e **todos os Produtos ativos**, segmentados por tipo (Vagas, Produtos/Serviços, Treinamentos, Notícias, Experiências).
 
-Currículo (anexo ou link)
+### Header
 
+Centro: título "Personalização da Página da Empresa"
 
-Remuneração esperada
+### Body (formulário)
 
+- **Empresa** (texto)
+- **E-mail Corporativo** (texto, com verificação automática via link; deve ser o do usuário logado)
+- **Domínio realwe** (texto, gerado a partir do nome — ex.: `nubank.realwe`; erro inline se já existir)
+- **Site da Empresa** (texto — ex.: `https://nubank.com.br`)
+- **Redes Sociais** (URL, múltiplas entradas; Enter vira badge removível)
+- **Banner da Página da Empresa** (upload)
+- **Logo da Página da Empresa** (upload)
+- **Sobre a Empresa** (textarea)
+- **Switch**: Ativar página pública
+- Texto-link: "Sua página está visível em `[empresa].realwe`"
 
-Autorização para trabalhar no Brasil
+### Seções públicas (renderizadas automaticamente)
 
+A página pública exibe automaticamente, por seção:
 
-Verificação de antecedentes
+- Hero (banner + logo + sobre)
+- Creators do canal (membros com Função de creator)
+- Vagas abertas (Produtos do tipo Vaga em fase Em campanha)
+- Produtos/Serviços
+- Treinamentos
+- Notícias recentes
+- Experiências disponíveis
+- Métricas públicas (opcional — retenção média, número de creators, conteúdos publicados)
 
+### Footer
 
-Preferência por trabalho remoto
+Botão: **Atualizar página e organização**
 
+---
 
-Outros campos customizados, se houver
+## 16. Tab: Métricas
 
+Visão consolidada de funil para o canal — alinha-se ao pilar "Métricas" descrito em [doc/Regra de negocio RealWe.md](../../doc/Regra%20de%20negocio%20RealWe.md).
 
-Os campos são exibidos em formato de colunas ou blocos, com identificação clara do título e o conteúdo preenchido pelo candidato.
+### Visões
 
+- **Funil consolidado do canal**: descoberta (views) → profundidade (watch time) → conversão (clicks no Saiba Mais) → submissões → fases finais
+- **Comparativo por tipo de Produto**: qual tipo converte melhor, qual tem maior custo de aquisição, qual tem ciclo mais longo
+- **Performance por Produto**: retenção, abandono, CTR Saiba Mais, taxa de submissão
+- **Performance por Creator institucionalizado**: alinha com o conceito de portfólio público auditável
+- **Elegibilidade para Campanha Patrocinada Qualificada**: lista de Produtos que cumprem os critérios definidos em [spec/sponsored-campaigns/doc.md](../sponsored-campaigns/doc.md)
 
-Seção: Perguntas de Triagem
-Se a vaga possuir triagem configurada, esta seção exibirá:
-Cada pergunta criada pelo recrutador
+### Filtros
 
+- Tipo de Produto
+- Produto específico
+- Creator
+- Período
+- Origem (orgânico vs patrocinado)
 
-A resposta dada pelo candidato
+---
 
+## 17. Glossário rápido
 
-Indicação visual de:
+| Termo | Definição |
+|---|---|
+| **Organização** | Entidade que representa a empresa na RealWe. Toda ação é vinculada a uma organização. |
+| **Canal** | A presença pública da organização (`empresa.realwe`). |
+| **Produto** | Objeto canônico publicado pelo canal. Pode ser Vaga, Produto/Serviço, Treinamento, Notícia ou Experiência. |
+| **Saiba Mais** | Botão universal de conversão. Abre um drawer com formulário dinâmico. |
+| **Submissão** | Resultado do envio do formulário do Saiba Mais. Vira um card no Kanban de Triagem. |
+| **Triagem** | Kanban operacional onde as Submissões são processadas até o desfecho final. |
+| **Creator institucionalizado** | Colaborador da empresa que publica conteúdo no canal mantendo assinatura própria. |
+| **Campanha Patrocinada Qualificada** | Impulsionamento pago de Produtos que atendem aos critérios mínimos de qualidade. |
 
 
-Quando a resposta atende ao esperado
+-----------------------------------------------
+# Plano de Construção — Minha Empresa
 
+Cada parte é shippable independente, fecha um valor e respeita as dependências listadas. Tempo é estimativa orientativa.
 
-Quando não atende
+## Princípios de execução
 
+- Reutilizar antes de criar. Drawer (`drawer.component.ts`), Dynamic Form Engine (`dynamic-form/`), Stepper (`stepper/`), Tabs (`tabs/`), Empty State e Upload Area já existem.
+- Camadas do projeto (igual a sponsored-campaigns): `environment` → `api-server/data` + `routes` → `DTO` → `Entity` → `Map` → `API` → `Store` + `Facade` → `Página/Componente`.
+- Generalização desde o dia 1. Os componentes Kanban, Card-de-Produto, Card-de-Submissão recebem o tipo via input — não criar 5 cópias.
+- Mocks no `api-server/` antes do front. Mantém o fluxo end-to-end testável.
 
-Marca de obrigatório, caso a pergunta tenha sido definida como tal
+---
 
-Ações futuras previstas (sugestão)
-Botões de ação rápida: Reprovar, Avançar para próxima fase
+## Parte 0 — Fundação compartilhada (1-2 dias)
 
+**Objetivo:** preparar terreno antes de qualquer tela. Sem isso nada compila junto.
 
-Campo de notas internas visível apenas à equipe de recrutamento
+### Entregáveis:
 
+- `environment.ROUTES.EMPRESA` (ROOT, LIST, NEW, ORG_PANEL, ORG_PRODUCTS, ORG_TRIAGE, ORG_PEOPLE, ORG_PAGE, ORG_METRICS) e `environment.API.EMPRESA` (organizations, products, submissions, members)
+- Enums: `ProductType`, `ProductPhase`, `SubmissionPhase`, `MemberRoleType`, `MemberStatus`
+- DTOs (request + response): organization, product, submission, member, group
+- Entities equivalentes em `shared/interfaces/entity/`
+- Maps em `shared/maps/`
+- APIs em `shared/apis/` (`organization.api.ts`, `product.api.ts`, `submission.api.ts`, `member.api.ts`)
+- Estrutura vazia em `src/app/domain/empresa/{pages,components,services}/`
+- Mock data + rotas no `api-server/src/data/empresa.js` + `api-server/src/routes/empresa.js` (com 1 organização exemplo, 5 produtos cobrindo todos os tipos, ~10 submissões espalhadas)
 
-Histórico de movimentações (quem moveu o card e quando)
+**Dependências:** nenhuma.
+
+### Critério de aceite:
+`curl http://localhost:3000/api/v1/empresa/organizations` retorna a organização semeada; `npm run start` compila sem erro.
+
+---
+
+## Parte 1 — Ver e Criar Organizações (entrada) (1 dia)
+
+**Objetivo:** dar o ponto de entrada do menu "Minha Empresa".
+
+### Entregáveis:
+
+- Página `organization-list/` (bloco "Nova Organização" + cards de organizações + dropdown de ações por card)
+- Página `organization-create/` (form da seção 5, com upload de banner/logo e validação inline)
+- `OrganizationListStore` + `OrganizationListFacade`
+- `OrganizationCreateStore` + `OrganizationCreateFacade`
+- Item no menu principal: "Minha Empresa"
+
+**Dependências:** Parte 0.
+
+### Critério de aceite:
+Usuário cria organização nova, é redirecionado para a lista, vê o card recém-criado, clica e vai para o Painel (que ainda mostra placeholder).
+
+---
+
+## Parte 2 — Shell do Painel da Organização (0.5 dia)
+
+**Objetivo:** layout com as 5 tabs e roteamento aninhado por `:orgSlug`.
+
+### Entregáveis:
+
+- Página `organization-panel/` (layout com header + tabs reutilizando `AppTabsComponent`)
+- Sub-rotas: produtos, triagens, pagina, pessoas, metricas (cada uma carrega componente vazio inicialmente)
+- `OrganizationContextService` (signal com a org atual, resolvido por URL)
+
+**Dependências:** Parte 1.
+
+### Critério de aceite:
+Trocar entre as 5 tabs sem reload; URL reflete a tab.
+
+---
+
+## Parte 3 — Gerenciar Produtos: Kanban genérico (3-4 dias) ← MARCO 1
+
+**Objetivo:** entregar o componente Kanban reutilizável (que servirá também na Triagem) e a tab principal.
+
+### Entregáveis:
+
+- Componente genérico `KanbanBoardComponent` (colunas configuráveis, drag & drop com CDK, slots para card customizado, header configurável da coluna, botão "+ Nova fase")
+- Componente `ProductCardComponent` (variação visual por `ProductType`)
+- Sub-tabs por tipo + opção "Todos" com badge de tipo
+- `ProductListStore` + `ProductListFacade` (carrega por organização, agrupa por fase)
+- Ação de mover Produto entre fases (otimista + rollback em erro)
+- Ação "+ Nova fase" (modal simples: nome + cor)
+
+**Dependências:** Parte 2.
+
+### Critério de aceite:
+Arrastar Produto de Backlog para Em campanha persiste no mock; sub-tab "Vagas" mostra só vagas.
+
+---
+
+## Parte 4 — Criar/Editar Produto (modal multi-step) (3 dias)
+
+**Objetivo:** modal wizard com Etapas 0 → 6.
+
+### Entregáveis:
+
+- Página/Modal `product-create/` reusando `GenericStepperComponent`
+- Etapa 0: seleção de tipo (5 cards)
+- Etapas 1-2: presets de campos por tipo (configuração declarativa em `product-type-presets.ts`)
+- Etapa 3: multi-select chips com catálogo reutilizável de campos do Saiba Mais (que serão entregues ao Dynamic Form Engine)
+- Etapa 4: perguntas de triagem (accordion + form repetível)
+- Etapa 5: revisão (auto-gerada pelo stepper, padrão já existente)
+- Etapa 6: confirmação
+- Modo Edit reusa o mesmo wizard, pré-preenchendo o store
+
+**Dependências:** Parte 3.
+
+### Critério de aceite:
+Publicar uma Vaga e um Treinamento via wizard; ambos aparecem no Kanban na fase Backlog.
+
+---
+
+## Parte 5 — Detalhe do Produto (1.5 dia)
+
+**Objetivo:** modal/página de leitura + controle.
+
+### Entregáveis:
+
+- Componente `ProductDetailComponent` (layout 70/30)
+- Coluna esquerda: identificação, descrição (accordions), informações solicitadas, perguntas de triagem
+- Coluna direita: botões Pausar/Encerrar/Editar/Gerenciar Triagem
+- Navegação para `triagens?productId=...` ao clicar em "Gerenciar Triagem"
+
+**Dependências:** Parte 4.
+
+### Critério de aceite:
+Abrir Produto pelo card mostra todos os campos; "Pausar" move o card para a coluna Pausada.
+
+---
+
+## Parte 6 — Saiba Mais universal (drawer + form dinâmico) (2 dias) ← MARCO 2
+
+**Objetivo:** ligar o botão Saiba Mais (em qualquer Produto) ao Dynamic Form Engine existente e à criação de Submissões.
+
+### Entregáveis:
+
+- Serviço global `LearnMoreLauncherService` (abre o drawer com productId)
+- Adapter `ProductLearnMoreAdapter` que converte a configuração de coleta da Etapa 3 do Produto em `LearnMoreConfig` (formato esperado pelo Dynamic Form Engine — ver `spec/learn-more/DYNAMIC_ENGINE.md`)
+- Endpoint mock `POST /api/v1/empresa/products/:id/submissions` que cria a submissão na fase inicial do pipeline do tipo do Produto
+- Botão Saiba Mais nos lugares de conversão (página pública do canal, card do Produto na Página da Empresa, vídeo longo)
+
+**Dependências:** Parte 4 (precisa de Produto criado com config de coleta).
+
+### Critério de aceite:
+Clicar Saiba Mais em qualquer Produto abre o drawer com formulário coerente ao tipo; após submit, surge card na Triagem.
+
+---
+
+## Parte 7 — Triagens: Kanban de submissão (2 dias)
+
+**Objetivo:** tab Triagens reusando o Kanban da Parte 3 + filtros.
+
+### Entregáveis:
+
+- Página `submission-board/` consumindo `KanbanBoardComponent`
+- Componente `SubmissionCardComponent` (variação leve por tipo)
+- Header com filtros: tipo (chips), Produto (dropdown busca), responsável, período (date range), status, busca livre
+- `SubmissionListStore` + `SubmissionListFacade` (com derivações por filtro)
+- Pipelines default por tipo (definidos em `submission-pipelines.ts` — editáveis no futuro)
+- Ações em lote (mover, atribuir, rejeitar, exportar CSV)
+
+**Dependências:** Parte 3, Parte 6.
+
+### Critério de aceite:
+Filtrar por tipo "Vaga" mostra só candidaturas; arrastar card entre fases persiste.
+
+---
+
+## Parte 8 — Detalhe da Submissão (1 dia)
+
+**Objetivo:** tela de análise individual.
+
+### Entregáveis:
+
+- Página `submission-detail/` (header + blocos de informações cadastradas + perguntas de triagem com ✅/❌)
+- Painel de ações rápidas (Reprovar, Avançar fase)
+- Campo de notas internas (signal + persist mock)
+- Histórico de movimentações (lista cronológica)
+
+**Dependências:** Parte 7.
+
+### Critério de aceite:
+Ver detalhes, adicionar nota interna, avançar de fase pelo painel direito (reflete no Kanban).
+
+---
+
+## Parte 9 — Pessoas & Permissões (2.5 dias)
+
+**Objetivo:** tab com 3 sub-tabs (Pessoas, Funções, Grupos).
+
+### Entregáveis:
+
+- Sub-tab Pessoas: tabela + modal de convite
+- Sub-tab Funções: tabela + drawer com matriz expandida de permissões (incluindo permissões por tipo de Produto)
+- Sub-tab Grupos: tabela + fluxo "Criar grupo" + ações de adicionar/remover membros
+- Stores e facades correspondentes
+- Endpoint mock para convites (`POST /members/invite`) e funções (`PUT /roles/:id`)
+
+**Dependências:** Parte 2.
+
+### Critério de aceite:
+Convidar pessoa, criar grupo "RH", atribuir função "Recrutador" ao grupo, adicionar membro — membro herda a função.
+
+---
+
+## Parte 10 — Página da Empresa (configuração + visão pública) (1.5 dia)
+
+**Objetivo:** configuração interna + atualização do channel público para listar todos os tipos de Produto.
+
+### Entregáveis:
+
+- Tab Página da Empresa (formulário de configuração + switch público)
+- Atualização do `channel.component` para renderizar seções por tipo de Produto (não só Vagas)
+- Endpoints: `GET/PUT /empresa/organizations/:slug/page`
+
+**Dependências:** Parte 3 (precisa de Produtos publicáveis).
+
+### Critério de aceite:
+Ativar página → `empresa.realwe` lista Vagas + Produtos + Treinamentos + Notícias + Experiências em seções separadas.
+
+---
+
+## Parte 11 — Métricas (1.5 dia)
+
+**Objetivo:** funil consolidado da organização.
+
+### Entregáveis:
+
+- Tab Métricas com 5 painéis: funil consolidado, comparativo por tipo, performance por Produto, performance por creator, elegibilidade para Patrocinada
+- Reusar serviço de métricas existente (`api-server/src/data/metrics.js`) estendido para escopo organização
+- Link de "Lançar Campanha Patrocinada" para Produtos elegíveis (deep link em `sponsored-campaigns/new?productId=...`)
+
+**Dependências:** Parte 7 (para ter dados reais de submissão).
+
+### Critério de aceite:
+Dashboard mostra taxa de conversão por tipo; clicar em "Patrocinar" leva ao wizard de Patrocinada pré-preenchido.
+
+---
+
+## Linha do tempo sugerida (~3 semanas calendário)
+
+| Semana | Partes |
+|--------|--------|
+| Semana 1 | Parte 0 → Parte 1 → Parte 2 → Parte 3 (início) |
+| Semana 2 | Parte 3 (fim) → Parte 4 → Parte 5 → Parte 6 |
+| Semana 3 | Parte 7 → Parte 8 → Parte 9 → Parte 10 → Parte 11 |
+
+## Marcos de validação com usuário real
+
+- **Marco 1** (fim da Parte 3): "consigo publicar e mover Produtos no Kanban"
+- **Marco 2** (fim da Parte 6): "loop completo funciona — public clica Saiba Mais → empresa vê card na Triagem"
+- **Marco 3** (fim da Parte 9): "time multi-papel opera o canal com permissões corretas"

@@ -1,0 +1,117 @@
+<section class="org-public">
+  @if (isLoading()) {
+    <p class="org-public__loading" role="status">Carregando canal…</p>
+  } @else if (notFound()) {
+    <div class="org-public__not-found" role="alert">
+      <span class="material-symbols-rounded" aria-hidden="true">error</span>
+      <h1>Organização não encontrada</h1>
+      <p>O endereço pode estar incorreto, ou esta organização ainda não existe na RealWe.</p>
+    </div>
+  } @else if (organization(); as org) {
+    <!-- Hero -->
+    <header class="org-public__hero" [style.background-image]="org.bannerUrl ? 'url(' + org.bannerUrl + ')' : null">
+      <div class="org-public__hero-overlay"></div>
+      <div class="org-public__hero-inner">
+        <img
+          class="org-public__logo"
+          [src]="org.logoUrl"
+          [alt]="'Logo ' + org.name"
+          width="80"
+          height="80"
+          loading="eager"
+        />
+        <div class="org-public__hero-text">
+          <span class="org-public__eyebrow">{{ org.slug }}.realwe</span>
+          <h1 class="org-public__name">{{ org.name }}</h1>
+          @if (org.about) {
+            <p class="org-public__about">{{ org.about }}</p>
+          }
+        </div>
+      </div>
+    </header>
+
+    @if (!org.publicPageEnabled) {
+      <div class="org-public__paused" role="alert">
+        <span class="material-symbols-rounded" aria-hidden="true">construction</span>
+        <div>
+          <h2>Página em construção</h2>
+          <p>
+            Esta organização ainda não ativou a página pública. Volte em breve para conhecer
+            seus Produtos.
+          </p>
+        </div>
+      </div>
+    } @else {
+      <!-- Quick stats -->
+      <div class="org-public__stats" aria-label="Estatísticas do canal">
+        <div>
+          <strong>{{ totalActive() }}</strong>
+          <span>Produto(s) ativo(s)</span>
+        </div>
+        <div>
+          <strong>{{ sections().length }}</strong>
+          <span>Categoria(s)</span>
+        </div>
+        @if (org.website) {
+          <a class="org-public__website" [href]="org.website" target="_blank" rel="noopener">
+            <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
+            Site oficial
+          </a>
+        }
+      </div>
+
+      <!-- Sections per type -->
+      @if (sections().length === 0) {
+        <div class="org-public__empty">
+          <span class="material-symbols-rounded" aria-hidden="true">inbox</span>
+          <p>Esta organização ainda não publicou nenhum Produto.</p>
+        </div>
+      } @else {
+        @for (section of sections(); track section.type) {
+          <section class="org-public__section" [style.--section-accent]="section.color">
+            <header class="org-public__section-header">
+              <span class="material-symbols-rounded" aria-hidden="true">{{ section.icon }}</span>
+              <h2>{{ section.label }}</h2>
+              <span class="org-public__section-count">{{ section.products.length }}</span>
+            </header>
+
+            <ul class="org-public__products" aria-label="Produtos">
+              @for (product of section.products; track trackProduct($index, product)) {
+                <li class="org-public__product">
+                  <div class="org-public__product-body">
+                    <h3 class="org-public__product-title">{{ product.title }}</h3>
+                    @if (product.subtitle) {
+                      <p class="org-public__product-subtitle">{{ product.subtitle }}</p>
+                    }
+                    @if (product.badges.length > 0) {
+                      <ul class="org-public__product-badges" aria-label="características">
+                        @for (badge of product.badges; track badge) {
+                          <li>{{ badge }}</li>
+                        }
+                      </ul>
+                    }
+                    @if (product.location) {
+                      <p class="org-public__product-location">
+                        <span class="material-symbols-rounded" aria-hidden="true">place</span>
+                        {{ product.location }}
+                      </p>
+                    }
+                  </div>
+                  <button
+                    type="button"
+                    class="org-public__cta"
+                    (click)="openLearnMore(product)"
+                  >
+                    {{ ctaLabel(product) }}
+                  </button>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      }
+    }
+  }
+
+  <app-learn-more-drawer />
+</section>

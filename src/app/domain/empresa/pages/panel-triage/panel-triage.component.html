@@ -1,0 +1,103 @@
+<section class="panel-triage" aria-labelledby="panel-triage-title">
+  <header class="panel-triage__header">
+    <h2 class="panel-triage__title" id="panel-triage-title">Triagens</h2>
+    <p class="panel-triage__subtitle">
+      Submissões recebidas pelo Saiba Mais. O pipeline default depende do tipo de Produto —
+      selecione um tipo para operar o Kanban.
+    </p>
+  </header>
+
+  <nav class="panel-triage__type-tabs" role="tablist" aria-label="Filtrar por tipo de Produto">
+    @for (tab of typeTabs(); track tab.value) {
+      <button
+        type="button"
+        role="tab"
+        class="panel-triage__type-tab"
+        [class.is-active]="typeFilter() === tab.value"
+        [style.--type-accent]="tab.color"
+        [attr.aria-selected]="typeFilter() === tab.value"
+        (click)="setTypeFilter(tab.value)"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">{{ tab.icon }}</span>
+        <span>{{ tab.label }}</span>
+        <span class="panel-triage__type-count">{{ countByType()[tab.value] }}</span>
+      </button>
+    }
+  </nav>
+
+  <div class="panel-triage__filters">
+    <div class="panel-triage__filter-field">
+      <label for="triage-product">Produto</label>
+      <select
+        id="triage-product"
+        [value]="productIdFilter() ?? ''"
+        (change)="onProductSelect($event)"
+      >
+        <option value="">Todos os Produtos</option>
+        @for (option of productOptions(); track option.id) {
+          <option [value]="option.id">{{ option.title }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="panel-triage__filter-field">
+      <label for="triage-search">Buscar</label>
+      <input
+        id="triage-search"
+        type="search"
+        placeholder="Nome, e-mail ou produto"
+        [value]="searchTerm()"
+        (input)="onSearchInput($event)"
+      />
+    </div>
+
+    @if (typeFilter() !== 'all' || productIdFilter() || searchTerm()) {
+      <button
+        type="button"
+        class="panel-triage__clear"
+        (click)="clearFilters()"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">close</span>
+        Limpar filtros
+      </button>
+    }
+  </div>
+
+  @if (error()) {
+    <div class="panel-triage__error" role="alert">{{ error() }}</div>
+  }
+
+  @if (isLoading() && items().length === 0) {
+    <p class="panel-triage__loading" role="status">Carregando submissões…</p>
+  } @else if (!hasTypeSelected()) {
+    <div class="panel-triage__hint">
+      <span class="material-symbols-rounded" aria-hidden="true">filter_alt</span>
+      <h3>Selecione um tipo para visualizar o pipeline</h3>
+      <p>
+        Como cada tipo de Produto (Vaga, Serviço, Treinamento…) tem um pipeline próprio, as
+        colunas só fazem sentido após filtrar.
+      </p>
+      <p class="panel-triage__hint-summary">
+        Total de submissões: <strong>{{ items().length }}</strong> ·
+        Filtradas: <strong>{{ filteredItems().length }}</strong>
+      </p>
+    </div>
+  } @else {
+    <app-kanban-board
+      [columns]="columns()"
+      [items]="filteredItems()"
+      [itemColumnKey]="getColumnKey"
+      [itemId]="getItemId"
+      [cardTemplate]="cardTpl"
+      [canAddPhase]="false"
+      [canCreateInPhase]="canCreateInPhase"
+      [isMovingItem]="isMovingItem"
+      (itemMoved)="onItemMoved($event)"
+      (itemClicked)="onSubmissionClicked($event)"
+    />
+  }
+
+  <ng-template #cardTpl let-submission>
+    <app-submission-card [submission]="submission" />
+  </ng-template>
+</section>

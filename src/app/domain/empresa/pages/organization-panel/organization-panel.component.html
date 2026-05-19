@@ -1,0 +1,59 @@
+<section class="org-panel" aria-labelledby="org-panel-title">
+  <header class="org-panel__header">
+    <a class="org-panel__back" [routerLink]="listLink" aria-label="Voltar para a lista">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+    </a>
+
+    @if (organization()) {
+      <div class="org-panel__identity">
+        <img
+          class="org-panel__logo"
+          [src]="organization()!.logoUrl"
+          [alt]="'Logo ' + organization()!.name"
+          width="40"
+          height="40"
+          loading="lazy"
+        />
+        <div class="org-panel__title-wrap">
+          <h1 class="org-panel__title" id="org-panel-title">{{ organization()!.name }}</h1>
+          <p class="org-panel__domain">{{ organization()!.slug }}.realwe</p>
+        </div>
+      </div>
+    } @else {
+      <h1 class="org-panel__title" id="org-panel-title">Painel da organização</h1>
+    }
+  </header>
+
+  @if (isLoading()) {
+    <p class="org-panel__loading" role="status">Carregando organização…</p>
+  } @else if (error()) {
+    <div class="org-panel__error" role="alert">
+      <p>{{ error() }}</p>
+      <button type="button" class="org-panel__retry" (click)="retry()">Tentar novamente</button>
+    </div>
+  } @else if (organization()) {
+    <nav class="org-panel__tabs" role="tablist" aria-label="Seções do painel">
+      @for (tab of tabs; track tab.segment) {
+        <a
+          role="tab"
+          class="org-panel__tab"
+          [routerLink]="tabLink(tab.segment)"
+          routerLinkActive="is-active"
+          #rla="routerLinkActive"
+          [attr.aria-selected]="rla.isActive"
+        >
+          <span class="material-symbols-rounded org-panel__tab-icon" aria-hidden="true">
+            {{ tab.icon }}
+          </span>
+          <span class="org-panel__tab-label">{{ tab.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <div class="org-panel__content">
+      <router-outlet />
+    </div>
+  }
+
+  <app-learn-more-drawer />
+</section>

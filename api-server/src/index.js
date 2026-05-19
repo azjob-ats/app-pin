@@ -20,6 +20,7 @@ const inscriptionsRouter = require('./routes/inscriptions');
 const metricsRouter = require('./routes/metrics');
 const sponsoredCampaignsRouter = require('./routes/campaigns');
 const resumeRouter = require('./routes/resume');
+const empresaRouter = require('./routes/empresa');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -52,6 +53,7 @@ app.use('/api/v1/me/inscriptions', inscriptionsRouter);
 app.use('/api/v1/me/metrics', metricsRouter);
 app.use('/api/v1/sponsored-campaigns', sponsoredCampaignsRouter);
 app.use('/api/v1/me/resume', resumeRouter);
+app.use('/api/v1/empresa', empresaRouter);
 
 // Health check
 app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date().toISOString() }));
@@ -114,4 +116,29 @@ app.listen(PORT, () => {
   console.log('  GET    /api/v1/me/resume');
   console.log('  PATCH  /api/v1/me/resume/:trackId');
   console.log('  POST   /api/v1/me/resume/publish');
+  console.log('  GET    /api/v1/empresa/organizations');
+  console.log('  POST   /api/v1/empresa/organizations');
+  console.log('  GET    /api/v1/empresa/organizations/:slug');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/favorite');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/products');
+  console.log('  POST   /api/v1/empresa/organizations/:slug/products');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/products/:id');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/products/:id');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/products/:id/move');
+  console.log('  POST   /api/v1/empresa/organizations/:slug/products/:id/submissions');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/submissions');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/submissions/:id');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/submissions/:id/move');
+  console.log('  POST   /api/v1/empresa/organizations/:slug/submissions/:id/notes');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/submissions/:id/assign');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/members');
+  console.log('  POST   /api/v1/empresa/organizations/:slug/members/invite');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/members/:id');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/roles');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/roles/:id');
+  console.log('  GET    /api/v1/empresa/organizations/:slug/groups');
+  console.log('  POST   /api/v1/empresa/organizations/:slug/groups');
+  console.log('  PATCH  /api/v1/empresa/organizations/:slug/groups/:id');
+  console.log('  POST   /api/v1/empresa/organizations/:slug/groups/:id/members');
 });

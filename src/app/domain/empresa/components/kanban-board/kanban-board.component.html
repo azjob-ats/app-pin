@@ -1,0 +1,63 @@
+<div class="kanban" cdkDropListGroup>
+  @for (column of columns(); track trackByColumn($index, column)) {
+    <section
+      class="kanban__column"
+      cdkDropList
+      [id]="dropListId(column.id)"
+      [cdkDropListData]="column.id"
+      [cdkDropListConnectedTo]="connectedListIds()"
+      (cdkDropListDropped)="onDrop($event)"
+    >
+      <header
+        class="kanban__column-header"
+        [style.--kanban-column-accent]="column.color"
+      >
+        <div class="kanban__column-title">
+          <span class="kanban__column-dot" aria-hidden="true"></span>
+          <span>{{ column.label }}</span>
+          <span class="kanban__column-badge" aria-label="quantidade de itens">
+            {{ countOf(column.id) }}
+          </span>
+        </div>
+        @if (canCreateInPhase()(column.id)) {
+          <button
+            type="button"
+            class="kanban__column-add"
+            (click)="onCreateInPhase(column.id)"
+            [attr.aria-label]="'Adicionar item em ' + column.label"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">add</span>
+          </button>
+        }
+      </header>
+
+      <div class="kanban__column-body">
+        @for (item of itemsFor(column.id); track trackByItem($index, item)) {
+          <article
+            cdkDrag
+            [cdkDragData]="item"
+            class="kanban__card-wrap"
+            [class.is-moving]="isMovingItem()(itemId()(item))"
+            tabindex="0"
+            role="button"
+            (click)="onItemClick(item)"
+            (keydown.enter)="onItemClick(item)"
+          >
+            <ng-container
+              *ngTemplateOutlet="cardTemplate(); context: { $implicit: item, item, columnId: column.id }"
+            />
+          </article>
+        } @empty {
+          <p class="kanban__empty">Vazio</p>
+        }
+      </div>
+    </section>
+  }
+
+  @if (canAddPhase()) {
+    <button type="button" class="kanban__add-phase" (click)="onAddPhase()">
+      <span class="material-symbols-rounded" aria-hidden="true">add</span>
+      <span>Nova fase</span>
+    </button>
+  }
+</div>

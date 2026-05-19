@@ -1,0 +1,120 @@
+<section class="panel-products" aria-labelledby="panel-products-title">
+  <header class="panel-products__header">
+    <h2 class="panel-products__title" id="panel-products-title">Gerenciar Produtos</h2>
+    <p class="panel-products__subtitle">
+      Publique Vagas, Produtos/Serviços, Treinamentos, Notícias e Experiências. Arraste cards entre
+      as fases para controlar a visibilidade pública.
+    </p>
+  </header>
+
+  <nav class="panel-products__type-tabs" role="tablist" aria-label="Filtrar por tipo de Produto">
+    @for (tab of typeTabs(); track tab.value) {
+      <button
+        type="button"
+        role="tab"
+        class="panel-products__type-tab"
+        [class.is-active]="typeFilter() === tab.value"
+        [style.--type-accent]="tab.color"
+        [attr.aria-selected]="typeFilter() === tab.value"
+        (click)="setTypeFilter(tab.value)"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">{{ tab.icon }}</span>
+        <span>{{ tab.label }}</span>
+        <span class="panel-products__type-count">{{ countByType()[tab.value] }}</span>
+      </button>
+    }
+  </nav>
+
+  @if (error()) {
+    <div class="panel-products__error" role="alert">{{ error() }}</div>
+  }
+
+  @if (isLoading() && filteredItems().length === 0) {
+    <p class="panel-products__loading" role="status">Carregando produtos…</p>
+  } @else {
+    <app-kanban-board
+      [columns]="columns()"
+      [items]="filteredItems()"
+      [itemColumnKey]="getColumnKey"
+      [itemId]="getItemId"
+      [cardTemplate]="cardTpl"
+      [canAddPhase]="true"
+      [canCreateInPhase]="canCreateInPhase"
+      [isMovingItem]="isMovingItem"
+      (itemMoved)="onItemMoved($event)"
+      (addPhaseRequested)="openNewPhaseModal()"
+      (createInPhaseRequested)="onCreateInPhase($event)"
+      (itemClicked)="onProductClicked($event)"
+    />
+  }
+
+  <ng-template #cardTpl let-product>
+    <app-product-card [product]="product" />
+  </ng-template>
+
+  @if (showNewPhaseModal()) {
+    <div
+      class="panel-products__modal-backdrop"
+      role="presentation"
+      (click)="closeNewPhaseModal()"
+    >
+      <div
+        class="panel-products__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="new-phase-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-products__modal-header">
+          <h3 id="new-phase-title">Nova fase</h3>
+          <button
+            type="button"
+            class="panel-products__modal-close"
+            aria-label="Fechar"
+            (click)="closeNewPhaseModal()"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+
+        <form
+          class="panel-products__modal-form"
+          [formGroup]="newPhaseForm"
+          (ngSubmit)="submitNewPhase()"
+          novalidate
+        >
+          <div class="panel-products__modal-field">
+            <label for="new-phase-label">Nome da fase</label>
+            <input
+              id="new-phase-label"
+              type="text"
+              formControlName="label"
+              placeholder="Ex.: Em análise jurídica"
+              autofocus
+            />
+          </div>
+          <div class="panel-products__modal-field">
+            <label for="new-phase-color">Cor identificadora</label>
+            <input id="new-phase-color" type="color" formControlName="color" />
+          </div>
+          <footer class="panel-products__modal-footer">
+            <button
+              type="button"
+              class="panel-products__modal-cancel"
+              (click)="closeNewPhaseModal()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="panel-products__modal-submit"
+              [disabled]="newPhaseForm.invalid"
+            >
+              Criar fase
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  }
+</section>

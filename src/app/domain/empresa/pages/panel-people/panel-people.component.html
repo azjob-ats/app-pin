@@ -1,0 +1,530 @@
+<section class="panel-people" aria-labelledby="panel-people-title">
+  <header class="panel-people__header">
+    <h2 class="panel-people__title" id="panel-people-title">Pessoas & Permissões</h2>
+    <p class="panel-people__subtitle">
+      Membros, funções e grupos da organização. Funções aplicam permissões granulares;
+      grupos permitem atribuir uma função padrão em lote (ex.: RH herda Recrutador).
+    </p>
+  </header>
+
+  <nav class="panel-people__tabs" role="tablist" aria-label="Sub-tabs de Pessoas">
+    <button
+      type="button"
+      role="tab"
+      class="panel-people__tab"
+      [class.is-active]="currentTab() === 'members'"
+      [attr.aria-selected]="currentTab() === 'members'"
+      (click)="setTab('members')"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">person</span>
+      Pessoas
+      <span class="panel-people__tab-count">{{ members().length }}</span>
+    </button>
+    <button
+      type="button"
+      role="tab"
+      class="panel-people__tab"
+      [class.is-active]="currentTab() === 'roles'"
+      [attr.aria-selected]="currentTab() === 'roles'"
+      (click)="setTab('roles')"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">admin_panel_settings</span>
+      Funções
+      <span class="panel-people__tab-count">{{ roles().length }}</span>
+    </button>
+    <button
+      type="button"
+      role="tab"
+      class="panel-people__tab"
+      [class.is-active]="currentTab() === 'groups'"
+      [attr.aria-selected]="currentTab() === 'groups'"
+      (click)="setTab('groups')"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">groups</span>
+      Grupos
+      <span class="panel-people__tab-count">{{ groups().length }}</span>
+    </button>
+  </nav>
+
+  @if (error()) {
+    <div class="panel-people__error" role="alert">{{ error() }}</div>
+  }
+
+  @if (isLoading() && members().length === 0) {
+    <p class="panel-people__loading" role="status">Carregando equipe…</p>
+  }
+
+  <!-- ============ MEMBERS TAB ============ -->
+  @if (currentTab() === 'members') {
+    <div class="panel-people__panel">
+      <div class="panel-people__toolbar">
+        <input
+          type="search"
+          placeholder="Buscar pessoa por nome, e-mail ou função"
+          class="panel-people__search"
+          [value]="memberSearch()"
+          (input)="onMemberSearch($event)"
+        />
+        <button
+          type="button"
+          class="panel-people__btn panel-people__btn--primary"
+          (click)="openInviteModal()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">person_add</span>
+          Convidar membro
+        </button>
+      </div>
+
+      @if (filteredMembers().length === 0) {
+        <p class="panel-people__empty">Nenhuma pessoa encontrada.</p>
+      } @else {
+        <table class="panel-people__table">
+          <thead>
+            <tr>
+              <th>Pessoa</th>
+              <th>E-mail</th>
+              <th>Função</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (m of filteredMembers(); track trackMember($index, m)) {
+              <tr>
+                <td class="panel-people__person">
+                  <img
+                    class="panel-people__avatar"
+                    [src]="m.avatarUrl"
+                    [alt]="'Avatar de ' + m.name"
+                    width="28"
+                    height="28"
+                    loading="lazy"
+                  />
+                  <span>{{ m.name }}</span>
+                </td>
+                <td>{{ m.email }}</td>
+                <td>
+                  <span class="panel-people__role-tag">{{ m.roleName }}</span>
+                </td>
+                <td>
+                  <span
+                    class="panel-people__status-tag"
+                    [class.is-active]="m.status === 'active'"
+                    [class.is-pending]="m.status === 'pending'"
+                  >
+                    {{ m.status === 'active' ? 'Ativo' : 'Pendente' }}
+                  </span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  }
+
+  <!-- ============ ROLES TAB ============ -->
+  @if (currentTab() === 'roles') {
+    <div class="panel-people__panel">
+      <div class="panel-people__toolbar">
+        <input
+          type="search"
+          placeholder="Buscar função por nome"
+          class="panel-people__search"
+          [value]="roleSearch()"
+          (input)="onRoleSearch($event)"
+        />
+      </div>
+
+      @if (filteredRoles().length === 0) {
+        <p class="panel-people__empty">Nenhuma função encontrada.</p>
+      } @else {
+        <table class="panel-people__table">
+          <thead>
+            <tr>
+              <th>Função</th>
+              <th>Descrição</th>
+              <th>Pessoas</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of filteredRoles(); track trackRole($index, r)) {
+              <tr>
+                <td><strong>{{ r.name }}</strong></td>
+                <td class="panel-people__role-desc">{{ r.description }}</td>
+                <td>{{ r.membersCount }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="panel-people__icon-btn"
+                    (click)="openRoleDrawer(r)"
+                    [attr.aria-label]="'Ver permissões de ' + r.name"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">tune</span>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  }
+
+  <!-- ============ GROUPS TAB ============ -->
+  @if (currentTab() === 'groups') {
+    <div class="panel-people__panel">
+      <div class="panel-people__toolbar">
+        <input
+          type="search"
+          placeholder="Buscar grupo por nome"
+          class="panel-people__search"
+          [value]="groupSearch()"
+          (input)="onGroupSearch($event)"
+        />
+        <button
+          type="button"
+          class="panel-people__btn panel-people__btn--primary"
+          (click)="openGroupModal()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">group_add</span>
+          Criar grupo
+        </button>
+      </div>
+
+      @if (filteredGroups().length === 0) {
+        <p class="panel-people__empty">Nenhum grupo encontrado.</p>
+      } @else {
+        <table class="panel-people__table">
+          <thead>
+            <tr>
+              <th>Grupo</th>
+              <th>Descrição</th>
+              <th>Função padrão</th>
+              <th>Pessoas</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (g of filteredGroups(); track trackGroup($index, g)) {
+              <tr>
+                <td><strong>{{ g.name }}</strong></td>
+                <td>{{ g.description || '—' }}</td>
+                <td>
+                  @if (g.defaultRoleName) {
+                    <span class="panel-people__role-tag">{{ g.defaultRoleName }}</span>
+                  } @else {
+                    <span class="panel-people__empty-cell">—</span>
+                  }
+                </td>
+                <td>{{ g.membersCount }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="panel-people__icon-btn"
+                    (click)="openAddMembersModal(g)"
+                    [attr.aria-label]="'Adicionar membros a ' + g.name"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">person_add</span>
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+  }
+
+  <!-- ============ INVITE MODAL ============ -->
+  @if (showInviteModal()) {
+    <div class="panel-people__modal-backdrop" (click)="closeInviteModal()" role="presentation">
+      <div
+        class="panel-people__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="invite-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-people__modal-header">
+          <h3 id="invite-title">Convidar membro</h3>
+          <button
+            type="button"
+            class="panel-people__icon-btn"
+            (click)="closeInviteModal()"
+            aria-label="Fechar"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+        <form class="panel-people__form" [formGroup]="inviteForm" (ngSubmit)="submitInvite()" novalidate>
+          <div class="panel-people__field">
+            <label for="invite-email">E-mail corporativo</label>
+            <input
+              id="invite-email"
+              type="email"
+              formControlName="email"
+              placeholder="ana@suaempresa.com.br"
+            />
+            @if (hasInviteError('email', 'required')) {
+              <p class="panel-people__field-error">Informe o e-mail.</p>
+            }
+            @if (hasInviteError('email', 'email')) {
+              <p class="panel-people__field-error">E-mail inválido.</p>
+            }
+          </div>
+          <div class="panel-people__field">
+            <label for="invite-role">Função</label>
+            <select id="invite-role" formControlName="roleId">
+              <option value="">Selecione…</option>
+              @for (r of roles(); track trackRole($index, r)) {
+                <option [value]="r.id">{{ r.name }}</option>
+              }
+            </select>
+            @if (hasInviteError('roleId', 'required')) {
+              <p class="panel-people__field-error">Escolha uma função.</p>
+            }
+          </div>
+          <footer class="panel-people__modal-footer">
+            <button
+              type="button"
+              class="panel-people__btn panel-people__btn--ghost"
+              (click)="closeInviteModal()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="panel-people__btn panel-people__btn--primary"
+              [disabled]="inviteForm.invalid || isMutating()"
+            >
+              Enviar convite
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- ============ GROUP MODAL ============ -->
+  @if (showGroupModal()) {
+    <div class="panel-people__modal-backdrop" (click)="closeGroupModal()" role="presentation">
+      <div
+        class="panel-people__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="group-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-people__modal-header">
+          <h3 id="group-title">Criar grupo</h3>
+          <button
+            type="button"
+            class="panel-people__icon-btn"
+            (click)="closeGroupModal()"
+            aria-label="Fechar"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+        <form class="panel-people__form" [formGroup]="groupForm" (ngSubmit)="submitGroup()" novalidate>
+          <div class="panel-people__field">
+            <label for="group-name">Nome do grupo</label>
+            <input
+              id="group-name"
+              type="text"
+              formControlName="name"
+              placeholder="Ex.: RH"
+            />
+            @if (hasGroupError('name', 'required')) {
+              <p class="panel-people__field-error">Informe o nome.</p>
+            }
+            @if (hasGroupError('name', 'minlength')) {
+              <p class="panel-people__field-error">Mínimo de 2 caracteres.</p>
+            }
+          </div>
+          <div class="panel-people__field">
+            <label for="group-desc">Descrição</label>
+            <input
+              id="group-desc"
+              type="text"
+              formControlName="description"
+              placeholder="Ex.: Time de recrutamento"
+            />
+          </div>
+          <div class="panel-people__field">
+            <label for="group-role">Função padrão (opcional)</label>
+            <select id="group-role" formControlName="defaultRoleId">
+              <option value="">Sem função padrão</option>
+              @for (r of roles(); track trackRole($index, r)) {
+                <option [value]="r.id">{{ r.name }}</option>
+              }
+            </select>
+            <p class="panel-people__field-hint">
+              Membros adicionados ao grupo herdam essa função automaticamente.
+            </p>
+          </div>
+          <footer class="panel-people__modal-footer">
+            <button
+              type="button"
+              class="panel-people__btn panel-people__btn--ghost"
+              (click)="closeGroupModal()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="panel-people__btn panel-people__btn--primary"
+              [disabled]="groupForm.invalid || isMutating()"
+            >
+              Criar grupo
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- ============ ADD MEMBERS TO GROUP MODAL ============ -->
+  @if (addMembersGroup(); as g) {
+    <div class="panel-people__modal-backdrop" (click)="closeAddMembersModal()" role="presentation">
+      <div
+        class="panel-people__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="addm-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-people__modal-header">
+          <div>
+            <h3 id="addm-title">Adicionar a “{{ g.name }}”</h3>
+            @if (g.defaultRoleName) {
+              <p class="panel-people__modal-hint">
+                Membros adicionados herdarão a função <strong>{{ g.defaultRoleName }}</strong>.
+              </p>
+            }
+          </div>
+          <button
+            type="button"
+            class="panel-people__icon-btn"
+            (click)="closeAddMembersModal()"
+            aria-label="Fechar"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+
+        <div class="panel-people__add-list">
+          @for (m of members(); track trackMember($index, m)) {
+            <label class="panel-people__add-row">
+              <input
+                type="checkbox"
+                [checked]="isMemberSelected(m.id)"
+                (change)="toggleMemberSelection(m.id)"
+              />
+              <img
+                class="panel-people__avatar"
+                [src]="m.avatarUrl"
+                [alt]="'Avatar de ' + m.name"
+                width="28"
+                height="28"
+                loading="lazy"
+              />
+              <span class="panel-people__add-name">{{ m.name }}</span>
+              <span class="panel-people__role-tag">{{ m.roleName }}</span>
+            </label>
+          }
+        </div>
+
+        <footer class="panel-people__modal-footer">
+          <button
+            type="button"
+            class="panel-people__btn panel-people__btn--ghost"
+            (click)="closeAddMembersModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="panel-people__btn panel-people__btn--primary"
+            [disabled]="isMutating()"
+            (click)="submitAddMembers()"
+          >
+            Adicionar ({{ selectedMemberIds().size }})
+          </button>
+        </footer>
+      </div>
+    </div>
+  }
+
+  <!-- ============ ROLE PERMISSIONS DRAWER ============ -->
+  <app-drawer
+    position="right"
+    styleClass="people-role-drawer"
+    [visible]="showRoleDrawer()"
+    (visibleChange)="onRoleDrawerVisibleChange($event)"
+  >
+    <ng-template #header>
+      <div class="people-role-drawer__header">
+        <div>
+          @if (selectedRole(); as role) {
+            <span class="people-role-drawer__eyebrow">Função</span>
+            <h2 class="people-role-drawer__title">{{ role.name }}</h2>
+            <p class="people-role-drawer__desc">{{ role.description }}</p>
+          }
+        </div>
+        <button
+          type="button"
+          class="panel-people__icon-btn"
+          (click)="closeRoleDrawer()"
+          aria-label="Fechar"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">close</span>
+        </button>
+      </div>
+    </ng-template>
+
+    <div class="people-role-drawer__body">
+      @if (drawerPermissionGroups(); as groups) {
+        @for (group of permissionGroups; track group) {
+          <section class="people-role-drawer__group">
+            <h3 class="people-role-drawer__group-title">{{ group }}</h3>
+            <ul class="people-role-drawer__list">
+              @for (entry of groups.get(group) ?? []; track entry.meta.action) {
+                <li>
+                  <span>{{ entry.meta.label }}</span>
+                  @if (permissionControl(entry.meta.action); as control) {
+                    <label class="people-role-drawer__toggle">
+                      <input type="checkbox" [formControl]="control" />
+                      <span class="people-role-drawer__toggle-track"></span>
+                    </label>
+                  }
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      }
+    </div>
+
+    <ng-template #footer>
+      <div class="people-role-drawer__footer">
+        <button
+          type="button"
+          class="panel-people__btn panel-people__btn--ghost"
+          (click)="closeRoleDrawer()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="panel-people__btn panel-people__btn--primary"
+          [disabled]="isMutating()"
+          (click)="saveRolePermissions()"
+        >
+          Salvar
+        </button>
+      </div>
+    </ng-template>
+  </app-drawer>
+</section>

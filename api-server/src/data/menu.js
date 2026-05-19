@@ -69,6 +69,20 @@ const MENU_ITEMS = {
       text: null,
     },
     {
+      icon: 'business',
+      name: 'Minha Empresa',
+      description:
+        'Gerencie organizações, produtos (vagas, serviços, treinamentos, notícias, experiências), triagens e a página pública do canal.',
+      routerLink: {
+        label: 'Minha Empresa',
+        link: '/empresa',
+        target: null,
+        closeMenu: true,
+      },
+      component: null,
+      text: null,
+    },
+    {
       icon: 'login',
       name: 'Entre aqui',
       description: 'Acesse sua conta para continuar explorando conteúdos, oportunidades e conexões na plataforma.',

@@ -1,0 +1,186 @@
+<section class="org-create" aria-labelledby="org-create-title">
+  <header class="org-create__header">
+    <a class="org-create__back" [routerLink]="listLink" aria-label="Voltar para a lista">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+    </a>
+    <h1 class="org-create__title" id="org-create-title">Nova Organização</h1>
+  </header>
+
+  @if (showSummaryError() || serverError()) {
+    <div class="org-create__summary-error" role="alert">
+      <span class="material-symbols-rounded" aria-hidden="true">error</span>
+      <span>{{ serverError() || 'Verifique os campos abaixo.' }}</span>
+    </div>
+  }
+
+  <form
+    class="org-create__form"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    novalidate
+    autocomplete="off"
+  >
+    <div class="org-create__field">
+      <label for="org-name">Empresa</label>
+      <input
+        id="org-name"
+        type="text"
+        formControlName="name"
+        placeholder="Ex.: Nubank"
+        [attr.aria-invalid]="hasError('name', 'required') || hasError('name', 'minlength')"
+      />
+      @if (hasError('name', 'required')) {
+        <p class="org-create__error">Informe o nome da empresa.</p>
+      }
+      @if (hasError('name', 'minlength')) {
+        <p class="org-create__error">Mínimo de 2 caracteres.</p>
+      }
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-email">E-mail corporativo</label>
+      <input
+        id="org-email"
+        type="email"
+        formControlName="corporateEmail"
+        placeholder="admin@suaempresa.com.br"
+        [attr.aria-invalid]="hasError('corporateEmail', 'required') || hasError('corporateEmail', 'email')"
+      />
+      <p class="org-create__hint">
+        Você receberá um link de verificação. Deve ser o mesmo e-mail com o qual está logado.
+      </p>
+      @if (hasError('corporateEmail', 'required')) {
+        <p class="org-create__error">Informe o e-mail corporativo.</p>
+      }
+      @if (hasError('corporateEmail', 'email')) {
+        <p class="org-create__error">E-mail inválido.</p>
+      }
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-slug">Domínio realwe</label>
+      <div class="org-create__slug">
+        <input
+          id="org-slug"
+          type="text"
+          formControlName="slug"
+          placeholder="suaempresa"
+          [attr.aria-invalid]="hasError('slug', 'required') || hasError('slug', 'pattern')"
+        />
+        <span class="org-create__slug-suffix">.realwe</span>
+      </div>
+      <p class="org-create__hint">Gerado automaticamente a partir do nome. Você pode editar.</p>
+      @if (hasError('slug', 'required')) {
+        <p class="org-create__error">Informe o domínio.</p>
+      }
+      @if (hasError('slug', 'pattern')) {
+        <p class="org-create__error">
+          Use apenas letras minúsculas, números e hífens (sem espaços ou acentos).
+        </p>
+      }
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-website">Site da empresa</label>
+      <input
+        id="org-website"
+        type="url"
+        formControlName="website"
+        placeholder="https://suaempresa.com.br"
+        [attr.aria-invalid]="hasError('website', 'pattern')"
+      />
+      @if (hasError('website', 'pattern')) {
+        <p class="org-create__error">URL inválida. Use o formato https://...</p>
+      }
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-social">Redes sociais</label>
+      <input
+        id="org-social"
+        type="url"
+        placeholder="Cole a URL e pressione Enter"
+        [value]="socialInput()"
+        (input)="onSocialInput($event)"
+        (keydown)="onSocialKeyDown($event)"
+      />
+      @if (socialLinks().length > 0) {
+        <ul class="org-create__chips" aria-label="Redes sociais adicionadas">
+          @for (link of socialLinks(); track link) {
+            <li>
+              <span class="org-create__chip">
+                <span class="org-create__chip-text">{{ link }}</span>
+                <button
+                  type="button"
+                  class="org-create__chip-remove"
+                  [attr.aria-label]="'Remover ' + link"
+                  (click)="removeSocialLink(link)"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">close</span>
+                </button>
+              </span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-banner">Banner da página (URL)</label>
+      <input
+        id="org-banner"
+        type="url"
+        formControlName="bannerUrl"
+        placeholder="https://..."
+      />
+      <p class="org-create__hint">Upload nativo virá em iteração posterior — por enquanto cole a URL.</p>
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-logo">Logo da página (URL)</label>
+      <input id="org-logo" type="url" formControlName="logoUrl" placeholder="https://..." />
+    </div>
+
+    <div class="org-create__field">
+      <label for="org-about">Sobre a empresa</label>
+      <textarea
+        id="org-about"
+        formControlName="about"
+        rows="4"
+        placeholder="Conte em poucas linhas o que sua empresa faz"
+      ></textarea>
+      @if (hasError('about', 'maxlength')) {
+        <p class="org-create__error">Máximo de 800 caracteres.</p>
+      }
+    </div>
+
+    <div class="org-create__preview" aria-live="polite">
+      <span class="material-symbols-rounded" aria-hidden="true">link</span>
+      <span>
+        Sua página pública será: <strong>{{ domainPreview() }}</strong>
+      </span>
+    </div>
+
+    <footer class="org-create__footer">
+      <label class="org-create__confirm">
+        <input type="checkbox" formControlName="representativeConfirmed" />
+        <span>Declaro que sou representante oficial desta organização.</span>
+      </label>
+      @if (hasError('representativeConfirmed', 'required')) {
+        <p class="org-create__error">Confirme que você representa esta organização.</p>
+      }
+
+      <button
+        type="submit"
+        class="org-create__submit"
+        [disabled]="isSubmitting()"
+      >
+        @if (isSubmitting()) {
+          Criando...
+        } @else {
+          Criar página e organização
+        }
+      </button>
+    </footer>
+  </form>
+</section>

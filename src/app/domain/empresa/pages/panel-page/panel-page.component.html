@@ -1,0 +1,145 @@
+<section class="panel-page" aria-labelledby="panel-page-title">
+  <header class="panel-page__header">
+    <h2 class="panel-page__title" id="panel-page-title">Página da Empresa</h2>
+    <p class="panel-page__subtitle">
+      Personalize como sua organização aparece publicamente em
+      <code>{{ context.organization()?.slug }}.realwe</code>. As alterações refletem
+      imediatamente na página pública.
+    </p>
+  </header>
+
+  @if (serverError()) {
+    <div class="panel-page__error" role="alert">{{ serverError() }}</div>
+  }
+
+  @if (justSaved()) {
+    <div class="panel-page__success" role="status">
+      <span class="material-symbols-rounded" aria-hidden="true">check_circle</span>
+      <span>Alterações salvas com sucesso.</span>
+      <button type="button" class="panel-page__success-close" (click)="dismissJustSaved()">
+        <span class="material-symbols-rounded" aria-hidden="true">close</span>
+      </button>
+    </div>
+  }
+
+  <form class="panel-page__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="panel-page__field">
+      <label for="page-name">Nome da empresa</label>
+      <input id="page-name" type="text" formControlName="name" />
+      @if (hasError('name', 'required')) {
+        <p class="panel-page__field-error">Informe o nome.</p>
+      }
+      @if (hasError('name', 'minlength')) {
+        <p class="panel-page__field-error">Mínimo de 2 caracteres.</p>
+      }
+    </div>
+
+    <div class="panel-page__field">
+      <label for="page-website">Site da empresa</label>
+      <input
+        id="page-website"
+        type="url"
+        formControlName="website"
+        placeholder="https://suaempresa.com.br"
+      />
+      @if (hasError('website', 'pattern')) {
+        <p class="panel-page__field-error">URL inválida. Use o formato https://...</p>
+      }
+    </div>
+
+    <div class="panel-page__field">
+      <label for="page-social">Redes sociais</label>
+      <input
+        id="page-social"
+        type="url"
+        placeholder="Cole a URL e pressione Enter"
+        [value]="socialInput()"
+        (input)="onSocialInput($event)"
+        (keydown)="onSocialKeyDown($event)"
+      />
+      @if (socialLinks().length > 0) {
+        <ul class="panel-page__chips" aria-label="Redes sociais">
+          @for (link of socialLinks(); track link) {
+            <li>
+              <span class="panel-page__chip">
+                <span class="panel-page__chip-text">{{ link }}</span>
+                <button
+                  type="button"
+                  class="panel-page__chip-remove"
+                  [attr.aria-label]="'Remover ' + link"
+                  (click)="removeSocialLink(link)"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">close</span>
+                </button>
+              </span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="panel-page__field">
+      <label for="page-banner">Banner (URL)</label>
+      <input id="page-banner" type="url" formControlName="bannerUrl" placeholder="https://..." />
+      <p class="panel-page__field-hint">
+        Upload nativo virá em iteração posterior — por enquanto cole a URL.
+      </p>
+    </div>
+
+    <div class="panel-page__field">
+      <label for="page-logo">Logo (URL)</label>
+      <input id="page-logo" type="url" formControlName="logoUrl" placeholder="https://..." />
+    </div>
+
+    <div class="panel-page__field">
+      <label for="page-about">Sobre a empresa</label>
+      <textarea
+        id="page-about"
+        formControlName="about"
+        rows="5"
+        placeholder="Conte em poucas linhas o que sua empresa faz"
+      ></textarea>
+      @if (hasError('about', 'maxlength')) {
+        <p class="panel-page__field-error">Máximo de 800 caracteres.</p>
+      }
+    </div>
+
+    <div class="panel-page__field panel-page__field--toggle">
+      <label class="panel-page__switch">
+        <input type="checkbox" formControlName="publicPageEnabled" />
+        <span class="panel-page__switch-track"></span>
+        <span class="panel-page__switch-label">Ativar página pública</span>
+      </label>
+      <p class="panel-page__field-hint">
+        Quando desativada, a página pública responde com "Em construção". Você ainda pode
+        publicar Produtos e operar Triagens internamente.
+      </p>
+    </div>
+
+    @if (context.organization()?.publicPageEnabled) {
+      <div class="panel-page__public-link">
+        <span class="material-symbols-rounded" aria-hidden="true">link</span>
+        <span>
+          Sua página está visível em
+          <a [href]="publicUrl()" target="_blank" rel="noopener">
+            <strong>{{ context.organization()?.slug }}.realwe</strong>
+          </a>
+        </span>
+      </div>
+    }
+
+    <footer class="panel-page__footer">
+      <button
+        type="submit"
+        class="panel-page__btn panel-page__btn--primary"
+        [disabled]="isSaving() || form.invalid"
+      >
+        @if (isSaving()) {
+          Salvando…
+        } @else {
+          Atualizar página e organização
+        }
+      </button>
+    </footer>
+  </form>
+</section>

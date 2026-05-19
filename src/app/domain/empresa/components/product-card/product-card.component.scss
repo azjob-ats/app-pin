@@ -1,0 +1,109 @@
+.product-card {
+  --product-accent: #64748b;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-left: 3px solid var(--product-accent);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: var(--product-accent);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  }
+}
+
+.product-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.product-card__type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: color-mix(in srgb, var(--product-accent) 12%, transparent);
+  color: var(--product-accent);
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+
+  span.material-symbols-rounded {
+    font-size: 14px;
+  }
+}
+
+.product-card__metrics {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text-muted, #94a3b8);
+  font-size: 11px;
+  font-weight: 600;
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  span.material-symbols-rounded {
+    font-size: 14px;
+  }
+}
+
+.product-card__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary, #0f172a);
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-card__subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-secondary, #475569);
+  line-height: 1.3;
+}
+
+.product-card__badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  li {
+    padding: 2px 8px;
+    background: var(--color-surface-muted, #f1f5f9);
+    color: var(--color-text-secondary, #475569);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+}
+
+.product-card__location {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-muted, #94a3b8);
+  font-size: 11px;
+
+  span.material-symbols-rounded {
+    font-size: 14px;
+  }
+}
