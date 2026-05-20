@@ -1,3 +1,9 @@
+/**
+
+    https://dbdiagram.io/d
+
+*/
+
 /*
 USER
 - usuário padrão da plataforma
@@ -233,6 +239,8 @@ Table user_certification {
 }
 
 /*
+✅ USER (visitante)
+✅ CREATOR (como pessoa)
 ⚠️ Lembrete
 O creator institucionalizado (vínculo com canal/empresa, crédito perene "by Fulano", métricas de retenção/conversão) ainda não está — e nem deveria estar aqui. Isso entra quando você for modelar o domínio de organização / canal / conteúdo.
 Pode seguir para a próxima entidade.
