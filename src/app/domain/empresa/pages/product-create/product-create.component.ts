@@ -17,6 +17,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from '@env/environment';
 import { ProductType } from '@shared/enums/product-type.enum';
@@ -98,10 +99,28 @@ export class ProductCreateComponent implements OnDestroy {
     >([]),
   });
 
+  // ---------- Form state bridged to signals ----------
+
+  private readonly typeValue = toSignal(this.stepTypeForm.controls.type.valueChanges, {
+    initialValue: this.stepTypeForm.controls.type.value,
+  });
+  private readonly typeStatus = toSignal(this.stepTypeForm.statusChanges, {
+    initialValue: this.stepTypeForm.status,
+  });
+  private readonly identificationStatus = toSignal(this.stepIdentificationForm.statusChanges, {
+    initialValue: this.stepIdentificationForm.status,
+  });
+  private readonly descriptionStatus = toSignal(this.stepDescriptionForm.statusChanges, {
+    initialValue: this.stepDescriptionForm.status,
+  });
+  private readonly screeningStatus = toSignal(this.stepScreeningForm.statusChanges, {
+    initialValue: this.stepScreeningForm.status,
+  });
+
   // ---------- Derived ----------
 
   readonly selectedType = computed<ProductType | null>(() => {
-    const raw = this.stepTypeForm.controls.type.value;
+    const raw = this.typeValue();
     return raw ? (raw as ProductType) : null;
   });
 
@@ -156,15 +175,15 @@ export class ProductCreateComponent implements OnDestroy {
   readonly isCurrentStepValid = computed<boolean>(() => {
     switch (this.currentStep()) {
       case 1:
-        return this.stepTypeForm.valid;
+        return this.typeStatus() === 'VALID';
       case 2:
-        return this.stepIdentificationForm.valid;
+        return this.identificationStatus() === 'VALID';
       case 3:
-        return this.stepDescriptionForm.valid;
+        return this.descriptionStatus() === 'VALID';
       case 4:
-        return this.stepLearnMoreForm.controls.fields.length > 0;
+        return this.selectedLearnMoreIds().size > 0;
       case 5:
-        return this.stepScreeningForm.valid;
+        return this.screeningStatus() === 'VALID';
       case 6:
         return true;
       default:
