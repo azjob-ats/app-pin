@@ -99,6 +99,13 @@ O **vertical-âncora deve ser Vagas** (mercado maduro, dor recorrente, ticket al
 - **SSR para a página pública**: usar Angular SSR para `/:slug/publico`. Indexação no Google + LinkedIn unfurl + WhatsApp preview.
 - **Dashboard de Métricas com gráficos** (não só tabelas): heatmap de conversão por tipo×semana, funil visual. Stakeholder demanda isso.
 - **Bulk actions na Triagem**: mover, atribuir, exportar CSV — já está no plano original como "futura iteração", mas é commodity para qualquer ATS.
+- **Tabela `employees` separada de `organization_members`** (decisão de modelagem futura): hoje `organization_members` cobre "quem tem acesso ao backstage" (3–20 pessoas). Falta o conceito de **vínculo empregatício** ("quem trabalha na empresa", potencialmente milhares). São conceitos distintos — funcionário comum não precisa ser member; consultor externo é member sem ser funcionário. Quando entrar uma destas features, criar `employees` (org_id, user_id nullable, full_name, corporate_email + verified_at, department_id, job_title, employment_type, hired_at, terminated_at, is_public) como tabela à parte. Casos de uso que destravam a criação:
+    - Badge "Verificado: trabalha no Nubank" no perfil público do user (verificação via corporate_email).
+    - Vagas internas (visíveis só para funcionários verificados da organização).
+    - Diretório/org chart interno e busca por funcionário.
+    - Métricas de adoção interna ("X% dos funcionários do Nubank têm perfil na RealWe").
+    - Onboarding automático: funcionário importado por CSV do RH → ganha perfil pré-preenchido ao criar conta.
+  - Enquanto nenhum desses entrar no roadmap, **não criar a tabela** — `user_experience.company` já cobre o "eu digo que trabalho aqui" não-verificado, e adicionar agora é peso morto.
 
 ---
 
