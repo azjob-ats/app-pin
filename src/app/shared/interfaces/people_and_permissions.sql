@@ -197,17 +197,17 @@ Table organization_member_invitations {
 }
 
 // ----------------------------------------------------------------------------
-// Groups (teams: HR, Sales, Education, Comms, Ops, External partners…)
+// Departments (HR, Sales, Education, Comms, Ops, Legal, Marketing…)
 // ----------------------------------------------------------------------------
 //
-// Example rows (Nubank teams, organization_id=1):
-//   id=1 | name='RH'           | description='Time de recrutamento'         | default_role_id=2 (recruiter)
-//   id=2 | name='Comercial'    | description='Time de vendas B2B'           | default_role_id=3 (sales)
-//   id=3 | name='Universidade' | description='Educação e treinamentos'      | default_role_id=4 (education)
-//   id=4 | name='Comunicação'  | description='Comunicação institucional'    | default_role_id=5 (comms)
-//   id=5 | name='Eventos'      | description='Experiências e eventos live'  | default_role_id=6 (operations)
+// Example rows (Nubank departments, organization_id=1):
+//   id=1 | name='RH'           | description='Departamento de recrutamento'  | default_role_id=2 (recruiter)
+//   id=2 | name='Comercial'    | description='Departamento de vendas B2B'    | default_role_id=3 (sales)
+//   id=3 | name='Universidade' | description='Educação e treinamentos'       | default_role_id=4 (education)
+//   id=4 | name='Comunicação'  | description='Comunicação institucional'     | default_role_id=5 (comms)
+//   id=5 | name='Eventos'      | description='Experiências e eventos live'   | default_role_id=6 (operations)
 //
-Table organization_groups {
+Table organization_departments {
   id bigint [pk, increment]
   organization_id bigint [ref: > organizations.id, not null]
   name varchar [not null]
@@ -224,18 +224,18 @@ Table organization_groups {
 
 //
 // Example rows (memberships):
-//   group_id=1 (RH)        | member_id=2 (Bruno Lima)    | added_by=10
-//   group_id=2 (Comercial) | member_id=3 (Carla Mendes)  | added_by=10
-//   group_id=3 (Univ.)     | member_id=4 (Daniel Rocha)  | added_by=10
+//   department_id=1 (RH)        | member_id=2 (Bruno Lima)    | added_by=10
+//   department_id=2 (Comercial) | member_id=3 (Carla Mendes)  | added_by=10
+//   department_id=3 (Univ.)     | member_id=4 (Daniel Rocha)  | added_by=10
 //
-Table organization_group_members {
-  group_id bigint [ref: > organization_groups.id, not null]
+Table organization_department_members {
+  department_id bigint [ref: > organization_departments.id, not null]
   member_id bigint [ref: > organization_members.id, not null]
   added_by_user_id bigint [ref: > users.id]
   added_at timestamptz [not null, default: `now()`]
 
   indexes {
-    (group_id, member_id) [pk]
+    (department_id, member_id) [pk]
   }
 }
 
@@ -246,7 +246,7 @@ Table organization_group_members {
 // Example rows (Nubank activity):
 //   id=1 | actor_user_id=10 | action='member.invited'           | target_type='invitation' | target_id=1 | metadata={"email":"novo.recrutador@nubank.com.br","role":"recruiter"}
 //   id=2 | actor_user_id=10 | action='role.permission.updated'  | target_type='role'       | target_id=2 | metadata={"changed":["create_product:true"]}
-//   id=3 | actor_user_id=10 | action='group.member.added'       | target_type='group'      | target_id=1 | metadata={"member_id":2}
+//   id=3 | actor_user_id=10 | action='department.member.added'  | target_type='department' | target_id=1 | metadata={"member_id":2}
 //   id=4 | actor_user_id=11 | action='member.removed'           | target_type='member'     | target_id=5 | metadata={"reason":"left_company"}
 //
 Table organization_audit_logs {
@@ -254,7 +254,7 @@ Table organization_audit_logs {
   organization_id bigint [ref: > organizations.id, not null]
   actor_user_id bigint [ref: > users.id]
   action varchar [not null]                  // e.g. 'member.invited', 'role.permission.updated'
-  target_type varchar                        // e.g. 'member', 'role', 'group', 'invitation'
+  target_type varchar                        // e.g. 'member', 'role', 'department', 'invitation'
   target_id bigint
   metadata jsonb
   created_at timestamptz [not null, default: `now()`]
