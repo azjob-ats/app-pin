@@ -37,7 +37,7 @@ A plataforma opera em quatro estágios principais para transformar curiosidade e
 4. **Comunidade:** Espaço de interação e relacionamento contínuo com a audiência, em torno do acervo do canal.
 
 ### Pilares da Plataforma
-- **Creators Institucionalizados:** Profissionais reais com assinatura própria publicando dentro de canais corporativos. Carreira acumulativa, reputação transferível.
+- **Creators Institucionalizados:** Profissionais reais com assinatura própria publicando dentro de canais corporativos. Carreira acumulativa, reputação transferível, vídeo institucionalizado vendendo algo.
 - **Portfólio Público Auditável:** Cada creator tem currículo vivo com retenção, conversão e histórico cross-empresa — o que LinkedIn não entrega.
 - **Conversão Atribuível:** Cada conteúdo conecta diretamente ao destino e expõe métricas de impacto por creator.
 - **Autoridade Profissional:** O foco não é venda direta, mas construção de reputação e transparência.
