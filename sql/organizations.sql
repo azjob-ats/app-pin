@@ -69,6 +69,9 @@ Table organizations {
   status organization_status [not null, default: 'pending_verification']
   is_public_page_active boolean [not null, default: false] // switch in "Página da Empresa"
   is_official_representative_confirmed boolean [not null, default: false]
+  followers_count integer [not null, default: 0]           // numberOfFollowers — counter denormalizado (mantido por trigger em follows)
+  publications_count integer [not null, default: 0]        // numberOfPublication — denormalizado (count de posts publicados)
+  following_count integer [not null, default: 0]           // numberOfToFollow — denormalizado (canais que esta org segue)
   created_by_user_id bigint [ref: > users.id, not null]
   created_at timestamptz [not null, default: `now()`]
   updated_at timestamptz [not null, default: `now()`]
