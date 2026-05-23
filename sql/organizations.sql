@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 // External tables referenced by this file:
-//   - users → index.sql
+//   - users → users.sql
 // ----------------------------------------------------------------------------
 
 Enum organization_status {
@@ -43,8 +43,10 @@ Enum company_size {
 //   status='active'
 //   is_public_page_active=true
 //   is_official_representative_confirmed=true
-//   custom_phases={"products":[{"name":"Em revisão","color":"#facc15"}]}
 //   created_by_user_id=10
+//
+// Note: fases customizadas do Kanban (antigo `custom_phases jsonb`) foram
+// normalizadas em organization_product_phases.sql.
 //
 Table organizations {
   id bigint [pk, increment]
@@ -67,7 +69,6 @@ Table organizations {
   status organization_status [not null, default: 'pending_verification']
   is_public_page_active boolean [not null, default: false] // switch in "Página da Empresa"
   is_official_representative_confirmed boolean [not null, default: false]
-  custom_phases jsonb                                      // per-org Kanban phase overrides (Products & Triagens)
   created_by_user_id bigint [ref: > users.id, not null]
   created_at timestamptz [not null, default: `now()`]
   updated_at timestamptz [not null, default: `now()`]
