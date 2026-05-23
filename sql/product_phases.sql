@@ -7,6 +7,7 @@
 
 // ----------------------------------------------------------------------------
 // Organization product phases (colunas customizadas do Kanban de Products)
+define as colunas do Kanban (nome, cor, ordem). Os produtos referenciam sua fase via FK em products.sql
 // ----------------------------------------------------------------------------
 //
 // Fonte de verdade das fases customizadas exibidas pelo componente
@@ -35,7 +36,7 @@
 //   id=3 | organization_id=1 | product_type=NULL    | slug='pausa'        | label='Pausa'        | color='#facc15' | display_order=2 | is_system=true
 //   id=4 | organization_id=1 | product_type='job'   | slug='em_revisao'   | label='Em revisão'   | color='#f97316' | display_order=3 | is_system=false | created_by_user_id=10
 //
-Table organization_product_phases {
+Table product_phases {
   id bigint [pk, increment]
   organization_id bigint [ref: > organizations.id, not null]
   product_type product_type                              // NULL = aplica a todos os tipos; set = restrito ao tipo ('job', 'service', …)

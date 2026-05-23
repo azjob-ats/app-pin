@@ -46,7 +46,7 @@ Enum company_size {
 //   created_by_user_id=10
 //
 // Note: fases customizadas do Kanban (antigo `custom_phases jsonb`) foram
-// normalizadas em organization_product_phases.sql.
+// normalizadas em product_phases.sql.
 //
 Table organizations {
   id bigint [pk, increment]

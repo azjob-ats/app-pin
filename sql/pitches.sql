@@ -5,7 +5,7 @@
 //
 // Naming note:
 //   This entity was originally drafted as `video_posts`. Renamed to `pitches`
-//   because it carries the **commercial intent** of the creator's video
+//   because it carries the **commercial intent** of the creators video
 //   (pitch de vaga, pitch de curso, pitch de serviço). Distinguishes from
 //   organic/portfolio content the creator may publish without an associated
 //   product. See spec/empresa/Resposta-por que separar produto de vídeo.md.

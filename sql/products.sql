@@ -2,7 +2,7 @@
 // External tables referenced by this file:
 //   - organizations                → organizations.sql
 //   - organization_departments     → organization_departments.sql
-//   - organization_product_phases  → organization_product_phases.sql
+//   - product_phases               → product_phases.sql
 //   - users                        → users.sql
 // ----------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ Table products {
   description jsonb                                             // blocos estruturados: [{ "id":"d1", "title":"Sobre a vaga", "body":"..." }, …]
   cover_image_url varchar
   phase product_phase [not null, default: 'draft']              // coluna padrão do Kanban
-  custom_phase_id bigint [ref: > organization_product_phases.id] // override do Kanban quando a org configura fases próprias
+  custom_phase_id bigint [ref: > product_phases.id]             // override do Kanban quando a org configura fases próprias
   starts_at timestamptz                                         // publicação programada
   ends_at timestamptz                                           // expiração (vaga fecha em…, evento ocorre em…)
   published_at timestamptz                                      // timestamp de publicação efetiva (Product.publishedAt no front)
