@@ -1,15 +1,15 @@
 .campaign-wizard {
   width: 100%;
-  background: #000;
+  background: var(--pin-bg);
   min-height: 100%;
-  color: #fff;
+  color: var(--pin-text-primary);
   display: flex;
   flex-direction: column;
   padding-bottom: 96px;
 
   &__head {
-    background: #000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--pin-bg);
+    border-bottom: 1px solid var(--pin-border);
     padding: var(--space-xl) var(--space-3xl) var(--space-lg);
   }
 
@@ -27,14 +27,14 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--pin-text-secondary);
     text-decoration: none;
     font-size: var(--text-sm);
     font-weight: var(--font-weight-medium);
     transition: color 0.12s ease;
 
     &:hover {
-      color: #fff;
+      color: var(--pin-text-primary);
     }
 
     .material-symbols-rounded {
@@ -50,7 +50,7 @@
 
   &__step-count {
     font-size: var(--text-xs);
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--pin-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-variant-numeric: tabular-nums;
@@ -99,9 +99,9 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: var(--pin-bg);
     backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--pin-border);
     padding: var(--space-md) var(--space-3xl);
     z-index: 10;
   }
@@ -150,11 +150,11 @@
     }
 
     &--ghost {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      background: var(--pin-bg-secondary);
+      color: var(--pin-text-primary);
 
       &:hover:not(:disabled) {
-        background: rgba(255, 255, 255, 0.14);
+        background: var(--pin-bg-tertiary);
       }
     }
   }

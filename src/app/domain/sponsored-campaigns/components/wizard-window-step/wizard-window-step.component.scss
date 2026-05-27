@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
-  color: #fff;
+  color: var(--pin-text-primary);
 
   &__head {
     display: flex;
@@ -21,7 +21,7 @@
 
   &__subtitle {
     margin: 0;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--pin-text-secondary);
     font-size: var(--text-md);
     line-height: 1.55;
   }
@@ -32,8 +32,8 @@
     gap: var(--space-xl);
     align-items: flex-end;
     padding: var(--space-lg);
-    background: #0d0d0d;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--pin-bg-tertiary);
+    border: 1px solid var(--pin-border);
     border-radius: var(--radius-lg);
   }
 
@@ -48,21 +48,20 @@
     font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--pin-text-muted);
     font-weight: var(--font-weight-medium);
   }
 
   &__input {
     appearance: none;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--pin-bg-secondary);
+    border: 1px solid var(--pin-border);
     border-radius: var(--radius-md);
-    color: #fff;
+    color: var(--pin-text-primary);
     padding: 0.7rem 1rem;
     font-size: var(--text-md);
     font-family: inherit;
     outline: none;
-    color-scheme: dark;
     transition: border-color 0.12s ease;
 
     &:focus {
@@ -87,13 +86,13 @@
     font-size: var(--text-xs);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--pin-text-muted);
   }
 
   &__summary-value {
     font-size: var(--text-xl);
     font-weight: var(--font-weight-bold);
-    color: #fff;
+    color: var(--pin-text-primary);
     font-variant-numeric: tabular-nums;
 
     &--accent {
@@ -103,11 +102,11 @@
 
   &__loading {
     padding: var(--space-lg);
-    background: #0d0d0d;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--pin-bg-tertiary);
+    border: 1px solid var(--pin-border);
     border-radius: var(--radius-lg);
     text-align: center;
-    color: rgba(255, 255, 255, 0.65);
+    color: var(--pin-text-secondary);
   }
 
   &__window-info {
@@ -116,7 +115,7 @@
     gap: var(--space-sm);
     padding: var(--space-sm) var(--space-md);
     background: rgba(255, 195, 0, 0.08);
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--pin-text-primary);
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
 
@@ -126,7 +125,7 @@
     }
 
     strong {
-      color: #fff;
+      color: var(--pin-text-primary);
     }
   }
 
@@ -136,10 +135,10 @@
     align-items: center;
     gap: var(--space-md);
     padding: var(--space-3xl) var(--space-lg);
-    background: #0d0d0d;
-    border: 1px dashed rgba(255, 255, 255, 0.12);
+    background: var(--pin-bg-tertiary);
+    border: 1px dashed var(--pin-border);
     border-radius: var(--radius-lg);
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--pin-text-muted);
     text-align: center;
 
     .material-symbols-rounded {
