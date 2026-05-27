@@ -2,40 +2,38 @@
 // External tables referenced by this file:
 //   - products → products.sql
 // ----------------------------------------------------------------------------
+//
+// NOTA: formulários dinâmicos ("Saiba Mais" com múltiplos campos) NÃO usam
+// esta tabela — eles vivem em cta_form + cta_form_steps + cta_form_step_elements
+// + cta_form_element_options (ver cta_form.sql). Esta tabela cobre apenas os
+// CTAs polimórficos não-formulário.
 
 Enum product_cta_type {
   external_link      // só redireciona para uma URL externa
-  form               // coleta dados via formulário dinâmico
   confirmation       // 1-click "tenho interesse" (sem campos)
   payment            // checkout (Stripe, Pagar.me, …)
   redirect_internal  // navega para outra tela do RealWe (ex.: inscrição em curso)
 }
 
 // ----------------------------------------------------------------------------
-// Product CTA forms (o "Saiba Mais" — polimórfico via type + jsonb config)
+// Product CTA forms (CTAs não-formulário — polimórfico via type + jsonb config)
 // ----------------------------------------------------------------------------
 //
-// Example rows:
-//   id=1 | product_id=1 (Vaga Eng. Sr.) | type='form' | label='Candidatar-me'
-//        config={
-//          "fields":[
-//            {"key":"full_name","label":"Nome completo","type":"text","required":true},
-//            {"key":"email","label":"Email","type":"email","required":true},
-//            {"key":"linkedin","label":"LinkedIn","type":"url"},
-//            {"key":"cv","label":"Currículo (PDF)","type":"file","accept":[".pdf"],"required":true}
-//          ],
-//          "submit_label":"Enviar candidatura",
-//          "privacy_required":true
-//        }
+// Cobre os 4 tipos de CTA que NÃO são formulários multi-step. Para "Saiba Mais"
+// com campos preenchíveis, ver cta_form.sql.
 //
-//   id=2 | product_id=2 (Workshop) | type='confirmation' | label='Quero participar'
+// Example rows:
+//   id=1 | product_id=2 (Workshop) | type='confirmation' | label='Quero participar'
 //        config={"confirmation_message":"Inscrição confirmada! Você receberá o link no email."}
 //
-//   id=3 | product_id=N (Curso pago) | type='payment' | label='Comprar curso'
+//   id=2 | product_id=N (Curso pago) | type='payment' | label='Comprar curso'
 //        config={"provider":"stripe","price_cents":29900,"currency":"BRL","success_url":"/obrigado"}
 //
-//   id=4 | product_id=N (Vaga externa) | type='external_link' | label='Ver na nossa página'
+//   id=3 | product_id=N (Vaga externa) | type='external_link' | label='Ver na nossa página'
 //        config={"url":"https://nubank.com.br/carreiras/abc","open_in":"new_tab"}
+//
+//   id=4 | product_id=N (Inscrição em curso interno) | type='redirect_internal' | label='Acessar'
+//        config={"route":"/cursos/inscricao/123"}
 //
 Table product_cta_forms {
   id bigint [pk, increment]
