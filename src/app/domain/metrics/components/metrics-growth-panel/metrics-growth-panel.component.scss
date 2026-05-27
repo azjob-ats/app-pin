@@ -3,10 +3,10 @@
   flex-direction: column;
   gap: var(--space-lg);
   padding: var(--space-xl);
-  background: #0d0d0d;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--pin-bg-tertiary);
+  border: 1px solid var(--pin-border);
   border-radius: var(--radius-lg);
-  color: #ffffff;
+  color: var(--pin-text-primary);
 
   &__head {
     display: flex;
@@ -18,12 +18,12 @@
     margin: 0;
     font-size: var(--text-lg);
     font-weight: var(--font-weight-semibold);
-    color: #ffffff;
+    color: var(--pin-text-primary);
   }
 
   &__subtitle {
     margin: 0;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--pin-text-secondary);
     font-size: var(--text-sm);
   }
 
@@ -38,13 +38,13 @@
     flex-direction: column;
     gap: 4px;
     padding: var(--space-md);
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--pin-bg-secondary);
     border-radius: var(--radius-md);
   }
 
   &__total-label {
     font-size: var(--text-xs);
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--pin-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
@@ -52,7 +52,7 @@
   &__total-value {
     font-size: var(--text-xl);
     font-weight: var(--font-weight-bold);
-    color: #ffffff;
+    color: var(--pin-text-primary);
     font-variant-numeric: tabular-nums;
   }
 
@@ -79,7 +79,7 @@
   }
 
   &__axis {
-    stroke: rgba(255, 255, 255, 0.1);
+    stroke: var(--pin-border);
     stroke-width: 0.4;
   }
 
@@ -87,7 +87,7 @@
     display: flex;
     gap: var(--space-md);
     font-size: var(--text-xs);
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--pin-text-secondary);
   }
 
   &__legend-item {
@@ -117,7 +117,7 @@
     flex-direction: column;
     max-height: 200px;
     overflow-y: auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--pin-border);
   }
 
   &__row {
@@ -126,19 +126,19 @@
     gap: var(--space-sm);
     align-items: center;
     padding: var(--space-sm) 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--pin-border);
     font-size: var(--text-sm);
   }
 
   &__row-date {
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--pin-text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-size: var(--text-xs);
   }
 
   &__row-value {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--pin-text-primary);
     font-variant-numeric: tabular-nums;
 
     &--accent {

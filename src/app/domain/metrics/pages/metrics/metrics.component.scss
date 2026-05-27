@@ -1,8 +1,8 @@
 .metrics-page {
   width: 100%;
-  background: #000;
+  background: var(--pin-bg);
   min-height: 100%;
-  color: #fff;
+  color: var(--pin-text-primary);
 
   &__container {
     width: 100%;
@@ -53,12 +53,12 @@
     margin: 0;
     font-size: var(--text-lg);
     font-weight: var(--font-weight-semibold);
-    color: #fff;
+    color: var(--pin-text-primary);
   }
 
   &__section-subtitle {
     margin: 0;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--pin-text-secondary);
     font-size: var(--text-sm);
   }
 
@@ -90,8 +90,8 @@
     gap: var(--space-xl);
     padding: var(--space-5xl) var(--space-lg);
     text-align: center;
-    background: #0d0d0d;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--pin-bg-tertiary);
+    border: 1px solid var(--pin-border);
     border-radius: var(--radius-xl);
   }
 
@@ -100,8 +100,8 @@
     align-items: center;
     gap: var(--space-xs);
     appearance: none;
-    background: #fff;
-    color: #000;
+    background: var(--pin-text-primary);
+    color: var(--pin-text-inverse);
     border: none;
     border-radius: var(--radius-pill);
     padding: 0.95rem 1.85rem;
@@ -117,7 +117,7 @@
     }
 
     &:focus-visible {
-      outline: 2px solid #fff;
+      outline: 2px solid var(--pin-text-primary);
       outline-offset: 3px;
     }
   }
@@ -148,9 +148,9 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    #131313 0%,
-    #1f1f1f 50%,
-    #131313 100%
+    var(--pin-bg-secondary) 0%,
+    var(--pin-bg-tertiary) 50%,
+    var(--pin-bg-secondary) 100%
   );
   background-size: 200% 100%;
   animation: metrics-skeleton-shimmer 1.6s ease-in-out infinite;
