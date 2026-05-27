@@ -1,6 +1,6 @@
 .inscriptions-page {
   width: 100%;
-  background: #000;
+  background: var(--pin-bg);
   min-height: 100%;
 
   &__container {
@@ -65,7 +65,7 @@
   &__skeleton-card {
     display: flex;
     flex-direction: column;
-    background: #000;
+    background: var(--pin-bg);
     border: none;
     border-radius: 0;
     overflow: hidden;
@@ -76,7 +76,7 @@
     flex-direction: column;
     gap: 6px;
     padding: 10px;
-    background: #000;
+    background: var(--pin-bg);
   }
 
   &__empty {
@@ -125,9 +125,9 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    #1a1a1a 0%,
-    #2a2a2a 50%,
-    #1a1a1a 100%
+    var(--pin-bg-secondary) 0%,
+    var(--pin-bg-tertiary) 50%,
+    var(--pin-bg-secondary) 100%
   );
   background-size: 200% 100%;
   animation: inscriptions-skeleton-shimmer 1.6s ease-in-out infinite;
