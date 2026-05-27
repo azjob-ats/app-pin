@@ -97,3 +97,9 @@
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.06); }
 }
+
+@media (max-width: 480px) {
+  .resume-track-node {
+    max-width: 240px;
+  }
+}

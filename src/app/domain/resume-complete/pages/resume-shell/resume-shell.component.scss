@@ -89,13 +89,5 @@ html.dark .resume-shell__topbar {
     &__main {
       padding: var(--space-lg) var(--space-md);
     }
-
-    &__path {
-      max-width: none;
-    }
-
-    &__path-item {
-      justify-content: center !important;
-    }
   }
 }
