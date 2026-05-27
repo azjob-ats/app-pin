@@ -8,6 +8,7 @@
     margin: 0;
     height: auto;
     flex-direction: column;
+    overflow: visible;
   }
 }
 
@@ -62,6 +63,10 @@
     flex: none;
     max-width: 100%;
     overflow: visible;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--pin-bg);
   }
 }
 
