@@ -17,6 +17,7 @@ import {
 } from '@angular/forms';
 import { DrawerComponent } from '@shared/components/drawer/drawer.component';
 import { Group, Member, Role } from '@shared/interfaces/entity/empresa-member';
+import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import {
   permissionsByGroup,
   PERMISSION_GROUPS,
@@ -33,7 +34,7 @@ interface PermissionsFormGroup
   selector: 'app-panel-people',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule, DrawerComponent],
+  imports: [ReactiveFormsModule, DrawerComponent, EmpresaPageHeaderComponent],
   templateUrl: './panel-people.component.html',
   styleUrl: './panel-people.component.scss',
 })
