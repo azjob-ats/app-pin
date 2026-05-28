@@ -1,36 +1,51 @@
-<section class="panel-products" aria-labelledby="panel-products-title">
-  <header class="panel-products__header">
-    <h2 class="panel-products__title" id="panel-products-title">Gerenciar Produtos</h2>
-    <p class="panel-products__subtitle">
-      Publique Vagas, Produtos/Serviços, Treinamentos, Notícias e Experiências. Arraste cards entre
-      as fases para controlar a visibilidade pública.
-    </p>
-  </header>
+<section class="empresa-container panel-products" aria-labelledby="panel-products-title">
+  <app-empresa-page-header
+    eyebrow="Gerenciar"
+    title="Produtos"
+    subtitle="Publique Vagas, Produtos, Treinamentos, Notícias e Experiências. Arraste cards entre as fases para controlar a visibilidade pública."
+  >
+    <button
+      type="button"
+      class="empresa-btn empresa-btn--ghost"
+      (click)="openNewPhaseModal()"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">add</span>
+      Nova fase
+    </button>
+  </app-empresa-page-header>
 
-  <nav class="panel-products__type-tabs" role="tablist" aria-label="Filtrar por tipo de Produto">
+  <nav class="panel-products__filters" role="tablist" aria-label="Filtrar por tipo de produto">
     @for (tab of typeTabs(); track tab.value) {
       <button
         type="button"
         role="tab"
-        class="panel-products__type-tab"
+        class="panel-products__chip"
         [class.is-active]="typeFilter() === tab.value"
-        [style.--type-accent]="tab.color"
+        [style.--chip-accent]="tab.color"
         [attr.aria-selected]="typeFilter() === tab.value"
         (click)="setTypeFilter(tab.value)"
       >
-        <span class="material-symbols-rounded" aria-hidden="true">{{ tab.icon }}</span>
-        <span>{{ tab.label }}</span>
-        <span class="panel-products__type-count">{{ countByType()[tab.value] }}</span>
+        <span class="material-symbols-rounded panel-products__chip-icon" aria-hidden="true">
+          {{ tab.icon }}
+        </span>
+        <span class="panel-products__chip-label">{{ tab.label }}</span>
+        <span class="panel-products__chip-count">{{ countByType()[tab.value] }}</span>
       </button>
     }
   </nav>
 
-  @if (error()) {
-    <div class="panel-products__error" role="alert">{{ error() }}</div>
+  @if (error(); as message) {
+    <div class="panel-products__error" role="alert">
+      <span class="material-symbols-rounded" aria-hidden="true">error_outline</span>
+      <p>{{ message }}</p>
+    </div>
   }
 
   @if (isLoading() && filteredItems().length === 0) {
-    <p class="panel-products__loading" role="status">Carregando produtos…</p>
+    <div class="panel-products__loading" role="status" aria-live="polite">
+      <div class="panel-products__loading-bar"></div>
+      <p>Carregando produtos…</p>
+    </div>
   } @else {
     <app-kanban-board
       [columns]="columns()"
@@ -66,7 +81,10 @@
         (click)="$event.stopPropagation()"
       >
         <header class="panel-products__modal-header">
-          <h3 id="new-phase-title">Nova fase</h3>
+          <div>
+            <span class="panel-products__modal-eyebrow">Configuração</span>
+            <h3 id="new-phase-title" class="panel-products__modal-title">Nova fase</h3>
+          </div>
           <button
             type="button"
             class="panel-products__modal-close"
@@ -83,31 +101,34 @@
           (ngSubmit)="submitNewPhase()"
           novalidate
         >
-          <div class="panel-products__modal-field">
+          <div class="panel-products__field">
             <label for="new-phase-label">Nome da fase</label>
             <input
               id="new-phase-label"
               type="text"
               formControlName="label"
               placeholder="Ex.: Em análise jurídica"
+              autocomplete="off"
               autofocus
             />
           </div>
-          <div class="panel-products__modal-field">
+
+          <div class="panel-products__field">
             <label for="new-phase-color">Cor identificadora</label>
             <input id="new-phase-color" type="color" formControlName="color" />
           </div>
+
           <footer class="panel-products__modal-footer">
             <button
               type="button"
-              class="panel-products__modal-cancel"
+              class="empresa-btn empresa-btn--quiet"
               (click)="closeNewPhaseModal()"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              class="panel-products__modal-submit"
+              class="empresa-btn empresa-btn--primary"
               [disabled]="newPhaseForm.invalid"
             >
               Criar fase

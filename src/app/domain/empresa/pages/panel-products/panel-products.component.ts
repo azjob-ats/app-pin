@@ -18,6 +18,7 @@ import {
   KanbanColumn,
   KanbanMoveEvent,
 } from '@domain/empresa/components/kanban-board/kanban-board.component';
+import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import { ProductCardComponent } from '@domain/empresa/components/product-card/product-card.component';
 import {
   DEFAULT_PRODUCT_PHASE_ORDER,
@@ -40,7 +41,12 @@ interface TypeTab {
   selector: 'app-panel-products',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule, KanbanBoardComponent, ProductCardComponent],
+  imports: [
+    ReactiveFormsModule,
+    KanbanBoardComponent,
+    ProductCardComponent,
+    EmpresaPageHeaderComponent,
+  ],
   templateUrl: './panel-products.component.html',
   styleUrl: './panel-products.component.scss',
 })
