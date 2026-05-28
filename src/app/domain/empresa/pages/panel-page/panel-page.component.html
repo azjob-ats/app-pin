@@ -1,143 +1,220 @@
-<section class="panel-page" aria-labelledby="panel-page-title">
-  <header class="panel-page__header">
-    <h2 class="panel-page__title" id="panel-page-title">Página da Empresa</h2>
-    <p class="panel-page__subtitle">
-      Personalize como sua organização aparece publicamente em
-      <code>{{ context.organization()?.slug }}.realwe</code>. As alterações refletem
-      imediatamente na página pública.
-    </p>
-  </header>
+<section class="empresa-container panel-page" aria-labelledby="panel-page-title">
+  <app-empresa-page-header
+    eyebrow="Identidade pública"
+    title="Página da empresa"
+    subtitle="Personalize como sua organização aparece publicamente. Alterações refletem imediatamente na página pública."
+  >
+    @if (context.organization()?.publicPageEnabled) {
+      <a
+        class="empresa-btn empresa-btn--ghost"
+        [href]="publicUrl()"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">open_in_new</span>
+        Ver página pública
+      </a>
+    }
+  </app-empresa-page-header>
 
-  @if (serverError()) {
-    <div class="panel-page__error" role="alert">{{ serverError() }}</div>
+  @if (serverError(); as message) {
+    <div class="panel-page__alert panel-page__alert--error" role="alert">
+      <span class="material-symbols-rounded" aria-hidden="true">error_outline</span>
+      <p>{{ message }}</p>
+    </div>
   }
 
   @if (justSaved()) {
-    <div class="panel-page__success" role="status">
+    <div class="panel-page__alert panel-page__alert--success" role="status">
       <span class="material-symbols-rounded" aria-hidden="true">check_circle</span>
-      <span>Alterações salvas com sucesso.</span>
-      <button type="button" class="panel-page__success-close" (click)="dismissJustSaved()">
+      <p>Alterações salvas com sucesso.</p>
+      <button
+        type="button"
+        class="panel-page__alert-close"
+        aria-label="Dispensar"
+        (click)="dismissJustSaved()"
+      >
         <span class="material-symbols-rounded" aria-hidden="true">close</span>
       </button>
     </div>
   }
 
   <form class="panel-page__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
-    <div class="panel-page__field">
-      <label for="page-name">Nome da empresa</label>
-      <input id="page-name" type="text" formControlName="name" />
-      @if (hasError('name', 'required')) {
-        <p class="panel-page__field-error">Informe o nome.</p>
-      }
-      @if (hasError('name', 'minlength')) {
-        <p class="panel-page__field-error">Mínimo de 2 caracteres.</p>
-      }
-    </div>
+    <!-- ── Identidade ──────────────────────────────────────────────────────── -->
+    <section class="emp-section panel-page__section">
+      <header class="emp-section__head">
+        <h3 class="emp-section__title">Identidade</h3>
+        <p class="emp-section__hint">Como sua empresa é identificada na plataforma.</p>
+      </header>
 
-    <div class="panel-page__field">
-      <label for="page-website">Site da empresa</label>
-      <input
-        id="page-website"
-        type="url"
-        formControlName="website"
-        placeholder="https://suaempresa.com.br"
-      />
-      @if (hasError('website', 'pattern')) {
-        <p class="panel-page__field-error">URL inválida. Use o formato https://...</p>
-      }
-    </div>
-
-    <div class="panel-page__field">
-      <label for="page-social">Redes sociais</label>
-      <input
-        id="page-social"
-        type="url"
-        placeholder="Cole a URL e pressione Enter"
-        [value]="socialInput()"
-        (input)="onSocialInput($event)"
-        (keydown)="onSocialKeyDown($event)"
-      />
-      @if (socialLinks().length > 0) {
-        <ul class="panel-page__chips" aria-label="Redes sociais">
-          @for (link of socialLinks(); track link) {
-            <li>
-              <span class="panel-page__chip">
-                <span class="panel-page__chip-text">{{ link }}</span>
-                <button
-                  type="button"
-                  class="panel-page__chip-remove"
-                  [attr.aria-label]="'Remover ' + link"
-                  (click)="removeSocialLink(link)"
-                >
-                  <span class="material-symbols-rounded" aria-hidden="true">close</span>
-                </button>
-              </span>
-            </li>
-          }
-        </ul>
-      }
-    </div>
-
-    <div class="panel-page__field">
-      <label for="page-banner">Banner (URL)</label>
-      <input id="page-banner" type="url" formControlName="bannerUrl" placeholder="https://..." />
-      <p class="panel-page__field-hint">
-        Upload nativo virá em iteração posterior — por enquanto cole a URL.
-      </p>
-    </div>
-
-    <div class="panel-page__field">
-      <label for="page-logo">Logo (URL)</label>
-      <input id="page-logo" type="url" formControlName="logoUrl" placeholder="https://..." />
-    </div>
-
-    <div class="panel-page__field">
-      <label for="page-about">Sobre a empresa</label>
-      <textarea
-        id="page-about"
-        formControlName="about"
-        rows="5"
-        placeholder="Conte em poucas linhas o que sua empresa faz"
-      ></textarea>
-      @if (hasError('about', 'maxlength')) {
-        <p class="panel-page__field-error">Máximo de 800 caracteres.</p>
-      }
-    </div>
-
-    <div class="panel-page__field panel-page__field--toggle">
-      <label class="panel-page__switch">
-        <input type="checkbox" formControlName="publicPageEnabled" />
-        <span class="panel-page__switch-track"></span>
-        <span class="panel-page__switch-label">Ativar página pública</span>
-      </label>
-      <p class="panel-page__field-hint">
-        Quando desativada, a página pública responde com "Em construção". Você ainda pode
-        publicar Produtos e operar Triagens internamente.
-      </p>
-    </div>
-
-    @if (context.organization()?.publicPageEnabled) {
-      <div class="panel-page__public-link">
-        <span class="material-symbols-rounded" aria-hidden="true">link</span>
-        <span>
-          Sua página está visível em
-          <a [href]="publicUrl()" target="_blank" rel="noopener">
-            <strong>{{ context.organization()?.slug }}.realwe</strong>
-          </a>
-        </span>
+      <div class="emp-field">
+        <label class="emp-field__label" for="page-name">Nome da empresa</label>
+        <input
+          id="page-name"
+          class="emp-field__control"
+          type="text"
+          formControlName="name"
+          autocomplete="organization"
+        />
+        @if (hasError('name', 'required')) {
+          <p class="panel-page__field-error">Informe o nome.</p>
+        }
+        @if (hasError('name', 'minlength')) {
+          <p class="panel-page__field-error">Mínimo de 2 caracteres.</p>
+        }
       </div>
-    }
+
+      <div class="emp-field">
+        <label class="emp-field__label" for="page-website">Site da empresa</label>
+        <input
+          id="page-website"
+          class="emp-field__control"
+          type="url"
+          formControlName="website"
+          placeholder="https://suaempresa.com.br"
+          autocomplete="url"
+        />
+        @if (hasError('website', 'pattern')) {
+          <p class="panel-page__field-error">URL inválida. Use o formato https://...</p>
+        }
+      </div>
+
+      <div class="emp-field">
+        <label class="emp-field__label" for="page-social">Redes sociais</label>
+        <input
+          id="page-social"
+          class="emp-field__control"
+          type="url"
+          placeholder="Cole a URL e pressione Enter"
+          [value]="socialInput()"
+          (input)="onSocialInput($event)"
+          (keydown)="onSocialKeyDown($event)"
+        />
+        @if (socialLinks().length > 0) {
+          <ul class="panel-page__chips" aria-label="Redes sociais adicionadas">
+            @for (link of socialLinks(); track link) {
+              <li>
+                <span class="panel-page__link-chip">
+                  <span class="panel-page__link-chip-text">{{ link }}</span>
+                  <button
+                    type="button"
+                    class="panel-page__link-chip-remove"
+                    [attr.aria-label]="'Remover ' + link"
+                    (click)="removeSocialLink(link)"
+                  >
+                    <span class="material-symbols-rounded" aria-hidden="true">close</span>
+                  </button>
+                </span>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    </section>
+
+    <!-- ── Visual ──────────────────────────────────────────────────────────── -->
+    <section class="emp-section panel-page__section">
+      <header class="emp-section__head">
+        <h3 class="emp-section__title">Visual</h3>
+        <p class="emp-section__hint">
+          Logo e banner usados na página pública. Upload nativo virá em iteração posterior — por
+          enquanto cole a URL.
+        </p>
+      </header>
+
+      <div class="panel-page__visual-grid">
+        <div class="emp-field">
+          <label class="emp-field__label" for="page-logo">Logo (URL)</label>
+          <input
+            id="page-logo"
+            class="emp-field__control"
+            type="url"
+            formControlName="logoUrl"
+            placeholder="https://..."
+          />
+        </div>
+
+        <div class="emp-field">
+          <label class="emp-field__label" for="page-banner">Banner (URL)</label>
+          <input
+            id="page-banner"
+            class="emp-field__control"
+            type="url"
+            formControlName="bannerUrl"
+            placeholder="https://..."
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sobre ───────────────────────────────────────────────────────────── -->
+    <section class="emp-section panel-page__section">
+      <header class="emp-section__head">
+        <h3 class="emp-section__title">Sobre a empresa</h3>
+        <p class="emp-section__hint">Resumo curto exibido no topo da página pública.</p>
+      </header>
+
+      <div class="emp-field">
+        <label class="emp-field__label" for="page-about">Descrição</label>
+        <textarea
+          id="page-about"
+          class="emp-field__control panel-page__textarea"
+          formControlName="about"
+          rows="5"
+          placeholder="Conte em poucas linhas o que sua empresa faz"
+        ></textarea>
+        @if (hasError('about', 'maxlength')) {
+          <p class="panel-page__field-error">Máximo de 800 caracteres.</p>
+        }
+      </div>
+    </section>
+
+    <!-- ── Visibilidade ────────────────────────────────────────────────────── -->
+    <section class="emp-section panel-page__section">
+      <header class="emp-section__head">
+        <h3 class="emp-section__title">Visibilidade</h3>
+        <p class="emp-section__hint">Controle quem pode ver sua página.</p>
+      </header>
+
+      <label class="panel-page__toggle">
+        <input
+          type="checkbox"
+          class="panel-page__toggle-input"
+          formControlName="publicPageEnabled"
+        />
+        <span class="panel-page__toggle-track" aria-hidden="true"></span>
+        <span class="panel-page__toggle-body">
+          <span class="panel-page__toggle-label">Página pública ativada</span>
+          <span class="panel-page__toggle-hint">
+            Quando desativada, a URL pública responde com "Em construção". Produtos e triagens
+            continuam funcionando internamente.
+          </span>
+        </span>
+      </label>
+
+      @if (context.organization()?.publicPageEnabled) {
+        <div class="panel-page__public-link">
+          <span class="material-symbols-rounded" aria-hidden="true">link</span>
+          <span>
+            Disponível em
+            <a [href]="publicUrl()" target="_blank" rel="noopener">
+              <strong>{{ context.organization()?.slug }}.realwe</strong>
+            </a>
+          </span>
+        </div>
+      }
+    </section>
 
     <footer class="panel-page__footer">
       <button
         type="submit"
-        class="panel-page__btn panel-page__btn--primary"
+        class="empresa-btn empresa-btn--primary"
         [disabled]="isSaving() || form.invalid"
       >
         @if (isSaving()) {
           Salvando…
         } @else {
-          Atualizar página e organização
+          Salvar alterações
         }
       </button>
     </footer>

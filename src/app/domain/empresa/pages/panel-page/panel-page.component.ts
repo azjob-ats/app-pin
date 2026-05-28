@@ -8,6 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
 import { OrganizationUpdateFacade } from '@domain/empresa/services/organization-update.facade';
 
@@ -17,7 +18,7 @@ const URL_REGEX = /^https?:\/\/.+/i;
   selector: 'app-panel-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, EmpresaPageHeaderComponent],
   templateUrl: './panel-page.component.html',
   styleUrl: './panel-page.component.scss',
 })
