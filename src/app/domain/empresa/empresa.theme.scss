@@ -333,3 +333,162 @@ html.dark .empresa-shell {
     cursor: pointer;
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stat cards (KPI grid)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.emp-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.emp-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 22px 20px;
+  background: var(--emp-bg-elevated);
+  border: 1px solid var(--emp-border);
+  border-radius: var(--emp-radius-lg);
+  min-width: 0;
+
+  &__label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--emp-text-muted);
+  }
+
+  &__value {
+    display: block;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: var(--emp-tracking-tight);
+    color: var(--emp-text);
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+  }
+
+  &__hint {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--emp-text-secondary);
+    margin-top: 4px;
+  }
+
+  &--accent {
+    background: var(--emp-text);
+    border-color: var(--emp-text);
+
+    .emp-stat__label,
+    .emp-stat__hint {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .emp-stat__value {
+      color: var(--emp-text-inverse);
+    }
+  }
+}
+
+html.dark .emp-stat--accent {
+  .emp-stat__label,
+  .emp-stat__hint {
+    color: rgba(0, 0, 0, 0.55);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Editorial table (no heavy borders, subtle dividers, tabular nums)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.emp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--emp-bg-elevated);
+  border: 1px solid var(--emp-border);
+  border-radius: var(--emp-radius-lg);
+}
+
+.emp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+
+  thead {
+    background: var(--emp-bg-soft);
+  }
+
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--emp-text-muted);
+    white-space: nowrap;
+
+    &.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  tbody tr {
+    border-top: 1px solid var(--emp-divider);
+    transition: background var(--emp-dur-fast) var(--emp-ease);
+
+    &:hover {
+      background: var(--emp-accent-soft);
+    }
+  }
+
+  td {
+    padding: 14px 16px;
+    color: var(--emp-text);
+    vertical-align: middle;
+
+    &.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section header (smaller h-level for in-page sections)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.emp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: var(--emp-tracking-tight);
+    color: var(--emp-text);
+  }
+
+  &__hint {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--emp-text-secondary);
+    max-width: 64ch;
+  }
+}

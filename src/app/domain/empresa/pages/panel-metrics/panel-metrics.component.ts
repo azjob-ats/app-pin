@@ -10,6 +10,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { environment } from '@env/environment';
 import { ProductType } from '@shared/enums/product-type.enum';
+import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import { PRODUCT_TYPE_META } from '@domain/empresa/constants/product-presets';
 import { MetricsFacade } from '@domain/empresa/services/metrics.facade';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
@@ -18,7 +19,7 @@ import { OrganizationContextService } from '@domain/empresa/services/organizatio
   selector: 'app-panel-metrics',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [DecimalPipe, PercentPipe, RouterLink],
+  imports: [DecimalPipe, PercentPipe, RouterLink, EmpresaPageHeaderComponent],
   templateUrl: './panel-metrics.component.html',
   styleUrl: './panel-metrics.component.scss',
 })
