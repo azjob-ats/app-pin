@@ -3,22 +3,40 @@
   gap: 12px;
   align-items: flex-start;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   min-height: 480px;
+
+  // Refined scrollbar
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--emp-border, rgba(0, 0, 0, 0.08));
+    border-radius: var(--emp-radius-pill, 999px);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--emp-border-strong, rgba(0, 0, 0, 0.18));
+  }
 }
 
 .kanban__column {
-  flex: 0 0 278px;
-  width: 278px;
+  flex: 0 0 296px;
+  width: 296px;
   display: flex;
   flex-direction: column;
-  background: var(--color-surface-muted, #f1f5f9);
-  border-radius: 12px;
-  padding: 8px;
-  --kanban-column-accent: #64748b;
+  background: var(--emp-bg-soft, #fafafa);
+  border: 1px solid var(--emp-border, rgba(0, 0, 0, 0.08));
+  border-radius: var(--emp-radius-lg, 14px);
+  padding: 12px;
+  --kanban-column-accent: var(--emp-text, #0f172a);
+  transition: background var(--emp-dur-fast, 0.12s) var(--emp-ease, ease-out);
 
   &.cdk-drop-list-dragging {
-    background: rgba(37, 99, 235, 0.06);
+    background: var(--emp-accent-soft, rgba(0, 0, 0, 0.05));
+    border-color: var(--emp-border-strong);
   }
 }
 
@@ -27,25 +45,27 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  height: 40px;
-  padding: 0 8px;
+  height: 36px;
+  padding: 0 4px;
   margin-bottom: 8px;
 }
 
 .kanban__column-title {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
+  gap: 8px;
+  font-size: 0.6875rem;
   font-weight: 600;
-  color: var(--color-text-primary, #0f172a);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--emp-text, #0f172a);
   white-space: nowrap;
 }
 
 .kanban__column-dot {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: var(--kanban-column-accent);
 }
@@ -57,11 +77,13 @@
   min-width: 22px;
   height: 18px;
   padding: 0 6px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.08);
-  color: var(--color-text-secondary, #475569);
-  font-size: 11px;
-  font-weight: 600;
+  border-radius: var(--emp-radius-pill, 999px);
+  background: var(--emp-bg, #fff);
+  border: 1px solid var(--emp-border, rgba(0, 0, 0, 0.08));
+  color: var(--emp-text-secondary, #545454);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .kanban__column-add {
@@ -70,17 +92,27 @@
   cursor: pointer;
   width: 28px;
   height: 28px;
-  border-radius: 6px;
-  color: var(--color-text-secondary, #475569);
+  border-radius: var(--emp-radius-sm, 6px);
+  color: var(--emp-text-muted, #909090);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition:
+    background var(--emp-dur-fast, 0.12s) var(--emp-ease, ease-out),
+    color var(--emp-dur-fast, 0.12s) var(--emp-ease, ease-out);
 
-  &:hover,
+  .material-symbols-rounded {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background: var(--emp-bg, #fff);
+    color: var(--emp-text, #000);
+  }
+
   &:focus-visible {
-    background: rgba(15, 23, 42, 0.08);
-    color: var(--color-text-primary, #0f172a);
-    outline: none;
+    outline: 2px solid var(--emp-accent, #000);
+    outline-offset: 2px;
   }
 }
 
@@ -95,22 +127,28 @@
 .kanban__empty {
   margin: 16px 0;
   text-align: center;
-  color: var(--color-text-muted, #94a3b8);
-  font-size: 12px;
+  color: var(--emp-text-muted, #909090);
+  font-size: 0.75rem;
+  font-style: italic;
 }
 
 .kanban__card-wrap {
   cursor: grab;
   user-select: none;
 
+  &:active {
+    cursor: grabbing;
+  }
+
   &.cdk-drag-preview {
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
-    border-radius: 8px;
-    background: var(--color-surface, #ffffff);
+    box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.4);
+    border-radius: var(--emp-radius-md, 10px);
+    background: var(--emp-bg-elevated, #fff);
+    cursor: grabbing;
   }
 
   &.cdk-drag-placeholder {
-    opacity: 0.3;
+    opacity: 0.25;
   }
 
   &.is-moving {
@@ -120,33 +158,47 @@
 }
 
 .cdk-drag-animating {
-  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .kanban__column-body.cdk-drop-list-dragging .kanban__card-wrap:not(.cdk-drag-placeholder) {
-  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .kanban__add-phase {
-  flex: 0 0 192px;
+  flex: 0 0 216px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 40px;
+  height: 44px;
   margin-top: 0;
-  border: 2px dashed var(--color-border, #cbd5e1);
-  border-radius: 8px;
+  border: 1.5px dashed var(--emp-border-strong, rgba(0, 0, 0, 0.18));
+  border-radius: var(--emp-radius-md, 10px);
   background: transparent;
   cursor: pointer;
-  color: var(--color-text-secondary, #475569);
-  font-size: 13px;
-  font-weight: 600;
+  color: var(--emp-text-secondary, #545454);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    border-color var(--emp-dur-fast, 0.12s) var(--emp-ease, ease-out),
+    color var(--emp-dur-fast, 0.12s) var(--emp-ease, ease-out),
+    background var(--emp-dur-fast, 0.12s) var(--emp-ease, ease-out);
 
-  &:hover,
+  .material-symbols-rounded {
+    font-size: 16px;
+  }
+
+  &:hover {
+    border-color: var(--emp-text, #000);
+    border-style: solid;
+    color: var(--emp-text, #000);
+    background: var(--emp-accent-soft, rgba(0, 0, 0, 0.05));
+  }
+
   &:focus-visible {
-    border-color: var(--color-accent, #2563eb);
-    color: var(--color-accent, #2563eb);
-    outline: none;
+    outline: 2px solid var(--emp-accent, #000);
+    outline-offset: 2px;
   }
 }
