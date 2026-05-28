@@ -17,6 +17,7 @@ import {
   KanbanColumn,
   KanbanMoveEvent,
 } from '@domain/empresa/components/kanban-board/kanban-board.component';
+import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import { SubmissionCardComponent } from '@domain/empresa/components/submission-card/submission-card.component';
 import {
   PRODUCT_TYPES_IN_ORDER,
@@ -38,7 +39,7 @@ interface TypeTab {
   selector: 'app-panel-triage',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [KanbanBoardComponent, SubmissionCardComponent],
+  imports: [KanbanBoardComponent, SubmissionCardComponent, EmpresaPageHeaderComponent],
   templateUrl: './panel-triage.component.html',
   styleUrl: './panel-triage.component.scss',
 })

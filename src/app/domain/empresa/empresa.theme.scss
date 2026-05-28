@@ -207,3 +207,129 @@ html.dark .empresa-shell {
     }
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Chip / filter pill (pill button used in tab/filter rows)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.emp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--emp-border);
+  border-radius: var(--emp-radius-pill);
+  color: var(--emp-text-secondary);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    color var(--emp-dur-fast) var(--emp-ease),
+    border-color var(--emp-dur-fast) var(--emp-ease),
+    background var(--emp-dur-fast) var(--emp-ease);
+
+  &:hover {
+    color: var(--emp-text);
+    border-color: var(--emp-border-strong);
+  }
+
+  &.is-active {
+    background: var(--emp-accent);
+    color: var(--emp-text-inverse);
+    border-color: var(--emp-accent);
+    font-weight: 600;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--emp-accent);
+    outline-offset: 3px;
+  }
+
+  &__icon {
+    font-size: 16px;
+    color: inherit;
+    font-variation-settings: 'FILL' 0, 'wght' 500;
+  }
+
+  &__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: var(--emp-radius-pill);
+    background: var(--emp-accent-soft);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: inherit;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+  }
+
+  &.is-active &__count {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+// Chip row container — flex-wrap with consistent gap.
+.emp-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Field / form primitives (input, select, label)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.emp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--emp-text-secondary);
+  }
+
+  &__control {
+    appearance: none;
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--emp-bg);
+    border: 1px solid var(--emp-border);
+    border-radius: var(--emp-radius-md);
+    color: var(--emp-text);
+    font: inherit;
+    font-size: 0.9375rem;
+    transition:
+      border-color var(--emp-dur-fast) var(--emp-ease),
+      box-shadow var(--emp-dur-fast) var(--emp-ease);
+
+    &::placeholder {
+      color: var(--emp-text-muted);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--emp-accent);
+      box-shadow: 0 0 0 3px var(--emp-accent-soft);
+    }
+  }
+
+  // Select variant
+  select.emp-field__control {
+    padding-right: 36px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='none' stroke='%23909090' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' d='M1 1.5l5 5 5-5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+}

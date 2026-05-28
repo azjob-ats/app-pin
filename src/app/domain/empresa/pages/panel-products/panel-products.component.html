@@ -14,22 +14,21 @@
     </button>
   </app-empresa-page-header>
 
-  <nav class="panel-products__filters" role="tablist" aria-label="Filtrar por tipo de produto">
+  <nav class="emp-chip-row" role="tablist" aria-label="Filtrar por tipo de produto">
     @for (tab of typeTabs(); track tab.value) {
       <button
         type="button"
         role="tab"
-        class="panel-products__chip"
+        class="emp-chip"
         [class.is-active]="typeFilter() === tab.value"
-        [style.--chip-accent]="tab.color"
         [attr.aria-selected]="typeFilter() === tab.value"
         (click)="setTypeFilter(tab.value)"
       >
-        <span class="material-symbols-rounded panel-products__chip-icon" aria-hidden="true">
+        <span class="material-symbols-rounded emp-chip__icon" aria-hidden="true">
           {{ tab.icon }}
         </span>
-        <span class="panel-products__chip-label">{{ tab.label }}</span>
-        <span class="panel-products__chip-count">{{ countByType()[tab.value] }}</span>
+        <span>{{ tab.label }}</span>
+        <span class="emp-chip__count">{{ countByType()[tab.value] }}</span>
       </button>
     }
   </nav>

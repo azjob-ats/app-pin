@@ -5,75 +5,8 @@
   flex-direction: column;
   gap: 32px;
 
-  // ── Filter chips ───────────────────────────────────────────────────────────
-  &__filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .emp-chip-row {
     margin-top: -16px;
-  }
-
-  &__chip {
-    --chip-accent: var(--emp-text);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px solid var(--emp-border);
-    border-radius: var(--emp-radius-pill);
-    color: var(--emp-text-secondary);
-    font: inherit;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-      color var(--emp-dur-fast) var(--emp-ease),
-      border-color var(--emp-dur-fast) var(--emp-ease),
-      background var(--emp-dur-fast) var(--emp-ease);
-
-    &:hover {
-      color: var(--emp-text);
-      border-color: var(--emp-border-strong);
-    }
-
-    &.is-active {
-      background: var(--emp-accent);
-      color: var(--emp-text-inverse);
-      border-color: var(--emp-accent);
-      font-weight: 600;
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--emp-accent);
-      outline-offset: 3px;
-    }
-  }
-
-  &__chip-icon {
-    font-size: 16px;
-    color: inherit;
-    font-variation-settings: 'FILL' 0, 'wght' 500;
-  }
-
-  &__chip-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 6px;
-    border-radius: var(--emp-radius-pill);
-    background: var(--emp-accent-soft);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    color: inherit;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0;
-  }
-
-  &__chip.is-active &__chip-count {
-    background: rgba(255, 255, 255, 0.2);
   }
 
   // ── Error / loading ────────────────────────────────────────────────────────
@@ -316,11 +249,6 @@
 @media (max-width: 600px) {
   .panel-products {
     gap: 24px;
-
-    &__chip {
-      padding: 7px 12px;
-      font-size: 0.8125rem;
-    }
 
     &__modal {
       padding: 20px;

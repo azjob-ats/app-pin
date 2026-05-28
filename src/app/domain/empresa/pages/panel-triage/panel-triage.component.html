@@ -1,49 +1,50 @@
-<section class="panel-triage" aria-labelledby="panel-triage-title">
-  <header class="panel-triage__header">
-    <h2 class="panel-triage__title" id="panel-triage-title">Triagens</h2>
-    <p class="panel-triage__subtitle">
-      Submissões recebidas pelo Saiba Mais. O pipeline default depende do tipo de Produto —
-      selecione um tipo para operar o Kanban.
-    </p>
-  </header>
+<section class="empresa-container panel-triage" aria-labelledby="panel-triage-title">
+  <app-empresa-page-header
+    eyebrow="Pipeline"
+    title="Triagens"
+    subtitle="Submissões recebidas pelo Saiba Mais. Cada tipo de Produto tem um pipeline próprio — selecione um tipo para operar o Kanban."
+  />
 
-  <nav class="panel-triage__type-tabs" role="tablist" aria-label="Filtrar por tipo de Produto">
+  <nav class="emp-chip-row" role="tablist" aria-label="Filtrar por tipo de produto">
     @for (tab of typeTabs(); track tab.value) {
       <button
         type="button"
         role="tab"
-        class="panel-triage__type-tab"
+        class="emp-chip"
         [class.is-active]="typeFilter() === tab.value"
-        [style.--type-accent]="tab.color"
         [attr.aria-selected]="typeFilter() === tab.value"
         (click)="setTypeFilter(tab.value)"
       >
-        <span class="material-symbols-rounded" aria-hidden="true">{{ tab.icon }}</span>
+        <span class="material-symbols-rounded emp-chip__icon" aria-hidden="true">
+          {{ tab.icon }}
+        </span>
         <span>{{ tab.label }}</span>
-        <span class="panel-triage__type-count">{{ countByType()[tab.value] }}</span>
+        <span class="emp-chip__count">{{ countByType()[tab.value] }}</span>
       </button>
     }
   </nav>
 
   <div class="panel-triage__filters">
-    <div class="panel-triage__filter-field">
-      <label for="triage-product">Produto</label>
+    <div class="emp-field panel-triage__field">
+      <label class="emp-field__label" for="triage-product">Produto</label>
       <select
         id="triage-product"
+        class="emp-field__control"
         [value]="productIdFilter() ?? ''"
         (change)="onProductSelect($event)"
       >
-        <option value="">Todos os Produtos</option>
+        <option value="">Todos os produtos</option>
         @for (option of productOptions(); track option.id) {
           <option [value]="option.id">{{ option.title }}</option>
         }
       </select>
     </div>
 
-    <div class="panel-triage__filter-field">
-      <label for="triage-search">Buscar</label>
+    <div class="emp-field panel-triage__field">
+      <label class="emp-field__label" for="triage-search">Buscar</label>
       <input
         id="triage-search"
+        class="emp-field__control"
         type="search"
         placeholder="Nome, e-mail ou produto"
         [value]="searchTerm()"
@@ -54,7 +55,7 @@
     @if (typeFilter() !== 'all' || productIdFilter() || searchTerm()) {
       <button
         type="button"
-        class="panel-triage__clear"
+        class="empresa-btn empresa-btn--quiet panel-triage__clear"
         (click)="clearFilters()"
       >
         <span class="material-symbols-rounded" aria-hidden="true">close</span>
@@ -63,24 +64,35 @@
     }
   </div>
 
-  @if (error()) {
-    <div class="panel-triage__error" role="alert">{{ error() }}</div>
+  @if (error(); as message) {
+    <div class="panel-triage__error" role="alert">
+      <span class="material-symbols-rounded" aria-hidden="true">error_outline</span>
+      <p>{{ message }}</p>
+    </div>
   }
 
   @if (isLoading() && items().length === 0) {
-    <p class="panel-triage__loading" role="status">Carregando submissões…</p>
+    <div class="panel-triage__loading" role="status" aria-live="polite">
+      <div class="panel-triage__loading-bar"></div>
+      <p>Carregando submissões…</p>
+    </div>
   } @else if (!hasTypeSelected()) {
     <div class="panel-triage__hint">
-      <span class="material-symbols-rounded" aria-hidden="true">filter_alt</span>
-      <h3>Selecione um tipo para visualizar o pipeline</h3>
-      <p>
-        Como cada tipo de Produto (Vaga, Serviço, Treinamento…) tem um pipeline próprio, as
-        colunas só fazem sentido após filtrar.
-      </p>
-      <p class="panel-triage__hint-summary">
-        Total de submissões: <strong>{{ items().length }}</strong> ·
-        Filtradas: <strong>{{ filteredItems().length }}</strong>
-      </p>
+      <span class="material-symbols-rounded panel-triage__hint-icon" aria-hidden="true">
+        filter_alt
+      </span>
+      <div class="panel-triage__hint-body">
+        <h3 class="panel-triage__hint-title">Selecione um tipo para visualizar o pipeline</h3>
+        <p class="panel-triage__hint-message">
+          Como cada tipo de produto (Vaga, Serviço, Treinamento…) tem um pipeline próprio, as
+          colunas só fazem sentido após filtrar.
+        </p>
+        <p class="panel-triage__hint-summary">
+          Total: <strong>{{ items().length }}</strong>
+          <span aria-hidden="true">·</span>
+          Filtradas: <strong>{{ filteredItems().length }}</strong>
+        </p>
+      </div>
     </div>
   } @else {
     <app-kanban-board
