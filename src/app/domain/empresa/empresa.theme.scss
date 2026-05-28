@@ -1,0 +1,209 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Empresa Design Tokens — editorial premium (Uber-inspired, NOT a copy)
+// Apply class="empresa-shell" on any empresa page root.
+// Tokens cascade to children via CSS custom properties + ViewEncapsulation.None.
+// Dark mode inverts via html.dark.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.empresa-shell {
+  // surfaces
+  --emp-bg: #ffffff;
+  --emp-bg-soft: #fafafa;
+  --emp-bg-elevated: #ffffff;
+
+  // text
+  --emp-text: #000000;
+  --emp-text-secondary: #545454;
+  --emp-text-muted: #909090;
+  --emp-text-disabled: #c4c4c4;
+  --emp-text-inverse: #ffffff;
+
+  // lines
+  --emp-border: rgba(0, 0, 0, 0.08);
+  --emp-border-strong: rgba(0, 0, 0, 0.18);
+  --emp-divider: rgba(0, 0, 0, 0.06);
+
+  // accents
+  --emp-accent: #000000;
+  --emp-accent-hover: #1a1a1a;
+  --emp-accent-active: #2a2a2a;
+  --emp-accent-soft: rgba(0, 0, 0, 0.05);
+
+  // signal
+  --emp-success: #06893a;
+  --emp-warning: #c47a00;
+  --emp-danger: #c0150a;
+
+  // type
+  --emp-font:
+    'Uber Move', 'Uber Move Text', -apple-system, BlinkMacSystemFont,
+    'SF Pro Text', 'Inter', 'Segoe UI', system-ui, Roboto, sans-serif;
+  --emp-font-mono:
+    'SF Mono', 'JetBrains Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+
+  --emp-tracking-tight: -0.02em;
+  --emp-tracking-base: -0.005em;
+  --emp-tracking-loose: 0.06em;
+
+  // spacing & radii
+  --emp-radius-xs: 4px;
+  --emp-radius-sm: 6px;
+  --emp-radius-md: 10px;
+  --emp-radius-lg: 14px;
+  --emp-radius-xl: 20px;
+  --emp-radius-pill: 999px;
+
+  // motion
+  --emp-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --emp-dur-fast: 0.12s;
+  --emp-dur-base: 0.22s;
+  --emp-dur-slow: 0.32s;
+
+  // page shell
+  font-family: var(--emp-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: var(--emp-tracking-base);
+  color: var(--emp-text);
+  background: var(--emp-bg);
+  min-height: 100vh;
+  width: 100%;
+}
+
+html.dark .empresa-shell {
+  --emp-bg: #0a0a0a;
+  --emp-bg-soft: #131313;
+  --emp-bg-elevated: #161616;
+
+  --emp-text: #ffffff;
+  --emp-text-secondary: #b8b8b8;
+  --emp-text-muted: #7a7a7a;
+  --emp-text-disabled: #4a4a4a;
+  --emp-text-inverse: #0a0a0a;
+
+  --emp-border: rgba(255, 255, 255, 0.10);
+  --emp-border-strong: rgba(255, 255, 255, 0.22);
+  --emp-divider: rgba(255, 255, 255, 0.08);
+
+  --emp-accent: #ffffff;
+  --emp-accent-hover: #e6e6e6;
+  --emp-accent-active: #cccccc;
+  --emp-accent-soft: rgba(255, 255, 255, 0.08);
+
+  --emp-success: #2fbe6a;
+  --emp-warning: #f0b138;
+  --emp-danger: #ff6b62;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Editorial container
+// ─────────────────────────────────────────────────────────────────────────────
+
+.empresa-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 48px) clamp(56px, 8vw, 112px);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Editorial typography utilities (use sparingly; prefer component-local rules)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.empresa-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--emp-text-secondary);
+}
+
+.empresa-display {
+  margin: 0;
+  font-size: clamp(2rem, 4.8vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: var(--emp-tracking-tight);
+  color: var(--emp-text);
+}
+
+.empresa-lead {
+  margin: 0;
+  max-width: 62ch;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--emp-text-secondary);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Buttons (premium, restrained)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.empresa-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border: 1px solid transparent;
+  border-radius: var(--emp-radius-md);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: var(--emp-tracking-base);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background var(--emp-dur-fast) var(--emp-ease),
+    color var(--emp-dur-fast) var(--emp-ease),
+    border-color var(--emp-dur-fast) var(--emp-ease);
+  white-space: nowrap;
+
+  &:focus-visible {
+    outline: 2px solid var(--emp-accent);
+    outline-offset: 3px;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .material-symbols-rounded {
+    font-size: 18px;
+  }
+
+  &--primary {
+    background: var(--emp-accent);
+    color: var(--emp-text-inverse);
+
+    &:hover:not(:disabled) {
+      background: var(--emp-accent-hover);
+    }
+    &:active:not(:disabled) {
+      background: var(--emp-accent-active);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: var(--emp-text);
+    border-color: var(--emp-border-strong);
+
+    &:hover:not(:disabled) {
+      background: var(--emp-accent-soft);
+    }
+  }
+
+  &--quiet {
+    background: transparent;
+    color: var(--emp-text-secondary);
+
+    &:hover:not(:disabled) {
+      color: var(--emp-text);
+      background: var(--emp-accent-soft);
+    }
+  }
+}
