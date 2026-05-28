@@ -13,6 +13,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '@env/environment';
 import { CreateOrganizationRequest } from '@shared/interfaces/dto/request/empresa-organization';
+import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import { OrganizationCreateFacade } from '@domain/empresa/services/organization-create.facade';
 
 const SLUG_REGEX = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
@@ -33,7 +34,7 @@ function toSlug(value: string): string {
   selector: 'app-organization-create',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, EmpresaPageHeaderComponent],
   templateUrl: './organization-create.component.html',
   styleUrl: './organization-create.component.scss',
 })
