@@ -119,7 +119,10 @@ export class SubmissionDetailComponent implements OnInit, OnDestroy {
 
   protected basePath(): string {
     const slug = this.context.organization()?.slug ?? this.route.snapshot.paramMap.get('slug');
-    return slug ? `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}` : '/empresa';
+    const deptSlug = this.route.snapshot.paramMap.get('deptSlug');
+    return slug && deptSlug
+      ? `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/${deptSlug}`
+      : '/empresa';
   }
 
   protected backToTriageLink(): string {

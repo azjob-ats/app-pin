@@ -316,7 +316,7 @@ export class ProductCreateComponent implements OnDestroy {
   }
 
   protected close(): void {
-    this.router.navigateByUrl(this.listLink());
+    this.router.navigateByUrl(this.goToProductsLink());
   }
 
   // ---------- Type step ----------
@@ -443,8 +443,11 @@ export class ProductCreateComponent implements OnDestroy {
   }
 
   protected basePath(): string {
-    const slug = this.context.organization()?.slug;
-    return slug ? `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}` : this.listLink();
+    const slug = this.context.organization()?.slug ?? this.route.snapshot.paramMap.get('slug');
+    const deptSlug = this.route.snapshot.paramMap.get('deptSlug');
+    return slug && deptSlug
+      ? `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/${deptSlug}`
+      : this.listLink();
   }
 
   protected typeLabel(type: ProductType): string {

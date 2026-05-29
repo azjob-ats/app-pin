@@ -486,6 +486,17 @@ export const routes: Routes = [
         },
       },
       {
+        path: ROUTES.EMPRESA.DEPARTMENT_NEW,
+        loadComponent: () =>
+          import('./domain/empresa/pages/department-create/department-create.component').then(
+            (m) => m.DepartmentCreateComponent,
+          ),
+        data: {
+          title: 'Novo Departamento',
+          description: 'Crie um departamento para organizar produtos, triagens e equipe por área.',
+        },
+      },
+      {
         path: ROUTES.EMPRESA.PANEL,
         loadComponent: () =>
           import(
@@ -546,6 +557,17 @@ export const routes: Routes = [
             data: { title: 'Métricas' },
           },
         ],
+      },
+      {
+        path: ROUTES.EMPRESA.DEPARTMENTS,
+        loadComponent: () =>
+          import('./domain/empresa/pages/department-list/department-list.component').then(
+            (m) => m.DepartmentListComponent,
+          ),
+        data: {
+          title: 'Departamentos',
+          description: 'Selecione ou crie um departamento da organização para gerenciar seu kanban.',
+        },
       },
       {
         path: ROUTES.CREATOR_PORTFOLIO.ROOT,

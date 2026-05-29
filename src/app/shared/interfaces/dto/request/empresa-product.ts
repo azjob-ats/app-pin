@@ -28,6 +28,7 @@ export interface MoveProductRequest {
 export interface ProductListQueryRequest {
   type?: string;
   phase?: string;
+  department?: string;
   page?: number;
   pageSize?: number;
 }

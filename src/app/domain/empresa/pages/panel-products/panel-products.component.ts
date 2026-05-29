@@ -27,6 +27,7 @@ import {
   PRODUCT_TYPE_META,
 } from '@domain/empresa/constants/product-presets';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
+import { DepartmentContextService } from '@domain/empresa/services/department-context.service';
 import { ProductListFacade } from '@domain/empresa/services/product-list.facade';
 import { ProductTypeFilter } from '@domain/empresa/services/product-list.store';
 
@@ -52,6 +53,7 @@ interface TypeTab {
 })
 export class PanelProductsComponent implements OnDestroy {
   private readonly context = inject(OrganizationContextService);
+  private readonly deptContext = inject(DepartmentContextService);
   private readonly facade = inject(ProductListFacade);
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
@@ -109,8 +111,9 @@ export class PanelProductsComponent implements OnDestroy {
   constructor() {
     effect(() => {
       const slug = this.context.organization()?.slug;
-      if (slug) {
-        this.facade.load(slug);
+      const deptSlug = this.deptContext.slug();
+      if (slug && deptSlug) {
+        this.facade.load(slug, deptSlug);
       }
     });
   }
@@ -149,17 +152,22 @@ export class PanelProductsComponent implements OnDestroy {
     this.showNewPhaseModal.set(false);
   }
 
-  protected onCreateInPhase(_columnId: string): void {
+  private basePath(): string | null {
     const slug = this.context.organization()?.slug;
-    if (!slug) return;
-    const url = `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/produtos/novo`;
-    this.router.navigateByUrl(url);
+    const deptSlug = this.deptContext.slug();
+    if (!slug || !deptSlug) return null;
+    return `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/${deptSlug}`;
+  }
+
+  protected onCreateInPhase(_columnId: string): void {
+    const base = this.basePath();
+    if (!base) return;
+    this.router.navigateByUrl(`${base}/produtos/novo`);
   }
 
   protected onProductClicked(product: Product): void {
-    const slug = this.context.organization()?.slug;
-    if (!slug) return;
-    const url = `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/produtos/${product.id}`;
-    this.router.navigateByUrl(url);
+    const base = this.basePath();
+    if (!base) return;
+    this.router.navigateByUrl(`${base}/produtos/${product.id}`);
   }
 }

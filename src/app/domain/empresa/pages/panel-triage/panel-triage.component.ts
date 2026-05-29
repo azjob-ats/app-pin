@@ -25,6 +25,7 @@ import {
 } from '@domain/empresa/constants/product-presets';
 import { pipelineFor } from '@domain/empresa/constants/submission-pipelines';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
+import { DepartmentContextService } from '@domain/empresa/services/department-context.service';
 import { SubmissionListFacade } from '@domain/empresa/services/submission-list.facade';
 import { SubmissionTypeFilter } from '@domain/empresa/services/submission-list.store';
 
@@ -45,6 +46,7 @@ interface TypeTab {
 })
 export class PanelTriageComponent implements OnDestroy {
   private readonly context = inject(OrganizationContextService);
+  private readonly deptContext = inject(DepartmentContextService);
   private readonly facade = inject(SubmissionListFacade);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -143,8 +145,9 @@ export class PanelTriageComponent implements OnDestroy {
 
   protected onSubmissionClicked(submission: Submission): void {
     const slug = this.context.organization()?.slug;
-    if (!slug) return;
-    const url = `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/triagens/${submission.id}`;
+    const deptSlug = this.deptContext.slug();
+    if (!slug || !deptSlug) return;
+    const url = `/${environment.ROUTES.EMPRESA.PANEL_PATH}/${slug}/${deptSlug}/triagens/${submission.id}`;
     this.router.navigateByUrl(url);
   }
 }
