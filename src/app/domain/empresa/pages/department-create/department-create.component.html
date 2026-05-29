@@ -1,0 +1,176 @@
+<section class="empresa-shell dept-create" aria-labelledby="dept-create-title">
+  <header class="dept-create__topbar">
+    <div class="dept-create__topbar-inner">
+      <a
+        class="dept-create__back"
+        [routerLink]="listLink()"
+        aria-label="Voltar para a lista de departamentos"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+      </a>
+      <span class="dept-create__topbar-label">Voltar para departamentos</span>
+    </div>
+  </header>
+
+  <div class="empresa-container dept-create__container">
+    <app-empresa-page-header
+      eyebrow="Novo departamento"
+      title="Criar departamento"
+      subtitle="Departamentos organizam produtos, triagens e equipe por área da empresa. Cada um tem seu próprio kanban e pode ser refinado depois."
+    />
+
+    @if (showSummaryError() || serverError()) {
+      <div class="dept-create__alert" role="alert">
+        <span class="material-symbols-rounded" aria-hidden="true">error_outline</span>
+        <p>{{ serverError() || 'Verifique os campos destacados.' }}</p>
+      </div>
+    }
+
+    <form
+      class="dept-create__form"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      novalidate
+      autocomplete="off"
+    >
+      <!-- ── Identidade ──────────────────────────────────────────────────── -->
+      <section class="emp-section dept-create__section">
+        <header class="emp-section__head">
+          <h3 class="emp-section__title">Identidade</h3>
+          <p class="emp-section__hint">Nome e identificador do departamento.</p>
+        </header>
+
+        <div class="emp-field">
+          <label class="emp-field__label" for="dept-name">Nome do departamento</label>
+          <input
+            id="dept-name"
+            class="emp-field__control"
+            type="text"
+            formControlName="name"
+            placeholder="Ex.: Marketing"
+            [attr.aria-invalid]="hasError('name', 'required') || hasError('name', 'minlength')"
+          />
+          @if (hasError('name', 'required')) {
+            <p class="dept-create__field-error">Informe o nome do departamento.</p>
+          }
+          @if (hasError('name', 'minlength')) {
+            <p class="dept-create__field-error">Mínimo de 2 caracteres.</p>
+          }
+        </div>
+
+        <div class="emp-field">
+          <label class="emp-field__label" for="dept-slug">Identificador</label>
+          <input
+            id="dept-slug"
+            class="emp-field__control"
+            type="text"
+            formControlName="slug"
+            placeholder="marketing"
+            [attr.aria-invalid]="hasError('slug', 'required') || hasError('slug', 'pattern')"
+          />
+          <p class="dept-create__field-hint">
+            Gerado automaticamente a partir do nome — você pode editar antes de criar.
+          </p>
+          @if (hasError('slug', 'required')) {
+            <p class="dept-create__field-error">Informe o identificador.</p>
+          }
+          @if (hasError('slug', 'pattern')) {
+            <p class="dept-create__field-error">
+              Use apenas letras minúsculas, números e hífens (sem espaços ou acentos).
+            </p>
+          }
+        </div>
+      </section>
+
+      <!-- ── Aparência ───────────────────────────────────────────────────── -->
+      <section class="emp-section dept-create__section">
+        <header class="emp-section__head">
+          <h3 class="emp-section__title">Aparência</h3>
+          <p class="emp-section__hint">Ícone e cor que identificam o departamento nos cards.</p>
+        </header>
+
+        <div class="dept-create__appearance">
+          <div
+            class="dept-create__preview-mark"
+            [style.--dept-accent]="form.controls.color.value"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">{{ selectedIcon() }}</span>
+          </div>
+
+          <div class="emp-field dept-create__color-field">
+            <label class="emp-field__label" for="dept-color">Cor identificadora</label>
+            <input id="dept-color" type="color" formControlName="color" />
+          </div>
+        </div>
+
+        <div class="emp-field">
+          <span class="emp-field__label" id="dept-icon-label">Ícone</span>
+          <div class="dept-create__icons" role="radiogroup" aria-labelledby="dept-icon-label">
+            @for (option of iconOptions; track option.value) {
+              <button
+                type="button"
+                class="dept-create__icon-btn"
+                role="radio"
+                [class.is-selected]="selectedIcon() === option.value"
+                [attr.aria-checked]="selectedIcon() === option.value"
+                [attr.aria-label]="option.label"
+                [title]="option.label"
+                (click)="selectIcon(option.value)"
+              >
+                <span class="material-symbols-rounded" aria-hidden="true">{{ option.value }}</span>
+              </button>
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Sobre ───────────────────────────────────────────────────────── -->
+      <section class="emp-section dept-create__section">
+        <header class="emp-section__head">
+          <h3 class="emp-section__title">Sobre</h3>
+          <p class="emp-section__hint">Resumo curto exibido no card do departamento.</p>
+        </header>
+
+        <div class="emp-field">
+          <label class="emp-field__label" for="dept-desc">Descrição</label>
+          <textarea
+            id="dept-desc"
+            class="emp-field__control dept-create__textarea"
+            formControlName="description"
+            rows="3"
+            placeholder="O que esse departamento gerencia"
+          ></textarea>
+          @if (hasError('description', 'maxlength')) {
+            <p class="dept-create__field-error">Máximo de 400 caracteres.</p>
+          }
+        </div>
+      </section>
+
+      <!-- ── Path preview + submit ───────────────────────────────────────── -->
+      <div class="dept-create__preview" aria-live="polite">
+        <span class="material-symbols-rounded" aria-hidden="true">link</span>
+        <span>
+          O kanban ficará em
+          <strong>{{ pathPreview() }}</strong>
+        </span>
+      </div>
+
+      <footer class="dept-create__footer">
+        <div class="dept-create__footer-actions">
+          <a class="empresa-btn empresa-btn--quiet" [routerLink]="listLink()">Cancelar</a>
+          <button
+            type="submit"
+            class="empresa-btn empresa-btn--primary"
+            [disabled]="isSubmitting()"
+          >
+            @if (isSubmitting()) {
+              Criando…
+            } @else {
+              Criar departamento
+            }
+          </button>
+        </div>
+      </footer>
+    </form>
+  </div>
+</section>
