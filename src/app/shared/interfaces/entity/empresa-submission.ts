@@ -33,6 +33,14 @@ export interface SubmissionCandidate {
   contextLine: string;
 }
 
+export interface SubmissionSource {
+  creatorId: string;
+  creatorName: string;
+  creatorHandle: string;
+  pitchId: string | null;
+  pitchTitle: string;
+}
+
 export interface Submission {
   id: string;
   organizationId: string;
@@ -41,6 +49,7 @@ export interface Submission {
   productTitle: string;
   phase: SubmissionPhase;
   candidate: SubmissionCandidate;
+  source: SubmissionSource | null;
   answers: SubmissionAnswer[];
   screeningAnswers: SubmissionScreeningAnswer[];
   internalNotes: string;

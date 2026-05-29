@@ -4,6 +4,10 @@
 //   - organization_departments     → organization_departments.sql
 //   - product_phases               → product_phases.sql
 //   - users                        → users.sql
+//
+// Related tables (pitch eligibility — quem pode vender este produto):
+//   - product_eligible_creators    → product_eligible_creators.sql   (mode='creators')
+//   - product_eligible_groups      → product_eligible_groups.sql     (mode='groups')
 // ----------------------------------------------------------------------------
 
 Enum product_type {
@@ -19,6 +23,13 @@ Enum product_phase {
   published     // visível na página pública
   closed        // fechado para novas submissões (vaga preenchida, evento ocorrido)
   archived      // removido da listagem mas preservado para histórico
+}
+
+// Quem pode criar um pitch (vídeo) vendendo este produto.
+Enum pitch_eligibility_mode {
+  any           // qualquer creator institucionalizado da organização
+  creators      // apenas creators específicos  → ver product_eligible_creators
+  groups        // apenas grupos de creators     → ver product_eligible_groups
 }
 
 // ----------------------------------------------------------------------------
@@ -61,6 +72,7 @@ Table products {
   cover_image_url varchar
   phase product_phase [not null, default: 'draft']              // coluna padrão do Kanban
   custom_phase_id bigint [ref: > product_phases.id]             // override do Kanban quando a org configura fases próprias
+  pitch_eligibility_mode pitch_eligibility_mode [not null, default: 'any']  // quem pode vender/pitchar este produto
   starts_at timestamptz                                         // publicação programada
   ends_at timestamptz                                           // expiração (vaga fecha em…, evento ocorre em…)
   published_at timestamptz                                      // timestamp de publicação efetiva (Product.publishedAt no front)

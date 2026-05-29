@@ -24,6 +24,7 @@ export class SubmissionMap {
       productTitle: dto.productTitle,
       phase: SubmissionMap.toPhase(dto.phase),
       candidate: { ...dto.candidate },
+      source: dto.source ? { ...dto.source } : null,
       answers: dto.answers.map((a) => ({ ...a })),
       screeningAnswers: dto.screeningAnswers.map((a) => ({ ...a })),
       internalNotes: dto.internalNotes,

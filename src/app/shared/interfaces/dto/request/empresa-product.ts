@@ -1,5 +1,6 @@
 import {
   ProductDescriptionBlockResponse,
+  ProductEligibilityResponse,
   ProductLearnMoreConfigResponse,
   ProductScreeningQuestionResponse,
 } from '@shared/interfaces/dto/response/empresa-product';
@@ -13,6 +14,7 @@ export interface CreateProductRequest {
   description: ProductDescriptionBlockResponse[];
   screeningQuestions?: ProductScreeningQuestionResponse[];
   learnMoreConfig: ProductLearnMoreConfigResponse;
+  eligibility?: ProductEligibilityResponse;
 }
 
 export interface UpdateProductRequest extends Partial<CreateProductRequest> {

@@ -33,6 +33,12 @@ export interface ProductLearnMoreConfigResponse {
   showRevisionStep: boolean;
 }
 
+export interface ProductEligibilityResponse {
+  mode: string;
+  creatorIds: string[];
+  groupIds: string[];
+}
+
 export interface ProductResponse {
   id: string;
   organizationId: string;
@@ -45,6 +51,7 @@ export interface ProductResponse {
   description: ProductDescriptionBlockResponse[];
   screeningQuestions: ProductScreeningQuestionResponse[];
   learnMoreConfig: ProductLearnMoreConfigResponse;
+  eligibility?: ProductEligibilityResponse;
   metrics: {
     views: number;
     submissions: number;

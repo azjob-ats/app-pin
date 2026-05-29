@@ -173,6 +173,7 @@ const products = [
     screeningQuestions: [
       { id: 'q1', question: 'Quantos anos de experiência com Angular?', idealAnswer: '5', required: true },
     ],
+    eligibility: { mode: 'groups', groupIds: ['cgrp-001'] },
   }),
   buildProduct({
     id: 'prod-002',
@@ -201,6 +202,7 @@ const products = [
       ['Ementa', 'Fundamentos de signals, padrão store+facade, migração de RxJS.'],
       ['Pré-requisitos', 'Experiência prévia com Angular.'],
     ],
+    eligibility: { mode: 'creators', creatorIds: ['creator-001', 'creator-002'] },
   }),
   buildProduct({
     id: 'prod-004',
@@ -232,6 +234,15 @@ const products = [
   }),
 ];
 
+function normalizeEligibility(raw) {
+  const mode = ['any', 'creators', 'groups'].includes(raw?.mode) ? raw.mode : 'any';
+  return {
+    mode,
+    creatorIds: mode === 'creators' && Array.isArray(raw?.creatorIds) ? raw.creatorIds : [],
+    groupIds: mode === 'groups' && Array.isArray(raw?.groupIds) ? raw.groupIds : [],
+  };
+}
+
 function buildProduct({
   id,
   organizationId,
@@ -243,6 +254,7 @@ function buildProduct({
   location = '',
   descriptionBlocks = [],
   screeningQuestions = [],
+  eligibility,
 }) {
   return {
     id,
@@ -260,6 +272,7 @@ function buildProduct({
     })),
     screeningQuestions,
     learnMoreConfig: makeLearnMoreConfig(type),
+    eligibility: normalizeEligibility(eligibility),
     metrics: { views: 50 + Math.floor(Math.random() * 500), submissions: 0 },
     publishedAt: phase === 'in_campaign' ? '2025-03-10T12:00:00.000Z' : null,
     createdAt: '2025-03-01T12:00:00.000Z',
@@ -275,6 +288,13 @@ const submissions = [
     productId: 'prod-001',
     candidateName: 'Saulo McChelsom',
     contextLine: 'Senior Angular Developer · Vitória, ES',
+    source: {
+      creatorId: 'creator-001',
+      creatorName: 'Amanda Silva',
+      creatorHandle: 'amanda.silva',
+      pitchId: 'pitch-001',
+      pitchTitle: 'Como é trabalhar com Angular no Nubank',
+    },
     answers: [
       ['name', 'Nome completo', 'Saulo McChelsom'],
       ['email', 'E-mail', 'saulo@example.com'],
@@ -290,6 +310,13 @@ const submissions = [
     candidateName: 'Ana Costa',
     contextLine: 'Tech Lead Frontend · São Paulo, SP',
     phase: 'job_adequate',
+    source: {
+      creatorId: 'creator-002',
+      creatorName: 'Bruno Costa',
+      creatorHandle: 'bruno.costa',
+      pitchId: 'pitch-002',
+      pitchTitle: 'Entrevista com a Engenheira Chefe da Plataforma',
+    },
     answers: [
       ['name', 'Nome completo', 'Ana Costa'],
       ['email', 'E-mail', 'ana@example.com'],
@@ -316,6 +343,13 @@ const submissions = [
     candidateName: 'Maria Souza',
     contextLine: 'Desenvolvedora Pleno · Belo Horizonte',
     phase: 'training_confirmed',
+    source: {
+      creatorId: 'creator-001',
+      creatorName: 'Amanda Silva',
+      creatorHandle: 'amanda.silva',
+      pitchId: 'pitch-003',
+      pitchTitle: 'Workshop de Signals — bastidores',
+    },
     answers: [
       ['name', 'Nome', 'Maria Souza'],
       ['email', 'E-mail', 'maria@example.com'],
@@ -330,6 +364,7 @@ function buildSubmission({
   candidateName,
   contextLine,
   phase,
+  source = null,
   answers = [],
   screeningAnswers = [],
 }) {
@@ -348,6 +383,7 @@ function buildSubmission({
       avatarUrl: `https://i.pravatar.cc/120?u=${encodeURIComponent(id)}`,
       contextLine,
     },
+    source,
     answers: answers.map(([fieldId, label, value]) => ({ fieldId, label, value })),
     screeningAnswers: screeningAnswers.map(
       ([questionId, question, idealAnswer, answer, required, matchesIdeal]) => ({
@@ -478,6 +514,81 @@ const groups = {
   ],
 };
 
+// ---------- Creators & Creator Groups ----------
+// Creators institucionalizados vinculados à organização (autores dos pitches).
+// Distintos de members/roles (staff interno). Grupos de creators agrupam-nos
+// para liberar produtos em lote (ex.: "Webiner Nubank").
+
+const creators = {
+  'org-001': [
+    {
+      id: 'creator-001',
+      organizationId: 'org-001',
+      handle: 'amanda.silva',
+      displayName: 'Amanda Silva',
+      avatarUrl: 'https://i.pravatar.cc/120?u=creator-001',
+      headline: 'Engenheira de Software · Creator institucionalizada',
+      status: 'active',
+      joinedAt: '2025-02-01T12:00:00.000Z',
+    },
+    {
+      id: 'creator-002',
+      organizationId: 'org-001',
+      handle: 'bruno.costa',
+      displayName: 'Bruno Costa',
+      avatarUrl: 'https://i.pravatar.cc/120?u=creator-002',
+      headline: 'Tech Recruiter · Conteúdo de carreira',
+      status: 'active',
+      joinedAt: '2025-02-10T12:00:00.000Z',
+    },
+    {
+      id: 'creator-003',
+      organizationId: 'org-001',
+      handle: 'carla.menezes',
+      displayName: 'Carla Menezes',
+      avatarUrl: 'https://i.pravatar.cc/120?u=creator-003',
+      headline: 'Especialista em Produtos PJ',
+      status: 'active',
+      joinedAt: '2025-03-05T12:00:00.000Z',
+    },
+    {
+      id: 'creator-004',
+      organizationId: 'org-001',
+      handle: 'diego.ramos',
+      displayName: 'Diego Ramos',
+      avatarUrl: 'https://i.pravatar.cc/120?u=creator-004',
+      headline: 'Creator convidado',
+      status: 'invited',
+      joinedAt: '2025-04-20T12:00:00.000Z',
+    },
+  ],
+};
+
+const creatorGroups = {
+  'org-001': [
+    {
+      id: 'cgrp-001',
+      organizationId: 'org-001',
+      name: 'Webiner Nubank',
+      description: 'Creators que produzem conteúdo para webinars e vagas de engenharia.',
+      creatorIds: ['creator-001', 'creator-002'],
+      creatorsCount: 2,
+      createdAt: '2025-03-01T12:00:00.000Z',
+      updatedAt: '2025-03-01T12:00:00.000Z',
+    },
+    {
+      id: 'cgrp-002',
+      organizationId: 'org-001',
+      name: 'Conteúdo Comercial',
+      description: 'Creators focados em produtos e serviços.',
+      creatorIds: ['creator-003'],
+      creatorsCount: 1,
+      createdAt: '2025-03-08T12:00:00.000Z',
+      updatedAt: '2025-03-08T12:00:00.000Z',
+    },
+  ],
+};
+
 // ---------- Helpers ----------
 
 function findOrganization(slug) {
@@ -600,6 +711,7 @@ function createProduct(slug, payload) {
     description: payload.description || [],
     screeningQuestions: payload.screeningQuestions || [],
     learnMoreConfig: payload.learnMoreConfig || makeLearnMoreConfig(payload.type),
+    eligibility: normalizeEligibility(payload.eligibility),
     metrics: { views: 0, submissions: 0 },
     publishedAt: null,
     createdAt: now,
@@ -620,6 +732,7 @@ function updateProduct(slug, id, payload) {
     description: payload.description ?? product.description,
     screeningQuestions: payload.screeningQuestions ?? product.screeningQuestions,
     learnMoreConfig: payload.learnMoreConfig ?? product.learnMoreConfig,
+    eligibility: payload.eligibility ? normalizeEligibility(payload.eligibility) : product.eligibility,
     phase: payload.phase ?? product.phase,
     updatedAt: NOW(),
   });
@@ -702,6 +815,7 @@ function createSubmission(slug, productId, payload) {
       avatarUrl: `https://i.pravatar.cc/120?u=${encodeURIComponent(id)}`,
       contextLine: '',
     },
+    source: resolveSubmissionSource(product.organizationId, payload.source),
     answers,
     screeningAnswers,
     internalNotes: '',
@@ -917,6 +1031,99 @@ function addMembersToGroup(slug, id, memberIds) {
   return { ok: true, group };
 }
 
+// ---------- Creators & Creator Groups ----------
+
+function resolveSubmissionSource(orgId, raw) {
+  if (!raw || !raw.creatorId) return null;
+  const creator = (creators[orgId] || []).find((c) => c.id === raw.creatorId);
+  return {
+    creatorId: raw.creatorId,
+    creatorName: raw.creatorName || (creator ? creator.displayName : ''),
+    creatorHandle: raw.creatorHandle || (creator ? creator.handle : ''),
+    pitchId: raw.pitchId || null,
+    pitchTitle: raw.pitchTitle || '',
+  };
+}
+
+function listCreators(slug) {
+  const org = findOrganization(slug);
+  if (!org) return null;
+  return creators[org.id] || [];
+}
+
+function listCreatorGroups(slug) {
+  const org = findOrganization(slug);
+  if (!org) return null;
+  return creatorGroups[org.id] || [];
+}
+
+function createCreatorGroup(slug, payload) {
+  const org = findOrganization(slug);
+  if (!org) return { ok: false, code: 'org-not-found' };
+  if (!payload.name) return { ok: false, code: 'missing-name' };
+  const validIds = (payload.creatorIds || []).filter((cid) =>
+    (creators[org.id] || []).some((c) => c.id === cid),
+  );
+  const now = NOW();
+  const group = {
+    id: `cgrp-${Date.now()}`,
+    organizationId: org.id,
+    name: payload.name,
+    description: payload.description || '',
+    creatorIds: validIds,
+    creatorsCount: validIds.length,
+    createdAt: now,
+    updatedAt: now,
+  };
+  creatorGroups[org.id] = [...(creatorGroups[org.id] || []), group];
+  return { ok: true, group };
+}
+
+function updateCreatorGroup(slug, id, payload) {
+  const org = findOrganization(slug);
+  if (!org) return { ok: false, code: 'org-not-found' };
+  const group = (creatorGroups[org.id] || []).find((g) => g.id === id);
+  if (!group) return { ok: false, code: 'not-found' };
+  Object.assign(group, {
+    name: payload.name ?? group.name,
+    description: payload.description ?? group.description,
+    updatedAt: NOW(),
+  });
+  return { ok: true, group };
+}
+
+function addCreatorsToGroup(slug, id, creatorIds) {
+  const org = findOrganization(slug);
+  if (!org) return { ok: false, code: 'org-not-found' };
+  const group = (creatorGroups[org.id] || []).find((g) => g.id === id);
+  if (!group) return { ok: false, code: 'not-found' };
+  const valid = (creatorIds || []).filter(
+    (cid) =>
+      (creators[org.id] || []).some((c) => c.id === cid) && !group.creatorIds.includes(cid),
+  );
+  group.creatorIds = [...group.creatorIds, ...valid];
+  group.creatorsCount = group.creatorIds.length;
+  group.updatedAt = NOW();
+  return { ok: true, group };
+}
+
+// Produtos que um creator está habilitado a vender (regra de elegibilidade).
+function listProductsForCreator(slug, creatorId) {
+  const org = findOrganization(slug);
+  if (!org) return null;
+  const groupIdsOfCreator = (creatorGroups[org.id] || [])
+    .filter((g) => g.creatorIds.includes(creatorId))
+    .map((g) => g.id);
+  return products.filter((p) => {
+    if (p.organizationId !== org.id) return false;
+    const e = p.eligibility || { mode: 'any', creatorIds: [], groupIds: [] };
+    if (e.mode === 'any') return true;
+    if (e.mode === 'creators') return e.creatorIds.includes(creatorId);
+    if (e.mode === 'groups') return e.groupIds.some((gid) => groupIdsOfCreator.includes(gid));
+    return false;
+  });
+}
+
 module.exports = {
   listOrganizations,
   findOrganization,
@@ -944,4 +1151,10 @@ module.exports = {
   createGroup,
   updateGroup,
   addMembersToGroup,
+  listCreators,
+  listCreatorGroups,
+  createCreatorGroup,
+  updateCreatorGroup,
+  addCreatorsToGroup,
+  listProductsForCreator,
 };

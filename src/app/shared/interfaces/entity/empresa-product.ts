@@ -1,3 +1,4 @@
+import { ProductEligibilityMode } from '@shared/enums/product-eligibility-mode.enum';
 import { ProductPhase } from '@shared/enums/product-phase.enum';
 import { ProductType } from '@shared/enums/product-type.enum';
 
@@ -46,6 +47,12 @@ export interface ProductMetrics {
   submissions: number;
 }
 
+export interface ProductEligibility {
+  mode: ProductEligibilityMode;
+  creatorIds: string[];
+  groupIds: string[];
+}
+
 export interface Product {
   id: string;
   organizationId: string;
@@ -58,6 +65,7 @@ export interface Product {
   description: ProductDescriptionBlock[];
   screeningQuestions: ProductScreeningQuestion[];
   learnMoreConfig: ProductLearnMoreConfig;
+  eligibility: ProductEligibility;
   metrics: ProductMetrics;
   publishedAt: Date | null;
   createdAt: Date;

@@ -23,6 +23,14 @@ export interface SubmissionHistoryEntryResponse {
   createdAt: string;
 }
 
+export interface SubmissionSourceResponse {
+  creatorId: string;
+  creatorName: string;
+  creatorHandle: string;
+  pitchId: string | null;
+  pitchTitle: string;
+}
+
 export interface SubmissionResponse {
   id: string;
   organizationId: string;
@@ -36,6 +44,7 @@ export interface SubmissionResponse {
     avatarUrl: string;
     contextLine: string;
   };
+  source?: SubmissionSourceResponse | null;
   answers: SubmissionAnswerResponse[];
   screeningAnswers: SubmissionScreeningAnswerResponse[];
   internalNotes: string;

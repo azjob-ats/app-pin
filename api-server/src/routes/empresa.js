@@ -26,6 +26,12 @@ const {
   createGroup,
   updateGroup,
   addMembersToGroup,
+  listCreators,
+  listCreatorGroups,
+  createCreatorGroup,
+  updateCreatorGroup,
+  addCreatorsToGroup,
+  listProductsForCreator,
 } = require('../data/empresa');
 const { success, failure, paginated } = require('../helpers/response');
 
@@ -292,6 +298,74 @@ router.patch('/organizations/:slug/groups/:id', (req, res) => {
 router.post('/organizations/:slug/groups/:id/members', (req, res) => {
   const { memberIds } = req.body || {};
   const result = addMembersToGroup(req.params.slug, req.params.id, memberIds);
+  if (!result.ok) {
+    const map = {
+      'org-not-found': ['Organização não encontrada.', 404],
+      'not-found': ['Grupo não encontrado.', 404],
+    };
+    const [message, status] = map[result.code] || ['Erro desconhecido.', 500];
+    return res.status(status).json(failure(message, status, `empresa/${result.code}`));
+  }
+  res.json(success(result.group));
+});
+
+// ---------- Creators ----------
+
+// GET /organizations/:slug/creators
+router.get('/organizations/:slug/creators', (req, res) => {
+  const result = listCreators(req.params.slug);
+  if (!result) return res.status(404).json(failure('Organização não encontrada.', 404, 'empresa/org-not-found'));
+  res.json(success(result));
+});
+
+// GET /organizations/:slug/creators/:creatorId/products  → produtos liberados ao creator
+router.get('/organizations/:slug/creators/:creatorId/products', (req, res) => {
+  const result = listProductsForCreator(req.params.slug, req.params.creatorId);
+  if (!result) return res.status(404).json(failure('Organização não encontrada.', 404, 'empresa/org-not-found'));
+  res.json(success(result));
+});
+
+// ---------- Creator Groups ----------
+
+// GET /organizations/:slug/creator-groups
+router.get('/organizations/:slug/creator-groups', (req, res) => {
+  const result = listCreatorGroups(req.params.slug);
+  if (!result) return res.status(404).json(failure('Organização não encontrada.', 404, 'empresa/org-not-found'));
+  res.json(success(result));
+});
+
+// POST /organizations/:slug/creator-groups
+router.post('/organizations/:slug/creator-groups', (req, res) => {
+  const result = createCreatorGroup(req.params.slug, req.body || {});
+  if (!result.ok) {
+    const map = {
+      'org-not-found': ['Organização não encontrada.', 404],
+      'missing-name': ['Informe o nome do grupo.', 400],
+    };
+    const [message, status] = map[result.code] || ['Erro desconhecido.', 500];
+    return res.status(status).json(failure(message, status, `empresa/${result.code}`));
+  }
+  res.status(201).json(success(result.group, 201, 'Grupo de creators criado.'));
+});
+
+// PATCH /organizations/:slug/creator-groups/:id
+router.patch('/organizations/:slug/creator-groups/:id', (req, res) => {
+  const result = updateCreatorGroup(req.params.slug, req.params.id, req.body || {});
+  if (!result.ok) {
+    const map = {
+      'org-not-found': ['Organização não encontrada.', 404],
+      'not-found': ['Grupo não encontrado.', 404],
+    };
+    const [message, status] = map[result.code] || ['Erro desconhecido.', 500];
+    return res.status(status).json(failure(message, status, `empresa/${result.code}`));
+  }
+  res.json(success(result.group));
+});
+
+// POST /organizations/:slug/creator-groups/:id/creators
+router.post('/organizations/:slug/creator-groups/:id/creators', (req, res) => {
+  const { creatorIds } = req.body || {};
+  const result = addCreatorsToGroup(req.params.slug, req.params.id, creatorIds);
   if (!result.ok) {
     const map = {
       'org-not-found': ['Organização não encontrada.', 404],

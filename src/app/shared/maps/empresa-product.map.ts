@@ -1,14 +1,17 @@
+import { ProductEligibilityMode } from '@shared/enums/product-eligibility-mode.enum';
 import { ProductPhase } from '@shared/enums/product-phase.enum';
 import { ProductType } from '@shared/enums/product-type.enum';
 import { List } from '@shared/interfaces/base/pages-total-records';
 import {
+  ProductEligibilityResponse,
   ProductListResponse,
   ProductResponse,
 } from '@shared/interfaces/dto/response/empresa-product';
-import { Product } from '@shared/interfaces/entity/empresa-product';
+import { Product, ProductEligibility } from '@shared/interfaces/entity/empresa-product';
 
 const VALID_TYPES = new Set(Object.values(ProductType) as string[]);
 const VALID_PHASES = new Set(Object.values(ProductPhase) as string[]);
+const VALID_ELIGIBILITY_MODES = new Set(Object.values(ProductEligibilityMode) as string[]);
 
 export class ProductMap {
   public static toProduct(dto: ProductResponse): Product {
@@ -36,6 +39,7 @@ export class ProductMap {
         showCheckboxPrivacyPolicy: dto.learnMoreConfig.showCheckboxPrivacyPolicy,
         showRevisionStep: dto.learnMoreConfig.showRevisionStep,
       },
+      eligibility: ProductMap.toEligibility(dto.eligibility),
       metrics: { ...dto.metrics },
       publishedAt: dto.publishedAt ? new Date(dto.publishedAt) : null,
       createdAt: new Date(dto.createdAt),
@@ -51,6 +55,17 @@ export class ProductMap {
       pageSize: dto.pageSize,
       pages: dto.pages,
       totalRecords: dto.totalRecords,
+    };
+  }
+
+  private static toEligibility(dto?: ProductEligibilityResponse): ProductEligibility {
+    const mode = dto && VALID_ELIGIBILITY_MODES.has(dto.mode)
+      ? (dto.mode as ProductEligibilityMode)
+      : ProductEligibilityMode.Any;
+    return {
+      mode,
+      creatorIds: dto?.creatorIds ? [...dto.creatorIds] : [],
+      groupIds: dto?.groupIds ? [...dto.groupIds] : [],
     };
   }
 
