@@ -37,7 +37,7 @@
 
     <nav class="product-wizard__steps" aria-label="Etapas">
       @for (
-        step of [1, 2, 3, 4, 5, 6];
+        step of steps;
         track step
       ) {
         <button
@@ -295,8 +295,125 @@
         </section>
       }
 
-      <!-- ETAPA 6 — Revisão -->
+      <!-- ETAPA 6 — Elegibilidade (quem pode vender) -->
       @if (currentStep() === 6) {
+        <section class="step" aria-labelledby="step-elig-title">
+          <header class="step__header">
+            <h2 class="step__title" id="step-elig-title">Quem pode vender este Produto?</h2>
+            <p class="step__hint">
+              Defina quais creators podem criar um vídeo (pitch) vendendo este Produto.
+            </p>
+          </header>
+
+          <ul class="elig-modes" role="radiogroup" aria-label="Regra de elegibilidade">
+            <li>
+              <button
+                type="button"
+                role="radio"
+                class="elig-mode"
+                [class.is-selected]="eligibilityMode() === EligibilityMode.Any"
+                [attr.aria-checked]="eligibilityMode() === EligibilityMode.Any"
+                (click)="setEligibilityMode(EligibilityMode.Any)"
+              >
+                <span class="material-symbols-rounded elig-mode__icon" aria-hidden="true">public</span>
+                <span class="elig-mode__label">Qualquer creator</span>
+                <span class="elig-mode__desc">Todos os creators institucionalizados do canal.</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                role="radio"
+                class="elig-mode"
+                [class.is-selected]="eligibilityMode() === EligibilityMode.Creators"
+                [attr.aria-checked]="eligibilityMode() === EligibilityMode.Creators"
+                (click)="setEligibilityMode(EligibilityMode.Creators)"
+              >
+                <span class="material-symbols-rounded elig-mode__icon" aria-hidden="true">person</span>
+                <span class="elig-mode__label">Creators específicos</span>
+                <span class="elig-mode__desc">Apenas os creators que você selecionar.</span>
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                role="radio"
+                class="elig-mode"
+                [class.is-selected]="eligibilityMode() === EligibilityMode.Groups"
+                [attr.aria-checked]="eligibilityMode() === EligibilityMode.Groups"
+                (click)="setEligibilityMode(EligibilityMode.Groups)"
+              >
+                <span class="material-symbols-rounded elig-mode__icon" aria-hidden="true">groups</span>
+                <span class="elig-mode__label">Grupos de creators</span>
+                <span class="elig-mode__desc">Todos os creators dos grupos selecionados.</span>
+              </button>
+            </li>
+          </ul>
+
+          @if (eligibilityMode() === EligibilityMode.Creators) {
+            @if (creators().length === 0) {
+              <p class="form-field__error">
+                Nenhum creator no canal. Cadastre creators na aba “Creators & Grupos”.
+              </p>
+            } @else {
+              <ul class="chip-list" aria-label="Creators disponíveis">
+                @for (c of creators(); track trackCreator($index, c)) {
+                  <li>
+                    <button
+                      type="button"
+                      class="chip"
+                      [class.is-selected]="isEligibilityIdSelected(c.id)"
+                      [attr.aria-pressed]="isEligibilityIdSelected(c.id)"
+                      (click)="toggleEligibilityId(c.id)"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">
+                        {{ isEligibilityIdSelected(c.id) ? 'check' : 'add' }}
+                      </span>
+                      {{ c.displayName }}
+                    </button>
+                  </li>
+                }
+              </ul>
+              @if (selectedEligibilityIds().size === 0) {
+                <p class="form-field__error">Selecione ao menos um creator.</p>
+              }
+            }
+          }
+
+          @if (eligibilityMode() === EligibilityMode.Groups) {
+            @if (creatorGroups().length === 0) {
+              <p class="form-field__error">
+                Nenhum grupo criado. Crie um grupo na aba “Creators & Grupos”.
+              </p>
+            } @else {
+              <ul class="chip-list" aria-label="Grupos disponíveis">
+                @for (g of creatorGroups(); track trackCreatorGroup($index, g)) {
+                  <li>
+                    <button
+                      type="button"
+                      class="chip"
+                      [class.is-selected]="isEligibilityIdSelected(g.id)"
+                      [attr.aria-pressed]="isEligibilityIdSelected(g.id)"
+                      (click)="toggleEligibilityId(g.id)"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">
+                        {{ isEligibilityIdSelected(g.id) ? 'check' : 'add' }}
+                      </span>
+                      {{ g.name }} ({{ g.creatorsCount }})
+                    </button>
+                  </li>
+                }
+              </ul>
+              @if (selectedEligibilityIds().size === 0) {
+                <p class="form-field__error">Selecione ao menos um grupo.</p>
+              }
+            }
+          }
+        </section>
+      }
+
+      <!-- ETAPA 7 — Revisão -->
+      @if (currentStep() === 7) {
         <section class="step" aria-labelledby="step-review-title">
           <header class="step__header">
             <h2 class="step__title" id="step-review-title">Revisar e publicar</h2>
@@ -370,6 +487,11 @@
                   }
                 </ol>
               }
+            </div>
+
+            <div class="review__group">
+              <h3>Quem pode vender</h3>
+              <p>{{ eligibilitySummary() }}</p>
             </div>
           </div>
         </section>

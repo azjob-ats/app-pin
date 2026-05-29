@@ -110,6 +110,8 @@
     "altText": "Texto alternativo",
     "link": "Adicionar link de destino",
     "selectBoard": "Selecionar painel",
+    "sellProduct": "Produto que este conteúdo vende",
+    "sellProductNone": "Nenhum — conteúdo orgânico",
     "publish": "Publicar",
     "draft": "Salvar rascunho",
     "preview": "Visualizar",

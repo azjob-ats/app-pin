@@ -110,6 +110,8 @@
     "altText": "Alt text",
     "link": "Add a destination link",
     "selectBoard": "Select board",
+    "sellProduct": "Product this content sells",
+    "sellProductNone": "None — organic content",
     "publish": "Publish",
     "draft": "Save draft",
     "preview": "Preview",

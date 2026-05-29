@@ -20,7 +20,9 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { environment } from '@env/environment';
+import { ProductEligibilityMode } from '@shared/enums/product-eligibility-mode.enum';
 import { ProductType } from '@shared/enums/product-type.enum';
+import { CreatorGroup, OrganizationCreator } from '@shared/interfaces/entity/empresa-creator';
 import {
   ProductDescriptionBlockResponse,
   ProductLearnMoreConfigResponse,
@@ -40,6 +42,7 @@ import {
   WizardDescriptionBlock,
   WizardField,
 } from '@domain/empresa/constants/product-wizard-presets';
+import { CreatorFacade } from '@domain/empresa/services/creator.facade';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
 import { ProductCreateFacade } from '@domain/empresa/services/product-create.facade';
 
@@ -59,6 +62,7 @@ interface LearnMoreSelection {
 export class ProductCreateComponent implements OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly facade = inject(ProductCreateFacade);
+  private readonly creatorFacade = inject(CreatorFacade);
   private readonly context = inject(OrganizationContextService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -66,10 +70,18 @@ export class ProductCreateComponent implements OnDestroy {
   readonly types = PRODUCT_TYPES_IN_ORDER;
   readonly typeMeta = PRODUCT_TYPE_META;
   readonly catalog = LEARN_MORE_FIELD_CATALOG;
+  readonly EligibilityMode = ProductEligibilityMode;
 
-  readonly TOTAL_STEPS = 6;
+  readonly TOTAL_STEPS = 7;
+  readonly steps = [1, 2, 3, 4, 5, 6, 7];
   readonly currentStep = signal<number>(1);
   readonly showSuccess = signal<boolean>(false);
+
+  // ---------- Eligibility (etapa 6) ----------
+  readonly creators = this.creatorFacade.creators;
+  readonly creatorGroups = this.creatorFacade.groups;
+  readonly eligibilityMode = signal<ProductEligibilityMode>(ProductEligibilityMode.Any);
+  readonly selectedEligibilityIds = signal<ReadonlySet<string>>(new Set<string>());
 
   readonly isSubmitting = this.facade.isSubmitting;
   readonly serverError = this.facade.error;
@@ -185,10 +197,33 @@ export class ProductCreateComponent implements OnDestroy {
       case 5:
         return this.screeningStatus() === 'VALID';
       case 6:
+        return (
+          this.eligibilityMode() === ProductEligibilityMode.Any ||
+          this.selectedEligibilityIds().size > 0
+        );
+      case 7:
         return true;
       default:
         return false;
     }
+  });
+
+  readonly eligibilitySummary = computed<string>(() => {
+    const mode = this.eligibilityMode();
+    if (mode === ProductEligibilityMode.Any) {
+      return 'Qualquer creator institucionalizado do canal pode vender este produto.';
+    }
+    const ids = this.selectedEligibilityIds();
+    if (mode === ProductEligibilityMode.Creators) {
+      const names = this.creators()
+        .filter((c) => ids.has(c.id))
+        .map((c) => c.displayName);
+      return names.length ? `Creators: ${names.join(', ')}.` : 'Nenhum creator selecionado.';
+    }
+    const names = this.creatorGroups()
+      .filter((g) => ids.has(g.id))
+      .map((g) => g.name);
+    return names.length ? `Grupos: ${names.join(', ')}.` : 'Nenhum grupo selecionado.';
   });
 
   constructor() {
@@ -196,6 +231,9 @@ export class ProductCreateComponent implements OnDestroy {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug && this.context.organization()?.slug !== slug) {
       this.context.load(slug);
+    }
+    if (slug) {
+      this.creatorFacade.load(slug);
     }
 
     // Rebuild dynamic forms whenever the type changes.
@@ -217,7 +255,32 @@ export class ProductCreateComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.facade.reset();
+    this.creatorFacade.reset();
   }
+
+  // ---------- Eligibility step ----------
+
+  protected setEligibilityMode(mode: ProductEligibilityMode): void {
+    if (this.eligibilityMode() === mode) return;
+    this.eligibilityMode.set(mode);
+    this.selectedEligibilityIds.set(new Set<string>());
+  }
+
+  protected toggleEligibilityId(id: string): void {
+    this.selectedEligibilityIds.update((set) => {
+      const next = new Set(set);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  protected isEligibilityIdSelected(id: string): boolean {
+    return this.selectedEligibilityIds().has(id);
+  }
+
+  protected trackCreator = (_: number, c: OrganizationCreator): string => c.id;
+  protected trackCreatorGroup = (_: number, g: CreatorGroup): string => g.id;
 
   // ---------- Step navigation ----------
 
@@ -344,6 +407,7 @@ export class ProductCreateComponent implements OnDestroy {
     const subtitle = this.buildSubtitle(type, identification);
     const badges = this.buildBadges(type, identification);
     const location = identification['location'] ?? '';
+    const eligibility = this.buildEligibility();
 
     this.facade.submit(slug, {
       type,
@@ -354,7 +418,18 @@ export class ProductCreateComponent implements OnDestroy {
       description,
       screeningQuestions,
       learnMoreConfig,
+      eligibility,
     });
+  }
+
+  private buildEligibility() {
+    const mode = this.eligibilityMode();
+    const ids = [...this.selectedEligibilityIds()];
+    return {
+      mode,
+      creatorIds: mode === ProductEligibilityMode.Creators ? ids : [],
+      groupIds: mode === ProductEligibilityMode.Groups ? ids : [],
+    };
   }
 
   // ---------- Display helpers (template-friendly) ----------

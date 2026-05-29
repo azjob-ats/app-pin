@@ -131,6 +131,129 @@
             </ol>
           }
         </section>
+
+        <section class="product-detail__section" aria-labelledby="elig-title">
+          <h2 id="elig-title" class="product-detail__section-title">Creators &amp; grupos habilitados</h2>
+          @if (eligibility(); as e) {
+            @switch (e.mode) {
+              @case (EligibilityMode.Any) {
+                <p class="product-detail__empty">
+                  Qualquer creator institucionalizado do canal pode vender este produto.
+                </p>
+              }
+              @case (EligibilityMode.Creators) {
+                @if (eligibleCreators().length === 0) {
+                  <p class="product-detail__empty">Nenhum creator habilitado.</p>
+                } @else {
+                  <ul class="product-detail__people">
+                    @for (c of eligibleCreators(); track trackEligCreator($index, c)) {
+                      <li class="product-detail__person">
+                        <img
+                          class="product-detail__avatar"
+                          [src]="c.avatarUrl"
+                          alt=""
+                          width="32"
+                          height="32"
+                          loading="lazy"
+                        />
+                        <span class="product-detail__person-info">
+                          <span class="product-detail__person-name">{{ c.displayName }}</span>
+                          <span class="product-detail__person-sub">{{ '@' + c.handle }}</span>
+                        </span>
+                      </li>
+                    }
+                  </ul>
+                }
+              }
+              @case (EligibilityMode.Groups) {
+                @if (eligibleGroups().length === 0) {
+                  <p class="product-detail__empty">Nenhum grupo habilitado.</p>
+                } @else {
+                  <ul class="product-detail__people">
+                    @for (g of eligibleGroups(); track trackEligGroup($index, g)) {
+                      <li class="product-detail__person">
+                        <span
+                          class="product-detail__group-icon material-symbols-rounded"
+                          aria-hidden="true"
+                          >groups</span
+                        >
+                        <span class="product-detail__person-info">
+                          <span class="product-detail__person-name">{{ g.name }}</span>
+                          <span class="product-detail__person-sub">{{ g.creatorsCount }} creators</span>
+                        </span>
+                      </li>
+                    }
+                  </ul>
+                }
+              }
+            }
+          }
+        </section>
+
+        <section class="product-detail__section" aria-labelledby="subs-title">
+          <div class="product-detail__section-head">
+            <h2 id="subs-title" class="product-detail__section-title">
+              Inscritos ({{ filteredSubmissions().length }})
+            </h2>
+            <label class="product-detail__filter">
+              <span class="product-detail__filter-label">Filtrar por</span>
+              <select
+                class="product-detail__filter-select"
+                [value]="sourceFilter()"
+                (change)="onSourceFilterChange($event)"
+              >
+                <option value="all">Todos os inscritos</option>
+                @if (submissionCreators().length > 0) {
+                  <optgroup label="Por creator">
+                    @for (c of submissionCreators(); track c.id) {
+                      <option [value]="'creator:' + c.id">{{ c.name }}</option>
+                    }
+                  </optgroup>
+                }
+                @if (creatorGroups().length > 0) {
+                  <optgroup label="Por grupo">
+                    @for (g of creatorGroups(); track trackEligGroup($index, g)) {
+                      <option [value]="'group:' + g.id">{{ g.name }}</option>
+                    }
+                  </optgroup>
+                }
+              </select>
+            </label>
+          </div>
+
+          @if (productSubmissions().length === 0) {
+            <p class="product-detail__empty">Nenhuma inscrição recebida ainda.</p>
+          } @else if (filteredSubmissions().length === 0) {
+            <p class="product-detail__empty">Nenhum inscrito para o filtro selecionado.</p>
+          } @else {
+            <ul class="product-detail__subs">
+              @for (s of filteredSubmissions(); track trackSubmission($index, s)) {
+                <li class="product-detail__sub">
+                  <a class="product-detail__sub-link" [routerLink]="submissionLink(s.id)">
+                    <img
+                      class="product-detail__avatar"
+                      [src]="s.candidate.avatarUrl"
+                      alt=""
+                      width="36"
+                      height="36"
+                      loading="lazy"
+                    />
+                    <span class="product-detail__sub-info">
+                      <span class="product-detail__person-name">{{ s.candidate.name }}</span>
+                      @if (s.candidate.contextLine) {
+                        <span class="product-detail__person-sub">{{ s.candidate.contextLine }}</span>
+                      }
+                    </span>
+                    <span class="product-detail__sub-source" [class.is-direct]="!s.source">
+                      <span class="material-symbols-rounded" aria-hidden="true">movie</span>
+                      {{ sourceLabel(s) }}
+                    </span>
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+        </section>
       </article>
 
       <!-- Coluna direita: 30% -->

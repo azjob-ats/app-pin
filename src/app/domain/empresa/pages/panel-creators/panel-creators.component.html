@@ -1,0 +1,334 @@
+<section class="empresa-container panel-creators" aria-labelledby="panel-creators-title">
+  <app-empresa-page-header
+    eyebrow="Conteúdo"
+    title="Creators & grupos"
+    subtitle="Creators institucionalizados do canal e grupos que liberam produtos em lote (ex.: o grupo “Webiner Nubank” habilita todos os seus creators a vender um produto)."
+  />
+
+  <nav class="emp-chip-row" role="tablist" aria-label="Sub-tabs de creators">
+    <button
+      type="button"
+      role="tab"
+      class="emp-chip"
+      [class.is-active]="currentTab() === 'creators'"
+      [attr.aria-selected]="currentTab() === 'creators'"
+      (click)="setTab('creators')"
+    >
+      <span class="material-symbols-rounded emp-chip__icon" aria-hidden="true">person</span>
+      <span>Creators</span>
+      <span class="emp-chip__count">{{ creators().length }}</span>
+    </button>
+    <button
+      type="button"
+      role="tab"
+      class="emp-chip"
+      [class.is-active]="currentTab() === 'groups'"
+      [attr.aria-selected]="currentTab() === 'groups'"
+      (click)="setTab('groups')"
+    >
+      <span class="material-symbols-rounded emp-chip__icon" aria-hidden="true">groups</span>
+      <span>Grupos</span>
+      <span class="emp-chip__count">{{ groups().length }}</span>
+    </button>
+  </nav>
+
+  @if (error(); as message) {
+    <div class="panel-creators__alert" role="alert">
+      <span class="material-symbols-rounded" aria-hidden="true">error_outline</span>
+      <p>{{ message }}</p>
+    </div>
+  }
+
+  @if (isLoading() && creators().length === 0) {
+    <div class="panel-creators__loading" role="status" aria-live="polite">
+      <div class="panel-creators__loading-bar"></div>
+      <p>Carregando creators…</p>
+    </div>
+  }
+
+  <!-- ─── Creators tab ────────────────────────────────────────────────────── -->
+  @if (currentTab() === 'creators') {
+    <div class="panel-creators__panel">
+      <div class="panel-creators__toolbar">
+        <div class="emp-field panel-creators__search">
+          <input
+            class="emp-field__control"
+            type="search"
+            placeholder="Buscar creator por nome, @handle ou headline"
+            [value]="creatorSearch()"
+            (input)="onCreatorSearch($event)"
+          />
+        </div>
+      </div>
+
+      @if (filteredCreators().length === 0) {
+        <p class="panel-creators__empty">Nenhum creator encontrado.</p>
+      } @else {
+        <div class="emp-table-wrap">
+          <table class="emp-table">
+            <thead>
+              <tr>
+                <th>Creator</th>
+                <th>Headline</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of filteredCreators(); track trackCreator($index, c)) {
+                <tr>
+                  <td>
+                    <span class="panel-creators__person">
+                      <img
+                        class="panel-creators__avatar"
+                        [src]="c.avatarUrl"
+                        [alt]="''"
+                        width="32"
+                        height="32"
+                        loading="lazy"
+                      />
+                      <span class="panel-creators__person-info">
+                        <span class="panel-creators__person-name">{{ c.displayName }}</span>
+                        <span class="panel-creators__person-handle">{{ '@' + c.handle }}</span>
+                      </span>
+                    </span>
+                  </td>
+                  <td class="panel-creators__headline">{{ c.headline || '—' }}</td>
+                  <td>
+                    <span
+                      class="panel-creators__status"
+                      [class.is-active]="c.status === 'active'"
+                      [class.is-invited]="c.status === 'invited'"
+                    >
+                      <span class="panel-creators__status-dot" aria-hidden="true"></span>
+                      {{ statusLabel(c.status) }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ─── Groups tab ──────────────────────────────────────────────────────── -->
+  @if (currentTab() === 'groups') {
+    <div class="panel-creators__panel">
+      <div class="panel-creators__toolbar">
+        <div class="emp-field panel-creators__search">
+          <input
+            class="emp-field__control"
+            type="search"
+            placeholder="Buscar grupo por nome"
+            [value]="groupSearch()"
+            (input)="onGroupSearch($event)"
+          />
+        </div>
+        <button type="button" class="empresa-btn empresa-btn--primary" (click)="openGroupModal()">
+          <span class="material-symbols-rounded" aria-hidden="true">group_add</span>
+          Criar grupo
+        </button>
+      </div>
+
+      @if (filteredGroups().length === 0) {
+        <p class="panel-creators__empty">Nenhum grupo criado ainda.</p>
+      } @else {
+        <div class="emp-table-wrap">
+          <table class="emp-table">
+            <thead>
+              <tr>
+                <th>Grupo</th>
+                <th>Descrição</th>
+                <th class="num">Creators</th>
+                <th aria-label="Ações"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (g of filteredGroups(); track trackGroup($index, g)) {
+                <tr>
+                  <td class="panel-creators__group-name">{{ g.name }}</td>
+                  <td>{{ g.description || '—' }}</td>
+                  <td class="num">{{ g.creatorsCount }}</td>
+                  <td class="panel-creators__row-action">
+                    <button
+                      type="button"
+                      class="panel-creators__icon-btn"
+                      (click)="openAddCreatorsModal(g)"
+                      [attr.aria-label]="'Adicionar creators a ' + g.name"
+                    >
+                      <span class="material-symbols-rounded" aria-hidden="true">person_add</span>
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ─── Create group modal ──────────────────────────────────────────────── -->
+  @if (showGroupModal()) {
+    <div class="panel-creators__modal-backdrop" (click)="closeGroupModal()" role="presentation">
+      <div
+        class="panel-creators__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cgroup-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-creators__modal-header">
+          <div>
+            <span class="panel-creators__modal-eyebrow">Grupos</span>
+            <h3 id="cgroup-title" class="panel-creators__modal-title">Criar grupo de creators</h3>
+          </div>
+          <button
+            type="button"
+            class="panel-creators__icon-btn"
+            (click)="closeGroupModal()"
+            aria-label="Fechar"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+
+        <form
+          class="panel-creators__modal-form"
+          [formGroup]="groupForm"
+          (ngSubmit)="submitGroup()"
+          novalidate
+        >
+          <div class="emp-field">
+            <label class="emp-field__label" for="cgroup-name">Nome do grupo</label>
+            <input
+              id="cgroup-name"
+              class="emp-field__control"
+              type="text"
+              formControlName="name"
+              placeholder="Ex.: Webiner Nubank"
+              autocomplete="off"
+            />
+            @if (hasGroupError('name', 'required')) {
+              <p class="panel-creators__field-error">Informe o nome.</p>
+            }
+            @if (hasGroupError('name', 'minlength')) {
+              <p class="panel-creators__field-error">Mínimo de 2 caracteres.</p>
+            }
+          </div>
+
+          <div class="emp-field">
+            <label class="emp-field__label" for="cgroup-desc">Descrição</label>
+            <input
+              id="cgroup-desc"
+              class="emp-field__control"
+              type="text"
+              formControlName="description"
+              placeholder="Ex.: Creators de conteúdo de engenharia"
+              autocomplete="off"
+            />
+            <p class="panel-creators__field-hint">
+              Depois de criar, adicione os creators ao grupo pela ação na lista de grupos.
+            </p>
+          </div>
+
+          <footer class="panel-creators__modal-footer">
+            <button type="button" class="empresa-btn empresa-btn--quiet" (click)="closeGroupModal()">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="empresa-btn empresa-btn--primary"
+              [disabled]="groupForm.invalid || isMutating()"
+            >
+              Criar grupo
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- ─── Add creators modal ──────────────────────────────────────────────── -->
+  @if (addCreatorsGroup(); as g) {
+    <div class="panel-creators__modal-backdrop" (click)="closeAddCreatorsModal()" role="presentation">
+      <div
+        class="panel-creators__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="addc-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-creators__modal-header">
+          <div>
+            <span class="panel-creators__modal-eyebrow">Grupo</span>
+            <h3 id="addc-title" class="panel-creators__modal-title">Adicionar a “{{ g.name }}”</h3>
+            <p class="panel-creators__modal-hint">
+              Os creators selecionados passam a poder vender os produtos liberados a este grupo.
+            </p>
+          </div>
+          <button
+            type="button"
+            class="panel-creators__icon-btn"
+            (click)="closeAddCreatorsModal()"
+            aria-label="Fechar"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+
+        <ul class="panel-creators__add-list">
+          @for (c of creators(); track trackCreator($index, c)) {
+            <li>
+              <label
+                class="panel-creators__add-row"
+                [class.is-selected]="isCreatorSelected(c.id)"
+                [class.is-disabled]="isCreatorInGroup(g, c.id)"
+              >
+                <input
+                  type="checkbox"
+                  class="panel-creators__add-checkbox"
+                  [checked]="isCreatorSelected(c.id) || isCreatorInGroup(g, c.id)"
+                  [disabled]="isCreatorInGroup(g, c.id)"
+                  (change)="toggleCreatorSelection(c.id)"
+                />
+                <img
+                  class="panel-creators__avatar"
+                  [src]="c.avatarUrl"
+                  [alt]="''"
+                  width="32"
+                  height="32"
+                  loading="lazy"
+                />
+                <span class="panel-creators__add-name">{{ c.displayName }}</span>
+                <span class="panel-creators__add-handle">{{ '@' + c.handle }}</span>
+                @if (isCreatorInGroup(g, c.id)) {
+                  <span class="panel-creators__in-group-tag">no grupo</span>
+                }
+              </label>
+            </li>
+          }
+        </ul>
+
+        <footer class="panel-creators__modal-footer">
+          <button
+            type="button"
+            class="empresa-btn empresa-btn--quiet"
+            (click)="closeAddCreatorsModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="empresa-btn empresa-btn--primary"
+            [disabled]="isMutating()"
+            (click)="submitAddCreators()"
+          >
+            Adicionar ({{ selectedCreatorIds().size }})
+          </button>
+        </footer>
+      </div>
+    </div>
+  }
+</section>

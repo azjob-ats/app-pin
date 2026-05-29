@@ -2,7 +2,8 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { EmpresaCreatorApi } from '@shared/apis/empresa-creator.api';
 import { BoardService } from '@shared/services/board.service';
 import { ButtonComponent } from '@shared/components/button/button.component';
 import { InputComponent } from '@shared/components/input/input.component';
@@ -41,7 +42,13 @@ import {
   styleUrl: './create.component.scss',
 })
 export class CreateComponent {
+  // TODO: substituir org/creator de demonstração por contexto real quando auth existir
+  // (ver CurrentUserService — hoje só expõe handle, sem vínculo org↔creator).
+  private readonly DEMO_ORG_SLUG = 'nubank';
+  private readonly DEMO_CREATOR_ID = 'creator-001';
+
   readonly boards = signal<SelectOption[]>([]);
+  readonly products = signal<SelectOption[]>([]);
   readonly previewUrl = signal<string | null>(null);
   readonly selectedFile = signal<File | null>(null);
   readonly title = signal('');
@@ -49,9 +56,12 @@ export class CreateComponent {
   readonly link = signal('');
   readonly altText = signal('');
   readonly selectedBoardId = signal('');
+  readonly selectedProductId = signal('');
   readonly isPublishing = signal(false);
 
   private boardService = inject(BoardService);
+  private creatorApi = inject(EmpresaCreatorApi);
+  private translate = inject(TranslateService);
   private router = inject(Router);
 
   constructor() {
@@ -59,6 +69,21 @@ export class CreateComponent {
       this.boards.set(boards.map((b) => ({ value: b.id, label: b.name })));
       if (boards.length) this.selectedBoardId.set(boards[0].id);
     });
+
+    // Produtos liberados a este creator (regra de elegibilidade definida pela empresa).
+    this.creatorApi
+      .listCreatorProducts(this.DEMO_ORG_SLUG, this.DEMO_CREATOR_ID)
+      .subscribe((response) => {
+        const none: SelectOption = {
+          value: '',
+          label: this.translate.instant('create.sellProductNone'),
+        };
+        const items =
+          response.success && response.data
+            ? response.data.map((p) => ({ value: p.id, label: p.title }))
+            : [];
+        this.products.set([none, ...items]);
+      });
   }
 
   onFileSelected(file: File): void {

@@ -190,6 +190,65 @@
   color: var(--color-text-primary, #0f172a);
 }
 
+// ---------- Eligibility (ETAPA 6) ----------
+
+.elig-modes {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.elig-mode {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 2px;
+  text-align: left;
+  padding: 14px 16px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+
+  &:hover {
+    border-color: var(--color-text-primary, #0f172a);
+  }
+
+  &.is-selected {
+    border-color: var(--color-text-primary, #0f172a);
+    background: color-mix(in srgb, var(--color-text-primary, #0f172a) 6%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text-primary, #0f172a);
+    outline-offset: 2px;
+  }
+}
+
+.elig-mode__icon {
+  grid-row: 1 / span 2;
+  align-self: center;
+  font-size: 26px;
+  color: var(--color-text-primary, #0f172a);
+}
+
+.elig-mode__label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-primary, #0f172a);
+}
+
+.elig-mode__desc {
+  font-size: 13px;
+  color: var(--color-text-secondary, #64748b);
+  line-height: 1.4;
+}
+
 // ---------- Form helpers (ETAPAS 2, 3, 5) ----------
 
 .form-grid {

@@ -408,3 +408,159 @@
     outline: none;
   }
 }
+
+// ---------- Eligibility + Subscribers (Fase 3) ----------
+
+.product-detail__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+
+  .product-detail__section-title {
+    margin: 0;
+  }
+}
+
+.product-detail__filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.product-detail__filter-label {
+  font-size: 13px;
+  color: var(--color-text-muted, #64748b);
+}
+
+.product-detail__filter-select {
+  padding: 6px 10px;
+  font-size: 13px;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 8px;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text-primary, #0f172a);
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-text-primary, #0f172a);
+    outline-offset: 1px;
+  }
+}
+
+.product-detail__people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.product-detail__person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--color-surface-muted, #f1f5f9);
+  border-radius: 10px;
+  min-width: 0;
+}
+
+.product-detail__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-surface, #ffffff);
+  flex-shrink: 0;
+}
+
+.product-detail__group-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text-secondary, #475569);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.product-detail__person-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.product-detail__person-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-primary, #0f172a);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-detail__person-sub {
+  font-size: 12px;
+  color: var(--color-text-muted, #64748b);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-detail__subs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-detail__sub-link {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--color-text-primary, #0f172a);
+    background: var(--color-surface-muted, #f1f5f9);
+    outline: none;
+  }
+}
+
+.product-detail__sub-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.product-detail__sub-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-secondary, #475569);
+  white-space: nowrap;
+
+  .material-symbols-rounded {
+    font-size: 16px;
+  }
+
+  &.is-direct {
+    color: var(--color-text-muted, #94a3b8);
+  }
+}

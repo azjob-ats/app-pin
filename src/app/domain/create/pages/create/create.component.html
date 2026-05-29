@@ -61,6 +61,11 @@
           [options]="boards()"
           [ngModel]="selectedBoardId()"
           (ngModelChange)="selectedBoardId.set($event)" />
+        <app-select
+          [label]="'create.sellProduct' | translate"
+          [options]="products()"
+          [ngModel]="selectedProductId()"
+          (ngModelChange)="selectedProductId.set($event)" />
       </div>
     </app-card-body>
   </app-card-container>

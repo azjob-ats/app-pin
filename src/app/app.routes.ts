@@ -530,6 +530,14 @@ export const routes: Routes = [
             data: { title: 'Pessoas & Permissões' },
           },
           {
+            path: 'creators',
+            loadComponent: () =>
+              import('./domain/empresa/pages/panel-creators/panel-creators.component').then(
+                (m) => m.PanelCreatorsComponent,
+              ),
+            data: { title: 'Creators & Grupos' },
+          },
+          {
             path: 'metricas',
             loadComponent: () =>
               import('./domain/empresa/pages/panel-metrics/panel-metrics.component').then(
