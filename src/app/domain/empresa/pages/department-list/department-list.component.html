@@ -1,0 +1,76 @@
+<section class="empresa-shell dept-list">
+  <div class="empresa-container">
+    <a class="dept-list__back" [routerLink]="listLink">
+      <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
+      <span>Organizações</span>
+    </a>
+
+    <app-empresa-page-header
+      [eyebrow]="organization()?.name || 'Departamentos'"
+      title="Departamentos"
+      subtitle="Selecione o departamento para gerenciar seus produtos, triagens e equipe — ou crie um novo. Cada departamento mantém seu próprio kanban."
+    >
+      <a
+        class="empresa-btn empresa-btn--primary"
+        [routerLink]="newDepartmentLink()"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">add</span>
+        Novo departamento
+      </a>
+    </app-empresa-page-header>
+
+    @if (isLoading() && !hasItems()) {
+      <ul class="dept-list__grid" aria-busy="true" aria-label="Carregando departamentos">
+        @for (i of [0, 1, 2, 3, 4, 5]; track i) {
+          <li class="dept-list__skeleton" aria-hidden="true">
+            <div class="dept-list__skeleton-mark"></div>
+            <div class="dept-list__skeleton-line dept-list__skeleton-line--lg"></div>
+            <div class="dept-list__skeleton-line dept-list__skeleton-line--sm"></div>
+            <div class="dept-list__skeleton-stats">
+              <div class="dept-list__skeleton-stat"></div>
+              <div class="dept-list__skeleton-stat"></div>
+              <div class="dept-list__skeleton-stat"></div>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else if (error() && !hasItems()) {
+      <div class="dept-list__error" role="alert">
+        <p class="dept-list__error-message">{{ error() }}</p>
+        <button type="button" class="empresa-btn empresa-btn--ghost" (click)="retry()">
+          Tentar novamente
+        </button>
+      </div>
+    } @else if (!hasItems()) {
+      <div class="dept-list__empty">
+        <span class="material-symbols-rounded dept-list__empty-icon" aria-hidden="true">
+          workspaces
+        </span>
+        <h2 class="dept-list__empty-title">Nenhum departamento ainda</h2>
+        <p class="dept-list__empty-message">
+          Crie o primeiro departamento para organizar os produtos, triagens e a equipe por área da
+          empresa.
+        </p>
+        <a class="empresa-btn empresa-btn--primary" [routerLink]="newDepartmentLink()">
+          <span class="material-symbols-rounded" aria-hidden="true">add</span>
+          Criar departamento
+        </a>
+      </div>
+    } @else {
+      <ul class="dept-list__grid" role="list">
+        @for (dept of orderedItems(); track dept.id) {
+          <li class="dept-list__item">
+            <app-empresa-dept-card
+              [department]="dept"
+              [menuOpen]="openMenuId() === dept.id"
+              (open)="openDepartment(dept)"
+              (favoriteToggle)="toggleFavorite(dept)"
+              (menuToggle)="toggleMenu(dept)"
+              (menuAction)="onMenuAction($event, dept)"
+            />
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</section>

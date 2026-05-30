@@ -22,11 +22,11 @@ export class ProductListFacade {
   readonly customPhases = this.store.customPhases;
   readonly phasesOrder = this.store.phasesOrder;
 
-  load(slug: string): void {
+  load(slug: string, departmentSlug?: string): void {
     this.store.setLoading(true);
     this.store.setError(null);
     this.api
-      .list(slug, { page: 1, pageSize: 100 })
+      .list(slug, { page: 1, pageSize: 100, department: departmentSlug || undefined })
       .pipe(
         tap((response) => {
           if (response.success && response.data) {

@@ -11,6 +11,7 @@ export interface CreateProductRequest {
   subtitle?: string;
   badges?: string[];
   location?: string;
+  department?: string;
   description: ProductDescriptionBlockResponse[];
   screeningQuestions?: ProductScreeningQuestionResponse[];
   learnMoreConfig: ProductLearnMoreConfigResponse;
@@ -28,6 +29,7 @@ export interface MoveProductRequest {
 export interface ProductListQueryRequest {
   type?: string;
   phase?: string;
+  department?: string;
   page?: number;
   pageSize?: number;
 }

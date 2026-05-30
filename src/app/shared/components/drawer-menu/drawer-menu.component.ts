@@ -4,7 +4,6 @@ import {
   model,
   viewChild,
   contentChild,
-  effect,
   TemplateRef,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
@@ -59,14 +58,6 @@ export class DrawerMenuComponent {
   readonly visible = model(false);
   readonly sideMenu = viewChild(SideMenuComponent);
   readonly footerTpl = contentChild<TemplateRef<unknown>>('drawerFooter');
-
-  constructor() {
-    effect(() => {
-      if (!this.visible()) {
-        this.sideMenu()?.reset();
-      }
-    });
-  }
 
   onBack(): void {
     if (this.sideMenu()?.canGoBack()) {

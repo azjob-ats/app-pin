@@ -30,6 +30,7 @@ export class EmpresaProductApi {
     let params = new HttpParams();
     if (query.type) params = params.set('type', query.type);
     if (query.phase) params = params.set('phase', query.phase);
+    if (query.department) params = params.set('department', query.department);
     if (query.page) params = params.set('page', query.page);
     if (query.pageSize) params = params.set('pageSize', query.pageSize);
 

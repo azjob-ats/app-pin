@@ -3,27 +3,22 @@
     <div class="org-panel__topbar-inner">
       <a
         class="org-panel__back"
-        [routerLink]="listLink"
-        aria-label="Voltar para a lista de organizações"
+        [routerLink]="departmentsLink()"
+        aria-label="Voltar para os departamentos"
       >
         <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span>
       </a>
 
-      @if (organization(); as org) {
+      @if (department(); as dept) {
         <div class="org-panel__identity">
-          <div class="org-panel__mark">
-            <img
-              class="org-panel__logo"
-              [src]="org.logoUrl"
-              [alt]="''"
-              width="32"
-              height="32"
-              loading="lazy"
-            />
+          <div class="org-panel__mark org-panel__mark--dept" [style.--dept-accent]="dept.color">
+            <span class="material-symbols-rounded" aria-hidden="true">
+              {{ dept.icon || 'workspaces' }}
+            </span>
           </div>
           <div class="org-panel__title-wrap">
-            <h1 class="org-panel__title" id="org-panel-title">{{ org.name }}</h1>
-            <p class="org-panel__domain">{{ org.slug }}.realwe</p>
+            <h1 class="org-panel__title" id="org-panel-title">{{ dept.name }}</h1>
+            <p class="org-panel__domain">{{ organization()?.name }}</p>
           </div>
         </div>
       } @else {
