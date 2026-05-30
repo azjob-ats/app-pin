@@ -11,6 +11,7 @@ export interface CreateProductRequest {
   subtitle?: string;
   badges?: string[];
   location?: string;
+  department?: string;
   description: ProductDescriptionBlockResponse[];
   screeningQuestions?: ProductScreeningQuestionResponse[];
   learnMoreConfig: ProductLearnMoreConfigResponse;

@@ -6,6 +6,12 @@ const {
   createOrganization,
   updateOrganization,
   toggleFavorite,
+  listDepartments,
+  findDepartment,
+  serializeDepartment,
+  createDepartment,
+  updateDepartment,
+  toggleDepartmentFavorite,
   listProducts,
   getProduct,
   createProduct,
@@ -86,6 +92,53 @@ router.patch('/organizations/:slug/favorite', (req, res) => {
   res.json(success(result.organization));
 });
 
+// ---------- Departments ----------
+
+// GET /organizations/:slug/departments
+router.get('/organizations/:slug/departments', (req, res) => {
+  const page = Math.max(1, parseInt(req.query.page) || 1);
+  const pageSize = Math.min(50, Math.max(1, parseInt(req.query.pageSize) || 20));
+  const result = listDepartments(req.params.slug, { page, pageSize });
+  if (!result) return res.status(404).json(failure('Organização não encontrada.', 404, 'empresa/org-not-found'));
+  res.json(success(paginated(result.items, result.page, result.pageSize, result.total, req.query)));
+});
+
+// GET /organizations/:slug/departments/:deptSlug
+router.get('/organizations/:slug/departments/:deptSlug', (req, res) => {
+  const dept = findDepartment(req.params.slug, req.params.deptSlug);
+  if (!dept) return res.status(404).json(failure('Departamento não encontrado.', 404, 'empresa/dept-not-found'));
+  res.json(success(serializeDepartment(dept)));
+});
+
+// POST /organizations/:slug/departments
+router.post('/organizations/:slug/departments', (req, res) => {
+  const result = createDepartment(req.params.slug, req.body || {});
+  if (!result.ok) {
+    const map = {
+      'org-not-found': ['Organização não encontrada.', 404],
+      'missing-fields': ['Informe nome e identificador do departamento.', 400],
+      'slug-taken': ['Já existe um departamento com esse identificador.', 409],
+    };
+    const [message, status] = map[result.code] || ['Erro desconhecido.', 500];
+    return res.status(status).json(failure(message, status, `empresa/${result.code}`));
+  }
+  res.status(201).json(success(result.department, 201, 'Departamento criado com sucesso.'));
+});
+
+// PATCH /organizations/:slug/departments/:deptSlug
+router.patch('/organizations/:slug/departments/:deptSlug', (req, res) => {
+  const result = updateDepartment(req.params.slug, req.params.deptSlug, req.body || {});
+  if (!result.ok) return res.status(404).json(failure('Departamento não encontrado.', 404, 'empresa/dept-not-found'));
+  res.json(success(result.department));
+});
+
+// PATCH /organizations/:slug/departments/:deptSlug/favorite
+router.patch('/organizations/:slug/departments/:deptSlug/favorite', (req, res) => {
+  const result = toggleDepartmentFavorite(req.params.slug, req.params.deptSlug);
+  if (!result.ok) return res.status(404).json(failure('Departamento não encontrado.', 404, 'empresa/dept-not-found'));
+  res.json(success(result.department));
+});
+
 // ---------- Products ----------
 
 // GET /organizations/:slug/products
@@ -95,6 +148,7 @@ router.get('/organizations/:slug/products', (req, res) => {
   const result = listProducts(req.params.slug, {
     type: req.query.type,
     phase: req.query.phase,
+    department: req.query.department,
     page,
     pageSize,
   });

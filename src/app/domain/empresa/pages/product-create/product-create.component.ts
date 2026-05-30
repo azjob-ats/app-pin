@@ -394,7 +394,8 @@ export class ProductCreateComponent implements OnDestroy {
   // ---------- Submission ----------
 
   protected submit(): void {
-    const slug = this.context.organization()?.slug;
+    const slug = this.context.organization()?.slug ?? this.route.snapshot.paramMap.get('slug');
+    const deptSlug = this.route.snapshot.paramMap.get('deptSlug') ?? undefined;
     const type = this.selectedType();
     if (!slug || !type) return;
     if (!this.isCurrentStepValid()) return;
@@ -415,6 +416,7 @@ export class ProductCreateComponent implements OnDestroy {
       subtitle,
       badges,
       location,
+      department: deptSlug,
       description,
       screeningQuestions,
       learnMoreConfig,

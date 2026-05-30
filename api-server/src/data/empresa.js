@@ -61,6 +61,91 @@ const organizations = [
   },
 ];
 
+// ---------- Departments ----------
+
+const departments = [
+  // Nubank
+  {
+    id: 'dept-001',
+    organizationId: 'org-001',
+    slug: 'engenharia',
+    name: 'Engenharia',
+    description: 'Plataforma, apps e infraestrutura. Vagas técnicas e treinamentos de engenharia.',
+    icon: 'code',
+    color: '#2563eb',
+    isFavorite: true,
+    membersCount: 24,
+    createdAt: '2025-01-12T12:00:00.000Z',
+    updatedAt: '2025-03-14T08:30:00.000Z',
+  },
+  {
+    id: 'dept-002',
+    organizationId: 'org-001',
+    slug: 'marketing',
+    name: 'Marketing',
+    description: 'Comunicação, campanhas e conteúdo institucional.',
+    icon: 'campaign',
+    color: '#f59e0b',
+    isFavorite: false,
+    membersCount: 12,
+    createdAt: '2025-01-15T12:00:00.000Z',
+    updatedAt: '2025-02-20T08:30:00.000Z',
+  },
+  {
+    id: 'dept-003',
+    organizationId: 'org-001',
+    slug: 'produto',
+    name: 'Produto',
+    description: 'Produtos financeiros, serviços e ofertas para clientes PF e PJ.',
+    icon: 'inventory_2',
+    color: '#a855f7',
+    isFavorite: false,
+    membersCount: 9,
+    createdAt: '2025-01-18T12:00:00.000Z',
+    updatedAt: '2025-02-22T08:30:00.000Z',
+  },
+  {
+    id: 'dept-004',
+    organizationId: 'org-001',
+    slug: 'pessoas',
+    name: 'Pessoas & Cultura',
+    description: 'Recrutamento, cultura e experiências para colaboradores e candidatos.',
+    icon: 'groups',
+    color: '#10b981',
+    isFavorite: false,
+    membersCount: 7,
+    createdAt: '2025-01-20T12:00:00.000Z',
+    updatedAt: '2025-02-25T08:30:00.000Z',
+  },
+  // Magazine Luiza
+  {
+    id: 'dept-005',
+    organizationId: 'org-002',
+    slug: 'tecnologia',
+    name: 'Tecnologia',
+    description: 'Plataforma de e-commerce, logtech e fintech do grupo.',
+    icon: 'code',
+    color: '#0ea5e9',
+    isFavorite: false,
+    membersCount: 15,
+    createdAt: '2025-02-05T12:00:00.000Z',
+    updatedAt: '2025-02-05T12:00:00.000Z',
+  },
+  {
+    id: 'dept-006',
+    organizationId: 'org-002',
+    slug: 'vendas',
+    name: 'Vendas',
+    description: 'Operação comercial, lojas físicas e marketplace.',
+    icon: 'shopping_cart',
+    color: '#dc2626',
+    isFavorite: false,
+    membersCount: 30,
+    createdAt: '2025-02-06T12:00:00.000Z',
+    updatedAt: '2025-02-06T12:00:00.000Z',
+  },
+];
+
 // ---------- Products ----------
 
 function makeLearnMoreConfig(type) {
@@ -159,6 +244,7 @@ const products = [
   buildProduct({
     id: 'prod-001',
     organizationId: 'org-001',
+    departmentId: 'dept-001',
     type: 'job',
     phase: 'in_campaign',
     title: 'Engenheiro(a) Angular Sênior',
@@ -178,6 +264,7 @@ const products = [
   buildProduct({
     id: 'prod-002',
     organizationId: 'org-001',
+    departmentId: 'dept-003',
     type: 'service',
     phase: 'in_campaign',
     title: 'Conta PJ para MEI e PME',
@@ -192,6 +279,7 @@ const products = [
   buildProduct({
     id: 'prod-003',
     organizationId: 'org-001',
+    departmentId: 'dept-001',
     type: 'training',
     phase: 'in_campaign',
     title: 'Workshop: Como o Nubank usa Angular Signals',
@@ -207,6 +295,7 @@ const products = [
   buildProduct({
     id: 'prod-004',
     organizationId: 'org-001',
+    departmentId: 'dept-002',
     type: 'news',
     phase: 'paused',
     title: 'Release Notes Q1/2026 — App Nubank',
@@ -221,6 +310,7 @@ const products = [
   buildProduct({
     id: 'prod-005',
     organizationId: 'org-001',
+    departmentId: 'dept-004',
     type: 'experience',
     phase: 'backlog',
     title: 'Tour pela sede em SP',
@@ -246,6 +336,7 @@ function normalizeEligibility(raw) {
 function buildProduct({
   id,
   organizationId,
+  departmentId = null,
   type,
   phase,
   title,
@@ -259,6 +350,7 @@ function buildProduct({
   return {
     id,
     organizationId,
+    departmentId,
     type,
     phase,
     title,
@@ -672,12 +764,96 @@ function toggleFavorite(slug) {
   return { ok: true, organization: serializeOrganization(org) };
 }
 
+// Departments
+
+function findDepartment(orgSlug, deptSlug) {
+  const org = findOrganization(orgSlug);
+  if (!org) return null;
+  return departments.find((d) => d.organizationId === org.id && d.slug === deptSlug) || null;
+}
+
+function computeDeptCounters(dept) {
+  const deptProducts = products.filter((p) => p.departmentId === dept.id);
+  const productIds = new Set(deptProducts.map((p) => p.id));
+  const deptSubmissions = submissions.filter((s) => productIds.has(s.productId));
+  return {
+    productsCount: deptProducts.length,
+    submissionsCount: deptSubmissions.length,
+    membersCount: dept.membersCount || 0,
+  };
+}
+
+function serializeDepartment(dept) {
+  const { membersCount, ...rest } = dept;
+  return { ...rest, ...computeDeptCounters(dept) };
+}
+
+function listDepartments(orgSlug, { page = 1, pageSize = 50 }) {
+  const org = findOrganization(orgSlug);
+  if (!org) return null;
+  const all = departments.filter((d) => d.organizationId === org.id);
+  const total = all.length;
+  const start = (page - 1) * pageSize;
+  const items = all.slice(start, start + pageSize).map(serializeDepartment);
+  return { items, total, page, pageSize };
+}
+
+function createDepartment(orgSlug, payload) {
+  const org = findOrganization(orgSlug);
+  if (!org) return { ok: false, code: 'org-not-found' };
+  if (!payload.name || !payload.slug) return { ok: false, code: 'missing-fields' };
+  if (departments.find((d) => d.organizationId === org.id && d.slug === payload.slug)) {
+    return { ok: false, code: 'slug-taken' };
+  }
+  const now = NOW();
+  const dept = {
+    id: `dept-${Date.now()}`,
+    organizationId: org.id,
+    slug: payload.slug,
+    name: payload.name,
+    description: payload.description || '',
+    icon: payload.icon || 'workspaces',
+    color: payload.color || '#2563eb',
+    isFavorite: false,
+    membersCount: 0,
+    createdAt: now,
+    updatedAt: now,
+  };
+  departments.push(dept);
+  return { ok: true, department: serializeDepartment(dept) };
+}
+
+function updateDepartment(orgSlug, deptSlug, payload) {
+  const dept = findDepartment(orgSlug, deptSlug);
+  if (!dept) return { ok: false, code: 'not-found' };
+  Object.assign(dept, {
+    name: payload.name ?? dept.name,
+    description: payload.description ?? dept.description,
+    icon: payload.icon ?? dept.icon,
+    color: payload.color ?? dept.color,
+    updatedAt: NOW(),
+  });
+  return { ok: true, department: serializeDepartment(dept) };
+}
+
+function toggleDepartmentFavorite(orgSlug, deptSlug) {
+  const dept = findDepartment(orgSlug, deptSlug);
+  if (!dept) return { ok: false, code: 'not-found' };
+  dept.isFavorite = !dept.isFavorite;
+  dept.updatedAt = NOW();
+  return { ok: true, department: serializeDepartment(dept) };
+}
+
 // Products
 
-function listProducts(slug, { type, phase, page = 1, pageSize = 50 }) {
+function listProducts(slug, { type, phase, department, page = 1, pageSize = 50 }) {
   const org = findOrganization(slug);
   if (!org) return null;
   let items = products.filter((p) => p.organizationId === org.id);
+  if (department) {
+    const dept = departments.find((d) => d.organizationId === org.id && d.slug === department);
+    items = items.filter((p) => p.departmentId === (dept ? dept.id : null));
+  }
   if (type) items = items.filter((p) => p.type === type);
   if (phase) items = items.filter((p) => p.phase === phase);
   const total = items.length;
@@ -699,9 +875,13 @@ function createProduct(slug, payload) {
   }
   if (!payload.title) return { ok: false, code: 'missing-title' };
   const now = NOW();
+  const dept = payload.department
+    ? departments.find((d) => d.organizationId === org.id && d.slug === payload.department)
+    : null;
   const product = {
     id: `prod-${Date.now()}`,
     organizationId: org.id,
+    departmentId: dept ? dept.id : null,
     type: payload.type,
     phase: 'backlog',
     title: payload.title,
@@ -1131,6 +1311,12 @@ module.exports = {
   createOrganization,
   updateOrganization,
   toggleFavorite,
+  listDepartments,
+  findDepartment,
+  serializeDepartment,
+  createDepartment,
+  updateDepartment,
+  toggleDepartmentFavorite,
   listProducts,
   getProduct,
   createProduct,
