@@ -937,6 +937,13 @@ function listSubmissions(slug, query) {
   const org = findOrganization(slug);
   if (!org) return null;
   let items = submissions.filter((s) => s.organizationId === org.id);
+  if (query.department) {
+    const dept = departments.find((d) => d.organizationId === org.id && d.slug === query.department);
+    const deptProductIds = new Set(
+      products.filter((p) => p.departmentId === (dept ? dept.id : null)).map((p) => p.id),
+    );
+    items = items.filter((s) => deptProductIds.has(s.productId));
+  }
   if (query.productType) items = items.filter((s) => s.productType === query.productType);
   if (query.productId) items = items.filter((s) => s.productId === query.productId);
   if (query.assignedTo) items = items.filter((s) => s.assignedTo === query.assignedTo);

@@ -111,12 +111,13 @@ export class MetricsFacade {
     );
   });
 
-  load(slug: string): void {
+  load(slug: string, departmentSlug?: string): void {
     this.isLoading.set(true);
     this.error.set(null);
+    const department = departmentSlug || undefined;
     forkJoin({
-      products: this.productApi.list(slug, { page: 1, pageSize: 200 }),
-      submissions: this.submissionApi.list(slug, { page: 1, pageSize: 500 }),
+      products: this.productApi.list(slug, { page: 1, pageSize: 200, department }),
+      submissions: this.submissionApi.list(slug, { page: 1, pageSize: 500, department }),
     })
       .pipe(
         tap(({ products, submissions }) => {

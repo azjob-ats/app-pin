@@ -14,6 +14,7 @@ import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-p
 import { PRODUCT_TYPE_META } from '@domain/empresa/constants/product-presets';
 import { MetricsFacade } from '@domain/empresa/services/metrics.facade';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
+import { DepartmentContextService } from '@domain/empresa/services/department-context.service';
 
 @Component({
   selector: 'app-panel-metrics',
@@ -25,6 +26,7 @@ import { OrganizationContextService } from '@domain/empresa/services/organizatio
 })
 export class PanelMetricsComponent implements OnDestroy {
   protected readonly context = inject(OrganizationContextService);
+  private readonly deptContext = inject(DepartmentContextService);
   private readonly facade = inject(MetricsFacade);
 
   readonly isLoading = this.facade.isLoading;
@@ -39,8 +41,9 @@ export class PanelMetricsComponent implements OnDestroy {
   constructor() {
     effect(() => {
       const slug = this.context.organization()?.slug;
-      if (slug && this.facade.products().length === 0 && !this.isLoading()) {
-        this.facade.load(slug);
+      const deptSlug = this.deptContext.slug();
+      if (slug && deptSlug && this.facade.products().length === 0 && !this.isLoading()) {
+        this.facade.load(slug, deptSlug);
       }
     });
   }

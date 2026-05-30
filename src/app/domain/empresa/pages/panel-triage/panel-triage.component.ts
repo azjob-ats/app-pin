@@ -94,8 +94,9 @@ export class PanelTriageComponent implements OnDestroy {
     // Load + apply query param ?productId=
     effect(() => {
       const slug = this.context.organization()?.slug;
-      if (slug && this.items().length === 0 && !this.isLoading()) {
-        this.facade.load(slug);
+      const deptSlug = this.deptContext.slug();
+      if (slug && deptSlug && this.items().length === 0 && !this.isLoading()) {
+        this.facade.load(slug, deptSlug);
       }
     });
 

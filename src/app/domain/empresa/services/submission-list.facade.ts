@@ -23,11 +23,11 @@ export class SubmissionListFacade {
   readonly error = this.store.error;
   readonly movingIds = this.store.movingIds;
 
-  load(slug: string): void {
+  load(slug: string, departmentSlug?: string): void {
     this.store.setLoading(true);
     this.store.setError(null);
     this.api
-      .list(slug, { page: 1, pageSize: 200 })
+      .list(slug, { page: 1, pageSize: 200, department: departmentSlug || undefined })
       .pipe(
         tap((response) => {
           if (response.success && response.data) {

@@ -18,6 +18,7 @@ export interface AssignSubmissionRequest {
 export interface SubmissionListQueryRequest {
   productType?: string;
   productId?: string;
+  department?: string;
   assignedTo?: string;
   from?: string;
   to?: string;
