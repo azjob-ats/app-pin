@@ -165,6 +165,7 @@ A funcionalidade foi implementada em 11 partes incrementais, todas shippable e v
 ## 10. Onde aprofundar
 
 - **Especificação operacional completa** (telas, layouts, validações, payloads): [doc.md](doc.md)
+- **Departamentos** (camada entre Organização e o Painel/Kanban): [departamentos.md](departamentos.md)
 - **Motor de formulário dinâmico** usado pelo Saiba Mais: [../learn-more/DYNAMIC_ENGINE.md](../learn-more/DYNAMIC_ENGINE.md)
 - **Modelo de receita** (Campanha Patrocinada Qualificada): [../sponsored-campaigns/doc.md](../sponsored-campaigns/doc.md)
 - **Tese da plataforma**: [../../README.md](../../README.md) (raiz do projeto)
