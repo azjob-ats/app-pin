@@ -525,14 +525,6 @@ export const routes: Routes = [
             data: { title: 'Triagens' },
           },
           {
-            path: 'pagina',
-            loadComponent: () =>
-              import('./domain/empresa/pages/panel-page/panel-page.component').then(
-                (m) => m.PanelPageComponent,
-              ),
-            data: { title: 'Página da Empresa' },
-          },
-          {
             path: 'pessoas',
             loadComponent: () =>
               import('./domain/empresa/pages/panel-people/panel-people.component').then(

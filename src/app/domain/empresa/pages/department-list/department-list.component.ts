@@ -13,16 +13,19 @@ import { Department } from '@shared/interfaces/entity/empresa-department';
 import { DepartmentListFacade } from '@domain/empresa/services/department-list.facade';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
 import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
+import { PanelPageComponent } from '@domain/empresa/pages/panel-page/panel-page.component';
 import {
   EmpresaDeptCardComponent,
   DeptCardMenuAction,
 } from '@domain/empresa/components/empresa-dept-card/empresa-dept-card.component';
 
+type HomeTab = 'departamentos' | 'pagina';
+
 @Component({
   selector: 'app-department-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [RouterLink, EmpresaPageHeaderComponent, EmpresaDeptCardComponent],
+  imports: [RouterLink, EmpresaPageHeaderComponent, EmpresaDeptCardComponent, PanelPageComponent],
   host: {
     '(document:click)': 'closeMenu()',
     '(document:keydown.escape)': 'closeMenu()',
@@ -43,6 +46,7 @@ export class DepartmentListComponent implements OnInit {
   readonly organization = this.orgContext.organization;
 
   readonly openMenuId = signal<string | null>(null);
+  readonly activeTab = signal<HomeTab>('departamentos');
 
   private readonly orgSlug = signal<string>('');
 
@@ -61,10 +65,22 @@ export class DepartmentListComponent implements OnInit {
   ngOnInit(): void {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
     this.orgSlug.set(slug);
+    if (this.route.snapshot.queryParamMap.get('tab') === 'pagina') {
+      this.activeTab.set('pagina');
+    }
     if (slug) {
       this.orgContext.load(slug);
       this.facade.load(slug);
     }
+  }
+
+  setTab(tab: HomeTab): void {
+    this.activeTab.set(tab);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: tab === 'departamentos' ? {} : { tab },
+      replaceUrl: true,
+    });
   }
 
   closeMenu(): void {

@@ -49,7 +49,6 @@ export class OrganizationPanelComponent implements OnInit, OnDestroy {
   readonly tabs: readonly PanelTab[] = [
     { label: 'Gerenciar Produtos', icon: 'inventory_2', segment: 'produtos' },
     { label: 'Triagens', icon: 'view_kanban', segment: 'triagens' },
-    { label: 'Página da Empresa', icon: 'language', segment: 'pagina' },
     { label: 'Pessoas & Permissões', icon: 'group', segment: 'pessoas' },
     { label: 'Creators & Grupos', icon: 'movie', segment: 'creators' },
     { label: 'Métricas', icon: 'analytics', segment: 'metricas' },
