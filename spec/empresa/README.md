@@ -166,6 +166,7 @@ A funcionalidade foi implementada em 11 partes incrementais, todas shippable e v
 
 - **Especificação operacional completa** (telas, layouts, validações, payloads): [doc.md](doc.md)
 - **Departamentos** (camada entre Organização e o Painel/Kanban): [departamentos.md](departamentos.md)
+- **Confirmação de e-mail corporativo** (onboarding por domínio — proposta): [confirmacao-email-corporativo.md](confirmacao-email-corporativo.md)
 - **Motor de formulário dinâmico** usado pelo Saiba Mais: [../learn-more/DYNAMIC_ENGINE.md](../learn-more/DYNAMIC_ENGINE.md)
 - **Modelo de receita** (Campanha Patrocinada Qualificada): [../sponsored-campaigns/doc.md](../sponsored-campaigns/doc.md)
 - **Tese da plataforma**: [../../README.md](../../README.md) (raiz do projeto)
