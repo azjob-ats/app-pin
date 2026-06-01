@@ -4,6 +4,7 @@ import { ApiResponse } from '@shared/interfaces/base/api-response';
 import {
   AddMembersToGroupRequest,
   CreateGroupRequest,
+  CreateRoleRequest,
   InviteMemberRequest,
   UpdateRoleRequest,
 } from '@shared/interfaces/dto/request/empresa-member';
@@ -85,6 +86,28 @@ export class PeopleFacade {
         }),
         catchError((err: ApiResponse) => {
           this.store.setError(err?.message || 'Não foi possível atualizar a função.');
+          return EMPTY;
+        }),
+        finalize(() => this.store.setMutating(false)),
+      )
+      .subscribe();
+  }
+
+  createRole(slug: string, payload: CreateRoleRequest): void {
+    this.store.setMutating(true);
+    this.store.setError(null);
+    this.api
+      .createRole(slug, payload)
+      .pipe(
+        tap((response) => {
+          if (response.success && response.data) {
+            this.store.upsertRole(response.data);
+          } else {
+            this.store.setError(response.message || 'Não foi possível criar a função.');
+          }
+        }),
+        catchError((err: ApiResponse) => {
+          this.store.setError(err?.message || 'Não foi possível criar a função.');
           return EMPTY;
         }),
         finalize(() => this.store.setMutating(false)),

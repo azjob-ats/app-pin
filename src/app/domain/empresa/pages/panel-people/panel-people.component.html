@@ -148,6 +148,14 @@
             (input)="onRoleSearch($event)"
           />
         </div>
+        <button
+          type="button"
+          class="empresa-btn empresa-btn--primary"
+          (click)="openRoleModal()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">add</span>
+          Nova função
+        </button>
       </div>
 
       @if (filteredRoles().length === 0) {
@@ -328,6 +336,88 @@
               [disabled]="inviteForm.invalid || isMutating()"
             >
               Enviar convite
+            </button>
+          </footer>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- ─── Role modal ──────────────────────────────────────────────────────── -->
+  @if (showRoleModal()) {
+    <div class="panel-people__modal-backdrop" (click)="closeRoleModal()" role="presentation">
+      <div
+        class="panel-people__modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="role-title"
+        (click)="$event.stopPropagation()"
+      >
+        <header class="panel-people__modal-header">
+          <div>
+            <span class="panel-people__modal-eyebrow">Funções</span>
+            <h3 id="role-title" class="panel-people__modal-title">Nova função</h3>
+          </div>
+          <button
+            type="button"
+            class="panel-people__icon-btn"
+            (click)="closeRoleModal()"
+            aria-label="Fechar"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">close</span>
+          </button>
+        </header>
+
+        <form class="panel-people__modal-form" [formGroup]="roleForm" (ngSubmit)="submitRole()" novalidate>
+          <div class="emp-field">
+            <label class="emp-field__label" for="role-name">Nome da função</label>
+            <input
+              id="role-name"
+              class="emp-field__control"
+              type="text"
+              formControlName="name"
+              placeholder="Ex.: Editor de conteúdo"
+              autocomplete="off"
+            />
+            @if (hasRoleError('name', 'required')) {
+              <p class="panel-people__field-error">Informe o nome.</p>
+            }
+            @if (hasRoleError('name', 'minlength')) {
+              <p class="panel-people__field-error">Mínimo de 2 caracteres.</p>
+            }
+          </div>
+
+          <div class="emp-field">
+            <label class="emp-field__label" for="role-desc">Descrição</label>
+            <input
+              id="role-desc"
+              class="emp-field__control"
+              type="text"
+              formControlName="description"
+              placeholder="Ex.: Gerencia Notícias e Treinamentos"
+              autocomplete="off"
+            />
+          </div>
+
+          <p class="panel-people__field-hint">
+            A função é criada sem permissões. Defina-as em seguida pelo botão de ajustes
+            <span class="material-symbols-rounded" aria-hidden="true">tune</span> na tabela.
+          </p>
+
+          <footer class="panel-people__modal-footer">
+            <button
+              type="button"
+              class="empresa-btn empresa-btn--quiet"
+              (click)="closeRoleModal()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="empresa-btn empresa-btn--primary"
+              [disabled]="roleForm.invalid || isMutating()"
+            >
+              Criar função
             </button>
           </footer>
         </form>

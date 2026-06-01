@@ -27,6 +27,7 @@ const {
   inviteMember,
   updateMember,
   listRoles,
+  createRole,
   updateRole,
   listGroups,
   createGroup,
@@ -300,6 +301,19 @@ router.get('/organizations/:slug/roles', (req, res) => {
   const result = listRoles(req.params.slug);
   if (!result) return res.status(404).json(failure('Organização não encontrada.', 404, 'empresa/org-not-found'));
   res.json(success(result));
+});
+
+router.post('/organizations/:slug/roles', (req, res) => {
+  const result = createRole(req.params.slug, req.body || {});
+  if (!result.ok) {
+    const map = {
+      'org-not-found': ['Organização não encontrada.', 404],
+      'missing-name': ['Informe o nome da função.', 400],
+    };
+    const [message, status] = map[result.code] || ['Erro desconhecido.', 500];
+    return res.status(status).json(failure(message, status, `empresa/${result.code}`));
+  }
+  res.status(201).json(success(result.role, 201, 'Função criada.'));
 });
 
 router.patch('/organizations/:slug/roles/:id', (req, res) => {

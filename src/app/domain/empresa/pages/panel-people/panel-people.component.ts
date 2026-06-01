@@ -16,10 +16,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { DrawerComponent } from '@shared/components/drawer/drawer.component';
+import { CreateRoleRequest } from '@shared/interfaces/dto/request/empresa-member';
 import { Group, Member, Role } from '@shared/interfaces/entity/empresa-member';
 import { EmpresaPageHeaderComponent } from '@domain/empresa/components/empresa-page-header/empresa-page-header.component';
 import {
   permissionsByGroup,
+  PERMISSION_CATALOG,
   PERMISSION_GROUPS,
 } from '@domain/empresa/constants/permission-catalog';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
@@ -64,6 +66,13 @@ export class PanelPeopleComponent implements OnDestroy {
   readonly inviteForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     roleId: ['', [Validators.required]],
+  });
+
+  // Modal: criar função
+  readonly showRoleModal = signal<boolean>(false);
+  readonly roleForm = this.fb.nonNullable.group({
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    description: [''],
   });
 
   // Modal: criar grupo
@@ -164,6 +173,37 @@ export class PanelPeopleComponent implements OnDestroy {
 
   protected onRoleSearch(event: Event): void {
     this.roleSearch.set((event.target as HTMLInputElement).value);
+  }
+
+  protected openRoleModal(): void {
+    this.roleForm.reset({ name: '', description: '' });
+    this.showRoleModal.set(true);
+  }
+
+  protected closeRoleModal(): void {
+    this.showRoleModal.set(false);
+  }
+
+  protected submitRole(): void {
+    const slug = this.context.organization()?.slug;
+    if (!slug) return;
+    if (this.roleForm.invalid) {
+      this.roleForm.markAllAsTouched();
+      return;
+    }
+    const { name, description } = this.roleForm.getRawValue();
+    const payload: CreateRoleRequest = {
+      name,
+      description,
+      permissions: PERMISSION_CATALOG.map((p) => ({ action: p.action, allowed: false })),
+    };
+    this.facade.createRole(slug, payload);
+    this.showRoleModal.set(false);
+  }
+
+  protected hasRoleError(control: 'name', error: string): boolean {
+    const c = this.roleForm.controls[control];
+    return c.touched && c.hasError(error);
   }
 
   protected openRoleDrawer(role: Role): void {

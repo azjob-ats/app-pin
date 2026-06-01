@@ -6,6 +6,7 @@ import { List } from '@shared/interfaces/base/pages-total-records';
 import {
   AddMembersToGroupRequest,
   CreateGroupRequest,
+  CreateRoleRequest,
   InviteMemberRequest,
   UpdateGroupRequest,
   UpdateMemberRequest,
@@ -74,6 +75,20 @@ export class EmpresaMemberApi {
         data: response.data ? response.data.map((r) => MemberMap.toRole(r)) : undefined,
       })),
       catchError(this.handleError('empresa/roles/list')),
+    );
+  }
+
+  public createRole(
+    slug: string,
+    request: CreateRoleRequest,
+  ): Observable<ApiResponse<Role>> {
+    const url = `${this.baseUrl}${environment.API.EMPRESA.ROLE_CREATE.replace(':slug', slug)}`;
+    return this.http.post<ApiResponse<RoleResponse>>(url, request).pipe(
+      map((response) => ({
+        ...response,
+        data: response.data ? MemberMap.toRole(response.data) : undefined,
+      })),
+      catchError(this.handleError('empresa/roles/create')),
     );
   }
 

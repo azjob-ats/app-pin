@@ -138,6 +138,7 @@ export const environment = {
       MEMBER_INVITE: '/api/v1/empresa/organizations/:slug/members/invite',
       MEMBER_UPDATE: '/api/v1/empresa/organizations/:slug/members/:id',
       ROLES_LIST: '/api/v1/empresa/organizations/:slug/roles',
+      ROLE_CREATE: '/api/v1/empresa/organizations/:slug/roles',
       ROLE_UPDATE: '/api/v1/empresa/organizations/:slug/roles/:id',
       GROUPS_LIST: '/api/v1/empresa/organizations/:slug/groups',
       GROUP_CREATE: '/api/v1/empresa/organizations/:slug/groups',

@@ -1135,6 +1135,26 @@ function listRoles(slug) {
   return roles[org.id] || [];
 }
 
+function createRole(slug, payload) {
+  const org = findOrganization(slug);
+  if (!org) return { ok: false, code: 'org-not-found' };
+  if (!payload.name) return { ok: false, code: 'missing-name' };
+  const allowedMap = new Map((payload.permissions || []).map((p) => [p.action, !!p.allowed]));
+  const role = {
+    id: `role-${Date.now()}`,
+    name: payload.name,
+    description: payload.description || '',
+    membersCount: 0,
+    permissions: DEFAULT_PERMISSIONS.map((action) => ({
+      action,
+      allowed: allowedMap.get(action) ?? false,
+    })),
+  };
+  if (!roles[org.id]) roles[org.id] = [];
+  roles[org.id].push(role);
+  return { ok: true, role };
+}
+
 function updateRole(slug, id, payload) {
   const org = findOrganization(slug);
   if (!org) return { ok: false, code: 'org-not-found' };
@@ -1339,6 +1359,7 @@ module.exports = {
   inviteMember,
   updateMember,
   listRoles,
+  createRole,
   updateRole,
   listGroups,
   createGroup,
