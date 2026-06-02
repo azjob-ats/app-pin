@@ -1,4 +1,4 @@
-<section class="product-wizard" aria-labelledby="product-wizard-title">
+<section class="empresa-shell product-wizard" aria-labelledby="product-wizard-title">
   @if (showSuccess() && created()) {
     <div class="product-wizard__success" role="status">
       <span class="material-symbols-rounded product-wizard__success-icon" aria-hidden="true">
@@ -16,40 +16,40 @@
       </a>
     </div>
   } @else {
-    <header class="product-wizard__header">
-      <div class="product-wizard__header-left">
-        <button
-          type="button"
-          class="product-wizard__icon-btn"
-          aria-label="Fechar"
-          (click)="close()"
-        >
-          <span class="material-symbols-rounded" aria-hidden="true">close</span>
-        </button>
-      </div>
-      <h1 class="product-wizard__title" id="product-wizard-title">
-        Publique um Produto, é grátis e sempre será
-      </h1>
-      <div class="product-wizard__progress" aria-label="Progresso">
-        <span>{{ currentStep() }} / {{ TOTAL_STEPS }}</span>
-      </div>
+    <header class="product-wizard__topbar">
+      <button
+        type="button"
+        class="product-wizard__close"
+        aria-label="Fechar"
+        (click)="close()"
+      >
+        <span class="material-symbols-rounded" aria-hidden="true">close</span>
+      </button>
+      <span class="product-wizard__brand" id="product-wizard-title">Publicar produto</span>
+      <span class="product-wizard__counter" aria-hidden="true">
+        {{ currentStep() }}<i>/</i>{{ TOTAL_STEPS }}
+      </span>
     </header>
 
-    <nav class="product-wizard__steps" aria-label="Etapas">
-      @for (step of steps; track step) {
-        <button
-          type="button"
-          class="product-wizard__step-dot"
-          [class.is-active]="currentStep() === step"
-          [class.is-done]="currentStep() > step"
-          [attr.aria-current]="currentStep() === step ? 'step' : null"
-          [attr.aria-label]="'Ir para etapa ' + step"
-          (click)="jumpToStep(step)"
-        >
-          {{ step }}
-        </button>
-      }
-    </nav>
+    <div class="product-wizard__progress" aria-label="Progresso das etapas">
+      <div class="product-wizard__track" role="tablist">
+        @for (step of steps; track step) {
+          <button
+            type="button"
+            class="product-wizard__seg"
+            [class.is-active]="currentStep() === step"
+            [class.is-done]="currentStep() > step"
+            [attr.aria-current]="currentStep() === step ? 'step' : null"
+            [attr.aria-label]="'Etapa ' + step + ': ' + stepLabels[step - 1]"
+            (click)="jumpToStep(step)"
+          ></button>
+        }
+      </div>
+      <p class="product-wizard__step-name">
+        <span class="product-wizard__step-index">Etapa {{ currentStep() }}</span>
+        {{ stepLabels[currentStep() - 1] }}
+      </p>
+    </div>
 
     @if (serverError()) {
       <div class="product-wizard__error" role="alert">{{ serverError() }}</div>

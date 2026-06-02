@@ -127,6 +127,14 @@ export class ProductCreateComponent implements OnDestroy {
 
   readonly TOTAL_STEPS = 6;
   readonly steps = [1, 2, 3, 4, 5, 6];
+  readonly stepLabels = [
+    'Tipo',
+    'Título & descrição',
+    'Saiba mais',
+    'Configuração',
+    'Quem vende',
+    'Revisar',
+  ];
   readonly currentStep = signal<number>(1);
   readonly showSuccess = signal<boolean>(false);
 
