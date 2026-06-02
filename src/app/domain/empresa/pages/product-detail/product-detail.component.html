@@ -92,19 +92,19 @@
             <ul class="product-detail__field-list">
               @for (field of learnMoreFields(); track trackByField($index, field)) {
                 <li>
-                  <span class="product-detail__field-label">{{ field.label }}</span>
+                  <span class="product-detail__field-label">{{ field.label || field.id }}</span>
                   <span
                     class="product-detail__field-tag"
-                    [class.is-required]="field.required"
+                    [class.is-required]="!!field.validators?.required"
                   >
-                    {{ requiredLabel(field.required) }}
+                    {{ requiredLabel(!!field.validators?.required) }}
                   </span>
                 </li>
               }
             </ul>
             <p class="product-detail__cta-hint">
               Botão exibido ao público:
-              <strong>{{ p.learnMoreConfig.submitButtonLabel }}</strong>
+              <strong>{{ p.learnMoreConfig.stepperConfig.nameLastButton }}</strong>
             </p>
           }
         </section>

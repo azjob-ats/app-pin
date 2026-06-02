@@ -1,8 +1,16 @@
 const { Router } = require('express');
-const { LEARN_MORE_CONFIG } = require('../data/learn-more');
 const { success, failure } = require('../helpers/response');
 
 const router = Router();
+
+const LEARN_MORE_PATH = require.resolve('../data/learn-more');
+
+// Lê o learn-more.js sempre do disco (o arquivo é reescrito ao publicar um
+// Produto — Opção A), refletindo a gravação sem precisar reiniciar o servidor.
+function readLearnMoreConfig() {
+  delete require.cache[LEARN_MORE_PATH];
+  return require('../data/learn-more').LEARN_MORE_CONFIG;
+}
 
 // GET /api/v1/learn-more/:pinId — fetch questionnaire config for a pin
 router.get('/:pinId', (req, res) => {
@@ -12,7 +20,7 @@ router.get('/:pinId', (req, res) => {
     return res.status(400).json(failure('pinId is required', 400, 'learn-more/invalid-pin', 'ApiResponse'));
   }
 
-  res.json(success(LEARN_MORE_CONFIG));
+  res.json(success(readLearnMoreConfig()));
 });
 
 // POST /api/v1/learn-more/:pinId/submit — submit application

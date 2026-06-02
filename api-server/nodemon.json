@@ -1,5 +1,9 @@
 {
   "watch": ["src"],
   "ext": "js,json",
-  "ignore": ["src/data/resume-store.json", "src/data/resume-store.seed.json"]
+  "ignore": [
+    "src/data/resume-store.json",
+    "src/data/resume-store.seed.json",
+    "src/data/learn-more.js"
+  ]
 }

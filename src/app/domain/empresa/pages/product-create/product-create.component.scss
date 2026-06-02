@@ -723,3 +723,412 @@ details[open] > .block__summary::before {
     outline: none;
   }
 }
+
+/* ── Saiba Mais — form builder (Etapa 4) ─────────────────────────────────── */
+.lm-builder {
+  .lm-step {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    background: #fff;
+  }
+
+  .lm-step__head {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .lm-step__title-field {
+    flex: 1;
+  }
+
+  .lm-field {
+    border: 1px solid #edf0f4;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+
+  .lm-field__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .lm-field__type {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    background: #e2e8f0;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  .lm-field__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .lm-field__required {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 0.875rem;
+    color: #334155;
+    cursor: pointer;
+  }
+
+  .lm-options {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .lm-option {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .lm-icon-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #94a3b8;
+    border-radius: 8px;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: #dc2626;
+      background: #fef2f2;
+    }
+
+    .material-symbols-rounded {
+      font-size: 18px;
+    }
+  }
+
+  .lm-link-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #2563eb;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+
+    .material-symbols-rounded {
+      font-size: 16px;
+    }
+  }
+
+  .lm-add {
+    margin-top: 12px;
+  }
+
+  .lm-add__label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    margin-bottom: 8px;
+  }
+
+  .lm-add__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    &--catalog {
+      margin-top: 8px;
+    }
+  }
+
+  .chip--ghost {
+    opacity: 0.85;
+    font-weight: 500;
+  }
+
+  .lm-add-step {
+    margin-top: 4px;
+  }
+}
+
+/* ── Saiba Mais builder v2 (Etapa 3) + modal "Adicionar Elemento" ─────────── */
+.lm2 {
+  &__add {
+    margin-bottom: 8px;
+  }
+}
+
+.lm2-step {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 12px;
+  background: #fff;
+
+  &.is-current {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  &__select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: inherit;
+    color: #0f172a;
+    padding: 4px;
+
+    .material-symbols-rounded {
+      font-size: 20px;
+      color: #2563eb;
+    }
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__layout {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+}
+
+.lm2-empty {
+  margin: 10px 0 0;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.lm2-fields {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lm2-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: #f8fafc;
+  border: 1px solid #edf0f4;
+  border-radius: 8px;
+
+  &__type {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #475569;
+    background: #e2e8f0;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  &__label {
+    font-weight: 500;
+    flex: 1;
+  }
+
+  &__classes {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+}
+
+/* Config step */
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.config-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9375rem;
+  color: #334155;
+  cursor: pointer;
+
+  code {
+    font-size: 0.8125rem;
+    color: #64748b;
+  }
+}
+
+/* Modal */
+.pw-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.pw-modal {
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.4);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+  }
+}
+.pw-action {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  text-align: left;
+  appearance: none;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+
+  &:hover:not(:disabled) {
+    border-color: #2563eb;
+    background: #eff6ff;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &__icon {
+    grid-row: 1 / 3;
+    align-self: center;
+    font-size: 26px;
+    color: #2563eb;
+  }
+  &__title {
+    font-weight: 600;
+    color: #0f172a;
+  }
+  &__desc {
+    font-size: 0.8125rem;
+    color: #64748b;
+  }
+}
+.pw-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pw-option {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ── Preview do formulário (botão no footer + corpo do drawer) ────────────── */
+.product-wizard__btn--preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  .material-symbols-rounded {
+    font-size: 18px;
+  }
+}
+
+/* Largura do painel de preview = mesma do watch (.learn-more 700px em ≥1024px),
+   capada em telas menores. Escopada por .preview-drawer para não afetar o
+   drawer da empresa nem o watch. */
+.app-drawer-panel--right.preview-drawer {
+  width: min(700px, 92vw);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Garante espaçamento do corpo do drawer de preview nesta rota
+   (os estilos globais do learn-more-drawer só carregam no painel). */
+.product-wizard ~ .app-drawer-panel .learn-more-drawer__body,
+.learn-more-drawer .learn-more-drawer__body {
+  padding: 16px 18px 24px;
+}
+.learn-more-drawer__step-title {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}

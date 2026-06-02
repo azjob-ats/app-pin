@@ -36,10 +36,7 @@
     </header>
 
     <nav class="product-wizard__steps" aria-label="Etapas">
-      @for (
-        step of steps;
-        track step
-      ) {
+      @for (step of steps; track step) {
         <button
           type="button"
           class="product-wizard__step-dot"
@@ -65,7 +62,7 @@
           <header class="step__header">
             <h2 class="step__title" id="step-type-title">Que tipo de Produto?</h2>
             <p class="step__hint">
-              Cada tipo define os campos do formulário do Saiba Mais e o pipeline de Triagem.
+              Cada tipo sugere campos iniciais para o formulário do Saiba Mais.
             </p>
           </header>
 
@@ -92,211 +89,175 @@
         </section>
       }
 
-      <!-- ETAPA 2 — Identificação -->
+      <!-- ETAPA 2 — Título e Descrição -->
       @if (currentStep() === 2) {
-        <section class="step" aria-labelledby="step-id-title">
+        <section class="step" aria-labelledby="step-basics-title">
           <header class="step__header">
-            <h2 class="step__title" id="step-id-title">Identificação</h2>
+            <h2 class="step__title" id="step-basics-title">Título e Descrição</h2>
             <p class="step__hint">
-              Campos típicos para <strong>{{ typeLabel(selectedType()!) }}</strong>.
+              O título e a descrição do Produto. A descrição também alimenta a introdução do Saiba
+              Mais.
             </p>
           </header>
 
           <form class="form-grid" [formGroup]="stepIdentificationForm" novalidate>
-            @for (field of identificationFields(); track field.key) {
-              <div class="form-field">
-                <label [for]="'id-' + field.key">
-                  {{ field.label }}
-                  @if (field.required) {
-                    <span class="form-field__required" aria-hidden="true">*</span>
-                  }
-                </label>
-                @switch (field.kind) {
-                  @case ('select') {
-                    <select [id]="'id-' + field.key" [formControlName]="field.key">
-                      <option value="">Selecione...</option>
-                      @for (opt of field.options; track opt.value) {
-                        <option [value]="opt.value">{{ opt.label }}</option>
-                      }
-                    </select>
-                  }
-                  @default {
-                    <input
-                      [id]="'id-' + field.key"
-                      type="text"
-                      [formControlName]="field.key"
-                      [placeholder]="field.placeholder || ''"
-                    />
-                  }
-                }
-                @if (hasError(stepIdentificationForm, field.key, 'required')) {
-                  <p class="form-field__error">Campo obrigatório.</p>
-                }
-              </div>
-            }
+            <div class="form-field">
+              <label for="id-title">
+                Título
+                <span class="form-field__required" aria-hidden="true">*</span>
+              </label>
+              <input
+                id="id-title"
+                type="text"
+                formControlName="title"
+                placeholder="Ex.: Engenheiro(a) Angular Sênior"
+              />
+              @if (hasError(stepIdentificationForm, 'title', 'required')) {
+                <p class="form-field__error">Informe o título.</p>
+              }
+              @if (hasError(stepIdentificationForm, 'title', 'minlength')) {
+                <p class="form-field__error">Pelo menos 3 caracteres.</p>
+              }
+            </div>
+          </form>
+
+          <form class="form-grid" [formGroup]="stepDescriptionForm" novalidate>
+            <div class="form-field">
+              <label for="prod-desc">
+                Descrição
+                <span class="form-field__required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="prod-desc"
+                formControlName="description"
+                rows="6"
+                placeholder="Descreva o produto. Este texto também alimenta a introdução do Saiba Mais."
+              ></textarea>
+              @if (hasError(stepDescriptionForm, 'description', 'required')) {
+                <p class="form-field__error">Informe a descrição.</p>
+              }
+              @if (hasError(stepDescriptionForm, 'description', 'minlength')) {
+                <p class="form-field__error">Pelo menos 10 caracteres.</p>
+              }
+            </div>
           </form>
         </section>
       }
 
-      <!-- ETAPA 3 — Descrição -->
+      <!-- ETAPA 3 — Saiba Mais (builder dinâmico) -->
       @if (currentStep() === 3) {
-        <section class="step" aria-labelledby="step-desc-title">
+        <section class="step lm2" aria-labelledby="step-lm-title">
           <header class="step__header">
-            <h2 class="step__title" id="step-desc-title">Descrição</h2>
-            <p class="step__hint">Preencha os blocos relevantes. Vazios serão omitidos.</p>
-          </header>
-
-          <form class="blocks" [formGroup]="stepDescriptionForm" novalidate>
-            @for (block of descriptionBlocks(); track block.key) {
-              <details class="block" [open]="block.required">
-                <summary class="block__summary">
-                  {{ block.title }}
-                  @if (block.required) {
-                    <span class="form-field__required" aria-hidden="true">*</span>
-                  }
-                </summary>
-                <textarea
-                  class="block__textarea"
-                  [formControlName]="block.key"
-                  [placeholder]="block.placeholder"
-                  rows="5"
-                ></textarea>
-                @if (hasError(stepDescriptionForm, block.key, 'required')) {
-                  <p class="form-field__error">Bloco obrigatório.</p>
-                }
-                @if (hasError(stepDescriptionForm, block.key, 'minlength')) {
-                  <p class="form-field__error">Pelo menos 10 caracteres.</p>
-                }
-              </details>
-            }
-          </form>
-        </section>
-      }
-
-      <!-- ETAPA 4 — Coleta de informações (Saiba Mais) -->
-      @if (currentStep() === 4) {
-        <section class="step" aria-labelledby="step-lm-title">
-          <header class="step__header">
-            <h2 class="step__title" id="step-lm-title">O que pedir no Saiba Mais</h2>
+            <h2 class="step__title" id="step-lm-title">Saiba Mais — formulário dinâmico</h2>
             <p class="step__hint">
-              Esses campos formam o formulário dinâmico que abre quando o público clica em
-              <strong>{{ ctaLabel(selectedType()!) }}</strong>.
+              Monte as etapas e campos do formulário que abre ao clicar em
+              <strong>{{ ctaLabel(selectedType()!) }}</strong>. Use “Adicionar Elemento” para criar
+              etapas e campos.
             </p>
           </header>
 
-          <ul class="chip-list" aria-label="Campos disponíveis">
-            @for (field of availableLearnMoreFields(); track field.id) {
-              <li>
+          <button type="button" class="empresa-btn empresa-btn--primary lm2__add" (click)="openElementModal()">
+            <span class="material-symbols-rounded" aria-hidden="true">add</span>
+            Adicionar Elemento
+          </button>
+
+          @if (lmElementCount() === 0) {
+            <p class="form-field__error">Adicione ao menos um campo.</p>
+          }
+
+          @for (step of lmSteps(); track step.id; let sIdx = $index) {
+            <div class="lm2-step" [class.is-current]="currentBuilderStep() === sIdx">
+              <div class="lm2-step__head">
                 <button
                   type="button"
-                  class="chip"
-                  [class.is-selected]="isFieldSelected(field.id)"
-                  [attr.aria-pressed]="isFieldSelected(field.id)"
-                  (click)="toggleLearnMoreField(field)"
+                  class="lm2-step__select"
+                  [attr.aria-pressed]="currentBuilderStep() === sIdx"
+                  (click)="setCurrentBuilderStep(sIdx)"
                 >
                   <span class="material-symbols-rounded" aria-hidden="true">
-                    {{ isFieldSelected(field.id) ? 'check' : 'add' }}
+                    {{ currentBuilderStep() === sIdx ? 'radio_button_checked' : 'radio_button_unchecked' }}
                   </span>
-                  {{ field.label }}
+                  <span class="lm2-step__title">{{ step.title }}</span>
+                  <span class="lm2-step__layout">{{ step.layout }}</span>
                 </button>
-              </li>
-            }
-          </ul>
+                <button
+                  type="button"
+                  class="lm-icon-btn"
+                  (click)="removeBuilderStep(sIdx)"
+                  aria-label="Remover etapa"
+                >
+                  <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+                </button>
+              </div>
 
-          @if (learnMoreArray.length > 0) {
-            <div class="selected-fields">
-              <h3 class="selected-fields__title">Selecionados ({{ learnMoreArray.length }})</h3>
-              <ul class="selected-fields__list">
-                @for (group of learnMoreArray.controls; track group.controls.id.value) {
-                  <li>
-                    <span class="selected-fields__label">
-                      {{ catalogLabel(group.controls.id.value) }}
-                    </span>
-                    <label class="selected-fields__required">
-                      <input type="checkbox" [formControl]="group.controls.required" />
-                      <span>obrigatório</span>
-                    </label>
-                  </li>
-                }
-              </ul>
+              @if (step.elements.length === 0) {
+                <p class="lm2-empty">Sem campos. Selecione esta etapa e adicione um campo.</p>
+              } @else {
+                <ul class="lm2-fields">
+                  @for (el of step.elements; track el.id; let eIdx = $index) {
+                    <li class="lm2-field">
+                      <span class="lm2-field__type">{{ el.type }}</span>
+                      <span class="lm2-field__label">{{ el.label || el.id }}</span>
+                      @if (el.required) {
+                        <span class="review__required-tag">obrigatório</span>
+                      }
+                      <span class="lm2-field__classes">{{ el.classes }}</span>
+                      <button
+                        type="button"
+                        class="lm-icon-btn"
+                        (click)="removeBuilderElement(sIdx, eIdx)"
+                        aria-label="Remover campo"
+                      >
+                        <span class="material-symbols-rounded" aria-hidden="true">close</span>
+                      </button>
+                    </li>
+                  }
+                </ul>
+              }
             </div>
-          } @else {
-            <p class="form-field__error">Selecione ao menos um campo.</p>
           }
         </section>
       }
 
-      <!-- ETAPA 5 — Perguntas de triagem -->
-      @if (currentStep() === 5) {
-        <section class="step" aria-labelledby="step-screen-title">
+      <!-- ETAPA 4 — Configuração -->
+      @if (currentStep() === 4) {
+        <section class="step" aria-labelledby="step-config-title">
           <header class="step__header">
-            <h2 class="step__title" id="step-screen-title">Perguntas de triagem (opcional)</h2>
-            <p class="step__hint">
-              Perguntas extras feitas no Saiba Mais. Cada pergunta pode ter uma resposta ideal
-              para o operador comparar visualmente.
-            </p>
+            <h2 class="step__title" id="step-config-title">Configuração do formulário</h2>
+            <p class="step__hint">Ajustes de comportamento do Saiba Mais.</p>
           </header>
 
-          <div class="screening" [formGroup]="stepScreeningForm">
-            <div class="screening__list" formArrayName="questions">
-              @for (group of screeningArray.controls; track $index; let i = $index) {
-                <details class="block" open [formGroupName]="i">
-                  <summary class="block__summary">
-                    Pergunta {{ i + 1 }}
-                    <button
-                      type="button"
-                      class="block__remove"
-                      (click)="removeScreeningQuestion(i)"
-                      [attr.aria-label]="'Remover pergunta ' + (i + 1)"
-                    >
-                      <span class="material-symbols-rounded" aria-hidden="true">delete</span>
-                    </button>
-                  </summary>
-                  <div class="screening__form">
-                    <div class="form-field">
-                      <label [for]="'q-' + i">Pergunta</label>
-                      <input
-                        [id]="'q-' + i"
-                        type="text"
-                        formControlName="question"
-                        placeholder="Ex.: Quantos anos de experiência com Angular?"
-                      />
-                      @if (screeningHasError(i, 'question', 'required')) {
-                        <p class="form-field__error">Informe a pergunta.</p>
-                      }
-                    </div>
-                    <div class="form-field">
-                      <label [for]="'a-' + i">Resposta ideal</label>
-                      <input
-                        [id]="'a-' + i"
-                        type="text"
-                        formControlName="idealAnswer"
-                        placeholder="Ex.: 5"
-                      />
-                    </div>
-                    <label class="screening__required">
-                      <input type="checkbox" formControlName="required" />
-                      <span>Qualificar como obrigatório</span>
-                    </label>
-                  </div>
-                </details>
+          <form class="config-form" [formGroup]="configForm" novalidate>
+            <label class="config-toggle">
+              <input type="checkbox" formControlName="showStepProgress" />
+              <span>Mostrar progresso das etapas <code>(showStepProgress)</code></span>
+            </label>
+            <label class="config-toggle">
+              <input type="checkbox" formControlName="showCheckboxPrivacyPolicy" />
+              <span>Exibir checkbox de política de privacidade <code>(showCheckboxPrivacyPolicy)</code></span>
+            </label>
+            <label class="config-toggle">
+              <input type="checkbox" formControlName="setRevisionStepper" />
+              <span>Adicionar etapa de revisão <code>(setRevisionStepper)</code></span>
+            </label>
+            <div class="form-field">
+              <label for="cfg-btn">Texto do botão final <code>(nameLastButton)</code></label>
+              <input
+                id="cfg-btn"
+                type="text"
+                formControlName="nameLastButton"
+                placeholder="Ex.: Candidatar-se para a vaga"
+              />
+              @if (hasError(configForm, 'nameLastButton', 'required')) {
+                <p class="form-field__error">Informe o texto do botão.</p>
               }
             </div>
-
-            <button
-              type="button"
-              class="screening__add"
-              (click)="addScreeningQuestion()"
-            >
-              <span class="material-symbols-rounded" aria-hidden="true">add</span>
-              Adicionar pergunta
-            </button>
-          </div>
+          </form>
         </section>
       }
 
-      <!-- ETAPA 6 — Elegibilidade (quem pode vender) -->
-      @if (currentStep() === 6) {
+      <!-- ETAPA 5 — Elegibilidade (quem pode vender) -->
+      @if (currentStep() === 5) {
         <section class="step" aria-labelledby="step-elig-title">
           <header class="step__header">
             <h2 class="step__title" id="step-elig-title">Quem pode vender este Produto?</h2>
@@ -412,8 +373,8 @@
         </section>
       }
 
-      <!-- ETAPA 7 — Revisão -->
-      @if (currentStep() === 7) {
+      <!-- ETAPA 6 — Revisão -->
+      @if (currentStep() === 6) {
         <section class="step" aria-labelledby="step-review-title">
           <header class="step__header">
             <h2 class="step__title" id="step-review-title">Revisar e publicar</h2>
@@ -430,13 +391,8 @@
             </div>
 
             <div class="review__group">
-              <h3>Identificação</h3>
-              <dl class="review__dl">
-                @for (item of identificationSummary(); track item.label) {
-                  <dt>{{ item.label }}</dt>
-                  <dd>{{ item.value }}</dd>
-                }
-              </dl>
+              <h3>Título</h3>
+              <p>{{ stepIdentificationForm.get('title')?.value || '—' }}</p>
             </div>
 
             <div class="review__group">
@@ -454,38 +410,21 @@
             <div class="review__group">
               <h3>Saiba Mais</h3>
               <p class="review__cta">
-                Botão exibido ao público: <strong>{{ ctaLabel(selectedType()!) }}</strong>
+                Botão exibido ao público:
+                <strong>{{ configForm.controls.nameLastButton.value }}</strong>
               </p>
-              <ul class="review__chips">
-                @for (group of learnMoreArray.controls; track group.controls.id.value) {
-                  <li>
-                    {{ catalogLabel(group.controls.id.value) }}
-                    @if (group.controls.required.value) {
-                      <span class="review__required-tag">obrigatório</span>
-                    }
-                  </li>
-                }
-              </ul>
-            </div>
-
-            <div class="review__group">
-              <h3>Perguntas de triagem</h3>
-              @if (screeningSummary().length === 0) {
-                <p class="review__empty">Nenhuma pergunta configurada.</p>
-              } @else {
-                <ol class="review__questions">
-                  @for (q of screeningSummary(); track $index) {
+              @for (step of lmSteps(); track step.id) {
+                <p class="review__cta">{{ step.title }} <span>({{ step.layout }})</span></p>
+                <ul class="review__chips">
+                  @for (el of step.elements; track el.id) {
                     <li>
-                      <strong>{{ q.question }}</strong>
-                      @if (q.idealAnswer) {
-                        <span> · resposta ideal: {{ q.idealAnswer }}</span>
-                      }
-                      @if (q.required) {
-                        <span class="review__required-tag">obrigatória</span>
+                      {{ el.label || el.id }}
+                      @if (el.required) {
+                        <span class="review__required-tag">obrigatório</span>
                       }
                     </li>
                   }
-                </ol>
+                </ul>
               }
             </div>
 
@@ -504,6 +443,17 @@
           Voltar
         </button>
       }
+      @if (currentStep() === TOTAL_STEPS) {
+        <button
+          type="button"
+          class="product-wizard__btn product-wizard__btn--ghost product-wizard__btn--preview"
+          [disabled]="lmElementCount() === 0"
+          (click)="openPreview()"
+        >
+          <span class="material-symbols-rounded" aria-hidden="true">visibility</span>
+          Visualizar formulário
+        </button>
+      }
       <button
         type="button"
         class="product-wizard__btn product-wizard__btn--primary"
@@ -519,5 +469,204 @@
         }
       </button>
     </footer>
+
+    <!-- Modal: Adicionar Elemento -->
+    @if (showElementModal()) {
+      <div class="pw-modal-backdrop" role="presentation" (click)="closeElementModal()">
+        <div
+          class="pw-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pw-modal-title"
+          (click)="$event.stopPropagation()"
+        >
+          <header class="pw-modal__head">
+            <h3 id="pw-modal-title" class="pw-modal__title">Adicionar Elemento</h3>
+            <button type="button" class="lm-icon-btn" (click)="closeElementModal()" aria-label="Fechar">
+              <span class="material-symbols-rounded" aria-hidden="true">close</span>
+            </button>
+          </header>
+
+          @switch (modalView()) {
+            @case ('menu') {
+              <div class="pw-modal__menu">
+                <button type="button" class="pw-action" (click)="chooseNewStep()">
+                  <span class="material-symbols-rounded pw-action__icon" aria-hidden="true">library_add</span>
+                  <span class="pw-action__title">Criar Novo Step</span>
+                  <span class="pw-action__desc">Uma nova etapa com título e layout.</span>
+                </button>
+                <button
+                  type="button"
+                  class="pw-action"
+                  [disabled]="lmSteps().length === 0"
+                  (click)="chooseNewField()"
+                >
+                  <span class="material-symbols-rounded pw-action__icon" aria-hidden="true">add_box</span>
+                  <span class="pw-action__title">Adicionar Campo ao Step Atual</span>
+                  <span class="pw-action__desc">
+                    @if (lmSteps().length === 0) {
+                      Crie um step primeiro.
+                    } @else {
+                      Etapa atual: {{ lmSteps()[currentBuilderStep()]?.title }}
+                    }
+                  </span>
+                </button>
+              </div>
+            }
+
+            @case ('step') {
+              <form class="pw-modal__form" [formGroup]="newStepForm" (ngSubmit)="saveNewStep()" novalidate>
+                <div class="form-field">
+                  <label for="ns-title">Título do Step</label>
+                  <input id="ns-title" type="text" formControlName="title" />
+                  @if (hasError(newStepForm, 'title', 'required')) {
+                    <p class="form-field__error">Informe o título.</p>
+                  }
+                </div>
+                <div class="form-field">
+                  <label for="ns-layout">Tipo de Layout</label>
+                  <select id="ns-layout" formControlName="layout">
+                    @for (l of layoutOptions; track l) {
+                      <option [value]="l">{{ l }}</option>
+                    }
+                  </select>
+                </div>
+                <footer class="pw-modal__footer">
+                  <button type="button" class="product-wizard__btn product-wizard__btn--ghost" (click)="closeElementModal()">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="product-wizard__btn product-wizard__btn--primary">
+                    Criar Step
+                  </button>
+                </footer>
+              </form>
+            }
+
+            @case ('field') {
+              <form class="pw-modal__form" [formGroup]="newFieldForm" (ngSubmit)="saveNewField()" novalidate>
+                <div class="form-field">
+                  <label for="nf-type">Tipo do Campo</label>
+                  <select id="nf-type" formControlName="type">
+                    @for (t of fieldTypeOptions; track t.value) {
+                      <option [value]="t.value">{{ t.label }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="nf-classes">Classes</label>
+                  <select id="nf-classes" formControlName="classes">
+                    @for (c of classOptions; track c.value) {
+                      <option [value]="c.value">{{ c.label }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="nf-label">Label</label>
+                  <input id="nf-label" type="text" formControlName="label" placeholder="Ex.: Nome completo" />
+                  @if (hasError(newFieldForm, 'label', 'required')) {
+                    <p class="form-field__error">Informe o label.</p>
+                  }
+                </div>
+                <div class="form-field">
+                  <label for="nf-placeholder">Placeholder</label>
+                  <input id="nf-placeholder" type="text" formControlName="placeholder" placeholder="Ex.: Informe seu nome" />
+                </div>
+                <div class="form-field">
+                  <label for="nf-default">Default Value</label>
+                  <input id="nf-default" type="text" formControlName="defaultValue" />
+                </div>
+
+                @if (newFieldForm.controls.type.value === 'textHTML') {
+                  <div class="form-field">
+                    <label for="nf-value">Value (conteúdo HTML)</label>
+                    <textarea id="nf-value" formControlName="value" rows="4"></textarea>
+                  </div>
+                }
+
+                <label class="config-toggle">
+                  <input type="checkbox" formControlName="required" />
+                  <span>Obrigatório <code>(validators.required)</code></span>
+                </label>
+
+                @if (newFieldForm.controls.type.value === 'select') {
+                  <div class="pw-options">
+                    <span class="emp-field__label">Options</span>
+                    @for (opt of newFieldOptions.controls; track $index; let oIdx = $index) {
+                      <div class="pw-option">
+                        <input type="text" [formControl]="opt.controls.name" placeholder="name (rótulo)" />
+                        <input type="text" [formControl]="opt.controls.code" placeholder="code (valor)" />
+                        <button type="button" class="lm-icon-btn" (click)="removeNewFieldOption(oIdx)" aria-label="Remover opção">
+                          <span class="material-symbols-rounded" aria-hidden="true">close</span>
+                        </button>
+                      </div>
+                    }
+                    <button type="button" class="lm-link-btn" (click)="addNewFieldOption()">
+                      <span class="material-symbols-rounded" aria-hidden="true">add</span>
+                      Adicionar opção
+                    </button>
+                  </div>
+                }
+
+                <footer class="pw-modal__footer">
+                  <button type="button" class="product-wizard__btn product-wizard__btn--ghost" (click)="closeElementModal()">
+                    Cancelar
+                  </button>
+                  <button type="submit" class="product-wizard__btn product-wizard__btn--primary">
+                    Adicionar Campo
+                  </button>
+                </footer>
+              </form>
+            }
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Drawer: preview do formulário (Saiba Mais) -->
+    <app-drawer
+      position="right"
+      styleClass="learn-more-drawer preview-drawer"
+      [visible]="showPreviewDrawer()"
+      (visibleChange)="onPreviewVisibleChange($event)"
+    >
+      <div class="learn-more-drawer__body">
+        @if (previewConfig(); as config) {
+          <app-generic-stepper
+            [showStepProgress]="config.showStepProgress"
+            [nameLastButton]="config.nameLastButton ?? 'Concluir'"
+            (allStepsCompleted)="onPreviewDone($event)"
+            (close)="closePreview()"
+          >
+            @for (step of config.steps; track step.step) {
+              <div
+                [style.display]="step.step === stepperService.currentStep() ? 'block' : 'none'"
+              >
+                @switch (step.identifier) {
+                  @case ('dynamicForm') {
+                    <h3 class="learn-more-drawer__step-title">{{ step.title }}</h3>
+                    <app-dynamic-form
+                      [formStructure]="step.dynamicForm!"
+                      (formChange)="onPreviewFormChange($event, step.step)"
+                    />
+                  }
+                  @case ('stepTextInContent') {
+                    <app-step-text-html [html]="step.text ?? ''" />
+                  }
+                  @case ('revisionStepper') {
+                    <h3 class="learn-more-drawer__step-title">{{ step.title }}</h3>
+                    <app-step-revision
+                      [steps]="stepperService.getAllData()"
+                      [showPrivacyPolicy]="config.showCheckboxPrivacyPolicy ?? false"
+                      [privacyChecked]="stepperService.isStepValid(step.step)"
+                      (privacyAccepted)="onPreviewPrivacyAccepted($event)"
+                    />
+                  }
+                }
+              </div>
+            }
+          </app-generic-stepper>
+        }
+      </div>
+    </app-drawer>
   }
 </section>

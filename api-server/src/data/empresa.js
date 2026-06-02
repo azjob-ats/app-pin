@@ -1,7 +1,25 @@
 // In-memory store for Minha Empresa (organizations, products, submissions, members).
 // Keeps everything in one module so the routes can mutate state without persistence.
 
+const fs = require('fs');
+const path = require('path');
+
 const NOW = () => new Date().toISOString();
+
+// Opção A: ao publicar um Produto, sobrescreve o learn-more.js com o config
+// dele (mesmo shape do engine). O GET /learn-more/:pinId passa a servir esse
+// formulário. Falha de escrita não bloqueia a criação do Produto.
+function persistLearnMoreConfig(config) {
+  try {
+    const file = path.join(__dirname, 'learn-more.js');
+    const content =
+      `const LEARN_MORE_CONFIG = ${JSON.stringify(config, null, 2)};\n\n` +
+      `module.exports = { LEARN_MORE_CONFIG };\n`;
+    fs.writeFileSync(file, content, 'utf8');
+  } catch (err) {
+    console.error('Falha ao gravar learn-more.js:', err.message);
+  }
+}
 
 const PRODUCT_TYPES = ['job', 'service', 'training', 'news', 'experience'];
 const PRODUCT_PHASES = ['backlog', 'in_campaign', 'paused', 'closed'];
@@ -149,10 +167,11 @@ const departments = [
 // ---------- Products ----------
 
 function makeLearnMoreConfig(type) {
-  const common = {
-    submitButtonLabel: ctaLabelByType(type),
+  const stepperConfig = {
+    showStepProgress: true,
     showCheckboxPrivacyPolicy: true,
-    showRevisionStep: true,
+    nameLastButton: ctaLabelByType(type),
+    setRevisionStepper: true,
   };
 
   const fieldsByType = {
@@ -203,7 +222,7 @@ function makeLearnMoreConfig(type) {
     ],
   };
 
-  return { ...common, steps: fieldsByType[type] || [] };
+  return { stepperLearnMore: fieldsByType[type] || [], stepperConfig };
 }
 
 function ctaLabelByType(type) {
@@ -216,26 +235,70 @@ function ctaLabelByType(type) {
   }[type] || 'Saiba mais';
 }
 
-function stepOf(id, title, fields) {
-  return { id, title, fields };
+function stepOf(id, title, elements, layout = 'horizontal') {
+  return { id, title, layout, elements };
+}
+
+function reqValidators(required) {
+  return { required, errorRequired: required ? 'Campo obrigatório.' : undefined };
 }
 
 function textField(id, label, required) {
-  return { id, type: 'text', label, placeholder: '', required };
+  return {
+    id,
+    classes: 'col-12 md:col-6',
+    type: 'text',
+    value: '',
+    label,
+    defaultValue: null,
+    placeholder: '',
+    validators: reqValidators(required),
+    options: [],
+  };
 }
 function emailField(id, label, required) {
-  return { id, type: 'email', label, placeholder: '', required };
+  return {
+    id,
+    classes: 'col-12 md:col-6',
+    type: 'email',
+    value: '',
+    label,
+    defaultValue: null,
+    placeholder: '',
+    validators: reqValidators(required),
+    options: [],
+  };
 }
 function uploadField(id, label, required) {
-  return { id, type: 'uploadFile', label, required };
+  return {
+    id,
+    classes: 'col-12',
+    type: 'uploadFile',
+    value: '',
+    label,
+    defaultValue: null,
+    placeholder: '',
+    validators: {
+      ...reqValidators(required),
+      accept: '.pdf',
+      multiple: false,
+      allowedTypes: ['application/pdf'],
+      maxFileSizeMB: 15,
+    },
+    options: [],
+  };
 }
 function selectField(id, label, values, required) {
   return {
     id,
+    classes: 'col-12 md:col-6',
     type: 'select',
+    value: '',
     label,
-    required,
-    options: values.map((v) => ({ value: v.toLowerCase(), label: v })),
+    defaultValue: null,
+    placeholder: 'Selecione',
+    validators: reqValidators(required),
+    options: values.map((v) => ({ name: v, code: v.toLowerCase() })),
   };
 }
 
@@ -898,6 +961,7 @@ function createProduct(slug, payload) {
     updatedAt: now,
   };
   products.push(product);
+  persistLearnMoreConfig(product.learnMoreConfig);
   return { ok: true, product };
 }
 

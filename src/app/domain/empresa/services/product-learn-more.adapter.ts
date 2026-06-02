@@ -1,81 +1,107 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   FormElement,
   FormElementType,
   FormStructure,
 } from '@shared/components/dynamic-form/interfaces/form-element.interface';
-import { Product, ProductLearnMoreField } from '@shared/interfaces/entity/empresa-product';
-
-const ENGINE_TYPES = new Set<FormElementType>([
-  'text',
-  'email',
-  'select',
-  'textarea',
-  'checkbox',
-  'checkboxAuthorize',
-  'uploadFile',
-  'textHTML',
-]);
+import { Step, StepperConfig } from '@shared/components/stepper/interfaces/stepper.interface';
+import { DynamicFormAdapterService } from '@shared/components/stepper/services/dynamic-form-adapter.service';
+import {
+  Product,
+  ProductLearnMoreConfig,
+  ProductLearnMoreElement,
+  ProductLearnMoreStep,
+} from '@shared/interfaces/entity/empresa-product';
 
 @Injectable({ providedIn: 'root' })
 export class ProductLearnMoreAdapter {
+  private readonly formAdapter = inject(DynamicFormAdapterService);
+
   /**
-   * Converts the Product's learn-more config (as defined in Etapa 3 do wizard)
-   * into the FormStructure that the Dynamic Form Engine expects.
+   * Converts the Product's learn-more config (engine shape — same as
+   * api-server/src/data/learn-more.js) into the StepperConfig consumed by the
+   * GenericStepper engine. Mirrors DynamicLearnMoreService:
    *
-   * Strategy:
-   * - Each step in Product.learnMoreConfig becomes a separate FormStructure
-   *   — for now we flatten to a single FormStructure (the first step), since
-   *   the wizard currently emits a single step. Multi-step submission can be
-   *   added later by wrapping in the existing GenericStepperComponent.
+   *   textHTML-only step → stepTextInContent
+   *   step with inputs   → dynamicForm (FormGroup created by the adapter)
+   *   setRevisionStepper → appends a revision step
    */
-  toFormStructure(product: Product): FormStructure {
-    const config = product.learnMoreConfig;
-    const elements: FormElement[] = [];
-    for (const step of config.steps) {
-      for (const field of step.fields) {
-        elements.push(this.toElement(field));
+  toStepperConfig(product: Product): StepperConfig {
+    return this.fromConfig(product.learnMoreConfig, product.id, product.title);
+  }
+
+  /** Builds a StepperConfig from a raw learn-more config (e.g. wizard preview). */
+  fromConfig(config: ProductLearnMoreConfig, id: string, title: string): StepperConfig {
+    const steps: Step[] = [];
+    let index = 1;
+
+    for (const lmStep of config.stepperLearnMore) {
+      if (this.isTextOnly(lmStep)) {
+        steps.push({
+          identifier: 'stepTextInContent',
+          step: index++,
+          title: lmStep.title,
+          text: lmStep.elements[0]?.value ?? '',
+          valid: true,
+        });
+      } else {
+        const structure = this.toFormStructure(lmStep);
+        const { step } = this.formAdapter.createStepWithForm(index++, lmStep.title, structure);
+        steps.push(step);
       }
     }
-    if (config.showCheckboxPrivacyPolicy) {
-      elements.push({
-        id: 'privacyPolicy',
-        type: 'checkboxAuthorize',
-        label: 'Concordo com a política de privacidade.',
-        required: true,
-        validators: {
-          required: true,
-          erroRequired: 'Você precisa aceitar a política de privacidade.',
-        },
-      });
+
+    if (config.stepperConfig.setRevisionStepper) {
+      steps.push({ identifier: 'revisionStepper', step: index++, title: 'Revisão', valid: false });
     }
+
     return {
-      id: `learn-more-${product.id}`,
-      title: product.title,
-      elements,
-      layout: 'vertical',
+      id: `learn-more-${id}`,
+      title,
+      steps,
+      currentStep: 1,
+      completed: false,
+      showStepProgress: config.stepperConfig.showStepProgress,
+      showCheckboxPrivacyPolicy: config.stepperConfig.showCheckboxPrivacyPolicy,
+      nameLastButton: config.stepperConfig.nameLastButton,
     };
   }
 
-  private toElement(field: ProductLearnMoreField): FormElement {
-    const type: FormElementType = ENGINE_TYPES.has(field.type as FormElementType)
-      ? (field.type as FormElementType)
-      : 'text';
-    const element: FormElement = {
-      id: field.id,
-      type,
-      label: field.label,
-      placeholder: field.placeholder,
-      required: field.required,
+  private isTextOnly(step: ProductLearnMoreStep): boolean {
+    return step.elements.length > 0 && step.elements.every((el) => el.type === 'textHTML');
+  }
+
+  private toFormStructure(step: ProductLearnMoreStep): FormStructure {
+    return {
+      id: step.id,
+      title: step.title,
+      layout: step.layout === 'vertical' ? 'vertical' : 'horizontal',
+      elements: step.elements.map((el) => this.toElement(el)),
+    };
+  }
+
+  private toElement(el: ProductLearnMoreElement): FormElement {
+    return {
+      id: el.id,
+      type: el.type as FormElementType,
+      label: el.label,
+      placeholder: el.placeholder,
+      value: el.value,
+      defaultValue: el.defaultValue,
+      classes: el.classes ? [el.classes] : undefined,
+      options: (el.options ?? []).map((o) => ({ name: o.name, code: o.code })),
       validators: {
-        required: field.required,
-        erroRequired: 'Campo obrigatório.',
-        ...(type === 'email' ? { email: true } : {}),
+        required: el.validators?.required,
+        erroRequired: el.validators?.errorRequired,
+        minLength: el.validators?.minLength,
+        maxLength: el.validators?.maxLength,
+        pattern: el.validators?.pattern,
+        accept: el.validators?.accept,
+        multiple: el.validators?.multiple,
+        allowedTypes: el.validators?.allowedTypes,
+        maxFileSizeMB: el.validators?.maxFileSizeMB,
+        ...(el.type === 'email' ? { email: true } : {}),
       },
     };
-    if (type === 'select' && field.options) {
-      element.options = field.options.map((o) => ({ code: o.value, name: o.label }));
-    }
-    return element;
   }
 }

@@ -11,26 +11,47 @@ export interface ProductScreeningQuestionResponse {
   required: boolean;
 }
 
-export interface ProductLearnMoreFieldResponse {
+export interface ProductLearnMoreElementValidatorsResponse {
+  required?: boolean;
+  errorRequired?: string;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  accept?: string;
+  multiple?: boolean;
+  allowedTypes?: string[];
+  maxFileSizeMB?: number;
+}
+
+export interface ProductLearnMoreElementResponse {
   id: string;
+  classes?: string;
   type: string;
-  label: string;
+  value?: string;
+  label?: string;
+  defaultValue?: string | null;
   placeholder?: string;
-  required: boolean;
-  options?: Array<{ value: string; label: string }>;
+  validators?: ProductLearnMoreElementValidatorsResponse;
+  options?: Array<{ name: string; code: string }>;
 }
 
 export interface ProductLearnMoreStepResponse {
   id: string;
   title: string;
-  fields: ProductLearnMoreFieldResponse[];
+  layout: string;
+  elements: ProductLearnMoreElementResponse[];
+}
+
+export interface ProductLearnMoreStepperConfigResponse {
+  showStepProgress: boolean;
+  showCheckboxPrivacyPolicy: boolean;
+  nameLastButton: string;
+  setRevisionStepper: boolean;
 }
 
 export interface ProductLearnMoreConfigResponse {
-  steps: ProductLearnMoreStepResponse[];
-  submitButtonLabel: string;
-  showCheckboxPrivacyPolicy: boolean;
-  showRevisionStep: boolean;
+  stepperLearnMore: ProductLearnMoreStepResponse[];
+  stepperConfig: ProductLearnMoreStepperConfigResponse;
 }
 
 export interface ProductEligibilityResponse {

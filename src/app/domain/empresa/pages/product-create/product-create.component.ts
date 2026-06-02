@@ -9,7 +9,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
@@ -23,39 +22,91 @@ import { environment } from '@env/environment';
 import { ProductEligibilityMode } from '@shared/enums/product-eligibility-mode.enum';
 import { ProductType } from '@shared/enums/product-type.enum';
 import { CreatorGroup, OrganizationCreator } from '@shared/interfaces/entity/empresa-creator';
+import { ProductDescriptionBlockResponse } from '@shared/interfaces/dto/response/empresa-product';
 import {
-  ProductDescriptionBlockResponse,
-  ProductLearnMoreConfigResponse,
-  ProductScreeningQuestionResponse,
-} from '@shared/interfaces/dto/response/empresa-product';
+  ProductLearnMoreConfig,
+  ProductLearnMoreElementType,
+  ProductLearnMoreStep,
+} from '@shared/interfaces/entity/empresa-product';
+import { DrawerComponent } from '@shared/components/drawer/drawer.component';
+import { DynamicFormComponent } from '@shared/components/dynamic-form/dynamic-form.component';
+import { GenericStepperComponent } from '@shared/components/stepper/components/generic-stepper/generic-stepper.component';
+import { StepRevisionComponent } from '@shared/components/stepper/components/step-revision/step-revision.component';
+import { StepTextHtmlComponent } from '@shared/components/stepper/components/step-text-html/step-text-html.component';
+import { StepperService } from '@shared/components/stepper/services/stepper.service';
+import { Step, StepperConfig } from '@shared/components/stepper/interfaces/stepper.interface';
+import { ProductLearnMoreAdapter } from '@domain/empresa/services/product-learn-more.adapter';
 import {
   PRODUCT_TYPES_IN_ORDER,
   PRODUCT_TYPE_META,
 } from '@domain/empresa/constants/product-presets';
 import {
   ctaLabelFor,
-  DESCRIPTION_PRESETS,
   getSuggestedFieldIds,
-  IDENTIFICATION_PRESETS,
-  LearnMoreFieldOption,
   LEARN_MORE_FIELD_CATALOG,
-  WizardDescriptionBlock,
-  WizardField,
 } from '@domain/empresa/constants/product-wizard-presets';
 import { CreatorFacade } from '@domain/empresa/services/creator.facade';
 import { OrganizationContextService } from '@domain/empresa/services/organization-context.service';
 import { ProductCreateFacade } from '@domain/empresa/services/product-create.facade';
 
-interface LearnMoreSelection {
-  readonly id: string;
-  readonly required: boolean;
+type FieldClasses = 'col-12 md:col-6' | 'col-12';
+type StepLayout = 'horizontal' | 'vertical';
+
+interface BuilderOption {
+  name: string;
+  code: string;
+}
+
+interface BuilderElement {
+  id: string;
+  classes: FieldClasses;
+  type: ProductLearnMoreElementType;
+  value: string;
+  label: string;
+  defaultValue: string;
+  placeholder: string;
+  required: boolean;
+  options: BuilderOption[];
+}
+
+interface BuilderStep {
+  id: string;
+  title: string;
+  layout: StepLayout;
+  elements: BuilderElement[];
+}
+
+const FIELD_TYPE_OPTIONS: ReadonlyArray<{ value: ProductLearnMoreElementType; label: string }> = [
+  { value: 'text', label: 'Texto' },
+  { value: 'textHTML', label: 'Conteúdo (HTML)' },
+  { value: 'email', label: 'E-mail' },
+  { value: 'select', label: 'Seleção' },
+  { value: 'uploadFile', label: 'Upload de arquivo' },
+  { value: 'checkboxAuthorize', label: 'Autorização' },
+];
+const CLASS_OPTIONS: ReadonlyArray<{ value: FieldClasses; label: string }> = [
+  { value: 'col-12 md:col-6', label: 'Metade (col-12 md:col-6)' },
+  { value: 'col-12', label: 'Inteira (col-12)' },
+];
+const LAYOUT_OPTIONS: ReadonlyArray<StepLayout> = ['horizontal', 'vertical'];
+
+function escapeHtml(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 @Component({
   selector: 'app-product-create',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    DrawerComponent,
+    DynamicFormComponent,
+    GenericStepperComponent,
+    StepRevisionComponent,
+    StepTextHtmlComponent,
+  ],
   templateUrl: './product-create.component.html',
   styleUrl: './product-create.component.scss',
 })
@@ -66,16 +117,22 @@ export class ProductCreateComponent implements OnDestroy {
   private readonly context = inject(OrganizationContextService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly lmAdapter = inject(ProductLearnMoreAdapter);
+  protected readonly stepperService = inject(StepperService);
 
   readonly types = PRODUCT_TYPES_IN_ORDER;
   readonly typeMeta = PRODUCT_TYPE_META;
   readonly catalog = LEARN_MORE_FIELD_CATALOG;
   readonly EligibilityMode = ProductEligibilityMode;
 
-  readonly TOTAL_STEPS = 7;
-  readonly steps = [1, 2, 3, 4, 5, 6, 7];
+  readonly TOTAL_STEPS = 6;
+  readonly steps = [1, 2, 3, 4, 5, 6];
   readonly currentStep = signal<number>(1);
   readonly showSuccess = signal<boolean>(false);
+
+  // Preview do formulário (drawer com o stepper) na etapa de revisão
+  readonly showPreviewDrawer = signal<boolean>(false);
+  readonly previewConfig = signal<StepperConfig | null>(null);
 
   // ---------- Eligibility (etapa 6) ----------
   readonly creators = this.creatorFacade.creators;
@@ -94,23 +151,44 @@ export class ProductCreateComponent implements OnDestroy {
   });
 
   readonly stepIdentificationForm = this.fb.group({});
-  readonly stepDescriptionForm = this.fb.group({});
-  readonly stepLearnMoreForm = this.fb.nonNullable.group({
-    fields: this.fb.array<FormGroup<{ id: FormControl<string>; required: FormControl<boolean> }>>(
-      [],
-      [Validators.required, Validators.minLength(1)],
-    ),
+  readonly stepDescriptionForm = this.fb.nonNullable.group({
+    description: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
   });
-  readonly stepScreeningForm = this.fb.nonNullable.group({
-    questions: this.fb.array<
-      FormGroup<{
-        question: FormControl<string>;
-        idealAnswer: FormControl<string>;
-        required: FormControl<boolean>;
-      }>
-    >([]),
+  // Step 3 — Saiba Mais builder (signal-based)
+  readonly lmSteps = signal<BuilderStep[]>([]);
+  readonly currentBuilderStep = signal<number>(0);
+  readonly lmElementCount = computed<number>(() =>
+    this.lmSteps().reduce((acc, s) => acc + s.elements.length, 0),
+  );
+  readonly fieldTypeOptions = FIELD_TYPE_OPTIONS;
+  readonly classOptions = CLASS_OPTIONS;
+  readonly layoutOptions = LAYOUT_OPTIONS;
+
+  // "Adicionar Elemento" modal
+  readonly showElementModal = signal<boolean>(false);
+  readonly modalView = signal<'menu' | 'step' | 'field'>('menu');
+  readonly newStepForm = this.fb.nonNullable.group({
+    title: this.fb.nonNullable.control('Informações de contato', [Validators.required]),
+    layout: this.fb.nonNullable.control<StepLayout>('horizontal'),
+  });
+  readonly newFieldForm = this.fb.nonNullable.group({
+    classes: this.fb.nonNullable.control<FieldClasses>('col-12 md:col-6'),
+    type: this.fb.nonNullable.control<ProductLearnMoreElementType>('text'),
+    value: this.fb.nonNullable.control(''),
+    label: this.fb.nonNullable.control('', [Validators.required]),
+    defaultValue: this.fb.nonNullable.control(''),
+    placeholder: this.fb.nonNullable.control(''),
+    required: this.fb.nonNullable.control(false),
+    options: this.fb.array<FormGroup<{ name: FormControl<string>; code: FormControl<string> }>>([]),
   });
 
+  // Step 4 — Configuração do stepper
+  readonly configForm = this.fb.nonNullable.group({
+    showStepProgress: this.fb.nonNullable.control(true),
+    showCheckboxPrivacyPolicy: this.fb.nonNullable.control(true),
+    nameLastButton: this.fb.nonNullable.control('Candidatar-se para a vaga', [Validators.required]),
+    setRevisionStepper: this.fb.nonNullable.control(true),
+  });
   // ---------- Form state bridged to signals ----------
 
   private readonly typeValue = toSignal(this.stepTypeForm.controls.type.valueChanges, {
@@ -125,8 +203,8 @@ export class ProductCreateComponent implements OnDestroy {
   private readonly descriptionStatus = toSignal(this.stepDescriptionForm.statusChanges, {
     initialValue: this.stepDescriptionForm.status,
   });
-  private readonly screeningStatus = toSignal(this.stepScreeningForm.statusChanges, {
-    initialValue: this.stepScreeningForm.status,
+  private readonly configStatus = toSignal(this.configForm.statusChanges, {
+    initialValue: this.configForm.status,
   });
 
   // ---------- Derived ----------
@@ -136,51 +214,10 @@ export class ProductCreateComponent implements OnDestroy {
     return raw ? (raw as ProductType) : null;
   });
 
-  readonly identificationFields = computed<readonly WizardField[]>(() => {
-    const type = this.selectedType();
-    return type ? IDENTIFICATION_PRESETS[type] : [];
-  });
-
-  readonly descriptionBlocks = computed<readonly WizardDescriptionBlock[]>(() => {
-    const type = this.selectedType();
-    return type ? DESCRIPTION_PRESETS[type] : [];
-  });
-
-  readonly availableLearnMoreFields = computed<readonly LearnMoreFieldOption[]>(() => {
-    const type = this.selectedType();
-    if (!type) return [];
-    const suggested = new Set<string>(getSuggestedFieldIds(type));
-    return [...this.catalog].sort((a, b) => {
-      const sa = suggested.has(a.id) ? 0 : 1;
-      const sb = suggested.has(b.id) ? 0 : 1;
-      if (sa !== sb) return sa - sb;
-      return a.label.localeCompare(b.label, 'pt-BR');
-    });
-  });
-
-  readonly selectedLearnMoreIds = signal<ReadonlySet<string>>(new Set<string>());
-
-  readonly identificationSummary = computed<Array<{ label: string; value: string }>>(() => {
-    const fields = this.identificationFields();
-    const value = this.stepIdentificationForm.value as Record<string, string>;
-    return fields.map((f) => ({ label: f.label, value: this.displayValue(f, value[f.key] ?? '') }));
-  });
-
   readonly descriptionSummary = computed<Array<{ title: string; body: string }>>(() => {
-    const blocks = this.descriptionBlocks();
-    const value = this.stepDescriptionForm.value as Record<string, string>;
-    return blocks
-      .map((b) => ({ title: b.title, body: (value[b.key] ?? '').trim() }))
-      .filter((b) => b.body.length > 0);
+    const body = (this.stepDescriptionForm.controls.description.value ?? '').trim();
+    return body ? [{ title: 'Descrição', body }] : [];
   });
-
-  readonly screeningSummary = computed(() =>
-    this.stepScreeningForm.controls.questions.controls.map((c) => ({
-      question: c.controls.question.value,
-      idealAnswer: c.controls.idealAnswer.value,
-      required: c.controls.required.value,
-    })),
-  );
 
   // ---------- Validity per step ----------
 
@@ -189,19 +226,17 @@ export class ProductCreateComponent implements OnDestroy {
       case 1:
         return this.typeStatus() === 'VALID';
       case 2:
-        return this.identificationStatus() === 'VALID';
+        return this.identificationStatus() === 'VALID' && this.descriptionStatus() === 'VALID';
       case 3:
-        return this.descriptionStatus() === 'VALID';
+        return this.lmElementCount() > 0;
       case 4:
-        return this.selectedLearnMoreIds().size > 0;
+        return this.configStatus() === 'VALID';
       case 5:
-        return this.screeningStatus() === 'VALID';
-      case 6:
         return (
           this.eligibilityMode() === ProductEligibilityMode.Any ||
           this.selectedEligibilityIds().size > 0
         );
-      case 7:
+      case 6:
         return true;
       default:
         return false;
@@ -241,8 +276,10 @@ export class ProductCreateComponent implements OnDestroy {
       const type = this.selectedType();
       if (!type) return;
       this.rebuildIdentification(type);
-      this.rebuildDescription(type);
       this.seedLearnMore(type);
+      if (!this.configForm.controls.nameLastButton.dirty) {
+        this.configForm.controls.nameLastButton.setValue(ctaLabelFor(type), { emitEvent: false });
+      }
     });
 
     // After successful submission, swap to the success view.
@@ -325,70 +362,184 @@ export class ProductCreateComponent implements OnDestroy {
     this.stepTypeForm.controls.type.setValue(type);
   }
 
-  // ---------- Learn-more step ----------
+  // ---------- Learn-more step (builder + "Adicionar Elemento" modal) ----------
 
-  protected get learnMoreArray(): FormArray<
-    FormGroup<{ id: FormControl<string>; required: FormControl<boolean> }>
-  > {
-    return this.stepLearnMoreForm.controls.fields;
+  protected setCurrentBuilderStep(index: number): void {
+    this.currentBuilderStep.set(index);
   }
 
-  protected isFieldSelected(id: string): boolean {
-    return this.selectedLearnMoreIds().has(id);
-  }
-
-  protected toggleLearnMoreField(field: LearnMoreFieldOption): void {
-    const set = new Set(this.selectedLearnMoreIds());
-    const arr = this.learnMoreArray;
-    if (set.has(field.id)) {
-      set.delete(field.id);
-      const idx = arr.controls.findIndex((c) => c.controls.id.value === field.id);
-      if (idx >= 0) arr.removeAt(idx);
-    } else {
-      set.add(field.id);
-      arr.push(
-        this.fb.nonNullable.group({
-          id: this.fb.nonNullable.control(field.id),
-          required: this.fb.nonNullable.control(field.defaultRequired),
-        }),
-      );
+  protected removeBuilderStep(index: number): void {
+    this.lmSteps.update((steps) => steps.filter((_, i) => i !== index));
+    if (this.currentBuilderStep() >= this.lmSteps().length) {
+      this.currentBuilderStep.set(Math.max(0, this.lmSteps().length - 1));
     }
-    this.selectedLearnMoreIds.set(set);
   }
 
-  protected fieldRequiredControl(id: string): FormControl<boolean> | null {
-    const grp = this.learnMoreArray.controls.find((c) => c.controls.id.value === id);
-    return grp?.controls.required ?? null;
+  protected removeBuilderElement(stepIndex: number, elementIndex: number): void {
+    this.lmSteps.update((steps) =>
+      steps.map((s, i) =>
+        i === stepIndex ? { ...s, elements: s.elements.filter((_, j) => j !== elementIndex) } : s,
+      ),
+    );
   }
 
-  protected catalogLabel(id: string): string {
-    return this.catalog.find((f) => f.id === id)?.label ?? id;
+  protected openElementModal(): void {
+    this.modalView.set('menu');
+    this.showElementModal.set(true);
   }
 
-  // ---------- Screening step ----------
+  protected closeElementModal(): void {
+    this.showElementModal.set(false);
+  }
 
-  protected get screeningArray(): FormArray<
-    FormGroup<{
-      question: FormControl<string>;
-      idealAnswer: FormControl<string>;
-      required: FormControl<boolean>;
-    }>
+  protected chooseNewStep(): void {
+    this.newStepForm.reset({ title: 'Informações de contato', layout: 'horizontal' });
+    this.modalView.set('step');
+  }
+
+  protected chooseNewField(): void {
+    this.newFieldForm.reset({
+      classes: 'col-12 md:col-6',
+      type: 'text',
+      value: '',
+      label: '',
+      defaultValue: '',
+      placeholder: '',
+      required: false,
+    });
+    this.newFieldOptions.clear();
+    this.modalView.set('field');
+  }
+
+  protected get newFieldOptions(): FormArray<
+    FormGroup<{ name: FormControl<string>; code: FormControl<string> }>
   > {
-    return this.stepScreeningForm.controls.questions;
+    return this.newFieldForm.controls.options;
   }
 
-  protected addScreeningQuestion(): void {
-    this.screeningArray.push(
+  protected addNewFieldOption(): void {
+    const n = this.newFieldOptions.length + 1;
+    this.newFieldOptions.push(
       this.fb.nonNullable.group({
-        question: this.fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
-        idealAnswer: this.fb.nonNullable.control(''),
-        required: this.fb.nonNullable.control(false),
+        name: this.fb.nonNullable.control(`Opção ${n}`, [Validators.required]),
+        code: this.fb.nonNullable.control(`opcao-${n}`, [Validators.required]),
       }),
     );
   }
 
-  protected removeScreeningQuestion(index: number): void {
-    this.screeningArray.removeAt(index);
+  protected removeNewFieldOption(index: number): void {
+    this.newFieldOptions.removeAt(index);
+  }
+
+  protected saveNewStep(): void {
+    if (this.newStepForm.invalid) {
+      this.newStepForm.markAllAsTouched();
+      return;
+    }
+    const { title, layout } = this.newStepForm.getRawValue();
+    const step: BuilderStep = { id: this.uniqueStepId(), title, layout, elements: [] };
+    this.lmSteps.update((steps) => [...steps, step]);
+    this.currentBuilderStep.set(this.lmSteps().length - 1);
+    this.showElementModal.set(false);
+  }
+
+  protected saveNewField(): void {
+    if (this.newFieldForm.invalid) {
+      this.newFieldForm.markAllAsTouched();
+      return;
+    }
+    if (this.lmSteps().length === 0) {
+      this.lmSteps.set([
+        { id: this.uniqueStepId(), title: 'Informações de contato', layout: 'horizontal', elements: [] },
+      ]);
+      this.currentBuilderStep.set(0);
+    }
+    const raw = this.newFieldForm.getRawValue();
+    const element: BuilderElement = {
+      id: this.uniqueElementId(raw.type),
+      classes: raw.classes,
+      type: raw.type,
+      value: raw.value,
+      label: raw.label,
+      defaultValue: raw.defaultValue,
+      placeholder: raw.placeholder,
+      required: raw.required,
+      options:
+        raw.type === 'select' ? raw.options.map((o) => ({ name: o.name, code: o.code })) : [],
+    };
+    const idx = this.currentBuilderStep();
+    this.lmSteps.update((steps) =>
+      steps.map((s, i) => (i === idx ? { ...s, elements: [...s.elements, element] } : s)),
+    );
+    this.showElementModal.set(false);
+  }
+
+  private uniqueStepId(): string {
+    return `step-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  }
+
+  private uniqueElementId(type: string): string {
+    const base =
+      type === 'checkboxAuthorize' ? 'authorize' : type === 'uploadFile' ? 'upload' : type;
+    const existing = new Set(this.lmSteps().flatMap((s) => s.elements.map((e) => e.id)));
+    if (!existing.has(base)) return base;
+    let i = 2;
+    while (existing.has(`${base}-${i}`)) i++;
+    return `${base}-${i}`;
+  }
+
+  // ---------- Preview do formulário (drawer) ----------
+
+  protected openPreview(): void {
+    const config = this.buildLearnMoreConfig();
+    const stepper = this.lmAdapter.fromConfig(config, 'preview', this.previewTitle());
+    this.stepperService.initializeStepper(stepper);
+    this.previewConfig.set(stepper);
+    this.showPreviewDrawer.set(true);
+  }
+
+  protected closePreview(): void {
+    this.showPreviewDrawer.set(false);
+  }
+
+  protected onPreviewVisibleChange(visible: boolean): void {
+    if (!visible) this.closePreview();
+  }
+
+  protected onPreviewFormChange(value: unknown, stepNumber: number): void {
+    this.stepperService.updateStepData(value, stepNumber);
+  }
+
+  protected onPreviewPrivacyAccepted(accepted: boolean): void {
+    const revision = this.stepperService
+      .getAllData()
+      .find((s) => s.identifier === 'revisionStepper');
+    if (revision) this.stepperService.updateStepValidity(revision.step, accepted);
+  }
+
+  protected onPreviewDone(_steps: Step[]): void {
+    this.closePreview();
+  }
+
+  private previewTitle(): string {
+    const value: unknown = this.stepIdentificationForm.get('title')?.value;
+    return typeof value === 'string' && value.length ? value : 'Saiba mais';
+  }
+
+  /** First step of the dynamic form: a textHTML element built from título + descrição. */
+  private buildIntroStep(): ProductLearnMoreStep {
+    const title = this.previewTitle();
+    const desc = (this.stepDescriptionForm.controls.description.value ?? '').trim();
+    const parts: string[] = [
+      `<div class="text-center text-4xl font-medium">${escapeHtml(title)}</div>`,
+    ];
+    if (desc) parts.push(`<p>${escapeHtml(desc).replace(/\n/g, '<br>')}</p>`);
+    return {
+      id: 'first-content-step',
+      title: '',
+      layout: 'horizontal',
+      elements: [{ id: 'intro', type: 'textHTML', value: parts.join('') }],
+    };
   }
 
   // ---------- Submission ----------
@@ -400,25 +551,21 @@ export class ProductCreateComponent implements OnDestroy {
     if (!slug || !type) return;
     if (!this.isCurrentStepValid()) return;
 
-    const description = this.buildDescription(type);
-    const learnMoreConfig = this.buildLearnMoreConfig(type);
-    const screeningQuestions = this.buildScreeningQuestions();
+    const description = this.buildDescription();
+    const learnMoreConfig = this.buildLearnMoreConfig();
     const identification = this.stepIdentificationForm.value as Record<string, string>;
     const title = identification['title'] ?? '';
-    const subtitle = this.buildSubtitle(type, identification);
-    const badges = this.buildBadges(type, identification);
-    const location = identification['location'] ?? '';
     const eligibility = this.buildEligibility();
 
     this.facade.submit(slug, {
       type,
       title,
-      subtitle,
-      badges,
-      location,
+      subtitle: '',
+      badges: [],
+      location: '',
       department: deptSlug,
       description,
-      screeningQuestions,
+      screeningQuestions: [],
       learnMoreConfig,
       eligibility,
     });
@@ -465,13 +612,6 @@ export class ProductCreateComponent implements OnDestroy {
     return !!c && c.touched && c.hasError(error);
   }
 
-  protected screeningHasError(index: number, key: 'question', error: string): boolean {
-    const grp = this.screeningArray.at(index);
-    if (!grp) return false;
-    const c = grp.get(key) as AbstractControl | null;
-    return !!c && c.touched && c.hasError(error);
-  }
-
   // ---------- Internals ----------
 
   private isStepValidByIndex(step: number): boolean {
@@ -489,148 +629,84 @@ export class ProductCreateComponent implements OnDestroy {
         break;
       case 2:
         this.stepIdentificationForm.markAllAsTouched();
-        break;
-      case 3:
         this.stepDescriptionForm.markAllAsTouched();
         break;
-      case 5:
-        this.stepScreeningForm.markAllAsTouched();
+      case 4:
+        this.configForm.markAllAsTouched();
         break;
     }
   }
 
-  private rebuildIdentification(type: ProductType): void {
-    Object.keys(this.stepIdentificationForm.controls).forEach((k) =>
-      this.stepIdentificationForm.removeControl(k),
-    );
-    for (const field of IDENTIFICATION_PRESETS[type]) {
-      const validators = field.required ? [Validators.required] : [];
+  private rebuildIdentification(_type: ProductType): void {
+    // Step 2 is "Título + Descrição puro": only the title is captured here.
+    if (!this.stepIdentificationForm.contains('title')) {
       this.stepIdentificationForm.addControl(
-        field.key,
-        this.fb.nonNullable.control('', validators),
-      );
-    }
-  }
-
-  private rebuildDescription(type: ProductType): void {
-    Object.keys(this.stepDescriptionForm.controls).forEach((k) =>
-      this.stepDescriptionForm.removeControl(k),
-    );
-    for (const block of DESCRIPTION_PRESETS[type]) {
-      const validators = block.required ? [Validators.required, Validators.minLength(10)] : [];
-      this.stepDescriptionForm.addControl(
-        block.key,
-        this.fb.nonNullable.control('', validators),
+        'title',
+        this.fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
       );
     }
   }
 
   private seedLearnMore(type: ProductType): void {
-    if (this.learnMoreArray.length > 0) return;
+    if (this.lmSteps().length > 0) return;
     const suggested = getSuggestedFieldIds(type);
-    const set = new Set<string>();
+    const elements: BuilderElement[] = [];
     for (const id of suggested) {
-      const field = this.catalog.find((f) => f.id === id);
-      if (!field) continue;
-      this.learnMoreArray.push(
-        this.fb.nonNullable.group({
-          id: this.fb.nonNullable.control(id),
-          required: this.fb.nonNullable.control(field.defaultRequired),
-        }),
-      );
-      set.add(id);
-    }
-    this.selectedLearnMoreIds.set(set);
-  }
-
-  private displayValue(field: WizardField, raw: string): string {
-    if (!raw) return '—';
-    if (field.kind === 'select' && field.options) {
-      return field.options.find((o) => o.value === raw)?.label ?? raw;
-    }
-    return raw;
-  }
-
-  private buildDescription(type: ProductType): ProductDescriptionBlockResponse[] {
-    const blocks = DESCRIPTION_PRESETS[type];
-    const value = this.stepDescriptionForm.value as Record<string, string>;
-    return blocks
-      .map((b, i) => ({
-        id: `${b.key}-${i}`,
-        title: b.title,
-        body: (value[b.key] ?? '').trim(),
-      }))
-      .filter((b) => b.body.length > 0);
-  }
-
-  private buildLearnMoreConfig(type: ProductType): ProductLearnMoreConfigResponse {
-    const fields = this.learnMoreArray.controls.map((c) => {
-      const id = c.controls.id.value;
       const def = this.catalog.find((f) => f.id === id);
-      return {
-        id,
-        type: def?.type ?? 'text',
-        label: def?.label ?? id,
-        required: c.controls.required.value,
-        options: def?.options ? def.options.map((o) => ({ ...o })) : undefined,
-      };
-    });
-    return {
-      steps: [{ id: 'main', title: 'Saiba mais', fields }],
-      submitButtonLabel: ctaLabelFor(type),
-      showCheckboxPrivacyPolicy: true,
-      showRevisionStep: true,
-    };
+      if (!def) continue;
+      const elType = def.type as ProductLearnMoreElementType;
+      elements.push({
+        id: def.id,
+        classes: elType === 'uploadFile' ? 'col-12' : 'col-12 md:col-6',
+        type: elType,
+        value: '',
+        label: def.label,
+        defaultValue: '',
+        placeholder: '',
+        required: def.defaultRequired,
+        options: def.options ? def.options.map((o) => ({ name: o.label, code: o.value })) : [],
+      });
+    }
+    this.lmSteps.set([
+      { id: this.uniqueStepId(), title: 'Informações de contato', layout: 'horizontal', elements },
+    ]);
+    this.currentBuilderStep.set(0);
   }
 
-  private buildScreeningQuestions(): ProductScreeningQuestionResponse[] {
-    return this.screeningArray.controls.map((c, i) => ({
-      id: `q${i + 1}`,
-      question: c.controls.question.value,
-      idealAnswer: c.controls.idealAnswer.value,
-      required: c.controls.required.value,
+  private buildDescription(): ProductDescriptionBlockResponse[] {
+    const body = (this.stepDescriptionForm.controls.description.value ?? '').trim();
+    return body ? [{ id: 'description', title: 'Descrição', body }] : [];
+  }
+
+  private buildLearnMoreConfig(): ProductLearnMoreConfig {
+    const userSteps: ProductLearnMoreStep[] = this.lmSteps().map((step) => ({
+      id: step.id,
+      title: step.title,
+      layout: step.layout,
+      elements: step.elements.map((el) => ({
+        id: el.id,
+        classes: el.classes,
+        type: el.type,
+        value: el.value || '',
+        label: el.label || undefined,
+        defaultValue: el.defaultValue || null,
+        placeholder: el.placeholder || undefined,
+        validators: {
+          required: el.required,
+          errorRequired: el.required ? 'Campo obrigatório.' : undefined,
+        },
+        options: el.type === 'select' ? el.options.map((o) => ({ name: o.name, code: o.code })) : [],
+      })),
     }));
-  }
-
-  private buildSubtitle(type: ProductType, identification: Record<string, string>): string {
-    switch (type) {
-      case ProductType.Job:
-        return identification['employmentType']
-          ? this.identificationOptionLabel('employmentType', identification['employmentType'])
-          : '';
-      case ProductType.Service:
-        return identification['category'] ?? '';
-      case ProductType.Training:
-        return identification['schedule'] ?? '';
-      case ProductType.News:
-        return identification['editorialCategory'] ?? '';
-      case ProductType.Experience:
-        return identification['availableDates'] ?? '';
-      default:
-        return '';
-    }
-  }
-
-  private buildBadges(type: ProductType, identification: Record<string, string>): string[] {
-    const badges: string[] = [];
-    const fields = IDENTIFICATION_PRESETS[type];
-    for (const f of fields) {
-      if (f.key === 'title' || f.key === 'location') continue;
-      const raw = identification[f.key];
-      if (!raw) continue;
-      if (f.kind === 'select' && f.options) {
-        const opt = f.options.find((o) => o.value === raw);
-        if (opt) badges.push(opt.label);
-      }
-    }
-    return badges;
-  }
-
-  private identificationOptionLabel(key: string, value: string): string {
-    const type = this.selectedType();
-    if (!type) return value;
-    const field = IDENTIFICATION_PRESETS[type].find((f) => f.key === key);
-    if (!field?.options) return value;
-    return field.options.find((o) => o.value === value)?.label ?? value;
+    const cfg = this.configForm.getRawValue();
+    return {
+      stepperLearnMore: [this.buildIntroStep(), ...userSteps],
+      stepperConfig: {
+        showStepProgress: cfg.showStepProgress,
+        showCheckboxPrivacyPolicy: cfg.showCheckboxPrivacyPolicy,
+        nameLastButton: cfg.nameLastButton,
+        setRevisionStepper: cfg.setRevisionStepper,
+      },
+    };
   }
 }

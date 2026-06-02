@@ -15,31 +15,65 @@ export interface ProductScreeningQuestion {
   required: boolean;
 }
 
-export interface ProductLearnMoreFieldOption {
-  value: string;
-  label: string;
+// ── Learn-more config — mirrors the Dynamic Form Engine shape (learn-more.js) ──
+
+export type ProductLearnMoreLayout = 'horizontal' | 'vertical';
+
+export type ProductLearnMoreElementType =
+  | 'text'
+  | 'textHTML'
+  | 'email'
+  | 'select'
+  | 'uploadFile'
+  | 'checkboxAuthorize';
+
+export interface ProductLearnMoreElementOption {
+  name: string;
+  code: string;
 }
 
-export interface ProductLearnMoreField {
+export interface ProductLearnMoreElementValidators {
+  required?: boolean;
+  errorRequired?: string;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string;
+  // uploadFile-specific
+  accept?: string;
+  multiple?: boolean;
+  allowedTypes?: string[];
+  maxFileSizeMB?: number;
+}
+
+export interface ProductLearnMoreElement {
   id: string;
-  type: string;
-  label: string;
+  classes?: string;
+  type: ProductLearnMoreElementType;
+  value?: string;
+  label?: string;
+  defaultValue?: string | null;
   placeholder?: string;
-  required: boolean;
-  options?: ProductLearnMoreFieldOption[];
+  validators?: ProductLearnMoreElementValidators;
+  options?: ProductLearnMoreElementOption[];
 }
 
 export interface ProductLearnMoreStep {
   id: string;
   title: string;
-  fields: ProductLearnMoreField[];
+  layout: ProductLearnMoreLayout;
+  elements: ProductLearnMoreElement[];
+}
+
+export interface ProductLearnMoreStepperConfig {
+  showStepProgress: boolean;
+  showCheckboxPrivacyPolicy: boolean;
+  nameLastButton: string;
+  setRevisionStepper: boolean;
 }
 
 export interface ProductLearnMoreConfig {
-  steps: ProductLearnMoreStep[];
-  submitButtonLabel: string;
-  showCheckboxPrivacyPolicy: boolean;
-  showRevisionStep: boolean;
+  stepperLearnMore: ProductLearnMoreStep[];
+  stepperConfig: ProductLearnMoreStepperConfig;
 }
 
 export interface ProductMetrics {

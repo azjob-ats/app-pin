@@ -69,7 +69,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   readonly learnMoreFields = computed(() => {
     const p = this.product();
     if (!p) return [];
-    return p.learnMoreConfig.steps.flatMap((s) => s.fields);
+    return p.learnMoreConfig.stepperLearnMore.flatMap((s) => s.elements);
   });
 
   readonly eligibility = computed(() => this.product()?.eligibility ?? null);

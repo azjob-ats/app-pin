@@ -7,7 +7,11 @@ import {
   ProductListResponse,
   ProductResponse,
 } from '@shared/interfaces/dto/response/empresa-product';
-import { Product, ProductEligibility } from '@shared/interfaces/entity/empresa-product';
+import {
+  Product,
+  ProductEligibility,
+  ProductLearnMoreElementType,
+} from '@shared/interfaces/entity/empresa-product';
 
 const VALID_TYPES = new Set(Object.values(ProductType) as string[]);
 const VALID_PHASES = new Set(Object.values(ProductPhase) as string[]);
@@ -27,17 +31,31 @@ export class ProductMap {
       description: dto.description.map((block) => ({ ...block })),
       screeningQuestions: dto.screeningQuestions.map((q) => ({ ...q })),
       learnMoreConfig: {
-        steps: dto.learnMoreConfig.steps.map((step) => ({
+        stepperLearnMore: (dto.learnMoreConfig.stepperLearnMore ?? []).map((step) => ({
           id: step.id,
           title: step.title,
-          fields: step.fields.map((field) => ({
-            ...field,
-            options: field.options ? [...field.options] : undefined,
+          layout: (step.layout === 'vertical' ? 'vertical' : 'horizontal') as
+            | 'horizontal'
+            | 'vertical',
+          elements: step.elements.map((el) => ({
+            id: el.id,
+            classes: el.classes,
+            type: el.type as ProductLearnMoreElementType,
+            value: el.value,
+            label: el.label,
+            defaultValue: el.defaultValue,
+            placeholder: el.placeholder,
+            validators: el.validators ? { ...el.validators } : undefined,
+            options: el.options ? el.options.map((o) => ({ ...o })) : undefined,
           })),
         })),
-        submitButtonLabel: dto.learnMoreConfig.submitButtonLabel,
-        showCheckboxPrivacyPolicy: dto.learnMoreConfig.showCheckboxPrivacyPolicy,
-        showRevisionStep: dto.learnMoreConfig.showRevisionStep,
+        stepperConfig: {
+          showStepProgress: dto.learnMoreConfig.stepperConfig?.showStepProgress ?? true,
+          showCheckboxPrivacyPolicy:
+            dto.learnMoreConfig.stepperConfig?.showCheckboxPrivacyPolicy ?? true,
+          nameLastButton: dto.learnMoreConfig.stepperConfig?.nameLastButton ?? 'Enviar',
+          setRevisionStepper: dto.learnMoreConfig.stepperConfig?.setRevisionStepper ?? true,
+        },
       },
       eligibility: ProductMap.toEligibility(dto.eligibility),
       metrics: { ...dto.metrics },

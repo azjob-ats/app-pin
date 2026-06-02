@@ -108,7 +108,7 @@ export class OrganizationPublicPageComponent implements OnInit {
   }
 
   protected ctaLabel(product: Product): string {
-    return product.learnMoreConfig.submitButtonLabel;
+    return product.learnMoreConfig.stepperConfig.nameLastButton;
   }
 
   protected trackProduct = (_: number, p: Product) => p.id;
