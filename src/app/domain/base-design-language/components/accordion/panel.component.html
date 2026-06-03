@@ -1,0 +1,25 @@
+<button
+  type="button"
+  class="bui-panel__header"
+  [id]="headerId"
+  [disabled]="disabled()"
+  [attr.aria-expanded]="isOpen()"
+  [attr.aria-controls]="contentId"
+  (click)="toggle()"
+>
+  <span class="bui-panel__title">{{ title() }}</span>
+  <span
+    class="material-symbols-rounded bui-panel__chevron"
+    [class.bui-panel__chevron--open]="isOpen()"
+    aria-hidden="true"
+    >expand_more</span
+  >
+</button>
+
+<div class="bui-panel__contentwrap" [class.bui-panel__contentwrap--open]="isOpen()">
+  <div class="bui-panel__contentinner">
+    <div class="bui-panel__content" [id]="contentId" role="region" [attr.aria-labelledby]="headerId">
+      <ng-content />
+    </div>
+  </div>
+</div>

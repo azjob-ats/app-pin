@@ -1,0 +1,121 @@
+// Button — estilos fiéis ao baseui/button (padding/font/radius/kinds/selected/loading).
+.bui-button-host { display: inline-flex; }
+.bui-button-host--block { display: flex; width: 100%; }
+.bui-button-host--block .bui-button { width: 100%; }
+
+.bui-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--bw-sizing-scale300);
+  box-sizing: border-box;
+  border: none;
+  border-radius: var(--bw-button-border-radius);
+  font: var(--bw-font-LabelMedium);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--bw-timing-200) var(--bw-ease-linear), box-shadow var(--bw-timing-200) var(--bw-ease-linear);
+
+  // ── Sizes (getPaddingStyles + getFontStyles) ──
+  &--size-mini { padding: var(--bw-sizing-scale200) var(--bw-sizing-scale300); font: var(--bw-font-LabelXSmall); }
+  &--size-compact { padding: var(--bw-sizing-scale400) var(--bw-sizing-scale500); font: var(--bw-font-LabelSmall); }
+  &--size-default { padding: var(--bw-sizing-scale550) var(--bw-sizing-scale600); font: var(--bw-font-LabelMedium); }
+  &--size-large { padding: var(--bw-sizing-scale600) var(--bw-sizing-scale700); font: var(--bw-font-LabelLarge); }
+
+  // ── Shapes ──
+  &--shape-pill { border-radius: 999px; }
+  &--shape-round, &--shape-circle { border-radius: 50%; }
+  &--icon { aspect-ratio: 1 / 1; }
+  &--icon.bui-button--size-mini { padding: var(--bw-sizing-scale200); }
+  &--icon.bui-button--size-compact { padding: var(--bw-sizing-scale400); }
+  &--icon.bui-button--size-default { padding: var(--bw-sizing-scale550); }
+  &--icon.bui-button--size-large { padding: var(--bw-sizing-scale600); }
+
+  // ── Kinds (fill/text) ──
+  &--primary { background-color: var(--bw-button-primary-fill); color: var(--bw-button-primary-text); }
+  &--secondary { background-color: var(--bw-button-secondary-fill); color: var(--bw-button-secondary-text); }
+  &--tertiary { background-color: var(--bw-button-tertiary-fill); color: var(--bw-button-tertiary-text); }
+  &--dangerPrimary { background-color: var(--bw-button-danger-primary-fill); color: var(--bw-button-danger-primary-text); }
+  &--dangerSecondary { background-color: var(--bw-button-danger-secondary-fill); color: var(--bw-button-danger-secondary-text); }
+  &--dangerTertiary { background-color: var(--bw-button-danger-tertiary-fill); color: var(--bw-button-danger-tertiary-text); }
+  &--outline { background-color: var(--bw-button-outline-fill); color: var(--bw-button-outline-text); box-shadow: 0 0 0 2px var(--bw-button-outline-outer-border); }
+
+  // ── Hover/Active via overlay (técnica do Base Web) — NÃO se aplica a selected ──
+  &:hover:not(:disabled):not(.bui-button--selected) { box-shadow: inset 999px 999px 0 var(--bw-overlay-hover); }
+  &:active:not(:disabled):not(.bui-button--selected) { box-shadow: inset 999px 999px 0 var(--bw-overlay-pressed); }
+  &--primary:hover:not(:disabled):not(.bui-button--selected) { box-shadow: inset 999px 999px 0 var(--bw-button-primary-hover-overlay); }
+  &--primary:active:not(:disabled):not(.bui-button--selected) { box-shadow: inset 999px 999px 0 var(--bw-button-primary-active-overlay); }
+
+  // ── Focus (double border accent) ──
+  &:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--bw-button-inner-border), 0 0 0 2px var(--bw-button-focus-outer-border);
+  }
+
+  // ── Selected (troca fill+text + borda dupla interna/externa) ──
+  &--selected.bui-button--primary { background-color: var(--bw-button-primary-selected-fill); color: var(--bw-button-primary-selected-text); }
+  &--selected.bui-button--secondary { background-color: var(--bw-button-secondary-selected-fill); color: var(--bw-button-secondary-selected-text); }
+  &--selected.bui-button--tertiary { background-color: var(--bw-button-tertiary-selected-fill); color: var(--bw-button-tertiary-selected-text); }
+  &--selected.bui-button--dangerPrimary { background-color: var(--bw-button-danger-primary-selected-fill); color: var(--bw-button-danger-primary-selected-text); }
+  &--selected.bui-button--dangerSecondary { background-color: var(--bw-button-danger-secondary-selected-fill); color: var(--bw-button-danger-secondary-selected-text); }
+  &--selected.bui-button--dangerTertiary { background-color: var(--bw-button-danger-tertiary-selected-fill); color: var(--bw-button-danger-tertiary-selected-text); }
+
+  // Borda dupla no Selected SOMENTE em primary, tertiary, dangerPrimary
+  // (secondary e dangerSecondary NÃO têm borda no selected — só no foco — conforme getDoubleBorderStyles).
+  &--selected.bui-button--primary,
+  &--selected.bui-button--tertiary,
+  &--selected.bui-button--dangerPrimary {
+    box-shadow: inset 0 0 0 2px var(--bw-button-inner-border), 0 0 0 2px var(--bw-button-outer-border);
+  }
+  &--selected.bui-button--dangerTertiary {
+    box-shadow: inset 0 0 0 2px transparent, 0 0 0 2px var(--bw-button-danger-tertiary-outer-border);
+  }
+  &--selected.bui-button--outline { box-shadow: 0 0 0 2px var(--bw-button-outer-border); }
+
+  // ── Disabled ──
+  &:disabled, &.bui-button--disabled {
+    background-color: var(--bw-button-disabled-fill);
+    color: var(--bw-button-disabled-text);
+    cursor: not-allowed;
+    box-shadow: none;
+    pointer-events: none;
+  }
+
+  // ── Loading (mantém o fill do kind; só esconde o conteúdo + spinner; não-interativo) ──
+  &--loading {
+    cursor: default;
+    pointer-events: none;
+    .bui-button__label, .bui-button__start, .bui-button__end { visibility: hidden; }
+  }
+
+  &__start, &__end { display: inline-flex; align-items: center; &:empty { display: none; } }
+
+  // ── backgroundSafe (sombra sutil sobre fundos coloridos) ──
+  &--bg-safe { box-shadow: var(--bw-shadow-shallow-below); }
+  // ── minHitArea ──
+  &--hit-tap { min-width: 48px; min-height: 48px; }
+  &--hit-click { min-width: 28px; min-height: 28px; }
+}
+
+// ── Spinner (anel: borderTopColor = foreground/accent; demais = background) ──
+.bui-button__spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--bw-button-spinner-bg);
+  border-top-color: var(--bw-button-spinner-fg);
+  border-radius: 50%;
+  animation: bui-button-spin var(--bw-timing-700) var(--bw-ease-linear) infinite;
+}
+.bui-button--size-mini .bui-button__spinner { width: 12px; height: 12px; }
+.bui-button--size-compact .bui-button__spinner { width: 16px; height: 16px; }
+.bui-button--size-large .bui-button__spinner { width: 24px; height: 24px; }
+.bui-button--tertiary .bui-button__spinner { border-color: var(--bw-button-spinner-bg-tertiary); border-top-color: var(--bw-button-spinner-fg); }
+.bui-button:disabled .bui-button__spinner, .bui-button--disabled .bui-button__spinner {
+  border-color: var(--bw-button-spinner-bg);
+  border-top-color: var(--bw-button-disabled-spinner-fg);
+}
+@keyframes bui-button-spin { to { transform: rotate(360deg); } }

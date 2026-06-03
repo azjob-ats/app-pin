@@ -1,0 +1,78 @@
+<aside class="bdl-ladle__sidebar">
+  <a class="bdl-ladle__back" [routerLink]="docsLink">
+    <span class="material-symbols-rounded" aria-hidden="true">arrow_back</span> Docs
+  </a>
+
+  <div class="bdl-ladle__search">
+    <input type="search" placeholder="Search" aria-label="Search stories" [value]="query()" (input)="onSearch($event)" />
+  </div>
+
+  <nav class="bdl-ladle__tree" aria-label="Stories">
+    @for (g of groups(); track g.slug) {
+      <div class="bdl-ladle__group">
+        <button type="button" class="bdl-ladle__node" [attr.aria-expanded]="isExpanded(g.slug)" (click)="toggleGroup(g.slug)">
+          <span class="material-symbols-rounded bdl-ladle__chev" aria-hidden="true">{{ isExpanded(g.slug) ? 'expand_more' : 'chevron_right' }}</span>
+          <span class="bdl-ladle__node-label">{{ g.label }}</span>
+        </button>
+        @if (isExpanded(g.slug)) {
+          <ul class="bdl-ladle__leaves">
+            @for (st of g.stories; track st.id) {
+              <li>
+                <button type="button" class="bdl-ladle__leaf" [class.bdl-ladle__leaf--active]="st.id === currentId()" (click)="select(st.id)">
+                  <span class="material-symbols-rounded bdl-ladle__doc" aria-hidden="true">description</span>
+                  {{ st.name }}
+                </button>
+              </li>
+            } @empty {
+              <li class="bdl-ladle__soon">em breve</li>
+            }
+          </ul>
+        }
+      </div>
+    } @empty {
+      <p class="bdl-ladle__empty">Nenhum resultado.</p>
+    }
+  </nav>
+</aside>
+
+<div class="bdl-ladle__main">
+  <header class="bdl-ladle__toolbar">
+    <span class="bdl-ladle__title">{{ current()?.id || 'Ladle' }}</span>
+    <div class="bdl-ladle__tools">
+      <button type="button" class="bdl-ladle__tool" [attr.aria-label]="mode() === 'dark' ? 'Light theme' : 'Dark theme'" (click)="toggleMode()">
+        <span class="material-symbols-rounded">{{ mode() === 'dark' ? 'light_mode' : 'lightbulb' }}</span>
+      </button>
+      <button type="button" class="bdl-ladle__tool" aria-label="Viewport width" (click)="cycleWidth()">
+        <span class="material-symbols-rounded">width</span>
+      </button>
+      <button type="button" class="bdl-ladle__tool" aria-label="Toggle direction (RTL)" (click)="toggleDir()">
+        <span class="material-symbols-rounded">format_textdirection_l_to_r</span>
+      </button>
+      <button type="button" class="bdl-ladle__tool" [attr.aria-label]="copied() ? 'Copied' : 'Copy link'" (click)="copyLink()">
+        <span class="material-symbols-rounded">{{ copied() ? 'check' : 'content_copy' }}</span>
+      </button>
+      <button type="button" class="bdl-ladle__tool" [class.bdl-ladle__tool--active]="showCode()" aria-label="Toggle source" (click)="showCode.set(!showCode())">
+        <span class="material-symbols-rounded">code</span>
+      </button>
+      <span class="bdl-ladle__width-label">{{ width() === 'full' ? 'full' : width() + 'px' }}</span>
+    </div>
+  </header>
+
+  <div class="bdl-ladle__canvas">
+    <div class="bdl-ladle__frame" [style.max-width]="canvasMaxWidth()">
+      @if (storyComponent(); as cmp) {
+        <ng-container *ngComponentOutlet="cmp" />
+      } @else {
+        <div class="bdl-ladle__placeholder">
+          <span class="material-symbols-rounded" aria-hidden="true">science</span>
+          <p>Selecione uma story na barra lateral.</p>
+        </div>
+      }
+    </div>
+    @if (showCode() && current(); as c) {
+      <pre class="bdl-ladle__code"><code>// story: {{ c.id }}
+// scenario component: {{ c.name }}
+&lt;bui-button … /&gt;</code></pre>
+    }
+  </div>
+</div>

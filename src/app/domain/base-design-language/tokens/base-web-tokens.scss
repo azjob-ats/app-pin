@@ -1,0 +1,415 @@
+// ═════════════════════════════════════════════════════════════════════════════
+// base-web-tokens.scss — FONTE ÚNICA DE VALORES (Fase 3 — Foundations)
+// Valores transcritos EXATAMENTE do repositório baseui v18.1.0:
+//   tokens/color-primitive-tokens · themes/{light,dark}-theme/color-foundation-tokens
+//   · color-semantic-tokens · themes/shared/*
+// Modelo de tema (D3): este arquivo é a forma emitida (CSS custom properties) do
+// objeto de tema TS (themes/base-web-theme.ts), que referencia estas mesmas vars.
+// 4 camadas de cor: primitive → foundation → semantic (component vem por componente).
+// Escopo `.bw-root`; dark em `.bw-root[data-bw-theme='dark']`. Sem valores hardcoded
+// fora deste arquivo. Prefixo `--bw-*`.
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ─── SHARED: não dependem de tema (typography/sizing/borders/lighting/animation/z) ───
+@mixin shared {
+  // Typography — famílias (Base Web usa system stack)
+  --bw-font-family: UberMoveText, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --bw-font-family-mono: 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace;
+  --bw-font-weight-normal: 400;
+  --bw-font-weight-medium: 500;
+  --bw-font-weight-bold: 700;
+
+  // Typography — escalas (weight size/line-height) — shorthand `font:`
+  --bw-font-ParagraphXSmall: 400 12px/20px var(--bw-font-family);
+  --bw-font-ParagraphSmall: 400 14px/20px var(--bw-font-family);
+  --bw-font-ParagraphMedium: 400 16px/24px var(--bw-font-family);
+  --bw-font-ParagraphLarge: 400 18px/28px var(--bw-font-family);
+  --bw-font-LabelXSmall: 500 12px/16px var(--bw-font-family);
+  --bw-font-LabelSmall: 500 14px/16px var(--bw-font-family);
+  --bw-font-LabelMedium: 500 16px/20px var(--bw-font-family);
+  --bw-font-LabelLarge: 500 18px/24px var(--bw-font-family);
+  --bw-font-HeadingXSmall: 700 20px/28px var(--bw-font-family);
+  --bw-font-HeadingSmall: 700 24px/32px var(--bw-font-family);
+  --bw-font-HeadingMedium: 700 28px/36px var(--bw-font-family);
+  --bw-font-HeadingLarge: 700 32px/40px var(--bw-font-family);
+  --bw-font-HeadingXLarge: 700 36px/44px var(--bw-font-family);
+  --bw-font-HeadingXXLarge: 700 40px/52px var(--bw-font-family);
+  --bw-font-DisplayXSmall: 700 36px/44px var(--bw-font-family);
+  --bw-font-DisplaySmall: 700 44px/52px var(--bw-font-family);
+  --bw-font-DisplayMedium: 700 52px/64px var(--bw-font-family);
+  --bw-font-DisplayLarge: 700 96px/112px var(--bw-font-family);
+
+  // Sizing (scale)
+  --bw-sizing-scale0: 2px;
+  --bw-sizing-scale100: 4px;
+  --bw-sizing-scale200: 6px;
+  --bw-sizing-scale300: 8px;
+  --bw-sizing-scale400: 10px;
+  --bw-sizing-scale500: 12px;
+  --bw-sizing-scale550: 14px;
+  --bw-sizing-scale600: 16px;
+  --bw-sizing-scale650: 18px;
+  --bw-sizing-scale700: 20px;
+  --bw-sizing-scale750: 22px;
+  --bw-sizing-scale800: 24px;
+  --bw-sizing-scale850: 28px;
+  --bw-sizing-scale900: 32px;
+  --bw-sizing-scale950: 36px;
+  --bw-sizing-scale1000: 40px;
+  --bw-sizing-scale1200: 48px;
+  --bw-sizing-scale1400: 56px;
+  --bw-sizing-scale1600: 64px;
+  --bw-sizing-scale2400: 96px;
+  --bw-sizing-scale3200: 128px;
+  --bw-sizing-scale4800: 192px;
+
+  // Borders — radius + por componente
+  --bw-radius-100: 2px;
+  --bw-radius-200: 4px;
+  --bw-radius-300: 8px;
+  --bw-radius-400: 12px;
+  --bw-radius-500: 16px;
+  --bw-button-border-radius-mini: 4px;
+  --bw-button-border-radius: 8px;
+  --bw-input-border-radius-mini: 4px;
+  --bw-input-border-radius: 8px;
+  --bw-popover-border-radius: 8px;
+  --bw-tag-border-radius: 24px;
+  --bw-checkbox-border-radius: 0px;
+  --bw-surface-border-radius: 0px;
+
+  // Lighting — shadows / overlays / direcionais
+  --bw-shadow-400: 0 1px 4px hsla(0, 0%, 0%, 0.16);
+  --bw-shadow-500: 0 2px 8px hsla(0, 0%, 0%, 0.16);
+  --bw-shadow-600: 0 4px 16px hsla(0, 0%, 0%, 0.16);
+  --bw-shadow-700: 0 8px 24px hsla(0, 0%, 0%, 0.16);
+  --bw-overlay-0: inset 0 0 0 1000px hsla(0, 0%, 0%, 0);
+  --bw-overlay-100: inset 0 0 0 1000px hsla(0, 0%, 0%, 0.04);
+  --bw-overlay-200: inset 0 0 0 1000px hsla(0, 0%, 0%, 0.08);
+  --bw-overlay-300: inset 0 0 0 1000px hsla(0, 0%, 0%, 0.12);
+  --bw-overlay-400: inset 0 0 0 1000px hsla(0, 0%, 0%, 0.16);
+  --bw-overlay-500: inset 0 0 0 1000px hsla(0, 0%, 0%, 0.2);
+  --bw-overlay-600: inset 0 0 0 1000px hsla(0, 0%, 0%, 0.24);
+  --bw-shadow-shallow-above: 0 -4px 16px rgba(0, 0, 0, 0.12);
+  --bw-shadow-shallow-below: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --bw-shadow-deep-above: 0 -16px 48px rgba(0, 0, 0, 0.22);
+  --bw-shadow-deep-below: 0 16px 48px rgba(0, 0, 0, 0.22);
+
+  // Animation — timing + curvas
+  --bw-timing-0: 0ms;
+  --bw-timing-100: 100ms;
+  --bw-timing-150: 150ms;
+  --bw-timing-200: 200ms;
+  --bw-timing-250: 250ms;
+  --bw-timing-300: 300ms;
+  --bw-timing-400: 400ms;
+  --bw-timing-500: 500ms;
+  --bw-timing-600: 600ms;
+  --bw-timing-700: 700ms;
+  --bw-timing-800: 800ms;
+  --bw-timing-900: 900ms;
+  --bw-timing-1000: 1000ms;
+  --bw-ease-linear: cubic-bezier(0, 0, 1, 1);
+  --bw-ease-out: cubic-bezier(0.2, 0.8, 0.4, 1);
+  --bw-ease-in: cubic-bezier(0.8, 0.2, 0.6, 1);
+  --bw-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --bw-ease-decelerate: cubic-bezier(0.22, 1, 0.36, 1);
+
+  // Breakpoints (referência; media queries usam o mixin SCSS em utilities)
+  --bw-breakpoint-small: 320px;
+  --bw-breakpoint-medium: 600px;
+  --bw-breakpoint-large: 1136px;
+
+  // Z-index + opacity
+  --bw-z-modal: 2000;
+  --bw-opacity-disabled: 0.48;
+}
+
+// ─── COMPONENT tokens: Button (4ª camada) — referenciam semantic (flip automático) ──
+@mixin button-tokens {
+  --bw-button-primary-fill: var(--bw-background-inverse-primary);
+  --bw-button-primary-text: var(--bw-content-inverse-primary);
+  --bw-button-primary-hover-overlay: var(--bw-overlay-inverse-hover);
+  --bw-button-primary-active-overlay: var(--bw-overlay-inverse-pressed);
+  --bw-button-secondary-fill: var(--bw-background-secondary);
+  --bw-button-secondary-text: var(--bw-content-primary);
+  --bw-button-secondary-hover-overlay: var(--bw-overlay-hover);
+  --bw-button-secondary-active-overlay: var(--bw-overlay-pressed);
+  --bw-button-tertiary-fill: transparent;
+  --bw-button-tertiary-text: var(--bw-content-primary);
+  --bw-button-tertiary-hover-overlay: var(--bw-overlay-hover);
+  --bw-button-tertiary-active-overlay: var(--bw-overlay-pressed);
+  --bw-button-danger-primary-fill: var(--bw-background-negative);
+  --bw-button-danger-primary-text: var(--bw-content-on-color);
+  --bw-button-danger-secondary-fill: var(--bw-background-secondary);
+  --bw-button-danger-secondary-text: var(--bw-red-700);
+  --bw-button-danger-tertiary-fill: transparent;
+  --bw-button-danger-tertiary-text: var(--bw-red-700);
+  --bw-button-disabled-fill: var(--bw-background-state-disabled);
+  --bw-button-disabled-text: var(--bw-content-state-disabled);
+  // outline (Button Group exclusive)
+  --bw-button-outline-fill: transparent;
+  --bw-button-outline-text: var(--bw-content-primary);
+  --bw-button-outline-outer-border: var(--bw-border-opaque);
+  // Selected (double border) + focus outer
+  --bw-button-inner-border: var(--bw-content-inverse-primary);
+  --bw-button-outer-border: var(--bw-border-selected);
+  --bw-button-focus-outer-border: var(--bw-border-accent);
+  --bw-button-danger-tertiary-outer-border: var(--bw-red-700);
+  // Selected fills/texts (o estado selected troca fill+text, além da borda dupla)
+  --bw-button-primary-selected-fill: var(--bw-background-inverse-primary);
+  --bw-button-primary-selected-text: var(--bw-content-inverse-primary);
+  --bw-button-secondary-selected-fill: var(--bw-background-inverse-primary);
+  --bw-button-secondary-selected-text: var(--bw-content-inverse-primary);
+  --bw-button-tertiary-selected-fill: transparent;
+  --bw-button-tertiary-selected-text: var(--bw-content-primary);
+  --bw-button-danger-primary-selected-fill: var(--bw-background-negative);
+  --bw-button-danger-primary-selected-text: var(--bw-content-on-color);
+  --bw-button-danger-secondary-selected-fill: var(--bw-background-negative);
+  --bw-button-danger-secondary-selected-text: var(--bw-content-on-color);
+  --bw-button-danger-tertiary-selected-fill: var(--bw-background-primary);
+  --bw-button-danger-tertiary-selected-text: var(--bw-red-700);
+  // Spinner (foreground = accent; background varia por kind)
+  --bw-button-spinner-fg: var(--bw-background-accent);
+  --bw-button-spinner-bg: var(--bw-background-primary);
+  --bw-button-spinner-bg-tertiary: var(--bw-background-tertiary);
+  --bw-button-disabled-spinner-fg: var(--bw-content-state-disabled);
+}
+
+// ─── FOUNDATION palettes (numeradas) — idênticas em light/dark ───────────────────
+@mixin foundation-palettes {
+  --bw-primary-50: #f6f6f6;
+  --bw-primary-100: #eeeeee;
+  --bw-primary-200: #e2e2e2;
+  --bw-primary-300: #cbcbcb;
+  --bw-primary-400: #afafaf;
+  --bw-primary-500: #6b6b6b;
+  --bw-primary-600: #545454;
+  --bw-primary-700: #333333;
+  --bw-accent-50: #eff3fe;
+  --bw-accent-100: #d4e2fc;
+  --bw-accent-200: #a0bff8;
+  --bw-accent-300: #5b91f5;
+  --bw-accent-400: #276ef1;
+  --bw-accent-500: #1e54b7;
+  --bw-accent-600: #174291;
+  --bw-accent-700: #102c60;
+  --bw-negative-50: #ffefed;
+  --bw-negative-100: #fed7d2;
+  --bw-negative-200: #f1998e;
+  --bw-negative-300: #e85c4a;
+  --bw-negative-400: #e11900;
+  --bw-negative-500: #ab1300;
+  --bw-negative-600: #870f00;
+  --bw-negative-700: #5a0a00;
+  --bw-warning-50: #fffaf0;
+  --bw-warning-100: #fff2d9;
+  --bw-warning-200: #ffe3ac;
+  --bw-warning-300: #ffcf70;
+  --bw-warning-400: #ffc043;
+  --bw-warning-500: #bc8b2c;
+  --bw-warning-600: #996f00;
+  --bw-warning-700: #674d1b;
+  --bw-positive-50: #e6f2ed;
+  --bw-positive-100: #addec9;
+  --bw-positive-200: #66d19e;
+  --bw-positive-300: #06c167;
+  --bw-positive-400: #048848;
+  --bw-positive-500: #03703c;
+  --bw-positive-600: #03582f;
+  --bw-positive-700: #10462d;
+}
+
+// ─── PRIMITIVES + FOUNDATION anchors + SEMANTIC core — LIGHT ─────────────────────
+@mixin light {
+  // Primitives (light)
+  --bw-gray-50: #f3f3f3;  --bw-gray-100: #e8e8e8; --bw-gray-200: #dddddd; --bw-gray-300: #c6c6c6;
+  --bw-gray-400: #a6a6a6; --bw-gray-500: #868686; --bw-gray-600: #727272; --bw-gray-700: #5e5e5e;
+  --bw-gray-800: #4b4b4b; --bw-gray-900: #282828;
+  --bw-blue-50: #eff4fe;  --bw-blue-300: #a9c9ff; --bw-blue-600: #276ef1;
+  --bw-red-50: #fff0ee;   --bw-red-300: #ffb2ab;  --bw-red-600: #de1135; --bw-red-700: #bb032a;
+  --bw-yellow-50: #fdf2dc; --bw-yellow-200: #ffd688; --bw-yellow-300: #f6bc2f; --bw-yellow-600: #9f6402;
+  --bw-green-50: #eaf6ed; --bw-green-300: #7fd99a; --bw-green-600: #0e8345;
+
+  // Foundation anchors (light)
+  --bw-white: #ffffff;
+  --bw-black: #000000;
+  --bw-primary: #000000;
+  --bw-primary-a: var(--bw-black);
+  --bw-primary-b: var(--bw-white);
+  --bw-accent: var(--bw-blue-600);
+  --bw-negative: var(--bw-red-600);
+  --bw-warning: var(--bw-yellow-300);
+  --bw-positive: var(--bw-green-600);
+  --bw-mono-100: #ffffff; --bw-mono-200: #f6f6f6; --bw-mono-300: #eeeeee; --bw-mono-400: #e2e2e2;
+  --bw-mono-500: #cbcbcb; --bw-mono-600: #afafaf; --bw-mono-700: #6b6b6b; --bw-mono-800: #545454;
+  --bw-mono-900: #333333; --bw-mono-1000: #000000;
+
+  @include foundation-palettes;
+
+  // Semantic core (light) — mapeamento exato do color-semantic-tokens
+  --bw-background-primary: var(--bw-primary-b);
+  --bw-background-secondary: var(--bw-gray-50);
+  --bw-background-tertiary: var(--bw-gray-100);
+  --bw-background-inverse-primary: var(--bw-primary-a);
+  --bw-background-inverse-secondary: var(--bw-gray-900);
+  --bw-background-state-disabled: var(--bw-gray-50);
+  --bw-background-overlay: hsla(0, 0%, 0%, 0.5);
+  --bw-background-overlay-art: hsla(0, 0%, 0%, 0);
+  --bw-background-accent: var(--bw-accent);
+  --bw-background-negative: var(--bw-negative);
+  --bw-background-warning: var(--bw-warning);
+  --bw-background-positive: var(--bw-positive);
+  --bw-background-accent-light: var(--bw-blue-50);
+  --bw-background-negative-light: var(--bw-red-50);
+  --bw-background-warning-light: var(--bw-yellow-50);
+  --bw-background-positive-light: var(--bw-green-50);
+  --bw-background-always-dark: var(--bw-black);
+  --bw-background-always-light: var(--bw-white);
+  --bw-content-primary: var(--bw-primary-a);
+  --bw-content-secondary: var(--bw-gray-800);
+  --bw-content-tertiary: var(--bw-gray-700);
+  --bw-content-inverse-primary: var(--bw-primary-b);
+  --bw-content-inverse-secondary: var(--bw-gray-200);
+  --bw-content-inverse-tertiary: var(--bw-gray-400);
+  --bw-content-state-disabled: var(--bw-gray-400);
+  --bw-content-on-color: var(--bw-white);
+  --bw-content-on-color-inverse: var(--bw-black);
+  --bw-content-accent: var(--bw-blue-600);
+  --bw-content-negative: var(--bw-red-600);
+  --bw-content-warning: var(--bw-yellow-600);
+  --bw-content-positive: var(--bw-green-600);
+  --bw-border-opaque: var(--bw-gray-50);
+  --bw-border-transparent: hsla(0, 0%, 0%, 0.08);
+  --bw-border-selected: var(--bw-primary-a);
+  --bw-border-inverse-opaque: var(--bw-gray-800);
+  --bw-border-inverse-transparent: hsla(0, 0%, 100%, 0.2);
+  --bw-border-inverse-selected: var(--bw-primary-b);
+  --bw-border-state-disabled: var(--bw-gray-50);
+  --bw-border-accent: var(--bw-blue-600);
+  --bw-border-accent-light: var(--bw-blue-300);
+  --bw-border-negative: var(--bw-red-600);
+  --bw-border-negative-light: var(--bw-red-300);
+  --bw-border-warning: var(--bw-yellow-600);
+  --bw-border-warning-light: var(--bw-yellow-200);
+  --bw-border-positive: var(--bw-green-600);
+  --bw-border-positive-light: var(--bw-green-300);
+
+  // Overlays de interação (hover/pressed) — light
+  --bw-overlay-hover: rgba(0, 0, 0, 0.04);
+  --bw-overlay-pressed: rgba(0, 0, 0, 0.08);
+  --bw-overlay-inverse-hover: rgba(255, 255, 255, 0.1);
+  --bw-overlay-inverse-pressed: rgba(255, 255, 255, 0.2);
+}
+
+// ─── PRIMITIVES + FOUNDATION anchors + SEMANTIC core — DARK ──────────────────────
+@mixin dark {
+  // Primitives (dark)
+  --bw-gray-50: #161616;  --bw-gray-100: #292929; --bw-gray-200: #383838; --bw-gray-300: #484848;
+  --bw-gray-400: #5d5d5d; --bw-gray-500: #717171; --bw-gray-600: #8c8c8c; --bw-gray-700: #ababab;
+  --bw-gray-800: #c4c4c4; --bw-gray-900: #dedede;
+  --bw-blue-50: #061431;  --bw-blue-300: #2d4775; --bw-blue-600: #5e8bdb;
+  --bw-red-50: #2e0608;   --bw-red-300: #7f1f26;  --bw-red-600: #de5b5d; --bw-red-700: #ea9b98;
+  --bw-yellow-50: #221201; --bw-yellow-200: #4c3111; --bw-yellow-300: #624013; --bw-yellow-600: #ae8523;
+  --bw-green-50: #081b0e; --bw-green-300: #2a5237; --bw-green-600: #5c9d70;
+  // tons dark adicionais usados pelo semantic
+  --bw-blue-400-dark: #335ba3; --bw-blue-500-dark: #3f6ec5;
+  --bw-red-400-dark: #a32c34;  --bw-red-500-dark: #c33840;
+  --bw-yellow-400-dark: #7a5616; --bw-yellow-500-dark: #916c1a;
+  --bw-green-400-dark: #306c44; --bw-green-500-dark: #3d8351;
+  --bw-blue-100-dark: #182946; --bw-red-100-dark: #4a1216; --bw-yellow-100-dark: #39240a; --bw-green-100-dark: #162f1e;
+
+  // Foundation anchors (dark)
+  --bw-white: #ffffff;
+  --bw-black: #000000;
+  --bw-primary: #ffffff;
+  --bw-primary-a: var(--bw-gray-900); // gray900Dark
+  --bw-primary-b: var(--bw-gray-50); // gray50Dark
+  --bw-accent: var(--bw-blue-400-dark);
+  --bw-negative: var(--bw-red-400-dark);
+  --bw-warning: var(--bw-yellow-400-dark);
+  --bw-positive: var(--bw-green-400-dark);
+  --bw-mono-100: #cbcbcb; --bw-mono-200: #afafaf; --bw-mono-300: #6b6b6b; --bw-mono-400: #545454;
+  --bw-mono-500: #333333; --bw-mono-600: #292929; --bw-mono-700: #1f1f1f; --bw-mono-800: #141414;
+  --bw-mono-900: #111111; --bw-mono-1000: #000000;
+
+  @include foundation-palettes;
+
+  // Semantic core (dark) — mapeamento exato
+  --bw-background-primary: var(--bw-primary-b);
+  --bw-background-secondary: var(--bw-gray-100);
+  --bw-background-tertiary: var(--bw-gray-200);
+  --bw-background-inverse-primary: var(--bw-gray-800);
+  --bw-background-inverse-secondary: var(--bw-gray-700);
+  --bw-background-state-disabled: var(--bw-gray-100);
+  --bw-background-overlay: hsla(0, 0%, 0%, 0.7);
+  --bw-background-overlay-art: hsla(0, 0%, 0%, 0.16);
+  --bw-background-accent: var(--bw-accent);
+  --bw-background-negative: var(--bw-negative);
+  --bw-background-warning: var(--bw-warning);
+  --bw-background-positive: var(--bw-positive);
+  --bw-background-accent-light: var(--bw-blue-100-dark);
+  --bw-background-negative-light: var(--bw-red-100-dark);
+  --bw-background-warning-light: var(--bw-yellow-100-dark);
+  --bw-background-positive-light: var(--bw-green-100-dark);
+  --bw-background-always-dark: var(--bw-gray-100);
+  --bw-background-always-light: var(--bw-gray-900);
+  --bw-content-primary: var(--bw-primary-a);
+  --bw-content-secondary: var(--bw-gray-800);
+  --bw-content-tertiary: var(--bw-gray-700);
+  --bw-content-inverse-primary: var(--bw-black);
+  --bw-content-inverse-secondary: var(--bw-gray-200);
+  --bw-content-inverse-tertiary: var(--bw-gray-300);
+  --bw-content-state-disabled: var(--bw-gray-400);
+  --bw-content-on-color: var(--bw-gray-900);
+  --bw-content-on-color-inverse: var(--bw-black);
+  --bw-content-accent: var(--bw-blue-600);
+  --bw-content-negative: var(--bw-red-600);
+  --bw-content-warning: var(--bw-yellow-600);
+  --bw-content-positive: var(--bw-green-600);
+  --bw-border-opaque: var(--bw-gray-100);
+  --bw-border-transparent: hsla(0, 0%, 100%, 0.08);
+  --bw-border-selected: var(--bw-primary-a);
+  --bw-border-inverse-opaque: var(--bw-gray-300);
+  --bw-border-inverse-transparent: hsla(0, 0%, 0%, 0.2);
+  --bw-border-inverse-selected: var(--bw-primary-b);
+  --bw-border-state-disabled: var(--bw-gray-100);
+  --bw-border-accent: var(--bw-blue-500-dark);
+  --bw-border-accent-light: var(--bw-blue-400-dark);
+  --bw-border-negative: var(--bw-red-500-dark);
+  --bw-border-negative-light: var(--bw-red-400-dark);
+  --bw-border-warning: var(--bw-yellow-500-dark);
+  --bw-border-warning-light: var(--bw-yellow-400-dark);
+  --bw-border-positive: var(--bw-green-500-dark);
+  --bw-border-positive-light: var(--bw-green-400-dark);
+
+  // Overlays de interação — dark
+  --bw-overlay-hover: rgba(255, 255, 255, 0.1);
+  --bw-overlay-pressed: rgba(255, 255, 255, 0.15);
+  --bw-overlay-inverse-hover: rgba(0, 0, 0, 0.04);
+  --bw-overlay-inverse-pressed: rgba(0, 0, 0, 0.08);
+}
+
+// ─── Aplicação ───────────────────────────────────────────────────────────────
+.bw-root {
+  @include shared;
+  @include light;
+  @include button-tokens;
+
+  color: var(--bw-content-primary);
+  background-color: var(--bw-background-primary);
+  font: var(--bw-font-ParagraphMedium);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bw-root[data-bw-theme='dark'] {
+  @include dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bw-root * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="bdl-topbar__left">
+  <button type="button" class="bdl-topbar__icon-btn bdl-topbar__menu" aria-label="Toggle navigation" (click)="toggleSidebar.emit()">
+    <span class="material-symbols-rounded" aria-hidden="true">menu</span>
+  </button>
+  <a class="bdl-topbar__brand" [routerLink]="homeLink">
+    <span class="bdl-topbar__logo" aria-hidden="true">◆</span>
+    <span class="bdl-topbar__title">Base Web</span>
+    <span class="bdl-topbar__badge">Angular</span>
+  </a>
+</div>
+
+<div class="bdl-topbar__search">
+  <span class="material-symbols-rounded bdl-topbar__search-icon" aria-hidden="true">search</span>
+  <input
+    type="search"
+    class="bdl-topbar__search-input"
+    placeholder="Search documentation"
+    aria-label="Search documentation"
+    (input)="onInput($event)"
+  />
+</div>
+
+<div class="bdl-topbar__right">
+  <a class="bdl-topbar__btn" [routerLink]="ladleLink">Components</a>
+  <a class="bdl-topbar__icon-btn" href="https://github.com/uber/baseweb" target="_blank" rel="noopener" aria-label="GitHub">
+    <span class="material-symbols-rounded" aria-hidden="true">code</span>
+  </a>
+  <button type="button" class="bdl-topbar__icon-btn" [attr.aria-label]="mode() === 'dark' ? 'Light theme' : 'Dark theme'" (click)="toggleMode.emit()">
+    <span class="material-symbols-rounded" aria-hidden="true">{{ mode() === 'dark' ? 'light_mode' : 'dark_mode' }}</span>
+  </button>
+</div>

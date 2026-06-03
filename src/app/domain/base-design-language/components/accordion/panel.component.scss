@@ -1,0 +1,53 @@
+// Panel — fiel ao styled-components do accordion (border-bottom, header, chevron, content).
+.bui-panel {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid var(--bw-border-opaque);
+}
+
+.bui-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  // padding: scale600 vertical, scale700 horizontal
+  padding: var(--bw-sizing-scale600) var(--bw-sizing-scale700);
+  border: none;
+  background-color: var(--bw-background-primary);
+  color: var(--bw-content-primary);
+  font: var(--bw-font-LabelMedium);
+  text-align: left;
+  cursor: pointer;
+  outline-offset: -3px;
+
+  &:focus-visible { outline: 3px solid var(--bw-border-accent); }
+  &:disabled { cursor: not-allowed; color: var(--bw-content-state-disabled); }
+}
+
+.bui-panel__title { flex: 1; }
+
+.bui-panel__chevron {
+  flex-shrink: 0;
+  font-size: 20px;
+  color: var(--bw-content-tertiary);
+  transition: transform var(--bw-timing-500) var(--bw-ease-decelerate);
+  // ToggleIconGroup: rotate(-180deg) quando expandido
+  &--open { transform: rotate(-180deg); }
+}
+
+// Animação de altura via grid-template-rows 0fr → 1fr (suave, sem medir JS).
+.bui-panel__contentwrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--bw-timing-500) var(--bw-ease-decelerate);
+  background-color: var(--bw-background-primary);
+}
+.bui-panel__contentwrap--open { grid-template-rows: 1fr; }
+.bui-panel__contentinner { overflow: hidden; min-height: 0; }
+
+.bui-panel__content {
+  // padding: top scale800, bottom scale1000, sides scale800
+  padding: var(--bw-sizing-scale800) var(--bw-sizing-scale800) var(--bw-sizing-scale1000);
+  color: var(--bw-content-primary);
+  font: var(--bw-font-ParagraphSmall);
+}

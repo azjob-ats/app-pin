@@ -1,0 +1,86 @@
+.bdl-yard {
+  display: block;
+  border: 1px solid var(--bw-border-opaque);
+  border-radius: var(--bw-radius-300);
+  overflow: hidden;
+  background-color: var(--bw-background-primary);
+}
+.bdl-yard__preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bw-sizing-scale500);
+  padding: var(--bw-sizing-scale900) var(--bw-sizing-scale800);
+  min-height: 96px;
+}
+.bdl-yard__panel { border-top: 1px solid var(--bw-border-opaque); }
+.bdl-yard__tabs {
+  display: flex;
+  gap: var(--bw-sizing-scale600);
+  padding: 0 var(--bw-sizing-scale800);
+  border-bottom: 1px solid var(--bw-border-opaque);
+}
+.bdl-yard__tab {
+  position: relative;
+  padding: var(--bw-sizing-scale500) 0;
+  border: none;
+  background: transparent;
+  color: var(--bw-content-secondary);
+  font: var(--bw-font-LabelMedium);
+  cursor: pointer;
+  &:hover { color: var(--bw-content-primary); }
+  &:focus-visible { outline: 2px solid var(--bw-border-accent); outline-offset: 2px; }
+}
+.bdl-yard__tab--active {
+  color: var(--bw-content-primary);
+  &::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background-color: var(--bw-primary); }
+}
+.bdl-yard__props {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bw-sizing-scale700) var(--bw-sizing-scale800);
+  padding: var(--bw-sizing-scale800);
+}
+@media (max-width: 720px) { .bdl-yard__props { grid-template-columns: minmax(0, 1fr); } }
+.bdl-yard__control { display: flex; flex-direction: column; gap: var(--bw-sizing-scale300); }
+.bdl-yard__label { font: var(--bw-font-LabelSmall); color: var(--bw-content-primary); text-decoration: underline; text-underline-offset: 3px; }
+.bdl-yard__switch { display: inline-flex; align-items: center; gap: var(--bw-sizing-scale300); font: var(--bw-font-ParagraphSmall); color: var(--bw-content-secondary); cursor: pointer; }
+.bdl-yard__seg { display: inline-flex; flex-wrap: wrap; gap: var(--bw-sizing-scale200); }
+.bdl-yard__seg-btn {
+  padding: var(--bw-sizing-scale200) var(--bw-sizing-scale400);
+  border: 1px solid var(--bw-border-opaque);
+  border-radius: var(--bw-radius-200);
+  background: var(--bw-background-primary);
+  color: var(--bw-content-secondary);
+  font: var(--bw-font-LabelXSmall);
+  cursor: pointer;
+  &:hover { background: var(--bw-background-secondary); }
+}
+.bdl-yard__seg-btn--active { background: var(--bw-background-inverse-primary); color: var(--bw-content-inverse-primary); border-color: transparent; }
+.bdl-yard__input {
+  height: 36px;
+  padding: 0 var(--bw-sizing-scale400);
+  border: none;
+  border-radius: var(--bw-input-border-radius);
+  background: var(--bw-background-secondary);
+  color: var(--bw-content-primary);
+  font: var(--bw-font-ParagraphSmall);
+  outline: none;
+  &:focus { box-shadow: inset 0 0 0 2px var(--bw-border-selected); }
+}
+.bdl-yard__code-field {
+  margin: 0;
+  padding: var(--bw-sizing-scale400) var(--bw-sizing-scale500);
+  border-radius: var(--bw-radius-200);
+  background: var(--bw-background-secondary);
+  color: var(--bw-content-tertiary);
+  font-family: var(--bw-font-family-mono);
+  font-size: 12px;
+  overflow-x: auto;
+}
+.bdl-yard__showall { grid-column: 1 / -1; justify-self: start; border: none; background: transparent; color: var(--bw-content-accent); font: var(--bw-font-LabelSmall); cursor: pointer; padding: var(--bw-sizing-scale300) 0; &:hover { text-decoration: underline; } }
+.bdl-yard__tabbody { padding: var(--bw-sizing-scale800); }
+.bdl-yard__hint { margin-bottom: var(--bw-sizing-scale500); font: var(--bw-font-ParagraphSmall); color: var(--bw-content-secondary); code { font-family: var(--bw-font-family-mono); font-size: 12px; color: var(--bw-content-accent); } }
+.bdl-yard__codebar { display: flex; justify-content: flex-end; padding: var(--bw-sizing-scale300) var(--bw-sizing-scale600); border-top: 1px solid var(--bw-border-opaque); background: var(--bw-background-secondary); }
+.bdl-yard__codebtn { border: none; background: transparent; color: var(--bw-content-secondary); font: var(--bw-font-LabelSmall); cursor: pointer; &:hover { color: var(--bw-content-primary); } }
+.bdl-yard__code { margin: 0; padding: var(--bw-sizing-scale600); border-top: 1px solid var(--bw-border-opaque); background: var(--bw-background-secondary); color: var(--bw-content-primary); font-family: var(--bw-font-family-mono); font-size: 13px; overflow-x: auto; }

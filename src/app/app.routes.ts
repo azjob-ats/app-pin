@@ -6,6 +6,14 @@ const { ROUTES } = environment;
 
 export const routes: Routes = [
   {
+    // Laboratório isolado do Base Web Design Language (Angular)
+    path: 'bw',
+    loadChildren: () =>
+      import('./domain/base-design-language/index.routes').then(
+        (m) => m.BASE_DESIGN_LANGUAGE_ROUTES,
+      ),
+  },
+  {
     path: ROUTES.STYLEGUIDE.ROOT,
     loadComponent: () =>
       import('./domain/styleguide/pages/styleguide/styleguide.component').then(

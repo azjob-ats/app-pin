@@ -1,0 +1,19 @@
+// Breakpoints do Base Web (shared/breakpoints.ts) — small 320 / medium 600 / large 1136.
+// Custom properties não funcionam em media queries → variáveis SCSS + mixin.
+// Uso: @use '@bdl/tokens/breakpoints' as bp; @include bp.media('medium') { … }
+@use 'sass:map';
+
+$bw-breakpoints: (
+  'small': 320px,
+  'medium': 600px,
+  'large': 1136px,
+);
+
+@mixin media($key) {
+  @if not map.has-key($bw-breakpoints, $key) {
+    @error "breakpoint '#{$key}' inexistente (small|medium|large).";
+  }
+  @media (min-width: map.get($bw-breakpoints, $key)) {
+    @content;
+  }
+}

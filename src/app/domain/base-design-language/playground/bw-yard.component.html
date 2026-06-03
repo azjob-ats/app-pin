@@ -1,0 +1,68 @@
+<div class="bdl-yard__preview">
+  <ng-container [ngTemplateOutlet]="preview()" [ngTemplateOutletContext]="{ $implicit: state(), set: setter }" />
+</div>
+
+<div class="bdl-yard__panel">
+  <div class="bdl-yard__tabs" role="tablist">
+    <button type="button" role="tab" class="bdl-yard__tab" [class.bdl-yard__tab--active]="tab() === 'props'" [attr.aria-selected]="tab() === 'props'" (click)="tab.set('props')">Props</button>
+    <button type="button" role="tab" class="bdl-yard__tab" [class.bdl-yard__tab--active]="tab() === 'overrides'" [attr.aria-selected]="tab() === 'overrides'" (click)="tab.set('overrides')">Style Overrides</button>
+    <button type="button" role="tab" class="bdl-yard__tab" [class.bdl-yard__tab--active]="tab() === 'theme'" [attr.aria-selected]="tab() === 'theme'" (click)="tab.set('theme')">Theme</button>
+  </div>
+
+  @switch (tab()) {
+    @case ('props') {
+      <div class="bdl-yard__props">
+        @for (c of visibleControls(); track c.name) {
+          <div class="bdl-yard__control">
+            <span class="bdl-yard__label">{{ c.label || c.name }}</span>
+            @switch (c.type) {
+              @case ('boolean') {
+                <label class="bdl-yard__switch">
+                  <input type="checkbox" [checked]="boolVal(c.name)" (change)="onCheckbox(c.name, $event)" />
+                  <span>{{ boolVal(c.name) ? 'true' : 'false' }}</span>
+                </label>
+              }
+              @case ('enum') {
+                <div class="bdl-yard__seg">
+                  @for (opt of c.options; track opt) {
+                    <button type="button" class="bdl-yard__seg-btn" [class.bdl-yard__seg-btn--active]="strVal(c.name) === opt" (click)="update(c.name, opt)">{{ opt }}</button>
+                  }
+                </div>
+              }
+              @case ('string') {
+                <input class="bdl-yard__input" type="text" [value]="strVal(c.name)" [placeholder]="c.placeholder || ''" (input)="onText(c.name, $event)" />
+              }
+              @case ('code') {
+                <pre class="bdl-yard__code-field"><code>{{ c.value }}</code></pre>
+              }
+            }
+          </div>
+        }
+        @if (hasAdvanced()) {
+          <button type="button" class="bdl-yard__showall" (click)="showAll.set(!showAll())">{{ showAll() ? 'Show fewer props' : 'Show all props' }}</button>
+        }
+      </div>
+    }
+    @case ('overrides') {
+      <div class="bdl-yard__tabbody">
+        <p class="bdl-yard__hint">No Base Web (React) a estilização fina usa <code>overrides</code>. Em Angular: partes nomeadas + tokens <code>--bw-*</code>.</p>
+        <pre class="bdl-yard__code-field"><code>{{ overridesCode() || '/* override por tokens/partes */' }}</code></pre>
+      </div>
+    }
+    @case ('theme') {
+      <div class="bdl-yard__tabbody">
+        <p class="bdl-yard__hint">Tokens de tema usados por este componente:</p>
+        <pre class="bdl-yard__code-field"><code>{{ themeCode() || '/* tokens --bw-* */' }}</code></pre>
+      </div>
+    }
+  }
+
+  @if (code()) {
+    <div class="bdl-yard__codebar">
+      <button type="button" class="bdl-yard__codebtn" (click)="showCode.set(!showCode())">{{ showCode() ? 'Hide code' : 'Show code' }}</button>
+    </div>
+    @if (showCode()) {
+      <pre class="bdl-yard__code"><code>{{ generatedCode() }}</code></pre>
+    }
+  }
+</div>

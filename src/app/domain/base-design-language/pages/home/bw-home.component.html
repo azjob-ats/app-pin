@@ -1,0 +1,19 @@
+<section class="bdl-home__hero">
+  <span class="bdl-home__eyebrow">Design System</span>
+  <h1 class="bdl-home__title">Base Web, em Angular</h1>
+  <p class="bdl-home__lead">
+    Implementação fiel do Design System da Uber (Base Web) em Angular — mesmos tokens,
+    componentes, variantes, estados e experiência de documentação. Projetado para parecer
+    nativo do Angular.
+  </p>
+</section>
+
+<section class="bdl-home__grid">
+  @for (card of cards; track card.link) {
+    <a class="bdl-home__card" [routerLink]="link(card.link)">
+      <span class="material-symbols-rounded bdl-home__card-icon" aria-hidden="true">{{ card.icon }}</span>
+      <h2 class="bdl-home__card-title">{{ card.title }}</h2>
+      <p class="bdl-home__card-text">{{ card.text }}</p>
+    </a>
+  }
+</section>

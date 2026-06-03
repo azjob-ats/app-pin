@@ -1,0 +1,18 @@
+<div class="bdl-placeholder">
+  <span class="material-symbols-rounded bdl-placeholder__icon" aria-hidden="true">{{
+    isNa() ? 'integration_instructions' : 'construction'
+  }}</span>
+  <h1 class="bdl-placeholder__title">{{ title() }}</h1>
+  @if (isNa()) {
+    <p class="bdl-placeholder__text">
+      Conceito específico do React/Styletron no Base Web. Em Angular é substituído pela
+      abordagem do Design System (tokens SCSS, CDK, DI) — esta página documentará a equivalência.
+    </p>
+  } @else {
+    <p class="bdl-placeholder__text">
+      Página do site de documentação; será preenchida quando o componente/seção for implementado.
+      A rota já está ativa.
+    </p>
+  }
+  <span class="bdl-placeholder__tag">{{ isNa() ? 'N/A em Angular' : 'Em construção' }}</span>
+</div>
