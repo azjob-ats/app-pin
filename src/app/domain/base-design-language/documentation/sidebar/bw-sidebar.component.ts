@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { BW_NAV } from '../navigation/nav.data';
 import { bwLink } from '../navigation/nav.config';
 import { BwNavCategory } from '../navigation/nav.model';
 
-/** Navegação lateral do site de docs — hierarquia idêntica ao routes.jsx do Base Web. */
+/** Sidebar do docs — plana (categorias em caixa alta + subgrupos + itens), como o Base Web. */
 @Component({
   selector: 'bdl-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,7 +16,6 @@ import { BwNavCategory } from '../navigation/nav.model';
 })
 export class BwSidebarComponent {
   readonly query = input<string>('');
-  private readonly collapsed = signal<Set<string>>(new Set());
   protected readonly link = bwLink;
 
   protected readonly nav = computed<BwNavCategory[]>(() => {
@@ -34,15 +33,4 @@ export class BwSidebarComponent {
         .filter((g) => g.items.length > 0),
     })).filter((c) => c.groups.length > 0);
   });
-
-  protected isCollapsed(label: string): boolean {
-    return this.collapsed().has(label);
-  }
-  protected toggle(label: string): void {
-    this.collapsed.update((s) => {
-      const n = new Set(s);
-      n.has(label) ? n.delete(label) : n.add(label);
-      return n;
-    });
-  }
 }

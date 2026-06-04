@@ -49,7 +49,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Button Dock', path: 'components/button-dock', status: 'soon' },
           { label: 'Button Group', path: 'components/button-group', status: 'soon' },
           { label: 'Button Timed', path: 'components/button-timed', status: 'soon' },
-          { label: 'Checkbox', path: 'components/checkbox', status: 'soon' },
+          { label: 'Checkbox', path: 'components/checkbox', status: 'ready' },
           { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'soon' },
           { label: 'Combobox', path: 'components/combobox', status: 'soon' },
           { label: 'Form Control', path: 'components/form-control', status: 'soon' },

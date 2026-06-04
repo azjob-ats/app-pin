@@ -14,6 +14,8 @@
 @mixin shared {
   // Typography — famílias (Base Web usa system stack)
   --bw-font-family: UberMoveText, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // Headings/Display usam UberMove (fonte de display do Base Web)
+  --bw-font-family-heading: UberMove, UberMoveText, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --bw-font-family-mono: 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace;
   --bw-font-weight-normal: 400;
   --bw-font-weight-medium: 500;
@@ -28,16 +30,16 @@
   --bw-font-LabelSmall: 500 14px/16px var(--bw-font-family);
   --bw-font-LabelMedium: 500 16px/20px var(--bw-font-family);
   --bw-font-LabelLarge: 500 18px/24px var(--bw-font-family);
-  --bw-font-HeadingXSmall: 700 20px/28px var(--bw-font-family);
-  --bw-font-HeadingSmall: 700 24px/32px var(--bw-font-family);
-  --bw-font-HeadingMedium: 700 28px/36px var(--bw-font-family);
-  --bw-font-HeadingLarge: 700 32px/40px var(--bw-font-family);
-  --bw-font-HeadingXLarge: 700 36px/44px var(--bw-font-family);
-  --bw-font-HeadingXXLarge: 700 40px/52px var(--bw-font-family);
-  --bw-font-DisplayXSmall: 700 36px/44px var(--bw-font-family);
-  --bw-font-DisplaySmall: 700 44px/52px var(--bw-font-family);
-  --bw-font-DisplayMedium: 700 52px/64px var(--bw-font-family);
-  --bw-font-DisplayLarge: 700 96px/112px var(--bw-font-family);
+  --bw-font-HeadingXSmall: 700 20px/28px var(--bw-font-family-heading);
+  --bw-font-HeadingSmall: 700 24px/32px var(--bw-font-family-heading);
+  --bw-font-HeadingMedium: 700 28px/36px var(--bw-font-family-heading);
+  --bw-font-HeadingLarge: 700 32px/40px var(--bw-font-family-heading);
+  --bw-font-HeadingXLarge: 700 36px/44px var(--bw-font-family-heading);
+  --bw-font-HeadingXXLarge: 700 40px/52px var(--bw-font-family-heading);
+  --bw-font-DisplayXSmall: 700 36px/44px var(--bw-font-family-heading);
+  --bw-font-DisplaySmall: 700 44px/52px var(--bw-font-family-heading);
+  --bw-font-DisplayMedium: 700 52px/64px var(--bw-font-family-heading);
+  --bw-font-DisplayLarge: 700 96px/112px var(--bw-font-family-heading);
 
   // Sizing (scale)
   --bw-sizing-scale0: 2px;
@@ -123,6 +125,18 @@
   // Z-index + opacity
   --bw-z-modal: 2000;
   --bw-opacity-disabled: 0.48;
+
+  // Tag palette (kind: solid=600, light-bg=50, light-text=700). Valores light.
+  --bw-tag-gray-bg: #727272;    --bw-tag-gray-bg-l: #f3f3f3;    --bw-tag-gray-text-l: #5e5e5e;
+  --bw-tag-red-bg: #de1135;     --bw-tag-red-bg-l: #fff0ee;     --bw-tag-red-text-l: #bb032a;
+  --bw-tag-orange-bg: #c54600;  --bw-tag-orange-bg-l: #fff0e9;  --bw-tag-orange-text-l: #a33b04;
+  --bw-tag-yellow-bg: #9f6402;  --bw-tag-yellow-bg-l: #fdf2dc;  --bw-tag-yellow-text-l: #845201;
+  --bw-tag-green-bg: #0e8345;   --bw-tag-green-bg-l: #eaf6ed;   --bw-tag-green-text-l: #166c3b;
+  --bw-tag-blue-bg: #276ef1;    --bw-tag-blue-bg-l: #eff4fe;    --bw-tag-blue-text-l: #175bcc;
+  --bw-tag-purple-bg: #944de7;  --bw-tag-purple-bg-l: #f9f1ff;  --bw-tag-purple-text-l: #7c3ec3;
+  --bw-tag-magenta-bg: #ca26a5; --bw-tag-magenta-bg-l: #feeff9; --bw-tag-magenta-text-l: #a91a90;
+  --bw-tag-teal-bg: #007f8c;    --bw-tag-teal-bg-l: #e2f8fb;    --bw-tag-teal-text-l: #016974;
+  --bw-tag-lime-bg: #4f7f06;    --bw-tag-lime-bg-l: #eef6e3;    --bw-tag-lime-text-l: #3f6900;
 }
 
 // ─── COMPONENT tokens: Button (4ª camada) — referenciam semantic (flip automático) ──
@@ -147,6 +161,18 @@
   --bw-button-danger-tertiary-text: var(--bw-red-700);
   --bw-button-disabled-fill: var(--bw-background-state-disabled);
   --bw-button-disabled-text: var(--bw-content-state-disabled);
+  // Checkbox / Radio (tick*)
+  --bw-tick-fill: var(--bw-background-primary);
+  --bw-tick-fill-hover: var(--bw-gray-50);
+  --bw-tick-fill-active: var(--bw-gray-100);
+  --bw-tick-fill-selected: var(--bw-content-primary);
+  --bw-tick-fill-selected-hover: var(--bw-gray-900);
+  --bw-tick-fill-error-selected: var(--bw-content-negative);
+  --bw-tick-fill-disabled: var(--bw-background-state-disabled);
+  --bw-tick-border: var(--bw-content-tertiary);
+  --bw-tick-border-error: var(--bw-border-negative);
+  --bw-tick-mark-fill: var(--bw-content-inverse-primary);
+  --bw-tick-mark-fill-disabled: var(--bw-content-inverse-primary);
   // outline (Button Group exclusive)
   --bw-button-outline-fill: transparent;
   --bw-button-outline-text: var(--bw-content-primary);

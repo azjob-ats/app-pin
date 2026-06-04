@@ -1,46 +1,23 @@
 <nav class="bdl-sidebar__nav" aria-label="Documentation">
   @for (category of nav(); track category.label) {
-    <div class="bdl-sidebar__category">
-      <button
-        type="button"
-        class="bdl-sidebar__cat"
-        [attr.aria-expanded]="!isCollapsed(category.label)"
-        (click)="toggle(category.label)"
-      >
-        <span class="material-symbols-rounded bdl-sidebar__cat-icon" aria-hidden="true">{{ category.icon }}</span>
-        <span class="bdl-sidebar__cat-label">{{ category.label }}</span>
-        <span class="material-symbols-rounded bdl-sidebar__chevron" aria-hidden="true">{{
-          isCollapsed(category.label) ? 'chevron_right' : 'expand_more'
-        }}</span>
-      </button>
-
-      @if (!isCollapsed(category.label)) {
-        @for (group of category.groups; track group.label) {
-          <div class="bdl-sidebar__group">
-            @if (category.groups.length > 1) {
-              <span class="bdl-sidebar__group-label">{{ group.label }}</span>
-            }
-            <ul class="bdl-sidebar__list">
-              @for (item of group.items; track item.path) {
-                <li>
-                  <a
-                    class="bdl-sidebar__link"
-                    [routerLink]="link(item.path)"
-                    routerLinkActive="bdl-sidebar__link--active"
-                    [routerLinkActiveOptions]="{ exact: item.path === '' }"
-                  >
-                    <span class="bdl-sidebar__link-label">{{ item.label }}</span>
-                    @if (item.status === 'soon') {
-                      <span class="bdl-sidebar__dot bdl-sidebar__dot--soon" title="Em construção"></span>
-                    } @else if (item.status === 'na') {
-                      <span class="bdl-sidebar__dot bdl-sidebar__dot--na" title="N/A em Angular"></span>
-                    }
-                  </a>
-                </li>
-              }
-            </ul>
-          </div>
+    <div class="bdl-sidebar__cat">
+      <span class="bdl-sidebar__cat-label">{{ category.label }}</span>
+      @for (group of category.groups; track group.label) {
+        @if (group.label !== category.label) {
+          <span class="bdl-sidebar__group-label">{{ group.label }}</span>
         }
+        <ul class="bdl-sidebar__list">
+          @for (item of group.items; track item.path) {
+            <li>
+              <a
+                class="bdl-sidebar__link"
+                [routerLink]="link(item.path)"
+                routerLinkActive="bdl-sidebar__link--active"
+                [routerLinkActiveOptions]="{ exact: item.path === '' }"
+              >{{ item.label }}</a>
+            </li>
+          }
+        </ul>
       }
     </div>
   } @empty {

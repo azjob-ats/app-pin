@@ -1,0 +1,21 @@
+<div
+  class="bui-input"
+  [attr.data-size]="size()"
+  [attr.data-error]="error() ? '' : null"
+  [attr.data-positive]="positive() ? '' : null"
+  [attr.data-disabled]="isDisabled() ? '' : null"
+>
+  <span class="bui-input__enhancer bui-input__enhancer--start"><ng-content select="[buiStartEnhancer]" /></span>
+  <input
+    class="bui-input__field"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [value]="value()"
+    [disabled]="isDisabled()"
+    [readOnly]="readOnly()"
+    [attr.aria-invalid]="error() ? 'true' : null"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+  />
+  <span class="bui-input__enhancer bui-input__enhancer--end"><ng-content select="[buiEndEnhancer]" /></span>
+</div>

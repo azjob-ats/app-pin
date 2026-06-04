@@ -1,0 +1,23 @@
+<label [class]="classes()">
+  <input
+    type="checkbox"
+    class="bui-checkbox__input"
+    [checked]="checked()"
+    [disabled]="isDisabled()"
+    [indeterminate]="isIndeterminate()"
+    [attr.aria-invalid]="error() ? 'true' : null"
+    (change)="onToggle($event)"
+  />
+
+  @if (checkmarkType() === 'toggle') {
+    <span class="bui-checkbox__toggle-track" aria-hidden="true">
+      <span class="bui-checkbox__toggle-thumb"></span>
+    </span>
+  } @else {
+    <span class="bui-checkbox__checkmark" aria-hidden="true">
+      <span class="bui-checkbox__mark"></span>
+    </span>
+  }
+
+  <span class="bui-checkbox__label"><ng-content /></span>
+</label>

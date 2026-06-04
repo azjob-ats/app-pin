@@ -22,7 +22,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, input 
   styles: `
     .bdl-doc-page__header { display: flex; flex-direction: column; gap: var(--bw-sizing-scale400); padding-bottom: var(--bw-sizing-scale800); margin-bottom: var(--bw-sizing-scale800); border-bottom: 1px solid var(--bw-border-opaque); }
     .bdl-doc-page__eyebrow { font: var(--bw-font-LabelSmall); text-transform: uppercase; letter-spacing: 0.08em; color: var(--bw-content-accent); }
-    .bdl-doc-page__title { font: var(--bw-font-DisplayXSmall); color: var(--bw-content-primary); }
+    .bdl-doc-page__title { font: var(--bw-font-HeadingMedium); color: var(--bw-content-primary); }
     .bdl-doc-page__lead { max-width: 64ch; font: var(--bw-font-ParagraphLarge); color: var(--bw-content-secondary); }
     .bdl-doc-page__body { display: flex; flex-direction: column; gap: var(--bw-sizing-scale1200); }
   `,

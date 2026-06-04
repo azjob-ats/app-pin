@@ -1,48 +1,64 @@
 // Único ponto de carga dos tokens (ViewEncapsulation.None → escopados em .bw-root).
 @use '../../tokens/base-web-tokens';
 
-$topbar-h: 64px;
-$sidebar-w: 280px;
+$header-h: 57px;
+$sidebar-w: 256px;
+$content-max: 712px;
 
 .bdl-docs-shell {
-  display: grid;
-  grid-template-columns: $sidebar-w minmax(0, 1fr);
-  grid-template-rows: $topbar-h minmax(0, 1fr);
-  grid-template-areas: 'topbar topbar' 'aside main';
-  height: 100vh;
-  background-color: var(--bw-background-secondary);
+  display: block;
+  min-height: 100vh;
+  background-color: var(--bw-background-primary);
 }
+
 .bdl-docs-shell__topbar {
-  grid-area: topbar;
   position: sticky;
   top: 0;
   z-index: 100;
+  height: $header-h;
   border-bottom: 1px solid var(--bw-border-opaque);
   background-color: var(--bw-background-primary);
 }
-.bdl-docs-shell__aside {
-  grid-area: aside;
-  min-height: 0;
-  border-right: 1px solid var(--bw-border-opaque);
-  background-color: var(--bw-background-primary);
-}
-.bdl-docs-shell__content { grid-area: main; min-width: 0; overflow-y: auto; }
-.bdl-docs-shell__container {
-  max-width: 960px;
+
+// Corpo centralizado: sidebar + conteúdo, com margens laterais (como o Base Web docs).
+.bdl-docs-shell__body {
+  display: grid;
+  grid-template-columns: $sidebar-w minmax(0, $content-max);
+  justify-content: center;
+  column-gap: var(--bw-sizing-scale1600);
+  max-width: 1100px;
   margin: 0 auto;
-  padding: var(--bw-sizing-scale800) var(--bw-sizing-scale800) var(--bw-sizing-scale2400);
+  padding: 0 var(--bw-sizing-scale600);
 }
+
+.bdl-docs-shell__aside {
+  position: sticky;
+  top: $header-h;
+  align-self: start;
+  max-height: calc(100vh - #{$header-h});
+  overflow-y: auto;
+  padding: var(--bw-sizing-scale1000) 0;
+}
+
+.bdl-docs-shell__content {
+  min-width: 0;
+  padding: var(--bw-sizing-scale1000) 0 var(--bw-sizing-scale2400);
+}
+
 .bdl-docs-shell__scrim { display: none; }
 
+// Responsivo: sidebar vira drawer abaixo de large
 @media (max-width: 1135px) {
-  .bdl-docs-shell { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'topbar' 'main'; }
+  .bdl-docs-shell__body { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
   .bdl-topbar__menu { display: inline-flex; }
   .bdl-docs-shell__aside {
-    position: fixed; top: $topbar-h; bottom: 0; left: 0; width: $sidebar-w; max-width: 86vw;
+    position: fixed; top: $header-h; bottom: 0; left: 0; width: $sidebar-w; max-width: 86vw;
+    background: var(--bw-background-primary); border-right: 1px solid var(--bw-border-opaque);
+    padding: var(--bw-sizing-scale600) var(--bw-sizing-scale400);
     transform: translateX(-100%); transition: transform var(--bw-timing-250) var(--bw-ease-out); z-index: 2000;
   }
-  .bdl-docs-shell--nav-open .bdl-docs-shell__aside { transform: translateX(0); box-shadow: var(--bw-shadow-700); }
-  .bdl-docs-shell--nav-open .bdl-docs-shell__scrim {
-    display: block; position: fixed; inset: $topbar-h 0 0 0; background-color: var(--bw-background-overlay); z-index: 1999;
+  .bdl-docs-shell__body--nav-open .bdl-docs-shell__aside { transform: translateX(0); box-shadow: var(--bw-shadow-700); }
+  .bdl-docs-shell__body--nav-open .bdl-docs-shell__scrim {
+    display: block; position: fixed; inset: $header-h 0 0 0; background: var(--bw-background-overlay); z-index: 1999;
   }
 }

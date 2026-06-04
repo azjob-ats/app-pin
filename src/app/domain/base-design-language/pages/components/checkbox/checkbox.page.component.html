@@ -1,0 +1,47 @@
+<bdl-doc-page
+  category="Components · Inputs"
+  title="Checkbox"
+  lead="Checkboxes permitem selecionar uma ou várias opções. Suportam checked, indeterminate, error, disabled, placement de label e estilo toggle."
+>
+  <bdl-yard [controls]="controls" [code]="codeFn" [themeCode]="themeCode">
+    <ng-template #preview let-s let-set="set">
+      <bui-checkbox
+        [ngModel]="s.checked"
+        (ngModelChange)="set('checked', $event)"
+        [isIndeterminate]="s.isIndeterminate"
+        [error]="s.error"
+        [disabled]="s.disabled"
+        [labelPlacement]="s.labelPlacement"
+        [checkmarkType]="s.checkmarkType"
+      >{{ s.children }}</bui-checkbox>
+    </ng-template>
+  </bdl-yard>
+
+  <bdl-doc-section title="States" description="Unchecked, checked, indeterminate, error, disabled.">
+    <bdl-doc-example>
+      <div style="display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
+        <bui-checkbox [ngModel]="false">Unchecked</bui-checkbox>
+        <bui-checkbox [ngModel]="true">Checked</bui-checkbox>
+        <bui-checkbox [ngModel]="false" [isIndeterminate]="true">Indeterminate</bui-checkbox>
+        <bui-checkbox [ngModel]="true" [error]="true">Error</bui-checkbox>
+        <bui-checkbox [ngModel]="true" [disabled]="true">Disabled</bui-checkbox>
+      </div>
+    </bdl-doc-example>
+  </bdl-doc-section>
+
+  <bdl-doc-section title="Label placement">
+    <bdl-doc-example>
+      <bui-checkbox [ngModel]="true" labelPlacement="right">right</bui-checkbox>
+      <bui-checkbox [ngModel]="true" labelPlacement="left">left</bui-checkbox>
+      <bui-checkbox [ngModel]="true" labelPlacement="top">top</bui-checkbox>
+      <bui-checkbox [ngModel]="true" labelPlacement="bottom">bottom</bui-checkbox>
+    </bdl-doc-example>
+  </bdl-doc-section>
+
+  <bdl-doc-section title="Toggle" description="Estilo toggle (checkmarkType = toggle).">
+    <bdl-doc-example>
+      <bui-checkbox [ngModel]="false" checkmarkType="toggle">Off</bui-checkbox>
+      <bui-checkbox [ngModel]="true" checkmarkType="toggle">On</bui-checkbox>
+    </bdl-doc-example>
+  </bdl-doc-section>
+</bdl-doc-page>

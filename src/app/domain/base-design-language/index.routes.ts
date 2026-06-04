@@ -14,6 +14,8 @@ const READY: Record<string, Loader> = {
     import('./pages/components/button/button.page.component').then((m) => m.BwButtonPageComponent),
   'components/accordion': () =>
     import('./pages/components/accordion/accordion.page.component').then((m) => m.BwAccordionPageComponent),
+  'components/checkbox': () =>
+    import('./pages/components/checkbox/checkbox.page.component').then((m) => m.BwCheckboxPageComponent),
 };
 
 const navRoutes: Routes = BW_NAV_ITEMS.map((item) => ({

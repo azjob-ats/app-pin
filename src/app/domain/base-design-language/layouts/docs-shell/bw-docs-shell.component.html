@@ -2,16 +2,16 @@
   <bdl-topbar [mode]="mode()" (query)="setQuery($event)" (toggleMode)="toggleMode()" (toggleSidebar)="toggleNav()" />
 </header>
 
-<aside class="bdl-docs-shell__aside">
-  <bdl-sidebar [query]="query()" (click)="closeNav()" />
-</aside>
+<div class="bdl-docs-shell__body" [class.bdl-docs-shell__body--nav-open]="navOpen()">
+  <aside class="bdl-docs-shell__aside">
+    <bdl-sidebar [query]="query()" (click)="closeNav()" />
+  </aside>
 
-@if (navOpen()) {
-  <div class="bdl-docs-shell__scrim" (click)="closeNav()" aria-hidden="true"></div>
-}
+  @if (navOpen()) {
+    <div class="bdl-docs-shell__scrim" (click)="closeNav()" aria-hidden="true"></div>
+  }
 
-<main class="bdl-docs-shell__content">
-  <div class="bdl-docs-shell__container">
+  <main class="bdl-docs-shell__content">
     <router-outlet />
-  </div>
-</main>
+  </main>
+</div>

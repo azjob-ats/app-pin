@@ -22,6 +22,8 @@ export class BwTopbarComponent {
 
   protected readonly homeLink = bwLink('');
   protected readonly ladleLink = bwLink('ladle');
+  protected readonly blogLink = bwLink('blog');
+  protected readonly version = 'v18.1.0';
 
   protected onInput(event: Event): void {
     this.query.emit((event.target as HTMLInputElement).value);
