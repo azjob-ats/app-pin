@@ -51,7 +51,6 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Checkbox', path: 'components/checkbox', status: 'ready' },
           { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'soon' },
           { label: 'Combobox', path: 'components/combobox', status: 'soon' },
-          { label: 'Form Control', path: 'components/form-control', status: 'soon' },
           { label: 'Input', path: 'components/input', status: 'soon' },
           { label: 'Payment Card', path: 'components/payment-card', status: 'soon' },
           { label: 'Phone Input', path: 'components/phone-input', status: 'soon' },
@@ -146,22 +145,11 @@ export const BW_NAV: BwNavCategory[] = [
         ],
       },
       {
-        label: 'Map marker',
-        items: [
-          { label: 'Fixed Marker', path: 'components/fixed-marker', status: 'soon' },
-          { label: 'Floating Marker', path: 'components/floating-marker', status: 'soon' },
-          { label: 'Floating Route Marker', path: 'components/floating-route-marker', status: 'soon' },
-          { label: 'Location Puck', path: 'components/location-puck', status: 'soon' },
-        ],
-      },
-      {
         label: 'Utility',
         items: [
           { label: 'AspectRatioBox', path: 'components/aspect-ratio-box', status: 'soon' },
-          { label: 'Block', path: 'components/block', status: 'soon' },
           { label: 'Divider', path: 'components/divider', status: 'soon' },
           { label: 'FlexGrid', path: 'components/flex-grid', status: 'soon' },
-          { label: 'Layer', path: 'components/layer', status: 'na' },
         ],
       },
     ],

@@ -73,7 +73,6 @@ export const BW_STORIES: BwStory[] = [
   { id: 'heading--heading', group: 'heading', name: 'Heading', load: () => import('../components/heading/heading.component').then((m) => m.HeadingScenario) },
   { id: 'typography--typography', group: 'typography', name: 'Typography', load: () => import('../components/typography/typography.directive').then((m) => m.TypographyScenario) },
   { id: 'icon--icon', group: 'icon', name: 'Icon', load: () => import('../components/icon/icon.component').then((m) => m.IconScenario) },
-  { id: 'block--block', group: 'block', name: 'Block', load: () => import('../components/block/block.component').then((m) => m.BlockScenario) },
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.component').then((m) => m.AspectRatioBoxScenario) },
   // Banda A — lote 3 (Tag + variações de Badge)
   { id: 'tag--tag', group: 'tag', name: 'Tag', load: () => import('../components/tag/tag.component').then((m) => m.TagScenario) },
@@ -85,7 +84,6 @@ export const BW_STORIES: BwStory[] = [
   { id: 'input--input', group: 'input', name: 'Input', load: () => import('../components/input/input.component').then((m) => m.InputScenario) },
   { id: 'textarea--textarea', group: 'textarea', name: 'Textarea', load: () => import('../components/textarea/textarea.component').then((m) => m.TextareaScenario) },
   // Banda B — lote 2
-  { id: 'form-control--form-control', group: 'form-control', name: 'Form Control', load: () => import('../components/form-control/form-control.component').then((m) => m.FormControlScenario) },
   { id: 'pin-code--pin-code', group: 'pin-code', name: 'Pin Code', load: () => import('../components/pin-code/pin-code.component').then((m) => m.PinCodeScenario) },
   { id: 'rating--rating', group: 'rating', name: 'Rating', load: () => import('../components/rating/rating.component').then((m) => m.RatingScenario) },
   // Banda B — lote 3 (fecha Banda B; v2 reusam base)
@@ -143,10 +141,6 @@ export const BW_STORIES: BwStory[] = [
   { id: 'table--table', group: 'table', name: 'Table', load: () => import('../components/table/table.component').then((m) => m.TableScenario) },
   { id: 'table-grid--table-grid', group: 'table-grid', name: 'Table Grid', load: () => import('../components/table-grid/table-grid.component').then((m) => m.TableGridScenario) },
   { id: 'data-table--data-table', group: 'data-table', name: 'Data Table', load: () => import('../components/data-table/data-table.component').then((m) => m.DataTableScenario) },
-  { id: 'fixed-marker--fixed-marker', group: 'fixed-marker', name: 'Fixed Marker', load: () => import('../components/map-marker/fixed-marker.component').then((m) => m.FixedMarkerScenario) },
-  { id: 'floating-marker--floating-marker', group: 'floating-marker', name: 'Floating Marker', load: () => import('../components/map-marker/floating-marker.component').then((m) => m.FloatingMarkerScenario) },
-  { id: 'floating-route-marker--floating-route-marker', group: 'floating-route-marker', name: 'Floating Route Marker', load: () => import('../components/map-marker/floating-route-marker.component').then((m) => m.FloatingRouteMarkerScenario) },
-  { id: 'location-puck--location-puck', group: 'location-puck', name: 'Location Puck', load: () => import('../components/map-marker/location-puck.component').then((m) => m.LocationPuckScenario) },
 ];
 
 export interface BwLadleGroup {

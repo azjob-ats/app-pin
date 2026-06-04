@@ -154,7 +154,7 @@ tem 1 das 5 stories do original.
 | 4 | Avatar | `avatar` | 1/5 | ⚠️ | tamanhos, imagem vs iniciais, fallback (error/no-src), update-image |
 | 5 | Badge | `badge` | 3/4 | ⚠️ | kinds/cores, posicionamento, hint-dot, notification-circle, inline |
 | 6 | Banner | `banner` | 1/5 | ⚠️ | kinds, ícone, ação (below), artwork, nested, dismiss |
-| 7 | Block | `block` | 1/1 | ⚠️ | utilitário de estilo (spacing/color/font props) — mapeamento de props |
+| 7 | Block | `block` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
 | 8 | Breadcrumbs | `breadcrumbs` | 1/4 | ⚠️ | separador, item atual vs link, truncamento, hover |
 | 9 | Button | `button` | 15/15 | ⚠️ | kinds×sizes×shapes, estados, loading (mantém fill), enhancers |
 | 10 | Button group | `button-group` | 0/12 | ⚠️ | single/multiple, modo radio/checkbox, bordas conjuntas, pill, wrap, disabled |
@@ -171,18 +171,18 @@ tem 1 das 5 stories do original.
 | 21 | File uploader | `file-uploader` | 1/7 | ⚠️ | dropzone, hover/dragover, progresso, restrições, preview, erro |
 | 22 | File uploader basic | `file-uploader-basic` | 0/7 | ⚠️ | pre/post-drop, progress-bar, spinner, disabled, error |
 | 23 | Flex grid | `flex-grid` | 1/6 | ⚠️ | gap, wrap, alinhamentos, responsivo, frações de pixel |
-| 24 | Form control | `form-control` | 1/3 | ⚠️ | label, caption, erro/positivo, espaçamento, required |
+| 24 | Form control | `form-control` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
 | 25 | Header navigation | `header-navigation` | 1/1 | ⚠️ | alinhamento de itens, borda inferior, ações à direita |
 | 26 | Heading | `heading` | 1/1 | ⚠️ | níveis/escala, peso, line-height, cor |
 | 27 | Helper | `helper` | 0/3 | 🚫 | **Fora do escopo** — infra, não clonar (ver 8.2) |
 | 28 | Helpers | `helpers` | 0/1 | 🚫 | **Fora do escopo** — utilitário interno, não-UI (ver 8.2) |
 | 29 | Icon | `icon` | 0/3 | ⚠️ | grid 24px, baseline, tamanho/cor herdada, em botões |
 | 30 | Input | `input` | 1/15 | ⚠️ | sizes, estados, before/after, clearable, mask, password, borda 2px |
-| 31 | Layer | `layer` | 0/2 | — | infra — portal/z-index/key-handlers (validar via Modal/Popover/Select) |
+| 31 | Layer | `layer` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
 | 32 | Layout grid | `layout-grid` | 1/11 | ⚠️ | colunas, gutter, margens, breakpoints, order/skip/hide |
 | 33 | Link | `link` | 1/1 | ⚠️ | cor, underline/hover, focus, dentro de texto |
 | 34 | List | `list` | 0/7 | ⚠️ | item (artwork/label/secundário/menu), divisória, alturas, rtl |
-| 35 | Map marker | `map-marker` | 0/9 | ⚠️ | fixed/floating/route/puck, pin shape, label, ponta, sombra |
+| 35 | Map marker | `map-marker` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
 | 36 | Menu | `menu` | 1/11 | ⚠️ | item hover/selected, divisórias, ícones, grouped, nested, virtualized |
 | 37 | Message card | `message-card` | 1/4 | ⚠️ | imagem, título/parágrafo, botão, layout, hover |
 | 38 | Mobile header | `mobile-header` | 0/2 | ⚠️ | título centralizado, ações esq/dir, altura, safe-area |
@@ -221,9 +221,10 @@ tem 1 das 5 stories do original.
 | 71 | Tree view | `tree-view` | 1/5 | ⚠️ | expand/collapse, indentação, ícones, seleção, single-expanded |
 | 72 | Typography | `typography` | 0/6 | ⚠️ | escala (display/heading/label/paragraph/mono), 2 famílias, pesos |
 
-**Placar:** `✅ 1` · `⚠️ 67` · `— (infra) 1` (layer) · `🚫 (fora do escopo) 3` —
-**72 componentes** no original; **escopo efetivo = 69** (helper/helpers/template-component
-não serão clonados, ver 8.2). **429 stories**, clone cobre **81** (~19%).
+**Placar:** `✅ 1` · `⚠️ 64` · `🚫 (fora do escopo) 7` — **72 componentes** no original;
+**escopo efetivo = 65**. Fora do escopo (🚫): `helper`, `helpers`, `template-component`
+(nunca clonados, infra) + `block`, `form-control`, `layer`, `map-marker` (removidos por
+decisão, ver 8.2). **429 stories**.
 
 ### 8.1. Divergências de nomenclatura & escopo
 
@@ -232,7 +233,7 @@ não serão clonados, ver 8.2). **429 stories**, clone cobre **81** (~19%).
 - ⏳ `side-nav` → **`side-navigation`** (orig: `nav`, `nav-long`)
 - ⏳ `timezone-picker` → **`timezonepicker`**
 - ⏳ `time-picker` (nav) → **`timepicker`** — corrige bug do item "Time Picker" vazio (slug não casava com o registry)
-- ⏳ `fixed-marker`, `floating-marker`, `floating-route-marker`, `location-puck` → stories de **`map-marker`**
+- ~~`fixed-marker`, `floating-marker`, `floating-route-marker`, `location-puck` → `map-marker`~~ — **cancelado**: `map-marker` foi removido do escopo (ver 8.2b)
 
 **Grupos só no clone (não existem no `meta.json` do original) — ✅ REMOVIDOS do catálogo:**
 `bottom-navigation`, `button-dock`, `dialog`, `empty-state`, `page-control`,
@@ -244,19 +245,27 @@ da seção *Utility* do nav: `A11y Validator`, `BaseProvider`, `UseStyletron`, `
 > Obs.: alguns podem ser componentes mais novos do Base Web. Só voltam ao escopo quando
 > existirem no `meta.json` do original usado como referência.
 
-### 8.2. Componentes do original FORA do escopo (não clonar)
+### 8.2. Componentes FORA do escopo (não clonar)
 
-Varredura inversa (original → clone): dos 72 grupos do original, **apenas 3 não existem no
-clone**, e os 3 são **infra/dev do Base Web, sem valor de UI** — decisão: **não clonar**.
+**(a) Originais que nunca existiram no clone — infra/dev, não-UI:**
 
 | Componente | Stories | Por que não clonar |
 |---|---|---|
-| `helper` | 3 (`position`, `steps`, `with-steps`) | Apesar de ter `styled-components`, é um helper interno; **não necessário** para o clone. |
-| `helpers` | 1 (`override-avoid-remount`) | Utilitários internos (`base-provider`, `overrides`, `i18n`, `responsive-helpers`) — não-UI. |
-| `template-component` | 1 | Scaffold/modelo que os devs do Base Web copiam para criar componentes novos. |
+| `helper` | 3 (`position`, `steps`, `with-steps`) | helper interno; **não necessário**. |
+| `helpers` | 1 (`override-avoid-remount`) | utilitários internos (`base-provider`, `overrides`, `i18n`) — não-UI. |
+| `template-component` | 1 | scaffold/modelo de dev do Base Web. |
 
-> Todos os demais 69 componentes do original **já existem no clone** (alguns pendentes de
-> rename/regroup conforme 8.1). `layer` (infra, 2 stories) foi **mantido** no catálogo.
+**(b) Removidos do clone por decisão — ✅ REMOVIDOS (nav + registry + pastas):**
+
+| Componente | O que foi removido |
+|---|---|
+| `block` | nav (Utility), registry, pasta `components/block` |
+| `form-control` | nav (Inputs), registry, pasta `components/form-control` |
+| `layer` | nav (Utility) — não tinha registry/pasta |
+| `map-marker` | seção "Map marker" do nav (4 itens), 4 entradas do registry, pasta `components/map-marker` (fixed/floating/route/puck) |
+
+> Removidos por decisão do projeto mesmo existindo no original. Sem referências externas —
+> remoção limpa, build do dev server OK. Para reintroduzir, basta recriar nav+registry+pasta.
 
 ---
 
@@ -304,7 +313,7 @@ clone**, e os 3 são **infra/dev do Base Web, sem valor de UI** — decisão: **
   - [ ] `banner--banner-nested`
   - [ ] `banner--banner-overrides`
 
-#### 7. Block — `block` — 1/1 ⚠️
+#### 7. Block — `block` — 🚫 removido do clone (ver 8.2b)
   - [x] `block--block`
 
 #### 8. Breadcrumbs — `breadcrumbs` — 1/4 ⚠️
@@ -490,7 +499,7 @@ clone**, e os 3 são **infra/dev do Base Web, sem valor de UI** — decisão: **
   - [ ] `flex-grid--unequal-narrow`
   - [ ] `flex-grid--unequal-wide`
 
-#### 24. Form control — `form-control` — 1/3 ⚠️
+#### 24. Form control — `form-control` — 🚫 removido do clone (ver 8.2b)
   - [x] `form-control--form-control`
   - [ ] `form-control--id`
   - [ ] `form-control--with-counter`
@@ -531,7 +540,7 @@ clone**, e os 3 são **infra/dev do Base Web, sem valor de UI** — decisão: **
   - [ ] `input--states`
   - [ ] `input--with-button`
 
-#### 31. Layer — `layer` — 0/2 —
+#### 31. Layer — `layer` — 🚫 removido do clone (ver 8.2b)
   - [ ] `layer--key-handlers`
   - [ ] `layer--z-index`
 
@@ -560,7 +569,7 @@ clone**, e os 3 são **infra/dev do Base Web, sem valor de UI** — decisão: **
   - [ ] `list--item-overrides`
   - [ ] `list--item-rtl`
 
-#### 35. Map marker — `map-marker` — 0/9 ⚠️
+#### 35. Map marker — `map-marker` — 🚫 removido do clone (ver 8.2b)
   - [ ] `map-marker--eats-pickup-marker`
   - [ ] `map-marker--fixed-marker`
   - [ ] `map-marker--fixed-marker-map`
