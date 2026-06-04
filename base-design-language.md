@@ -136,7 +136,8 @@ await browser.close();
 |---|---|
 | ✅ | **Verificado** — todas as stories clonadas, comparadas ao original, DoD atendido. |
 | ⚠️ | **Divergente** — faltam stories e/ou verificação contra o original. |
-| — | **Infra / sem story visual** — primitivo utilitário (helper/layer), baixa prioridade. |
+| — | **Infra / sem story visual** — primitivo utilitário (ex.: `layer`), baixa prioridade. |
+| 🚫 | **Fora do escopo** — existe no original mas é infra/dev sem valor de UI; **não clonar** (ver 8.2). |
 
 A coluna **Stories (clone/orig)** mostra a cobertura de stories: ex. `Avatar 1/5` = clone
 tem 1 das 5 stories do original.
@@ -173,8 +174,8 @@ tem 1 das 5 stories do original.
 | 24 | Form control | `form-control` | 1/3 | ⚠️ | label, caption, erro/positivo, espaçamento, required |
 | 25 | Header navigation | `header-navigation` | 1/1 | ⚠️ | alinhamento de itens, borda inferior, ações à direita |
 | 26 | Heading | `heading` | 1/1 | ⚠️ | níveis/escala, peso, line-height, cor |
-| 27 | Helper | `helper` | 0/3 | — | infra — helpers de posição/steps (sem visual próprio) |
-| 28 | Helpers | `helpers` | 0/1 | — | infra — override/avoid-remount (sem visual) |
+| 27 | Helper | `helper` | 0/3 | 🚫 | **Fora do escopo** — infra, não clonar (ver 8.2) |
+| 28 | Helpers | `helpers` | 0/1 | 🚫 | **Fora do escopo** — utilitário interno, não-UI (ver 8.2) |
 | 29 | Icon | `icon` | 0/3 | ⚠️ | grid 24px, baseline, tamanho/cor herdada, em botões |
 | 30 | Input | `input` | 1/15 | ⚠️ | sizes, estados, before/after, clearable, mask, password, borda 2px |
 | 31 | Layer | `layer` | 0/2 | — | infra — portal/z-index/key-handlers (validar via Modal/Popover/Select) |
@@ -211,7 +212,7 @@ tem 1 das 5 stories do original.
 | 62 | Table semantic | `table-semantic` | 1/9 | ⚠️ | markup <table> puro, estilos base, caption |
 | 63 | Tabs | `tabs` | 1/3 | ⚠️ | aba ativa (indicador/animação), fill/intrinsic, controlled, one-child |
 | 64 | Tag | `tag` | 1/5 | ⚠️ | kinds×variants, closeable, size, start-enhancer, long-text |
-| 65 | Template component | `template-component` | 0/1 | — | infra — scaffold interno (sem visual) |
+| 65 | Template component | `template-component` | 0/1 | 🚫 | **Fora do escopo** — scaffold de dev (ver 8.2) |
 | 66 | Textarea | `textarea` | 1/2 | ⚠️ | sizes, estados, resize, char count, borda 2px |
 | 67 | Timepicker | `timepicker` | 0/2 | ⚠️ | lista de horários, step, seleção, formato 12/24h, scroll |
 | 68 | Timezonepicker | `timezonepicker` | 1/3 | ⚠️ | busca, agrupamento, offset/label, abbreviations, additional |
@@ -220,23 +221,42 @@ tem 1 das 5 stories do original.
 | 71 | Tree view | `tree-view` | 1/5 | ⚠️ | expand/collapse, indentação, ícones, seleção, single-expanded |
 | 72 | Typography | `typography` | 0/6 | ⚠️ | escala (display/heading/label/paragraph/mono), 2 famílias, pesos |
 
-**Placar:** `✅ 1` · `⚠️ 67` · `— (infra) 4` — **72 componentes**, **429 stories**,
-clone cobre **81** (~19%).
+**Placar:** `✅ 1` · `⚠️ 67` · `— (infra) 1` (layer) · `🚫 (fora do escopo) 3` —
+**72 componentes** no original; **escopo efetivo = 69** (helper/helpers/template-component
+não serão clonados, ver 8.2). **429 stories**, clone cobre **81** (~19%).
 
-### 8.1. Divergências de nomenclatura & escopo (corrigir)
+### 8.1. Divergências de nomenclatura & escopo
 
 **Renomeações no clone (devem usar o nome do original):**
-- `side-nav` → **`side-navigation`** (orig: `nav`, `nav-long`)
-- `timezone-picker` → **`timezonepicker`**
-- `hint-dot`, `notification-circle` → stories de **`badge`** (`badge--hint-dot`, `badge--notification-circle`)
-- `fixed-marker`, `floating-marker`, `floating-route-marker`, `location-puck` → stories de **`map-marker`** (9 stories)
+- ✅ `hint-dot`, `notification-circle` → stories de **`badge`** (`badge--hint-dot`, `badge--notification-circle`) — **feito**
+- ⏳ `side-nav` → **`side-navigation`** (orig: `nav`, `nav-long`)
+- ⏳ `timezone-picker` → **`timezonepicker`**
+- ⏳ `time-picker` (nav) → **`timepicker`** — corrige bug do item "Time Picker" vazio (slug não casava com o registry)
+- ⏳ `fixed-marker`, `floating-marker`, `floating-route-marker`, `location-puck` → stories de **`map-marker`**
 
-**Grupos só no clone (não existem neste `meta.json` do original — fora do escopo / remover):**
+**Grupos só no clone (não existem no `meta.json` do original) — ✅ REMOVIDOS do catálogo:**
 `bottom-navigation`, `button-dock`, `dialog`, `empty-state`, `page-control`,
-`segmented-control`, `sheet`, `system-banner`, `tabs-motion`, `tag-group`, `tile`.
+`segmented-control`, `sheet`, `system-banner`, `tabs-motion`, `tag-group`, `tile`, `tokens`
+(8 com pasta própria foram apagadas; as demais reusavam outro componente). Também removidos
+da seção *Utility* do nav: `A11y Validator`, `BaseProvider`, `UseStyletron`, `Styled`
+(inexistentes no original). `Layer` foi mantido (existe no original).
 
-> Obs.: alguns podem ser componentes mais novos do Base Web. Se forem reintroduzidos, só
-> entram no escopo quando existirem no `meta.json` do original usado como referência.
+> Obs.: alguns podem ser componentes mais novos do Base Web. Só voltam ao escopo quando
+> existirem no `meta.json` do original usado como referência.
+
+### 8.2. Componentes do original FORA do escopo (não clonar)
+
+Varredura inversa (original → clone): dos 72 grupos do original, **apenas 3 não existem no
+clone**, e os 3 são **infra/dev do Base Web, sem valor de UI** — decisão: **não clonar**.
+
+| Componente | Stories | Por que não clonar |
+|---|---|---|
+| `helper` | 3 (`position`, `steps`, `with-steps`) | Apesar de ter `styled-components`, é um helper interno; **não necessário** para o clone. |
+| `helpers` | 1 (`override-avoid-remount`) | Utilitários internos (`base-provider`, `overrides`, `i18n`, `responsive-helpers`) — não-UI. |
+| `template-component` | 1 | Scaffold/modelo que os devs do Base Web copiam para criar componentes novos. |
+
+> Todos os demais 69 componentes do original **já existem no clone** (alguns pendentes de
+> rename/regroup conforme 8.1). `layer` (infra, 2 stories) foi **mantido** no catálogo.
 
 ---
 
@@ -481,12 +501,12 @@ clone cobre **81** (~19%).
 #### 26. Heading — `heading` — 1/1 ⚠️
   - [x] `heading--heading`
 
-#### 27. Helper — `helper` — 0/3 —
+#### 27. Helper — `helper` — 0/3 🚫 (fora do escopo, ver 8.2)
   - [ ] `helper--position`
   - [ ] `helper--steps`
   - [ ] `helper--with-steps`
 
-#### 28. Helpers — `helpers` — 0/1 —
+#### 28. Helpers — `helpers` — 0/1 🚫 (fora do escopo, ver 8.2)
   - [ ] `helpers--override-avoid-remount`
 
 #### 29. Icon — `icon` — 0/3 ⚠️
@@ -774,7 +794,7 @@ clone cobre **81** (~19%).
   - [ ] `tag--start-enhancer`
   - [x] `tag--tag`
 
-#### 65. Template component — `template-component` — 0/1 —
+#### 65. Template component — `template-component` — 0/1 🚫 (fora do escopo, ver 8.2)
   - [ ] `template-component--template-component`
 
 #### 66. Textarea — `textarea` — 1/2 ⚠️

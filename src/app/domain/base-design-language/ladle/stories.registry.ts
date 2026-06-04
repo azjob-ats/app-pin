@@ -77,9 +77,8 @@ export const BW_STORIES: BwStory[] = [
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.component').then((m) => m.AspectRatioBoxScenario) },
   // Banda A — lote 3 (Tag + variações de Badge)
   { id: 'tag--tag', group: 'tag', name: 'Tag', load: () => import('../components/tag/tag.component').then((m) => m.TagScenario) },
-  { id: 'tag-group--tag-group', group: 'tag-group', name: 'Tag group', load: () => import('../components/tag/tag.component').then((m) => m.TagScenario) },
-  { id: 'notification-circle--notification-circle', group: 'notification-circle', name: 'NotificationCircle', load: () => import('../components/badge/badge-variants').then((m) => m.NotificationCircleScenario) },
-  { id: 'hint-dot--hint-dot', group: 'hint-dot', name: 'HintDot', load: () => import('../components/badge/badge-variants').then((m) => m.HintDotScenario) },
+  { id: 'badge--notification-circle', group: 'badge', name: 'NotificationCircle', load: () => import('../components/badge/badge-variants').then((m) => m.NotificationCircleScenario) },
+  { id: 'badge--hint-dot', group: 'badge', name: 'HintDot', load: () => import('../components/badge/badge-variants').then((m) => m.HintDotScenario) },
   // Banda B — form controls (lote 1)
   { id: 'radio--radio', group: 'radio', name: 'Radio', load: () => import('../components/radio/radio.component').then((m) => m.RadioScenario) },
   { id: 'switch--switch', group: 'switch', name: 'Switch', load: () => import('../components/switch/switch.component').then((m) => m.SwitchScenario) },
@@ -88,7 +87,6 @@ export const BW_STORIES: BwStory[] = [
   // Banda B — lote 2
   { id: 'form-control--form-control', group: 'form-control', name: 'Form Control', load: () => import('../components/form-control/form-control.component').then((m) => m.FormControlScenario) },
   { id: 'pin-code--pin-code', group: 'pin-code', name: 'Pin Code', load: () => import('../components/pin-code/pin-code.component').then((m) => m.PinCodeScenario) },
-  { id: 'segmented-control--segmented-control', group: 'segmented-control', name: 'Segmented Control', load: () => import('../components/segmented-control/segmented-control.component').then((m) => m.SegmentedControlScenario) },
   { id: 'rating--rating', group: 'rating', name: 'Rating', load: () => import('../components/rating/rating.component').then((m) => m.RatingScenario) },
   // Banda B — lote 3 (fecha Banda B; v2 reusam base)
   { id: 'slider--slider', group: 'slider', name: 'Slider', load: () => import('../components/slider/slider.component').then((m) => m.SliderScenario) },
@@ -99,12 +97,9 @@ export const BW_STORIES: BwStory[] = [
   { id: 'layout-grid--layout-grid', group: 'layout-grid', name: 'Layout Grid', load: () => import('../components/layout-grid/layout-grid.component').then((m) => m.LayoutGridScenario) },
   { id: 'flex-grid--flex-grid', group: 'flex-grid', name: 'FlexGrid', load: () => import('../components/flex-grid/flex-grid.component').then((m) => m.FlexGridScenario) },
   { id: 'list--list', group: 'list', name: 'List', load: () => import('../components/list/list-item.component').then((m) => m.ListScenario) },
-  { id: 'tile--tile', group: 'tile', name: 'Tile', load: () => import('../components/tile/tile.component').then((m) => m.TileScenario) },
   { id: 'tree-view--tree-view', group: 'tree-view', name: 'Tree View', load: () => import('../components/tree-view/tree-view.component').then((m) => m.TreeViewScenario) },
   // Banda D — feedback & progresso
   { id: 'banner--banner', group: 'banner', name: 'Banner', load: () => import('../components/banner/banner.component').then((m) => m.BannerScenario) },
-  { id: 'system-banner--system-banner', group: 'system-banner', name: 'System Banner', load: () => import('../components/banner/banner.component').then((m) => m.SystemBannerScenario) },
-  { id: 'empty-state--empty-state', group: 'empty-state', name: 'Empty State', load: () => import('../components/empty-state/empty-state.component').then((m) => m.EmptyStateScenario) },
   { id: 'notification--notification', group: 'notification', name: 'Notification', load: () => import('../components/notification/notification.component').then((m) => m.NotificationScenario) },
   { id: 'progress-bar--progress-bar', group: 'progress-bar', name: 'Progress Bar', load: () => import('../components/progress-bar/progress-bar.component').then((m) => m.ProgressBarScenario) },
   { id: 'progress-steps--progress-steps', group: 'progress-steps', name: 'Progress Steps', load: () => import('../components/progress-steps/progress-steps.component').then((m) => m.ProgressStepsScenario) },
@@ -113,16 +108,13 @@ export const BW_STORIES: BwStory[] = [
   { id: 'link--link', group: 'link', name: 'Link', load: () => import('../components/link/link.component').then((m) => m.LinkScenario) },
   // Banda E — navegação (lote 1)
   { id: 'tabs--tabs', group: 'tabs', name: 'Tabs', load: () => import('../components/tabs/tabs.component').then((m) => m.TabsScenario) },
-  { id: 'tabs-motion--tabs', group: 'tabs-motion', name: 'Tabs', load: () => import('../components/tabs/tabs.component').then((m) => m.TabsScenario) },
   { id: 'breadcrumbs--breadcrumbs', group: 'breadcrumbs', name: 'Breadcrumbs', load: () => import('../components/breadcrumbs/breadcrumbs.component').then((m) => m.BreadcrumbsScenario) },
   { id: 'pagination--pagination', group: 'pagination', name: 'Pagination', load: () => import('../components/pagination/pagination.component').then((m) => m.PaginationScenario) },
-  { id: 'page-control--page-control', group: 'page-control', name: 'Page Control', load: () => import('../components/page-control/page-control.component').then((m) => m.PageControlScenario) },
   // Banda E — lote 2 (fecha navegação)
   { id: 'side-nav--side-nav', group: 'side-nav', name: 'Side Navigation', load: () => import('../components/side-navigation/side-navigation.component').then((m) => m.SideNavigationScenario) },
   { id: 'header-navigation--header-navigation', group: 'header-navigation', name: 'Header Navigation', load: () => import('../components/header-navigation/header-navigation.component').then((m) => m.HeaderNavigationScenario) },
   { id: 'app-nav-bar--app-nav-bar', group: 'app-nav-bar', name: 'Navigation Bar', load: () => import('../components/app-nav-bar/app-nav-bar.component').then((m) => m.AppNavBarScenario) },
   { id: 'mobile-header--mobile-header', group: 'mobile-header', name: 'Mobile Header', load: () => import('../components/mobile-header/mobile-header.component').then((m) => m.MobileHeaderScenario) },
-  { id: 'bottom-navigation--bottom-navigation', group: 'bottom-navigation', name: 'Bottom Navigation', load: () => import('../components/bottom-navigation/bottom-navigation.component').then((m) => m.BottomNavigationScenario) },
   { id: 'dnd-list--dnd-list', group: 'dnd-list', name: 'DnD List', load: () => import('../components/dnd-list/dnd-list.component').then((m) => m.DndListScenario) },
   // Banda F — overlays (lote 1)
   { id: 'card--card', group: 'card', name: 'Card', load: () => import('../components/card/card.component').then((m) => m.CardScenario) },
@@ -130,9 +122,7 @@ export const BW_STORIES: BwStory[] = [
   { id: 'popover--popover', group: 'popover', name: 'Popover', load: () => import('../components/popover/popover.component').then((m) => m.PopoverScenario) },
   // Banda F — lote 2 (superfícies)
   { id: 'modal--modal', group: 'modal', name: 'Modal', load: () => import('../components/modal/modal.component').then((m) => m.ModalScenario) },
-  { id: 'dialog--dialog', group: 'dialog', name: 'Dialog', load: () => import('../components/dialog/dialog.component').then((m) => m.DialogScenario) },
   { id: 'drawer--drawer', group: 'drawer', name: 'Drawer', load: () => import('../components/drawer/drawer.component').then((m) => m.DrawerScenario) },
-  { id: 'sheet--sheet', group: 'sheet', name: 'Sheet', load: () => import('../components/sheet/sheet.component').then((m) => m.SheetScenario) },
   // Banda F — lote 3 (fecha overlays)
   { id: 'menu--menu', group: 'menu', name: 'Menu', load: () => import('../components/menu/menu.component').then((m) => m.MenuScenario) },
   { id: 'snackbar--snackbar', group: 'snackbar', name: 'Snackbar', load: () => import('../components/snackbar/snackbar.component').then((m) => m.SnackbarScenario) },
@@ -141,7 +131,6 @@ export const BW_STORIES: BwStory[] = [
   { id: 'select--select', group: 'select', name: 'Select', load: () => import('../components/select/select.component').then((m) => m.SelectScenario) },
   { id: 'combobox--combobox', group: 'combobox', name: 'Combobox', load: () => import('../components/combobox/combobox.component').then((m) => m.ComboboxScenario) },
   { id: 'button-group--button-group', group: 'button-group', name: 'Button Group', load: () => import('../components/button-group/button-group.component').then((m) => m.ButtonGroupScenario) },
-  { id: 'button-dock--button-dock', group: 'button-dock', name: 'Button Dock', load: () => import('../components/button-dock/button-dock.component').then((m) => m.ButtonDockScenario) },
   { id: 'button-timed--button-timed', group: 'button-timed', name: 'Button Timed', load: () => import('../components/button-timed/button-timed.component').then((m) => m.ButtonTimedScenario) },
   { id: 'sliding-button--sliding-button', group: 'sliding-button', name: 'Sliding Button', load: () => import('../components/sliding-button/sliding-button.component').then((m) => m.SlidingButtonScenario) },
   { id: 'file-uploader-basic--file-uploader-basic', group: 'file-uploader-basic', name: 'File Uploader Basic', load: () => import('../components/file-uploader-basic/file-uploader-basic.component').then((m) => m.FileUploaderBasicScenario) },
