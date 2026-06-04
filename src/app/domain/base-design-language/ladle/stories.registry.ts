@@ -109,7 +109,7 @@ export const BW_STORIES: BwStory[] = [
   { id: 'breadcrumbs--breadcrumbs', group: 'breadcrumbs', name: 'Breadcrumbs', load: () => import('../components/breadcrumbs/breadcrumbs.component').then((m) => m.BreadcrumbsScenario) },
   { id: 'pagination--pagination', group: 'pagination', name: 'Pagination', load: () => import('../components/pagination/pagination.component').then((m) => m.PaginationScenario) },
   // Banda E — lote 2 (fecha navegação)
-  { id: 'side-nav--side-nav', group: 'side-nav', name: 'Side Navigation', load: () => import('../components/side-navigation/side-navigation.component').then((m) => m.SideNavigationScenario) },
+  { id: 'side-navigation--side-navigation', group: 'side-navigation', name: 'Side Navigation', load: () => import('../components/side-navigation/side-navigation.component').then((m) => m.SideNavigationScenario) },
   { id: 'header-navigation--header-navigation', group: 'header-navigation', name: 'Header Navigation', load: () => import('../components/header-navigation/header-navigation.component').then((m) => m.HeaderNavigationScenario) },
   { id: 'app-nav-bar--app-nav-bar', group: 'app-nav-bar', name: 'Navigation Bar', load: () => import('../components/app-nav-bar/app-nav-bar.component').then((m) => m.AppNavBarScenario) },
   { id: 'mobile-header--mobile-header', group: 'mobile-header', name: 'Mobile Header', load: () => import('../components/mobile-header/mobile-header.component').then((m) => m.MobileHeaderScenario) },
@@ -136,7 +136,7 @@ export const BW_STORIES: BwStory[] = [
   { id: 'phone-input--phone-input', group: 'phone-input', name: 'Phone Input', load: () => import('../components/phone-input/phone-input.component').then((m) => m.PhoneInputScenario) },
   { id: 'datepicker--datepicker', group: 'datepicker', name: 'Datepicker', load: () => import('../components/datepicker/datepicker.component').then((m) => m.DatepickerScenario) },
   { id: 'timepicker--timepicker', group: 'timepicker', name: 'Time Picker', load: () => import('../components/timepicker/timepicker.component').then((m) => m.TimepickerScenario) },
-  { id: 'timezone-picker--timezone-picker', group: 'timezone-picker', name: 'Timezone Picker', load: () => import('../components/timezone-picker/timezone-picker.component').then((m) => m.TimezonePickerScenario) },
+  { id: 'timezonepicker--timezonepicker', group: 'timezonepicker', name: 'Timezone Picker', load: () => import('../components/timezonepicker/timezonepicker.component').then((m) => m.TimezonePickerScenario) },
   { id: 'table-semantic--table-semantic', group: 'table-semantic', name: 'Table Semantic', load: () => import('../components/table-semantic/table-semantic.component').then((m) => m.TableSemanticScenario) },
   { id: 'table--table', group: 'table', name: 'Table', load: () => import('../components/table/table.component').then((m) => m.TableScenario) },
   { id: 'table-grid--table-grid', group: 'table-grid', name: 'Table Grid', load: () => import('../components/table-grid/table-grid.component').then((m) => m.TableGridScenario) },
