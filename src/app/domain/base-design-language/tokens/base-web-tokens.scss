@@ -123,6 +123,7 @@
   --bw-breakpoint-large: 1136px;
 
   // Z-index + opacity
+  --bw-z-overlay: 1000; // popovers/dropdowns/menus (abaixo de modal)
   --bw-z-modal: 2000;
   --bw-opacity-disabled: 0.48;
 

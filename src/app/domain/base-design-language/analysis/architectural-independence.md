@@ -46,5 +46,14 @@ src/app/domain/base-design-language/
 └── shared/          # helpers Angular (overrides, a11y, locale)
 ```
 
+## Fontes de referência (ground truth)
+Toda decisão é validada contra:
+1. **Source React:** `/home/azjob/workspace/app-pin/base-design-language/baseweb` — lógica, props, branches de estilo (`styled-components.ts`, `constants.ts`).
+2. **Render estático (HTML+CSS, sem JS):** `/home/azjob/workspace/app-pin/static`
+   - `static/documentation-site/[DEV] Base Web - <Página>.html` — casca do docs site + páginas.
+   - **`static/ladle/<Story> - <Componente> _ Ladle.html`** — **CSS RENDERIZADO de cada story** (valores computados exatos). Para um componente, achar suas stories: `ls static/ladle | grep "- <Componente> _ Ladle.html"`.
+
+**Workflow por componente (Fase 5):** ler source → ler o(s) HTML(s) renderizado(s) em `static/ladle` → portar com **valores exatos** (cores/padding/borda/estado) → scenarios no Ladle → doc page → conferir.
+
 ## Meta final
 > "Base Web foi projetado nativamente para Angular" — **não** "o repo React foi copiado para Angular".
