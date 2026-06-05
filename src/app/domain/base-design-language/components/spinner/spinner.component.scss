@@ -1,0 +1,20 @@
+// Spinner — clone fiel do baseui/spinner (styled-components.ts).
+// border-top-color/width e box vêm de bindings no host; aqui ficam os valores fixos.
+.bui-spinner {
+  // O Base Web não reseta box-sizing (content-box): a borda fica fora da caixa.
+  box-sizing: content-box;
+  display: block;
+  border-style: solid;
+  border-radius: 50%;
+  // borda "trilho" (3 lados) — backgroundTertiary; o topo é a cor de destaque (host binding).
+  border-right-color: var(--bw-background-tertiary);
+  border-bottom-color: var(--bw-background-tertiary);
+  border-left-color: var(--bw-background-tertiary);
+  cursor: wait;
+  animation: bui-spinner-spin var(--bw-timing-1000) linear infinite;
+}
+
+@keyframes bui-spinner-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

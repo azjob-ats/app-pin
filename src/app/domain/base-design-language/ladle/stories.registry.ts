@@ -40,6 +40,8 @@ export const BW_STORIES: BwStory[] = [
   typo('mono', 'Mono', 'MonoScenario'),
   typo('mono-styletron', 'Mono styletron', 'MonoStyletronScenario'),
   typo('overrides', 'Overrides', 'OverridesScenario'),
+  // Spinner
+  { id: 'spinner--spinner', group: 'spinner', name: 'Spinner', load: () => import('../components/spinner/spinner.scenarios').then((m) => m.SpinnerScenario) },
 ];
 
 export interface BwLadleGroup {
