@@ -99,7 +99,7 @@ export const BW_NAV: BwNavCategory[] = [
         label: 'Content',
         items: [
           { label: 'Accordion', path: 'components/accordion', status: 'ready' },
-          { label: 'Avatar', path: 'components/avatar', status: 'soon' },
+          { label: 'Avatar', path: 'components/avatar', status: 'ready' },
           { label: 'Badge', path: 'components/badge', status: 'soon' },
           { label: 'Drag and Drop List', path: 'components/dnd-list', status: 'soon' },
           { label: 'Layout Grid', path: 'components/layout-grid', status: 'soon' },

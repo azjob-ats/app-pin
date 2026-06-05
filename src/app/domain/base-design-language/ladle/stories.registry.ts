@@ -22,6 +22,16 @@ const typo = (slug: string, label: string, exp: string): BwStory => ({
     ),
 });
 
+const av = (slug: string, label: string, exp: string): BwStory => ({
+  id: `avatar--${slug}`,
+  group: 'avatar',
+  name: label,
+  load: () =>
+    import('../components/avatar/avatar.scenarios').then(
+      (m) => (m as unknown as Record<string, Type<unknown>>)[exp],
+    ),
+});
+
 /** Stories registradas — Accordion, Pagination e Typography (demais componentes removidos do clone). */
 export const BW_STORIES: BwStory[] = [
   // Accordion
@@ -42,6 +52,12 @@ export const BW_STORIES: BwStory[] = [
   typo('overrides', 'Overrides', 'OverridesScenario'),
   // Spinner
   { id: 'spinner--spinner', group: 'spinner', name: 'Spinner', load: () => import('../components/spinner/spinner.scenarios').then((m) => m.SpinnerScenario) },
+  // Avatar
+  av('avatar', 'Avatar', 'AvatarScenario'),
+  av('custom-initials', 'Custom initials', 'CustomInitialsScenario'),
+  av('error', 'Error', 'ErrorScenario'),
+  av('no-src', 'No src', 'NoSrcScenario'),
+  av('update-image', 'Update image', 'UpdateImageScenario'),
 ];
 
 export interface BwLadleGroup {

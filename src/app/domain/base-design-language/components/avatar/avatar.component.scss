@@ -1,0 +1,29 @@
+// Avatar — clone fiel do baseui/avatar (styled-components.ts).
+// Root (host): círculo inline-block; bg/dimensão só quando a imagem falha (host bindings).
+.bui-avatar {
+  box-sizing: border-box;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+// Imagem: círculo, cobre a área; oculta até carregar (dimensão vem de binding).
+.bui-avatar__img {
+  box-sizing: border-box;
+  display: none;
+  border-radius: 50%;
+  object-fit: cover;
+
+  &--loaded {
+    display: block;
+  }
+}
+
+// Iniciais: tipografia ParagraphMedium (font300), cor inversa, centralizadas, ocupam o Root.
+.bui-avatar__initials {
+  font: var(--bw-font-ParagraphMedium);
+  color: var(--bw-content-inverse-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
