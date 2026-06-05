@@ -148,7 +148,7 @@ export const BW_NAV: BwNavCategory[] = [
         label: 'Utility',
         items: [
           { label: 'AspectRatioBox', path: 'components/aspect-ratio-box', status: 'soon' },
-          { label: 'Divider', path: 'components/divider', status: 'soon' },
+          { label: 'Divider', path: 'components/divider', status: 'ready' },
           { label: 'FlexGrid', path: 'components/flex-grid', status: 'soon' },
         ],
       },

@@ -58,6 +58,8 @@ export const BW_STORIES: BwStory[] = [
   av('error', 'Error', 'ErrorScenario'),
   av('no-src', 'No src', 'NoSrcScenario'),
   av('update-image', 'Update image', 'UpdateImageScenario'),
+  // Divider
+  { id: 'divider--divider', group: 'divider', name: 'Divider', load: () => import('../components/divider/divider.scenarios').then((m) => m.DividerScenario) },
 ];
 
 export interface BwLadleGroup {

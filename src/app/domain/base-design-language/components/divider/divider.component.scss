@@ -1,0 +1,17 @@
+// Divider — clone fiel do baseui/divider (styled-components.ts).
+// <hr> só com borda superior; demais lados zerados. O Base Web não reseta a margem do
+// <hr>, então restauramos a margem de bloco do UA (8px) que o reset global do app zera.
+.bui-divider {
+  box-sizing: content-box;
+  height: 0;
+  overflow: hidden;
+  margin: 8px 0;
+  border-style: none;
+  border-top-style: solid;
+  border-top-width: 1px; // cell/section
+  border-top-color: var(--bw-border-opaque);
+}
+
+.bui-divider--module {
+  border-top-width: var(--bw-sizing-scale100); // 4px
+}
