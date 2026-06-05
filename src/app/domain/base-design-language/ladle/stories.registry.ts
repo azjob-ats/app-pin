@@ -12,7 +12,17 @@ const acc = (slug: string, label: string, exp: string): BwStory => ({
     ),
 });
 
-/** Stories registradas — apenas Accordion e Pagination (demais componentes removidos do clone). */
+const typo = (slug: string, label: string, exp: string): BwStory => ({
+  id: `typography--${slug}`,
+  group: 'typography',
+  name: label,
+  load: () =>
+    import('../components/typography/typography.scenarios').then(
+      (m) => (m as unknown as Record<string, Type<unknown>>)[exp],
+    ),
+});
+
+/** Stories registradas — Accordion, Pagination e Typography (demais componentes removidos do clone). */
 export const BW_STORIES: BwStory[] = [
   // Accordion
   acc('controlled', 'Controlled', 'ControlledScenario'),
@@ -23,6 +33,13 @@ export const BW_STORIES: BwStory[] = [
   acc('accordion', 'Accordion', 'AccordionScenario'),
   // Pagination
   { id: 'pagination--pagination', group: 'pagination', name: 'Pagination', load: () => import('../components/pagination/pagination.component').then((m) => m.PaginationScenario) },
+  // Typography
+  typo('body', 'Body', 'BodyScenario'),
+  typo('display', 'Display', 'DisplayScenario'),
+  typo('heading', 'Heading', 'HeadingScenario'),
+  typo('mono', 'Mono', 'MonoScenario'),
+  typo('mono-styletron', 'Mono styletron', 'MonoStyletronScenario'),
+  typo('overrides', 'Overrides', 'OverridesScenario'),
 ];
 
 export interface BwLadleGroup {

@@ -16,7 +16,7 @@
   --bw-font-family: UberMoveText, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   // Headings/Display usam UberMove (fonte de display do Base Web)
   --bw-font-family-heading: UberMove, UberMoveText, system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --bw-font-family-mono: 'Roboto Mono', ui-monospace, Menlo, Consolas, monospace;
+  --bw-font-family-mono: UberMoveMono, 'Lucida Console', Monaco, monospace;
   --bw-font-weight-normal: 400;
   --bw-font-weight-medium: 500;
   --bw-font-weight-bold: 700;
@@ -40,6 +40,26 @@
   --bw-font-DisplaySmall: 700 44px/52px var(--bw-font-family-heading);
   --bw-font-DisplayMedium: 700 52px/64px var(--bw-font-family-heading);
   --bw-font-DisplayLarge: 700 96px/112px var(--bw-font-family-heading);
+
+  // Typography — escalas Mono (mesma métrica das base, família mono)
+  --bw-font-MonoParagraphXSmall: 400 12px/20px var(--bw-font-family-mono);
+  --bw-font-MonoParagraphSmall: 400 14px/20px var(--bw-font-family-mono);
+  --bw-font-MonoParagraphMedium: 400 16px/24px var(--bw-font-family-mono);
+  --bw-font-MonoParagraphLarge: 400 18px/28px var(--bw-font-family-mono);
+  --bw-font-MonoLabelXSmall: 500 12px/16px var(--bw-font-family-mono);
+  --bw-font-MonoLabelSmall: 500 14px/16px var(--bw-font-family-mono);
+  --bw-font-MonoLabelMedium: 500 16px/20px var(--bw-font-family-mono);
+  --bw-font-MonoLabelLarge: 500 18px/24px var(--bw-font-family-mono);
+  --bw-font-MonoHeadingXSmall: 700 20px/28px var(--bw-font-family-mono);
+  --bw-font-MonoHeadingSmall: 700 24px/32px var(--bw-font-family-mono);
+  --bw-font-MonoHeadingMedium: 700 28px/36px var(--bw-font-family-mono);
+  --bw-font-MonoHeadingLarge: 700 32px/40px var(--bw-font-family-mono);
+  --bw-font-MonoHeadingXLarge: 700 36px/44px var(--bw-font-family-mono);
+  --bw-font-MonoHeadingXXLarge: 700 40px/52px var(--bw-font-family-mono);
+  --bw-font-MonoDisplayXSmall: 700 36px/44px var(--bw-font-family-mono);
+  --bw-font-MonoDisplaySmall: 700 44px/52px var(--bw-font-family-mono);
+  --bw-font-MonoDisplayMedium: 700 52px/64px var(--bw-font-family-mono);
+  --bw-font-MonoDisplayLarge: 700 96px/112px var(--bw-font-family-mono);
 
   // Sizing (scale)
   --bw-sizing-scale0: 2px;
