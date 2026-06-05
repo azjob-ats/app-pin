@@ -7,15 +7,11 @@ type Loader = () => Promise<Type<unknown>>;
 const placeholder: Loader = () =>
   import('./pages/placeholder/bw-placeholder.component').then((m) => m.BwPlaceholderComponent);
 
-/** Páginas já implementadas (status 'ready'). Cresce a cada fase. */
+/** Páginas já implementadas (status 'ready'). */
 const READY: Record<string, Loader> = {
   '': () => import('./pages/home/bw-home.component').then((m) => m.BwHomeComponent),
-  'components/button': () =>
-    import('./pages/components/button/button.page.component').then((m) => m.BwButtonPageComponent),
   'components/accordion': () =>
     import('./pages/components/accordion/accordion.page.component').then((m) => m.BwAccordionPageComponent),
-  'components/checkbox': () =>
-    import('./pages/components/checkbox/checkbox.page.component').then((m) => m.BwCheckboxPageComponent),
 };
 
 const navRoutes: Routes = BW_NAV_ITEMS.map((item) => ({

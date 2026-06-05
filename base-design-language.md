@@ -146,109 +146,85 @@ tem 1 das 5 stories do original.
 
 ## 8. Cobertura por componente
 
-| # | Componente | Grupo | Stories (clone/orig) | Status | Foco de verificação (específico) |
-|---|---|---|:--:|:--:|---|
-| 1 | Accordion | `accordion` | 6/6 | ✅ | chevron 24px, header 56px, foco-visível #276EF1, AXE 0 — VERIFICADO (ver ficha) |
-| 2 | App nav bar | `app-nav-bar` | 1/7 | ⚠️ | logo, itens primários/secundários, user menu, busca, colapso responsivo |
-| 3 | Aspect ratio box | `aspect-ratio-box` | 1/1 | ⚠️ | proporção mantida, conteúdo preenchendo, overflow |
-| 4 | Avatar | `avatar` | 1/5 | ⚠️ | tamanhos, imagem vs iniciais, fallback (error/no-src), update-image |
-| 5 | Badge | `badge` | 3/4 | ⚠️ | kinds/cores, posicionamento, hint-dot, notification-circle, inline |
-| 6 | Banner | `banner` | 1/5 | ⚠️ | kinds, ícone, ação (below), artwork, nested, dismiss |
-| 7 | Block | `block` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
-| 8 | Breadcrumbs | `breadcrumbs` | 1/4 | ⚠️ | separador, item atual vs link, truncamento, hover |
-| 9 | Button | `button` | 15/15 | ⚠️ | kinds×sizes×shapes, estados, loading (mantém fill), enhancers |
-| 10 | Button group | `button-group` | 0/12 | ⚠️ | single/multiple, modo radio/checkbox, bordas conjuntas, pill, wrap, disabled |
-| 11 | Button timed | `button-timed` | 1/1 | ⚠️ | progresso/contagem, fill animado, estado ao completar |
-| 12 | Card | `card` | 1/5 | ⚠️ | thumbnail/imagem, título/corpo, link, sombra/borda, header-level |
-| 13 | Checkbox | `checkbox` | 6/8 | ⚠️ | checked/unchecked/indeterminate, label, focus, disabled, error, placement |
-| 14 | Checkbox v2 | `checkbox-v2` | 1/7 | ⚠️ | idem v1 + diferenças da v2 (auto-focus, placement, states, unlabeled) |
-| 15 | Combobox | `combobox` | 1/11 | ⚠️ | input+lista, filtro/autocomplete, teclado, sizes, form-control |
-| 16 | Data table | `data-table` | 1/33 | ⚠️ | colunas/sort, seleção, sticky, filtros, densidade, batch-actions |
-| 17 | Datepicker | `datepicker` | 1/29 | ⚠️ | calendário, range, navegação, dia selecionado/hoje/disabled, popover |
-| 18 | Divider | `divider` | 1/1 | ⚠️ | espessura, cor, margens, orientação |
-| 19 | Dnd list | `dnd-list` | 1/1 | ⚠️ | handle, item em drag (sombra/opacidade), drop indicator, reorder |
-| 20 | Drawer | `drawer` | 1/4 | ⚠️ | anchor, scrim, animação, close, hide-backdrop, render-all |
-| 21 | File uploader | `file-uploader` | 1/7 | ⚠️ | dropzone, hover/dragover, progresso, restrições, preview, erro |
-| 22 | File uploader basic | `file-uploader-basic` | 0/7 | ⚠️ | pre/post-drop, progress-bar, spinner, disabled, error |
-| 23 | Flex grid | `flex-grid` | 1/6 | ⚠️ | gap, wrap, alinhamentos, responsivo, frações de pixel |
-| 24 | Form control | `form-control` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
-| 25 | Header navigation | `header-navigation` | 1/1 | ⚠️ | alinhamento de itens, borda inferior, ações à direita |
-| 26 | Heading | `heading` | 1/1 | ⚠️ | níveis/escala, peso, line-height, cor |
-| 27 | Helper | `helper` | 0/3 | 🚫 | **Fora do escopo** — infra, não clonar (ver 8.2) |
-| 28 | Helpers | `helpers` | 0/1 | 🚫 | **Fora do escopo** — utilitário interno, não-UI (ver 8.2) |
-| 29 | Icon | `icon` | 0/3 | ⚠️ | grid 24px, baseline, tamanho/cor herdada, em botões |
-| 30 | Input | `input` | 1/15 | ⚠️ | sizes, estados, before/after, clearable, mask, password, borda 2px |
-| 31 | Layer | `layer` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
-| 32 | Layout grid | `layout-grid` | 1/11 | ⚠️ | colunas, gutter, margens, breakpoints, order/skip/hide |
-| 33 | Link | `link` | 1/1 | ⚠️ | cor, underline/hover, focus, dentro de texto |
-| 34 | List | `list` | 0/7 | ⚠️ | item (artwork/label/secundário/menu), divisória, alturas, rtl |
-| 35 | Map marker | `map-marker` | — | 🚫 | **Removido do clone por decisão** (ver 8.2) |
-| 36 | Menu | `menu` | 1/11 | ⚠️ | item hover/selected, divisórias, ícones, grouped, nested, virtualized |
-| 37 | Message card | `message-card` | 1/4 | ⚠️ | imagem, título/parágrafo, botão, layout, hover |
-| 38 | Mobile header | `mobile-header` | 0/2 | ⚠️ | título centralizado, ações esq/dir, altura, safe-area |
-| 39 | Modal | `modal` | 1/3 | ⚠️ | scrim, animação, header/body/footer, close, foco preso, scroll lock |
-| 40 | Notification | `notification` | 1/1 | ⚠️ | kinds, ícone, cor de fundo, close, largura |
-| 41 | Pagination | `pagination` | 1/1 | ✅ | 4 sizes, select tertiary, dropdown z-index — VERIFICADO (ver ficha) |
-| 42 | Payment card | `payment-card` | 1/2 | ⚠️ | formatação número/bandeira, layout, foco/erro |
-| 43 | Phone input | `phone-input` | 1/7 | ⚠️ | seletor país (flag+code), dropdown, máscara, lite, estados |
-| 44 | Pin code | `pin-code` | 1/5 | ⚠️ | células, foco/caret, preenchido/erro, sizes, mask |
-| 45 | Popover | `popover` | 1/15 | ⚠️ | seta/placement, offset, sombra, animação, z-index, dismiss, scroll |
-| 46 | Progress bar | `progress-bar` | 0/6 | ⚠️ | trilho/preenchimento, indeterminado, rounded, intent, negative |
-| 47 | Progress steps | `progress-steps` | 1/6 | ⚠️ | nó atual/concluído/futuro, conector, numeração/ícone, vertical |
-| 48 | Radio | `radio` | 1/3 | ⚠️ | selected/unselected, label, focus, disabled, error, grupo |
-| 49 | Radio v2 | `radio-v2` | 1/5 | ⚠️ | idem + align, label-placement, interactive-label, states |
-| 50 | Rating | `rating` | 0/3 | ⚠️ | star/emoticon, hover preview, tamanho, cor |
-| 51 | Select | `select` | 1/30 | ⚠️ | control (sizes/estados), menu (z-index/scrim/sombra), search/multi/creatable, open |
-| 52 | Side navigation | `side-navigation` | 1/2 | ⚠️ | item ativo (barra/realce), níveis aninhados, ícones (nav/nav-long) |
-| 53 | Skeleton | `skeleton` | 1/3 | ⚠️ | shimmer/animação, raio, dimensões, cor base |
-| 54 | Slider | `slider` | 1/9 | ⚠️ | trilho/preenchimento, thumb, foco, marks, range, label, rtl |
-| 55 | Sliding button | `sliding-button` | 0/3 | ⚠️ | arraste/limiar, fill, confirmado, reset |
-| 56 | Snackbar | `snackbar` | 0/6 | ⚠️ | posição/placement, ação, ícone, provider, auto-dismiss |
-| 57 | Spinner | `spinner` | 1/1 | ⚠️ | tamanhos, espessura, cor/track, rotação |
-| 58 | Stepper | `stepper` | 1/1 | ⚠️ | passos, conector, atual/concluído, orientação |
-| 59 | Switch | `switch` | 1/7 | ⚠️ | on/off, thumb, transição, focus, disabled, size, placement |
-| 60 | Table | `table` | 0/8 | ⚠️ | header, linhas, borda/zebra, sortable, filter, scroll, pagination |
-| 61 | Table grid | `table-grid` | 1/4 | ⚠️ | colunas redimensionáveis, sticky, scroll, seleção |
-| 62 | Table semantic | `table-semantic` | 1/9 | ⚠️ | markup <table> puro, estilos base, caption |
-| 63 | Tabs | `tabs` | 1/3 | ⚠️ | aba ativa (indicador/animação), fill/intrinsic, controlled, one-child |
-| 64 | Tag | `tag` | 1/5 | ⚠️ | kinds×variants, closeable, size, start-enhancer, long-text |
-| 65 | Template component | `template-component` | 0/1 | 🚫 | **Fora do escopo** — scaffold de dev (ver 8.2) |
-| 66 | Textarea | `textarea` | 1/2 | ⚠️ | sizes, estados, resize, char count, borda 2px |
-| 67 | Timepicker | `timepicker` | 0/2 | ⚠️ | lista de horários, step, seleção, formato 12/24h, scroll |
-| 68 | Timezonepicker | `timezonepicker` | 1/3 | ⚠️ | busca, agrupamento, offset/label, abbreviations, additional |
-| 69 | Toast | `toast` | 1/4 | ⚠️ | kinds, posição/stack, ícone, close, toaster, auto-dismiss |
-| 70 | Tooltip | `tooltip` | 1/4 | ⚠️ | seta/placement, delay, fundo escuro, max-width, interactive |
-| 71 | Tree view | `tree-view` | 1/5 | ⚠️ | expand/collapse, indentação, ícones, seleção, single-expanded |
-| 72 | Typography | `typography` | 0/6 | ⚠️ | escala (display/heading/label/paragraph/mono), 2 famílias, pesos |
+| # | Componente | Stories (clone/orig) | Status |
+|---|----------|:--:|:--:|
+| 1 | Accordion | 6/6 | ✅ |
+| 2 | App nav bar | 0/7 | ⚠️ |
+| 3 | Aspect ratio box | 0/1 | ⚠️ |
+| 4 | Avatar | 0/5 | ⚠️ |
+| 5 | Badge | 0/4 | ⚠️ |
+| 6 | Banner | 0/5 | ⚠️ |
+| 7 | Block | — | 🚫 |
+| 8 | Breadcrumbs | 0/4 | ⚠️ |
+| 9 | Button | 0/15 | ⚠️ |
+| 10 | Button group | 0/12 | ⚠️ |
+| 11 | Button timed | 0/1 | ⚠️ |
+| 12 | Card | 0/5 | ⚠️ |
+| 13 | Checkbox | 0/8 | ⚠️ |
+| 14 | Checkbox v2 | 0/7 | ⚠️ |
+| 15 | Combobox | 0/11 | ⚠️ |
+| 16 | Data table | 0/33 | ⚠️ |
+| 17 | Datepicker | 0/29 | ⚠️ |
+| 18 | Divider | 0/1 | ⚠️ |
+| 19 | Dnd list | 0/1 | ⚠️ |
+| 20 | Drawer | 0/4 | ⚠️ |
+| 21 | File uploader | 0/7 | ⚠️ |
+| 22 | File uploader basic | 0/7 | ⚠️ |
+| 23 | Flex grid | 0/6 | ⚠️ |
+| 24 | Form control | — | 🚫 |
+| 25 | Header navigation | 0/1 | ⚠️ |
+| 26 | Heading | 0/1 | ⚠️ |
+| 27 | Helper | 0/3 | 🚫 |
+| 28 | Helpers | 0/1 | 🚫 |
+| 29 | Icon | 0/3 | ⚠️ |
+| 30 | Input | 0/15 | ⚠️ |
+| 31 | Layer | — | 🚫 |
+| 32 | Layout grid | 0/11 | ⚠️ |
+| 33 | Link | 0/1 | ⚠️ |
+| 34 | List | 0/7 | ⚠️ |
+| 35 | Map marker | — | 🚫 |
+| 36 | Menu | 0/11 | ⚠️ |
+| 37 | Message card | 0/4 | ⚠️ |
+| 38 | Mobile header | 0/2 | ⚠️ |
+| 39 | Modal | 0/3 | ⚠️ |
+| 40 | Notification | 0/1 | ⚠️ |
+| 41 | Pagination | 1/1 | ✅ |
+| 42 | Payment card | 0/2 | ⚠️ |
+| 43 | Phone input | 0/7 | ⚠️ |
+| 44 | Pin code | 0/5 | ⚠️ |
+| 45 | Popover | 0/15 | ⚠️ |
+| 46 | Progress bar | 0/6 | ⚠️ |
+| 47 | Progress steps | 0/6 | ⚠️ |
+| 48 | Radio | 0/3 | ⚠️ |
+| 49 | Radio v2 | 0/5 | ⚠️ |
+| 50 | Rating | 0/3 | ⚠️ |
+| 51 | Select | 0/30 | ⚠️ |
+| 52 | Side navigation | 0/2 | ⚠️ |
+| 53 | Skeleton | 0/3 | ⚠️ |
+| 54 | Slider | 0/9 | ⚠️ |
+| 55 | Sliding button | 0/3 | ⚠️ |
+| 56 | Snackbar | 0/6 | ⚠️ |
+| 57 | Spinner | 0/1 | ⚠️ |
+| 58 | Stepper | 0/1 | ⚠️ |
+| 59 | Switch | 0/7 | ⚠️ |
+| 60 | Table | 0/8 | ⚠️ |
+| 61 | Table grid | 0/4 | ⚠️ |
+| 62 | Table semantic | 0/9 | ⚠️ |
+| 63 | Tabs | 0/3 | ⚠️ |
+| 64 | Tag | 0/5 | ⚠️ |
+| 65 | Template component | 0/1 | 🚫 |
+| 66 | Textarea | 0/2 | ⚠️ |
+| 67 | Timepicker | 0/2 | ⚠️ |
+| 68 | Timezonepicker | 0/3 | ⚠️ |
+| 69 | Toast | 0/4 | ⚠️ |
+| 70 | Tooltip | 0/4 | ⚠️ |
+| 71 | Tree view | 0/5 | ⚠️ |
+| 72 | Typography | 0/6 | ⚠️ |
 
 **Placar:** `✅ 2` · `⚠️ 63` · `🚫 (fora do escopo) 7` — **72 componentes** no original;
 **escopo efetivo = 65**. Fora do escopo (🚫): `helper`, `helpers`, `template-component`
-(nunca clonados, infra) + `block`, `form-control`, `layer`, `map-marker` (removidos por
-decisão, ver 8.2). **429 stories**.
+`block`, `form-control`, `layer`, `map-marker`. **429 stories**.
 
-### 8.2. Componentes FORA do escopo (não clonar)
-
-**(a) Originais que nunca existiram no clone — infra/dev, não-UI:**
-
-| Componente | Stories | Por que não clonar |
-|---|---|---|
-| `helper` | 3 (`position`, `steps`, `with-steps`) | helper interno; **não necessário**. |
-| `helpers` | 1 (`override-avoid-remount`) | utilitários internos (`base-provider`, `overrides`, `i18n`) — não-UI. |
-| `template-component` | 1 | scaffold/modelo de dev do Base Web. |
-
-**(b) Removidos do clone por decisão — ✅ REMOVIDOS (nav + registry + pastas):**
-
-| Componente | O que foi removido |
-|---|---|
-| `block` | nav (Utility), registry, pasta `components/block` |
-| `form-control` | nav (Inputs), registry, pasta `components/form-control` |
-| `layer` | nav (Utility) — não tinha registry/pasta |
-| `map-marker` | seção "Map marker" do nav (4 itens), 4 entradas do registry, pasta `components/map-marker` (fixed/floating/route/puck) |
-
-> Removidos por decisão do projeto mesmo existindo no original. Sem referências externas —
-> remoção limpa, build do dev server OK. Para reintroduzir, basta recriar nav+registry+pasta.
-
----
 
 ## 10. Fichas por componente
 
