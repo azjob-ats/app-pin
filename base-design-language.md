@@ -146,101 +146,117 @@ tem 1 das 5 stories do original.
 
 ## 8. Cobertura por componente
 
-**Prioridade (Prio):** ordem de construção por **grafo de dependências** — fazer os
-provedores antes dos consumidores, para não retrabalhar. Tiers:
+**Prio:** **ordem única e sequencial** de construção (`P{tier}.{n}`) derivada do **grafo de
+dependências** — provedor antes do consumidor. Cada componente tem um código exclusivo;
+basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 
-- **P1 — Fundamentos:** primitivos sem dependências de outros componentes e reusados por
-  muitos (`Icon`, `Button`, `Avatar`, `Input`, `List`, `Spinner`, `Tag`, `Checkbox`,
-  `Typography`). **Fazer primeiro.**
-- **P2 — Estruturas de overlay:** base de menus/camadas que habilitam os compostos
-  (`Popover`, `Menu`, `Drawer`). Dependem de P1.
-- **P3 — Compostos:** montam-se sobre P1/P2 (`Select`, `Datepicker`, `Modal`, `Combobox`,
-  `Tooltip`, `Banner`…). Só depois que as bases estiverem ✅.
-- **P4 — Folhas:** independentes, sem dependentes; podem ser feitas em paralelo a qualquer
-  momento (`Badge`, `Divider`, `Slider`, `Switch`, `Tabs`, tabelas…).
+- **P1 — Fundamentos:** primitivos sem dependências e muito reusados. **Fazer primeiro.**
+- **P2 — Estruturas de overlay:** base de menus/camadas (dependem de P1).
+- **P3 — Compostos:** montam-se sobre P1/P2.
+- **P4 — Folhas:** independentes, sem dependentes; livres para rodar em paralelo.
 
 | # | Componente | Prio | Stories (clone/orig) | Status |
 |---|----------|:--:|:--:|:--:|
-| 1 | Accordion | P4 | 6/6 | ✅ |
-| 2 | App nav bar | P3 | 0/7 | ⚠️ |
-| 3 | Aspect ratio box | P4 | 0/1 | ⚠️ |
-| 4 | Avatar | **P1** | 0/5 | ⚠️ |
-| 5 | Badge | P4 | 0/4 | ⚠️ |
-| 6 | Banner | P3 | 0/5 | ⚠️ |
+| 1 | Accordion | P4.1 | 6/6 | ✅ |
+| 2 | App nav bar | P3.27 | 0/7 | ⚠️ |
+| 3 | Aspect ratio box | P4.8 | 0/1 | ⚠️ |
+| 4 | Avatar | P1.4 | 0/5 | ⚠️ |
+| 5 | Badge | P4.3 | 0/4 | ⚠️ |
+| 6 | Banner | P3.4 | 0/5 | ⚠️ |
 | 7 | Block | — | — | 🚫 |
-| 8 | Breadcrumbs | P4 | 0/4 | ⚠️ |
-| 9 | Button | **P1** | 0/15 | ⚠️ |
-| 10 | Button group | P3 | 0/12 | ⚠️ |
-| 11 | Button timed | P3 | 0/1 | ⚠️ |
-| 12 | Card | P3 | 0/5 | ⚠️ |
-| 13 | Checkbox | **P1** | 0/8 | ⚠️ |
-| 14 | Checkbox v2 | **P1** | 0/7 | ⚠️ |
-| 15 | Combobox | P3 | 0/11 | ⚠️ |
-| 16 | Data table | P3 | 0/33 | ⚠️ |
-| 17 | Datepicker | P3 | 0/29 | ⚠️ |
-| 18 | Divider | P4 | 0/1 | ⚠️ |
-| 19 | Dnd list | P4 | 0/1 | ⚠️ |
-| 20 | Drawer | **P2** | 0/4 | ⚠️ |
-| 21 | File uploader | P3 | 0/7 | ⚠️ |
-| 22 | File uploader basic | P3 | 0/7 | ⚠️ |
-| 23 | Flex grid | P4 | 0/6 | ⚠️ |
+| 8 | Breadcrumbs | P4.6 | 0/4 | ⚠️ |
+| 9 | Button | P1.6 | 0/15 | ⚠️ |
+| 10 | Button group | P3.1 | 0/12 | ⚠️ |
+| 11 | Button timed | P3.2 | 0/1 | ⚠️ |
+| 12 | Card | P3.3 | 0/5 | ⚠️ |
+| 13 | Checkbox | P1.8 | 0/8 | ⚠️ |
+| 14 | Checkbox v2 | P1.9 | 0/7 | ⚠️ |
+| 15 | Combobox | P3.21 | 0/11 | ⚠️ |
+| 16 | Data table | P3.28 | 0/33 | ⚠️ |
+| 17 | Datepicker | P3.22 | 0/29 | ⚠️ |
+| 18 | Divider | P4.2 | 0/1 | ⚠️ |
+| 19 | Dnd list | P4.21 | 0/1 | ⚠️ |
+| 20 | Drawer | P2.3 | 0/4 | ⚠️ |
+| 21 | File uploader | P3.13 | 0/7 | ⚠️ |
+| 22 | File uploader basic | P3.14 | 0/7 | ⚠️ |
+| 23 | Flex grid | P4.9 | 0/6 | ⚠️ |
 | 24 | Form control | — | — | 🚫 |
-| 25 | Header navigation | P3 | 0/1 | ⚠️ |
-| 26 | Heading | P4 | 0/1 | ⚠️ |
+| 25 | Header navigation | P3.11 | 0/1 | ⚠️ |
+| 26 | Heading | P4.4 | 0/1 | ⚠️ |
 | 27 | Helper | — | 0/3 | 🚫 |
 | 28 | Helpers | — | 0/1 | 🚫 |
-| 29 | Icon | **P1** | 0/3 | ⚠️ |
-| 30 | Input | **P1** | 0/15 | ⚠️ |
+| 29 | Icon | P1.2 | 0/3 | ⚠️ |
+| 30 | Input | P1.7 | 0/15 | ⚠️ |
 | 31 | Layer | — | — | 🚫 |
-| 32 | Layout grid | P4 | 0/11 | ⚠️ |
-| 33 | Link | P4 | 0/1 | ⚠️ |
-| 34 | List | **P1** | 0/7 | ⚠️ |
+| 32 | Layout grid | P4.10 | 0/11 | ⚠️ |
+| 33 | Link | P4.5 | 0/1 | ⚠️ |
+| 34 | List | P1.10 | 0/7 | ⚠️ |
 | 35 | Map marker | — | — | 🚫 |
-| 36 | Menu | **P2** | 0/11 | ⚠️ |
-| 37 | Message card | P3 | 0/4 | ⚠️ |
-| 38 | Mobile header | P3 | 0/2 | ⚠️ |
-| 39 | Modal | P3 | 0/3 | ⚠️ |
-| 40 | Notification | P3 | 0/1 | ⚠️ |
-| 41 | Pagination | P3 | 1/1 | ✅ |
-| 42 | Payment card | P3 | 0/2 | ⚠️ |
-| 43 | Phone input | P3 | 0/7 | ⚠️ |
-| 44 | Pin code | P3 | 0/5 | ⚠️ |
-| 45 | Popover | **P2** | 0/15 | ⚠️ |
-| 46 | Progress bar | P4 | 0/6 | ⚠️ |
-| 47 | Progress steps | P4 | 0/6 | ⚠️ |
-| 48 | Radio | P4 | 0/3 | ⚠️ |
-| 49 | Radio v2 | P4 | 0/5 | ⚠️ |
-| 50 | Rating | P4 | 0/3 | ⚠️ |
-| 51 | Select | P3 | 0/30 | ⚠️ |
-| 52 | Side navigation | P3 | 0/2 | ⚠️ |
-| 53 | Skeleton | P4 | 0/3 | ⚠️ |
-| 54 | Slider | P4 | 0/9 | ⚠️ |
-| 55 | Sliding button | P4 | 0/3 | ⚠️ |
-| 56 | Snackbar | P3 | 0/6 | ⚠️ |
-| 57 | Spinner | **P1** | 0/1 | ⚠️ |
-| 58 | Stepper | P4 | 0/1 | ⚠️ |
-| 59 | Switch | P4 | 0/7 | ⚠️ |
-| 60 | Table | P4 | 0/8 | ⚠️ |
-| 61 | Table grid | P4 | 0/4 | ⚠️ |
-| 62 | Table semantic | P4 | 0/9 | ⚠️ |
-| 63 | Tabs | P4 | 0/3 | ⚠️ |
-| 64 | Tag | **P1** | 0/5 | ⚠️ |
+| 36 | Menu | P2.2 | 0/11 | ⚠️ |
+| 37 | Message card | P3.6 | 0/4 | ⚠️ |
+| 38 | Mobile header | P3.10 | 0/2 | ⚠️ |
+| 39 | Modal | P3.16 | 0/3 | ⚠️ |
+| 40 | Notification | P3.5 | 0/1 | ⚠️ |
+| 41 | Pagination | P3.23 | 1/1 | ✅ |
+| 42 | Payment card | P3.7 | 0/2 | ⚠️ |
+| 43 | Phone input | P3.24 | 0/7 | ⚠️ |
+| 44 | Pin code | P3.8 | 0/5 | ⚠️ |
+| 45 | Popover | P2.1 | 0/15 | ⚠️ |
+| 46 | Progress bar | P4.11 | 0/6 | ⚠️ |
+| 47 | Progress steps | P4.12 | 0/6 | ⚠️ |
+| 48 | Radio | P4.16 | 0/3 | ⚠️ |
+| 49 | Radio v2 | P4.17 | 0/5 | ⚠️ |
+| 50 | Rating | P4.13 | 0/3 | ⚠️ |
+| 51 | Select | P3.20 | 0/30 | ⚠️ |
+| 52 | Side navigation | P3.12 | 0/2 | ⚠️ |
+| 53 | Skeleton | P4.7 | 0/3 | ⚠️ |
+| 54 | Slider | P4.14 | 0/9 | ⚠️ |
+| 55 | Sliding button | P4.20 | 0/3 | ⚠️ |
+| 56 | Snackbar | P3.17 | 0/6 | ⚠️ |
+| 57 | Spinner | P1.3 | 0/1 | ⚠️ |
+| 58 | Stepper | P4.18 | 0/1 | ⚠️ |
+| 59 | Switch | P4.15 | 0/7 | ⚠️ |
+| 60 | Table | P4.22 | 0/8 | ⚠️ |
+| 61 | Table grid | P4.23 | 0/4 | ⚠️ |
+| 62 | Table semantic | P4.24 | 0/9 | ⚠️ |
+| 63 | Tabs | P4.19 | 0/3 | ⚠️ |
+| 64 | Tag | P1.5 | 0/5 | ⚠️ |
 | 65 | Template component | — | 0/1 | 🚫 |
-| 66 | Textarea | P3 | 0/2 | ⚠️ |
-| 67 | Timepicker | P3 | 0/2 | ⚠️ |
-| 68 | Timezonepicker | P3 | 0/3 | ⚠️ |
-| 69 | Toast | P3 | 0/4 | ⚠️ |
-| 70 | Tooltip | P3 | 0/4 | ⚠️ |
-| 71 | Tree view | P3 | 0/5 | ⚠️ |
-| 72 | Typography | **P1** | 0/6 | ⚠️ |
+| 66 | Textarea | P3.9 | 0/2 | ⚠️ |
+| 67 | Timepicker | P3.25 | 0/2 | ⚠️ |
+| 68 | Timezonepicker | P3.26 | 0/3 | ⚠️ |
+| 69 | Toast | P3.18 | 0/4 | ⚠️ |
+| 70 | Tooltip | P3.19 | 0/4 | ⚠️ |
+| 71 | Tree view | P3.15 | 0/5 | ⚠️ |
+| 72 | Typography | P1.1 | 0/6 | ⚠️ |
 
 **Placar:** `✅ 2` · `⚠️ 63` · `🚫 (fora do escopo) 7` — **72 componentes** no original;
 **escopo efetivo = 65**. Fora do escopo (🚫): `helper`, `helpers`, `template-component`
 `block`, `form-control`, `layer`, `map-marker`. **429 stories**.
 
-**Por prioridade (escopo efetivo):** `P1 = 10` · `P2 = 3` · `P3 = 28` · `P4 = 24`.
-Sequência sugerida: **P1 → P2 → P3 → P4** (P4 em paralelo livre).
+### 8.0 Sequência única (P1.1 → P4.24)
 
+> Ordem recomendada de execução — provedor sempre antes do consumidor.
+
+**P1 — Fundamentos:** `1` Typography · `2` Icon · `3` Spinner · `4` Avatar · `5` Tag ·
+`6` Button · `7` Input · `8` Checkbox · `9` Checkbox v2 · `10` List.
+
+**P2 — Overlays:** `1` Popover · `2` Menu · `3` Drawer.
+
+**P3 — Compostos:** `1` Button group · `2` Button timed · `3` Card · `4` Banner ·
+`5` Notification · `6` Message card · `7` Payment card · `8` Pin code · `9` Textarea ·
+`10` Mobile header · `11` Header navigation · `12` Side navigation · `13` File uploader ·
+`14` File uploader basic · `15` Tree view · `16` Modal · `17` Snackbar · `18` Toast ·
+`19` Tooltip · `20` Select · `21` Combobox · `22` Datepicker · `23` Pagination ·
+`24` Phone input · `25` Timepicker · `26` Timezonepicker · `27` App nav bar · `28` Data table.
+
+**P4 — Folhas (paralelo livre):** `1` Accordion · `2` Divider · `3` Badge · `4` Heading ·
+`5` Link · `6` Breadcrumbs · `7` Skeleton · `8` Aspect ratio box · `9` Flex grid ·
+`10` Layout grid · `11` Progress bar · `12` Progress steps · `13` Rating · `14` Slider ·
+`15` Switch · `16` Radio · `17` Radio v2 · `18` Stepper · `19` Tabs · `20` Sliding button ·
+`21` Dnd list · `22` Table · `23` Table grid · `24` Table semantic.
+
+**Por prioridade (escopo efetivo):** `P1 = 10` · `P2 = 3` · `P3 = 28` · `P4 = 24` = **65**.
 
 ## 10. Fichas por componente
 
