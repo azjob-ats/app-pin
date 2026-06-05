@@ -8,12 +8,16 @@
   (click)="toggle()"
 >
   <span class="bui-panel__title">{{ title() }}</span>
-  <span
-    class="material-symbols-rounded bui-panel__chevron"
-    [class.bui-panel__chevron--open]="isOpen()"
-    aria-hidden="true"
-    >expand_more</span
-  >
+  <span class="bui-panel__toggle">
+    <ng-content select="[buiPanelToggle]">
+      <span
+        class="material-symbols-rounded bui-panel__chevron"
+        [class.bui-panel__chevron--open]="isOpen()"
+        aria-hidden="true"
+        >expand_more</span
+      >
+    </ng-content>
+  </span>
 </button>
 
 <div class="bui-panel__contentwrap" [class.bui-panel__contentwrap--open]="isOpen()">

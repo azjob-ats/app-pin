@@ -26,9 +26,23 @@
 
 .bui-panel__title { flex: 1; }
 
+// Wrapper do toggle (chevron padrão ou conteúdo projetado via [buiPanelToggle]).
+.bui-panel__toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
 .bui-panel__chevron {
   flex-shrink: 0;
-  font-size: 20px;
+  // ToggleIcon do baseweb tem caixa 24×24 ($size={24}) → header 56px de altura.
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  line-height: 24px;
   color: var(--bw-content-tertiary);
   transition: transform var(--bw-timing-500) var(--bw-ease-decelerate);
   // ToggleIconGroup: rotate(-180deg) quando expandido
