@@ -98,6 +98,26 @@ export class InputClearableScenario {}
 })
 export class InputPasswordScenario {}
 
+// input-mask.scenario.tsx — MaskedInput "9999/99/99" (value 20000101 → 2000/01/01).
+@Component({
+  selector: 'bui-s-input-mask',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput],
+  template: `<bui-input mask="9999/99/99" value="20000101" [autoFocus]="true" ariaLabel="date" />`,
+})
+export class InputMaskScenario {}
+
+// input-number.scenario.tsx — type=number, value 10, min 0, max 100.
+@Component({
+  selector: 'bui-s-input-number',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput],
+  template: `<bui-input type="number" value="10" [min]="0" [max]="100" ariaLabel="number" />`,
+})
+export class InputNumberScenario {}
+
 // input-with-button.scenario.tsx — input + Button (compact/default).
 @Component({
   selector: 'bui-s-input-with-button',

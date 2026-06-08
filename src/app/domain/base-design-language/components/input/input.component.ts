@@ -52,8 +52,10 @@ export class BuiInputAfter {}
           #field
           class="bui-input__field"
           [type]="effectiveType()"
-          [value]="value()"
+          [value]="displayValue()"
           [attr.placeholder]="placeholder()"
+          [attr.min]="min()"
+          [attr.max]="max()"
           [disabled]="disabled()"
           [readOnly]="readOnly()"
           [attr.aria-label]="ariaLabel()"
@@ -98,6 +100,10 @@ export class BuiInput {
   readonly autoFocus = input(false, { transform: booleanAttribute });
   readonly type = input<string>('text');
   readonly ariaLabel = input<string>();
+  /** Máscara (Base Web MaskedInput): `9`=dígito, `a`=letra, `*`=alfanumérico; demais = literais. */
+  readonly mask = input<string>();
+  readonly min = input<number | undefined>(undefined);
+  readonly max = input<number | undefined>(undefined);
   readonly valueChange = output<string>();
 
   private readonly field = viewChild.required<ElementRef<HTMLInputElement>>('field');
@@ -112,6 +118,11 @@ export class BuiInput {
   /** Revela o valor (type=password → text). */
   protected readonly reveal = signal(false);
   protected readonly effectiveType = computed(() => (this.type() === 'password' && this.reveal() ? 'text' : this.type()));
+  /** Valor exibido: aplica a máscara quando definida. */
+  protected readonly displayValue = computed(() => {
+    const m = this.mask();
+    return m ? applyMask(this.value(), m) : this.value();
+  });
 
   protected readonly classes = computed(() =>
     [
@@ -137,4 +148,21 @@ export class BuiInput {
   protected toggleReveal(): void {
     this.reveal.update((r) => !r);
   }
+}
+
+/** Aplica a máscara ao valor (insere literais; `9`/`a`/`*` consomem do valor cru). */
+function applyMask(value: string, mask: string): string {
+  const raw = value.replace(/[^0-9a-zA-Z]/g, '');
+  let out = '';
+  let ri = 0;
+  for (const m of mask) {
+    if (ri >= raw.length) break;
+    if (m === '9' || m === 'a' || m === '*') {
+      out += raw[ri++];
+    } else {
+      out += m;
+      if (raw[ri] === m) ri++;
+    }
+  }
+  return out;
 }
