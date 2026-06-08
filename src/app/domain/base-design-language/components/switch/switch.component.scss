@@ -1,0 +1,147 @@
+/* Switch — clone de baseui/switch styled-components. */
+.bui-switch {
+  flex-direction: row;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: flex-start;
+  cursor: pointer;
+  user-select: none;
+}
+.bui-switch--disabled {
+  cursor: not-allowed;
+}
+.bui-switch--left {
+  flex-direction: row-reverse;
+}
+@media (pointer: coarse) {
+  .bui-switch--default {
+    padding: var(--bw-sizing-scale300);
+  }
+  .bui-switch--small {
+    padding: var(--bw-sizing-scale500);
+  }
+}
+
+/* Trilho */
+.bui-switch__track {
+  align-items: center;
+  border-radius: 999px;
+  border-style: solid;
+  border-width: var(--bw-sizing-scale0); /* 2px */
+  border-color: var(--bw-content-tertiary);
+  display: flex;
+  flex: 0 0 auto;
+  padding: var(--bw-sizing-scale100); /* 4px */
+  box-sizing: border-box;
+  background-color: var(--bw-background-tertiary);
+}
+.bui-switch--default .bui-switch__track {
+  width: 52px;
+  height: var(--bw-sizing-scale900); /* 32 */
+}
+.bui-switch--small .bui-switch__track {
+  width: var(--bw-sizing-scale1000); /* 40 */
+  height: var(--bw-sizing-scale800); /* 24 */
+}
+.bui-switch--checked .bui-switch__track {
+  background-color: var(--bw-background-inverse-primary);
+  border-style: none;
+  border-width: 0;
+}
+/* disabled vence checked (vem depois): bg + borda state-disabled */
+.bui-switch--disabled .bui-switch__track {
+  background-color: var(--bw-background-state-disabled);
+  border-style: solid;
+  border-width: var(--bw-sizing-scale0);
+  border-color: var(--bw-border-state-disabled);
+}
+
+/* Knob */
+.bui-switch__toggle {
+  border-radius: 50%;
+  background-color: var(--bw-content-tertiary);
+  transition: transform 350ms cubic-bezier(0.27, 1.06, 0.18, 1);
+  background-repeat: no-repeat;
+  background-position: center;
+  outline: none;
+}
+.bui-switch--default .bui-switch__toggle {
+  width: var(--bw-sizing-scale600); /* 16 */
+  height: var(--bw-sizing-scale600);
+}
+.bui-switch--default.bui-switch--checked .bui-switch__toggle {
+  width: var(--bw-sizing-scale800); /* 24 */
+  height: var(--bw-sizing-scale800);
+  transform: translateX(var(--bw-sizing-scale700)); /* 20 */
+}
+.bui-switch--small .bui-switch__toggle {
+  width: var(--bw-sizing-scale500); /* 12 */
+  height: var(--bw-sizing-scale500);
+}
+.bui-switch--small.bui-switch--checked .bui-switch__toggle {
+  width: var(--bw-sizing-scale600); /* 16 */
+  height: var(--bw-sizing-scale600);
+  transform: translateX(var(--bw-sizing-scale600)); /* 16 */
+}
+.bui-switch--checked .bui-switch__toggle {
+  background-color: var(--bw-content-inverse-primary);
+}
+.bui-switch--disabled .bui-switch__toggle {
+  background-color: var(--bw-content-state-disabled);
+}
+
+/* Label */
+.bui-switch__label {
+  vertical-align: middle;
+  color: var(--bw-content-primary);
+  padding-left: var(--bw-sizing-scale300); /* placement right */
+  padding-top: var(--bw-sizing-scale100);
+}
+.bui-switch__label:empty {
+  display: none;
+}
+.bui-switch--default .bui-switch__label {
+  font: var(--bw-font-ParagraphMedium);
+}
+.bui-switch--small .bui-switch__label {
+  padding-top: var(--bw-sizing-scale0);
+  font: var(--bw-font-ParagraphSmall);
+}
+.bui-switch--left .bui-switch__label {
+  padding-left: 0;
+  padding-right: var(--bw-sizing-scale300);
+}
+.bui-switch--disabled .bui-switch__label {
+  color: var(--bw-content-state-disabled);
+}
+
+/* Input visualmente oculto (mantém foco/teclado) */
+.bui-switch__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
+
+/* Hover (replica isHovered via CSS) — trilho e knob usam overlays opostos */
+.bui-switch:not(.bui-switch--disabled):hover .bui-switch__track {
+  box-shadow: inset 0 0 0 999px var(--bw-overlay-hover);
+}
+.bui-switch--checked:not(.bui-switch--disabled):hover .bui-switch__track {
+  box-shadow: inset 0 0 0 999px var(--bw-overlay-inverse-hover);
+}
+.bui-switch:not(.bui-switch--disabled):hover .bui-switch__toggle {
+  box-shadow: inset 0 0 0 999px var(--bw-overlay-inverse-hover);
+}
+.bui-switch--checked:not(.bui-switch--disabled):hover .bui-switch__toggle {
+  box-shadow: inset 0 0 0 999px var(--bw-overlay-hover);
+}
+
+/* Foco visível por teclado → outline no trilho (brandBorderAccessible) */
+.bui-switch:has(.bui-switch__input:focus-visible) .bui-switch__track {
+  outline: var(--bw-sizing-scale0) solid var(--bw-blue-600);
+  outline-offset: var(--bw-sizing-scale0);
+}

@@ -66,6 +66,29 @@ export const BW_STORIES: BwStory[] = [
   { id: 'link--link', group: 'link', name: 'Link', load: () => import('../components/link/link.scenarios').then((m) => m.LinkScenario) },
   // Aspect ratio box
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
+  // Tabs
+  { id: 'tabs--tabs', group: 'tabs', name: 'Tabs', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsScenario) },
+  { id: 'tabs--one-child', group: 'tabs', name: 'One child', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsOneChildScenario) },
+  { id: 'tabs--controlled', group: 'tabs', name: 'Controlled', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsControlledScenario) },
+  // Switch
+  { id: 'switch--switch', group: 'switch', name: 'Switch', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchScenario) },
+  { id: 'switch--auto-focus', group: 'switch', name: 'Auto focus', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchAutoFocusScenario) },
+  { id: 'switch--disabled', group: 'switch', name: 'Disabled', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchDisabledScenario) },
+  { id: 'switch--placement', group: 'switch', name: 'Placement', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchPlacementScenario) },
+  { id: 'switch--size', group: 'switch', name: 'Size', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchSizesScenario) },
+  { id: 'switch--states', group: 'switch', name: 'States', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchStatesScenario) },
+  { id: 'switch--unlabeled', group: 'switch', name: 'Unlabeled', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchUnlabeledScenario) },
+  // Rating
+  { id: 'rating--star', group: 'rating', name: 'Star', load: () => import('../components/rating/rating.scenarios').then((m) => m.RatingStarScenario) },
+  { id: 'rating--emoticon', group: 'rating', name: 'Emoticon', load: () => import('../components/rating/rating.scenarios').then((m) => m.RatingEmoticonScenario) },
+  { id: 'rating--size', group: 'rating', name: 'Size', load: () => import('../components/rating/rating.scenarios').then((m) => m.RatingSizeScenario) },
+  // Progress bar
+  { id: 'progress-bar--progressbar', group: 'progress-bar', name: 'Progressbar', load: () => import('../components/progress-bar/progress-bar.scenarios').then((m) => m.ProgressbarScenario) },
+  { id: 'progress-bar--progressbar-intent', group: 'progress-bar', name: 'Progressbar intent', load: () => import('../components/progress-bar/progress-bar.scenarios').then((m) => m.ProgressbarIntentScenario) },
+  { id: 'progress-bar--progressbar-negative', group: 'progress-bar', name: 'Progressbar negative', load: () => import('../components/progress-bar/progress-bar.scenarios').then((m) => m.ProgressbarNegativeScenario) },
+  { id: 'progress-bar--progressbar-rounded', group: 'progress-bar', name: 'Progressbar rounded', load: () => import('../components/progress-bar/progress-bar.scenarios').then((m) => m.ProgressbarRoundedScenario) },
+  { id: 'progress-bar--progressbar-rounded-animated', group: 'progress-bar', name: 'Progressbar rounded animated', load: () => import('../components/progress-bar/progress-bar.scenarios').then((m) => m.ProgressbarRoundedAnimatedScenario) },
+  { id: 'progress-bar--progressbar-rounded-overrides', group: 'progress-bar', name: 'Progressbar rounded overrides', load: () => import('../components/progress-bar/progress-bar.scenarios').then((m) => m.ProgressbarRoundedOverridesScenario) },
   // Skeleton
   { id: 'skeleton--skeleton', group: 'skeleton', name: 'Skeleton', load: () => import('../components/skeleton/skeleton.scenarios').then((m) => m.SkeletonScenario) },
   { id: 'skeleton--animation', group: 'skeleton', name: 'Animation', load: () => import('../components/skeleton/skeleton.scenarios').then((m) => m.AnimationScenario) },

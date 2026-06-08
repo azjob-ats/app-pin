@@ -1,0 +1,59 @@
+/* Tabs — clone de baseui/tabs styled-components (orientação horizontal). */
+.bui-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.bui-tabs__bar {
+  display: flex;
+  flex-direction: row;
+  padding-left: var(--bw-sizing-scale400); /* 10px */
+  padding-right: var(--bw-sizing-scale400);
+  background-color: var(--bw-background-primary); /* tabBarFill */
+}
+
+.bui-tabs__tab {
+  font: var(--bw-font-ParagraphSmall); /* font200 = 14/20 */
+  box-sizing: border-box;
+  color: var(--bw-content-tertiary); /* tabColor */
+  cursor: pointer;
+  padding-top: var(--bw-sizing-scale600); /* 16 */
+  padding-bottom: var(--bw-sizing-scale600);
+  padding-left: var(--bw-sizing-scale300); /* 8 */
+  padding-right: var(--bw-sizing-scale300);
+  margin-left: var(--bw-sizing-scale200); /* 6 */
+  margin-right: var(--bw-sizing-scale200);
+  outline: none;
+  outline-offset: -3px;
+  border-bottom: 2px solid transparent;
+  display: inline-block;
+}
+.bui-tabs__tab--active {
+  color: var(--bw-content-primary);
+  border-bottom-color: var(--bw-border-selected);
+}
+.bui-tabs__tab--disabled {
+  cursor: not-allowed;
+}
+/* hover/focus (não ativo, não disabled) → contentPrimary */
+.bui-tabs__tab:not(.bui-tabs__tab--active):not(.bui-tabs__tab--disabled):hover,
+.bui-tabs__tab:not(.bui-tabs__tab--active):not(.bui-tabs__tab--disabled):focus {
+  color: var(--bw-content-primary);
+}
+/* foco visível → outline (e sem a borda inferior do ativo) */
+.bui-tabs__tab:focus-visible {
+  outline: 3px solid var(--bw-border-accent);
+  border-bottom-color: transparent;
+}
+
+.bui-tabs__content {
+  font: var(--bw-font-ParagraphMedium); /* font300 = 16/24 */
+  display: none;
+  padding-left: var(--bw-sizing-scale800); /* 24 */
+  padding-right: var(--bw-sizing-scale800);
+  padding-top: var(--bw-sizing-scale500); /* 12 */
+  padding-bottom: var(--bw-sizing-scale500);
+}
+.bui-tabs__content--active {
+  display: block;
+}

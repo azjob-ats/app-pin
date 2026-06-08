@@ -1,0 +1,57 @@
+/* Rating — clone de baseui/rating styled-components. */
+.bui-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+.bui-rating:focus {
+  outline: none;
+}
+
+/* Estrela (StyledStar) */
+.bui-rating-star {
+  padding: 0;
+  margin: 0 var(--bw-sizing-scale300) 0 0; /* scale300 = 8px; última zera abaixo */
+  display: inline-block;
+  transition: transform var(--bw-timing-400);
+  cursor: pointer;
+  line-height: 1;
+  position: relative;
+  outline: none;
+  outline-offset: 2px;
+}
+.bui-rating-star:last-of-type {
+  margin-right: 0;
+}
+.bui-rating-star--selected {
+  transform: scale(1.35);
+}
+.bui-rating-star:focus-visible {
+  outline: 3px solid var(--bw-border-accent);
+}
+.bui-rating-star::after {
+  content: var(--bui-star-icon);
+  height: 100%;
+  transition: all var(--bw-timing-400);
+}
+
+/* Emoticon (StyledEmoticon) — sem reset de margem na última (igual ao original) */
+.bui-rating-emoticon {
+  padding: 0;
+  margin: 0 var(--bw-sizing-scale300) 0 0;
+  display: inline-block;
+  transition: transform var(--bw-timing-400);
+  cursor: pointer;
+  outline: none;
+  outline-offset: 2px;
+}
+.bui-rating-emoticon--selected {
+  transform: scale(1.1);
+}
+.bui-rating-emoticon:focus-visible {
+  outline: 3px solid var(--bw-border-accent);
+}
+.bui-rating-emoticon::after {
+  content: var(--bui-emoticon-icon);
+  transition: all var(--bw-timing-400);
+}

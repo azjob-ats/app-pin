@@ -1,0 +1,177 @@
+/* ProgressBar (linear) — clone de baseui/progress-bar styled-components. */
+.bui-pb {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-sizing-scale300); /* 8px */
+}
+
+.bui-pb__container {
+  display: flex;
+  position: relative;
+}
+
+.bui-pb__bar {
+  border-radius: var(--bw-sizing-scale0); /* 2px (useRoundedCorners) */
+  background-color: var(--bw-background-tertiary);
+  flex: 1;
+  overflow: hidden;
+}
+/* steps>1: barras seguintes ganham margin-left (primeira fica sem). */
+.bui-pb__bar + .bui-pb__bar {
+  margin-left: var(--bw-sizing-scale300);
+}
+
+.bui-pb--small .bui-pb__bar,
+.bui-pb--small .bui-pb__infinite {
+  height: 2px;
+}
+.bui-pb--medium .bui-pb__bar,
+.bui-pb--medium .bui-pb__infinite {
+  height: 4px;
+}
+.bui-pb--large .bui-pb__bar,
+.bui-pb--large .bui-pb__infinite {
+  height: 8px;
+}
+
+.bui-pb__progress {
+  border-radius: var(--bw-sizing-scale0);
+  background-color: var(--bui-pb-progress, var(--bui-pb-intent));
+  height: 100%;
+  width: 100%;
+  transform: translateX(-102%);
+  transition: transform 0.5s;
+}
+.bui-pb__progress--inprogress {
+  animation: bui-pb-step 2.1s var(--bw-ease-linear) infinite;
+}
+@keyframes bui-pb-step {
+  0% {
+    transform: translateX(-102%);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 0;
+  }
+}
+
+/* Barras infinitas (indeterminado): gradiente que varre via background-position. */
+.bui-pb__infinite {
+  display: inline-block;
+  flex: 1;
+  margin-left: auto;
+  margin-right: auto;
+  transition-property: background-position;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: var(--bw-ease-linear);
+  background-size: 300% auto;
+  background-repeat: no-repeat;
+}
+.bui-pb__infinite--left {
+  border-top-left-radius: var(--bw-sizing-scale0);
+  border-bottom-left-radius: var(--bw-sizing-scale0);
+  background-position-x: -50%;
+  background-image: linear-gradient(90deg, transparent 0%, var(--bui-pb-intent) 25%, var(--bui-pb-intent) 75%, transparent 100%);
+  animation-name: bui-pb-inf-left;
+}
+.bui-pb__infinite--right {
+  border-top-right-radius: var(--bw-sizing-scale0);
+  border-bottom-right-radius: var(--bw-sizing-scale0);
+  background-position-x: 150%;
+  background-image: linear-gradient(270deg, transparent 0%, var(--bui-pb-intent) 25%, var(--bui-pb-intent) 75%, transparent 100%);
+  animation-name: bui-pb-inf-right;
+}
+@keyframes bui-pb-inf-left {
+  0% {
+    background-position-x: -50%;
+  }
+  33% {
+    background-position-x: 50%;
+  }
+  66% {
+    background-position-x: 50%;
+  }
+  100% {
+    background-position-x: 150%;
+  }
+}
+@keyframes bui-pb-inf-right {
+  0% {
+    background-position-x: 150%;
+  }
+  33% {
+    background-position-x: 50%;
+  }
+  66% {
+    background-position-x: 50%;
+  }
+  100% {
+    background-position-x: -50%;
+  }
+}
+
+.bui-pb__label {
+  text-align: center;
+  padding-left: var(--bw-sizing-scale600); /* 16px */
+  padding-right: var(--bw-sizing-scale600);
+  color: var(--bw-content-primary);
+}
+.bui-pb--small .bui-pb__label {
+  font: var(--bw-font-LabelSmall);
+}
+.bui-pb--medium .bui-pb__label {
+  font: var(--bw-font-LabelMedium);
+}
+.bui-pb--large .bui-pb__label {
+  font: var(--bw-font-LabelLarge);
+}
+
+/* ProgressBarRounded — anel "pílula" em SVG. Medidas via CSS vars (sobrescrevíveis). */
+/* w/h vêm do binding (`*-def`); a story de overrides seta `--bui-pbr-w/h` (precede). */
+.bui-pbr {
+  width: var(--bui-pbr-w, var(--bui-pbr-w-def));
+  height: var(--bui-pbr-h, var(--bui-pbr-h-def));
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bui-pbr--inline {
+  display: inline-flex;
+}
+.bui-pbr__svg {
+  width: var(--bui-pbr-w, var(--bui-pbr-w-def));
+  height: var(--bui-pbr-h, var(--bui-pbr-h-def));
+  position: absolute;
+  fill: none;
+}
+.bui-pbr__track {
+  stroke: var(--bui-pbr-track, var(--bw-background-tertiary));
+}
+.bui-pbr__fg {
+  stroke: var(--bui-pbr-fg, var(--bw-border-accent));
+}
+.bui-pbr__text {
+  color: var(--bui-pbr-text-color, var(--bw-content-primary));
+}
+/* font shorthand define família/peso/line-height; font-size logo após permite o override
+   `--bui-pbr-text-size` (story rounded-overrides) com fallback ao tamanho do token. */
+.bui-pbr--small .bui-pbr__text {
+  font: var(--bw-font-LabelSmall);
+  font-size: var(--bui-pbr-text-size, 14px);
+}
+.bui-pbr--medium .bui-pbr__text {
+  font: var(--bw-font-LabelMedium);
+  font-size: var(--bui-pbr-text-size, 16px);
+}
+.bui-pbr--large .bui-pbr__text {
+  font: var(--bw-font-LabelLarge);
+  font-size: var(--bui-pbr-text-size, 18px);
+}
