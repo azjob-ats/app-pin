@@ -104,7 +104,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Drag and Drop List', path: 'components/dnd-list', status: 'soon' },
           { label: 'Layout Grid', path: 'components/layout-grid', status: 'soon' },
           { label: 'Heading', path: 'components/heading', status: 'ready' },
-          { label: 'Icon', path: 'components/icon', status: 'soon' },
+          { label: 'Icon', path: 'components/icon', status: 'ready' },
           { label: 'List', path: 'components/list', status: 'soon' },
           { label: 'Message Card', path: 'components/message-card', status: 'soon' },
           { label: 'Tag', path: 'components/tag', status: 'soon' },
