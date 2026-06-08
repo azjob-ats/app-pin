@@ -1,0 +1,130 @@
+/* Input — clone de baseui/input styled-components. */
+.bui-input {
+  display: block;
+}
+
+.bui-input__root {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  width: 100%;
+  border: 2px solid var(--bw-border-opaque); /* inputBorder */
+  border-radius: var(--bw-input-border-radius);
+  background-color: var(--bw-background-secondary); /* inputFill */
+  transition: border var(--bw-timing-200) var(--bw-ease-out);
+}
+/* font + radius por size */
+.bui-input--mini .bui-input__root {
+  border-radius: var(--bw-input-border-radius-mini);
+  font: var(--bw-font-ParagraphXSmall);
+}
+.bui-input--compact .bui-input__root {
+  font: var(--bw-font-ParagraphSmall);
+}
+.bui-input--default .bui-input__root {
+  font: var(--bw-font-ParagraphMedium);
+}
+.bui-input--large .bui-input__root {
+  font: var(--bw-font-ParagraphLarge);
+}
+/* estados (border + bg) */
+.bui-input--error .bui-input__root {
+  border-color: var(--bw-border-negative);
+  background-color: var(--bw-background-primary);
+}
+.bui-input--positive .bui-input__root {
+  border-color: var(--bw-border-positive);
+  background-color: var(--bw-background-primary);
+}
+.bui-input--disabled .bui-input__root {
+  border-color: var(--bw-background-state-disabled);
+  background-color: var(--bw-background-state-disabled);
+}
+/* foco (não disabled) vence */
+.bui-input:not(.bui-input--disabled) .bui-input__root:focus-within {
+  border-color: var(--bw-border-selected);
+  background-color: var(--bw-background-primary); /* inputFillActive */
+}
+
+.bui-input__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.bui-input__field {
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  font: inherit;
+  color: var(--bw-content-primary);
+  caret-color: var(--bw-content-primary);
+  cursor: text;
+}
+.bui-input__field::placeholder {
+  color: var(--bw-content-tertiary); /* inputPlaceholder */
+}
+.bui-input--mini .bui-input__field {
+  padding: var(--bw-sizing-scale100) var(--bw-sizing-scale550);
+}
+.bui-input--compact .bui-input__field {
+  padding: var(--bw-sizing-scale200) var(--bw-sizing-scale550);
+}
+.bui-input--default .bui-input__field {
+  padding: var(--bw-sizing-scale400) var(--bw-sizing-scale550);
+}
+.bui-input--large .bui-input__field {
+  padding: var(--bw-sizing-scale550) var(--bw-sizing-scale550);
+}
+.bui-input--disabled .bui-input__field {
+  color: var(--bw-content-state-disabled);
+  -webkit-text-fill-color: var(--bw-content-state-disabled);
+  cursor: not-allowed;
+}
+.bui-input--disabled .bui-input__field::placeholder {
+  color: var(--bw-content-state-disabled);
+}
+
+/* Enhancers (start/end) */
+.bui-input__enhancer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bw-content-primary);
+}
+.bui-input--mini .bui-input__enhancer,
+.bui-input--compact .bui-input__enhancer {
+  padding: 0 var(--bw-sizing-scale400);
+}
+.bui-input--default .bui-input__enhancer {
+  padding: 0 var(--bw-sizing-scale300);
+}
+.bui-input--large .bui-input__enhancer {
+  padding: 0 var(--bw-sizing-scale200);
+}
+.bui-input--disabled .bui-input__enhancer {
+  color: var(--bw-content-state-disabled);
+}
+
+/* Botões de ícone (clearable / password toggle) */
+.bui-input__icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: var(--bw-content-primary);
+  padding: 0 var(--bw-sizing-scale300);
+}
+.bui-input__icon-btn:focus-visible {
+  outline: 2px solid var(--bw-border-accent);
+  outline-offset: -2px;
+}

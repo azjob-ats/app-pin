@@ -66,6 +66,14 @@ export const BW_STORIES: BwStory[] = [
   { id: 'link--link', group: 'link', name: 'Link', load: () => import('../components/link/link.scenarios').then((m) => m.LinkScenario) },
   // Aspect ratio box
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
+  // Input
+  { id: 'input--input', group: 'input', name: 'Input', load: () => import('../components/input/input.scenarios').then((m) => m.InputScenario) },
+  { id: 'input--sizes', group: 'input', name: 'Sizes', load: () => import('../components/input/input.scenarios').then((m) => m.InputSizesScenario) },
+  { id: 'input--states', group: 'input', name: 'States', load: () => import('../components/input/input.scenarios').then((m) => m.InputStatesScenario) },
+  { id: 'input--before-after', group: 'input', name: 'Before after', load: () => import('../components/input/input.scenarios').then((m) => m.InputBeforeAfterScenario) },
+  { id: 'input--clearable', group: 'input', name: 'Clearable', load: () => import('../components/input/input.scenarios').then((m) => m.InputClearableScenario) },
+  { id: 'input--password', group: 'input', name: 'Password', load: () => import('../components/input/input.scenarios').then((m) => m.InputPasswordScenario) },
+  { id: 'input--with-button', group: 'input', name: 'With button', load: () => import('../components/input/input.scenarios').then((m) => m.InputWithButtonScenario) },
   // Button
   { id: 'button--button', group: 'button', name: 'Button', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonScenario) },
   { id: 'button--sizes', group: 'button', name: 'Sizes', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonSizesScenario) },
