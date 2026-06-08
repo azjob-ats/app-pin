@@ -26,11 +26,19 @@
   // ── Shapes ──
   &--shape-pill { border-radius: 999px; }
   &--shape-round, &--shape-circle { border-radius: 50%; }
-  &--icon { aspect-ratio: 1 / 1; }
+  // round/circle/square = iconShape (getPaddingStyles): LR menor = igual ao TB.
   &--icon.bui-button--size-mini { padding: var(--bw-sizing-scale200); }
   &--icon.bui-button--size-compact { padding: var(--bw-sizing-scale400); }
   &--icon.bui-button--size-default { padding: var(--bw-sizing-scale550); }
   &--icon.bui-button--size-large { padding: var(--bw-sizing-scale600); }
+  // circle/square (getShapeStyles): dimensões fixas + padding 0 (sobrescreve).
+  &--shape-circle, &--shape-square {
+    padding: 0;
+    &.bui-button--size-mini { width: var(--bw-sizing-scale850); height: var(--bw-sizing-scale850); }
+    &.bui-button--size-compact { width: var(--bw-sizing-scale950); height: var(--bw-sizing-scale950); }
+    &.bui-button--size-default { width: var(--bw-sizing-scale1200); height: var(--bw-sizing-scale1200); }
+    &.bui-button--size-large { width: var(--bw-sizing-scale1400); height: var(--bw-sizing-scale1400); }
+  }
 
   // ── Kinds (fill/text) ──
   &--primary { background-color: var(--bw-button-primary-fill); color: var(--bw-button-primary-text); }
@@ -93,9 +101,28 @@
 
   // ── backgroundSafe (sombra sutil sobre fundos coloridos) ──
   &--bg-safe { box-shadow: var(--bw-shadow-shallow-below); }
-  // ── minHitArea ──
-  &--hit-tap { min-width: 48px; min-height: 48px; }
-  &--hit-click { min-width: 28px; min-height: 28px; }
+  // ── minHitArea=tap (getMinHitAreaStyles): área de toque invisível via ::before, 48px. ──
+  &--hit-tap {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: var(--bw-sizing-scale1200);
+      min-height: var(--bw-sizing-scale1200);
+      transform: translateY(-50%);
+    }
+  }
+  // ── widthType=fill (getDimensionStyles): width 100% + min-width/height por size. ──
+}
+.bui-button-host--block .bui-button {
+  width: 100%;
+  &.bui-button--size-mini { min-width: 52px; min-height: var(--bw-sizing-scale850); }
+  &.bui-button--size-compact { min-width: 60px; min-height: var(--bw-sizing-scale950); }
+  &.bui-button--size-default { min-width: 72px; min-height: var(--bw-sizing-scale1200); }
+  &.bui-button--size-large { min-width: 80px; min-height: var(--bw-sizing-scale1400); }
 }
 
 // ── Spinner (anel: borderTopColor = foreground/accent; demais = background) ──

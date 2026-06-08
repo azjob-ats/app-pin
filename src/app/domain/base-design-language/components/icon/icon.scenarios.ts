@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { BuiCheck, BuiDelete, BuiIcon, BuiPlus } from './icon.component';
+import { BuiCheck, BuiDelete, BuiIcon, BuiPlus, BuiUpload } from './icon.component';
+import { Button } from '../button/button.component';
 
 /** Scenarios portadas de `src/icon/__tests__/*.scenario.tsx` (a `buttons` depende de Button → adiada). */
 
@@ -38,3 +39,31 @@ export class IconAttributesScenario {}
   `,
 })
 export class IconOverridesScenario {}
+
+// icon-buttons.scenario.tsx — ícone como enhancer do Button (+ string/node/number/array).
+@Component({
+  selector: 'bui-s-icon-buttons',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [Button, BuiUpload],
+  template: `
+    <div>
+      <bui-button><bui-upload buiStartEnhancer [size]="20" />Start Enhancer</bui-button>
+      <br /><br />
+      <bui-button><span buiStartEnhancer>hello</span>Start Enhancer</bui-button>
+      <br /><br />
+      <bui-button><span buiStartEnhancer>fn</span>Start Enhancer</bui-button>
+      <br /><br />
+      <bui-button><span buiStartEnhancer>node</span>Start Enhancer</bui-button>
+      <br /><br />
+      <bui-button>End Enhancer<bui-upload buiEndEnhancer [size]="20" /></bui-button>
+      <br /><br />
+      <bui-button>End Enhancer<span buiEndEnhancer>21</span></bui-button>
+      <br /><br />
+      <bui-button>End Enhancer<span buiEndEnhancer>ab</span></bui-button>
+      <br /><br />
+      <bui-button><bui-upload /></bui-button>
+    </div>
+  `,
+})
+export class IconButtonsScenario {}

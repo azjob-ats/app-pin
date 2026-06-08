@@ -66,9 +66,25 @@ export const BW_STORIES: BwStory[] = [
   { id: 'link--link', group: 'link', name: 'Link', load: () => import('../components/link/link.scenarios').then((m) => m.LinkScenario) },
   // Aspect ratio box
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
+  // Button
+  { id: 'button--button', group: 'button', name: 'Button', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonScenario) },
+  { id: 'button--sizes', group: 'button', name: 'Sizes', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonSizesScenario) },
+  { id: 'button--sizes-loading', group: 'button', name: 'Sizes loading', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonSizesLoadingScenario) },
+  { id: 'button--shapes', group: 'button', name: 'Shapes', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonShapesScenario) },
+  { id: 'button--colors', group: 'button', name: 'Colors', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonColorsScenario) },
+  { id: 'button--circle', group: 'button', name: 'Circle', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonCircleScenario) },
+  { id: 'button--enhancers', group: 'button', name: 'Enhancers', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonEnhancersScenario) },
+  { id: 'button--enhancers-compact', group: 'button', name: 'Enhancers compact', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonEnhancersCompactScenario) },
+  { id: 'button--enhancers-loading', group: 'button', name: 'Enhancers loading', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonEnhancersLoadingScenario) },
+  { id: 'button--width-types', group: 'button', name: 'Width types', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonWidthTypeScenario) },
+  { id: 'button--link', group: 'button', name: 'Link', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonLinkScenario) },
+  { id: 'button--background-safe', group: 'button', name: 'Background safe', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonBackgroundSafeScenario) },
+  { id: 'button--min-hit-area', group: 'button', name: 'Min hit area', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonMinHitAreaScenario) },
+  { id: 'button--a11y', group: 'button', name: 'A11y', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonA11yScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },
+  { id: 'icon--buttons', group: 'icon', name: 'Buttons', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconButtonsScenario) },
   // Tabs
   { id: 'tabs--tabs', group: 'tabs', name: 'Tabs', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsScenario) },
   { id: 'tabs--one-child', group: 'tabs', name: 'One child', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsOneChildScenario) },

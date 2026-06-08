@@ -1,5 +1,6 @@
 @if (href(); as link) {
   <a
+    data-baseweb="button"
     [class]="classes()"
     [class.bui-button--loading]="isLoading()"
     [class.bui-button--selected]="isSelected()"
@@ -7,6 +8,8 @@
     [attr.href]="disabled() ? null : link"
     [attr.aria-disabled]="disabled() ? 'true' : null"
     [attr.aria-pressed]="isSelected() ? 'true' : null"
+    [attr.aria-label]="resolvedAriaLabel()"
+    [attr.aria-busy]="isLoading() ? 'true' : null"
     [style.background-color]="colors()?.backgroundColor || null"
     [style.color]="colors()?.color || null"
     (click)="onClick($event)"
@@ -15,6 +18,7 @@
   </a>
 } @else {
   <button
+    data-baseweb="button"
     [class]="classes()"
     [class.bui-button--loading]="isLoading()"
     [class.bui-button--selected]="isSelected()"
@@ -22,6 +26,7 @@
     [disabled]="disabled()"
     [attr.aria-busy]="isLoading() ? 'true' : null"
     [attr.aria-pressed]="isSelected() ? 'true' : null"
+    [attr.aria-label]="resolvedAriaLabel()"
     [style.background-color]="colors()?.backgroundColor || null"
     [style.color]="colors()?.color || null"
     (click)="onClick($event)"

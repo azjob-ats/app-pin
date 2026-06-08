@@ -45,6 +45,13 @@ export class Button {
   readonly backgroundSafe = input(false);
   /** Área mínima de toque (Base Web MIN_HIT_AREA: tap=48px, click=28px). */
   readonly minHitArea = input<'tap' | 'click' | null>(null);
+  /** Rótulo acessível (obrigatório p/ botões só-ícone; no loading, fallback "content is loading"). */
+  readonly ariaLabel = input<string | null>(null);
+
+  /** aria-label resolvido: no loading garante nome acessível (conteúdo fica oculto). */
+  protected readonly resolvedAriaLabel = computed(() =>
+    this.isLoading() ? (this.ariaLabel() ?? 'content is loading') : this.ariaLabel(),
+  );
 
   readonly buttonClick = output<MouseEvent>();
 

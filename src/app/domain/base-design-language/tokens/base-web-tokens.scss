@@ -221,6 +221,24 @@
   --bw-button-spinner-bg: var(--bw-background-primary);
   --bw-button-spinner-bg-tertiary: var(--bw-background-tertiary);
   --bw-button-disabled-spinner-fg: var(--bw-content-state-disabled);
+  // Hover/active overlays dos danger (= overlay alpha hover/pressed)
+  --bw-button-danger-primary-hover-overlay: var(--bw-overlay-hover);
+  --bw-button-danger-primary-active-overlay: var(--bw-overlay-pressed);
+  --bw-button-danger-secondary-hover-overlay: var(--bw-overlay-hover);
+  --bw-button-danger-secondary-active-overlay: var(--bw-overlay-pressed);
+  --bw-button-danger-tertiary-hover-overlay: var(--bw-overlay-hover);
+  --bw-button-danger-tertiary-active-overlay: var(--bw-overlay-pressed);
+  // outline (Button Group exclusive) — overlays + selected
+  --bw-button-outline-hover-overlay: var(--bw-overlay-hover);
+  --bw-button-outline-active-overlay: var(--bw-overlay-pressed);
+  --bw-button-outline-selected-fill: transparent;
+  --bw-button-outline-selected-text: var(--bw-content-primary);
+  // Bordas / disabled-active
+  --bw-button-transparent-border: transparent;
+  --bw-button-disabled-active-fill: var(--bw-background-state-disabled);
+  --bw-button-disabled-active-text: var(--bw-content-state-disabled);
+  --bw-button-tertiary-disabled-active-fill: var(--bw-background-state-disabled);
+  --bw-button-tertiary-disabled-active-text: var(--bw-content-state-disabled);
 }
 
 // ─── FOUNDATION palettes (numeradas) — idênticas em light/dark ───────────────────
