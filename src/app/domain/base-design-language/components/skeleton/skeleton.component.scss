@@ -1,0 +1,55 @@
+/* Skeleton — clone de baseui/skeleton styled-components.ts.
+   Root com rows>0 = flex-column; bloco (root rows=0 ou cada row) = cor sólida
+   `backgroundTertiary` ou shimmer animado. */
+/* Root do original = <div> (block). O host custom-element default é inline → o bloco
+   rows=0 fora de um flex colapsaria (0×0). Forçamos block; --col sobrescreve p/ flex. */
+.bui-skeleton {
+  display: block;
+}
+
+.bui-skeleton--col {
+  display: flex;
+  flex-direction: column;
+}
+
+.bui-skeleton--solid {
+  background-color: var(--bw-background-tertiary);
+}
+
+/* animationStyle do original: ease-out 1.5s infinite, background-size 400% 100%,
+   gradiente 135deg (backgroundTertiary ×6, backgroundSecondary, backgroundTertiary ×6)
+   varrendo via background-position. */
+.bui-skeleton--anim {
+  animation: bui-skeleton-shimmer 1.5s ease-out infinite;
+  background-size: 400% 100%;
+  background-image: linear-gradient(
+    135deg,
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-secondary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary),
+    var(--bw-background-tertiary)
+  );
+}
+
+.bui-skeleton__row {
+  width: 100%;
+  flex-basis: 15px;
+}
+
+@keyframes bui-skeleton-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

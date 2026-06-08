@@ -1,0 +1,57 @@
+/* Link — clone de baseui/link styled-components.ts.
+   font350 = primaryFontFamily / 500 / 16px / 20px, mas o styled sobrescreve
+   font-size e line-height para `inherit` (herda do contexto tipográfico do pai). */
+a[buiLink] {
+  color: var(--bw-content-primary); /* linkText */
+  font-family: var(--bw-font-family);
+  font-weight: 500;
+  font-size: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-underline-position: under;
+  /* Quirk do original: o styled emite `transitionProperty: 'backgroundSize'` (camelCase,
+     custom-ident — não casa com `background-size`), tornando a transição um no-op no link
+     default. Reproduzido cru para igualar o computed do original. */
+  transition-property: backgroundSize;
+  transition-duration: var(--bw-timing-500);
+  transition-timing-function: var(--bw-ease-decelerate); /* easeOutQuinticCurve */
+  background-size: 0% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-image: none;
+  will-change: background-size;
+
+  &:hover {
+    color: var(--bw-gray-800); /* linkHover */
+    background-size: 100% 100%, 100% 100%;
+  }
+  &:visited {
+    color: var(--bw-gray-600); /* linkVisited */
+  }
+  &:active {
+    color: var(--bw-gray-700); /* linkActive */
+  }
+  /* :focus do original: tira o sublinhado; outline (3px borderAccent) só no foco por
+     teclado — `:focus-visible` nativo substitui o flag JS `$isFocusVisible`. */
+  &:focus {
+    text-decoration: none;
+    outline-offset: 1px;
+  }
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+  &:focus-visible {
+    outline: 3px solid var(--bw-border-accent);
+  }
+}
+
+/* animateUnderline: position relative, sem text-decoration; sublinhado por 2 gradientes
+   (linkHover por cima, linkText por baixo). base-size 0%/100% mostra só o linkText;
+   no hover vira 100% → o linkHover varre. transitionProperty '' no original → default
+   `all` (anima o background-size). */
+a[buiLink].bui-link--animate {
+  position: relative;
+  text-decoration: none;
+  transition-property: all;
+  background-image: linear-gradient(transparent calc(100% - 1px), var(--bw-gray-800) 1px),
+    linear-gradient(transparent calc(100% - 1px), var(--bw-content-primary) 1px);
+}

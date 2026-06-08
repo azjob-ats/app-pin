@@ -60,6 +60,16 @@ export const BW_STORIES: BwStory[] = [
   av('update-image', 'Update image', 'UpdateImageScenario'),
   // Divider
   { id: 'divider--divider', group: 'divider', name: 'Divider', load: () => import('../components/divider/divider.scenarios').then((m) => m.DividerScenario) },
+  // Heading
+  { id: 'heading--heading', group: 'heading', name: 'Heading', load: () => import('../components/heading/heading.scenarios').then((m) => m.HeadingScenario) },
+  // Link
+  { id: 'link--link', group: 'link', name: 'Link', load: () => import('../components/link/link.scenarios').then((m) => m.LinkScenario) },
+  // Aspect ratio box
+  { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
+  // Skeleton
+  { id: 'skeleton--skeleton', group: 'skeleton', name: 'Skeleton', load: () => import('../components/skeleton/skeleton.scenarios').then((m) => m.SkeletonScenario) },
+  { id: 'skeleton--animation', group: 'skeleton', name: 'Animation', load: () => import('../components/skeleton/skeleton.scenarios').then((m) => m.AnimationScenario) },
+  { id: 'skeleton--loading', group: 'skeleton', name: 'Loading', load: () => import('../components/skeleton/skeleton.scenarios').then((m) => m.LoadingScenario) },
 ];
 
 export interface BwLadleGroup {

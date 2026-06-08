@@ -1,0 +1,29 @@
+/* AspectRatioBox — clone de baseui/aspect-ratio-box.
+   O ::before usa o truque do padding-top (% da largura) para fixar a altura conforme a
+   proporção; o ::after limpa o float. */
+.bui-arb {
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 1px;
+    margin-left: -1px;
+    float: left;
+    height: 0;
+    padding-top: var(--bui-arb-pad);
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.bui-arb-body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
