@@ -1,0 +1,193 @@
+/* List — clone de baseui/list styled-components. */
+
+/* O Base Web não reseta box-sizing (usa o default content-box do UA), mas o clone tem
+   `* { box-sizing: border-box }` global. Restauramos content-box nos elementos estruturais
+   do List para a borda/padding somarem por fora (ex.: Content min-height 64 + borda 1 = 65),
+   batendo o original. Não atinge filhos projetados (botões/ícones mantêm seu box-sizing). */
+.bui-li__root,
+.bui-li__content,
+.bui-li__artwork,
+.bui-li__end,
+.bui-li-label__root,
+.bui-li-label__content,
+.bui-li-label__desc,
+.bui-li-label__sublist,
+.bui-lh__root,
+.bui-lh__content,
+.bui-lh__row,
+.bui-lh__heading,
+.bui-lh__subheading,
+.bui-lh__end,
+.bui-lh__end-desc {
+  box-sizing: content-box;
+}
+
+/* ── ListItem Root (<li>) ─────────────────────────────────────────────────── */
+.bui-li__root {
+  align-items: center;
+  background-color: var(--bw-background-primary);
+  display: flex;
+  list-style-type: none;
+  width: 100%;
+  overflow: hidden;
+}
+.bui-li__root--round {
+  border-radius: var(--bw-radius-400); /* radius400 = 12px */
+}
+.bui-li__root--menu {
+  cursor: pointer;
+}
+.bui-li__root--menu:hover {
+  background-color: var(--bw-background-secondary); /* menuFillHover */
+}
+
+/* ── Content ──────────────────────────────────────────────────────────────── */
+.bui-li__content {
+  /* border100 só na base (top/right/left ficam style:none no original) */
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.04);
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  min-height: var(--bw-sizing-scale1600); /* 64px */
+  padding-right: var(--bw-sizing-scale600); /* 16px */
+}
+.bui-li__content--sublist {
+  min-height: initial;
+}
+.bui-li__content--mleft {
+  margin-left: var(--bw-sizing-scale600);
+}
+[dir='rtl'] .bui-li__content {
+  padding-right: 0;
+  padding-left: var(--bw-sizing-scale600);
+}
+[dir='rtl'] .bui-li__content--mleft {
+  margin-left: 0;
+  margin-right: var(--bw-sizing-scale600);
+}
+
+/* ── Artwork container ────────────────────────────────────────────────────── */
+.bui-li__artwork {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  width: var(--bw-sizing-scale1600); /* 64px (size ≤ 36) */
+}
+.bui-li__artwork--wide {
+  /* size > 36: sem largura fixa, padding lateral scale600 */
+  justify-content: normal;
+  width: auto;
+  padding-left: var(--bw-sizing-scale600);
+  padding-right: var(--bw-sizing-scale600);
+}
+
+/* ── End enhancer container ───────────────────────────────────────────────── */
+.bui-li__end {
+  align-items: center;
+  display: flex;
+}
+
+/* ── Label ────────────────────────────────────────────────────────────────── */
+.bui-li-label__root {
+  padding-top: var(--bw-sizing-scale500); /* 12px */
+  padding-bottom: var(--bw-sizing-scale500);
+}
+.bui-li-label__content {
+  font: var(--bw-font-LabelMedium);
+  color: var(--bw-content-primary);
+  margin: 0;
+}
+.bui-li-label__desc {
+  font: var(--bw-font-ParagraphSmall);
+  color: var(--bw-content-primary);
+  margin: 0;
+}
+.bui-li-label__sublist {
+  font: var(--bw-font-LabelMedium);
+  color: var(--bw-content-primary);
+  margin-top: var(--bw-sizing-scale500);
+  margin-bottom: var(--bw-sizing-scale500);
+}
+
+/* ── Heading ──────────────────────────────────────────────────────────────── */
+.bui-lh__root {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--bw-background-primary);
+  overflow: hidden;
+  min-height: var(--bw-sizing-scale1600); /* 64px */
+}
+.bui-lh__content {
+  flex-grow: 1;
+  width: 100%;
+  min-width: 0;
+  padding-top: var(--bw-sizing-scale600); /* 16px */
+  padding-bottom: var(--bw-sizing-scale300); /* 8px */
+  padding-right: var(--bw-sizing-scale600);
+  margin-left: var(--bw-sizing-scale600);
+}
+[dir='rtl'] .bui-lh__content {
+  padding-right: 0;
+  padding-left: var(--bw-sizing-scale600);
+  margin-left: 0;
+  margin-right: var(--bw-sizing-scale600);
+}
+.bui-lh__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+}
+.bui-lh__heading {
+  font: var(--bw-font-HeadingXSmall);
+  color: var(--bw-content-primary);
+  margin: 0;
+  margin-right: var(--bw-sizing-scale600);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.bui-lh__subheading {
+  font: var(--bw-font-ParagraphMedium);
+  color: var(--bw-content-secondary);
+  margin: 0;
+  margin-right: var(--bw-sizing-scale600);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.bui-lh__end {
+  font: var(--bw-font-LabelMedium);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bui-lh__end--text {
+  align-items: flex-end;
+}
+.bui-lh__end-desc {
+  font: var(--bw-font-ParagraphSmall);
+  color: var(--bw-content-secondary);
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Container de menu (story menu-adapter) ───────────────────────────────── */
+.bui-list-menu {
+  background-color: var(--bw-background-primary); /* menuFill */
+  margin: 0;
+  padding: var(--bw-sizing-scale300) 0; /* 8px TB */
+  border-radius: var(--bw-popover-border-radius); /* 8px */
+  box-shadow: var(--bw-shadow-600);
+  overflow: auto;
+  list-style: none;
+}
