@@ -1,0 +1,143 @@
+@if (rich()) {
+  <!-- controle rico: busca / multi (div com input + tags) -->
+  <div
+    class="bui-select__control"
+    [attr.data-open]="open() ? '' : null"
+    [attr.aria-disabled]="disabled() ? true : null"
+    (click)="openMenu()"
+  >
+    <div class="bui-select__value">
+      @if (isSearch()) {
+        <span class="bui-select__search-icon" aria-hidden="true"><bui-search [size]="16" /></span>
+      }
+      @if (multi()) {
+        @for (o of selectedOptions(); track o[valueKey()]) {
+          <bui-tag
+            class="bui-select__tag"
+            kind="primary"
+            [size]="tagSize()"
+            (actionClick)="removeTag(o)"
+            >{{ o[labelKey()] }}</bui-tag
+          >
+        }
+      } @else if (!isEmpty() && !isSearchable()) {
+        <span class="bui-select__single">{{ singleLabel() }}</span>
+      } @else if (!isEmpty() && !inputValue()) {
+        <span class="bui-select__single">{{ singleLabel() }}</span>
+      }
+      @if (isSearchable()) {
+        <input
+          class="bui-select__input"
+          type="text"
+          role="combobox"
+          autocomplete="off"
+          [attr.aria-expanded]="open()"
+          [attr.aria-label]="ariaLabel() || placeholder()"
+          [disabled]="disabled()"
+          [value]="inputValue()"
+          [placeholder]="isEmpty() ? placeholder() : ''"
+          (input)="onInput($event)"
+          (focus)="focused.set(true); openMenu()"
+          (blur)="focused.set(false)"
+        />
+      } @else if (isEmpty()) {
+        <span class="bui-select__value--ph">{{ placeholder() }}</span>
+      }
+    </div>
+
+    <div class="bui-select__icons">
+      @if (isLoading()) {
+        <span class="bui-select__spinner" aria-label="loading" role="progressbar"></span>
+      }
+      @if (showClear()) {
+        <span class="bui-select__clear" role="button" aria-label="Clear value" (click)="clearAll($event)">
+          <bui-delete-alt [size]="18" />
+        </span>
+      }
+      <svg
+        class="bui-select__arrow"
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M12.7071 15.2929L17.1464 10.8536C17.4614 10.5386 17.2383 10 16.7929 10L7.20711 10C6.76165 10 6.53857 10.5386 6.85355 10.8536L11.2929 15.2929C11.6834 15.6834 12.3166 15.6834 12.7071 15.2929Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </div>
+} @else {
+  <!-- controle simples: <button> (Pagination / single select) -->
+  <button
+    type="button"
+    class="bui-select__control"
+    [attr.aria-label]="ariaLabel() || placeholder()"
+    [attr.data-open]="open() ? '' : null"
+    [disabled]="disabled()"
+    (click)="toggle()"
+  >
+    <span class="bui-select__value" [class.bui-select__value--ph]="isEmpty()">{{
+      isEmpty() ? placeholder() : singleLabel()
+    }}</span>
+    <div class="bui-select__icons">
+      @if (isLoading()) {
+        <span class="bui-select__spinner" aria-label="loading" role="progressbar"></span>
+      }
+      @if (showClear()) {
+        <span class="bui-select__clear" role="button" aria-label="Clear value" (click)="clearAll($event)">
+          <bui-delete-alt [size]="18" />
+        </span>
+      }
+      <svg
+        class="bui-select__arrow"
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M12.7071 15.2929L17.1464 10.8536C17.4614 10.5386 17.2383 10 16.7929 10L7.20711 10C6.76165 10 6.53857 10.5386 6.85355 10.8536L11.2929 15.2929C11.6834 15.6834 12.3166 15.6834 12.7071 15.2929Z"
+          fill="currentColor"
+        />
+      </svg>
+    </div>
+  </button>
+}
+
+@if (open() && !disabled()) {
+  <div class="bui-select__scrim" (click)="closeMenu()"></div>
+  <ul class="bui-select__menu" role="listbox">
+    @for (row of rows(); track $index) {
+      @switch (row.kind) {
+        @case ('header') {
+          <li class="bui-select__group" role="presentation">{{ row.label }}</li>
+        }
+        @case ('empty') {
+          <li class="bui-select__empty" role="presentation">{{ row.label }}</li>
+        }
+        @case ('create') {
+          <li class="bui-select__opt bui-select__opt--create" role="option" (click)="pickRow(row)">
+            Create <strong>“{{ row.label }}”</strong>
+          </li>
+        }
+        @default {
+          <li
+            class="bui-select__opt"
+            role="option"
+            [class.bui-select__opt--sel]="isSelected(row)"
+            [class.bui-select__opt--hl]="isHighlighted($index, row)"
+            [class.bui-select__opt--disabled]="row.option?.disabled"
+            [attr.aria-selected]="isSelected(row)"
+            (click)="pickRow(row)"
+          >
+            {{ row.label }}
+          </li>
+        }
+      }
+    }
+  </ul>
+}
