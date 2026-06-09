@@ -20,7 +20,9 @@ export interface Option { id: string; label: string; }
   template: `
     <button type="button" class="bui-select__control" [attr.data-open]="open() ? '' : null" [disabled]="disabled()" (click)="toggle()">
       <span class="bui-select__value" [class.bui-select__value--ph]="!selected()">{{ selected()?.label || placeholder() }}</span>
-      <span class="material-symbols-rounded bui-select__arrow">expand_more</span>
+      <svg class="bui-select__arrow" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12.7071 15.2929L17.1464 10.8536C17.4614 10.5386 17.2383 10 16.7929 10L7.20711 10C6.76165 10 6.53857 10.5386 6.85355 10.8536L11.2929 15.2929C11.6834 15.6834 12.3166 15.6834 12.7071 15.2929Z" fill="currentColor" />
+      </svg>
     </button>
     @if (open()) {
       <div class="bui-select__scrim" (click)="open.set(false)"></div>
@@ -57,8 +59,16 @@ export class Select implements ControlValueAccessor {
 
 @Component({
   selector: 'bui-s-select', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, imports: [Select],
-  template: `<div style="width:280px;">
-    <bui-select [options]="[{id:'1',label:'AliceBlue'},{id:'2',label:'Amethyst'},{id:'3',label:'AntiqueWhite'},{id:'4',label:'Aqua'}]" placeholder="Choose a color" />
-  </div>`,
+  template: `
+    <bui-select [options]="opts" placeholder="Select a color" />
+    <br />
+    <bui-select [options]="opts" placeholder="Select a color" [disabled]="true" />
+  `,
 })
-export class SelectScenario {}
+export class SelectScenario {
+  protected readonly opts = [
+    { id: 'AliceBlue', label: 'AliceBlue' }, { id: 'AntiqueWhite', label: 'AntiqueWhite' },
+    { id: 'Aqua', label: 'Aqua' }, { id: 'Aquamarine', label: 'Aquamarine' },
+    { id: 'Azure', label: 'Azure' }, { id: 'Beige', label: 'Beige' },
+  ];
+}

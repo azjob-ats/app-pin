@@ -12,14 +12,15 @@
 .bui-select__control:disabled { background: var(--bw-background-state-disabled); cursor: not-allowed; }
 .bui-select__value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bui-select__value--ph { color: var(--bw-content-tertiary); }
-.bui-select__arrow { font-size: 20px; color: var(--bw-content-tertiary); }
+.bui-select__arrow { width: 20px; height: 20px; flex: none; fill: currentColor; color: var(--bw-content-primary); }
 
 .bui-select__scrim { position: fixed; inset: 0; z-index: var(--bw-z-overlay, 1000); }
 .bui-select__menu {
   position: absolute; z-index: calc(var(--bw-z-overlay, 1000) + 1); top: calc(100% + 4px); left: 0; right: 0;
-  list-style: none; margin: 0; padding: var(--bw-sizing-scale200); max-height: 280px; overflow: auto;
+  list-style: none; margin: 0; padding: var(--bw-sizing-scale300) 0; max-height: 280px; overflow: auto;
   border-radius: var(--bw-popover-border-radius); background: var(--bw-background-primary); box-shadow: var(--bw-shadow-600);
 }
-.bui-select__opt { padding: var(--bw-sizing-scale400) var(--bw-sizing-scale500); border-radius: var(--bw-radius-200); font: var(--bw-font-ParagraphMedium); color: var(--bw-content-primary); cursor: pointer; }
+/* opções no estilo do bui-menu (font ParagraphSmall, padding 8/16, hover menuFillHover) */
+.bui-select__opt { padding: var(--bw-sizing-scale300) var(--bw-sizing-scale600); font: var(--bw-font-ParagraphSmall); color: var(--bw-content-primary); cursor: pointer; }
 .bui-select__opt:hover { background: var(--bw-background-secondary); }
-.bui-select__opt--sel { font-weight: var(--bw-font-weight-medium); background: var(--bw-background-secondary); }
+.bui-select__opt--sel { background: var(--bw-background-secondary); }

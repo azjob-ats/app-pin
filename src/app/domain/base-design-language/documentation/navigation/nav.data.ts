@@ -71,7 +71,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'File Uploader Basic', path: 'components/file-uploader-basic', status: 'soon' },
           { label: 'Menu', path: 'components/menu', status: 'ready' },
           { label: 'Rating', path: 'components/rating', status: 'ready' },
-          { label: 'Select', path: 'components/select', status: 'soon' },
+          { label: 'Select', path: 'components/select', status: 'ready' },
         ],
       },
       {
