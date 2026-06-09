@@ -1,0 +1,83 @@
+/* Tag — clone de baseui/tag (kinds deprecated). Sem borda (borderColor null nos deprecated). */
+.bui-tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: default;
+}
+/* sizes (height + padding + font + radius) */
+.bui-tag--small {
+  height: 24px;
+  padding: 4px 6px;
+  font: var(--bw-font-LabelSmall);
+  border-radius: var(--bw-radius-200); /* 4px */
+}
+.bui-tag--medium {
+  height: 32px;
+  padding: 4px 8px;
+  font: var(--bw-font-LabelMedium);
+  border-radius: var(--bw-radius-300); /* 8px */
+}
+.bui-tag--large {
+  height: 40px;
+  padding: 8px 10px;
+  font: var(--bw-font-LabelLarge);
+  border-radius: var(--bw-radius-300);
+}
+
+/* ── Cores por kind × estado ─────────────────────────────────────────────── */
+/* secondary (outlined/claro): bg=*-bg-l, fg=*-text-l | primary (solid): bg=*-bg, fg=white */
+.bui-tag--neutral.bui-tag--subtle { background-color: var(--bw-tag-gray-bg-l); color: var(--bw-tag-gray-text-l); }
+.bui-tag--neutral.bui-tag--solid { background-color: var(--bw-tag-gray-bg); color: var(--bw-white); }
+.bui-tag--neutral.bui-tag--disabled { background-color: var(--bw-gray-50); color: var(--bw-gray-200); }
+
+.bui-tag--primary.bui-tag--subtle { background-color: var(--bw-tag-gray-bg-l); color: var(--bw-tag-gray-text-l); }
+.bui-tag--primary.bui-tag--solid { background-color: var(--bw-tag-gray-bg); color: var(--bw-white); }
+.bui-tag--primary.bui-tag--disabled { background-color: var(--bw-gray-50); color: var(--bw-gray-300); }
+
+.bui-tag--accent.bui-tag--subtle { background-color: var(--bw-tag-blue-bg-l); color: var(--bw-tag-blue-text-l); }
+.bui-tag--accent.bui-tag--solid { background-color: var(--bw-tag-blue-bg); color: var(--bw-white); }
+.bui-tag--accent.bui-tag--disabled { background-color: var(--bw-blue-50); color: var(--bw-blue-300); }
+
+.bui-tag--positive.bui-tag--subtle { background-color: var(--bw-tag-green-bg-l); color: var(--bw-tag-green-text-l); }
+.bui-tag--positive.bui-tag--solid { background-color: var(--bw-tag-green-bg); color: var(--bw-white); }
+.bui-tag--positive.bui-tag--disabled { background-color: var(--bw-green-50); color: var(--bw-green-300); }
+
+/* warning (deprecated): solid = yellow300 bg + yellow900 font (especial) */
+.bui-tag--warning.bui-tag--subtle { background-color: var(--bw-tag-yellow-bg-l); color: var(--bw-tag-yellow-text-l); }
+.bui-tag--warning.bui-tag--solid { background-color: var(--bw-yellow-300); color: var(--bw-yellow-900); }
+.bui-tag--warning.bui-tag--disabled { background-color: var(--bw-yellow-50); color: var(--bw-yellow-200); }
+
+.bui-tag--negative.bui-tag--subtle { background-color: var(--bw-tag-red-bg-l); color: var(--bw-tag-red-text-l); }
+.bui-tag--negative.bui-tag--solid { background-color: var(--bw-tag-red-bg); color: var(--bw-white); }
+.bui-tag--negative.bui-tag--disabled { background-color: var(--bw-red-50); color: var(--bw-red-300); }
+
+.bui-tag--disabled { cursor: not-allowed; }
+
+/* enhancer + action (✕) */
+.bui-tag__start {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--bw-sizing-scale100);
+}
+.bui-tag__label {
+  display: inline-flex;
+  align-items: center;
+}
+.bui-tag__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--bw-sizing-scale100);
+  cursor: pointer;
+  border-radius: 50%;
+}
+.bui-tag__action:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+.bui-tag--disabled .bui-tag__action {
+  cursor: not-allowed;
+}

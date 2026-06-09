@@ -107,7 +107,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Icon', path: 'components/icon', status: 'ready' },
           { label: 'List', path: 'components/list', status: 'soon' },
           { label: 'Message Card', path: 'components/message-card', status: 'soon' },
-          { label: 'Tag', path: 'components/tag', status: 'soon' },
+          { label: 'Tag', path: 'components/tag', status: 'ready' },
           { label: 'Tree View', path: 'components/tree-view', status: 'soon' },
           { label: 'Typography', path: 'components/typography', status: 'ready' },
         ],
