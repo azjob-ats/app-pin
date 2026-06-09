@@ -68,6 +68,29 @@ export class TagSizeScenario {}
 })
 export class TagStartEnhancerScenario {}
 
+// tag-overrides.scenario.tsx — override do ActionIcon (✕ default / Alert / ArrowLeft via tema).
+@Component({
+  selector: 'bui-s-tag-overrides',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiTag],
+  template: `
+    <h2>No override</h2>
+    <bui-tag size="small">Label</bui-tag><br />
+    <bui-tag size="large">Label</bui-tag>
+    <h2>Overriding icon via the component</h2>
+    <bui-tag size="small" actionIcon="alert">Label</bui-tag><br />
+    <bui-tag size="large" actionIcon="alert">Label</bui-tag>
+    <h2>Overriding icon via the theme</h2>
+    <bui-tag size="small" actionIcon="arrowLeft">Label</bui-tag><br />
+    <bui-tag size="large" actionIcon="arrowLeft">Label</bui-tag>
+    <h2>Component takes precedent over the theme</h2>
+    <bui-tag size="small" actionIcon="alert">Label</bui-tag><br />
+    <bui-tag size="large" actionIcon="alert">Label</bui-tag>
+  `,
+})
+export class TagOverridesScenario {}
+
 // tag-long-text.scenario.tsx — texto longo (+ start enhancer).
 @Component({
   selector: 'bui-s-tag-long-text',

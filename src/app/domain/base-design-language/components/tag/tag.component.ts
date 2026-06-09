@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation, booleanAttribute, computed, contentChild, input, output } from '@angular/core';
-import { BuiDelete } from '../icon/icon.component';
+import { BuiAlert, BuiArrowLeft, BuiDelete } from '../icon/icon.component';
+
+export type TagActionIcon = 'delete' | 'alert' | 'arrowLeft';
 
 export type TagKind = 'neutral' | 'primary' | 'accent' | 'positive' | 'warning' | 'negative';
 export type TagSize = 'small' | 'medium' | 'large';
@@ -18,7 +20,7 @@ export class BuiTagStart {}
   selector: 'bui-tag',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [BuiDelete],
+  imports: [BuiDelete, BuiAlert, BuiArrowLeft],
   styleUrl: './tag.component.scss',
   template: `
     @if (start()) {
@@ -27,7 +29,11 @@ export class BuiTagStart {}
     <span class="bui-tag__label"><ng-content /></span>
     @if (closeable() && !disabled()) {
       <span class="bui-tag__action" role="button" aria-label="remove" tabindex="0" (click)="actionClick.emit()">
-        <bui-delete [size]="iconSize()" />
+        @switch (actionIcon()) {
+          @case ('alert') { <bui-alert [size]="iconSize()" /> }
+          @case ('arrowLeft') { <bui-arrow-left [size]="iconSize()" /> }
+          @default { <bui-delete [size]="iconSize()" /> }
+        }
       </span>
     }
   `,
@@ -44,6 +50,8 @@ export class BuiTag {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly closeable = input(true, { transform: booleanAttribute });
   readonly clickable = input(false, { transform: booleanAttribute });
+  /** Ícone da ação (✕ padrão; `alert`/`arrowLeft` = override do ActionIcon). */
+  readonly actionIcon = input<TagActionIcon>('delete');
   readonly actionClick = output<void>();
 
   protected readonly start = contentChild(BuiTagStart);

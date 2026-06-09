@@ -87,6 +87,7 @@ export const BW_STORIES: BwStory[] = [
   { id: 'tag--size', group: 'tag', name: 'Size', load: () => import('../components/tag/tag.scenarios').then((m) => m.TagSizeScenario) },
   { id: 'tag--start-enhancer', group: 'tag', name: 'Start enhancer', load: () => import('../components/tag/tag.scenarios').then((m) => m.TagStartEnhancerScenario) },
   { id: 'tag--long-text', group: 'tag', name: 'Long text', load: () => import('../components/tag/tag.scenarios').then((m) => m.TagLongTextScenario) },
+  { id: 'tag--overrides', group: 'tag', name: 'Overrides', load: () => import('../components/tag/tag.scenarios').then((m) => m.TagOverridesScenario) },
   // Input
   { id: 'input--input', group: 'input', name: 'Input', load: () => import('../components/input/input.scenarios').then((m) => m.InputScenario) },
   { id: 'input--sizes', group: 'input', name: 'Sizes', load: () => import('../components/input/input.scenarios').then((m) => m.InputSizesScenario) },

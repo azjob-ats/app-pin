@@ -78,6 +78,7 @@ const HIDE = 'M12.81 4.36l-1.77 1.78a4 4 0 00-4.9 4.9l-2.76 2.75C2.06 12.79.96 1
 const SHOW = 'M.2 10a11 11 0 0119.6 0A11 11 0 01.2 10zm9.8 4a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4z';
 const SEARCH = 'M11 6C8.79086 6 7 7.79086 7 10C7 12.2091 8.79086 14 11 14C13.2091 14 15 12.2091 15 10C15 7.79086 13.2091 6 11 6ZM5 10C5 6.68629 7.68629 4 11 4C14.3137 4 17 6.68629 17 10C17 11.2958 16.5892 12.4957 15.8907 13.4765L19.7071 17.2929C20.0976 17.6834 20.0976 18.3166 19.7071 18.7071C19.3166 19.0976 18.6834 19.0976 18.2929 18.7071L14.4765 14.8907C13.4957 15.5892 12.2958 16 11 16C7.68629 16 5 13.3137 5 10Z';
 const CHECK_INDETERMINATE = 'M6 12C6 11.4477 6.44772 11 7 11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H7C6.44772 13 6 12.5523 6 12Z';
+const ALERT = 'M12 21C16.9706 21 21 16.9706 21 12C21 7.02945 16.9706 3 12 3C7.02942 3 3 7.02945 3 12C3 16.9706 7.02942 21 12 21ZM12 6C12.5523 6 13 6.44772 13 7V13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13V7C11 6.44772 11.4477 6 12 6ZM13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z';
 
 /** Conjunto de paths nomeados — consumido pelos componentes nomeados e por outros componentes. */
 export const ICON_PATHS = {
@@ -279,4 +280,18 @@ export class BuiCheckIndeterminate {
   readonly color = input<string>();
   readonly title = input('Decrement');
   protected readonly path = CHECK_INDETERMINATE;
+}
+
+@Component({
+  selector: 'bui-alert',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BuiIcon],
+  host: { style: 'display: contents' },
+  template: `<bui-icon [d]="path" [size]="size()" [color]="color()" [title]="title()" />`,
+})
+export class BuiAlert {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Alert');
+  protected readonly path = ALERT;
 }
