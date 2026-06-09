@@ -77,6 +77,7 @@ const DELETE_ALT = 'M12 20C16.4183 20 20 16.4183 20 12C20 7.58173 16.4183 4 12 4
 const HIDE = 'M12.81 4.36l-1.77 1.78a4 4 0 00-4.9 4.9l-2.76 2.75C2.06 12.79.96 11.49.2 10a11 11 0 0112.6-5.64zm3.8 1.85c1.33 1 2.43 2.3 3.2 3.79a11 11 0 01-12.62 5.64l1.77-1.78a4 4 0 004.9-4.9l2.76-2.75zm-.25-3.99l1.42 1.42L3.64 17.78l-1.42-1.42L16.36 2.22z';
 const SHOW = 'M.2 10a11 11 0 0119.6 0A11 11 0 01.2 10zm9.8 4a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4z';
 const SEARCH = 'M11 6C8.79086 6 7 7.79086 7 10C7 12.2091 8.79086 14 11 14C13.2091 14 15 12.2091 15 10C15 7.79086 13.2091 6 11 6ZM5 10C5 6.68629 7.68629 4 11 4C14.3137 4 17 6.68629 17 10C17 11.2958 16.5892 12.4957 15.8907 13.4765L19.7071 17.2929C20.0976 17.6834 20.0976 18.3166 19.7071 18.7071C19.3166 19.0976 18.6834 19.0976 18.2929 18.7071L14.4765 14.8907C13.4957 15.5892 12.2958 16 11 16C7.68629 16 5 13.3137 5 10Z';
+const CHECK_INDETERMINATE = 'M6 12C6 11.4477 6.44772 11 7 11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H7C6.44772 13 6 12.5523 6 12Z';
 
 /** Conjunto de paths nomeados — consumido pelos componentes nomeados e por outros componentes. */
 export const ICON_PATHS = {
@@ -264,4 +265,18 @@ export class BuiSearch {
   readonly color = input<string>();
   readonly title = input('Search');
   protected readonly path = SEARCH;
+}
+
+@Component({
+  selector: 'bui-check-indeterminate',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BuiIcon],
+  host: { style: 'display: contents' },
+  template: `<bui-icon [d]="path" [size]="size()" [color]="color()" [title]="title()" />`,
+})
+export class BuiCheckIndeterminate {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Decrement');
+  protected readonly path = CHECK_INDETERMINATE;
 }

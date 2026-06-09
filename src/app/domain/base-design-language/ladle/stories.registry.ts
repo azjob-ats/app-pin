@@ -64,6 +64,8 @@ export const BW_STORIES: BwStory[] = [
   { id: 'heading--heading', group: 'heading', name: 'Heading', load: () => import('../components/heading/heading.scenarios').then((m) => m.HeadingScenario) },
   // Link
   { id: 'link--link', group: 'link', name: 'Link', load: () => import('../components/link/link.scenarios').then((m) => m.LinkScenario) },
+  // Stepper
+  { id: 'stepper--stepper', group: 'stepper', name: 'Stepper', load: () => import('../components/stepper/stepper.scenarios').then((m) => m.StepperScenario) },
   // Aspect ratio box
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
   // Input

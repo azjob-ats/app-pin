@@ -1,0 +1,27 @@
+/* Stepper — clone de baseui/stepper styled-components (StyledRoot). */
+.bui-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 139px;
+  height: 48px;
+  padding: var(--bw-sizing-scale550); /* 14px */
+}
+
+/* Input central (overrides do Stepper: 36×36, sem borda, centrado, LabelLarge, bg primary). */
+.bui-stepper__input {
+  max-width: 36px;
+}
+.bui-stepper__input .bui-input__root {
+  border: none;
+  background-color: var(--bw-background-primary);
+  max-width: 36px;
+  height: 36px;
+}
+.bui-stepper__input .bui-input__field {
+  text-align: center;
+  padding: 0;
+  font: var(--bw-font-LabelLarge);
+  background-color: var(--bw-background-primary);
+}

@@ -59,7 +59,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Radio-v2', path: 'components/radio-v2', status: 'soon' },
           { label: 'Slider', path: 'components/slider', status: 'soon' },
           { label: 'Sliding Button', path: 'components/sliding-button', status: 'soon' },
-          { label: 'Stepper', path: 'components/stepper', status: 'soon' },
+          { label: 'Stepper', path: 'components/stepper', status: 'ready' },
           { label: 'Switch', path: 'components/switch', status: 'ready' },
           { label: 'Textarea', path: 'components/textarea', status: 'soon' },
         ],
