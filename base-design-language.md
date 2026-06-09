@@ -207,7 +207,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 42 | Payment card | P3.7 | 0/2 | ⚠️ |
 | 43 | Phone input | P3.24 | 0/7 | ⚠️ |
 | 44 | Pin code | P3.8 | 0/5 | ⚠️ |
-| 45 | Popover | P2.1 | 0/15 | ⚠️ |
+| 45 | Popover | P2.1 | 3/15 | ⚠️ |
 | 46 | Progress bar | P4.11 | 6/6 | ✅ |
 | 47 | Progress steps | P4.12 | 0/6 | ⚠️ |
 | 48 | Radio | P4.16 | 0/3 | ⚠️ |
@@ -891,4 +891,28 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
 - **DoD:** stories (4/5) ✓ · dimensões ✓ · cores/kinds/hierarchy ✓ · tipografia ✓ · ✕/enhancer ✓ ·
   a11y (AXE 0) ✓ · build dev (`tsc --noEmit` limpo) ✓ · sem regressão (reusa Icon; token aditivo).
 - **Pendente:** `overrides` (API React).
+- **Commit:** _pendente_.
+
+---
+
+### Popover — `popover` — ⚠️ Parcial (3/15, 2026-06-08) — infra de overlay (CDK) estabelecida
+
+- **Stories (clone/orig):** 3/15 — `popover` (isOpen), `click`, `hover`. Pendentes: position (todos os
+  placements), reposition, scroll, focus-loop, render-all, etc. (comportamentos de posicionamento/foco).
+- **Verdade-base:** `baseweb/src/popover/` (`popover.tsx` 515 linhas, `styled-components.ts`,
+  `constants.ts` PLACEMENT/TRIGGER, `utils.ts`; usa **Layer** (portal) + **TetherBehavior** (popper)).
+- **Decisão de arquitetura (chave para toda a camada de overlay):** o portal + posicionamento do
+  Base Web (Layer/Tether/popper) foram substituídos pelo **Angular CDK Overlay**
+  (`CdkConnectedOverlay` + `FlexibleConnectedPositionStrategy`) — arquitetura Angular nativa. **Dois
+  pré-requisitos de infra resolvidos:** (1) importado `@angular/cdk/overlay-prebuilt.css` no
+  `styles.scss`; (2) o overlay renderiza no `<body>` (fora do escopo `.bw-root` dos tokens) → resolvido
+  com `cdkConnectedOverlayPanelClass="bw-root"` para os `--bw-*` resolverem no painel. **Isto destrava
+  Menu, Select, Tooltip, Modal, Drawer e Snackbar.**
+- **Componente:** `bui-popover` — trigger projetado (default), conteúdo em `[buiPopoverContent]`,
+  `triggerType` click/hover, `placement` (13 → posições CDK), `isOpen` controlado ou stateful. Body
+  `backgroundTertiary` + radius 8px + `shadow-600`, opacity transition.
+- **Verificação (orig→clone):** `popover` (isOpen) — Body **bg `rgb(232,232,232)`**, radius 8px,
+  `box-shadow 0 4px 16` (shadow600), opacity 1, conteúdo "content" posicionado **abaixo do trigger**
+  (placement bottom). Visual idêntico. (posição absoluta difere = chrome do Ladle.)
+- **Pendente:** as 12 stories de posicionamento/scroll/foco/arrow (comportamentais).
 - **Commit:** _pendente_.

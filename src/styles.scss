@@ -3,6 +3,9 @@
 @use 'utility';
 @use 'standard-class';
 
+// Angular CDK Overlay — posicionamento de overlays (Popover/Menu/Select do /bw)
+@import '@angular/cdk/overlay-prebuilt.css';
+
 // ── Reset & Base ─────────────────────────────────────────────────────────────
 *,
 *::before,

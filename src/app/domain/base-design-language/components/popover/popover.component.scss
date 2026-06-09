@@ -1,0 +1,21 @@
+/* Popover — clone de baseui/popover styled-components (Body/Inner). */
+.bui-popover__trigger {
+  display: inline-block;
+}
+
+.bui-popover__body {
+  background-color: var(--bw-background-tertiary);
+  border-radius: var(--bw-popover-border-radius); /* 8px */
+  box-shadow: var(--bw-shadow-600);
+  opacity: 0;
+  transition: opacity 0.1s var(--bw-ease-out), transform 0.1s var(--bw-ease-out);
+}
+.bui-popover__body--open {
+  opacity: 1;
+}
+.bui-popover__inner {
+  background-color: var(--bw-background-tertiary);
+  border-radius: var(--bw-popover-border-radius);
+  color: var(--bw-content-primary);
+  position: relative;
+}

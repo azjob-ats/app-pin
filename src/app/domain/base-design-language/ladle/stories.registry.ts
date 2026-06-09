@@ -68,6 +68,10 @@ export const BW_STORIES: BwStory[] = [
   { id: 'stepper--stepper', group: 'stepper', name: 'Stepper', load: () => import('../components/stepper/stepper.scenarios').then((m) => m.StepperScenario) },
   // Aspect ratio box
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
+  // Popover
+  { id: 'popover--popover', group: 'popover', name: 'Popover', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverScenario) },
+  { id: 'popover--click', group: 'popover', name: 'Click', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverClickScenario) },
+  { id: 'popover--hover', group: 'popover', name: 'Hover', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverHoverScenario) },
   // Tag
   { id: 'tag--tag', group: 'tag', name: 'Tag', load: () => import('../components/tag/tag.scenarios').then((m) => m.TagScenario) },
   { id: 'tag--size', group: 'tag', name: 'Size', load: () => import('../components/tag/tag.scenarios').then((m) => m.TagSizeScenario) },

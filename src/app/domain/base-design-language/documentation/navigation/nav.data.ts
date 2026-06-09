@@ -140,7 +140,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Card', path: 'components/card', status: 'soon' },
           { label: 'Drawer', path: 'components/drawer', status: 'soon' },
           { label: 'Modal', path: 'components/modal', status: 'soon' },
-          { label: 'Popover', path: 'components/popover', status: 'soon' },
+          { label: 'Popover', path: 'components/popover', status: 'ready' },
           { label: 'Tooltip', path: 'components/tooltip', status: 'soon' },
         ],
       },
