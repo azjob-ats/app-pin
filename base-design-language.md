@@ -198,7 +198,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 33 | Link | P4.5 | 1/1 | ✅ |
 | 34 | List | P1.10 | 0/7 | ⚠️ |
 | 35 | Map marker | — | — | 🚫 |
-| 36 | Menu | P2.2 | 0/11 | ⚠️ |
+| 36 | Menu | P2.2 | 4/11 | ⚠️ |
 | 37 | Message card | P3.6 | 0/4 | ⚠️ |
 | 38 | Mobile header | P3.10 | 0/2 | ⚠️ |
 | 39 | Modal | P3.16 | 0/3 | ⚠️ |
@@ -915,4 +915,26 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
   `box-shadow 0 4px 16` (shadow600), opacity 1, conteúdo "content" posicionado **abaixo do trigger**
   (placement bottom). Visual idêntico. (posição absoluta difere = chrome do Ladle.)
 - **Pendente:** as 12 stories de posicionamento/scroll/foco/arrow (comportamentais).
+- **Commit:** _pendente_.
+
+---
+
+### Menu — `menu` — ⚠️ Parcial (4/11, 2026-06-08) — lista core (provedor do Select)
+
+- **Stories (clone/orig):** 4/11 — `menu`, `empty`, `dividers`, `grouped-items`. Pendentes: child/
+  nested, child-in-popover, profile-menu, virtualized, propagation, stateful, render-all.
+- **Verdade-base:** `baseweb/src/menu/` (`styled-components.tsx`, `option-list.tsx`, `constants.ts`
+  OPTION_LIST_SIZE; `__tests__/*.scenario.tsx`).
+- **Decisões de arquitetura:** `bui-menu` — `<ul role="listbox">` (bg `menuFill`=backgroundPrimary,
+  padding scale300, radius popover 8px, shadow600) com `<li role="option">` (font ParagraphSmall,
+  padding 8/16, highlight no hover → `menuFillHover`=backgroundSecondary, disabled = contentStateDisabled).
+  `items` aceita `disabled`/`divider`/`header`; `size` default/compact. **Nenhum token novo** (menu*
+  mapeiam p/ semânticos existentes).
+- **Verificação (orig→clone):** CSS computado **idêntico** — list **200px**, bg branco, radius 8px,
+  shadow600, padding-top 8px; **12 itens**, padding **8/16**, fonte **14px**, cor preta, "Item Three"
+  disabled (cinza). `dividers` 8 itens, `grouped` 7, `empty` "No results". **AXE 0** (`menu`); resíduos
+  em dividers/grouped/empty (`aria-required-children`/`color-contrast`) são inerentes ao padrão e
+  **iguais ou menores que no original**.
+- **Desbloqueio:** com Popover (overlay) + Menu (lista), o **Select** pode ser montado (campo →
+  popover contendo o menu de opções).
 - **Commit:** _pendente_.

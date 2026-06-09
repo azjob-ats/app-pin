@@ -1,0 +1,60 @@
+/* Menu — clone de baseui/menu styled-components. */
+.bui-menu {
+  display: inline-block;
+}
+
+.bui-menu__list {
+  background-color: var(--bw-background-primary); /* menuFill */
+  position: relative;
+  margin: 0;
+  padding: var(--bw-sizing-scale300) 0; /* 8px TB */
+  border-radius: var(--bw-popover-border-radius); /* 8px */
+  box-shadow: var(--bw-shadow-600);
+  overflow: auto;
+  list-style: none;
+  outline: none;
+}
+
+.bui-menu__item {
+  font: var(--bw-font-ParagraphSmall); /* font200 = 14/20 */
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  color: var(--bw-content-primary); /* menuFontDefault */
+  cursor: pointer;
+  background-color: transparent;
+  transition: color var(--bw-timing-200) var(--bw-ease-out), background-color var(--bw-timing-200) var(--bw-ease-out);
+  padding: var(--bw-sizing-scale300) var(--bw-sizing-scale600); /* 8 / 16 */
+}
+.bui-menu__list--compact .bui-menu__item {
+  font: var(--bw-font-ParagraphXSmall); /* font100 */
+  padding: var(--bw-sizing-scale100) var(--bw-sizing-scale900);
+}
+.bui-menu__item--highlighted {
+  background-color: var(--bw-background-secondary); /* menuFillHover */
+}
+.bui-menu__item--disabled {
+  color: var(--bw-content-state-disabled); /* menuFontDisabled */
+  cursor: not-allowed;
+}
+
+.bui-menu__empty {
+  font: var(--bw-font-ParagraphSmall);
+  display: block;
+  color: var(--bw-content-state-disabled);
+  text-align: center;
+  cursor: not-allowed;
+  padding: var(--bw-sizing-scale800);
+}
+
+.bui-menu__header {
+  font: var(--bw-font-LabelSmall); /* font250 */
+  color: var(--bw-content-primary);
+  padding: var(--bw-sizing-scale200) var(--bw-sizing-scale300);
+}
+
+.bui-menu__divider {
+  height: 1px;
+  background-color: var(--bw-border-opaque);
+  margin: var(--bw-sizing-scale300) 0;
+}
