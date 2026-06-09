@@ -70,6 +70,8 @@ export const BW_STORIES: BwStory[] = [
   { id: 'aspect-ratio-box--aspect-ratio-box', group: 'aspect-ratio-box', name: 'Aspect ratio box', load: () => import('../components/aspect-ratio-box/aspect-ratio-box.scenarios').then((m) => m.AspectRatioBoxScenario) },
   // Select (núcleo: controle + dropdown)
   { id: 'select--select', group: 'select', name: 'Select', load: () => import('../components/select/select.component').then((m) => m.SelectScenario) },
+  { id: 'select--sizes', group: 'select', name: 'Sizes', load: () => import('../components/select/select.component').then((m) => m.SelectSizesScenario) },
+  { id: 'select--states', group: 'select', name: 'States', load: () => import('../components/select/select.component').then((m) => m.SelectStatesScenario) },
   // Menu
   { id: 'menu--menu', group: 'menu', name: 'Menu', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuScenario) },
   { id: 'menu--empty', group: 'menu', name: 'Empty', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuEmptyScenario) },

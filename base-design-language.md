@@ -213,7 +213,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 48 | Radio | P4.16 | 0/3 | ⚠️ |
 | 49 | Radio v2 | P4.17 | 0/5 | ⚠️ |
 | 50 | Rating | P4.13 | 3/3 | ✅ |
-| 51 | Select | P3.20 | 1/30 | ⚠️ |
+| 51 | Select | P3.20 | 3/30 | ⚠️ |
 | 52 | Side navigation | P3.12 | 0/2 | ⚠️ |
 | 53 | Skeleton | P4.7 | 3/3 | ✅ |
 | 54 | Slider | P4.14 | 0/9 | ⚠️ |
@@ -946,10 +946,12 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
 
 ---
 
-### Select — `select` — ⚠️ Iniciado (1/30, 2026-06-08) — controle + dropdown core
+### Select — `select` — ⚠️ Iniciado (3/30, 2026-06-08) — controle + sizes + states
 
-- **Stories (clone/orig):** 1/30 — `select` (single, default + disabled). Pendentes: multi-select,
-  search, async, creatable, clearable, states, controlled, e ~24 comportamentais.
+- **Stories (clone/orig):** 3/30 — `select` (single default+disabled), `sizes` (mini/compact/default/
+  large → heights **32/36/48/60**), `states` (default/disabled/**error** borda `rgb(222,17,53)`/
+  **positive** borda `rgb(14,131,69)`). Pendentes: multi-select, search, creatable, async, open,
+  option-group, e ~24 comportamentais. (size/error/positive espelham o Input; Pagination intacta.)
 - **Verdade-base:** `baseweb/src/select/` (`select-component.tsx` 1118 linhas, `styled-components.ts`
   515; usa **Popover** + **StatefulMenu**). É o maior componente do sistema.
 - **Decisões de arquitetura:** **adaptado o `bui-select` pré-existente** (usado pela Pagination ✅) —

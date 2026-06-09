@@ -35,12 +35,20 @@ export interface Option { id: string; label: string; }
   `,
   styleUrl: './select.component.scss',
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Select), multi: true }],
-  host: { class: 'bui-select-host' },
+  host: { class: 'bui-select-host', '[class]': 'hostClasses()' },
 })
 export class Select implements ControlValueAccessor {
   readonly options = input<Option[]>([]);
   readonly placeholder = input<string>('Select…');
   readonly disabled = input(false);
+  readonly size = input<'mini' | 'compact' | 'default' | 'large'>('default');
+  readonly error = input(false);
+  readonly positive = input(false);
+
+  protected readonly hostClasses = computed(() =>
+    ['bui-select-host', `bui-select--${this.size()}`, this.error() ? 'bui-select--error' : '', this.positive() ? 'bui-select--positive' : '']
+      .filter(Boolean).join(' '),
+  );
 
   readonly value = signal<string>('');
   protected readonly open = signal(false);
@@ -66,9 +74,35 @@ export class Select implements ControlValueAccessor {
   `,
 })
 export class SelectScenario {
-  protected readonly opts = [
-    { id: 'AliceBlue', label: 'AliceBlue' }, { id: 'AntiqueWhite', label: 'AntiqueWhite' },
-    { id: 'Aqua', label: 'Aqua' }, { id: 'Aquamarine', label: 'Aquamarine' },
-    { id: 'Azure', label: 'Azure' }, { id: 'Beige', label: 'Beige' },
-  ];
+  protected readonly opts = OPTS;
 }
+
+const OPTS: Option[] = [
+  { id: 'AliceBlue', label: 'AliceBlue' }, { id: 'AntiqueWhite', label: 'AntiqueWhite' },
+  { id: 'Aqua', label: 'Aqua' }, { id: 'Aquamarine', label: 'Aquamarine' },
+  { id: 'Azure', label: 'Azure' }, { id: 'Beige', label: 'Beige' },
+];
+
+// select-sizes.scenario.tsx — mini/compact/default/large.
+@Component({
+  selector: 'bui-s-select-sizes', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, imports: [Select],
+  template: `
+    <bui-select [options]="opts" placeholder="Select a color" size="mini" /><br />
+    <bui-select [options]="opts" placeholder="Select a color" size="compact" /><br />
+    <bui-select [options]="opts" placeholder="Select a color" size="default" /><br />
+    <bui-select [options]="opts" placeholder="Select a color" size="large" />
+  `,
+})
+export class SelectSizesScenario { protected readonly opts = OPTS; }
+
+// select-states.scenario.tsx — default / disabled / error / positive.
+@Component({
+  selector: 'bui-s-select-states', changeDetection: ChangeDetectionStrategy.OnPush, encapsulation: ViewEncapsulation.None, imports: [Select],
+  template: `
+    <bui-select [options]="opts" placeholder="Select a color" /><br />
+    <bui-select [options]="opts" placeholder="Select a color" [disabled]="true" /><br />
+    <bui-select [options]="opts" placeholder="Select a color" [error]="true" /><br />
+    <bui-select [options]="opts" placeholder="Select a color" [positive]="true" />
+  `,
+})
+export class SelectStatesScenario { protected readonly opts = OPTS; }

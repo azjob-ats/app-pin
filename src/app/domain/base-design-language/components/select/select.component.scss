@@ -24,3 +24,12 @@
 .bui-select__opt { padding: var(--bw-sizing-scale300) var(--bw-sizing-scale600); font: var(--bw-font-ParagraphSmall); color: var(--bw-content-primary); cursor: pointer; }
 .bui-select__opt:hover { background: var(--bw-background-secondary); }
 .bui-select__opt--sel { background: var(--bw-background-secondary); }
+
+/* ── sizes (min-height + font), espelha o Input ── */
+.bui-select--mini .bui-select__control { min-height: 32px; font: var(--bw-font-ParagraphXSmall); }
+.bui-select--compact .bui-select__control { min-height: 36px; font: var(--bw-font-ParagraphSmall); }
+.bui-select--large .bui-select__control { min-height: 60px; font: var(--bw-font-ParagraphLarge); }
+
+/* ── states (error/positive): borda colorida + bg primary ── */
+.bui-select--error .bui-select__control { background: var(--bw-background-primary); box-shadow: inset 0 0 0 2px var(--bw-border-negative); }
+.bui-select--positive .bui-select__control { background: var(--bw-background-primary); box-shadow: inset 0 0 0 2px var(--bw-border-positive); }
