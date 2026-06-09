@@ -1,7 +1,13 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BuiInput, BuiInputAfter, BuiInputBefore, BuiInputEnd, BuiInputStart } from './input.component';
 import { BuiSearch } from '../icon/icon.component';
 import { Button } from '../button/button.component';
+import { Select } from '../select/select.component';
+
+const COLOR_OPTS = [
+  { id: 'AliceBlue', label: 'AliceBlue' }, { id: 'AntiqueWhite', label: 'AntiqueWhite' }, { id: 'Aqua', label: 'Aqua' },
+];
 
 /** Scenarios portadas de `src/input/__tests__/*.scenario.tsx`. */
 const BEFORE = 'display:flex;align-items:center;padding-left:12px';
@@ -117,6 +123,55 @@ export class InputMaskScenario {}
   template: `<bui-input type="number" value="10" [min]="0" [max]="100" ariaLabel="number" />`,
 })
 export class InputNumberScenario {}
+
+// input-disabled-matches-select.scenario.tsx — Select disabled + Input disabled (mesmo estilo).
+@Component({
+  selector: 'bui-s-input-disabled-matches-select',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput, Select, FormsModule],
+  template: `
+    <div>
+      <bui-select [options]="opts" [ngModel]="'AliceBlue'" [disabled]="true" placeholder="Select a color" />
+      <bui-input value="Hello" placeholder="Controlled Input" [disabled]="true" ariaLabel="controlled" />
+    </div>
+  `,
+})
+export class InputDisabledMatchesSelectScenario {
+  protected readonly opts = COLOR_OPTS;
+}
+
+// input-selector.scenario.tsx — input adjoined a um select (start/end). FormControl (🚫)
+// aproximado por label/caption inline.
+@Component({
+  selector: 'bui-s-input-selector',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput, Select],
+  template: `
+    <div style="padding:24px;width:500px">
+      <div style="margin-bottom:16px">
+        <div style="font:var(--bw-font-LabelSmall);margin-bottom:8px">input with start select</div>
+        <div style="display:flex">
+          <div style="width:200px;padding-right:8px"><bui-select [options]="opts" placeholder="Select" /></div>
+          <bui-input placeholder="" ariaLabel="start input" style="flex:1" />
+        </div>
+        <div style="font:var(--bw-font-ParagraphSmall);color:var(--bw-content-tertiary);margin-top:8px">caption</div>
+      </div>
+      <div>
+        <div style="font:var(--bw-font-LabelSmall);margin-bottom:8px">input with end select</div>
+        <div style="display:flex">
+          <bui-input placeholder="" ariaLabel="end input" style="flex:1" />
+          <div style="width:200px;padding-left:8px"><bui-select [options]="opts" placeholder="Select" /></div>
+        </div>
+        <div style="font:var(--bw-font-ParagraphSmall);color:var(--bw-content-tertiary);margin-top:8px">caption</div>
+      </div>
+    </div>
+  `,
+})
+export class InputSelectorScenario {
+  protected readonly opts = COLOR_OPTS;
+}
 
 // input-with-button.scenario.tsx — input + Button (compact/default).
 @Component({

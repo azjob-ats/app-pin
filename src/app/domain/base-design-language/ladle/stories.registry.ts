@@ -75,6 +75,9 @@ export const BW_STORIES: BwStory[] = [
   { id: 'menu--empty', group: 'menu', name: 'Empty', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuEmptyScenario) },
   { id: 'menu--dividers', group: 'menu', name: 'Dividers', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuDividersScenario) },
   { id: 'menu--grouped-items', group: 'menu', name: 'Grouped items', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuGroupedItemsScenario) },
+  { id: 'menu--stateful', group: 'menu', name: 'Stateful', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuStatefulScenario) },
+  { id: 'menu--profile-menu', group: 'menu', name: 'Profile menu', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuProfileMenuScenario) },
+  { id: 'menu--propagation', group: 'menu', name: 'Propagation', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuPropagationScenario) },
   // Popover
   { id: 'popover--popover', group: 'popover', name: 'Popover', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverScenario) },
   { id: 'popover--click', group: 'popover', name: 'Click', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverClickScenario) },
@@ -94,6 +97,8 @@ export const BW_STORIES: BwStory[] = [
   { id: 'input--with-button', group: 'input', name: 'With button', load: () => import('../components/input/input.scenarios').then((m) => m.InputWithButtonScenario) },
   { id: 'input--mask', group: 'input', name: 'Mask', load: () => import('../components/input/input.scenarios').then((m) => m.InputMaskScenario) },
   { id: 'input--number', group: 'input', name: 'Number', load: () => import('../components/input/input.scenarios').then((m) => m.InputNumberScenario) },
+  { id: 'input--disabled-matches-select', group: 'input', name: 'Disabled matches select', load: () => import('../components/input/input.scenarios').then((m) => m.InputDisabledMatchesSelectScenario) },
+  { id: 'input--selector', group: 'input', name: 'Selector', load: () => import('../components/input/input.scenarios').then((m) => m.InputSelectorScenario) },
   // Button
   { id: 'button--button', group: 'button', name: 'Button', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonScenario) },
   { id: 'button--sizes', group: 'button', name: 'Sizes', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonSizesScenario) },

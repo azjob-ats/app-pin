@@ -46,6 +46,46 @@ export class MenuDividersScenario {
   ];
 }
 
+// menu-stateful.scenario.tsx — StatefulMenu, highlightedIndex=5, List 350×300.
+@Component({
+  selector: 'bui-s-menu-stateful',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiMenu],
+  template: `<bui-menu style="width:350px" [initialHighlight]="5" [items]="items" />`,
+})
+export class MenuStatefulScenario {
+  protected readonly items: MenuItem[] = Array.from({ length: 12 }, (_, i) =>
+    ({ label: ['Item One', 'Item Two', 'Item Three', 'Item Four', 'Item Five', 'Item Six', 'Item Seven', 'Item Eight', 'Item Nine', 'Item Ten', 'Item Eleven', 'Item Twelve'][i], disabled: i === 2 }));
+}
+
+// menu-profile-menu.scenario.tsx — 4 perfis (title/subtitle/body), List 350px.
+@Component({
+  selector: 'bui-s-menu-profile-menu',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiMenu],
+  template: `<bui-menu style="width:350px" [items]="items" />`,
+})
+export class MenuProfileMenuScenario {
+  protected readonly items: MenuItem[] = Array.from({ length: 4 }, () =>
+    ({ profile: { title: 'David Smith', subtitle: 'Senior Engineering Manager', body: 'Uber Everything' } }));
+}
+
+// menu-propagation.scenario.tsx — menu de 4 itens (a propagação é comportamental).
+@Component({
+  selector: 'bui-s-menu-propagation',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiMenu],
+  template: `<bui-menu [items]="items" />`,
+})
+export class MenuPropagationScenario {
+  protected readonly items: MenuItem[] = [
+    { label: 'Item One' }, { label: 'Item Two' }, { label: 'Item Three' }, { label: 'Item Four' },
+  ];
+}
+
 // menu-grouped-items.scenario.tsx — grupos com cabeçalho.
 @Component({
   selector: 'bui-s-menu-grouped-items',

@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, input, output, s
 
 export type MenuSize = 'default' | 'compact';
 
-/** Item do Menu. `divider`/`header` permitem separador e cabeçalho de grupo. */
+/** Item do Menu. `divider`/`header` p/ separador/cabeçalho; `profile` p/ item de perfil. */
 export interface MenuItem {
   label?: string;
   disabled?: boolean;
   divider?: boolean;
   header?: string;
+  profile?: { title: string; subtitle?: string; body?: string };
 }
 
 /**
@@ -30,6 +31,21 @@ export interface MenuItem {
           <li class="bui-menu__divider" role="separator"></li>
         } @else if (item.header) {
           <li class="bui-menu__header" role="presentation">{{ item.header }}</li>
+        } @else if (item.profile; as p) {
+          <li
+            class="bui-menu__profile"
+            role="option"
+            [class.bui-menu__item--highlighted]="$index === highlighted()"
+            (mouseenter)="onEnter($index, item)"
+            (click)="select($index, item)"
+          >
+            <div class="bui-menu__profile-img"></div>
+            <div class="bui-menu__profile-labels">
+              <h6 class="bui-menu__profile-title">{{ p.title }}</h6>
+              @if (p.subtitle) { <p class="bui-menu__profile-subtitle">{{ p.subtitle }}</p> }
+              @if (p.body) { <p class="bui-menu__profile-body">{{ p.body }}</p> }
+            </div>
+          </li>
         } @else {
           <li
             class="bui-menu__item"
@@ -54,9 +70,15 @@ export class BuiMenu {
   readonly size = input<MenuSize>('default');
   readonly emptyText = input('No results');
   readonly ariaLabel = input('Menu');
+  /** Índice destacado inicial (StatefulMenu initialState.highlightedIndex). */
+  readonly initialHighlight = input(-1);
   readonly itemSelect = output<MenuItem>();
 
   protected readonly highlighted = signal(-1);
+
+  constructor() {
+    queueMicrotask(() => this.highlighted.set(this.initialHighlight()));
+  }
 
   protected onEnter(i: number, item: MenuItem): void {
     if (!item.disabled) this.highlighted.set(i);
