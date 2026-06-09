@@ -142,6 +142,33 @@ export const BW_STORIES: BwStory[] = [
   { id: 'tabs--tabs', group: 'tabs', name: 'Tabs', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsScenario) },
   { id: 'tabs--one-child', group: 'tabs', name: 'One child', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsOneChildScenario) },
   { id: 'tabs--controlled', group: 'tabs', name: 'Controlled', load: () => import('../components/tabs/tabs.scenarios').then((m) => m.TabsControlledScenario) },
+  // Checkbox
+  { id: 'checkbox--checkbox', group: 'checkbox', name: 'Checkbox', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxScenario) },
+  { id: 'checkbox--states', group: 'checkbox', name: 'States', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxStatesScenario) },
+  { id: 'checkbox--placement', group: 'checkbox', name: 'Placement', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxPlacementScenario) },
+  { id: 'checkbox--indeterminate', group: 'checkbox', name: 'Indeterminate', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxIndeterminateScenario) },
+  { id: 'checkbox--toggle', group: 'checkbox', name: 'Toggle', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxToggleScenario) },
+  { id: 'checkbox--unlabeled', group: 'checkbox', name: 'Unlabeled', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxUnlabeledScenario) },
+  { id: 'checkbox--select', group: 'checkbox', name: 'Select', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxSelectScenario) },
+  { id: 'checkbox--react-hook-form', group: 'checkbox', name: 'React hook form', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxReactHookFormScenario) },
+  // Checkbox v2
+  { id: 'checkbox-v2--checkbox', group: 'checkbox-v2', name: 'Checkbox', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2Scenario) },
+  { id: 'checkbox-v2--states', group: 'checkbox-v2', name: 'States', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2StatesScenario) },
+  { id: 'checkbox-v2--placement', group: 'checkbox-v2', name: 'Placement', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2PlacementScenario) },
+  { id: 'checkbox-v2--indeterminate', group: 'checkbox-v2', name: 'Indeterminate', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2IndeterminateScenario) },
+  { id: 'checkbox-v2--auto-focus', group: 'checkbox-v2', name: 'Auto focus', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2AutoFocusScenario) },
+  { id: 'checkbox-v2--unlabeled', group: 'checkbox-v2', name: 'Unlabeled', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2UnlabeledScenario) },
+  { id: 'checkbox-v2--react-hook-form', group: 'checkbox-v2', name: 'React hook form', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2ReactHookFormScenario) },
+  // Breadcrumbs
+  { id: 'breadcrumbs--breadcrumbs', group: 'breadcrumbs', name: 'Breadcrumbs', load: () => import('../components/breadcrumbs/breadcrumbs.scenarios').then((m) => m.BreadcrumbsScenario) },
+  { id: 'breadcrumbs--trailing', group: 'breadcrumbs', name: 'Trailing', load: () => import('../components/breadcrumbs/breadcrumbs.scenarios').then((m) => m.BreadcrumbsTrailingScenario) },
+  { id: 'breadcrumbs--pseudo', group: 'breadcrumbs', name: 'Pseudo', load: () => import('../components/breadcrumbs/breadcrumbs.scenarios').then((m) => m.BreadcrumbsPseudoScenario) },
+  { id: 'breadcrumbs--icon-overrides', group: 'breadcrumbs', name: 'Icon overrides', load: () => import('../components/breadcrumbs/breadcrumbs.scenarios').then((m) => m.BreadcrumbsIconOverridesScenario) },
+  // Badge
+  { id: 'badge--badge', group: 'badge', name: 'Badge', load: () => import('../components/badge/badge.scenarios').then((m) => m.BadgeScenario) },
+  { id: 'badge--inline-badge', group: 'badge', name: 'Inline badge', load: () => import('../components/badge/badge.scenarios').then((m) => m.InlineBadgeScenario) },
+  { id: 'badge--notification-circle', group: 'badge', name: 'Notification circle', load: () => import('../components/badge/badge.scenarios').then((m) => m.NotificationCircleScenario) },
+  { id: 'badge--hint-dot', group: 'badge', name: 'Hint dot', load: () => import('../components/badge/badge.scenarios').then((m) => m.HintDotScenario) },
   // Switch
   { id: 'switch--switch', group: 'switch', name: 'Switch', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchScenario) },
   { id: 'switch--auto-focus', group: 'switch', name: 'Auto focus', load: () => import('../components/switch/switch.scenarios').then((m) => m.SwitchAutoFocusScenario) },

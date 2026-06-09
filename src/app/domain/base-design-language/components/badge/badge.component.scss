@@ -1,0 +1,116 @@
+/* Badge / NotificationCircle / HintDot — clone de baseui/badge styled-components. */
+.bui-badge {
+  position: relative;
+  display: inline-block;
+  line-height: initial;
+}
+
+/* StyledRoot embrulha a âncora; em modo inline (contents) o chip vira filho direto. */
+.bui-badge__anchor {
+  display: contents;
+}
+.bui-badge__positioner {
+  display: contents;
+  line-height: initial;
+}
+/* Anexado (âncora projetada não-vazia): Positioner absoluto posicionado por inline-style. */
+.bui-badge:has(.bui-badge__anchor:not(:empty)) .bui-badge__positioner {
+  display: block;
+  position: absolute;
+}
+
+.bui-badge--hidden {
+  visibility: hidden;
+}
+
+/* ===== Badge chip ===== */
+.bui-badge__chip {
+  box-sizing: border-box;
+  height: var(--bw-sizing-scale700); /* 20 */
+  display: inline-flex;
+  align-items: center;
+}
+.bui-badge__chip--rectangle {
+  border-radius: var(--bw-radius-200); /* 4 */
+  padding-left: var(--bw-sizing-scale100); /* 4 */
+  padding-right: var(--bw-sizing-scale100);
+  font: var(--bw-font-LabelSmall);
+}
+.bui-badge__chip--pill {
+  border-radius: var(--bw-radius-500); /* 16 */
+  padding-left: var(--bw-sizing-scale300); /* 8 */
+  padding-right: var(--bw-sizing-scale300);
+  font: var(--bw-font-LabelSmall);
+}
+/* hierarquia secondary usa ParagraphSmall (só rectangle no original) */
+.bui-badge-c--secondary-accent.bui-badge__chip,
+.bui-badge-c--secondary-primary.bui-badge__chip,
+.bui-badge-c--secondary-positive.bui-badge__chip,
+.bui-badge-c--secondary-negative.bui-badge__chip,
+.bui-badge-c--secondary-warning.bui-badge__chip {
+  font: var(--bw-font-ParagraphSmall);
+}
+
+/* ===== NotificationCircle ===== */
+.bui-badge__circle {
+  height: var(--bw-sizing-scale700); /* 20 */
+  width: var(--bw-sizing-scale700);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--bw-font-LabelXSmall);
+}
+
+/* ===== HintDot ===== */
+.bui-badge__dot {
+  box-sizing: content-box;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  border: 4px solid var(--bw-background-primary);
+}
+
+/* ===== Cores (getColorStyles) — hierarquia-cor ===== */
+/* primary */
+.bui-badge-c--primary-accent {
+  color: var(--bw-content-on-color);
+  background-color: var(--bw-background-accent);
+}
+.bui-badge-c--primary-primary {
+  color: var(--bw-content-inverse-primary);
+  background-color: var(--bw-background-inverse-primary);
+}
+.bui-badge-c--primary-positive {
+  color: var(--bw-content-on-color);
+  background-color: var(--bw-background-positive);
+}
+.bui-badge-c--primary-negative {
+  color: var(--bw-content-on-color);
+  background-color: var(--bw-background-negative);
+}
+.bui-badge-c--primary-warning {
+  color: var(--bw-content-on-color-inverse);
+  background-color: var(--bw-background-warning);
+}
+/* secondary */
+.bui-badge-c--secondary-accent {
+  color: var(--bw-content-accent);
+  background-color: var(--bw-background-accent-light);
+}
+.bui-badge-c--secondary-primary {
+  color: var(--bw-content-primary);
+  background-color: var(--bw-background-secondary);
+}
+.bui-badge-c--secondary-positive {
+  color: var(--bw-content-positive);
+  background-color: var(--bw-background-positive-light);
+}
+.bui-badge-c--secondary-negative {
+  color: var(--bw-content-negative);
+  background-color: var(--bw-background-negative-light);
+}
+.bui-badge-c--secondary-warning {
+  color: var(--bw-content-warning);
+  background-color: var(--bw-background-warning-light);
+}

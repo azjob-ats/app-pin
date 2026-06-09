@@ -292,7 +292,7 @@
   --bw-gray-400: #a6a6a6; --bw-gray-500: #868686; --bw-gray-600: #727272; --bw-gray-700: #5e5e5e;
   --bw-gray-800: #4b4b4b; --bw-gray-900: #282828;
   --bw-blue-50: #eff4fe;  --bw-blue-300: #a9c9ff; --bw-blue-600: #276ef1;
-  --bw-red-50: #fff0ee;   --bw-red-300: #ffb2ab;  --bw-red-600: #de1135; --bw-red-700: #bb032a;
+  --bw-red-50: #fff0ee;   --bw-red-300: #ffb2ab;  --bw-red-600: #de1135; --bw-red-700: #bb032a; --bw-red-800: #950f22;
   --bw-yellow-50: #fdf2dc; --bw-yellow-200: #ffd688; --bw-yellow-300: #f6bc2f; --bw-yellow-600: #9f6402; --bw-yellow-900: #392300;
   --bw-green-50: #eaf6ed; --bw-green-300: #7fd99a; --bw-green-600: #0e8345;
 
@@ -365,6 +365,8 @@
   --bw-overlay-pressed: rgba(0, 0, 0, 0.08);
   --bw-overlay-inverse-hover: rgba(255, 255, 255, 0.1);
   --bw-overlay-inverse-pressed: rgba(255, 255, 255, 0.2);
+  --bw-overlay-negative-hover: rgba(222, 17, 53, 0.1);
+  --bw-overlay-negative-pressed: rgba(222, 17, 53, 0.15);
 }
 
 // ─── PRIMITIVES + FOUNDATION anchors + SEMANTIC core — DARK ──────────────────────
@@ -451,6 +453,8 @@
   // Overlays de interação — dark
   --bw-overlay-hover: rgba(255, 255, 255, 0.1);
   --bw-overlay-pressed: rgba(255, 255, 255, 0.15);
+  --bw-overlay-negative-hover: rgba(163, 44, 52, 0.4);
+  --bw-overlay-negative-pressed: rgba(163, 44, 52, 0.6);
   --bw-overlay-inverse-hover: rgba(0, 0, 0, 0.04);
   --bw-overlay-inverse-pressed: rgba(0, 0, 0, 0.08);
 }

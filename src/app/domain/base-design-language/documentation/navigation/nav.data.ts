@@ -48,8 +48,8 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Button', path: 'components/button', status: 'ready' },
           { label: 'Button Group', path: 'components/button-group', status: 'soon' },
           { label: 'Button Timed', path: 'components/button-timed', status: 'soon' },
-          { label: 'Checkbox', path: 'components/checkbox', status: 'soon' },
-          { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'soon' },
+          { label: 'Checkbox', path: 'components/checkbox', status: 'ready' },
+          { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'ready' },
           { label: 'Combobox', path: 'components/combobox', status: 'soon' },
           { label: 'Input', path: 'components/input', status: 'ready' },
           { label: 'Payment Card', path: 'components/payment-card', status: 'soon' },
@@ -85,7 +85,7 @@ export const BW_NAV: BwNavCategory[] = [
       {
         label: 'Navigation',
         items: [
-          { label: 'Breadcrumbs', path: 'components/breadcrumbs', status: 'soon' },
+          { label: 'Breadcrumbs', path: 'components/breadcrumbs', status: 'ready' },
           { label: 'Navigation Bar', path: 'components/app-nav-bar', status: 'soon' },
           { label: 'Header Navigation', path: 'components/header-navigation', status: 'soon' },
           { label: 'Link', path: 'components/link', status: 'ready' },
@@ -100,7 +100,7 @@ export const BW_NAV: BwNavCategory[] = [
         items: [
           { label: 'Accordion', path: 'components/accordion', status: 'ready' },
           { label: 'Avatar', path: 'components/avatar', status: 'ready' },
-          { label: 'Badge', path: 'components/badge', status: 'soon' },
+          { label: 'Badge', path: 'components/badge', status: 'ready' },
           { label: 'Drag and Drop List', path: 'components/dnd-list', status: 'soon' },
           { label: 'Layout Grid', path: 'components/layout-grid', status: 'soon' },
           { label: 'Heading', path: 'components/heading', status: 'ready' },

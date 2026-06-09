@@ -1,0 +1,196 @@
+/* Checkbox — clone de baseui/checkbox styled-components. */
+.bui-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  cursor: pointer;
+  user-select: none;
+}
+.bui-checkbox--disabled {
+  cursor: not-allowed;
+}
+/* top/bottom empilham em coluna e centralizam (igual ao Root do baseweb). */
+.bui-checkbox--place-top,
+.bui-checkbox--place-bottom {
+  flex-direction: column;
+  align-items: center;
+}
+/* DOM = [control, input, label]; left/top movem o label p/ antes via order. */
+.bui-checkbox--place-left .bui-checkbox__label,
+.bui-checkbox--place-top .bui-checkbox__label {
+  order: -1;
+}
+
+/* ===== Checkmark ===== */
+.bui-checkbox__checkmark {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+  width: var(--bw-sizing-scale700); /* 20 */
+  height: var(--bw-sizing-scale700);
+  margin: var(--bw-sizing-scale0); /* 2px */
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 0; /* checkboxBorderRadius */
+  border-color: var(--bui-cb-border, var(--bw-content-tertiary)); /* tickBorder */
+  background-color: var(--bui-cb-bg, var(--bw-background-primary)); /* tickFill */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition-duration: var(--bw-timing-200);
+  transition-timing-function: var(--bw-ease-out);
+  transition-property: background-image, border-color, background-color;
+}
+
+/* --- border-color (getBorderColor): disabled > selected(transparent) > error > focusVisible > tickBorder --- */
+.bui-checkbox--error {
+  --bui-cb-border: var(--bw-border-negative);
+}
+.bui-checkbox--selected {
+  --bui-cb-border: transparent;
+}
+.bui-checkbox:not(.bui-checkbox--selected):not(.bui-checkbox--error):not(.bui-checkbox--disabled):has(
+    .bui-checkbox__input:focus-visible
+  ) {
+  --bui-cb-border: var(--bw-border-selected);
+}
+.bui-checkbox--disabled {
+  --bui-cb-border: var(--bw-background-state-disabled); /* tickFillDisabled */
+}
+
+/* --- background-color (getBackgroundColor) por grupo + hover/active --- */
+/* normal */
+.bui-checkbox:not(.bui-checkbox--error):not(.bui-checkbox--selected):not(.bui-checkbox--disabled) {
+  --bui-cb-bg: var(--bw-background-primary); /* tickFill */
+}
+.bui-checkbox:not(.bui-checkbox--error):not(.bui-checkbox--selected):not(.bui-checkbox--disabled):hover {
+  --bui-cb-bg: var(--bw-gray-50); /* tickFillHover */
+}
+.bui-checkbox:not(.bui-checkbox--error):not(.bui-checkbox--selected):not(.bui-checkbox--disabled):active {
+  --bui-cb-bg: var(--bw-gray-100); /* tickFillActive */
+}
+/* selected */
+.bui-checkbox--selected:not(.bui-checkbox--error):not(.bui-checkbox--disabled) {
+  --bui-cb-bg: var(--bw-content-primary); /* tickFillSelected */
+}
+.bui-checkbox--selected:not(.bui-checkbox--error):not(.bui-checkbox--disabled):hover {
+  --bui-cb-bg: var(--bw-gray-900); /* tickFillSelectedHover */
+}
+.bui-checkbox--selected:not(.bui-checkbox--error):not(.bui-checkbox--disabled):active {
+  --bui-cb-bg: var(--bw-gray-800); /* tickFillSelectedHoverActive */
+}
+/* error, não selecionado */
+.bui-checkbox--error:not(.bui-checkbox--selected):not(.bui-checkbox--disabled) {
+  --bui-cb-bg: var(--bw-background-primary); /* tickFillError */
+}
+.bui-checkbox--error:not(.bui-checkbox--selected):not(.bui-checkbox--disabled):hover {
+  --bui-cb-bg: var(--bw-gray-50); /* tickFillErrorHover */
+}
+.bui-checkbox--error:not(.bui-checkbox--selected):not(.bui-checkbox--disabled):active {
+  --bui-cb-bg: var(--bw-gray-100); /* tickFillErrorHoverActive */
+}
+/* error + selecionado */
+.bui-checkbox--error.bui-checkbox--selected:not(.bui-checkbox--disabled) {
+  --bui-cb-bg: var(--bw-content-negative); /* tickFillErrorSelected */
+}
+.bui-checkbox--error.bui-checkbox--selected:not(.bui-checkbox--disabled):hover {
+  --bui-cb-bg: var(--bw-red-700); /* tickFillErrorSelectedHover */
+}
+.bui-checkbox--error.bui-checkbox--selected:not(.bui-checkbox--disabled):active {
+  --bui-cb-bg: var(--bw-red-800); /* tickFillErrorSelectedHoverActive */
+}
+/* disabled (vence): selected = tickFillDisabled, senão tickFill */
+.bui-checkbox--disabled:not(.bui-checkbox--selected) {
+  --bui-cb-bg: var(--bw-background-primary);
+}
+.bui-checkbox--disabled.bui-checkbox--selected {
+  --bui-cb-bg: var(--bw-background-state-disabled);
+}
+
+/* outline azul só quando checked + foco por teclado */
+.bui-checkbox--checked:has(.bui-checkbox__input:focus-visible) .bui-checkbox__checkmark {
+  outline: 3px solid var(--bw-border-accent);
+}
+
+/* ===== Toggle (checkmarkType="toggle") ===== */
+.bui-checkbox__toggle-track {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  width: var(--bw-sizing-scale1000); /* 40 */
+  height: var(--bw-sizing-scale550); /* 14 */
+  /* margins: top scale200(6) right scale100(4) bottom scale100(4) left scale200(6) */
+  margin: var(--bw-sizing-scale200) var(--bw-sizing-scale100) var(--bw-sizing-scale100) var(--bw-sizing-scale200);
+  border-radius: 7px;
+  background-color: var(--bw-background-tertiary); /* toggleTrackFill */
+}
+.bui-checkbox--disabled .bui-checkbox__toggle-track {
+  background-color: var(--bw-background-state-disabled); /* toggleTrackFillDisabled */
+}
+
+.bui-checkbox__toggle {
+  width: var(--bw-sizing-scale700); /* 20 */
+  height: var(--bw-sizing-scale700);
+  border-radius: 50%;
+  outline: none;
+  background-color: var(--bw-background-primary); /* toggleFill */
+  box-shadow: var(--bw-shadow-400);
+  transition: transform var(--bw-timing-200);
+}
+.bui-checkbox--checked:not(.bui-checkbox--disabled) .bui-checkbox__toggle {
+  background-color: var(--bw-content-primary); /* toggleFillChecked */
+  transform: translateX(100%);
+}
+.bui-checkbox--checked .bui-checkbox__toggle {
+  transform: translateX(100%);
+}
+.bui-checkbox--checked.bui-checkbox--error:not(.bui-checkbox--disabled) .bui-checkbox__toggle {
+  background-color: var(--bw-content-negative); /* tickFillErrorSelected */
+}
+.bui-checkbox--disabled .bui-checkbox__toggle {
+  background-color: var(--bw-content-state-disabled); /* toggleFillDisabled */
+}
+.bui-checkbox:not(.bui-checkbox--disabled):hover .bui-checkbox__toggle {
+  box-shadow: var(--bw-shadow-500);
+}
+.bui-checkbox:has(.bui-checkbox__input:focus-visible) .bui-checkbox__toggle {
+  box-shadow: 0 0 0 3px var(--bw-border-accent);
+}
+
+/* ===== Label ===== */
+.bui-checkbox__label {
+  vertical-align: middle;
+  color: var(--bw-content-primary);
+  font: var(--bw-font-LabelMedium);
+  line-height: 24px;
+}
+.bui-checkbox__label:empty {
+  display: none;
+}
+.bui-checkbox--disabled .bui-checkbox__label {
+  color: var(--bw-content-state-disabled);
+}
+.bui-checkbox--place-right .bui-checkbox__label {
+  padding-left: var(--bw-sizing-scale300);
+}
+.bui-checkbox--place-left .bui-checkbox__label {
+  padding-right: var(--bw-sizing-scale300);
+}
+.bui-checkbox--place-top .bui-checkbox__label {
+  padding-bottom: var(--bw-sizing-scale300);
+}
+.bui-checkbox--place-bottom .bui-checkbox__label {
+  padding-top: var(--bw-sizing-scale300);
+}
+
+/* Input visualmente oculto (mantém foco/teclado) */
+.bui-checkbox__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
