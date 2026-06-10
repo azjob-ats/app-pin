@@ -131,7 +131,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Skeleton', path: 'components/skeleton', status: 'ready' },
           { label: 'Snackbar', path: 'components/snackbar', status: 'ready' },
           { label: 'Spinner', path: 'components/spinner', status: 'ready' },
-          { label: 'Toast', path: 'components/toast', status: 'soon' },
+          { label: 'Toast', path: 'components/toast', status: 'ready' },
         ],
       },
       {

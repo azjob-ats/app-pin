@@ -1,0 +1,128 @@
+// Toast Body
+
+.bui-toast__body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: auto;
+  width: 288px;
+  padding: var(--bw-sizing-scale600);
+  margin-top: var(--bw-sizing-scale300);
+  margin-bottom: var(--bw-sizing-scale300);
+  border-radius: var(--bw-borders-radius400);
+  box-shadow: var(--bw-lighting-shadow600, 0px 16px 48px rgba(0, 0, 0, 0.22));
+  opacity: 0;
+  transition: all var(--bw-animation-timing200, 200ms) var(--bw-animation-easeInOutCurve, ease-in-out);
+  font-family: var(--bw-typography-font300-fontFamily, var(--bw-typography-ParagraphSmall-fontFamily));
+  font-size: var(--bw-typography-font300-fontSize, var(--bw-typography-ParagraphSmall-fontSize));
+  font-weight: var(--bw-typography-font300-fontWeight, var(--bw-typography-ParagraphSmall-fontWeight));
+  line-height: var(--bw-typography-font300-lineHeight, var(--bw-typography-ParagraphSmall-lineHeight));
+
+  &--visible {
+    opacity: 1;
+  }
+
+  // Kind colors (toast type uses toast* tokens)
+  &--info {
+    background-color: var(--bw-colors-toastInfoBackground, var(--bw-colors-backgroundAccent));
+    color: var(--bw-colors-toastInfoText, var(--bw-colors-contentAccent));
+  }
+
+  &--positive {
+    background-color: var(--bw-colors-toastPositiveBackground, var(--bw-colors-backgroundPositive));
+    color: var(--bw-colors-toastPositiveText, var(--bw-colors-contentPositive));
+  }
+
+  &--warning {
+    background-color: var(--bw-colors-toastWarningBackground, var(--bw-colors-backgroundWarning));
+    color: var(--bw-colors-toastWarningText, var(--bw-colors-contentWarning));
+  }
+
+  &--negative {
+    background-color: var(--bw-colors-toastNegativeBackground, var(--bw-colors-backgroundNegative));
+    color: var(--bw-colors-toastNegativeText, var(--bw-colors-contentNegative));
+  }
+}
+
+.bui-toast__inner {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bui-toast__close {
+  all: unset;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin-left: var(--bw-sizing-scale300);
+  color: currentColor;
+  border-radius: 50%;
+  padding: 2px;
+
+  &:focus-visible {
+    outline: 3px solid var(--bw-colors-borderAccent);
+    outline-offset: 2px;
+  }
+
+  svg path {
+    fill: currentColor;
+  }
+}
+
+// Toaster Container (fixed overlay)
+
+.bui-toaster__root {
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  left: 0;
+  display: flex;
+  margin-top: var(--bw-sizing-scale300);
+  margin-bottom: var(--bw-sizing-scale300);
+  margin-left: var(--bw-sizing-scale600);
+  margin-right: var(--bw-sizing-scale600);
+  z-index: var(--bw-z-toaster, 2000);
+
+  &--topLeft {
+    top: 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  &--top {
+    top: 0;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  &--topRight {
+    top: 0;
+    align-items: flex-end;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  &--bottomRight {
+    bottom: 0;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  &--bottom {
+    bottom: 0;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  &--bottomLeft {
+    bottom: 0;
+    align-items: flex-start;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+  }
+}
