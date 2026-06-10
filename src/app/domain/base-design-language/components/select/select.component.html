@@ -110,7 +110,7 @@
 
 @if (open() && !disabled()) {
   <div class="bui-select__scrim" (click)="closeMenu()"></div>
-  <ul class="bui-select__menu" role="listbox">
+  <ul class="bui-select__menu" role="listbox" [attr.aria-label]="ariaLabel() || placeholder()">
     @for (row of rows(); track $index) {
       @switch (row.kind) {
         @case ('header') {

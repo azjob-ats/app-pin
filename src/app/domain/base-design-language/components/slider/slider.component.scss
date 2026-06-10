@@ -1,0 +1,168 @@
+// Slider Root
+
+.bui-slider__root {
+  position: relative;
+  width: 100%;
+}
+
+// Track
+
+.bui-slider__track {
+  padding: var(--bw-sizing-scale600);
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  background-color: var(--bw-colors-sliderTrackFill, transparent);
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+}
+
+// Inner Track (the visible bar + gradient fill)
+
+.bui-slider__inner-track {
+  position: relative;
+  height: 2px;
+  width: 100%;
+  align-self: center;
+  border-radius: var(--bw-borders-radius100, 2px);
+}
+
+// Marks
+
+.bui-slider__mark {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 2px;
+  background-color: var(--bw-colors-backgroundPrimary, #fff);
+  transform: translateX(-50%);
+}
+
+// Thumb value (label above thumb)
+
+.bui-slider__thumb-value {
+  position: absolute;
+  top: calc(-1 * var(--bw-sizing-scale1400, 64px));
+  font: var(--bw-font-font200, var(--bw-font-ParagraphXSmall));
+  background-color: var(--bw-colors-sliderHandleInnerFill, var(--bw-colors-borderSelected));
+  color: var(--bw-colors-contentInversePrimary, #fff);
+  padding: var(--bw-sizing-scale500) var(--bw-sizing-scale600);
+  border-radius: 48px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+// Visual thumb (circle, decorative — interactive via native input)
+
+.bui-slider__thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--bw-colors-sliderHandleFill, #fff);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  z-index: 6;
+  transition: box-shadow 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &--focused {
+    box-shadow: 0 0 0 3px var(--bw-colors-borderAccent, var(--bw-border-accent));
+  }
+
+  &--disabled {
+    background-color: var(--bw-colors-sliderHandleFillDisabled, #cbcbcb);
+  }
+}
+
+.bui-slider__inner-thumb {
+  position: absolute;
+  top: -16px;
+  width: 4px;
+  height: 20px;
+  background-color: var(--bw-colors-sliderHandleInnerFill, var(--bw-colors-borderSelected));
+  pointer-events: none;
+}
+
+// Native range inputs (positioned on top for interaction, visually hidden)
+
+.bui-slider__native-input {
+  position: absolute;
+  top: 0;
+  left: var(--bw-sizing-scale600);
+  right: var(--bw-sizing-scale600);
+  width: calc(100% - 2 * var(--bw-sizing-scale600));
+  height: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  z-index: 4;
+  pointer-events: all;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  // Hide native thumb — our visual thumb is the .bui-slider__thumb div
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+  }
+
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  // Hide native track
+  &::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 2px;
+  }
+
+  &::-moz-range-track {
+    background: transparent;
+    height: 2px;
+  }
+}
+
+// Tick bar
+
+.bui-slider__tick-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: var(--bw-sizing-scale600);
+  padding-right: var(--bw-sizing-scale600);
+  padding-bottom: var(--bw-sizing-scale400);
+}
+
+.bui-slider__tick {
+  font: var(--bw-font-font200, var(--bw-font-ParagraphXSmall));
+  color: var(--bw-content-primary);
+}

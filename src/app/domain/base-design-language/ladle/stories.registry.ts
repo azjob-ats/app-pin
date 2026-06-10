@@ -238,6 +238,16 @@ export const BW_STORIES: BwStory[] = [
   { id: 'combobox--combobox-overrides', group: 'combobox', name: 'Combobox overrides', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxOverridesScenario) },
   { id: 'combobox--combobox-form', group: 'combobox', name: 'Combobox form', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxFormScenario) },
   { id: 'combobox--combobox-form-control', group: 'combobox', name: 'Combobox form control', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxFormControlScenario) },
+  // Slider
+  { id: 'slider--slider', group: 'slider', name: 'Slider', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderScenario) },
+  { id: 'slider--slider-range', group: 'slider', name: 'Slider range', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderRangeScenario) },
+  { id: 'slider--slider-step', group: 'slider', name: 'Slider step', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderStepScenario) },
+  { id: 'slider--slider-marks', group: 'slider', name: 'Slider marks', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderMarksScenario) },
+  { id: 'slider--slider-disabled', group: 'slider', name: 'Slider disabled', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderDisabledScenario) },
+  { id: 'slider--slider-rtl', group: 'slider', name: 'Slider RTL', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderRtlScenario) },
+  { id: 'slider--slider-always-show-label', group: 'slider', name: 'Slider always show label', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderAlwaysShowLabelScenario) },
+  { id: 'slider--slider-custom-label', group: 'slider', name: 'Slider custom label', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderCustomLabelScenario) },
+  { id: 'slider--slider-select-dropdown', group: 'slider', name: 'Slider select dropdown', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderSelectDropdownScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },
