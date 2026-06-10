@@ -1,0 +1,177 @@
+// App Nav Bar (P3.27) — clone fiel do baseui/app-nav-bar
+
+.bui-anb__root {
+  box-sizing: border-box;
+  background-color: var(--bw-colors-backgroundPrimary, #fff);
+  border-bottom: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
+  font-size: 14px;
+}
+
+/* ── Desktop layout ── */
+.bui-anb__desktop {
+  display: flex;
+  flex-direction: column;
+}
+
+.bui-anb__menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--bw-grid-maxWidth, 1280px);
+  margin: 0 auto;
+  padding: 18px var(--bw-sizing-scale800, 32px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── App name / Title ── */
+.bui-anb__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--bw-colors-contentPrimary, #000);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Primary nav ── */
+.bui-anb__primary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  padding-left: var(--bw-sizing-scale800, 32px);
+}
+
+/* ── Nav item ── */
+.bui-anb__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--bw-sizing-scale300, 8px) var(--bw-sizing-scale500, 12px);
+  color: var(--bw-colors-contentSecondary, #545454);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--bw-borders-radius200, 4px);
+  white-space: nowrap;
+  position: relative;
+
+  &:hover {
+    background-color: var(--bw-colors-backgroundSecondary, #f6f6f6);
+    color: var(--bw-colors-contentPrimary, #000);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline-offset: -3px;
+  }
+
+  &--active {
+    color: var(--bw-colors-contentPrimary, #000);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--bw-colors-contentPrimary, #000);
+    }
+  }
+
+  &--secondary {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+/* ── User menu ── */
+.bui-anb__user {
+  flex-shrink: 0;
+}
+
+.bui-anb__user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--bw-borders-radius200, 4px);
+  color: var(--bw-colors-contentPrimary, #000);
+
+  &:hover {
+    background-color: var(--bw-colors-backgroundSecondary, #f6f6f6);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+  }
+}
+
+.bui-anb__username {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ── User dropdown ── */
+.bui-anb__user-dropdown {
+  background: var(--bw-colors-backgroundPrimary, #fff);
+  border: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
+  border-radius: var(--bw-borders-radius200, 4px);
+  box-shadow: var(--bw-lighting-shadow600, 0 8px 17px 2px rgba(0,0,0,.14));
+  min-width: 220px;
+  overflow: hidden;
+}
+
+.bui-anb__user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
+}
+
+.bui-anb__user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--bw-colors-contentPrimary, #000);
+}
+
+.bui-anb__user-subtitle {
+  font-size: 12px;
+  color: var(--bw-colors-contentSecondary, #545454);
+}
+
+.bui-anb__user-item {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--bw-colors-contentPrimary, #000);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--bw-colors-backgroundSecondary, #f6f6f6);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline-offset: -3px;
+  }
+}
+
+/* ── Secondary nav ── */
+.bui-anb__secondary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: var(--bw-grid-maxWidth, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--bw-sizing-scale800, 32px);
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
+  overflow: auto;
+}

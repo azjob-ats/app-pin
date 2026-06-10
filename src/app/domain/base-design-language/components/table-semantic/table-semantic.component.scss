@@ -1,0 +1,111 @@
+// Table Semantic (P4.24) — <table> HTML semantics, clone fiel do baseui/table-semantic
+
+/* ── Root container ── */
+.bui-ts__root {
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--bw-colors-tableBackground, #fff);
+  transform: scale(1);
+
+  &--bordered {
+    border: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  }
+
+  &--border-bottom {
+    border-bottom: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  }
+}
+
+/* ── Table ── */
+.bui-ts__table {
+  border-spacing: 0;
+  box-sizing: border-box;
+  min-width: 100%;
+}
+
+/* ── Head ── */
+.bui-ts__thead,
+.bui-ts__thead-row {
+  // No extra styling needed
+}
+
+/* ── Head cell ── */
+.bui-ts__th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--bw-sizing-scale600, 16px);
+  background-color: var(--bw-colors-tableHeadBackgroundColor, #fff);
+  color: var(--bw-colors-contentPrimary, #000);
+  font-family: var(--bw-typography-font350-fontFamily, inherit);
+  font-size: var(--bw-typography-font350-fontSize, 14px);
+  font-weight: var(--bw-typography-font350-fontWeight, 500);
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+
+  &--clean {
+    border-bottom: none;
+  }
+
+  &--sortable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--bw-colors-tableStripedBackground, #f6f6f6);
+    }
+
+    &:focus {
+      outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+      outline-offset: -3px;
+    }
+  }
+}
+
+/* Vertical and grid divider: right border on non-last th */
+.bui-ts__root--bordered .bui-ts__th:not(:last-child) {
+  border-right: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+}
+
+/* ── Sort icon ── */
+.bui-ts__sort-icon {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+/* ── Body ── */
+.bui-ts__tbody-row {
+  &:hover {
+    background-color: var(--bw-colors-tableStripedBackground, #f6f6f6);
+  }
+}
+
+/* ── Body cell ── */
+.bui-ts__td {
+  padding: var(--bw-sizing-scale600, 16px);
+  color: var(--bw-colors-contentPrimary, #000);
+  font-family: var(--bw-typography-font200-fontFamily, inherit);
+  font-size: var(--bw-typography-font200-fontSize, 12px);
+  vertical-align: top;
+
+  &--border-bottom {
+    border-bottom: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  }
+}
+
+/* Vertical divider: right border on non-last td */
+.bui-ts__root--bordered .bui-ts__td:not(:last-child) {
+  border-right: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+}
+
+/* ── Loading/empty message ── */
+.bui-ts__msg {
+  padding: var(--bw-sizing-scale600, 16px);
+  color: var(--bw-colors-contentPrimary, #000);
+  font-size: 14px;
+}

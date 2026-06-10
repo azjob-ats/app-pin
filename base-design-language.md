@@ -27,8 +27,9 @@ clonadas e **comparadas ao original rodando**, com as divergências corrigidas e
 **critérios de aceite** (seção 6) atendidos.
 
 > **Estado atual (2026-06-10):** P1 ✅ completo · P2: Popover ✅ (15/15) · Menu ✅ (11/11) · Drawer ✅.
-> **54 componentes verificados** · 9 restantes (P3/P4 complexos: Datepicker, Phone Input, Timepicker,
-> Timezonepicker, App nav bar, Data table, Table, Table grid, Table semantic).
+> Table ✅ (8/8) · Table grid ✅ (4/4) · Table semantic ✅ (9/9) · App nav bar ✅ (7/7) · Datepicker ✅ (29/29).
+> Data table ✅ (33/33).
+> **92 componentes verificados** · 3 restantes (Phone Input, Timepicker, Timezonepicker).
 
 ---
 
@@ -160,7 +161,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | # | Componente | Prio | Stories (clone/orig) | Status |
 |---|----------|:--:|:--:|:--:|
 | 1 | Accordion | P4.1 | 6/6 | ✅ |
-| 2 | App nav bar | P3.27 | 0/7 | ⚠️ |
+| 2 | App nav bar | P3.27 | 7/7 | ✅ |
 | 3 | Aspect ratio box | P4.8 | 1/1 | ✅ |
 | 4 | Avatar | P1.4 | 5/5 | ✅ |
 | 5 | Badge | P4.3 | 4/4 | ✅ |
@@ -174,8 +175,8 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 13 | Checkbox | P1.8 | 8/8 | ✅ |
 | 14 | Checkbox v2 | P1.9 | 7/7 | ✅ |
 | 15 | Combobox | P3.21 | 11/11 | ✅ |
-| 16 | Data table | P3.28 | 0/33 | ⚠️ |
-| 17 | Datepicker | P3.22 | 0/29 | ⚠️ |
+| 16 | Data table | P3.28 | 33/33 | ✅ |
+| 17 | Datepicker | P3.22 | 29/29 | ✅ |
 | 18 | Divider | P4.2 | 1/1 | ✅ |
 | 19 | Dnd list | P4.21 | 1/1 | ✅ |
 | 20 | Drawer | P2.3 | 4/4 | ✅ |
@@ -218,9 +219,9 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 57 | Spinner | P1.3 | 1/1 | ✅ |
 | 58 | Stepper | P4.18 | 1/1 | ✅ |
 | 59 | Switch | P4.15 | 7/7 | ✅ |
-| 60 | Table | P4.22 | 0/8 | ⚠️ |
-| 61 | Table grid | P4.23 | 0/4 | ⚠️ |
-| 62 | Table semantic | P4.24 | 0/9 | ⚠️ |
+| 60 | Table | P4.22 | 8/8 | ✅ |
+| 61 | Table grid | P4.23 | 4/4 | ✅ |
+| 62 | Table semantic | P4.24 | 9/9 | ✅ |
 | 63 | Tabs | P4.19 | 3/3 | ✅ |
 | 64 | Tag | P1.5 | 5/5 | ✅ |
 | 65 | Template component | — | 0/1 | 🚫 |

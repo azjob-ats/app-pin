@@ -1,0 +1,63 @@
+// Table Grid (P4.23) — CSS grid table, clone fiel do baseui/table-grid
+
+/* ── Root (CSS grid) ── */
+bui-styled-grid-table,
+[buiStyledGridTable] {
+  display: grid;
+  // height and overflow from flex-table but flex-direction reset
+  height: 100%;
+  overflow: auto;
+  border: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  border-radius: var(--bw-borders-radius200, 4px);
+  background-color: var(--bw-colors-tableBackground, #fff);
+  box-sizing: border-box;
+  // Creates stacking context for z-index on sticky cells
+  transform: scale(1);
+}
+
+/* ── Head cell (sticky) ── */
+bui-styled-grid-head-cell,
+[buiStyledGridHeadCell],
+.bui-tg__head-cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--bw-sizing-scale500, 12px) var(--bw-sizing-scale600, 16px);
+  font-family: var(--bw-typography-font350-fontFamily, inherit);
+  font-size: var(--bw-typography-font350-fontSize, 14px);
+  font-weight: var(--bw-typography-font350-fontWeight, 500);
+  color: var(--bw-colors-contentPrimary, #000);
+  background-color: var(--bw-colors-tableHeadBackgroundColor, #fff);
+  box-shadow: var(--bw-lighting-shadow400, 0 1px 4px rgba(0,0,0,.16));
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-right: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+
+  &:focus {
+    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline-offset: -3px;
+  }
+}
+
+/* ── Body cell ── */
+bui-styled-body-cell,
+[buiStyledBodyCell] {
+  display: block;
+  padding: var(--bw-sizing-scale300, 8px) var(--bw-sizing-scale600, 16px);
+  font-family: var(--bw-typography-font200-fontFamily, inherit);
+  font-size: var(--bw-typography-font200-fontSize, 12px);
+  color: var(--bw-colors-contentPrimary, #000);
+  border-right: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  border-bottom: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  overflow: hidden;
+
+  &.bui-tg__body-cell--striped {
+    background-color: var(--bw-colors-tableStripedBackground, #f6f6f6);
+  }
+
+  &:focus {
+    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline-offset: -3px;
+  }
+}

@@ -77,7 +77,7 @@ export const BW_NAV: BwNavCategory[] = [
       {
         label: 'Date & Time',
         items: [
-          { label: 'Datepicker', path: 'components/datepicker', status: 'soon' },
+          { label: 'Datepicker', path: 'components/datepicker', status: 'ready' },
           { label: 'Time Picker', path: 'components/timepicker', status: 'soon' },
           { label: 'Timezone Picker', path: 'components/timezonepicker', status: 'soon' },
         ],
@@ -86,7 +86,7 @@ export const BW_NAV: BwNavCategory[] = [
         label: 'Navigation',
         items: [
           { label: 'Breadcrumbs', path: 'components/breadcrumbs', status: 'ready' },
-          { label: 'Navigation Bar', path: 'components/app-nav-bar', status: 'soon' },
+          { label: 'Navigation Bar', path: 'components/app-nav-bar', status: 'ready' },
           { label: 'Header Navigation', path: 'components/header-navigation', status: 'ready' },
           { label: 'Link', path: 'components/link', status: 'ready' },
           { label: 'Mobile Header', path: 'components/mobile-header', status: 'ready' },
@@ -115,10 +115,10 @@ export const BW_NAV: BwNavCategory[] = [
       {
         label: 'Tables',
         items: [
-          { label: 'Table', path: 'components/table-semantic', status: 'soon' },
-          { label: 'Data Table', path: 'components/data-table', status: 'soon' },
-          { label: 'Grid Table', path: 'components/table-grid', status: 'soon' },
-          { label: 'Flex Table', path: 'components/table', status: 'soon' },
+          { label: 'Table', path: 'components/table-semantic', status: 'ready' },
+          { label: 'Data Table', path: 'components/data-table', status: 'ready' },
+          { label: 'Grid Table', path: 'components/table-grid', status: 'ready' },
+          { label: 'Flex Table', path: 'components/table', status: 'ready' },
         ],
       },
       {
