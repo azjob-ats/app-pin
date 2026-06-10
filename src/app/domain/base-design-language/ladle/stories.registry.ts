@@ -196,6 +196,11 @@ export const BW_STORIES: BwStory[] = [
   { id: 'pin-code--sizes', group: 'pin-code', name: 'Sizes', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeSizesScenario) },
   { id: 'pin-code--states', group: 'pin-code', name: 'States', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeStatesScenario) },
   { id: 'pin-code--overrides', group: 'pin-code', name: 'Overrides', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeOverridesScenario) },
+  // Modal
+  { id: 'modal--modal', group: 'modal', name: 'Modal', load: () => import('../components/modal/modal.scenarios').then((m) => m.ModalScenario) },
+  { id: 'modal--modal-uncloseable', group: 'modal', name: 'Modal uncloseable', load: () => import('../components/modal/modal.scenarios').then((m) => m.ModalUncloseableScenario) },
+  { id: 'modal--modal-select', group: 'modal', name: 'Modal select', load: () => import('../components/modal/modal.scenarios').then((m) => m.ModalSelectScenario) },
+  { id: 'modal--modal-rtl', group: 'modal', name: 'Modal RTL', load: () => import('../components/modal/modal.scenarios').then((m) => m.ModalRtlScenario) },
   // Tree View
   { id: 'tree-view--tree-view', group: 'tree-view', name: 'Tree view', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewScenario) },
   { id: 'tree-view--interactable', group: 'tree-view', name: 'Interactable', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewInteractableScenario) },

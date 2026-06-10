@@ -1,0 +1,141 @@
+// Root: fixed overlay, visible only when open for pointer events
+.bui-modal__root {
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: var(--bw-z-modal, 2000);
+
+  &--open {
+    pointer-events: auto;
+  }
+}
+
+// Container: backdrop + centering flex
+.bui-modal__container {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  opacity: 0;
+  pointer-events: auto;
+  user-select: none;
+  width: 100%;
+
+  &--open {
+    opacity: 1;
+  }
+
+  &--animate {
+    transition: opacity var(--bw-timing-400, 400ms) var(--bw-ease-out, cubic-bezier(0.2, 0.8, 0.4, 1));
+  }
+}
+
+// Dialog box
+.bui-modal__dialog {
+  background-color: var(--bw-background-primary);
+  border-radius: var(--bw-border-radius-400, 12px);
+  box-sizing: border-box;
+  margin: var(--bw-sizing-scale600);
+  max-width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  position: relative;
+  transform: translateY(20px);
+  user-select: text;
+  width: 500px;
+
+  &--open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  &--animate {
+    transition:
+      opacity var(--bw-timing-400, 400ms) var(--bw-ease-out, cubic-bezier(0.2, 0.8, 0.4, 1)),
+      transform var(--bw-timing-400, 400ms) var(--bw-ease-out, cubic-bezier(0.2, 0.8, 0.4, 1));
+  }
+
+  &--size-full {
+    align-self: stretch;
+    width: 100%;
+  }
+
+  &--size-auto {
+    width: auto;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Close button
+.bui-modal__close {
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--bw-content-secondary);
+  cursor: pointer;
+  display: flex;
+  height: var(--bw-sizing-scale800);
+  justify-content: center;
+  outline: 0;
+  padding: 0;
+  position: absolute;
+  right: var(--bw-sizing-scale500);
+  top: var(--bw-sizing-scale500);
+  transition:
+    color var(--bw-timing-200, 200ms),
+    border-color var(--bw-timing-200, 200ms);
+  width: var(--bw-sizing-scale800);
+
+  &:hover {
+    color: var(--bw-content-primary);
+  }
+
+  &:focus-visible {
+    border-color: var(--bw-border-accent);
+    outline: 3px solid var(--bw-border-accent);
+  }
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+.bui-modal-header {
+  color: var(--bw-content-primary);
+  font: var(--bw-font-HeadingXSmall);
+  margin-bottom: var(--bw-sizing-scale600);
+  margin-left: var(--bw-sizing-scale800);
+  margin-right: var(--bw-sizing-scale900);
+  margin-top: var(--bw-sizing-scale900);
+}
+
+.bui-modal-body {
+  color: var(--bw-content-secondary);
+  font: var(--bw-font-ParagraphSmall);
+  margin-bottom: var(--bw-sizing-scale700);
+  margin-left: var(--bw-sizing-scale800);
+  margin-right: var(--bw-sizing-scale800);
+  margin-top: var(--bw-sizing-scale600);
+}
+
+.bui-modal-footer {
+  font: var(--bw-font-ParagraphSmall);
+  margin-bottom: 0;
+  margin-left: var(--bw-sizing-scale800);
+  margin-right: var(--bw-sizing-scale800);
+  margin-top: var(--bw-sizing-scale700);
+  padding-bottom: var(--bw-sizing-scale500);
+  padding-top: var(--bw-sizing-scale500);
+  text-align: right;
+
+  > * + * {
+    margin-left: var(--bw-sizing-scale200);
+  }
+}
