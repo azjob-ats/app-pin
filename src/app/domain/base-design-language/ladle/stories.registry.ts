@@ -221,6 +221,11 @@ export const BW_STORIES: BwStory[] = [
   { id: 'toast--toaster', group: 'toast', name: 'Toaster', load: () => import('../components/toast/toast.scenarios').then((m) => m.ToasterScenario) },
   { id: 'toast--toaster-focus', group: 'toast', name: 'Toaster focus', load: () => import('../components/toast/toast.scenarios').then((m) => m.ToasterFocusScenario) },
   { id: 'toast--toast-application-state', group: 'toast', name: 'Toast application state', load: () => import('../components/toast/toast.scenarios').then((m) => m.ToastApplicationStateScenario) },
+  // Tooltip
+  { id: 'tooltip--tooltip', group: 'tooltip', name: 'Tooltip', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipScenario) },
+  { id: 'tooltip--tooltip-complex', group: 'tooltip', name: 'Tooltip complex', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipComplexScenario) },
+  { id: 'tooltip--tooltip-interactive-element', group: 'tooltip', name: 'Tooltip interactive element', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipInteractiveElementScenario) },
+  { id: 'tooltip--tooltip-arrow-margin', group: 'tooltip', name: 'Tooltip arrow margin', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipArrowMarginScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },

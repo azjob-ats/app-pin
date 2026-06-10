@@ -141,7 +141,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Drawer', path: 'components/drawer', status: 'ready' },
           { label: 'Modal', path: 'components/modal', status: 'ready' },
           { label: 'Popover', path: 'components/popover', status: 'ready' },
-          { label: 'Tooltip', path: 'components/tooltip', status: 'soon' },
+          { label: 'Tooltip', path: 'components/tooltip', status: 'ready' },
         ],
       },
       {

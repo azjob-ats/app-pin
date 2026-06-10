@@ -1,0 +1,23 @@
+// Tooltip trigger wrapper
+
+.bui-tooltip__trigger {
+  display: inline-block;
+  outline: none;
+}
+
+// Tooltip body
+
+.bui-tooltip__body {
+  background-color: var(--bw-colors-tooltipBackground, var(--bw-colors-contentPrimary));
+  border-radius: var(--bw-borders-radius300);
+  box-shadow: var(--bw-lighting-shadow400, 0px 4px 16px rgba(0, 0, 0, 0.12));
+  color: var(--bw-colors-tooltipText, var(--bw-colors-backgroundPrimary));
+  font-family: var(--bw-typography-font150-fontFamily, var(--bw-typography-LabelXSmall-fontFamily));
+  font-size: var(--bw-typography-font150-fontSize, var(--bw-typography-LabelXSmall-fontSize));
+  font-weight: var(--bw-typography-font150-fontWeight, var(--bw-typography-LabelXSmall-fontWeight));
+  line-height: var(--bw-typography-font150-lineHeight, var(--bw-typography-LabelXSmall-lineHeight));
+  padding: var(--bw-sizing-scale300) var(--bw-sizing-scale600);
+  pointer-events: none;
+  max-width: 320px;
+  word-wrap: break-word;
+}
