@@ -226,6 +226,18 @@ export const BW_STORIES: BwStory[] = [
   { id: 'tooltip--tooltip-complex', group: 'tooltip', name: 'Tooltip complex', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipComplexScenario) },
   { id: 'tooltip--tooltip-interactive-element', group: 'tooltip', name: 'Tooltip interactive element', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipInteractiveElementScenario) },
   { id: 'tooltip--tooltip-arrow-margin', group: 'tooltip', name: 'Tooltip arrow margin', load: () => import('../components/tooltip/tooltip.scenarios').then((m) => m.TooltipArrowMarginScenario) },
+  // Combobox
+  { id: 'combobox--combobox', group: 'combobox', name: 'Combobox', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxScenario) },
+  { id: 'combobox--combobox-sizes', group: 'combobox', name: 'Combobox sizes', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxSizesScenario) },
+  { id: 'combobox--combobox-disabled', group: 'combobox', name: 'Combobox disabled', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxDisabledScenario) },
+  { id: 'combobox--combobox-search', group: 'combobox', name: 'Combobox search', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxSearchScenario) },
+  { id: 'combobox--combobox-autocomplete-false', group: 'combobox', name: 'Combobox autocomplete false', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxAutocompleteFalseScenario) },
+  { id: 'combobox--combobox-inline-text-search', group: 'combobox', name: 'Combobox inline text search', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxInlineTextSearchScenario) },
+  { id: 'combobox--combobox-async', group: 'combobox', name: 'Combobox async', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxAsyncScenario) },
+  { id: 'combobox--combobox-replacement-node', group: 'combobox', name: 'Combobox replacement node', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxReplacementNodeScenario) },
+  { id: 'combobox--combobox-overrides', group: 'combobox', name: 'Combobox overrides', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxOverridesScenario) },
+  { id: 'combobox--combobox-form', group: 'combobox', name: 'Combobox form', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxFormScenario) },
+  { id: 'combobox--combobox-form-control', group: 'combobox', name: 'Combobox form control', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxFormControlScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },

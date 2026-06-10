@@ -50,7 +50,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Button Timed', path: 'components/button-timed', status: 'ready' },
           { label: 'Checkbox', path: 'components/checkbox', status: 'ready' },
           { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'ready' },
-          { label: 'Combobox', path: 'components/combobox', status: 'soon' },
+          { label: 'Combobox', path: 'components/combobox', status: 'ready' },
           { label: 'Input', path: 'components/input', status: 'ready' },
           { label: 'Payment Card', path: 'components/payment-card', status: 'ready' },
           { label: 'Phone Input', path: 'components/phone-input', status: 'soon' },
