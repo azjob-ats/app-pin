@@ -808,7 +808,7 @@ const INPUT_DELIMITER = '–';
 
     <ng-template
       cdkConnectedOverlay
-      [cdkConnectedOverlayOrigin]="activeOrigin()"
+      [cdkConnectedOverlayOrigin]="activeOrigin()!"
       [cdkConnectedOverlayOpen]="isOpen()"
       [cdkConnectedOverlayHasBackdrop]="true"
       cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"

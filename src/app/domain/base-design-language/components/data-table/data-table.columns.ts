@@ -56,7 +56,7 @@ export type FilterParams =
   | BooleanFilterParams
   | DatetimeFilterParams;
 
-export interface ColumnDef<V = unknown, F = FilterParams> {
+export interface ColumnDef<V = any, F = any> {
   kind: ColumnKind;
   title: string;
   sortable: boolean;

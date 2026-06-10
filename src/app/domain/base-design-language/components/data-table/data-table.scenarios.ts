@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
+  computed,
   signal,
 } from '@angular/core';
 import {
@@ -399,10 +400,10 @@ export class DataTableEmptyScenario {
     <div style="display:flex;gap:16px">
       <div style="min-width:200px">
         <h4 style="margin:0 0 8px;font-size:13px">Active Filters</h4>
-        @for (entry of filters().entries() | keyvalue; track entry.key) {
+        @for (entry of filterEntries(); track entry[0]) {
           <div style="margin-bottom:4px;font-size:12px">
-            {{ entry.key }}: {{ entry.value.description }}
-            <button (click)="removeFilter(entry.key)">×</button>
+            {{ entry[0] }}: {{ entry[1].description }}
+            <button (click)="removeFilter(entry[0])">×</button>
           </div>
         }
       </div>
@@ -426,6 +427,7 @@ export class DataTableExtractedFiltersScenario {
   readonly rows = ANIMAL_DATA;
 
   protected readonly filters = signal<Map<string, FilterParams>>(new Map());
+  protected readonly filterEntries = computed(() => [...this.filters().entries()]);
   protected readonly sortIndex = signal(-1);
   protected readonly sortDirection = signal<SortDirection | null>(null);
 

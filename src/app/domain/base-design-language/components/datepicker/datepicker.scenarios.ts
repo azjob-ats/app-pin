@@ -34,12 +34,16 @@ export class DatepickerStatefulCalendarScenario {}
   template: `
     <bui-calendar
       [value]="value()"
-      (change)="value.set($event.date)"
+      (change)="onDateChange($event)"
     />
   `,
 })
 export class DatepickerCalendarScenario {
   protected readonly value = signal<Date | null>(T);
+
+  protected onDateChange(event: { date: Date | null | (Date | null | undefined)[] }): void {
+    if (!Array.isArray(event.date)) this.value.set(event.date);
+  }
 }
 
 /* ─── 3. Range calendar ──────────────────────────────────────────────────────── */
