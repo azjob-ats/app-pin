@@ -91,7 +91,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Link', path: 'components/link', status: 'ready' },
           { label: 'Mobile Header', path: 'components/mobile-header', status: 'ready' },
           { label: 'Pagination', path: 'components/pagination', status: 'soon' },
-          { label: 'Side Navigation', path: 'components/side-navigation', status: 'soon' },
+          { label: 'Side Navigation', path: 'components/side-navigation', status: 'ready' },
           { label: 'Tabs', path: 'components/tabs', status: 'ready' },
         ],
       },

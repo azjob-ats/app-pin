@@ -168,6 +168,9 @@ export const BW_STORIES: BwStory[] = [
   // Payment Card
   { id: 'payment-card--payment-card', group: 'payment-card', name: 'Payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.PaymentCardScenario) },
   { id: 'payment-card--stateful-payment-card', group: 'payment-card', name: 'Stateful payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
+  // Side Navigation
+  { id: 'side-navigation--nav', group: 'side-navigation', name: 'Nav', load: () => import('../components/side-navigation/side-navigation.scenarios').then((m) => m.SideNavScenario) },
+  { id: 'side-navigation--nav-long', group: 'side-navigation', name: 'Nav long', load: () => import('../components/side-navigation/side-navigation.scenarios').then((m) => m.SideNavLongScenario) },
   // Mobile Header
   { id: 'mobile-header--mobile-header-fixed', group: 'mobile-header', name: 'Mobile header fixed', load: () => import('../components/mobile-header/mobile-header.scenarios').then((m) => m.MobileHeaderFixedScenario) },
   { id: 'mobile-header--mobile-header-floating', group: 'mobile-header', name: 'Mobile header floating', load: () => import('../components/mobile-header/mobile-header.scenarios').then((m) => m.MobileHeaderFloatingScenario) },
