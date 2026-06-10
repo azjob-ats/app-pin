@@ -138,7 +138,7 @@ export const BW_NAV: BwNavCategory[] = [
         label: 'Surfaces',
         items: [
           { label: 'Card', path: 'components/card', status: 'ready' },
-          { label: 'Drawer', path: 'components/drawer', status: 'soon' },
+          { label: 'Drawer', path: 'components/drawer', status: 'ready' },
           { label: 'Modal', path: 'components/modal', status: 'soon' },
           { label: 'Popover', path: 'components/popover', status: 'ready' },
           { label: 'Tooltip', path: 'components/tooltip', status: 'soon' },

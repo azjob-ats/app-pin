@@ -97,6 +97,11 @@ export const BW_STORIES: BwStory[] = [
   { id: 'menu--stateful', group: 'menu', name: 'Stateful', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuStatefulScenario) },
   { id: 'menu--profile-menu', group: 'menu', name: 'Profile menu', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuProfileMenuScenario) },
   { id: 'menu--propagation', group: 'menu', name: 'Propagation', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuPropagationScenario) },
+  // Drawer
+  { id: 'drawer--drawer', group: 'drawer', name: 'Drawer', load: () => import('../components/drawer/drawer.scenarios').then((m) => m.DrawerScenario) },
+  { id: 'drawer--hide-backdrop', group: 'drawer', name: 'Hide backdrop', load: () => import('../components/drawer/drawer.scenarios').then((m) => m.DrawerHideBackdropScenario) },
+  { id: 'drawer--render-all', group: 'drawer', name: 'Render all', load: () => import('../components/drawer/drawer.scenarios').then((m) => m.DrawerRenderAllScenario) },
+  { id: 'drawer--select', group: 'drawer', name: 'Select', load: () => import('../components/drawer/drawer.scenarios').then((m) => m.DrawerSelectScenario) },
   // Popover
   { id: 'popover--popover', group: 'popover', name: 'Popover', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverScenario) },
   { id: 'popover--click', group: 'popover', name: 'Click', load: () => import('../components/popover/popover.scenarios').then((m) => m.PopoverClickScenario) },
