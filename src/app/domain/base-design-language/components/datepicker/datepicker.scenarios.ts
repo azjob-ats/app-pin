@@ -365,7 +365,7 @@ export class DatepickerRangeSeparateScenario {
     <div style="width: 300px">
       <bui-datepicker
         [value]="value()"
-        (change)="value.set($event.date as any)"
+        (change)="value.set(Array.isArray($event.date) ? null : $event.date)"
       />
       <p style="margin-top: 8px; font-size: 13px; color: #555">
         Selected: {{ value() ? (value()!.valueOf()) : 'none' }}
