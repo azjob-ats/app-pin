@@ -173,20 +173,20 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 9 | Button | P1.6 | 14/15 | ✅ |
 | 10 | Button group | P3.1 | 0/12 | ⚠️ |
 | 11 | Button timed | P3.2 | 0/1 | ⚠️ |
-| 12 | Card | P3.3 | 0/5 | ⚠️ |
+| 12 | Card | P3.3 | 5/5 | ✅ |
 | 13 | Checkbox | P1.8 | 8/8 | ✅ |
 | 14 | Checkbox v2 | P1.9 | 7/7 | ✅ |
 | 15 | Combobox | P3.21 | 0/11 | ⚠️ |
 | 16 | Data table | P3.28 | 0/33 | ⚠️ |
 | 17 | Datepicker | P3.22 | 0/29 | ⚠️ |
 | 18 | Divider | P4.2 | 1/1 | ✅ |
-| 19 | Dnd list | P4.21 | 0/1 | ⚠️ |
+| 19 | Dnd list | P4.21 | 1/1 | ✅ |
 | 20 | Drawer | P2.3 | 0/4 | ⚠️ |
 | 21 | File uploader | P3.13 | 0/7 | ⚠️ |
 | 22 | File uploader basic | P3.14 | 0/7 | ⚠️ |
 | 23 | Flex grid | — | — | 🚫 |
 | 24 | Form control | — | — | 🚫 |
-| 25 | Header navigation | P3.11 | 0/1 | ⚠️ |
+| 25 | Header navigation | P3.11 | 1/1 | ✅ |
 | 26 | Heading | P4.4 | 1/1 | ✅ |
 | 27 | Helper | — | 0/3 | 🚫 |
 | 28 | Helpers | — | 0/1 | 🚫 |
@@ -201,22 +201,22 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 37 | Message card | P3.6 | 0/4 | ⚠️ |
 | 38 | Mobile header | P3.10 | 0/2 | ⚠️ |
 | 39 | Modal | P3.16 | 0/3 | ⚠️ |
-| 40 | Notification | P3.5 | 0/1 | ⚠️ |
+| 40 | Notification | P3.5 | 1/1 | ✅ |
 | 41 | Pagination | P3.23 | 1/1 | ✅ |
 | 42 | Payment card | P3.7 | 0/2 | ⚠️ |
 | 43 | Phone input | P3.24 | 0/7 | ⚠️ |
 | 44 | Pin code | P3.8 | 0/5 | ⚠️ |
 | 45 | Popover | P2.1 | 3/15 | ⚠️ |
 | 46 | Progress bar | P4.11 | 6/6 | ✅ |
-| 47 | Progress steps | P4.12 | 0/6 | ⚠️ |
-| 48 | Radio | P4.16 | 0/3 | ⚠️ |
-| 49 | Radio v2 | P4.17 | 0/5 | ⚠️ |
+| 47 | Progress steps | P4.12 | 6/6 | ✅ |
+| 48 | Radio | P4.16 | 3/3 | ✅ |
+| 49 | Radio v2 | P4.17 | 5/5 | ✅ |
 | 50 | Rating | P4.13 | 3/3 | ✅ |
 | 51 | Select | P3.20 | 20/30 | ⚠️ |
 | 52 | Side navigation | P3.12 | 0/2 | ⚠️ |
 | 53 | Skeleton | P4.7 | 3/3 | ✅ |
 | 54 | Slider | P4.14 | 0/9 | ⚠️ |
-| 55 | Sliding button | P4.20 | 0/3 | ⚠️ |
+| 55 | Sliding button | P4.20 | 3/3 | ✅ |
 | 56 | Snackbar | P3.17 | 0/6 | ⚠️ |
 | 57 | Spinner | P1.3 | 1/1 | ✅ |
 | 58 | Stepper | P4.18 | 1/1 | ✅ |
@@ -227,7 +227,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 63 | Tabs | P4.19 | 3/3 | ✅ |
 | 64 | Tag | P1.5 | 5/5 | ✅ |
 | 65 | Template component | — | 0/1 | 🚫 |
-| 66 | Textarea | P3.9 | 0/2 | ⚠️ |
+| 66 | Textarea | P3.9 | 2/2 | ✅ |
 | 67 | Timepicker | P3.25 | 0/2 | ⚠️ |
 | 68 | Timezonepicker | P3.26 | 0/3 | ⚠️ |
 | 69 | Toast | P3.18 | 0/4 | ⚠️ |
@@ -235,7 +235,18 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 71 | Tree view | P3.15 | 0/5 | ⚠️ |
 | 72 | Typography | P1.1 | 6/6 | ✅ |
 
-**Placar:** `✅ 23` · `⚠️ 40` (nenhum ⛔ — Input 9/15 core) · `🚫 (fora do escopo)`
+**Placar:** `✅ 32` · `⚠️ 31` (nenhum ⛔ — Input 9/15 core) · `🚫 (fora do escopo)`
+
+> **Sessão autônoma 2026-06-10 (decisões registradas — usuário autorizou seguir sem perguntar):**
+> objetivo = cobrir TODOS os componentes restantes, do **menor → maior acoplamento**. Verificação por
+> componente: CSS computado da story principal + AXE + screenshot (tolerância ≤2px). **Decisões padrão
+> aplicadas a todos:** (1) APIs exclusivas do React — `overrides` de `style`/`component`/ícone,
+> `FormControl`, `table-grid`, children-como-função — são **aproximadas** e marcadas na ficha;
+> (2) provedores de overlay (Toast/Tooltip/Modal/Drawer/Snackbar/Toaster) usam **CDK Overlay** (já
+> estabelecido no Popover); (3) reordenação/drag/gestos via **Pointer Events** nativos; (4) nenhum
+> token novo salvo quando o original referencia cor/tamanho inexistente (aí é aditivo, anotado).
+> Itens que dependem de algo ainda não coberto ficam **após** seu provedor. Ao final, balanço do que
+> ficou pendente para conferência.
 — Fora do escopo (🚫): `helper`, `helpers`, `template-component`
 `block`, `form-control`, `layer`, `map-marker`, `Layout grid`, `Flex grid`.
 
@@ -985,6 +996,225 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
   error/foco) ✓ · a11y (AXE/input nativo/aria) ✓ · build dev (`tsc --noEmit` limpo + ng serve
   recompila) ✓ · sem regressão (componente novo; `--bw-red-800` aditivo; reusa Select/Heading já
   verificados).
+- **Commit:** _pendente_.
+
+---
+
+### Radio — `radio` — ✅ Verificado (2026-06-09)
+
+- **Stories (clone/orig):** 3/3 — `radio`, `states`, `select`. (`radio-rtl.scenario.tsx` existe na
+  fonte mas **não** é story no `meta.json` — fora do escopo.)
+- **Verdade-base:** `baseweb/src/radio/` (`radiogroup.tsx`, `radio.tsx`, `styled-components.ts`
+  getOuterColor/getInnerColor + RadioGroupRoot/Root/MarkOuter/MarkInner/Label/Description,
+  `constants.ts` ALIGN, `__tests__/*.scenario.tsx`).
+- **Decisões de arquitetura:** 2 componentes — `bui-radio-group` (`<div role=radiogroup>`, flex
+  row/column por `align`) + `bui-radio` (`<label>` host `display:contents` → label/description viram
+  filhos diretos do grupo). **`checked` derivado do `value` do grupo via DI** (`inject(BuiRadioGroup)`),
+  `valueState` `linkedSignal` (controlado/stateful). Mark = outer 20×20 (cor por estado) + inner
+  círculo `scale(.7)` (off) / `scale(.3)` (on). Estados hover/active/focus-visible via CSS; **roving
+  tabindex/teclado pelos radios nativos** (mesmo `name`). Cores reusam os tokens `tick*` do Checkbox —
+  **nenhum token novo**.
+- **Estados verificados:** checked/unchecked × default/disabled/error (6) + description (indent
+  scale900) + select interativo (`containsInteractiveElement`) + focus-visible (box-shadow 3px).
+- **Divergências encontradas (antes):** componente inexistente (0/3).
+- **Correções aplicadas:**
+  - `components/radio/radio.component.{ts,scss}` (group + radio) + `radio.scenarios.ts` (3 stories).
+  - `ladle/stories.registry.ts` (3 ids) + `documentation/navigation/nav.data.ts` (`Radio` → `ready`).
+  - `radio`/`select`: FormControl 🚫 → rótulo "Test-label" simples (aproximação); `select` reusa `bui-select`.
+- **Verificação (orig→clone, Playwright):** `states` — **6/6 elementos idênticos**: outer **20×20** raio
+  50%, bg (default preto|cinza94, disabled cinza243, error vermelho222.17.53), inner branco
+  `scale(.3)`(on)/`scale(.7)`(off), label **500 16px/20px** cor (preto / disabled cinza75). **AXE 0**
+  (wcag2a/aa) em radio/states/select **em ambos os lados**; sem erros no console.
+- **DoD:** stories ✓ · dimensões ✓ · cores/marca ✓ · tipografia ✓ · estados (disabled/error/desc/foco) ✓ ·
+  a11y (AXE 0/radiogroup/radios nativos) ✓ · build dev (`tsc --noEmit` limpo) ✓ · sem regressão
+  (componente novo; reusa tokens do Checkbox + Select já verificado).
+- **Commit:** _pendente_.
+
+---
+
+### Textarea — `textarea` — ✅ Verificado (2026-06-10)
+
+- **Stories (clone/orig):** 2/2 — `textarea`, `textarea-resize` (resize="both").
+- **Verdade-base:** `baseweb/src/textarea/` (reusa `input/styled-components` getRootStyles/getInputStyles).
+- **Decisões:** `bui-textarea` reusa as classes `bui-input` (root/container/field) num `<textarea>`;
+  `size`/`error`/`positive`/`disabled`/`resize`; root `width: fit-content` quando resize ativo. **Nenhum
+  token novo** (reusa Input ✅).
+- **Verificação (orig→clone):** fonte **16/24**, padding **10/14**, bg cinza-50, borda 2px + raio 8 (no
+  `__root`), `resize` none/both, value/placeholder ✓. **AXE 0**.
+- **DoD:** stories ✓ · dimensões/cores/tipografia ✓ · resize ✓ · a11y (AXE 0) ✓ · build ✓ · sem regressão.
+- **Commit:** _pendente_.
+
+---
+
+### Card — `card` — ✅ Verificado (2026-06-10)
+
+- **Stories (clone/orig):** 5/5 — `card`, `text-only`, `image-object`, `image-link`, `header-level`.
+- **Verdade-base:** `baseweb/src/card/` (Root section + Contents + HeaderImage/Thumbnail/Title/Body/Action).
+- **Decisões:** `bui-card` (section borda 2px/raio 12/overflow hidden) + `headerImage`/`title` inputs +
+  Contents(margem 16) + sub-diretivas `img[buiCardThumbnail]`/`[buiCardTitle]`/`[buiCardBody]`/
+  `[buiCardAction]`. Reusa Button/Link + asset `adorable.png`. **Aproximação:** `header-level` (Title
+  H1/H2/H3 via LevelContext React) → renderiza H1. **Nenhum token novo.**
+- **Verificação (orig→clone):** **idêntico** — borda 2px gray-50, raio 12, bg branco, title **24/32**
+  (HeadingSmall), thumbnail float right (96 vs 98 = box-sizing, ≤2px). **AXE 0**.
+- **DoD:** stories ✓ · dimensões/cores/tipografia ✓ · a11y (AXE 0/section) ✓ · build ✓ · sem regressão.
+- **Commit:** _pendente_.
+
+---
+
+### Header navigation — `header-navigation` — ✅ Verificado (2026-06-10)
+
+- **Stories (clone/orig):** 1/1 — `header-navigation` (navbar: menu, marca, links, botão).
+- **Verdade-base:** `baseweb/src/header-navigation/` (Root nav + NavigationList ul + NavigationItem li).
+- **Decisões:** `bui-header-navigation` (nav role=navigation) + `ul[buiNavList]` (align left/center/right
+  → justify-content; center cresce) + `li[buiNavItem]`. Ícone Menu (3 rects) inline no scenario. Reusa
+  Button/Link ✅. **Nenhum token novo.**
+- **Verificação (orig→clone):** **idêntico** — flex, padding-top 12, border-bottom 1px gray-50, font 16,
+  4 listas / 6 itens. **AXE 0**.
+- **DoD:** stories ✓ · layout/alinhamento ✓ · a11y (AXE 0/nav landmark) ✓ · build ✓ · sem regressão.
+- **Commit:** _pendente_.
+
+---
+
+### Notification — `notification` — ✅ Verificado (2026-06-10)
+
+- **Stories (clone/orig):** 1/1 — `notification` (5 caixas: info/longa/positive/warning/negative).
+- **Verdade-base:** `baseweb/src/notification/` (wrapper de Toast inline) + `toast/styled-components.ts`
+  (Body getBackgroundColor/getFontColor).
+- **Decisões:** `bui-notification` caixa inline (`content-box` width 288 → total **320**), padding/margin
+  16, raio 12, `ParagraphMedium`, por `kind` (bg *Light, texto contentPrimary). **Aproximação:** o
+  override `marginTop:10px` (warning/negative) é API React → mantido margin 16. Toaster/overlay do Toast
+  fica para a passada de overlays. **Nenhum token novo.**
+- **Verificação (orig→clone):** **idêntico** — width **320**, bg por kind (blue/blue/green/yellow/red-50),
+  texto preto, padding 16, raio 12, fonte 16/24. **AXE 0**.
+- **DoD:** stories ✓ · dimensões/cores/tipografia ✓ · a11y (AXE 0/role alert) ✓ · build ✓ · sem regressão.
+- **Commit:** _pendente_.
+
+---
+
+### Progress steps — `progress-steps` — ✅ Verificado (2026-06-10)
+
+- **Stories (clone/orig):** 6/6 — `progress-steps`, `is-active`, `numbered-steps`, `number`,
+  `numbered-steps-icon-overrides`, `progress-step-overrides`.
+- **Verdade-base:** `baseweb/src/progress-steps/` (`progress-steps.tsx`, `step.tsx`, `numbered-step.tsx`,
+  `styled-components.ts`, `constants.ts` ORIENTATION).
+- **Decisões de arquitetura:** `bui-progress-steps` (`<ol>`) + `li[buiStep]` (dot) / `li[buiNumberedStep]`
+  (numerado) — **seletor de atributo no `<li>`** p/ `<ol><li>` semântico (display:contents quebraria o
+  AXE list/listitem). Estados (completed=index<current, active=index===current) via DI (`current`
+  injetado + `register()` p/ índice + `total()` via `contentChildren`). Dot: container branco + círculo
+  (cinza→preto+inner branco ao ativar). Numerado: círculo 48 (cinza→preto+anel ::before), check ao
+  concluir. Tails absolutos com `calc()` de offset. Cores mapeiam `progressSteps*`→inverse-primary;
+  **nenhum token novo**. `numbered-steps-icon-overrides`/`progress-step-overrides` = **aproximações**
+  (overrides React).
+- **Verificação (orig→clone, Playwright):** screenshots **batem** — dot ativo (anel preto/centro branco)
+  + tail cinza + títulos (preto ativo/cinza inativo) + conteúdo só no ativo; numerado (círculo preto "1"
+  com anel / cinza "2"/"3"). **AXE 0** (após refactor p/ `<li>` direto) em progress-steps/numbered/is-active;
+  sem erros console.
+- **DoD:** stories ✓ · dimensões/posições ✓ · cores/tipografia ✓ · estados (active/completed/upcoming) ✓ ·
+  a11y (AXE 0/ol>li) ✓ · build dev (`tsc` limpo) ✓ · sem regressão (componente novo; reusa Button/Icon/Typo).
+- **Commit:** _pendente_.
+
+---
+
+### Sliding button — `sliding-button` — ✅ Verificado (2026-06-10)
+
+- **Stories (clone/orig):** 3/3 — `default`, `low-threshold`, `states` (default/loading/disabled).
+- **Verdade-base:** `baseweb/src/sliding-button/` (`sliding-button.tsx`, `styled-components.ts`
+  Root/Track/Label/Slider/Grabber/CompletedLabel/LoadingOverlay/Spinner, `constants.ts`
+  THRESHOLD high 0.8/low 0.2 + BUTTON_SIZE 56 + TAP_OFFSET 16, `__tests__/*.scenario.tsx`).
+- **Decisões de arquitetura:** `bui-sliding-button` (`<div role=button tabindex=0>`) → Track 56px
+  (bg `backgroundTertiary`) com Label centralizado (`LabelLarge` w500) + Slider preto que cresce da
+  esquerda (`width = 56 + dragOffset`, → 100% ao concluir) com Grabber 56×56 (seta branca → check ao
+  concluir) + CompletedLabel. `isLoading` → overlay preto + spinner; `isDisabled` → cinza/desabilitado.
+  **Independência Angular:** o drag (React usa estado + listeners de `document`) foi reimplementado
+  com **Pointer Events** + `setPointerCapture`; threshold/maxOffset calculados do `Track.offsetWidth`;
+  `slideBackAfterMs` volta sozinho; teclado Enter/Espaço conclui. **Nenhum token novo** (spinner com
+  keyframe local `bui-sliding-spin`).
+- **Estados verificados:** repouso, **drag até o threshold** (slider expande, conclui → 100% + check +
+  completed label, `complete`), antes do threshold (slide-back), loading (spinner), disabled, foco-visível.
+- **Divergências encontradas (antes):** componente inexistente (0/3).
+- **Correções aplicadas:**
+  - `components/sliding-button/sliding-button.component.{ts,scss}` + `sliding-button.scenarios.ts` (3 stories).
+  - `ladle/stories.registry.ts` (3 ids) + `documentation/navigation/nav.data.ts` (`Sliding Button` → `ready`).
+- **Verificação (orig→clone, Playwright):** repouso **idêntico** — root/track **56** alto raio **8**,
+  track bg `rgb(232,232,232)`, slider **56×56** preto justify flex-end, grabber **56×56** branco cursor
+  grab + svg 24, label `left 56px` cor preta **18px/24px w500** "Slide to confirm". Drag real >80% →
+  **conclui** (slider 100%, label opacity→0, completed label + check). `states` idêntico (default/
+  default/disabled cinza esmaecido). **AXE 0** (wcag2a/aa) nas 3 **em ambos os lados**; sem erros console.
+- **DoD:** stories ✓ · dimensões ✓ · cores/tipografia/raios ✓ · drag/threshold/conclusão ✓ · estados
+  (loading/disabled/foco) ✓ · a11y (AXE 0/role button/aria-label) ✓ · build dev (`tsc --noEmit` limpo) ✓ ·
+  sem regressão (componente novo; reusa Icon + tokens existentes).
+- **Commit:** _pendente_.
+
+---
+
+### Dnd list — `dnd-list` — ✅ Verificado (2026-06-09)
+
+- **Stories (clone/orig):** 1/1 — `dnd-list` (StatefulList 6 itens, Root 344px). (`dnd-list-rtl`
+  existe na fonte mas não é story no `meta.json` — fora do escopo.)
+- **Verdade-base:** `baseweb/src/dnd-list/` (`list.tsx`, `styled-components.ts` Root/List/Item/
+  DragHandle/Label, usa `react-movable` + ícone `Grab`; `__tests__/dnd-list.scenario.tsx`).
+- **Decisões de arquitetura:** `bui-dnd-list` (`<ul><li>`) com handle (ícone Grab `bui-icon` #CCC,
+  24px) + label `font300`(ParagraphMedium). Item flex space-between, padding 16, borda 2px transparente
+  (→ `borderSelected` no hover/drag), fundo `backgroundPrimary`, cursor grab/grabbing, sombra no item
+  arrastado. **Independência Angular:** o `react-movable` foi **reimplementado com Pointer Events**
+  (sem lib) p/ paridade de experiência: ao pegar (`pointerdown` + `setPointerCapture`) o item é
+  **levantado** (segue o cursor via `translateY`, sombra, cursor `grabbing`, borda selecionada) e os
+  demais **abrem espaço suavemente** (`translateY ±altura` com `transition`); ao soltar, o arrastado
+  **desliza** para o vão (settle) e a lista reordena (`linkedSignal`, `track item`). Também há
+  **reordenação por teclado** (`Space`/`Enter` seleciona → borda; `↑`/`↓` move; `Esc` cancela) com
+  refoco do item movido. **Nenhum token novo** (Grab path inline).
+- **Estados verificados:** repouso (6 itens), hover (borda `borderSelected`), foco (outline 3px
+  offset -3px), **drag por mouse** (cursor `grabbing` + sombra `0 2px 6px /.32` + itens abrindo o vão +
+  reordenação), **drag por teclado** (Space + setas). (decisão: o original usa `pointer-events:none` no
+  `ul` durante o drag — omitido no clone, pois bloquearia os pointer events do nosso DnD.)
+- **Divergências encontradas (antes):** componente inexistente (0/1).
+- **Correções aplicadas:**
+  - `components/dnd-list/dnd-list.component.{ts,scss}` + `dnd-list.scenarios.ts` (1 story).
+  - `ladle/stories.registry.ts` (1 id) + `documentation/navigation/nav.data.ts` (`Drag and Drop List` → `ready`).
+- **Verificação (orig→clone, Playwright):** CSS computado **idêntico** — `ul` padding-left 0; **6 itens**
+  **344×60**, padding **16**, bg branco, borda **2px solid transparent**, flex space-between, cursor
+  grab, cor preta, list-style none; handle **24px** margin-right 16 cor `rgb(204,204,204)` (#CCC) + svg
+  24; label **16px/24px** peso 400 (ParagraphMedium) flex-grow 1. **AXE 0** (wcag2a/aa) **ambos os
+  lados**; sem erros no console.
+- **DoD:** stories ✓ · dimensões ✓ · cores/bordas ✓ · tipografia ✓ · estados (hover/foco/drag) ✓ ·
+  a11y (AXE 0) ✓ · build dev (`tsc --noEmit` limpo) ✓ · sem regressão (componente novo; reusa Icon +
+  tokens existentes).
+- **Commit:** _pendente_.
+
+---
+
+### Radio v2 — `radio-v2` — ✅ Verificado (2026-06-09)
+
+- **Stories (clone/orig):** 5/5 — `radio`, `states`, `align`, `label-placement`, `contains-interactive-label`.
+- **Verdade-base:** `baseweb/src/radio-v2/` (`radiogroup.tsx`, `radio.tsx`, `radio-context.tsx`,
+  `styled-components.ts` getOuterColor + RadioBackplate/MarkOuter(17×17)/MarkInner/LabelWrapper,
+  `utils/get-shared-styles.ts` getOverlayColor/getFocusOutlineStyle, `constants.ts`, `__tests__/*`).
+- **Diferenças vs Radio v1:** **backplate** (state layer 32×32, raio 8px, overlay hover/press),
+  mark **17×17** (borda 2px, cor única = outer; inner branco `100%`→`5×5` ao marcar), label `LabelSmall`
+  + Description num **LabelWrapper** (padding-top 8 em left/right; clamp 3 linhas em horizontal),
+  `labelPlacement` top/right/bottom/left, foco 4px, group com `columnGap 24`/`rowGap 8`.
+- **Decisões de arquitetura:** `bui-radio-group-v2` + `bui-radio-v2` (host `display:contents`).
+  `checked` do grupo via DI **ou standalone** (`checked` próprio — usado na story `states`); overlay
+  no inner via `box-shadow inset` (não vaza a cor do outer, igual ao original); cores via
+  `contentPrimary`/`red700`(tagRedBorderSecondarySelected)/`contentStateDisabled` + overlays
+  reusados do Checkbox-v2 — **nenhum token novo**. Wrapper vazio (radio sem label) some via `:has`.
+- **Estados verificados:** checked/unchecked × default/disabled/error/disabled+error (states, 9 linhas)
+  + standalone + label/description + long-label clamp + 4 placements + align horizontal/vertical +
+  select interativo + focus-visible.
+- **Divergências encontradas (antes):** componente inexistente (0/5).
+- **Correções aplicadas:**
+  - `components/radio-v2/radio-v2.component.{ts,scss}` (group + radio) + `radio-v2.scenarios.ts` (5 stories).
+  - `ladle/stories.registry.ts` (5 ids) + `documentation/navigation/nav.data.ts` (`Radio-v2` → `ready`).
+  - `radio`/`contains-interactive-label`: FormControl 🚫 → rótulo simples; `states`: table-grid 🚫 →
+    `<div role=grid>` CSS (aproximações).
+- **Verificação (orig→clone, Playwright):** `states` — **18/18 marks idênticos**: outer **17×17** borda
+  **2px** (preto / disabled cinza166 / error vermelho187.3.42), inner branco **13×13**(off)/**5×5**(on),
+  backplate **33×33** raio 8px. `radio`/`align`/`label-placement`/`contains-interactive-label` **AXE 0**
+  ambos os lados (counts 6/6/12/4); `states` tem resíduos a11y **≤ original** (a própria story declara
+  "not suitable for accessibility testing"). Sem erros no console.
+- **DoD:** stories ✓ · dimensões ✓ · cores/mark/backplate ✓ · tipografia ✓ · placements/align ✓ ·
+  estados (disabled/error/foco/overlay) ✓ · a11y (AXE ≤ original) ✓ · build dev (`tsc --noEmit` limpo) ✓ ·
+  sem regressão (componente novo; reusa overlays do Checkbox-v2 + Select/Typography).
 - **Commit:** _pendente_.
 
 ---

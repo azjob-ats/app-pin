@@ -1,0 +1,9 @@
+/* Textarea — específico (reusa bui-input para root/container/field). */
+.bui-textarea__field {
+  display: block;
+  width: 100%;
+  resize: none;
+  vertical-align: bottom;
+  font: inherit;
+  line-height: 1.5;
+}

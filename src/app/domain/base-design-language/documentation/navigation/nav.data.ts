@@ -55,13 +55,13 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Payment Card', path: 'components/payment-card', status: 'soon' },
           { label: 'Phone Input', path: 'components/phone-input', status: 'soon' },
           { label: 'Pin Code', path: 'components/pin-code', status: 'soon' },
-          { label: 'Radio', path: 'components/radio', status: 'soon' },
-          { label: 'Radio-v2', path: 'components/radio-v2', status: 'soon' },
+          { label: 'Radio', path: 'components/radio', status: 'ready' },
+          { label: 'Radio-v2', path: 'components/radio-v2', status: 'ready' },
           { label: 'Slider', path: 'components/slider', status: 'soon' },
-          { label: 'Sliding Button', path: 'components/sliding-button', status: 'soon' },
+          { label: 'Sliding Button', path: 'components/sliding-button', status: 'ready' },
           { label: 'Stepper', path: 'components/stepper', status: 'ready' },
           { label: 'Switch', path: 'components/switch', status: 'ready' },
-          { label: 'Textarea', path: 'components/textarea', status: 'soon' },
+          { label: 'Textarea', path: 'components/textarea', status: 'ready' },
         ],
       },
       {
@@ -87,7 +87,7 @@ export const BW_NAV: BwNavCategory[] = [
         items: [
           { label: 'Breadcrumbs', path: 'components/breadcrumbs', status: 'ready' },
           { label: 'Navigation Bar', path: 'components/app-nav-bar', status: 'soon' },
-          { label: 'Header Navigation', path: 'components/header-navigation', status: 'soon' },
+          { label: 'Header Navigation', path: 'components/header-navigation', status: 'ready' },
           { label: 'Link', path: 'components/link', status: 'ready' },
           { label: 'Mobile Header', path: 'components/mobile-header', status: 'soon' },
           { label: 'Pagination', path: 'components/pagination', status: 'soon' },
@@ -101,7 +101,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Accordion', path: 'components/accordion', status: 'ready' },
           { label: 'Avatar', path: 'components/avatar', status: 'ready' },
           { label: 'Badge', path: 'components/badge', status: 'ready' },
-          { label: 'Drag and Drop List', path: 'components/dnd-list', status: 'soon' },
+          { label: 'Drag and Drop List', path: 'components/dnd-list', status: 'ready' },
           { label: 'Layout Grid', path: 'components/layout-grid', status: 'soon' },
           { label: 'Heading', path: 'components/heading', status: 'ready' },
           { label: 'Icon', path: 'components/icon', status: 'ready' },
@@ -125,7 +125,7 @@ export const BW_NAV: BwNavCategory[] = [
         label: 'Progress & Validation',
         items: [
           { label: 'Banner', path: 'components/banner', status: 'soon' },
-          { label: 'Notification', path: 'components/notification', status: 'soon' },
+          { label: 'Notification', path: 'components/notification', status: 'ready' },
           { label: 'Progress Bar', path: 'components/progress-bar', status: 'ready' },
           { label: 'Progress Steps', path: 'components/progress-steps', status: 'soon' },
           { label: 'Skeleton', path: 'components/skeleton', status: 'ready' },
@@ -137,7 +137,7 @@ export const BW_NAV: BwNavCategory[] = [
       {
         label: 'Surfaces',
         items: [
-          { label: 'Card', path: 'components/card', status: 'soon' },
+          { label: 'Card', path: 'components/card', status: 'ready' },
           { label: 'Drawer', path: 'components/drawer', status: 'soon' },
           { label: 'Modal', path: 'components/modal', status: 'soon' },
           { label: 'Popover', path: 'components/popover', status: 'ready' },

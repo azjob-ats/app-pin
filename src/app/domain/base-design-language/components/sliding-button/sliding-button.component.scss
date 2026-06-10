@@ -1,0 +1,131 @@
+/* Sliding button — clone de baseui/sliding-button styled-components. */
+.bui-sliding-button {
+  display: block;
+  width: 100%;
+  border-radius: var(--bw-radius-300); /* 8 */
+  outline: none;
+}
+.bui-sliding-button:focus-visible {
+  outline: 3px solid var(--bw-border-accent);
+  outline-offset: 0;
+}
+
+.bui-sliding-button__track {
+  position: relative;
+  height: var(--bw-sizing-scale1400); /* 56 */
+  border-radius: var(--bw-radius-300);
+  background-color: var(--bw-background-tertiary);
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+.bui-sliding-button__track--disabled {
+  background-color: var(--bw-background-state-disabled);
+}
+
+/* Label "Slide to confirm" — área à direita do grabber */
+.bui-sliding-button__label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--bw-sizing-scale1400); /* 56 */
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bw-content-primary);
+  opacity: 1;
+  pointer-events: none;
+  font: var(--bw-font-LabelLarge);
+  font-weight: 500;
+  transition-property: opacity, color;
+  transition-duration: var(--bw-timing-200);
+  transition-timing-function: ease-out;
+}
+.bui-sliding-button__label--muted {
+  color: var(--bw-content-state-disabled);
+}
+.bui-sliding-button__label--completed {
+  opacity: 0;
+}
+
+/* Slider — cresce da esquerda; grabber alinhado à direita */
+.bui-sliding-button__slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: var(--bw-radius-300);
+  background-color: var(--bw-background-inverse-primary); /* preto */
+  overflow: hidden;
+  padding-right: 0;
+}
+.bui-sliding-button__track--disabled .bui-sliding-button__slider {
+  background-color: var(--bw-background-state-disabled);
+}
+.bui-sliding-button__slider--completed {
+  padding-right: var(--bw-sizing-scale600); /* 16 */
+}
+
+/* Grabber 56×56 com seta branca */
+.bui-sliding-button__grabber {
+  width: var(--bw-sizing-scale1400); /* 56 */
+  height: var(--bw-sizing-scale1400);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bw-content-inverse-primary); /* branco */
+  cursor: grab;
+  touch-action: none;
+}
+.bui-sliding-button__track--disabled .bui-sliding-button__grabber {
+  color: var(--bw-content-state-disabled);
+  cursor: default;
+}
+
+/* Completed label (texto sobre o slider preto, branco) */
+.bui-sliding-button__completed-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bw-content-inverse-primary);
+  pointer-events: none;
+  font: var(--bw-font-LabelLarge);
+  font-weight: 500;
+}
+
+/* Loading overlay + spinner */
+.bui-sliding-button__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bw-radius-300);
+  background-color: var(--bw-background-inverse-primary);
+}
+.bui-sliding-button__spinner {
+  width: var(--bw-sizing-scale700); /* 20 */
+  height: var(--bw-sizing-scale700);
+  border-radius: 50%;
+  border-width: var(--bw-sizing-scale0); /* 2px */
+  border-style: solid;
+  border-color: var(--bw-border-inverse-opaque); /* 3 lados */
+  border-top-color: var(--bw-content-inverse-primary); /* topo branco */
+  box-sizing: border-box;
+  animation: bui-sliding-spin 0.75s linear infinite;
+}
+@keyframes bui-sliding-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

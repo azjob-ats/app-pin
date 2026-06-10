@@ -1,0 +1,41 @@
+/* Card — clone de baseui/card styled-components. */
+.bui-card {
+  display: block;
+  border: 2px solid var(--bw-border-opaque);
+  border-radius: var(--bw-radius-400); /* 12 */
+  background-color: var(--bw-background-primary);
+  overflow: hidden;
+}
+.bui-card__header-image {
+  display: block;
+  border-top-left-radius: var(--bw-surface-border-radius); /* 0 */
+  border-top-right-radius: var(--bw-surface-border-radius);
+  object-fit: contain;
+  max-width: 100%;
+}
+.bui-card__contents {
+  margin: var(--bw-sizing-scale600); /* 16 */
+}
+.bui-card__title {
+  font: var(--bw-font-HeadingSmall);
+  color: var(--bw-content-primary);
+  margin: 0 0 var(--bw-sizing-scale500) 0; /* mb 12 */
+  padding: 0;
+}
+.bui-card__body {
+  margin-bottom: var(--bw-sizing-scale600); /* 16 */
+  color: var(--bw-content-primary);
+  font: var(--bw-font-ParagraphMedium);
+}
+.bui-card__action {
+  font: var(--bw-font-LabelMedium);
+}
+.bui-card__thumbnail {
+  float: right;
+  width: var(--bw-sizing-scale2400); /* 96 */
+  height: var(--bw-sizing-scale2400);
+  object-fit: cover;
+  border-radius: var(--bw-surface-border-radius);
+  border: 1px solid hsla(0, 0%, 0%, 0.08); /* border200 */
+  margin: 0 0 var(--bw-sizing-scale500) var(--bw-sizing-scale500); /* 0 0 12 12 */
+}

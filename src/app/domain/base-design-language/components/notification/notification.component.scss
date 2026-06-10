@@ -1,0 +1,24 @@
+/* Notification — clone de baseui/notification (Toast inline). */
+.bui-notification {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: content-box; /* original: width 288 + padding → total 320 */
+  width: 288px;
+  padding: var(--bw-sizing-scale600); /* 16 */
+  margin: var(--bw-sizing-scale600); /* 16 (override do Notification) */
+  border-radius: var(--bw-radius-400); /* 12 */
+  font: var(--bw-font-ParagraphMedium);
+  color: var(--bw-content-primary);
+}
+.bui-notification--info {
+  background-color: var(--bw-background-accent-light);
+}
+.bui-notification--positive {
+  background-color: var(--bw-background-positive-light);
+}
+.bui-notification--warning {
+  background-color: var(--bw-background-warning-light);
+}
+.bui-notification--negative {
+  background-color: var(--bw-background-negative-light);
+}

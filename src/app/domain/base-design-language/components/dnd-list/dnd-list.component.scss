@@ -1,0 +1,64 @@
+/* Dnd list — clone de baseui/dnd-list styled-components. */
+.bui-dnd-list {
+  display: block;
+  width: 100%; /* Root */
+}
+
+.bui-dnd-list__list {
+  padding-left: 0;
+  margin: 0;
+  position: relative;
+}
+.bui-dnd-list--dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.bui-dnd-list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  cursor: grab;
+  position: relative; /* necessário p/ o z-index do item arrastado valer (passar por cima) */
+  touch-action: none; /* evita scroll ao arrastar no touch */
+  padding: var(--bw-sizing-scale600); /* 16 */
+  color: var(--bw-content-primary);
+  background-color: var(--bw-background-primary);
+  border-width: 2px;
+  border-style: solid;
+  border-color: transparent;
+  box-sizing: border-box;
+}
+/* hover só fora do arraste */
+.bui-dnd-list__list:not(.bui-dnd-list--dragging) .bui-dnd-list__item:hover {
+  border-color: var(--bw-border-selected);
+}
+.bui-dnd-list__item:focus-visible {
+  outline: 3px solid var(--bw-border-accent);
+  outline-offset: -3px;
+}
+/* arrastado (mouse) ou selecionado (teclado): borda + (no arraste) sombra/cursor */
+.bui-dnd-list__item--selected {
+  border-color: var(--bw-border-selected);
+}
+.bui-dnd-list__item--dragged {
+  cursor: grabbing;
+  border-color: var(--bw-border-selected);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.32);
+}
+
+/* Drag handle (ícone Grab #CCC, largura scale800) */
+.bui-dnd-list__handle {
+  display: flex;
+  align-items: center;
+  width: var(--bw-sizing-scale800); /* 24 */
+  margin-right: var(--bw-sizing-scale600); /* 16 */
+  color: #ccc;
+}
+
+/* Label (font300 = ParagraphMedium, flex-grow 1) */
+.bui-dnd-list__label {
+  flex-grow: 1;
+  font: var(--bw-font-ParagraphMedium);
+}

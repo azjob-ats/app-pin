@@ -1,0 +1,45 @@
+/* HeaderNavigation — clone de baseui/header-navigation styled-components. */
+.bui-header-nav {
+  display: flex;
+  font: var(--bw-font-ParagraphMedium); /* font300 */
+  padding-top: var(--bw-sizing-scale500); /* 12 */
+  padding-bottom: var(--bw-sizing-scale500);
+  border-bottom: 1px solid var(--bw-border-opaque);
+  background-color: var(--bw-background-primary);
+}
+
+.bui-header-nav__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding-left: var(--bw-sizing-scale800); /* 24 */
+  padding-right: var(--bw-sizing-scale800);
+}
+.bui-header-nav__list:first-child {
+  padding: 0;
+}
+.bui-header-nav__list:last-child {
+  padding: 0;
+}
+/* center: cresce; left/right: tamanho natural */
+.bui-header-nav__list--left,
+.bui-header-nav__list--right {
+  flex: 0 0 auto;
+}
+.bui-header-nav__list--center {
+  flex: 1 1 0%;
+}
+.bui-header-nav__list--left {
+  justify-content: flex-start;
+}
+.bui-header-nav__list--center {
+  justify-content: center;
+}
+.bui-header-nav__list--right {
+  justify-content: flex-end;
+}
+
+.bui-header-nav__item {
+  align-self: center;
+  padding-left: var(--bw-sizing-scale800); /* 24 */
+}
