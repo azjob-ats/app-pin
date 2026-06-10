@@ -191,7 +191,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 27 | Helper | — | 0/3 | 🚫 |
 | 28 | Helpers | — | 0/1 | 🚫 |
 | 29 | Icon | P1.2 | 3/3 | ✅ |
-| 30 | Input | P1.7 | 11/15 | ⚠️ |
+| 30 | Input | P1.7 | 15/15 | ✅ |
 | 31 | Layer | — | — | 🚫 |
 | 32 | Layout grid | — | — | 🚫 |
 | 33 | Link | P4.5 | 1/1 | ✅ |
@@ -235,7 +235,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 71 | Tree view | P3.15 | 6/6 | ✅ |
 | 72 | Typography | P1.1 | 6/6 | ✅ |
 
-**Placar:** `✅ 52` · `⚠️ 11` (nenhum ⛔) · `🚫 (fora do escopo)`
+**Placar:** `✅ 53` · `⚠️ 10` (nenhum ⛔) · `🚫 (fora do escopo)`
 
 > **Sessão autônoma 2026-06-10 (decisões registradas — usuário autorizou seguir sem perguntar):**
 > objetivo = cobrir TODOS os componentes restantes, do **menor → maior acoplamento**. Verificação por
@@ -934,7 +934,7 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
 
 ---
 
-### Input — `input` — ⚠️ Parcial (11/15, 2026-06-08) — núcleo + tipos + select-adjoined
+### Input — `input` — ✅ Verificado (15/15, 2026-06-10)
 
 - **Stories (clone/orig):** 11/15 — `input`, `sizes`, `states`, `before-after`, `clearable`,
   `password`, `with-button`, `mask`, `number`, `disabled-matches-select`, `selector` (verificadas).

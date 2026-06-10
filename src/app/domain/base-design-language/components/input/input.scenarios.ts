@@ -191,3 +191,65 @@ export class InputSelectorScenario {
   `,
 })
 export class InputWithButtonScenario {}
+
+// input-clearable-icon-overrides.scenario.tsx — clearable input (icon override approximation)
+@Component({
+  selector: 'bui-s-input-clearable-icon-overrides',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput],
+  template: `<bui-input [value]="val()" (valueChange)="val.set($event)" clearable ariaLabel="Search" />`,
+})
+export class InputClearableIconOverridesScenario {
+  protected readonly val = signal('Some');
+}
+
+// input-clearable-noescape.scenario.tsx — clearable but Escape does NOT clear.
+@Component({
+  selector: 'bui-s-input-clearable-noescape',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput],
+  template: `<bui-input [value]="val()" (valueChange)="val.set($event)" clearable [clearOnEscape]="false" ariaLabel="Search" />`,
+})
+export class InputClearableNoescapeScenario {
+  protected readonly val = signal('Thing');
+}
+
+// input-form-control-states.scenario.tsx — positive/error states with labels (FormControl approximation).
+@Component({
+  selector: 'bui-s-input-form-control-states',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput],
+  template: `
+    <div style="margin-bottom:16px">
+      <label style="display:block;font:var(--bw-font-LabelSmall);margin-bottom:4px">Positive</label>
+      <bui-input positive ariaLabel="Positive input" />
+      <span style="display:block;font:var(--bw-font-ParagraphXSmall);color:var(--bw-colors-positive400);margin-top:4px">Success!</span>
+      <span style="display:block;font:var(--bw-font-ParagraphXSmall);color:var(--bw-content-secondary);margin-top:2px">caption</span>
+    </div>
+    <br />
+    <div>
+      <label style="display:block;font:var(--bw-font-LabelSmall);margin-bottom:4px">Error</label>
+      <bui-input error ariaLabel="Error input" />
+      <span style="display:block;font:var(--bw-font-ParagraphXSmall);color:var(--bw-colors-negative400);margin-top:4px">Error!</span>
+      <span style="display:block;font:var(--bw-font-ParagraphXSmall);color:var(--bw-content-secondary);margin-top:2px">caption</span>
+    </div>
+  `,
+})
+export class InputFormControlStatesScenario {}
+
+// input-password-icon-overrides.scenario.tsx — password input (icon override approximation).
+@Component({
+  selector: 'bui-s-input-password-icon-overrides',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  imports: [BuiInput],
+  template: `
+    <bui-input type="password" value="hunter2" clearable ariaLabel="Password" />
+    <br />
+    <bui-input type="password" size="compact" ariaLabel="Password compact" />
+  `,
+})
+export class InputPasswordIconOverridesScenario {}

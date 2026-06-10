@@ -138,6 +138,10 @@ export const BW_STORIES: BwStory[] = [
   { id: 'input--number', group: 'input', name: 'Number', load: () => import('../components/input/input.scenarios').then((m) => m.InputNumberScenario) },
   { id: 'input--disabled-matches-select', group: 'input', name: 'Disabled matches select', load: () => import('../components/input/input.scenarios').then((m) => m.InputDisabledMatchesSelectScenario) },
   { id: 'input--selector', group: 'input', name: 'Selector', load: () => import('../components/input/input.scenarios').then((m) => m.InputSelectorScenario) },
+  { id: 'input--clearable-icon-overrides', group: 'input', name: 'Clearable icon overrides', load: () => import('../components/input/input.scenarios').then((m) => m.InputClearableIconOverridesScenario) },
+  { id: 'input--clearable-noescape', group: 'input', name: 'Clearable noescape', load: () => import('../components/input/input.scenarios').then((m) => m.InputClearableNoescapeScenario) },
+  { id: 'input--form-control-states', group: 'input', name: 'Form control states', load: () => import('../components/input/input.scenarios').then((m) => m.InputFormControlStatesScenario) },
+  { id: 'input--password-icon-overrides', group: 'input', name: 'Password icon overrides', load: () => import('../components/input/input.scenarios').then((m) => m.InputPasswordIconOverridesScenario) },
   // Button
   { id: 'button--button', group: 'button', name: 'Button', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonScenario) },
   { id: 'button--sizes', group: 'button', name: 'Sizes', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonSizesScenario) },

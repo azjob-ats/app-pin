@@ -1,3 +1,55 @@
+/* Self-contained copies of bui-input* rules (BuiInput is never rendered in payment-card template). */
+.bui-input {
+  display: block;
+}
+
+.bui-input__root {
+  box-sizing: border-box;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  width: 100%;
+  border: 2px solid var(--bw-border-opaque);
+  border-radius: var(--bw-input-border-radius);
+  background-color: var(--bw-background-secondary);
+  transition: border var(--bw-timing-200) var(--bw-ease-out);
+}
+.bui-input--mini .bui-input__root { border-radius: var(--bw-input-border-radius-mini); font: var(--bw-font-ParagraphXSmall); }
+.bui-input--compact .bui-input__root { font: var(--bw-font-ParagraphSmall); }
+.bui-input--default .bui-input__root { font: var(--bw-font-ParagraphMedium); }
+.bui-input--large .bui-input__root { font: var(--bw-font-ParagraphLarge); }
+.bui-input--error .bui-input__root { border-color: var(--bw-border-negative); background-color: var(--bw-background-primary); }
+.bui-input--disabled .bui-input__root { border-color: var(--bw-background-state-disabled); background-color: var(--bw-background-state-disabled); }
+.bui-input:not(.bui-input--disabled) .bui-input__root:focus-within { border-color: var(--bw-border-selected); background-color: var(--bw-background-primary); }
+
+.bui-input__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.bui-input__field {
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  font: inherit;
+  color: var(--bw-content-primary);
+  caret-color: var(--bw-content-primary);
+  cursor: text;
+}
+.bui-input__field::placeholder { color: var(--bw-content-tertiary); }
+.bui-input--mini .bui-input__field { padding: var(--bw-sizing-scale100) var(--bw-sizing-scale550); }
+.bui-input--compact .bui-input__field { padding: var(--bw-sizing-scale200) var(--bw-sizing-scale550); }
+.bui-input--default .bui-input__field { padding: var(--bw-sizing-scale400) var(--bw-sizing-scale550); }
+.bui-input--large .bui-input__field { padding: var(--bw-sizing-scale550) var(--bw-sizing-scale550); }
+.bui-input--disabled .bui-input__field { color: var(--bw-content-state-disabled); cursor: not-allowed; }
+
+/* Card icon wrapper */
 .bui-pc__icon-wrapper {
   display: flex;
   align-items: center;

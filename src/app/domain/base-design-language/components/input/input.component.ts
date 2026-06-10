@@ -60,6 +60,7 @@ export class BuiInputAfter {}
           [readOnly]="readOnly()"
           [attr.aria-label]="ariaLabel()"
           (input)="onInput($event)"
+          (keydown)="onKeydown($event)"
         />
       </div>
       @if (clearable() && value() && !disabled()) {
@@ -96,6 +97,7 @@ export class BuiInput {
   readonly error = input(false, { transform: booleanAttribute });
   readonly positive = input(false, { transform: booleanAttribute });
   readonly clearable = input(false, { transform: booleanAttribute });
+  readonly clearOnEscape = input(true, { transform: booleanAttribute });
   readonly readOnly = input(false, { transform: booleanAttribute });
   readonly autoFocus = input(false, { transform: booleanAttribute });
   readonly type = input<string>('text');
@@ -144,6 +146,11 @@ export class BuiInput {
   protected clear(): void {
     this.value.set('');
     this.valueChange.emit('');
+  }
+  protected onKeydown(e: KeyboardEvent): void {
+    if (e.key === 'Escape' && this.clearable() && this.clearOnEscape()) {
+      this.clear();
+    }
   }
   protected toggleReveal(): void {
     this.reveal.update((r) => !r);
