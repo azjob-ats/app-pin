@@ -46,7 +46,7 @@ export const BW_NAV: BwNavCategory[] = [
         label: 'Inputs',
         items: [
           { label: 'Button', path: 'components/button', status: 'ready' },
-          { label: 'Button Group', path: 'components/button-group', status: 'soon' },
+          { label: 'Button Group', path: 'components/button-group', status: 'ready' },
           { label: 'Button Timed', path: 'components/button-timed', status: 'soon' },
           { label: 'Checkbox', path: 'components/checkbox', status: 'ready' },
           { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'ready' },

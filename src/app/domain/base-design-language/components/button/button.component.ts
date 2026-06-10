@@ -4,9 +4,11 @@ import {
   Component,
   ViewEncapsulation,
   computed,
+  inject,
   input,
   output,
 } from '@angular/core';
+import { BUI_BTN_GRP } from '../button-group/button-group.token';
 import { Kind, Shape, Size } from './button.model';
 
 /**
@@ -55,9 +57,27 @@ export class Button {
 
   readonly buttonClick = output<MouseEvent>();
 
+  // --- Group context (optional — injected when inside bui-button-group) ---
+  protected readonly _group = inject(BUI_BTN_GRP, { optional: true });
+  protected readonly _groupIdx: number = this._group?.registerChild() ?? -1;
+
+  protected readonly grpKind = computed(() => (this._group?.kind() as Kind | undefined) ?? this.kind());
+  protected readonly grpSize = computed(() => (this._group?.size() as Size | undefined) ?? this.size());
+  protected readonly grpShape = computed(() => (this._group?.shape() as Shape | undefined) ?? this.shape());
+  protected readonly grpDisabled = computed(() => (this._group?.disabled() ?? false) || this.disabled());
+  protected readonly grpIsSelected = computed(() => {
+    const grp = this._group;
+    if (!grp) return this.isSelected();
+    const sel = grp.effectiveSelected();
+    const idx = this._groupIdx;
+    if (sel === undefined) return false;
+    if (Array.isArray(sel)) return sel.includes(idx);
+    return sel === idx;
+  });
+
   /** Normaliza aliases novos do Base Web (xSmall→mini, small→compact, medium→default). */
   protected readonly normSize = computed<'mini' | 'compact' | 'default' | 'large'>(() => {
-    switch (this.size()) {
+    switch (this.grpSize()) {
       case 'xSmall':
       case 'mini':
         return 'mini';
@@ -73,7 +93,7 @@ export class Button {
 
   /** Normaliza shape (rectangular→default, rounded→pill). */
   protected readonly normShape = computed<'default' | 'pill' | 'round' | 'circle' | 'square'>(() => {
-    switch (this.shape()) {
+    switch (this.grpShape()) {
       case 'rectangular':
         return 'default';
       case 'rounded':
@@ -96,13 +116,13 @@ export class Button {
 
   protected readonly classes = computed(
     () =>
-      `bui-button bui-button--${this.kind()} bui-button--size-${this.normSize()} bui-button--shape-${this.normShape()}` +
+      `bui-button bui-button--${this.grpKind()} bui-button--size-${this.normSize()} bui-button--shape-${this.normShape()}` +
       (this.isIconShape() ? ' bui-button--icon' : '') +
       (this.backgroundSafe() ? ' bui-button--bg-safe' : '') +
       (this.minHitArea() ? ` bui-button--hit-${this.minHitArea()}` : ''),
   );
 
-  protected readonly inactive = computed(() => this.disabled() || this.isLoading());
+  protected readonly inactive = computed(() => this.grpDisabled() || this.isLoading());
 
   protected onClick(event: MouseEvent): void {
     if (this.inactive()) {
@@ -110,6 +130,7 @@ export class Button {
       event.stopImmediatePropagation();
       return;
     }
+    this._group?.onChildClick(this._groupIdx);
     this.buttonClick.emit(event);
   }
 }

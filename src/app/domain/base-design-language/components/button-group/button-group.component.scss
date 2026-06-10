@@ -1,0 +1,26 @@
+.bui-button-group {
+  display: flex;
+  column-gap: var(--bw-sizing-scale300); // 8px
+  row-gap: var(--bw-sizing-scale300);    // 8px default
+
+  // xSmall/mini: larger vertical gap when wrapping
+  &.bui-button-group--xsmall {
+    row-gap: var(--bw-sizing-scale500); // 12px
+  }
+
+  // wrap variants
+  &--wrap {
+    flex-wrap: wrap;
+  }
+  &--nowrap {
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  // padding variants (default = 16px horizontal)
+  &--pad-default {
+    padding-left: var(--bw-sizing-scale600);  // 16px
+    padding-right: var(--bw-sizing-scale600);
+  }
+}
