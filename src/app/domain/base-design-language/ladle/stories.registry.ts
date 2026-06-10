@@ -139,6 +139,12 @@ export const BW_STORIES: BwStory[] = [
   { id: 'button--background-safe', group: 'button', name: 'Background safe', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonBackgroundSafeScenario) },
   { id: 'button--min-hit-area', group: 'button', name: 'Min hit area', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonMinHitAreaScenario) },
   { id: 'button--a11y', group: 'button', name: 'A11y', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonA11yScenario) },
+  // Banner
+  { id: 'banner--banner', group: 'banner', name: 'Banner', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerScenario) },
+  { id: 'banner--artwork', group: 'banner', name: 'Artwork', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerArtworkScenario) },
+  { id: 'banner--action-below', group: 'banner', name: 'Action below', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerActionBelowScenario) },
+  { id: 'banner--nested', group: 'banner', name: 'Nested', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerNestedScenario) },
+  { id: 'banner--overrides', group: 'banner', name: 'Overrides', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerOverridesScenario) },
   // Button timed
   { id: 'button-timed--button-timed', group: 'button-timed', name: 'Button timed', load: () => import('../components/button-timed/button-timed.scenarios').then((m) => m.ButtonTimedScenario) },
   // Button group

@@ -124,7 +124,7 @@ export const BW_NAV: BwNavCategory[] = [
       {
         label: 'Progress & Validation',
         items: [
-          { label: 'Banner', path: 'components/banner', status: 'soon' },
+          { label: 'Banner', path: 'components/banner', status: 'ready' },
           { label: 'Notification', path: 'components/notification', status: 'ready' },
           { label: 'Progress Bar', path: 'components/progress-bar', status: 'ready' },
           { label: 'Progress Steps', path: 'components/progress-steps', status: 'soon' },

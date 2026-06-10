@@ -1,0 +1,93 @@
+.bui-banner {
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  grid-template-rows: auto minmax(0, min-content);
+  column-gap: var(--bw-sizing-scale600);  // 16px
+  border-radius: 12px;                     // radius400
+  margin: var(--bw-sizing-scale600);       // 16px all sides
+
+  &--nested {
+    border-radius: 8px;                    // radius300
+  }
+}
+
+// Col 1: artwork / leading icon
+.bui-banner__leading {
+  display: flex;
+  align-items: center;
+
+  &--artwork {
+    padding-inline-start: var(--bw-sizing-scale600);  // 16px
+  }
+}
+
+// Col 2 row 1: message content (title + body)
+.bui-banner__message-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block-start: var(--bw-sizing-scale600);  // 16px
+
+  &--trailing {
+    padding-block-end: var(--bw-sizing-scale600);   // 16px when action is trailing
+  }
+}
+
+.bui-banner__title {
+  font: var(--bw-font-LabelMedium);
+}
+
+.bui-banner__message {
+  font: var(--bw-font-ParagraphMedium);
+}
+
+// Col 3: trailing action (spans 2 rows)
+.bui-banner__trailing {
+  display: flex;
+  grid-row-end: span 2;
+  margin-inline-start: auto;
+}
+
+// Trailing icon-only button
+.bui-banner__trailing-icon-btn {
+  align-items: center;
+  background: none;
+  border: none;
+  border-start-end-radius: 12px;
+  border-end-end-radius: 12px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  padding-inline-start: var(--bw-sizing-scale600);
+  padding-inline-end: var(--bw-sizing-scale600);
+
+  &--nested {
+    border-start-end-radius: 8px;
+    border-end-end-radius: 8px;
+  }
+
+  &:hover {
+    box-shadow: inset 999px 999px 0 rgba(0, 0, 0, 0.04);
+  }
+
+  &:active {
+    box-shadow: inset 999px 999px 0 rgba(0, 0, 0, 0.08);
+  }
+}
+
+// Trailing text-button container
+.bui-banner__trailing-btn-wrap {
+  display: flex;
+  align-items: center;
+  padding-inline-end: var(--bw-sizing-scale600);
+}
+
+// Col 2 row 2: below action
+.bui-banner__below {
+  grid-column-start: 2;
+
+  &--active {
+    padding-block-start: var(--bw-sizing-scale300);  // 8px
+    padding-block-end: var(--bw-sizing-scale600);    // 16px
+  }
+}
