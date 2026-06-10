@@ -52,7 +52,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Checkbox-v2', path: 'components/checkbox-v2', status: 'ready' },
           { label: 'Combobox', path: 'components/combobox', status: 'soon' },
           { label: 'Input', path: 'components/input', status: 'ready' },
-          { label: 'Payment Card', path: 'components/payment-card', status: 'soon' },
+          { label: 'Payment Card', path: 'components/payment-card', status: 'ready' },
           { label: 'Phone Input', path: 'components/phone-input', status: 'soon' },
           { label: 'Pin Code', path: 'components/pin-code', status: 'soon' },
           { label: 'Radio', path: 'components/radio', status: 'ready' },

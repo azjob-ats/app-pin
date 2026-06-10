@@ -165,6 +165,9 @@ export const BW_STORIES: BwStory[] = [
   { id: 'button-group--a11y', group: 'button-group', name: 'A11y', load: () => import('../components/button-group/button-group.scenarios').then((m) => m.BgA11yScenario) },
   { id: 'button-group--selected-disabled', group: 'button-group', name: 'Selected disabled', load: () => import('../components/button-group/button-group.scenarios').then((m) => m.BgSelectedDisabledScenario) },
   { id: 'button-group--overrides', group: 'button-group', name: 'Overrides', load: () => import('../components/button-group/button-group.scenarios').then((m) => m.BgOverridesScenario) },
+  // Payment Card
+  { id: 'payment-card--payment-card', group: 'payment-card', name: 'Payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.PaymentCardScenario) },
+  { id: 'payment-card--stateful-payment-card', group: 'payment-card', name: 'Stateful payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },
