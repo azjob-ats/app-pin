@@ -14,24 +14,23 @@ export type PopoverPlacement =
   | 'auto' | 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight'
   | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom';
 export type PopoverTrigger = 'click' | 'hover';
-
-const MARGIN = 8; // POPOVER_MARGIN
+export type AccessibilityType = 'tooltip' | 'menu' | 'none';
 
 /** Mapeia placement do Base Web → posições conectadas do CDK. */
-function toPositions(placement: PopoverPlacement): ConnectedPosition[] {
+function toPositions(placement: PopoverPlacement, margin: number): ConnectedPosition[] {
   const P: Record<string, ConnectedPosition> = {
-    bottom: { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: MARGIN },
-    bottomLeft: { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: MARGIN },
-    bottomRight: { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top', offsetY: MARGIN },
-    top: { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -MARGIN },
-    topLeft: { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -MARGIN },
-    topRight: { originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'bottom', offsetY: -MARGIN },
-    left: { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -MARGIN },
-    leftTop: { originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top', offsetX: -MARGIN },
-    leftBottom: { originX: 'start', originY: 'bottom', overlayX: 'end', overlayY: 'bottom', offsetX: -MARGIN },
-    right: { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: MARGIN },
-    rightTop: { originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top', offsetX: MARGIN },
-    rightBottom: { originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'bottom', offsetX: MARGIN },
+    bottom: { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: margin },
+    bottomLeft: { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: margin },
+    bottomRight: { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top', offsetY: margin },
+    top: { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -margin },
+    topLeft: { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -margin },
+    topRight: { originX: 'end', originY: 'top', overlayX: 'end', overlayY: 'bottom', offsetY: -margin },
+    left: { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -margin },
+    leftTop: { originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top', offsetX: -margin },
+    leftBottom: { originX: 'start', originY: 'bottom', overlayX: 'end', overlayY: 'bottom', offsetX: -margin },
+    right: { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: margin },
+    rightTop: { originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top', offsetX: margin },
+    rightBottom: { originX: 'end', originY: 'bottom', overlayX: 'start', overlayY: 'bottom', offsetX: margin },
   };
   if (placement === 'auto') return [P['bottom'], P['top'], P['right'], P['left']];
   return [P[placement] ?? P['bottom'], P['bottom'], P['top']];
@@ -63,13 +62,20 @@ function toPositions(placement: PopoverPlacement): ConnectedPosition[] {
     <ng-template
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="origin"
-      [cdkConnectedOverlayOpen]="open()"
+      [cdkConnectedOverlayOpen]="overlayOpen()"
       [cdkConnectedOverlayPositions]="positions()"
       [cdkConnectedOverlayHasBackdrop]="false"
       cdkConnectedOverlayPanelClass="bw-root"
       (overlayOutsideClick)="onOutsideClick($event)"
     >
-      <div class="bui-popover__body bui-popover__body--open" data-baseweb="popover" role="tooltip" (mouseenter)="onEnter()" (mouseleave)="onLeave()">
+      <div
+        class="bui-popover__body bui-popover__body--open"
+        data-baseweb="popover"
+        [attr.role]="accessibilityType() === 'none' ? null : (accessibilityType() === 'menu' ? 'menu' : 'tooltip')"
+        [style.visibility]="renderAll() && !open() ? 'hidden' : null"
+        (mouseenter)="onEnter()"
+        (mouseleave)="onLeave()"
+      >
         <div class="bui-popover__inner"><ng-content select="[buiPopoverContent]" /></div>
       </div>
     </ng-template>
@@ -79,11 +85,16 @@ export class BuiPopover {
   readonly isOpen = input<boolean | undefined>(undefined);
   readonly triggerType = input<PopoverTrigger>('click');
   readonly placement = input<PopoverPlacement>('auto');
+  readonly popoverMargin = input(8);
+  readonly renderAll = input(false, { transform: booleanAttribute });
+  readonly showArrow = input(false, { transform: booleanAttribute });
+  readonly accessibilityType = input<AccessibilityType>('tooltip');
   readonly isOpenChange = output<boolean>();
 
   private readonly internalOpen = signal(false);
   protected readonly open = computed(() => this.isOpen() ?? this.internalOpen());
-  protected readonly positions = computed(() => toPositions(this.placement()));
+  protected readonly overlayOpen = computed(() => this.renderAll() || this.open());
+  protected readonly positions = computed(() => toPositions(this.placement(), this.popoverMargin()));
 
   protected onClick(): void {
     if (this.triggerType() !== 'click' || this.isOpen() !== undefined) return;
