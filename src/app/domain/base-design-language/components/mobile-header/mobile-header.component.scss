@@ -1,0 +1,81 @@
+.bui-mh {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 48px;
+}
+
+.bui-mh--fixed {
+  background-color: var(--bw-background-primary);
+}
+
+.bui-mh--floating {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+// Expanded title spans full width in row 2
+.bui-mh--expanded {
+  grid-template-rows: 48px auto;
+}
+
+// Nav container
+.bui-mh__nav {
+  pointer-events: auto;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+
+  // text nav button in fixed mode: no extra padding
+  &--padded {
+    padding-left: var(--bw-sizing-scale300);  // 8px
+  }
+}
+
+// Title
+.bui-mh__title {
+  align-self: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: var(--bw-font-LabelLarge);
+  color: var(--bw-content-primary);
+
+  &--expanded {
+    font: var(--bw-font-HeadingLarge);
+    grid-column: 1 / 4;
+    grid-row: 2;
+    padding-left: var(--bw-sizing-scale600);    // 16px
+    padding-bottom: var(--bw-sizing-scale100);  // 4px
+    align-self: start;
+    white-space: normal;
+  }
+}
+
+// Action buttons container
+.bui-mh__actions {
+  display: flex;
+  justify-content: flex-end;
+  grid-column: 3 / 4;
+  pointer-events: auto;
+}
+
+// Header button overrides
+.bui-mh__btn {
+  pointer-events: auto;
+
+  &--icon {
+    height: 48px !important;
+    width: 48px !important;
+    padding: 0 !important;
+    min-width: 48px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--floating {
+    background-color: var(--bw-background-primary) !important;
+    margin-right: var(--bw-sizing-scale300);  // 8px
+  }
+}

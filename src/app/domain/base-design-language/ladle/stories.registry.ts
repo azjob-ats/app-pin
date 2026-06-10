@@ -168,6 +168,9 @@ export const BW_STORIES: BwStory[] = [
   // Payment Card
   { id: 'payment-card--payment-card', group: 'payment-card', name: 'Payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.PaymentCardScenario) },
   { id: 'payment-card--stateful-payment-card', group: 'payment-card', name: 'Stateful payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
+  // Mobile Header
+  { id: 'mobile-header--mobile-header-fixed', group: 'mobile-header', name: 'Mobile header fixed', load: () => import('../components/mobile-header/mobile-header.scenarios').then((m) => m.MobileHeaderFixedScenario) },
+  { id: 'mobile-header--mobile-header-floating', group: 'mobile-header', name: 'Mobile header floating', load: () => import('../components/mobile-header/mobile-header.scenarios').then((m) => m.MobileHeaderFloatingScenario) },
   // Pin Code
   { id: 'pin-code--pin-code', group: 'pin-code', name: 'Pin code', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeScenario) },
   { id: 'pin-code--mask', group: 'pin-code', name: 'Mask', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeMaskScenario) },
