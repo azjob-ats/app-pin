@@ -1,20 +1,23 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, booleanAttribute, input, output, signal } from '@angular/core';
 
 export type MenuSize = 'default' | 'compact';
 
-/** Item do Menu. `divider`/`header` p/ separador/cabeçalho; `profile` p/ item de perfil. */
+/** Item do Menu. `divider`/`header` p/ separador/cabeçalho; `profile` p/ item de perfil. `children` p/ submenu aninhado. */
 export interface MenuItem {
   label?: string;
   disabled?: boolean;
   divider?: boolean;
   header?: string;
   profile?: { title: string; subtitle?: string; body?: string };
+  children?: MenuItem[];
 }
 
 /**
  * Menu — clone fiel do `baseui/menu` (lista de opções). `<ul role="listbox">` com itens
  * `role="option"`; item destacado (hover/teclado) recebe `menuFillHover`. Base do dropdown
  * do Select. `items` (com `disabled`/`divider`/`header`), `size`.
+ * `children` em cada item p/ submenu aninhado (hover p/ abrir).
+ * `renderAll` renderiza filhos escondidos no DOM (SSR/a11y).
  */
 @Component({
   selector: 'bui-menu',
@@ -49,6 +52,7 @@ export interface MenuItem {
         } @else {
           <li
             class="bui-menu__item"
+            [class.bui-menu__item--has-children]="item.children?.length"
             role="option"
             [class.bui-menu__item--highlighted]="$index === highlighted() && !item.disabled"
             [class.bui-menu__item--disabled]="item.disabled"
@@ -58,6 +62,37 @@ export interface MenuItem {
             (click)="select($index, item)"
           >
             {{ item.label }}
+            @if (item.children?.length) {
+              <span class="bui-menu__chevron" aria-hidden="true">▶</span>
+            }
+            @if (item.children?.length) {
+              @if (renderAll()) {
+                <div
+                  class="bui-menu__child"
+                  [hidden]="$index !== highlighted()"
+                  aria-hidden="true"
+                >
+                  <bui-menu
+                    [items]="item.children!"
+                    [size]="size()"
+                    [ariaLabel]="(item.label ?? 'Submenu') + ' submenu'"
+                    renderAll
+                    (itemSelect)="itemSelect.emit($event)"
+                  />
+                </div>
+              } @else {
+                @if ($index === highlighted()) {
+                  <div class="bui-menu__child">
+                    <bui-menu
+                      [items]="item.children!"
+                      [size]="size()"
+                      [ariaLabel]="(item.label ?? 'Submenu') + ' submenu'"
+                      (itemSelect)="itemSelect.emit($event)"
+                    />
+                  </div>
+                }
+              }
+            }
           </li>
         }
       }
@@ -72,6 +107,8 @@ export class BuiMenu {
   readonly ariaLabel = input('Menu');
   /** Índice destacado inicial (StatefulMenu initialState.highlightedIndex). */
   readonly initialHighlight = input(-1);
+  /** Renderiza todos os filhos no DOM mesmo quando escondidos (SSR/renderAll). */
+  readonly renderAll = input(false, { transform: booleanAttribute });
   readonly itemSelect = output<MenuItem>();
 
   protected readonly highlighted = signal(-1);
@@ -86,6 +123,16 @@ export class BuiMenu {
   protected select(i: number, item: MenuItem): void {
     if (item.disabled) return;
     this.highlighted.set(i);
-    this.itemSelect.emit(item);
+    if (!item.children?.length) this.itemSelect.emit(item);
   }
 }
+
+/** Wrapper for nested menus (z-index stacking context). */
+@Component({
+  selector: 'bui-nested-menus',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  template: `<ng-content />`,
+  host: { class: 'bui-nested-menus', style: 'display:contents' },
+})
+export class BuiNestedMenus {}

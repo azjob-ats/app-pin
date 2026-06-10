@@ -107,6 +107,10 @@ export const BW_STORIES: BwStory[] = [
   { id: 'menu--stateful', group: 'menu', name: 'Stateful', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuStatefulScenario) },
   { id: 'menu--profile-menu', group: 'menu', name: 'Profile menu', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuProfileMenuScenario) },
   { id: 'menu--propagation', group: 'menu', name: 'Propagation', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuPropagationScenario) },
+  { id: 'menu--child', group: 'menu', name: 'Child', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuChildScenario) },
+  { id: 'menu--child-render-all', group: 'menu', name: 'Child render all', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuChildRenderAllScenario) },
+  { id: 'menu--child-in-popover', group: 'menu', name: 'Child in popover', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuChildInPopoverScenario) },
+  { id: 'menu--virtualized', group: 'menu', name: 'Virtualized', load: () => import('../components/menu/menu.scenarios').then((m) => m.MenuVirtualizedScenario) },
   // Drawer
   { id: 'drawer--drawer', group: 'drawer', name: 'Drawer', load: () => import('../components/drawer/drawer.scenarios').then((m) => m.DrawerScenario) },
   { id: 'drawer--hide-backdrop', group: 'drawer', name: 'Hide backdrop', load: () => import('../components/drawer/drawer.scenarios').then((m) => m.DrawerHideBackdropScenario) },
