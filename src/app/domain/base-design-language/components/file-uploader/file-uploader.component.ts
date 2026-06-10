@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { BuiFileUploaderBasic } from '../file-uploader-basic/file-uploader-basic.component';
 import { ProgressBar } from '../progress-bar/progress-bar.component';
-import { Button } from '../button/button.component';
 import type { PbIntent } from '../progress-bar/progress-bar.component';
 
 export type FileRowStatus = 'added' | 'error' | 'processed';
@@ -52,7 +51,7 @@ function checkAccept(file: File, accept: string | string[] | undefined): boolean
   selector: 'bui-file-uploader',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [BuiFileUploaderBasic, ProgressBar, Button],
+  imports: [BuiFileUploaderBasic, ProgressBar],
   styleUrl: './file-uploader.component.scss',
   template: `
     <div class="bui-fu" data-baseweb="file-uploader-parent-root">

@@ -208,6 +208,14 @@ export const BW_STORIES: BwStory[] = [
   { id: 'tree-view--rtl', group: 'tree-view', name: 'RTL', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewRtlScenario) },
   { id: 'tree-view--single-expanded', group: 'tree-view', name: 'Single expanded', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewSingleExpandedScenario) },
   { id: 'tree-view--icon-overrides', group: 'tree-view', name: 'Icon overrides', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewIconOverridesScenario) },
+  // Snackbar
+  { id: 'snackbar--snackbar-element', group: 'snackbar', name: 'Snackbar element', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarElementScenario) },
+  { id: 'snackbar--snackbar-element-overrides', group: 'snackbar', name: 'Snackbar element overrides', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarElementOverridesScenario) },
+  { id: 'snackbar--snackbar-element-rtl', group: 'snackbar', name: 'Snackbar element RTL', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarElementRtlScenario) },
+  { id: 'snackbar--snackbar-provider', group: 'snackbar', name: 'Snackbar provider', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarProviderScenario) },
+  { id: 'snackbar--snackbar-placement', group: 'snackbar', name: 'Snackbar placement', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarPlacementScenario) },
+  { id: 'snackbar--snackbar-async', group: 'snackbar', name: 'Snackbar async', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarAsyncScenario) },
+  { id: 'snackbar--snackbar-provider-overrides', group: 'snackbar', name: 'Snackbar provider overrides', load: () => import('../components/snackbar/snackbar.scenarios').then((m) => m.SnackbarProviderOverridesScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },

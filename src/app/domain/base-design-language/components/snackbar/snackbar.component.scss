@@ -1,0 +1,144 @@
+// Snackbar Element
+
+.bui-sb__measure-wrap {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  height: 0;
+}
+
+.bui-sb__root {
+  background-color: var(--bw-colors-backgroundInverseSecondary);
+  border-radius: var(--bw-borders-radius400);
+  box-shadow: 0px 16px 48px rgba(0, 0, 0, 0.22);
+  color: var(--bw-colors-contentInversePrimary);
+  display: inline-block;
+  max-width: 540px;
+  min-width: 320px;
+}
+
+.bui-sb__content {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.bui-sb__start-enhancer {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: var(--bw-sizing-scale600);
+}
+
+.bui-sb__message {
+  font-family: var(--bw-typography-ParagraphMedium-fontFamily);
+  font-size: var(--bw-typography-ParagraphMedium-fontSize);
+  font-weight: var(--bw-typography-ParagraphMedium-fontWeight);
+  line-height: var(--bw-typography-ParagraphMedium-lineHeight);
+  color: var(--bw-colors-contentInversePrimary);
+  margin: 0;
+  padding: var(--bw-sizing-scale600);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  flex: 1 1 auto;
+
+  &--has-action {
+    padding-right: 0;
+  }
+}
+
+.bui-sb__action-btn {
+  all: unset;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--bw-typography-LabelSmall-fontFamily);
+  font-size: var(--bw-typography-LabelSmall-fontSize);
+  font-weight: var(--bw-typography-LabelSmall-fontWeight);
+  line-height: var(--bw-typography-LabelSmall-lineHeight);
+  color: var(--bw-colors-contentInversePrimary);
+  padding: var(--bw-sizing-scale300) var(--bw-sizing-scale600);
+  border-radius: 999px;
+  margin-right: var(--bw-sizing-scale300);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bw-colors-contentInversePrimary);
+    outline-offset: 2px;
+  }
+
+  &--measure {
+    pointer-events: none;
+  }
+}
+
+.bui-sb__wrap-action {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: var(--bw-sizing-scale300);
+  padding-right: var(--bw-sizing-scale300);
+}
+
+// Snackbar Placement (outlet)
+
+.bui-sb__placement {
+  position: fixed;
+  z-index: var(--bw-z-snackbar, 2100);
+  display: flex;
+  flex-direction: column;
+  margin: var(--bw-sizing-scale300);
+  opacity: 0;
+  transition: opacity var(--bw-animation-timing400, 400ms) ease;
+  pointer-events: none;
+
+  &--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // Placement positions
+  &--topLeft {
+    top: 0;
+    left: 0;
+    align-items: flex-start;
+  }
+
+  &--top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+
+  &--topRight {
+    top: 0;
+    right: 0;
+    align-items: flex-end;
+  }
+
+  &--bottomRight {
+    bottom: 0;
+    right: 0;
+    align-items: flex-end;
+  }
+
+  &--bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+  }
+
+  &--bottomLeft {
+    bottom: 0;
+    left: 0;
+    align-items: flex-start;
+  }
+}

@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { BuiFileUploader, FileRow } from './file-uploader.component';
 
-const wrap = (template: string) => `<div style="padding:16px;max-width:480px">${template}</div>`;
-
 // file-uploader--file-uploader
 @Component({
   selector: 'bui-fu-default-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`<bui-file-uploader />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-file-uploader /></div>`,
 })
 export class FileUploaderScenario {}
 
@@ -17,7 +15,7 @@ export class FileUploaderScenario {}
   selector: 'bui-fu-item-preview-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`<bui-file-uploader itemPreview hint="Try uploading a file to see the itemPreview" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-file-uploader itemPreview hint="Try uploading a file to see the itemPreview" /></div>`,
 })
 export class FileUploaderItemPreviewScenario {}
 
@@ -26,7 +24,7 @@ export class FileUploaderItemPreviewScenario {}
   selector: 'bui-fu-label-hint-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`<bui-file-uploader label="Test label" hint="Test hint" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-file-uploader label="Test label" hint="Test hint" /></div>`,
 })
 export class FileUploaderLabelHintScenario {}
 
@@ -35,12 +33,14 @@ export class FileUploaderLabelHintScenario {}
   selector: 'bui-fu-long-loading-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`
-    <bui-file-uploader
-      hint="Try uploading a file, it will load for 10 seconds"
-      [processFileOnDrop]="processFile"
-    />
-  `),
+  template: `
+    <div style="padding:16px;max-width:480px">
+      <bui-file-uploader
+        hint="Try uploading a file, it will load for 10 seconds"
+        [processFileOnDrop]="processFile"
+      />
+    </div>
+  `,
 })
 export class FileUploaderLongLoadingScenario {
   processFile = (_file: File): Promise<{ errorMessage: string | null }> =>
@@ -52,13 +52,15 @@ export class FileUploaderLongLoadingScenario {
   selector: 'bui-fu-long-loading-multiple-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`
-    <bui-file-uploader
-      hint="Try uploading multiple files at once to see the progress bar upload independently for each file"
-      [processFileOnDrop]="processFile"
-      [progressAmountStartValue]="0"
-    />
-  `),
+  template: `
+    <div style="padding:16px;max-width:480px">
+      <bui-file-uploader
+        hint="Try uploading multiple files at once to see the progress bar upload independently for each file"
+        [processFileOnDrop]="processFile"
+        [progressAmountStartValue]="0"
+      />
+    </div>
+  `,
 })
 export class FileUploaderLongLoadingMultipleScenario {
   fileRows = signal<FileRow[]>([]);
@@ -97,14 +99,16 @@ export class FileUploaderLongLoadingMultipleScenario {
   selector: 'bui-fu-overrides-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`
-    <bui-file-uploader
-      label="Upload documents"
-      hint="Max file size: 10 MB"
-      itemPreview
-      [accept]="['image/png', 'image/jpeg', 'application/pdf']"
-    />
-  `),
+  template: `
+    <div style="padding:16px;max-width:480px">
+      <bui-file-uploader
+        label="Upload documents"
+        hint="Max file size: 10 MB"
+        itemPreview
+        [accept]="['image/png', 'image/jpeg', 'application/pdf']"
+      />
+    </div>
+  `,
 })
 export class FileUploaderOverridesScenario {}
 
@@ -113,14 +117,16 @@ export class FileUploaderOverridesScenario {}
   selector: 'bui-fu-upload-restrictions-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiFileUploader],
-  template: wrap(`
-    <bui-file-uploader
-      [accept]="['image/png', 'application/pdf']"
-      [maxFiles]="3"
-      [maxSize]="100000"
-      [minSize]="20000"
-      hint="Try uploading files that break these conditions: 1. accept set to [&quot;image/png&quot;, &quot;application/pdf&quot;], 2. minSize set to 20000 bytes (20 KB), 3. maxSize set to 100000 bytes (100 KB), 4. maxFiles set to 3"
-    />
-  `),
+  template: `
+    <div style="padding:16px;max-width:480px">
+      <bui-file-uploader
+        [accept]="['image/png', 'application/pdf']"
+        [maxFiles]="3"
+        [maxSize]="100000"
+        [minSize]="20000"
+        hint="Try uploading files that break these conditions: 1. accept set to [&quot;image/png&quot;, &quot;application/pdf&quot;], 2. minSize set to 20000 bytes (20 KB), 3. maxSize set to 100000 bytes (100 KB), 4. maxFiles set to 3"
+      />
+    </div>
+  `,
 })
 export class FileUploaderUploadRestrictionsScenario {}

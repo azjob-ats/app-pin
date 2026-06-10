@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BuiStatefulTreeView, type TreeNodeData } from './tree-view.component';
-
-const wrap = (template: string) => `<div style="padding:16px;max-width:480px">${template}</div>`;
 
 const twoNodeData: TreeNodeData[] = [
   {
@@ -37,7 +35,7 @@ const twoNodeData: TreeNodeData[] = [
   selector: 'bui-tv-default-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiStatefulTreeView],
-  template: wrap(`<bui-stateful-tree-view [data]="data" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-stateful-tree-view [data]="data" /></div>`,
 })
 export class TreeViewScenario {
   data = twoNodeData;
@@ -48,7 +46,7 @@ export class TreeViewScenario {
   selector: 'bui-tv-interactable-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiStatefulTreeView],
-  template: wrap(`<bui-stateful-tree-view [data]="data" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-stateful-tree-view [data]="data" /></div>`,
 })
 export class TreeViewInteractableScenario {
   data: TreeNodeData[] = [
@@ -86,7 +84,7 @@ export class TreeViewInteractableScenario {
   selector: 'bui-tv-render-all-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiStatefulTreeView],
-  template: wrap(`<bui-stateful-tree-view [data]="data" [renderAll]="true" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-stateful-tree-view [data]="data" [renderAll]="true" /></div>`,
 })
 export class TreeViewRenderAllScenario {
   data: TreeNodeData[] = [
@@ -128,7 +126,7 @@ export class TreeViewRenderAllScenario {
   selector: 'bui-tv-rtl-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiStatefulTreeView],
-  template: wrap(`<div dir="rtl"><bui-stateful-tree-view [data]="data" /></div>`),
+  template: `<div style="padding:16px;max-width:480px"><div dir="rtl"><bui-stateful-tree-view [data]="data" /></div></div>`,
 })
 export class TreeViewRtlScenario {
   data = twoNodeData;
@@ -139,7 +137,7 @@ export class TreeViewRtlScenario {
   selector: 'bui-tv-single-expanded-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiStatefulTreeView],
-  template: wrap(`<bui-stateful-tree-view [data]="data" [singleExpanded]="true" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-stateful-tree-view [data]="data" [singleExpanded]="true" /></div>`,
 })
 export class TreeViewSingleExpandedScenario {
   data: TreeNodeData[] = [
@@ -198,7 +196,7 @@ export class TreeViewSingleExpandedScenario {
   selector: 'bui-tv-icon-overrides-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiStatefulTreeView],
-  template: wrap(`<bui-stateful-tree-view [data]="data" />`),
+  template: `<div style="padding:16px;max-width:480px"><bui-stateful-tree-view [data]="data" /></div>`,
 })
 export class TreeViewIconOverridesScenario {
   data = twoNodeData;

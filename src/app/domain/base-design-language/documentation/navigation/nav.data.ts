@@ -129,7 +129,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Progress Bar', path: 'components/progress-bar', status: 'ready' },
           { label: 'Progress Steps', path: 'components/progress-steps', status: 'soon' },
           { label: 'Skeleton', path: 'components/skeleton', status: 'ready' },
-          { label: 'Snackbar', path: 'components/snackbar', status: 'soon' },
+          { label: 'Snackbar', path: 'components/snackbar', status: 'ready' },
           { label: 'Spinner', path: 'components/spinner', status: 'ready' },
           { label: 'Toast', path: 'components/toast', status: 'soon' },
         ],
