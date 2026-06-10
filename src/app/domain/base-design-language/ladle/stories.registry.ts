@@ -139,6 +139,11 @@ export const BW_STORIES: BwStory[] = [
   { id: 'button--background-safe', group: 'button', name: 'Background safe', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonBackgroundSafeScenario) },
   { id: 'button--min-hit-area', group: 'button', name: 'Min hit area', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonMinHitAreaScenario) },
   { id: 'button--a11y', group: 'button', name: 'A11y', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonA11yScenario) },
+  // Message card
+  { id: 'message-card--message-card', group: 'message-card', name: 'Message card', load: () => import('../components/message-card/message-card.scenarios').then((m) => m.MessageCardScenario) },
+  { id: 'message-card--sizes', group: 'message-card', name: 'Sizes', load: () => import('../components/message-card/message-card.scenarios').then((m) => m.MessageCardSizesScenario) },
+  { id: 'message-card--trailing-image', group: 'message-card', name: 'Trailing image', load: () => import('../components/message-card/message-card.scenarios').then((m) => m.MessageCardTrailingScenario) },
+  { id: 'message-card--image-positions', group: 'message-card', name: 'Image positions', load: () => import('../components/message-card/message-card.scenarios').then((m) => m.MessageCardImagePositionsScenario) },
   // Banner
   { id: 'banner--banner', group: 'banner', name: 'Banner', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerScenario) },
   { id: 'banner--artwork', group: 'banner', name: 'Artwork', load: () => import('../components/banner/banner.scenarios').then((m) => m.BannerArtworkScenario) },

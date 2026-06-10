@@ -1,0 +1,116 @@
+.bui-mc {
+  align-items: stretch;
+  border-radius: 12px;  // radius400
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  text-align: start;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+
+  // layout: trailing image → row direction
+  &--row {
+    flex-direction: row;
+  }
+
+  // Light background: show border, dark text
+  &--light {
+    color: var(--bw-content-primary);           // black
+    border: 1px solid var(--bw-border-opaque);
+  }
+
+  // Dark background: no border, white text
+  &--dark {
+    color: var(--bw-content-on-color);          // white
+  }
+
+  // Hover/active overlays via ::after
+  &--clickable {
+    &:focus {
+      outline: 3px solid var(--bw-border-accent, var(--bw-background-accent));
+      outline-offset: -3px;
+    }
+    &:hover::after,
+    &:active::after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &--clickable#{&}--light {
+    &:hover::after  { background-color: rgba(0, 0, 0, 0.04); }
+    &:active::after { background-color: rgba(0, 0, 0, 0.08); }
+  }
+
+  &--clickable#{&}--dark {
+    &:hover::after  { background-color: rgba(255, 255, 255, 0.10); }
+    &:active::after { background-color: rgba(255, 255, 255, 0.20); }
+  }
+}
+
+// Image div with background-image
+.bui-mc__image {
+  background-size: cover;
+  flex-shrink: 0;
+
+  &--top {
+    height: 132px;
+    width: 100%;
+  }
+
+  &--trailing {
+    width: 112px;
+    order: 1;
+    // height fills the row (no explicit height needed in flex row)
+  }
+}
+
+// Content: padding matches original
+.bui-mc__content {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: var(--bw-sizing-scale600);      // 16px
+  padding-right: var(--bw-sizing-scale300);    // 8px
+  padding-bottom: var(--bw-sizing-scale600);   // 16px
+  padding-left: var(--bw-sizing-scale600);     // 16px
+}
+
+.bui-mc__heading {
+  font: var(--bw-font-HeadingXSmall);
+}
+
+.bui-mc__paragraph {
+  font: var(--bw-font-ParagraphSmall);
+  margin-top: var(--bw-sizing-scale100);       // 4px
+}
+
+// CTA div styled as compact pill button
+.bui-mc__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 0 16px;
+  height: 36px;
+  font: var(--bw-font-LabelSmall);
+  pointer-events: none;
+  margin-top: var(--bw-sizing-scale500);    // 12px
+
+  &--secondary {
+    background-color: var(--bw-background-always-light, #fff);
+    color: var(--bw-content-on-color-inverse, #000);
+  }
+
+  &--tertiary {
+    margin-top: var(--bw-sizing-scale100);  // 4px
+    transform: translateX(calc(-1 * var(--bw-sizing-scale500)));
+  }
+}
