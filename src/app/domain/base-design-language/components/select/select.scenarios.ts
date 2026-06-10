@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, signal, viewChild } from '@angular/core';
 import { Select, type Option, type SelectOptions } from './select.component';
+import { BuiModal, BuiModalHeader, BuiModalBody, BuiModalFooter, BuiModalButton } from '../modal/modal.component';
+import { Button } from '../button/button.component';
+import { BuiInput } from '../input/input.component';
 
 /** Paleta padrão das stories (labelKey="id", valueKey="color"). */
 const COLORS: Option[] = [
@@ -404,4 +407,275 @@ export class SelectMaintainsScenario {
 })
 export class SelectBackspaceScenario {
   protected readonly opts = COLORS;
+}
+
+// select-in-modal.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select, Button, BuiModal, BuiModalHeader, BuiModalBody, BuiModalFooter, BuiModalButton],
+  selector: 'bui-s-select-in-modal',
+  template: `
+    <bui-button (click)="open.set(true)">Open Modal</bui-button>
+    <bui-modal [isOpen]="open()" (modalClose)="open.set(false)">
+      <bui-modal-header>Hello world</bui-modal-header>
+      <bui-modal-body>
+        <bui-select
+          [options]="opts"
+          labelKey="id"
+          valueKey="color"
+          ariaLabel="Color"
+        />
+      </bui-modal-body>
+      <bui-modal-footer>
+        <bui-modal-button (buttonClick)="open.set(false)">Cancel</bui-modal-button>
+        <bui-modal-button (buttonClick)="open.set(false)">Okay</bui-modal-button>
+      </bui-modal-footer>
+    </bui-modal>
+  `,
+})
+export class SelectInModalScenario {
+  protected readonly opts = COLORS;
+  protected readonly open = signal(false);
+}
+
+// select-input-ref.scenario.tsx — focus the select via viewChild
+@Component({
+  ...base,
+  imports: [Select, Button],
+  selector: 'bui-s-select-input-ref',
+  template: `
+    <div style="width:360px">
+      <bui-button (click)="focusSelect()">focus</bui-button>
+      <bui-select #inputRefSelect [options]="opts" ariaLabel="Select fruit" [value]="value()" (changed)="value.set($event)" />
+    </div>
+  `,
+})
+export class SelectInputRefScenario {
+  protected readonly opts: Option[] = [
+    { id: 'a', label: 'apples' },
+    { id: 'b', label: 'bananas' },
+    { id: 'c', label: 'dragon fruit' },
+  ];
+  protected readonly value = signal<Option[]>([]);
+  private readonly selectRef = viewChild.required<Select>('inputRefSelect');
+  protected focusSelect(): void {
+    this.selectRef().focus();
+  }
+}
+
+// select-controlref-set-dropdown-open.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select, Button],
+  selector: 'bui-s-select-ctrl-open',
+  template: `
+    <div style="width:360px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:20px">
+        <bui-button id="open" (click)="openDropdown()">Open Dropdown</bui-button>
+        <bui-button id="close" (click)="closeDropdown()">Close Dropdown</bui-button>
+      </div>
+      <bui-select #ctrlOpenSelect [options]="opts" ariaLabel="Select fruit" [value]="value()" (changed)="value.set($event)" />
+    </div>
+  `,
+})
+export class SelectCtrlOpenScenario {
+  protected readonly opts: Option[] = [
+    { id: 'a', label: 'apples' },
+    { id: 'b', label: 'bananas' },
+    { id: 'c', label: 'dragon fruit' },
+  ];
+  protected readonly value = signal<Option[]>([]);
+  private readonly selectRef = viewChild.required<Select>('ctrlOpenSelect');
+  protected openDropdown(): void { this.selectRef().setDropdownOpen(true); }
+  protected closeDropdown(): void { this.selectRef().setDropdownOpen(false); }
+}
+
+// select-controlref-set-input-value.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select, Button, BuiInput],
+  selector: 'bui-s-select-ctrl-input',
+  template: `
+    <div style="width:360px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:20px">
+        <bui-input [value]="inputText()" (valueChange)="inputText.set($event)" id="inputValue" ariaLabel="Input value" />
+        <bui-button id="setInputValueBtn" (click)="setInputValue()" style="min-width:105px;margin-left:20px">Set value</bui-button>
+      </div>
+      <bui-select #ctrlInputSelect [options]="opts" type="search" ariaLabel="Select fruit" [value]="value()" (changed)="value.set($event)" />
+    </div>
+  `,
+})
+export class SelectCtrlInputScenario {
+  protected readonly opts: Option[] = [
+    { id: 'a', label: 'apples' },
+    { id: 'b', label: 'bananas' },
+    { id: 'c', label: 'dragon fruit' },
+  ];
+  protected readonly value = signal<Option[]>([]);
+  protected readonly inputText = signal('apples');
+  private readonly selectRef = viewChild.required<Select>('ctrlInputSelect');
+  protected setInputValue(): void { this.selectRef().setInputValue(this.inputText()); }
+}
+
+// select-calls-provided-blur.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select],
+  selector: 'bui-s-select-blur',
+  template: `
+    <bui-select
+      [options]="opts"
+      ariaLabel="Select option"
+      [closeOnSelect]="false"
+      (blurred)="blurCount.set(blurCount() + 1)"
+    />
+    <button>focus target</button>
+    <p>{{ blurCount() }}</p>
+  `,
+})
+export class SelectCallsBlurScenario {
+  protected readonly opts: Option[] = [
+    { id: 'a', label: 'hey!' },
+    { id: 'b', label: 'are you listening?' },
+    { id: 'c', label: 'look at me!' },
+  ];
+  protected readonly blurCount = signal(0);
+}
+
+// select-click-maintains-focus.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select],
+  selector: 'bui-s-select-click-focus',
+  template: `
+    <button>before</button>
+    <bui-select [options]="opts" ariaLabel="Select option" />
+    <button>after</button>
+  `,
+})
+export class SelectClickFocusScenario {
+  protected readonly opts: Option[] = [
+    { id: 'a', label: 'hey!' },
+    { id: 'b', label: 'are you listening?' },
+    { id: 'c', label: 'look at me!' },
+  ];
+}
+
+// select-click-triggers-blur.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select],
+  selector: 'bui-s-select-click-blur',
+  template: `
+    <button data-test-id="button" (click)="showSelect.set(true)">Show Select</button>
+    @if (showSelect()) {
+      <bui-select
+        autoFocus
+        [options]="opts"
+        ariaLabel="Select color"
+        placeholder="Select color"
+        [value]="value()"
+        (changed)="value.set($event)"
+        (blurred)="showSelect.set(false)"
+      />
+    }
+  `,
+})
+export class SelectClickBlurScenario {
+  protected readonly opts: Option[] = [
+    { label: 'AliceBlue', id: '#F0F8FF' },
+    { label: 'AntiqueWhite', id: '#FAEBD7' },
+    { label: 'Aqua', id: '#00FFFF' },
+    { label: 'Aquamarine', id: '#7FFFD4' },
+    { label: 'Azure', id: '#F0FFFF' },
+    { label: 'Beige', id: '#F5F5DC' },
+  ];
+  protected readonly showSelect = signal(false);
+  protected readonly value = signal<Option[]>([]);
+}
+
+// select-unmount-blur.scenario.tsx
+@Component({
+  ...base,
+  imports: [Select],
+  selector: 'bui-s-select-unmount',
+  template: `
+    <p>value selected: {{ value().length ? value()[0]['id'] : 'none' }}</p>
+    @if (showSelect()) {
+      <div data-testid="select-container">
+        <bui-select
+          [options]="opts"
+          labelKey="id"
+          valueKey="color"
+          ariaLabel="Select color"
+          [value]="value()"
+          (changed)="value.set($event); showSelect.set(false)"
+          (blurred)="showSelect.set(false)"
+        />
+      </div>
+    } @else {
+      <button (click)="showSelect.set(true)">click to show select</button>
+    }
+  `,
+})
+export class SelectUnmountScenario {
+  protected readonly opts = COLORS;
+  protected readonly showSelect = signal(false);
+  protected readonly value = signal<Option[]>([]);
+}
+
+// select-overridden-icon-container.scenario.tsx — approximation (no React override API)
+@Component({
+  ...base,
+  imports: [Select],
+  selector: 'bui-s-select-icon-container',
+  template: `
+    <div>
+      <bui-select
+        type="search"
+        [options]="opts"
+        ariaLabel="Select color"
+        [value]="value()"
+        (changed)="value.set($event)"
+      />
+      <p>custom element click count <span data-testId="click-count">{{ count() }}</span></p>
+    </div>
+  `,
+})
+export class SelectOverriddenIconScenario {
+  protected readonly opts: Option[] = [
+    { label: 'AliceBlue', id: '#F0F8FF' },
+    { label: 'AntiqueWhite', id: '#FAEBD7' },
+    { label: 'Aqua', id: '#00FFFF' },
+    { label: 'Aquamarine', id: '#7FFFD4' },
+    { label: 'Azure', id: '#F0FFFF' },
+    { label: 'Beige', id: '#F5F5DC' },
+  ];
+  protected readonly value = signal<Option[]>([]);
+  protected readonly count = signal(0);
+}
+
+// select-overridden-menu.scenario.tsx — approximation (no React stateReducer override)
+@Component({
+  ...base,
+  imports: [Select],
+  selector: 'bui-s-select-menu-override',
+  template: `
+    <bui-select
+      type="search"
+      multi
+      [closeOnSelect]="false"
+      [options]="opts"
+      labelKey="id"
+      valueKey="color"
+      ariaLabel="Select colors"
+    />
+  `,
+})
+export class SelectOverriddenMenuScenario {
+  protected readonly opts = [
+    ...COLORS,
+    { id: 'DarkBlue', color: '#00008B' },
+    { id: 'DarkCyan', color: '#008B8B' },
+  ];
 }

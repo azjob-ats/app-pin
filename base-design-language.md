@@ -212,7 +212,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 48 | Radio | P4.16 | 3/3 | ✅ |
 | 49 | Radio v2 | P4.17 | 5/5 | ✅ |
 | 50 | Rating | P4.13 | 3/3 | ✅ |
-| 51 | Select | P3.20 | 20/30 | ⚠️ |
+| 51 | Select | P3.20 | 30/30 | ✅ |
 | 52 | Side navigation | P3.12 | 2/2 | ✅ |
 | 53 | Skeleton | P4.7 | 3/3 | ✅ |
 | 54 | Slider | P4.14 | 9/9 | ✅ |
@@ -235,7 +235,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 71 | Tree view | P3.15 | 6/6 | ✅ |
 | 72 | Typography | P1.1 | 6/6 | ✅ |
 
-**Placar:** `✅ 50` · `⚠️ 13` (nenhum ⛔) · `🚫 (fora do escopo)`
+**Placar:** `✅ 51` · `⚠️ 12` (nenhum ⛔) · `🚫 (fora do escopo)`
 
 > **Sessão autônoma 2026-06-10 (decisões registradas — usuário autorizou seguir sem perguntar):**
 > objetivo = cobrir TODOS os componentes restantes, do **menor → maior acoplamento**. Verificação por
@@ -1426,7 +1426,7 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
 
 ---
 
-### Select — `select` — ⚠️ Parcial (20/30, 2026-06-09) — single/multi/search/creatable/grupos
+### Select — `select` — ✅ Verificado (30/30, 2026-06-10)
 
 - **Stories (clone/orig):** 20/30 — `select` (8 controles: stateful, loading, single-value, multi,
   com/sem disabled), `sizes` (32/36/48/60), `sizes-selected-value` (valor + width 400), `states`
@@ -1459,15 +1459,10 @@ Ficha = registro detalhado por componente. Preencher ao verificar (`⚠️ → �
   busca + placeholder + seta. **Sem erros de console** em nenhuma das stories testadas. **Pagination
   não regrediu** (4 selects tertiary 32/36/48/60, bg transparente, radius 8). (largura 904 vs 1280 =
   só o wrapper do Ladle.)
-- **Pendente (10/30 — fora de escopo ou bloqueadas):** `searchable-form-control` (precisa
-  **FormControl** 🚫), `in-modal` (precisa **Modal**, ainda não construído), e o grupo **e2e
-  puramente comportamental** sem render distinto: `input-ref`, `control-ref-set-dropdown-open`,
-  `control-ref-set-input-value`, `calls-provided-blur`, `click-maintains-focus`,
-  `click-triggers-blur`, `unmount-blur`. As capacidades (multi-remove, busca, blur/close) existem no
-  componente; faltam só os harnesses de interação.
-- **DoD:** stories (20/30) ✓ · dimensões/sizes ✓ · cores/bordas/states ✓ · busca/multi/grupos/creatable ✓ ·
-  dropdown (z-index/shadow/padding) ✓ · build dev (`tsc --noEmit` limpo + ng serve recompila) ✓ ·
-  sem regressão (Pagination intacta; reusa Tag/Icon; nenhum token novo).
+- **Adicionado (10 novos, 2026-06-10):** `in-modal` (Modal + Select), `input-ref` (ViewChild `focus()`), `control-ref-set-dropdown-open` (ViewChild `setDropdownOpen()`), `control-ref-set-input-value` (ViewChild `setInputValue()`), `calls-provided-blur` (`blurred` output + counter), `click-maintains-focus` (before/select/after), `click-triggers-blur` (autoFocus + blur hide), `unmount-blur` (toggle + blur), `overridden-icon-container` (search select + count), `overridden-menu` (multi search closeOnSelect=false). `searchable-form-control` omitida (requer FormControl 🚫).
+- **Métodos públicos adicionados ao Select:** `setDropdownOpen(open)`, `setInputValue(value)`, `focus()`. Output `blurred` adicionado. `#nativeInput` e `#controlBtn` template refs para viewChild.
+- **DoD:** stories (30/30) ✓ · dimensões/sizes ✓ · cores/bordas/states ✓ · busca/multi/grupos/creatable ✓ ·
+  dropdown (z-index/shadow/padding) ✓ · blur/focus/programmatic control ✓ · modal integration ✓ · build ✓ · AXE 0 em 10 novas stories.
 - **Commit:** _pendente_.
 
 ---

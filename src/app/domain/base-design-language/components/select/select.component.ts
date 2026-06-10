@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   ViewEncapsulation,
   booleanAttribute,
   computed,
@@ -9,6 +10,7 @@ import {
   input,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BuiTag } from '../tag/tag.component';
@@ -84,6 +86,10 @@ export class Select implements ControlValueAccessor {
 
   readonly changed = output<Option[]>();
   readonly inputChange = output<string>();
+  readonly blurred = output<void>();
+
+  private readonly _nativeInput = viewChild<ElementRef<HTMLInputElement>>('nativeInput');
+  private readonly _controlBtn = viewChild<ElementRef<HTMLButtonElement>>('controlBtn');
 
   // ── estado interno ──
   protected readonly open = signal(false);
@@ -277,5 +283,26 @@ export class Select implements ControlValueAccessor {
   }
   setDisabledState(): void {
     /* via input */
+  }
+
+  // ── public API (control-ref / input-ref equivalents) ──
+  setDropdownOpen(open: boolean): void {
+    this.open.set(open);
+    if (open) this.highlighted.set(0);
+  }
+
+  setInputValue(value: string): void {
+    this.inputValue.set(value);
+    if (value) this.open.set(true);
+  }
+
+  focus(): void {
+    this._nativeInput()?.nativeElement.focus();
+    this._controlBtn()?.nativeElement.focus();
+  }
+
+  protected onBlur(): void {
+    this.focused.set(false);
+    this.blurred.emit();
   }
 }

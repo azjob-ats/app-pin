@@ -27,6 +27,7 @@
       }
       @if (isSearchable()) {
         <input
+          #nativeInput
           class="bui-select__input"
           type="text"
           role="combobox"
@@ -38,7 +39,7 @@
           [placeholder]="isEmpty() ? placeholder() : ''"
           (input)="onInput($event)"
           (focus)="focused.set(true); openMenu()"
-          (blur)="focused.set(false)"
+          (blur)="onBlur()"
         />
       } @else if (isEmpty()) {
         <span class="bui-select__value--ph">{{ placeholder() }}</span>
@@ -72,12 +73,14 @@
 } @else {
   <!-- controle simples: <button> (Pagination / single select) -->
   <button
+    #controlBtn
     type="button"
     class="bui-select__control"
     [attr.aria-label]="ariaLabel() || placeholder()"
     [attr.data-open]="open() ? '' : null"
     [disabled]="disabled()"
     (click)="toggle()"
+    (blur)="onBlur()"
   >
     <span class="bui-select__value" [class.bui-select__value--ph]="isEmpty()">{{
       isEmpty() ? placeholder() : singleLabel()
