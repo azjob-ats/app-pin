@@ -139,6 +139,8 @@ export const BW_STORIES: BwStory[] = [
   { id: 'button--background-safe', group: 'button', name: 'Background safe', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonBackgroundSafeScenario) },
   { id: 'button--min-hit-area', group: 'button', name: 'Min hit area', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonMinHitAreaScenario) },
   { id: 'button--a11y', group: 'button', name: 'A11y', load: () => import('../components/button/button.scenarios').then((m) => m.ButtonA11yScenario) },
+  // Button timed
+  { id: 'button-timed--button-timed', group: 'button-timed', name: 'Button timed', load: () => import('../components/button-timed/button-timed.scenarios').then((m) => m.ButtonTimedScenario) },
   // Button group
   { id: 'button-group--checkbox', group: 'button-group', name: 'Checkbox', load: () => import('../components/button-group/button-group.scenarios').then((m) => m.BgCheckboxScenario) },
   { id: 'button-group--radio', group: 'button-group', name: 'Radio', load: () => import('../components/button-group/button-group.scenarios').then((m) => m.BgRadioScenario) },

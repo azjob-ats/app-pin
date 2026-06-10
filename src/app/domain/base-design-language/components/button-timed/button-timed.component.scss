@@ -1,0 +1,14 @@
+.bui-bt__timer {
+  min-width: 53px;
+  display: inline-block;
+}
+
+.bui-bt__bar {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform-origin: left;
+  transition: transform 0.1s linear;
+  pointer-events: none;
+  z-index: 1;
+}
