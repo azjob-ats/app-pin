@@ -1,0 +1,119 @@
+.bui-fu {
+  font: var(--bw-font-ParagraphSmall);
+  color: var(--bw-content-secondary, var(--bw-content-primary));
+}
+
+.bui-fu__aria-live {
+  position: absolute;
+  top: 0;
+  left: -4px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.bui-fu__label {
+  font: var(--bw-font-LabelMedium);
+  color: var(--bw-content-primary);
+  margin-bottom: var(--bw-sizing-scale300);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.bui-fu__file-rows {
+  margin-top: var(--bw-sizing-scale300);
+}
+
+.bui-fu__file-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--bw-sizing-scale300);
+}
+
+.bui-fu__item-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  margin-right: var(--bw-sizing-scale300);
+  color: var(--bw-content-secondary);
+}
+
+.bui-fu__thumbnail {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: var(--bw-border-radius-200, 4px);
+}
+
+.bui-fu__file-row-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.bui-fu__file-row-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bw-sizing-scale300);
+}
+
+.bui-fu__file-row-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.bui-fu__file-name {
+  font: var(--bw-font-LabelSmall);
+  color: var(--bw-content-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: var(--bw-sizing-scale0);
+}
+
+.bui-fu__upload-message {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--bw-font-ParagraphXSmall);
+}
+
+.bui-fu__status-icon {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.bui-fu__delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--bw-content-secondary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+
+  &:hover {
+    background-color: var(--bw-background-secondary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--bw-border-accent);
+    outline-offset: 2px;
+  }
+}
+
+.bui-fu__hint {
+  font: var(--bw-font-ParagraphXSmall);
+  color: var(--bw-content-secondary);
+  margin-top: var(--bw-sizing-scale300);
+}

@@ -168,6 +168,22 @@ export const BW_STORIES: BwStory[] = [
   // Payment Card
   { id: 'payment-card--payment-card', group: 'payment-card', name: 'Payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.PaymentCardScenario) },
   { id: 'payment-card--stateful-payment-card', group: 'payment-card', name: 'Stateful payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
+  // File Uploader
+  { id: 'file-uploader--file-uploader', group: 'file-uploader', name: 'File uploader', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderScenario) },
+  { id: 'file-uploader--item-preview', group: 'file-uploader', name: 'Item preview', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderItemPreviewScenario) },
+  { id: 'file-uploader--label-hint', group: 'file-uploader', name: 'Label hint', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderLabelHintScenario) },
+  { id: 'file-uploader--long-loading', group: 'file-uploader', name: 'Long loading', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderLongLoadingScenario) },
+  { id: 'file-uploader--long-loading-multiple-files', group: 'file-uploader', name: 'Long loading multiple files', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderLongLoadingMultipleScenario) },
+  { id: 'file-uploader--overrides', group: 'file-uploader', name: 'Overrides', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderOverridesScenario) },
+  { id: 'file-uploader--upload-restrictions', group: 'file-uploader', name: 'Upload restrictions', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderUploadRestrictionsScenario) },
+  // File Uploader Basic
+  { id: 'file-uploader-basic--file-uploader', group: 'file-uploader-basic', name: 'File uploader', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicScenario) },
+  { id: 'file-uploader-basic--pre-drop', group: 'file-uploader-basic', name: 'Pre drop', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicPreDropScenario) },
+  { id: 'file-uploader-basic--post-drop', group: 'file-uploader-basic', name: 'Post drop', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicPostDropScenario) },
+  { id: 'file-uploader-basic--spinner', group: 'file-uploader-basic', name: 'Spinner', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicSpinnerScenario) },
+  { id: 'file-uploader-basic--progress-bar', group: 'file-uploader-basic', name: 'Progress bar', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicProgressBarScenario) },
+  { id: 'file-uploader-basic--error', group: 'file-uploader-basic', name: 'Error', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicErrorScenario) },
+  { id: 'file-uploader-basic--disabled', group: 'file-uploader-basic', name: 'Disabled', load: () => import('../components/file-uploader-basic/file-uploader-basic.scenarios').then((m) => m.FileUploaderBasicDisabledScenario) },
   // Side Navigation
   { id: 'side-navigation--nav', group: 'side-navigation', name: 'Nav', load: () => import('../components/side-navigation/side-navigation.scenarios').then((m) => m.SideNavScenario) },
   { id: 'side-navigation--nav-long', group: 'side-navigation', name: 'Nav long', load: () => import('../components/side-navigation/side-navigation.scenarios').then((m) => m.SideNavLongScenario) },
