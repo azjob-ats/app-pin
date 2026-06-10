@@ -395,7 +395,7 @@ export class BuiDtFilterPanel {
     <!-- Filter overlay -->
     <ng-template
       cdkConnectedOverlay
-      [cdkConnectedOverlayOrigin]="filterOriginRef()"
+      [cdkConnectedOverlayOrigin]="filterOriginRef()!"
       [cdkConnectedOverlayOpen]="filterOpen()"
       [cdkConnectedOverlayHasBackdrop]="true"
       cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"

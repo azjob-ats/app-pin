@@ -181,7 +181,7 @@ export function NumericalColumn(opts: {
     filterType: 'numerical',
     highlight: opts.highlight,
     getCellStyle: opts.highlight
-      ? (v) => (opts.highlight!(v) ? { color: '#c70000' } : {})
+      ? (v): Record<string, string> => (opts.highlight!(v) ? { color: '#c70000' } : {})
       : undefined,
     sortFn: (a, b) => a - b,
     buildFilter: (params: FilterParams) => {
