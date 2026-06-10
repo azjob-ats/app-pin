@@ -308,7 +308,7 @@ export class PopoverRepositionScenario {
       <bui-select
         [options]="opts"
         [multi]="true"
-        [isOpen]="true"
+        startOpen
         placeholder="Select color"
         ariaLabel="Select color"
       />

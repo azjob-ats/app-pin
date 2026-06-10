@@ -73,12 +73,16 @@ const ARROW_DOWN = 'M12 6C12.5523 6 13 6.44772 13 7V14.5858L15.2929 12.2929C15.6
 const ARROW_LEFT = 'M6.29289 11.2929C5.90237 11.6834 5.90237 12.3166 6.29289 12.7071L10.2929 16.7071C10.6834 17.0976 11.3166 17.0976 11.7071 16.7071C12.0976 16.3166 12.0976 15.6834 11.7071 15.2929L9.41421 13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H9.41421L11.7071 8.70711C12.0976 8.31658 12.0976 7.68342 11.7071 7.29289C11.3166 6.90237 10.6834 6.90237 10.2929 7.29289L6.29289 11.2929Z';
 const ARROW_RIGHT = 'M6 12C6 12.5523 6.44772 13 7 13H14.5858L12.2929 15.2929C11.9024 15.6834 11.9024 16.3166 12.2929 16.7071C12.6834 17.0976 13.3166 17.0976 13.7071 16.7071L17.7071 12.7071C17.8946 12.5196 18 12.2652 18 12C18 11.7348 17.8946 11.4804 17.7071 11.2929L13.7071 7.29289C13.3166 6.90237 12.6834 6.90237 12.2929 7.29289C11.9024 7.68342 11.9024 8.31658 12.2929 8.70711L14.5858 11H7C6.44772 11 6 11.4477 6 12Z';
 const CHEVRON_RIGHT = 'M9.29289 7.29289C8.90237 7.68342 8.90237 8.31658 9.29289 8.70711L12.5858 12L9.29289 15.2929C8.90237 15.6834 8.90237 16.3166 9.29289 16.7071C9.68342 17.0976 10.3166 17.0976 10.7071 16.7071L14.7071 12.7071C14.8946 12.5196 15 12.2652 15 12C15 11.7348 14.8946 11.4804 14.7071 11.2929L10.7071 7.29289C10.3166 6.90237 9.68342 6.90237 9.29289 7.29289Z';
+const CHEVRON_LEFT = 'M14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L11.4142 12L14.7071 15.2929C15.0976 15.6834 15.0976 16.3166 14.7071 16.7071C13.6166 17.0976 13.3166 17.0976 12.9291 16.7071L9.29289 12.7071C9.10536 12.5196 9 12.2652 9 12C9 11.7348 9.10536 11.4804 9.29289 11.2929L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289Z';
+const CHEVRON_DOWN = 'M7.29289 9.29289C7.68342 8.90237 8.31658 8.90237 8.70711 9.29289L12 12.5858L15.2929 9.29289C15.6834 8.90237 16.3166 8.90237 16.7071 9.29289C17.0976 9.68342 17.0976 10.3166 16.7071 10.7071L12.7071 14.7071C12.5196 14.8946 12.2652 15 12 15C11.7348 15 11.4804 14.8946 11.2929 14.7071L7.29289 10.7071C6.90237 10.3166 6.90237 9.68342 7.29289 9.29289Z';
 const DELETE_ALT = 'M12 20C16.4183 20 20 16.4183 20 12C20 7.58173 16.4183 4 12 4C7.58173 4 4 7.58173 4 12C4 16.4183 7.58173 20 12 20ZM10.0303 8.96967C9.73743 8.67679 9.26257 8.67679 8.96967 8.96967C8.67676 9.26257 8.67676 9.73743 8.96967 10.0303L10.9393 12L8.96967 13.9697C8.67676 14.2626 8.67676 14.7374 8.96967 15.0303C9.26257 15.3232 9.73743 15.3232 10.0303 15.0303L12 13.0607L13.9697 15.0303C14.2626 15.3232 14.7374 15.3232 15.0303 15.0303C15.3232 14.7374 15.3232 14.2626 15.0303 13.9697L13.0607 12L15.0303 10.0303C15.3232 9.73743 15.3232 9.26257 15.0303 8.96967C14.7374 8.67679 14.2626 8.67679 13.9697 8.96967L12 10.9393L10.0303 8.96967Z';
 const HIDE = 'M12.81 4.36l-1.77 1.78a4 4 0 00-4.9 4.9l-2.76 2.75C2.06 12.79.96 11.49.2 10a11 11 0 0112.6-5.64zm3.8 1.85c1.33 1 2.43 2.3 3.2 3.79a11 11 0 01-12.62 5.64l1.77-1.78a4 4 0 004.9-4.9l2.76-2.75zm-.25-3.99l1.42 1.42L3.64 17.78l-1.42-1.42L16.36 2.22z';
 const SHOW = 'M.2 10a11 11 0 0119.6 0A11 11 0 01.2 10zm9.8 4a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 110-4 2 2 0 010 4z';
 const SEARCH = 'M11 6C8.79086 6 7 7.79086 7 10C7 12.2091 8.79086 14 11 14C13.2091 14 15 12.2091 15 10C15 7.79086 13.2091 6 11 6ZM5 10C5 6.68629 7.68629 4 11 4C14.3137 4 17 6.68629 17 10C17 11.2958 16.5892 12.4957 15.8907 13.4765L19.7071 17.2929C20.0976 17.6834 20.0976 18.3166 19.7071 18.7071C19.3166 19.0976 18.6834 19.0976 18.2929 18.7071L14.4765 14.8907C13.4957 15.5892 12.2958 16 11 16C7.68629 16 5 13.3137 5 10Z';
 const CHECK_INDETERMINATE = 'M6 12C6 11.4477 6.44772 11 7 11H17C17.5523 11 18 11.4477 18 12C18 12.5523 17.5523 13 17 13H7C6.44772 13 6 12.5523 6 12Z';
 const ALERT = 'M12 21C16.9706 21 21 16.9706 21 12C21 7.02945 16.9706 3 12 3C7.02942 3 3 7.02945 3 12C3 16.9706 7.02942 21 12 21ZM12 6C12.5523 6 13 6.44772 13 7V13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13V7C11 6.44772 11.4477 6 12 6ZM13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z';
+const TRIANGLE_UP = 'M12.7071 8.70711L17.1464 13.1464C17.4614 13.4614 17.2383 14 16.7929 14L7.20711 14C6.76165 14 6.53857 13.4614 6.85355 13.1464L11.2929 8.70711C11.6834 8.31658 12.3166 8.31658 12.7071 8.70711Z';
+const TRIANGLE_DOWN = 'M12.7071 15.2929L17.1464 10.8536C17.4614 10.5386 17.2383 10 16.7929 10L7.20711 10C6.76165 10 6.53857 10.5386 6.85355 10.8536L11.2929 15.2929C11.6834 15.6834 12.3166 15.6834 12.7071 15.2929Z';
 
 /** Conjunto de paths nomeados — consumido pelos componentes nomeados e por outros componentes. */
 export const ICON_PATHS = {
@@ -213,6 +217,34 @@ export class BuiChevronRight {
 }
 
 @Component({
+  selector: 'bui-chevron-left',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BuiIcon],
+  host: { style: 'display: contents' },
+  template: `<bui-icon [d]="path" [size]="size()" [color]="color()" [title]="title()" />`,
+})
+export class BuiChevronLeft {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Chevron Left');
+  protected readonly path = CHEVRON_LEFT;
+}
+
+@Component({
+  selector: 'bui-chevron-down',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BuiIcon],
+  host: { style: 'display: contents' },
+  template: `<bui-icon [d]="path" [size]="size()" [color]="color()" [title]="title()" />`,
+})
+export class BuiChevronDown {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Chevron Down');
+  protected readonly path = CHEVRON_DOWN;
+}
+
+@Component({
   selector: 'bui-delete-alt',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BuiIcon],
@@ -294,4 +326,89 @@ export class BuiAlert {
   readonly color = input<string>();
   readonly title = input('Alert');
   protected readonly path = ALERT;
+}
+
+@Component({
+  selector: 'bui-triangle-up',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BuiIcon],
+  host: { style: 'display: contents' },
+  template: `<bui-icon [d]="path" [size]="size()" [color]="color()" [title]="title()" />`,
+})
+export class BuiTriangleUp {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Sort ascending');
+  protected readonly path = TRIANGLE_UP;
+}
+
+@Component({
+  selector: 'bui-triangle-down',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [BuiIcon],
+  host: { style: 'display: contents' },
+  template: `<bui-icon [d]="path" [size]="size()" [color]="color()" [title]="title()" />`,
+})
+export class BuiTriangleDown {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Sort descending');
+  protected readonly path = TRIANGLE_DOWN;
+}
+
+@Component({
+  selector: 'bui-filter-icon',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  host: { style: 'display: contents' },
+  template: `
+    <svg data-baseweb="icon" class="bui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      [style.display]="'inline-block'" [style.width]="dim()" [style.height]="dim()" [style.fill]="col()">
+      @if (title()) { <title>{{ title() }}</title> }
+      <rect x="7" y="11" width="10" height="2" rx="1" />
+      <rect x="4" y="7" width="16" height="2" rx="1" />
+      <rect x="10" y="15" width="4" height="2" rx="1" />
+    </svg>
+  `,
+})
+export class BuiFilterIcon {
+  readonly size = input<string | number>(18);
+  readonly color = input<string>();
+  readonly title = input('Filter');
+  protected readonly col = computed(() => this.color() ?? 'currentColor');
+  protected readonly dim = computed(() => {
+    const s = this.size();
+    if (typeof s === 'number') return `${s}px`;
+    if (/^\d+$/.test(s)) return `${s}px`;
+    return s;
+  });
+}
+
+@Component({
+  selector: 'bui-overflow-icon',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  host: { style: 'display: contents' },
+  template: `
+    <svg data-baseweb="icon" class="bui-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      [style.display]="'inline-block'" [style.width]="dim()" [style.height]="dim()" [style.fill]="col()">
+      @if (title()) { <title>{{ title() }}</title> }
+      <circle cx="6" cy="12" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="18" cy="12" r="2" />
+    </svg>
+  `,
+})
+export class BuiOverflowIcon {
+  readonly size = input<string | number>();
+  readonly color = input<string>();
+  readonly title = input('Overflow');
+  protected readonly col = computed(() => this.color() ?? 'currentColor');
+  protected readonly dim = computed(() => {
+    const s = this.size();
+    if (s == null) return 'var(--bw-sizing-scale600)';
+    if (typeof s === 'number') return `${s}px`;
+    if (/^\d+$/.test(s)) return `${s}px`;
+    return s;
+  });
 }
