@@ -168,6 +168,12 @@ export const BW_STORIES: BwStory[] = [
   // Payment Card
   { id: 'payment-card--payment-card', group: 'payment-card', name: 'Payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.PaymentCardScenario) },
   { id: 'payment-card--stateful-payment-card', group: 'payment-card', name: 'Stateful payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
+  // Pin Code
+  { id: 'pin-code--pin-code', group: 'pin-code', name: 'Pin code', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeScenario) },
+  { id: 'pin-code--mask', group: 'pin-code', name: 'Mask', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeMaskScenario) },
+  { id: 'pin-code--sizes', group: 'pin-code', name: 'Sizes', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeSizesScenario) },
+  { id: 'pin-code--states', group: 'pin-code', name: 'States', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeStatesScenario) },
+  { id: 'pin-code--overrides', group: 'pin-code', name: 'Overrides', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeOverridesScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },

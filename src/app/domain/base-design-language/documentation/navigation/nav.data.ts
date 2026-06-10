@@ -54,7 +54,7 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Input', path: 'components/input', status: 'ready' },
           { label: 'Payment Card', path: 'components/payment-card', status: 'ready' },
           { label: 'Phone Input', path: 'components/phone-input', status: 'soon' },
-          { label: 'Pin Code', path: 'components/pin-code', status: 'soon' },
+          { label: 'Pin Code', path: 'components/pin-code', status: 'ready' },
           { label: 'Radio', path: 'components/radio', status: 'ready' },
           { label: 'Radio-v2', path: 'components/radio-v2', status: 'ready' },
           { label: 'Slider', path: 'components/slider', status: 'soon' },
