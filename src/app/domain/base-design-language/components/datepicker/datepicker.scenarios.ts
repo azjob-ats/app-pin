@@ -365,7 +365,7 @@ export class DatepickerRangeSeparateScenario {
     <div style="width: 300px">
       <bui-datepicker
         [value]="value()"
-        (change)="value.set(Array.isArray($event.date) ? null : $event.date)"
+        (change)="onDateChange($event)"
       />
       <p style="margin-top: 8px; font-size: 13px; color: #555">
         Selected: {{ value() ? (value()!.valueOf()) : 'none' }}
@@ -375,6 +375,10 @@ export class DatepickerRangeSeparateScenario {
 })
 export class DatepickerControlledScenario {
   protected readonly value = signal<Date | null>(T);
+
+  protected onDateChange(event: { date: Date | null | (Date | null | undefined)[] }): void {
+    if (!Array.isArray(event.date)) this.value.set(event.date);
+  }
 }
 
 /* ─── 21. Quick select datepicker ────────────────────────────────────────────── */
