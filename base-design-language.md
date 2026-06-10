@@ -201,7 +201,7 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 40 | Notification | P3.5 | 1/1 | ✅ |
 | 41 | Pagination | P3.23 | 1/1 | ✅ |
 | 42 | Payment card | P3.7 | 2/2 | ✅ |
-| 43 | Phone input | P3.24 | 0/7 | ⚠️ |
+| 43 | Phone input | P3.24 | 7/7 | ✅ |
 | 44 | Pin code | P3.8 | 5/5 | ✅ |
 | 45 | Popover | P2.1 | 15/15 | ✅ |
 | 46 | Progress bar | P4.11 | 6/6 | ✅ |
@@ -225,14 +225,14 @@ basta seguir `P1.1 → P1.2 → … → P4.24`. Tiers:
 | 64 | Tag | P1.5 | 5/5 | ✅ |
 | 65 | Template component | — | 0/1 | 🚫 |
 | 66 | Textarea | P3.9 | 2/2 | ✅ |
-| 67 | Timepicker | P3.25 | 0/2 | ⚠️ |
-| 68 | Timezonepicker | P3.26 | 0/3 | ⚠️ |
+| 67 | Timepicker | P3.25 | 2/2 | ✅ |
+| 68 | Timezonepicker | P3.26 | 3/3 | ✅ |
 | 69 | Toast | P3.18 | 4/4 | ✅ |
 | 70 | Tooltip | P3.19 | 4/4 | ✅ |
 | 71 | Tree view | P3.15 | 6/6 | ✅ |
 | 72 | Typography | P1.1 | 6/6 | ✅ |
 
-**Placar:** `✅ 54` · `⚠️ 9` (nenhum ⛔) · `🚫 (fora do escopo)`
+**Placar:** `✅ 57` · `⚠️ 6` (nenhum ⛔) · `🚫 (fora do escopo)`
 
 > **Sessão autônoma 2026-06-10 (decisões registradas — usuário autorizou seguir sem perguntar):**
 > objetivo = cobrir TODOS os componentes restantes, do **menor → maior acoplamento**. Verificação por
