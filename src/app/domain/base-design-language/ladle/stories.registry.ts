@@ -196,6 +196,13 @@ export const BW_STORIES: BwStory[] = [
   { id: 'pin-code--sizes', group: 'pin-code', name: 'Sizes', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeSizesScenario) },
   { id: 'pin-code--states', group: 'pin-code', name: 'States', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeStatesScenario) },
   { id: 'pin-code--overrides', group: 'pin-code', name: 'Overrides', load: () => import('../components/pin-code/pin-code.scenarios').then((m) => m.PinCodeOverridesScenario) },
+  // Tree View
+  { id: 'tree-view--tree-view', group: 'tree-view', name: 'Tree view', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewScenario) },
+  { id: 'tree-view--interactable', group: 'tree-view', name: 'Interactable', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewInteractableScenario) },
+  { id: 'tree-view--render-all', group: 'tree-view', name: 'Render all', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewRenderAllScenario) },
+  { id: 'tree-view--rtl', group: 'tree-view', name: 'RTL', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewRtlScenario) },
+  { id: 'tree-view--single-expanded', group: 'tree-view', name: 'Single expanded', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewSingleExpandedScenario) },
+  { id: 'tree-view--icon-overrides', group: 'tree-view', name: 'Icon overrides', load: () => import('../components/tree-view/tree-view.scenarios').then((m) => m.TreeViewIconOverridesScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },
