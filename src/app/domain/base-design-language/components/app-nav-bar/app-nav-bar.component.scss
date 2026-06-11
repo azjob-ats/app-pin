@@ -1,10 +1,24 @@
-// App Nav Bar (P3.27) — clone fiel do baseui/app-nav-bar
+// App Nav Bar — clone fiel do baseui/app-nav-bar
 
 .bui-anb__root {
   box-sizing: border-box;
-  background-color: var(--bw-colors-backgroundPrimary, #fff);
-  border-bottom: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
-  font-size: 14px;
+  background-color: var(--bw-background-primary, #fff);
+  border-bottom: 1px solid var(--bw-border-opaque, #f3f3f3);
+  // font300 = 16px/24px (ParagraphMedium)
+  font: var(--bw-font-ParagraphMedium);
+  // Page margins: 16px min, 36px at medium (600px+), 64px at large (1136px+)
+  padding-inline-start: 16px;
+  padding-inline-end: 16px;
+
+  @media screen and (min-width: 600px) {
+    padding-inline-start: 36px;
+    padding-inline-end: 36px;
+  }
+
+  @media screen and (min-width: 1136px) {
+    padding-inline-start: 64px;
+    padding-inline-end: 64px;
+  }
 }
 
 /* ── Desktop layout ── */
@@ -19,70 +33,86 @@
   justify-content: space-between;
   max-width: var(--bw-grid-maxWidth, 1280px);
   margin: 0 auto;
-  padding: 18px var(--bw-sizing-scale800, 32px);
+  // paddingBlockStart/End: 18px (from StyledDesktopMenu)
+  padding-block-start: 18px;
+  padding-block-end: 18px;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* ── App name / Title ── */
 .bui-anb__name {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--bw-colors-contentPrimary, #000);
+  // font550 = HeadingXSmall = 700 20px/28px
+  font: var(--bw-font-HeadingXSmall);
+  color: var(--bw-content-primary, #000);
+  text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
 }
 
-/* ── Primary nav ── */
+/* ── Primary nav container ── */
 .bui-anb__primary {
+  box-sizing: border-box;
   display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
   align-items: center;
-  gap: 4px;
-  flex: 1;
-  padding-left: var(--bw-sizing-scale800, 32px);
+  // paddingInlineEnd: scale1000 (40px)
+  padding-inline-end: var(--bw-sizing-scale1000, 40px);
 }
 
 /* ── Nav item ── */
 .bui-anb__item {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: var(--bw-sizing-scale300, 8px) var(--bw-sizing-scale500, 12px);
-  color: var(--bw-colors-contentSecondary, #545454);
-  font-size: 14px;
-  font-weight: 500;
+  // marginLeft/Right: scale700 (20px); first-child marginLeft: 0; last-child marginRight: 0
+  margin-left: var(--bw-sizing-scale700, 20px);
+  margin-right: var(--bw-sizing-scale700, 20px);
+  // primary kind: paddingTop/Bottom: 0
+  padding-top: 0;
+  padding-bottom: 0;
+  color: var(--bw-content-tertiary, #6b6b6b);
   cursor: pointer;
-  border-radius: var(--bw-borders-radius200, 4px);
   white-space: nowrap;
-  position: relative;
+  // active indicator via border-bottom (2px — matches baseweb borderBottomWidth: 2px)
+  border-bottom: 2px solid transparent;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &:hover {
-    background-color: var(--bw-colors-backgroundSecondary, #f6f6f6);
-    color: var(--bw-colors-contentPrimary, #000);
+    color: var(--bw-content-primary, #000);
   }
 
   &:focus-visible {
-    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline: 3px solid var(--bw-border-accent, #276ef1);
     outline-offset: -3px;
   }
 
   &--active {
-    color: var(--bw-colors-contentPrimary, #000);
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background-color: var(--bw-colors-contentPrimary, #000);
-    }
+    color: var(--bw-content-primary, #000);
+    border-bottom-color: var(--bw-border-selected, #000);
+    cursor: default;
   }
 
+  // secondary kind: paddingTop/Bottom: scale750 (22px), nowrap
   &--secondary {
-    &::after {
-      display: none;
+    padding-top: var(--bw-sizing-scale750, 22px);
+    padding-bottom: var(--bw-sizing-scale750, 22px);
+    white-space: nowrap;
+    // reset bottom border for secondary (active uses it)
+    border-bottom-color: transparent;
+
+    &.bui-anb__item--active {
+      border-bottom-color: var(--bw-border-selected, #000);
     }
   }
 }
@@ -93,36 +123,36 @@
 }
 
 .bui-anb__user-btn {
+  box-sizing: border-box;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
-  background: none;
+  background-color: transparent;
+  color: var(--bw-content-primary, #000);
   border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
-  padding: 4px;
-  border-radius: var(--bw-borders-radius200, 4px);
-  color: var(--bw-colors-contentPrimary, #000);
-
-  &:hover {
-    background-color: var(--bw-colors-backgroundSecondary, #f6f6f6);
-  }
 
   &:focus-visible {
-    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline: 3px solid var(--bw-border-accent, #276ef1);
+    outline-offset: -3px;
   }
 }
 
 .bui-anb__username {
-  font-size: 14px;
-  font-weight: 500;
+  font: var(--bw-font-ParagraphMedium);
+  font-weight: var(--bw-font-weight-medium, 500);
 }
 
 /* ── User dropdown ── */
 .bui-anb__user-dropdown {
-  background: var(--bw-colors-backgroundPrimary, #fff);
-  border: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
-  border-radius: var(--bw-borders-radius200, 4px);
-  box-shadow: var(--bw-lighting-shadow600, 0 8px 17px 2px rgba(0,0,0,.14));
+  background: var(--bw-background-primary, #fff);
+  border: 1px solid var(--bw-border-opaque, #f3f3f3);
+  border-radius: var(--bw-radius-200, 4px);
+  box-shadow: var(--bw-shadow-600, 0 4px 16px rgba(0,0,0,.16));
   min-width: 220px;
   overflow: hidden;
 }
@@ -131,47 +161,51 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
-  border-bottom: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
+  // paddingTop/Bottom: scale650 (18px)
+  padding-top: var(--bw-sizing-scale650, 18px);
+  padding-bottom: var(--bw-sizing-scale650, 18px);
+  padding-left: 16px;
+  padding-right: 0;
+  border-bottom: 1px solid var(--bw-border-opaque, #f3f3f3);
 }
 
 .bui-anb__user-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--bw-colors-contentPrimary, #000);
+  font: var(--bw-font-ParagraphMedium);
+  font-weight: var(--bw-font-weight-medium, 500);
+  color: var(--bw-content-primary, #000);
 }
 
 .bui-anb__user-subtitle {
-  font-size: 12px;
-  color: var(--bw-colors-contentSecondary, #545454);
+  font: var(--bw-font-ParagraphSmall);
+  color: var(--bw-content-secondary, #545454);
 }
 
 .bui-anb__user-item {
   padding: 12px 16px;
-  font-size: 14px;
-  color: var(--bw-colors-contentPrimary, #000);
+  font: var(--bw-font-ParagraphMedium);
+  color: var(--bw-content-primary, #000);
   cursor: pointer;
 
   &:hover {
-    background-color: var(--bw-colors-backgroundSecondary, #f6f6f6);
+    background-color: var(--bw-background-secondary, #f6f6f6);
   }
 
   &:focus-visible {
-    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline: 3px solid var(--bw-border-accent, #276ef1);
     outline-offset: -3px;
   }
 }
 
 /* ── Secondary nav ── */
 .bui-anb__secondary {
+  box-sizing: border-box;
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
   max-width: var(--bw-grid-maxWidth, 1280px);
   margin: 0 auto;
-  padding: 0 var(--bw-sizing-scale800, 32px);
   width: 100%;
-  box-sizing: border-box;
-  border-top: 1px solid var(--bw-colors-borderOpaque, #e2e2e2);
   overflow: auto;
 }

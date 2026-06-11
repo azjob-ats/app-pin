@@ -24,7 +24,7 @@ export class DrawerScenario {
   isOpen = signal(true);
 }
 
-// drawer--hide-backdrop (showBackdrop=false — no scrim; bg override lightskyblue is React API → approximated)
+// drawer--hide-backdrop (showBackdrop=false; container bg override lightskyblue mirrors React overrides.DrawerContainer.style)
 @Component({
   selector: 'bui-drawer-hide-backdrop-scenario',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,6 +35,7 @@ export class DrawerScenario {
       [isOpen]="isOpen()"
       [animate]="false"
       [showBackdrop]="false"
+      [containerStyleOverride]="containerStyle"
       (drawerClose)="isOpen.set(false)"
     >
       Proin ut dui sed metus pharetra hend rerit vel non mi. Nulla ornare faucibus ex, non
@@ -44,6 +45,7 @@ export class DrawerScenario {
 })
 export class DrawerHideBackdropScenario {
   isOpen = signal(true);
+  containerStyle = { backgroundColor: 'lightskyblue' };
 }
 
 // drawer--render-all (content always in DOM even when closed)

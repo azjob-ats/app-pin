@@ -53,6 +53,8 @@
 .bui-pc__icon-wrapper {
   display: flex;
   align-items: center;
-  height: 100%;
+  align-self: stretch;
   flex-shrink: 0;
+
+  svg { display: block; }
 }

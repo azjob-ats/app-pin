@@ -18,10 +18,21 @@
   background-color: var(--bw-background-primary);
   max-width: 36px;
   height: 36px;
+  overflow: hidden;
 }
-.bui-stepper__input .bui-input__field {
+/* Use higher specificity (.bui-stepper host + .bui-stepper__input) to beat the size-based
+   input rule (.bui-input--default .bui-input__field) which ships in a separate stylesheet. */
+.bui-stepper .bui-stepper__input .bui-input__field {
   text-align: center;
   padding: 0;
   font: var(--bw-font-LabelLarge);
+  background-color: var(--bw-background-primary);
+}
+/* Preserve bg-primary even when input is in disabled state */
+.bui-stepper .bui-stepper__input.bui-input--disabled .bui-input__root {
+  background-color: var(--bw-background-primary);
+  border: none;
+}
+.bui-stepper .bui-stepper__input.bui-input--disabled .bui-input__field {
   background-color: var(--bw-background-primary);
 }

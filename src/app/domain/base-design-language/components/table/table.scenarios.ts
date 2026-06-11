@@ -31,6 +31,7 @@ const DATA_20: Array<[string, number]> = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiStyledTable, BuiStyledHead, BuiStyledHeadCell, BuiStyledBody, BuiStyledRow, BuiStyledCell],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:500px;width:400px">
       <bui-styled-table style="border:0">
@@ -74,6 +75,7 @@ const CELLS_DATA: Array<[string, string, string, number, number]> = [
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiStyledTable, BuiStyledHead, BuiStyledHeadCell, BuiStyledBody, BuiStyledRow, BuiStyledCell, BuiStyledAction, BuiSearch, BuiPlus, BuiDelete, BuiOverflowIcon, BuiArrowUp, BuiArrowDown, Panel],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:500px;width:900px">
       <bui-styled-table>
@@ -131,6 +133,7 @@ export class TableCellsScenario {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiTable],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:400px;width:800px">
       <bui-table [columns]="cols" [data]="rows" />
@@ -152,6 +155,7 @@ const FILTER_FNS = Array.from({ length: 10 }, (_, i) => (row: unknown[]) => (row
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiStyledTable, BuiStyledHead, BuiStyledHeadCell, BuiStyledBody, BuiStyledRow, BuiStyledCell, BuiTableFilter, Checkbox],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:500px">
       <bui-styled-table>
@@ -218,6 +222,7 @@ const ROW_LIMITS: MenuItem[] = Array.from({ length: 10 }, (_, i) => ({ label: St
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiTable, Pagination, Button, BuiPopover, BuiMenu],
+  styleUrl: './table.component.scss',
   template: `
     <div style="width:968px">
       <div style="display:flex;justify-content:space-between;padding:16px 0">
@@ -274,6 +279,7 @@ export class TablePaginationScenario {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiTable],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:500px;max-width:1200px">
       <bui-table [columns]="cols" [data]="rows" horizontalScrollWidth="2200px" />
@@ -292,6 +298,7 @@ export class TableScrollScenario {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiStyledTable, BuiStyledHead, BuiStyledBody, BuiStyledRow, BuiStyledCell, BuiSortableHeadCell],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:500px;width:400px">
       <bui-styled-table>
@@ -352,6 +359,7 @@ export class TableSortableScenario {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiStyledTable, BuiStyledHead, BuiStyledBody, BuiStyledRow, BuiStyledCell, BuiSortableHeadCell],
+  styleUrl: './table.component.scss',
   template: `
     <div style="height:500px;width:400px">
       <bui-styled-table>

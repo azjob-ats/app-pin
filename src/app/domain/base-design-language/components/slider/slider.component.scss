@@ -13,7 +13,7 @@
   align-items: center;
   position: relative;
   cursor: pointer;
-  background-color: var(--bw-colors-sliderTrackFill, transparent);
+  background-color: transparent;
 
   &--disabled {
     cursor: not-allowed;
@@ -37,7 +37,7 @@
   top: 0;
   width: 4px;
   height: 2px;
-  background-color: var(--bw-colors-backgroundPrimary, #fff);
+  background-color: var(--bw-background-primary);
   transform: translateX(-50%);
 }
 
@@ -45,10 +45,10 @@
 
 .bui-slider__thumb-value {
   position: absolute;
-  top: calc(-1 * var(--bw-sizing-scale1400, 64px));
-  font: var(--bw-font-font200, var(--bw-font-ParagraphXSmall));
-  background-color: var(--bw-colors-sliderHandleInnerFill, var(--bw-colors-borderSelected));
-  color: var(--bw-colors-contentInversePrimary, #fff);
+  top: calc(-1 * var(--bw-sizing-scale1400, 56px));
+  font: var(--bw-font-ParagraphXSmall);
+  background-color: var(--bw-content-primary);
+  color: var(--bw-content-inverse-primary);
   padding: var(--bw-sizing-scale500) var(--bw-sizing-scale600);
   border-radius: 48px;
   white-space: nowrap;
@@ -64,8 +64,8 @@
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  background-color: var(--bw-colors-sliderHandleFill, #fff);
+  border-radius: 24px;
+  background-color: var(--bw-content-primary);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
   pointer-events: none;
   z-index: 6;
@@ -75,11 +75,11 @@
   justify-content: center;
 
   &--focused {
-    box-shadow: 0 0 0 3px var(--bw-colors-borderAccent, var(--bw-border-accent));
+    box-shadow: 0 0 0 3px var(--bw-border-accent);
   }
 
   &--disabled {
-    background-color: var(--bw-colors-sliderHandleFillDisabled, #cbcbcb);
+    background-color: var(--bw-background-state-disabled);
   }
 }
 
@@ -88,8 +88,12 @@
   top: -16px;
   width: 4px;
   height: 20px;
-  background-color: var(--bw-colors-sliderHandleInnerFill, var(--bw-colors-borderSelected));
+  background-color: var(--bw-content-primary);
   pointer-events: none;
+}
+
+.bui-slider__thumb--disabled .bui-slider__inner-thumb {
+  background-color: var(--bw-background-state-disabled);
 }
 
 // Native range inputs (positioned on top for interaction, visually hidden)
@@ -151,6 +155,12 @@
   }
 }
 
+// Thumb value disabled state — matches baseweb: sliderHandleFillDisabled bg + contentInversePrimary text
+.bui-slider__thumb-value--disabled {
+  background-color: var(--bw-background-state-disabled);
+  color: var(--bw-content-inverse-primary);
+}
+
 // Tick bar
 
 .bui-slider__tick-bar {
@@ -163,6 +173,6 @@
 }
 
 .bui-slider__tick {
-  font: var(--bw-font-font200, var(--bw-font-ParagraphXSmall));
+  font: var(--bw-font-ParagraphXSmall);
   color: var(--bw-content-primary);
 }

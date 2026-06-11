@@ -60,6 +60,8 @@ export class BuiStyledBodyCell {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiTriangleUp, BuiTriangleDown],
+  // Pull in sortable label styles from table.component.scss
+  styleUrl: '../table/table.component.scss',
   host: {
     role: 'columnheader',
     class: 'bui-tg__head-cell',

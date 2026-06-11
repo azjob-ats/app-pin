@@ -38,7 +38,7 @@
 // Dialog box
 .bui-modal__dialog {
   background-color: var(--bw-background-primary);
-  border-radius: var(--bw-border-radius-400, 12px);
+  border-radius: var(--bw-radius-500, 16px);
   box-sizing: border-box;
   margin: var(--bw-sizing-scale600);
   max-width: 100%;
@@ -80,7 +80,7 @@
   align-items: center;
   background: transparent;
   border: 1px solid transparent;
-  color: var(--bw-content-secondary);
+  color: var(--bw-content-primary);
   cursor: pointer;
   display: flex;
   height: var(--bw-sizing-scale800);

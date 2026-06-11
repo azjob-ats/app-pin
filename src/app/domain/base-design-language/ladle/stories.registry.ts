@@ -197,7 +197,7 @@ export const BW_STORIES: BwStory[] = [
   { id: 'button-group--overrides', group: 'button-group', name: 'Overrides', load: () => import('../components/button-group/button-group.scenarios').then((m) => m.BgOverridesScenario) },
   // Payment Card
   { id: 'payment-card--payment-card', group: 'payment-card', name: 'Payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.PaymentCardScenario) },
-  { id: 'payment-card--stateful-payment-card', group: 'payment-card', name: 'Stateful payment card', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
+  { id: 'payment-card--stateful', group: 'payment-card', name: 'Stateful', load: () => import('../components/payment-card/payment-card.scenarios').then((m) => m.StatefulPaymentCardScenario) },
   // File Uploader
   { id: 'file-uploader--file-uploader', group: 'file-uploader', name: 'File uploader', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderScenario) },
   { id: 'file-uploader--item-preview', group: 'file-uploader', name: 'Item preview', load: () => import('../components/file-uploader/file-uploader.scenarios').then((m) => m.FileUploaderItemPreviewScenario) },
@@ -270,14 +270,14 @@ export const BW_STORIES: BwStory[] = [
   { id: 'combobox--combobox-form-control', group: 'combobox', name: 'Combobox form control', load: () => import('../components/combobox/combobox.scenarios').then((m) => m.ComboboxFormControlScenario) },
   // Slider
   { id: 'slider--slider', group: 'slider', name: 'Slider', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderScenario) },
-  { id: 'slider--slider-range', group: 'slider', name: 'Slider range', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderRangeScenario) },
-  { id: 'slider--slider-step', group: 'slider', name: 'Slider step', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderStepScenario) },
-  { id: 'slider--slider-marks', group: 'slider', name: 'Slider marks', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderMarksScenario) },
-  { id: 'slider--slider-disabled', group: 'slider', name: 'Slider disabled', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderDisabledScenario) },
-  { id: 'slider--slider-rtl', group: 'slider', name: 'Slider RTL', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderRtlScenario) },
-  { id: 'slider--slider-always-show-label', group: 'slider', name: 'Slider always show label', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderAlwaysShowLabelScenario) },
-  { id: 'slider--slider-custom-label', group: 'slider', name: 'Slider custom label', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderCustomLabelScenario) },
-  { id: 'slider--slider-select-dropdown', group: 'slider', name: 'Slider select dropdown', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderSelectDropdownScenario) },
+  { id: 'slider--range', group: 'slider', name: 'Range', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderRangeScenario) },
+  { id: 'slider--step', group: 'slider', name: 'Step', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderStepScenario) },
+  { id: 'slider--marks', group: 'slider', name: 'Marks', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderMarksScenario) },
+  { id: 'slider--disabled', group: 'slider', name: 'Disabled', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderDisabledScenario) },
+  { id: 'slider--rtl', group: 'slider', name: 'RTL', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderRtlScenario) },
+  { id: 'slider--always-show-label', group: 'slider', name: 'Always show label', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderAlwaysShowLabelScenario) },
+  { id: 'slider--custom-label', group: 'slider', name: 'Custom label', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderCustomLabelScenario) },
+  { id: 'slider--select-dropdown', group: 'slider', name: 'Select dropdown', load: () => import('../components/slider/slider.scenarios').then((m) => m.SliderSelectDropdownScenario) },
   // Icon (buttons adiada — depende de Button)
   { id: 'icon--attributes', group: 'icon', name: 'Attributes', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconAttributesScenario) },
   { id: 'icon--overrides', group: 'icon', name: 'Overrides', load: () => import('../components/icon/icon.scenarios').then((m) => m.IconOverridesScenario) },
@@ -295,14 +295,6 @@ export const BW_STORIES: BwStory[] = [
   { id: 'checkbox--unlabeled', group: 'checkbox', name: 'Unlabeled', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxUnlabeledScenario) },
   { id: 'checkbox--select', group: 'checkbox', name: 'Select', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxSelectScenario) },
   { id: 'checkbox--react-hook-form', group: 'checkbox', name: 'React hook form', load: () => import('../components/checkbox/checkbox.scenarios').then((m) => m.CheckboxReactHookFormScenario) },
-  // Checkbox v2
-  { id: 'checkbox-v2--checkbox', group: 'checkbox-v2', name: 'Checkbox', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2Scenario) },
-  { id: 'checkbox-v2--states', group: 'checkbox-v2', name: 'States', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2StatesScenario) },
-  { id: 'checkbox-v2--placement', group: 'checkbox-v2', name: 'Placement', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2PlacementScenario) },
-  { id: 'checkbox-v2--indeterminate', group: 'checkbox-v2', name: 'Indeterminate', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2IndeterminateScenario) },
-  { id: 'checkbox-v2--auto-focus', group: 'checkbox-v2', name: 'Auto focus', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2AutoFocusScenario) },
-  { id: 'checkbox-v2--unlabeled', group: 'checkbox-v2', name: 'Unlabeled', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2UnlabeledScenario) },
-  { id: 'checkbox-v2--react-hook-form', group: 'checkbox-v2', name: 'React hook form', load: () => import('../components/checkbox-v2/checkbox-v2.scenarios').then((m) => m.CheckboxV2ReactHookFormScenario) },
   // Breadcrumbs
   { id: 'breadcrumbs--breadcrumbs', group: 'breadcrumbs', name: 'Breadcrumbs', load: () => import('../components/breadcrumbs/breadcrumbs.scenarios').then((m) => m.BreadcrumbsScenario) },
   { id: 'breadcrumbs--trailing', group: 'breadcrumbs', name: 'Trailing', load: () => import('../components/breadcrumbs/breadcrumbs.scenarios').then((m) => m.BreadcrumbsTrailingScenario) },
@@ -338,12 +330,6 @@ export const BW_STORIES: BwStory[] = [
   { id: 'sliding-button--states', group: 'sliding-button', name: 'States', load: () => import('../components/sliding-button/sliding-button.scenarios').then((m) => m.SlidingButtonStatesScenario) },
   // Dnd list
   { id: 'dnd-list--dnd-list', group: 'dnd-list', name: 'Dnd list', load: () => import('../components/dnd-list/dnd-list.scenarios').then((m) => m.DndListScenario) },
-  // Radio v2
-  { id: 'radio-v2--radio', group: 'radio-v2', name: 'Radio', load: () => import('../components/radio-v2/radio-v2.scenarios').then((m) => m.RadioV2Scenario) },
-  { id: 'radio-v2--states', group: 'radio-v2', name: 'States', load: () => import('../components/radio-v2/radio-v2.scenarios').then((m) => m.RadioV2StatesScenario) },
-  { id: 'radio-v2--align', group: 'radio-v2', name: 'Align', load: () => import('../components/radio-v2/radio-v2.scenarios').then((m) => m.RadioV2AlignScenario) },
-  { id: 'radio-v2--label-placement', group: 'radio-v2', name: 'Label placement', load: () => import('../components/radio-v2/radio-v2.scenarios').then((m) => m.RadioV2LabelPlacementScenario) },
-  { id: 'radio-v2--contains-interactive-label', group: 'radio-v2', name: 'Contains interactive label', load: () => import('../components/radio-v2/radio-v2.scenarios').then((m) => m.RadioV2InteractiveLabelScenario) },
   // Badge
   { id: 'badge--badge', group: 'badge', name: 'Badge', load: () => import('../components/badge/badge.scenarios').then((m) => m.BadgeScenario) },
   { id: 'badge--inline-badge', group: 'badge', name: 'Inline badge', load: () => import('../components/badge/badge.scenarios').then((m) => m.InlineBadgeScenario) },

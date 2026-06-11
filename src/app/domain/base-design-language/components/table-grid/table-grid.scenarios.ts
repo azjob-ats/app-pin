@@ -124,6 +124,8 @@ const RECORD: RecordRow = {
     ['2019-07-22', 'chasestarr left a comment'],
     ['2019-07-22', 'jh3y left a comment'],
     ['2019-07-22', 'chasestarr left a comment'],
+    ['2019-07-22', 'chasestarr left a comment'],
+    ['2019-07-22', 'jh3y added a commit'],
     ['2019-07-22', 'jh3y added a commit'],
     ['2019-07-22', 'jh3y marked this pull request as ready'],
   ],

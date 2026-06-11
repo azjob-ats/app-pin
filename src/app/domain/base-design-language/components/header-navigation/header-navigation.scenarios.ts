@@ -22,9 +22,9 @@ import { Link } from '../link/link.component';
     </ul>
     <ul buiNavList align="center"></ul>
     <ul buiNavList align="right">
-      <li buiNavItem><a buiLink href="#">Tab Link One</a></li>
-      <li buiNavItem><a buiLink href="#">Tab Link Two</a></li>
-      <li buiNavItem><a buiLink href="#">Tab Link Three</a></li>
+      <li buiNavItem><a buiLink>Tab Link One</a></li>
+      <li buiNavItem><a buiLink>Tab Link Two</a></li>
+      <li buiNavItem><a buiLink>Tab Link Three</a></li>
     </ul>
     <ul buiNavList align="right">
       <li buiNavItem><bui-button>Get started</bui-button></li>

@@ -75,7 +75,7 @@ export function setItemActive(
                 class="bui-anb__item"
                 [class.bui-anb__item--active]="isActive(item)"
                 tabindex="0"
-                [attr.aria-selected]="isActive(item)"
+                [attr.aria-current]="isActive(item) ? 'page' : null"
                 (click)="selectMain(item)"
                 (keydown.enter)="selectMain(item)"
               >
@@ -152,7 +152,7 @@ export function setItemActive(
               class="bui-anb__item bui-anb__item--secondary"
               [class.bui-anb__item--active]="isActive(item)"
               tabindex="0"
-              [attr.aria-selected]="isActive(item)"
+              [attr.aria-current]="isActive(item) ? 'page' : null"
               (click)="selectMain(item)"
               (keydown.enter)="selectMain(item)"
             >

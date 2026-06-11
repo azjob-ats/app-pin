@@ -1,22 +1,23 @@
 .bui-select-host { position: relative; display: block; box-sizing: border-box; width: 100%; }
 
 .bui-select__control {
-  display: flex; align-items: center; gap: var(--bw-sizing-scale300); width: 100%; min-height: 48px;
-  padding: 0 var(--bw-sizing-scale600); border: none; border-radius: var(--bw-input-border-radius);
-  background: var(--bw-background-secondary); color: var(--bw-content-primary);
+  display: flex; align-items: center; gap: 0; width: 100%; min-height: 48px;
+  padding: 0; border-width: 2px; border-style: solid; border-radius: var(--bw-input-border-radius);
+  border-color: var(--bw-border-opaque); background: var(--bw-background-secondary); color: var(--bw-content-primary);
   font: var(--bw-font-ParagraphMedium); text-align: left; cursor: pointer;
-  box-shadow: inset 0 0 0 2px transparent; transition: box-shadow var(--bw-timing-200) var(--bw-ease-out), background-color var(--bw-timing-200) var(--bw-ease-out);
+  transition: border-color var(--bw-timing-200) var(--bw-ease-out), background-color var(--bw-timing-200) var(--bw-ease-out);
+  box-sizing: border-box; overflow: hidden;
 }
-.bui-select__control:hover:not(:disabled) { background: var(--bw-background-tertiary); }
-.bui-select__control[data-open] { background: var(--bw-background-primary); box-shadow: inset 0 0 0 2px var(--bw-border-selected); }
+.bui-select__control:hover:not(:disabled) { background: var(--bw-background-tertiary); border-color: var(--bw-border-opaque); }
+.bui-select__control[data-open] { background: var(--bw-background-primary); border-color: var(--bw-border-selected); }
 .bui-select__control:disabled,
-.bui-select--disabled .bui-select__control { background: var(--bw-background-state-disabled); cursor: not-allowed; }
+.bui-select--disabled .bui-select__control { background: var(--bw-background-state-disabled); border-color: var(--bw-background-state-disabled); cursor: not-allowed; }
 
-.bui-select__value { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--bw-sizing-scale100); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bui-select__value { flex: 1; min-width: 0; display: flex; align-items: center; gap: var(--bw-sizing-scale100); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: var(--bw-sizing-scale400) 0 var(--bw-sizing-scale400) var(--bw-sizing-scale400); box-sizing: border-box; }
 .bui-select__value--ph { color: var(--bw-content-tertiary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bui-select__single { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.bui-select__icons { display: flex; flex: none; align-items: center; gap: var(--bw-sizing-scale200); }
+.bui-select__icons { display: flex; flex: none; align-items: center; align-self: stretch; gap: var(--bw-sizing-scale200); padding-right: var(--bw-sizing-scale500); box-sizing: border-box; }
 .bui-select__arrow { width: 20px; height: 20px; flex: none; fill: currentColor; color: var(--bw-content-primary); cursor: pointer; }
 .bui-select--disabled .bui-select__arrow { color: var(--bw-content-state-disabled); cursor: not-allowed; }
 
@@ -31,7 +32,7 @@
 .bui-select__input:disabled { cursor: not-allowed; }
 
 /* ── multi (tags) ── */
-.bui-select--multi .bui-select__value { flex-wrap: wrap; gap: var(--bw-sizing-scale100); padding: var(--bw-sizing-scale100) 0; }
+.bui-select--multi .bui-select__value { flex-wrap: wrap; gap: var(--bw-sizing-scale100); padding: var(--bw-sizing-scale100) 0 var(--bw-sizing-scale100) var(--bw-sizing-scale400); }
 .bui-select__tag { margin: 2px; }
 
 /* ── clear / spinner ── */
@@ -64,13 +65,16 @@
 
 /* ── sizes (min-height + font), espelha o Input ── */
 .bui-select--mini .bui-select__control { min-height: 32px; font: var(--bw-font-ParagraphXSmall); }
+.bui-select--mini .bui-select__value { padding-top: var(--bw-sizing-scale100); padding-bottom: var(--bw-sizing-scale100); }
 .bui-select--compact .bui-select__control { min-height: 36px; font: var(--bw-font-ParagraphSmall); }
+.bui-select--compact .bui-select__value { padding-top: var(--bw-sizing-scale200); padding-bottom: var(--bw-sizing-scale200); }
 .bui-select--large .bui-select__control { min-height: 60px; font: var(--bw-font-ParagraphLarge); }
+.bui-select--large .bui-select__value { padding-top: var(--bw-sizing-scale550); padding-bottom: var(--bw-sizing-scale550); }
 
 /* ── states (error/positive): borda colorida + bg primary ── */
-.bui-select--error .bui-select__control { background: var(--bw-background-primary); box-shadow: inset 0 0 0 2px var(--bw-border-negative); }
-.bui-select--positive .bui-select__control { background: var(--bw-background-primary); box-shadow: inset 0 0 0 2px var(--bw-border-positive); }
-.bui-select--focused .bui-select__control { background: var(--bw-background-primary); box-shadow: inset 0 0 0 2px var(--bw-border-selected); }
+.bui-select--error .bui-select__control { background: var(--bw-background-primary); border-color: var(--bw-border-negative); }
+.bui-select--positive .bui-select__control { background: var(--bw-background-primary); border-color: var(--bw-border-positive); }
+.bui-select--focused .bui-select__control { background: var(--bw-background-primary); border-color: var(--bw-border-selected); }
 
 /* ── rtl ── */
 .bui-select-host[dir='rtl'] .bui-select__control { text-align: right; }

@@ -40,6 +40,7 @@ import {
           @if (persistentThumb() || focusedThumb() === i || hoveredThumb() === i) {
             <div
               class="bui-slider__thumb-value"
+              [class.bui-slider__thumb-value--disabled]="disabled()"
               [style.left.%]="thumbPercent(i)"
               [style.transform]="'translateX(-50%)'"
             >
@@ -120,12 +121,15 @@ export class BuiSlider {
     const range = max - min;
     const disabled = this.disabled();
 
+    // In baseweb light theme:
+    //   filled  = contentPrimary (#000) or backgroundStateDisabled (#f3f3f3) when disabled
+    //   unfilled = borderOpaque  (#f3f3f3) or backgroundStateDisabled (#f3f3f3) when disabled
     const filled = disabled
-      ? 'var(--bw-colors-borderOpaque, #cbcbcb)'
-      : 'var(--bw-colors-borderSelected, #276ef1)';
+      ? 'var(--bw-background-state-disabled)'
+      : 'var(--bw-content-primary)';
     const unfilled = disabled
-      ? 'var(--bw-colors-borderStateDisabled, #e2e2e2)'
-      : 'var(--bw-colors-borderOpaque, #cbcbcb)';
+      ? 'var(--bw-background-state-disabled)'
+      : 'var(--bw-border-opaque)';
 
     if (vs.length === 1) {
       const pct = ((vs[0] - min) / range) * 100;

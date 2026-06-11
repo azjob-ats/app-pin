@@ -1,4 +1,7 @@
 // Table Grid (P4.23) — CSS grid table, clone fiel do baseui/table-grid
+// Token mapping: baseweb font350 = 16px/500, font200 = 14px/400
+// border300 = rgba(0,0,0,0.12); shadow400 = 0 1px 4px hsla(0,0%,0%,.16)
+// NOTE: body cells have NO border in original baseweb (only head cells have shadow)
 
 /* ── Root (CSS grid) ── */
 bui-styled-grid-table,
@@ -7,9 +10,9 @@ bui-styled-grid-table,
   // height and overflow from flex-table but flex-direction reset
   height: 100%;
   overflow: auto;
-  border: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
-  border-radius: var(--bw-borders-radius200, 4px);
-  background-color: var(--bw-colors-tableBackground, #fff);
+  border: 1px solid var(--bw-table-border, rgba(0, 0, 0, 0.12));
+  border-radius: var(--bw-radius-200, 4px);
+  background-color: var(--bw-background-primary, #fff);
   box-sizing: border-box;
   // Creates stacking context for z-index on sticky cells
   transform: scale(1);
@@ -23,19 +26,22 @@ bui-styled-grid-head-cell,
   justify-content: space-between;
   align-items: center;
   padding: var(--bw-sizing-scale500, 12px) var(--bw-sizing-scale600, 16px);
-  font-family: var(--bw-typography-font350-fontFamily, inherit);
-  font-size: var(--bw-typography-font350-fontSize, 14px);
-  font-weight: var(--bw-typography-font350-fontWeight, 500);
-  color: var(--bw-colors-contentPrimary, #000);
-  background-color: var(--bw-colors-tableHeadBackgroundColor, #fff);
-  box-shadow: var(--bw-lighting-shadow400, 0 1px 4px rgba(0,0,0,.16));
+  // baseweb font350: 16px/500/line-height:20px
+  font-family: var(--bw-font-family, inherit);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--bw-content-primary, #000);
+  background-color: var(--bw-background-primary, #fff);
+  box-shadow: var(--bw-shadow-400, 0 1px 4px rgba(0, 0, 0, 0.16));
   position: sticky;
   top: 0;
   z-index: 1;
-  border-right: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
+  // head cells have right border only (from table styled-components.tsx)
+  border-right: 1px solid var(--bw-table-border, rgba(0, 0, 0, 0.12));
 
   &:focus {
-    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline: 3px solid var(--bw-border-accent, #276ef1);
     outline-offset: -3px;
   }
 }
@@ -45,19 +51,20 @@ bui-styled-body-cell,
 [buiStyledBodyCell] {
   display: block;
   padding: var(--bw-sizing-scale300, 8px) var(--bw-sizing-scale600, 16px);
-  font-family: var(--bw-typography-font200-fontFamily, inherit);
-  font-size: var(--bw-typography-font200-fontSize, 12px);
-  color: var(--bw-colors-contentPrimary, #000);
-  border-right: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
-  border-bottom: 1px solid var(--bw-borders-border300-borderColor, #e2e2e2);
-  overflow: hidden;
+  // baseweb font200: 14px/400/line-height:20px
+  font-family: var(--bw-font-family, inherit);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--bw-content-primary, #000);
+  // No border on body cells in original baseweb (StyledBodyCell has no border)
+  // overflow: hidden removed — original uses overflow: visible (default)
 
   &.bui-tg__body-cell--striped {
-    background-color: var(--bw-colors-tableStripedBackground, #f6f6f6);
+    background-color: var(--bw-background-secondary, #f6f6f6);
   }
 
   &:focus {
-    outline: 3px solid var(--bw-colors-borderAccent, #276ef1);
+    outline: 3px solid var(--bw-border-accent, #276ef1);
     outline-offset: -3px;
   }
 }

@@ -3,10 +3,14 @@ import {
   Component,
   ViewEncapsulation,
   booleanAttribute,
+  effect,
   input,
   output,
+  signal,
+  untracked,
 } from '@angular/core';
 import { Button } from '../button/button.component';
+import { Kind } from '../button/button.model';
 
 export type ModalSize = 'default' | 'full' | 'auto';
 export type ModalRole = 'dialog' | 'alertdialog';
@@ -26,8 +30,10 @@ const CLOSE_ICON =
     '(document:keydown.escape)': 'onEscape()',
   },
   template: `
+    @if (mounted()) {
     <div
       class="bui-modal__root"
+      data-baseweb="modal"
       [class.bui-modal__root--open]="isOpen()"
     >
       <div
@@ -44,6 +50,7 @@ const CLOSE_ICON =
           [class.bui-modal__dialog--size-auto]="size() === 'auto'"
           [attr.role]="role()"
           aria-modal="true"
+          aria-labelledby="bui-modal-header"
           tabindex="-1"
           (click)="$event.stopPropagation()"
         >
@@ -63,6 +70,7 @@ const CLOSE_ICON =
         </div>
       </div>
     </div>
+    }
   `,
 })
 export class BuiModal {
@@ -75,6 +83,40 @@ export class BuiModal {
   readonly modalClose = output<ModalCloseSource>();
 
   protected readonly closeIconPath = CLOSE_ICON;
+
+  /**
+   * Estado `mounted` do baseweb: o modal só existe no DOM enquanto montado. Ao fechar,
+   * mantém montado durante a transição de saída (timing400 = 400ms) e então desmonta —
+   * caso contrário o `DialogContainer` (tela cheia, `pointer-events: auto`) continuaria
+   * capturando cliques/scroll mesmo invisível, travando a página.
+   */
+  protected readonly mounted = signal(false);
+  private closeTimer: ReturnType<typeof setTimeout> | null = null;
+  private static readonly ANIMATION_MS = 400;
+
+  constructor() {
+    effect(() => {
+      const open = this.isOpen();
+      untracked(() => {
+        if (this.closeTimer) {
+          clearTimeout(this.closeTimer);
+          this.closeTimer = null;
+        }
+        if (open) {
+          this.mounted.set(true);
+        } else if (this.mounted()) {
+          if (this.animate()) {
+            this.closeTimer = setTimeout(() => {
+              this.mounted.set(false);
+              this.closeTimer = null;
+            }, BuiModal.ANIMATION_MS);
+          } else {
+            this.mounted.set(false);
+          }
+        }
+      });
+    });
+  }
 
   close(source: ModalCloseSource): void {
     this.modalClose.emit(source);
@@ -95,7 +137,7 @@ export class BuiModal {
   selector: 'bui-modal-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  template: `<div class="bui-modal-header"><ng-content /></div>`,
+  template: `<div class="bui-modal-header" id="bui-modal-header"><ng-content /></div>`,
 })
 export class BuiModalHeader {}
 
@@ -127,12 +169,14 @@ export class BuiModalFooter {}
   encapsulation: ViewEncapsulation.None,
   imports: [Button],
   template: `
-    <bui-button kind="secondary" (buttonClick)="onClick()">
+    <bui-button [kind]="kind()" (buttonClick)="onClick()">
       <ng-content />
     </bui-button>
   `,
 })
 export class BuiModalButton {
+  /** Espelha o default do baseweb: ModalButton repassa props ao Button, cujo kind default é primary (preto). */
+  readonly kind = input<Kind>('primary');
   readonly buttonClick = output<void>();
   protected onClick(): void { this.buttonClick.emit(); }
 }

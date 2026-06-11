@@ -77,6 +77,8 @@ export class BuiDrawer {
   readonly animate = input(true, { transform: booleanAttribute });
   readonly closeable = input(true, { transform: booleanAttribute });
   readonly renderAll = input(false, { transform: booleanAttribute });
+  /** Extra CSS styles applied to the drawer container (mirrors React overrides.DrawerContainer.style). */
+  readonly containerStyleOverride = input<Record<string, string> | null>(null);
   readonly drawerClose = output<DrawerCloseSource>();
 
   protected readonly closeIconPath = CLOSE_ICON;
@@ -97,8 +99,9 @@ export class BuiDrawer {
     const s = this.size();
     const anchor = this.anchor();
     const dim = SIZE_DIM[s] ?? s;
-    if (anchor === 'left' || anchor === 'right') return { width: dim };
-    return { height: dim };
+    const sizeStyle = anchor === 'left' || anchor === 'right' ? { width: dim } : { height: dim };
+    const override = this.containerStyleOverride();
+    return override ? { ...sizeStyle, ...override } : sizeStyle;
   });
 
   protected onBackdropClick(): void {

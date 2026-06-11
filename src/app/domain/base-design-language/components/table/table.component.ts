@@ -66,6 +66,7 @@ export class BuiStyledAction {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiTriangleUp, BuiTriangleDown],
+  styleUrl: './table.component.scss',
   host: {
     role: 'columnheader',
     class: 'bui-t__head-cell',
@@ -121,6 +122,7 @@ export class BuiSortableHeadCell {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [OverlayModule, Button, BuiFilterIcon],
+  styleUrl: './table.component.scss',
   template: `
     <button
       #origin="cdkOverlayOrigin"
@@ -210,6 +212,7 @@ export class BuiTableFilter {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [BuiStyledTable, BuiStyledHead, BuiStyledHeadCell, BuiStyledBody, BuiStyledRow, BuiStyledCell],
+  styleUrl: './table.component.scss',
   template: `
     <bui-styled-table
       data-baseweb="table"
