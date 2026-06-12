@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { BW_NAV } from '../documentation/navigation/nav.data';
+import { BW_NAV } from '../navigation/nav.data';
 import { BwStory } from './ladle.model';
 
 const acc = (slug: string, label: string, exp: string): BwStory => ({

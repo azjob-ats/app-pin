@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Button } from '../../components/button/button.component';
-import { bwLink } from '../../documentation/navigation/nav.config';
+import { bwLink } from '../../navigation/nav.config';
 
 interface HomeCard {
   title: string;

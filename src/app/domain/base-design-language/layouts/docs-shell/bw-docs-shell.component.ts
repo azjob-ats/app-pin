@@ -21,9 +21,9 @@ import {
   NavItem as SideNavItem,
 } from '../../components/side-navigation/side-navigation.component';
 import { BuiCombobox } from '../../components/combobox/combobox.component';
-import { BW_NAV } from '../../documentation/navigation/nav.data';
+import { BW_NAV } from '../../navigation/nav.data';
 import { BW_STORIES } from '../../ladle/stories.registry';
-import { BwNavCategory } from '../../documentation/navigation/nav.model';
+import { BwNavCategory } from '../../navigation/nav.model';
 import { BwThemeService } from '../../shared/bw-theme.service';
 
 interface SearchItem {
