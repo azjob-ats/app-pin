@@ -26,7 +26,7 @@ export class BwHomeComponent {
     { title: 'Setup Base Web', text: 'Adicione o Design System ao seu projeto e comece em minutos.', link: 'getting-started/setup' },
     { title: 'Learning Base Web', text: 'Entenda os conceitos, tokens e padrões por trás dos componentes.', link: 'getting-started/learn' },
     { title: 'Theming', text: 'Customize cores, tipografia e tokens — light e dark.', link: 'guides/theming' },
-    { title: 'Components', text: 'Explore a galeria completa de componentes no Ladle.', link: 'ladle' },
+    { title: 'Components', text: 'Explore a galeria completa de componentes.', link: 'components' },
     { title: 'Blog', text: 'Novidades, decisões de design e bastidores do Base Web.', link: 'blog' },
   ];
 }

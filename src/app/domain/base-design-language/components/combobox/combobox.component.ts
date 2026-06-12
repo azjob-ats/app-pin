@@ -56,6 +56,16 @@ export type ComboboxSize = 'mini' | 'compact' | 'default' | 'large';
               (blur)="onBlur($event)"
             />
           </div>
+          @if (clearable() && tempValue()) {
+            <button
+              type="button"
+              class="bui-combobox__clear"
+              aria-label="Clear"
+              (mousedown)="onClear($event)"
+            >
+              <span class="material-symbols-rounded" aria-hidden="true">close</span>
+            </button>
+          }
         </div>
       </div>
 
@@ -79,7 +89,7 @@ export type ComboboxSize = 'mini' | 'compact' | 'default' | 'large';
               [class.bui-combobox__item--large]="size() === 'large'"
               [class.bui-combobox__item--selected]="i === selectionIndex()"
               [attr.aria-selected]="i === selectionIndex()"
-              (click)="onOptionClick(i)"
+              (mousedown)="onOptionMousedown($event, i)"
             >
               {{ mapOptionToString()(option) }}
             </li>
@@ -101,6 +111,7 @@ export class BuiCombobox {
   readonly positive = input(false, { transform: booleanAttribute });
   readonly placeholder = input<string>('');
   readonly autocomplete = input(true, { transform: booleanAttribute });
+  readonly clearable = input(false, { transform: booleanAttribute });
   readonly listBoxLabel = input<string>('Options');
 
   readonly valueChange = output<string>();
@@ -193,6 +204,20 @@ export class BuiCombobox {
       this.selectionIndex.set(-1);
       this.tempValue.set(this.value());
     }
+  }
+
+  protected onClear(event: MouseEvent): void {
+    event.preventDefault();
+    this.tempValue.set('');
+    this.isOpen.set(false);
+    this.selectionIndex.set(-1);
+    this.valueChange.emit('');
+    this.inputElRef()?.nativeElement.focus();
+  }
+
+  protected onOptionMousedown(event: MouseEvent, index: number): void {
+    event.preventDefault();
+    this.onOptionClick(index);
   }
 
   protected onOptionClick(index: number): void {

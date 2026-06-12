@@ -1,5 +1,6 @@
 .bui-sn {
   font: var(--bw-font-ParagraphSmall);
+  font-family: UberMoveText, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: var(--bw-content-primary);
   list-style-type: none;
   margin: 0;
@@ -31,12 +32,24 @@
 .bui-sn__item {
   box-sizing: border-box;
   border-left: 4px solid transparent;
-  padding-top: var(--bw-sizing-scale500);
-  padding-bottom: var(--bw-sizing-scale500);
+  padding-top: 6px;
+  padding-bottom: 6px;
   padding-right: var(--bw-sizing-scale500);
   cursor: default;
 
+  // Group label (no itemId) — bold + uppercase
+  // font-size set by depth selectors below
+  &--group {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--bw-content-primary);
+  }
+
+  // Leaf link — 16px, normal weight
   &--selectable {
+    font-size: 16px;
+    font-weight: normal;
     cursor: pointer;
 
     &:hover {
@@ -52,7 +65,6 @@
   }
 
   &--disabled {
-    // #757575 = 4.6:1 against white (WCAG AA); contentStateDisabled (#a6a6a6) fails
     color: #757575;
     cursor: not-allowed;
 
@@ -60,9 +72,14 @@
       color: #757575;
     }
   }
+}
 
-  &--group {
-    cursor: default;
-    color: var(--bw-content-primary);
-  }
+// Level 1 group labels (top-level categories: GETTING STARTED, COMPONENTS…) — 16px
+.bui-sn > .bui-sn__sub > .bui-sn__li .bui-sn__item--group {
+  font-size: 16px;
+}
+
+// Level 2+ group labels (sub-group titles: component names under Components…) — 14px
+.bui-sn > .bui-sn__sub > .bui-sn__li .bui-sn__sub .bui-sn__item--group {
+  font-size: 14px;
 }

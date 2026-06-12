@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ViewEncapsulation,
-  booleanAttribute,
   computed,
   input,
   output,
@@ -21,7 +20,8 @@ export interface NavChangeEvent {
 }
 
 /**
- * Recursive nav item — renders a link (or group label) + optional subNav list.
+ * Recursive nav item — renders a link (leaf) or a group label + optional subNav list.
+ * Group labels (no itemId) are always bold + uppercase; leaf links are normal weight.
  */
 @Component({
   selector: 'bui-side-nav-item',
@@ -35,10 +35,9 @@ export interface NavChangeEvent {
         (click)="onLinkClick($event)"
       >
         <div
-          class="bui-sn__item"
+          class="bui-sn__item bui-sn__item--selectable"
           [class.bui-sn__item--active]="isActive()"
           [class.bui-sn__item--disabled]="item().disabled"
-          [class.bui-sn__item--selectable]="true"
           [style.padding-left]="paddingLeft()"
         >{{ item().title }}</div>
       </a>

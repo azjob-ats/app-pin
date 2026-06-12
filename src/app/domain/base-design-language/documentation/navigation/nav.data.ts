@@ -21,22 +21,29 @@ export const BW_NAV: BwNavCategory[] = [
     ],
   },
   {
-    label: 'Guides',
-    icon: 'menu_book',
-    groups: [
-      {
-        label: 'Guides',
-        items: [
-          { label: 'Internationalization', path: 'guides/internationalization', status: 'soon', keywords: ['i18n'] },
-          { label: 'Bidirectionality', path: 'guides/bidirectionality', status: 'soon', keywords: ['rtl'] },
-          { label: 'Theming', path: 'guides/theming', status: 'soon' },
-          { label: 'Styling', path: 'guides/styling', status: 'soon' },
-          { label: 'Overrides', path: 'guides/understanding-overrides', status: 'soon' },
-          { label: 'Colors', path: 'guides/colors', status: 'soon' },
-          { label: 'API Cheat Sheet', path: 'cheat-sheet', status: 'soon' },
-        ],
-      },
-    ],
+    label: 'Doc',
+    icon: 'description',
+    groups: [],
+  },
+  {
+    label: 'Pages examples',
+    icon: 'dashboard',
+    groups: [],
+  },
+  {
+    label: 'Standard classes',
+    icon: 'style',
+    groups: [],
+  },
+  {
+    label: 'Tokens',
+    icon: 'token',
+    groups: [],
+  },
+  {
+    label: 'Utilities',
+    icon: 'build',
+    groups: [],
   },
   {
     label: 'Components',
@@ -100,7 +107,6 @@ export const BW_NAV: BwNavCategory[] = [
           { label: 'Avatar', path: 'components/avatar', status: 'ready' },
           { label: 'Badge', path: 'components/badge', status: 'ready' },
           { label: 'Drag and Drop List', path: 'components/dnd-list', status: 'ready' },
-          { label: 'Layout Grid', path: 'components/layout-grid', status: 'soon' },
           { label: 'Heading', path: 'components/heading', status: 'ready' },
           { label: 'Icon', path: 'components/icon', status: 'ready' },
           { label: 'List', path: 'components/list', status: 'ready' },
@@ -147,23 +153,6 @@ export const BW_NAV: BwNavCategory[] = [
         items: [
           { label: 'AspectRatioBox', path: 'components/aspect-ratio-box', status: 'ready' },
           { label: 'Divider', path: 'components/divider', status: 'ready' },
-          { label: 'FlexGrid', path: 'components/flex-grid', status: 'soon' },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Discover more',
-    icon: 'explore',
-    groups: [
-      {
-        label: 'Discover more',
-        items: [
-          { label: 'Versioning policy', path: 'discover-more/versioning-policy', status: 'soon' },
-          { label: 'Supported platforms', path: 'discover-more/supported-platforms', status: 'soon' },
-          { label: 'Comparison', path: 'discover-more/comparison', status: 'soon' },
-          { label: 'SEO', path: 'guides/seo', status: 'soon' },
-          { label: 'Blog', path: 'blog', status: 'soon' },
         ],
       },
     ],

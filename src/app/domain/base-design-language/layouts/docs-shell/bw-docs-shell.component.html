@@ -1,14 +1,64 @@
+<ng-template #navItemTpl let-item>
+  @if (item.info === 'theme') {
+    <button
+      type="button"
+      class="ds-theme-btn"
+      [attr.aria-label]="mode() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+      (click)="toggleMode()"
+    >
+      <span class="material-symbols-rounded" aria-hidden="true">
+        {{ mode() === 'dark' ? 'light_mode' : 'dark_mode' }}
+      </span>
+    </button>
+  }
+</ng-template>
+
 <header class="bdl-docs-shell__topbar">
-  <bdl-topbar [mode]="mode()" (query)="setQuery($event)" (toggleMode)="toggleMode()" (toggleSidebar)="toggleNav()" />
+  <button
+    type="button"
+    class="bdl-docs-shell__menu-btn"
+    aria-label="Toggle navigation"
+    (click)="toggleNav()"
+  >
+    <span class="material-symbols-rounded" aria-hidden="true">menu</span>
+  </button>
+
+  <bui-app-nav-bar
+    title="RealWe"
+    [mainItems]="topItems"
+    [mapItemToNode]="navItemTpl ?? null"
+  />
+
+  <div class="bdl-docs-shell__search">
+    <bui-combobox
+      placeholder="Buscar…"
+      ariaLabel="Buscar na documentação"
+      size="compact"
+      clearable
+      [value]="searchQuery()"
+      [options]="filteredSearchItems()"
+      [mapOptionToString]="getSearchLabel"
+      (valueChange)="onSearchChange($event)"
+      (optionSelect)="onSearchSelect($event)"
+    />
+  </div>
 </header>
 
 <div class="bdl-docs-shell__body" [class.bdl-docs-shell__body--nav-open]="navOpen()">
   <aside class="bdl-docs-shell__aside">
-    <bdl-sidebar [query]="query()" (click)="closeNav()" />
+    <bui-side-nav
+      [items]="navItems"
+      [activeItemId]="activeItemId() ?? ''"
+      (onChange)="onNavChange($event)"
+    />
   </aside>
 
   @if (navOpen()) {
-    <div class="bdl-docs-shell__scrim" (click)="closeNav()" aria-hidden="true"></div>
+    <div
+      class="bdl-docs-shell__scrim"
+      aria-hidden="true"
+      (click)="closeNav()"
+    ></div>
   }
 
   <main class="bdl-docs-shell__content">
