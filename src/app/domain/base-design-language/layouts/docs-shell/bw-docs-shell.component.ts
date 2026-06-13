@@ -39,12 +39,21 @@ function buildSideNavItems(): SideNavItem[] {
     if (category.label === 'Components') {
       return buildComponentsCategory(category);
     }
-    const subNav = category.groups.flatMap((g) =>
-      g.items.map((item) => ({
-        title: item.label,
-        itemId: item.path === '' ? '/bw' : `/bw/${item.path}`,
-      })),
-    );
+    const hasDistinctGroups = category.groups.some((g) => g.label !== category.label);
+    const subNav = hasDistinctGroups
+      ? category.groups.map((g) => ({
+          title: g.label,
+          subNav: g.items.map((item) => ({
+            title: item.label,
+            itemId: item.path === '' ? '/bw' : `/bw/${item.path}`,
+          })),
+        }))
+      : category.groups.flatMap((g) =>
+          g.items.map((item) => ({
+            title: item.label,
+            itemId: item.path === '' ? '/bw' : `/bw/${item.path}`,
+          })),
+        );
     return { title: category.label, subNav };
   });
 }

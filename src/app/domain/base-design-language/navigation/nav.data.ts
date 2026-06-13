@@ -21,6 +21,18 @@ export const BW_NAV: BwNavCategory[] = [
     ],
   },
   {
+    label: 'Design System',
+    icon: 'palette',
+    groups: [
+      {
+        label: 'Styles',
+        items: [
+          { label: 'Design tokens',  path: 'design-system/styles/design-tokens',  status: 'soon' },
+        ],
+      },
+    ],
+  },
+  {
     label: 'Doc',
     icon: 'description',
     groups: [],

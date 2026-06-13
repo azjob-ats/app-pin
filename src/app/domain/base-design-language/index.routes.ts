@@ -21,6 +21,15 @@ export const BASE_DESIGN_LANGUAGE_ROUTES: Routes = [
           ),
         data: { title: 'Components' },
       },
+      // ── Design System › Styles ──────────────────────────────────────────────
+      { path: 'design-system/styles/design-tokens',  loadComponent: () => import('./pages/design-system/styles/bw-design-tokens-page.component').then((m) => m.BwDesignTokensPageComponent),   data: { title: 'Design Tokens' } },
+      {
+        path: 'design-system/:group/:page',
+        loadComponent: () =>
+          import('./pages/design-system/bw-design-system-page.component').then(
+            (m) => m.BwDesignSystemPageComponent,
+          ),
+      },
     ],
   },
 ];

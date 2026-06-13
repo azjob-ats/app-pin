@@ -1,0 +1,320 @@
+<article class="bdt-page">
+
+  <header class="bdt-header">
+    <p class="bdt-breadcrumb">Styles</p>
+    <div class="bdt-title-row">
+      <h1 class="bdt-title">Design tokens</h1>
+      <span class="bdt-badge">Design beta</span>
+    </div>
+    <p class="bdt-lead">
+      Tokens are a set of <strong>foundational design</strong> decisions represented as reusable <strong>data</strong>.
+      These tokens are shared across all platforms, iOS, Android, and Web, and control the entire visual part of our design system.
+    </p>
+    <div class="bdt-tab-bar">
+      <span class="bdt-tab bdt-tab--active">Usage</span>
+    </div>
+  </header>
+
+  <!-- Anatomy -->
+  <section class="bdt-section" aria-labelledby="anatomy-heading">
+    <h2 id="anatomy-heading" class="bdt-section__title">Anatomy</h2>
+    <p class="bdt-section__desc">
+      Each design token has a unique name and its corresponding value. This name/value pairing is similar to a
+      dictionary data structure found in engineering, where a key is associated with a value, and the key/value
+      pair can be used to store and retrieve data.
+    </p>
+
+    <div class="bdt-anatomy" role="img" aria-label="Design token anatomy diagram">
+      <div class="bdt-anatomy__row">
+        <span class="bdt-anatomy__required">Required</span>
+        <span class="bdt-anatomy__dash" aria-hidden="true">——</span>
+        <span class="bdt-anatomy__field">Name</span>
+        <span class="bdt-anatomy__example">"Primitives.Blue.600"</span>
+      </div>
+      <div class="bdt-anatomy__row">
+        <span class="bdt-anatomy__optional">Optional</span>
+        <span class="bdt-anatomy__dash" aria-hidden="true">——</span>
+        <span class="bdt-anatomy__field">Type</span>
+        <span class="bdt-anatomy__example">$color</span>
+      </div>
+      <div class="bdt-anatomy__row">
+        <span class="bdt-anatomy__required">Required</span>
+        <span class="bdt-anatomy__dash" aria-hidden="true">——</span>
+        <span class="bdt-anatomy__field">Value</span>
+        <span class="bdt-anatomy__example">
+          <span class="bdt-swatch" style="background:#266EF1" aria-hidden="true"></span>
+          #266EF1
+        </span>
+      </div>
+      <div class="bdt-anatomy__row">
+        <span class="bdt-anatomy__optional">Optional</span>
+        <span class="bdt-anatomy__dash" aria-hidden="true">——</span>
+        <span class="bdt-anatomy__field">Description</span>
+        <span class="bdt-anatomy__example">"Primitive, use sparingly"</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Name -->
+  <section class="bdt-section" aria-labelledby="name-heading">
+    <h2 id="name-heading" class="bdt-section__title">Name <span class="bdt-required">(required)</span></h2>
+    <p class="bdt-section__desc">
+      The most integral part of a design token is its name – it is how it will be known and referenced across all platforms.
+    </p>
+
+    <div class="bdt-callout">
+      Naming is inherently complex – you can always reference the naming convention of each token type on its respective
+      documentation page for more details.
+    </div>
+
+    <p class="bdt-section__desc">
+      There are two main properties when thinking of how we construct the name of a design token, its <strong>Tier</strong> and <strong>Type</strong>.
+    </p>
+
+    <h3 class="bdt-subsection__title">Type</h3>
+    <p class="bdt-section__desc">
+      There are established formats and best practices for naming we follow based on the token type (color, typography,
+      sizing, etc.) to ensure high comprehension and usability for designers and developers alike.
+    </p>
+
+    <h3 class="bdt-subsection__title">Tier</h3>
+    <p class="bdt-section__desc">
+      Depending on how context specific a design token is, its naming can vary. For our most foundational tier, naming
+      will often consist of the token type, followed by a numeric or ordinal scale. The more narrow the token's intended
+      usage is, the more precise its name will be.
+    </p>
+  </section>
+
+  <!-- Type -->
+  <section class="bdt-section" aria-labelledby="type-heading">
+    <h2 id="type-heading" class="bdt-section__title">Type <span class="bdt-optional">(optional)</span></h2>
+    <p class="bdt-section__desc">
+      While design tokens can represent any design decision, there are a handful of established token types in W3C
+      that summarize the purpose of the token and are often referenced by our tooling.
+    </p>
+
+    <table class="bdt-table" aria-label="Token types">
+      <thead>
+        <tr><th>Name</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Color</td><td>Color values, including both named colors and hexadecimal values.</td></tr>
+        <tr><td>Dimension</td><td>Numeric values with units, such as pixels or ems.</td></tr>
+        <tr><td>Font family</td><td>Font families, such as "Uber Move".</td></tr>
+        <tr><td>Font-weight</td><td>Font weights, such as "bold" or "normal".</td></tr>
+        <tr><td>Duration</td><td>Time durations, such as "0.5s" or "2ms".</td></tr>
+        <tr><td>Cubic Bezier</td><td>Easing functions with cubic Bezier curves.</td></tr>
+        <tr><td>Number</td><td>Simple numeric values without units.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Value -->
+  <section class="bdt-section" aria-labelledby="value-heading">
+    <h2 id="value-heading" class="bdt-section__title">Value <span class="bdt-required">(required)</span></h2>
+    <p class="bdt-section__desc">
+      A design token's value is the specific data that defines a design property and is associated with a particular
+      token name. Depending on the token and its complexity, there are several types of data supported.
+    </p>
+
+    <h3 class="bdt-subsection__title">Data types</h3>
+    <table class="bdt-table" aria-label="Data types">
+      <thead>
+        <tr><th>Data type</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>String</td><td>A sequence of characters that can represent text, such as font or color names.</td></tr>
+        <tr><td>Number</td><td>A numerical value that can represent various design properties, such as size, spacing, or duration.</td></tr>
+        <tr><td>Color</td><td>A value that represents a specific color, typically in hexadecimal or RGB format.</td></tr>
+        <tr><td>Boolean</td><td>A value that is either true or false, and can be used to represent binary properties such as whether an element is visible or hidden.</td></tr>
+        <tr><td>Object</td><td>A collection of key/value pairs, which can be used to represent more complex design properties, such as gradients or shadows.</td></tr>
+        <tr><td>Array</td><td>A collection of values of the same data type, such as a list of font sizes or spacing values.</td></tr>
+        <tr><td>Null</td><td>A special value that represents the absence of a value.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Composite tokens -->
+  <section class="bdt-section" aria-labelledby="composite-heading">
+    <h2 id="composite-heading" class="bdt-section__title">Composite tokens</h2>
+    <p class="bdt-section__desc">
+      The last tier of tokens supported is a composite – a token that combines or derives its value from one or more
+      child tokens. Composite tokens are created by specifying a calculation or formula that references other tokens
+      as input values and uses those values to produce a new output value.
+    </p>
+    <p class="bdt-section__desc">
+      There are two main use cases for composite tokens – supporting calculation-based value reference (such as dynamic
+      sizing of a component) and defining more complex component tier tokens (card, tile, etc.)
+    </p>
+
+    <h3 class="bdt-subsection__title">Composite types</h3>
+    <p class="bdt-section__desc">W3C currently recognizes 6 composite token types.</p>
+
+    <table class="bdt-table" aria-label="Composite types">
+      <thead>
+        <tr><th>Type</th><th>Definition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Stroke</td><td>Composite of an array of widths (dashArray) and a string to define the shape (lineCap) property.</td></tr>
+        <tr><td>Border</td><td>Composite of a color token, width number, and style object (usually a stroke composite).</td></tr>
+        <tr><td>Transition</td><td>Composite of duration, delay, and a timing array.</td></tr>
+        <tr><td>Shadow</td><td>Composite of a color token, X and Y offsets, blur, and spread.</td></tr>
+        <tr><td>Gradient</td><td>Composite of color tokens and a finite amount of positions they take.</td></tr>
+        <tr><td>Typography</td><td>Composite of a font family, size, weight, letter spacing, and line height.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="bdt-subsection__title">Group vs composite tokens</h3>
+    <p class="bdt-section__desc">
+      Composite tokens are not to be mistaken for group tokens. A group token does not have a value of its own but
+      simply serves as a container or grouping mechanism for related tokens. Group tokens can be used to organize
+      related tokens by category or context, such as color tokens for a specific brand or typography tokens for a
+      specific component.
+    </p>
+  </section>
+
+  <!-- Description -->
+  <section class="bdt-section" aria-labelledby="description-heading">
+    <h2 id="description-heading" class="bdt-section__title">Description <span class="bdt-optional">(optional)</span></h2>
+    <p class="bdt-section__desc">
+      Beyond name and value, a design token can have a description property to provide additional information to the
+      user. It's most often used to:
+    </p>
+    <ul class="bdt-list">
+      <li>Provide purpose &amp; context</li>
+      <li>Provide usage guidance</li>
+      <li>Any relevant design considerations</li>
+      <li>Caveats &amp; Limitations</li>
+    </ul>
+  </section>
+
+  <!-- W3C -->
+  <section class="bdt-section" aria-labelledby="w3c-heading">
+    <h2 id="w3c-heading" class="bdt-section__title">W3C Definition &amp; Format</h2>
+    <p class="bdt-section__desc">
+      "Design tokens are a methodology for expressing design decisions in a platform-agnostic way so that they can be
+      shared across different disciplines, tools, and technologies. They help establish a common vocabulary across
+      organizations." – W3C Design Tokens
+    </p>
+
+    <div class="bdt-callout">
+      We aim to be as close to the proposed W3C design token format and follow best practices, however, we will be
+      holding off on doing a migration to achieve full compliance until its official release.
+    </div>
+
+    <h3 class="bdt-subsection__title">Resources</h3>
+    <div class="bdt-resource-card">
+      <span class="bdt-resource-card__title">Design Tokens Format Module</span>
+      <span class="bdt-resource-card__sub">Second Editor's Draft</span>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="bdt-section" aria-labelledby="principles-heading">
+    <h2 id="principles-heading" class="bdt-section__title">Principles</h2>
+
+    <h3 class="bdt-subsection__title">Shared language</h3>
+    <p class="bdt-section__desc">Design tokens provide a common language between designers and developers.</p>
+
+    <h3 class="bdt-subsection__title">Consistency</h3>
+    <p class="bdt-section__desc">
+      Remember that it takes a long time to cement a consistent "feel" with our users, but it takes very little to
+      break it. Design tokens ensure consistency in our design system, connecting each element to a predefined style
+      and, therefore, a design token.
+    </p>
+
+    <h3 class="bdt-subsection__title">Reusability</h3>
+    <p class="bdt-section__desc">
+      Design tokens provide a predefined set of options that can be applied to multiple use cases across our system,
+      driving system adoption on the subcomponent level.
+    </p>
+    <p class="bdt-section__desc">
+      Using raw values directly in code is poor practice for maintenance and future changes, mainly because we support
+      themes and accessibility features like Dark Mode. Proper tokens allow themes to work seamlessly across multiple
+      platforms – iOS, Android, and the Web.
+    </p>
+    <p class="bdt-section__desc">
+      These styles have been defined with a system in mind; the moment you deviate from them, you break this system.
+      By adhering to this system instead, you help consolidate a distinctive look &amp; feel driven by our brand guidelines.
+    </p>
+
+    <div class="bdt-callout bdt-callout--highlight">
+      It's your job as a designer to reinforce the consolidation of a single voice in every detail of your work.
+    </div>
+  </section>
+
+  <!-- Supported types -->
+  <section class="bdt-section" aria-labelledby="supported-heading">
+    <h2 id="supported-heading" class="bdt-section__title">Supported types</h2>
+    <ul class="bdt-supported-types" role="list">
+      <li class="bdt-type-card" role="listitem"><span>Color</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Typography</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Layout grids</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Dimensions</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Corner radius</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Elevation</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Motion</span></li>
+      <li class="bdt-type-card" role="listitem"><span>Haptics</span></li>
+    </ul>
+  </section>
+
+  <!-- Tiers -->
+  <section class="bdt-section" aria-labelledby="tiers-heading">
+    <h2 id="tiers-heading" class="bdt-section__title">Tiers</h2>
+    <p class="bdt-section__desc">
+      Design tokens follow a 3 tier model based on whether the token stores an option or a decision. Each tier is
+      referenced by the one above it (refer to as aliasing).
+    </p>
+
+    <div class="bdt-tiers-diagram" role="img" aria-label="3-tier token model: black → contentPrimary/borderSelected → component tokens">
+      <div class="bdt-tier-col bdt-tier-col--primitive">
+        <div class="bdt-tier-node bdt-tier-node--primitive">
+          <span class="bdt-swatch bdt-swatch--black" aria-hidden="true"></span>
+          black
+        </div>
+      </div>
+      <div class="bdt-tier-col bdt-tier-col--semantic">
+        <div class="bdt-tier-node">contentPrimary</div>
+        <div class="bdt-tier-node">borderSelected</div>
+      </div>
+      <div class="bdt-tier-col bdt-tier-col--component">
+        <div class="bdt-tier-node">secondaryButtonContent</div>
+        <div class="bdt-tier-node">inputValueText</div>
+        <div class="bdt-tier-node">inputBorderActive</div>
+        <div class="bdt-tier-node">tileBorderSelected</div>
+      </div>
+      <div class="bdt-tier-labels" aria-hidden="true">
+        <span>theme layer</span>
+        <span class="bdt-tier-labels__component">component layer</span>
+      </div>
+    </div>
+
+    <h3 class="bdt-subsection__title">Primitive tokens</h3>
+    <p class="bdt-section__desc">
+      Primitive tokens store all the raw data in a platform and usage-agnostic way. In most cases, this level of
+      tokens is not intended for standalone usage and serves as a foundational level of abstraction.
+    </p>
+
+    <h3 class="bdt-subsection__title">Semantic tokens</h3>
+    <p class="bdt-section__desc">
+      A semantic token, also known as an alias token, is an abstraction layer that reflects the usage of a value in
+      the UI instead of the literal value.
+    </p>
+
+    <h3 class="bdt-subsection__title">Component-specific tokens</h3>
+    <p class="bdt-section__desc">
+      Component-specific tokens are primarily found in our codebases and not so much in Figma. Their primary role is
+      to represent the properties associated with a component.
+    </p>
+    <p class="bdt-section__desc">
+      Unlike the previous two tiers, these tokens are self-contained, meaning modifying the underlying value of the
+      token will not affect anything outside the component it's used in.
+    </p>
+  </section>
+
+  <nav class="bdt-pagination" aria-label="Page navigation">
+    <a class="bdt-pagination__prev">← FAQs</a>
+    <a class="bdt-pagination__next">Typography →</a>
+  </nav>
+
+</article>
